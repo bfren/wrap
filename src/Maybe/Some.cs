@@ -21,6 +21,6 @@ public sealed record class Some<T> : Maybe<T>, IRight<None, T>
 	/// Only allow internal creation by Some() functions and implicit operator
 	/// </summary>
 	/// <param name="value">Value to wrap</param>
-	internal Some(T value) =>
+	internal Some([DisallowNull] T value) =>
 		Value = value;
 }
