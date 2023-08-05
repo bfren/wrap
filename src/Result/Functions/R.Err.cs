@@ -10,7 +10,7 @@ public static partial class R
 {
 	public static Err Err(Exception ex)
 	{
-		LogException(ex);
+		F.LogException(ex);
 		return new(ex);
 	}
 
@@ -18,19 +18,15 @@ public static partial class R
 		where TException : Exception, new() =>
 		Err(new TException());
 
+	public static Result<T> Err<T>(Exception ex) =>
+		Err(ex);
+
 	public static Err Err(string err)
 	{
-		LogError(err);
+		F.LogError(err);
 		return new(new SimpleErrorException(err));
 	}
 
-	//public static Task<Err> ErrAsync(string err) =>
-	//	Err(err).AsTask();
-
-	//public static Task<Err> ErrAsync(Exception ex) =>
-	//	Err(ex).AsTask();
-
-	//public static Task<Err> ErrAsync<TException>()
-	//	where TException : Exception, new() =>
-	//	ErrAsync(new TException());
+	public static Result<T> Err<T>(string str) =>
+		Err(str);
 }

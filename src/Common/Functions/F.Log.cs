@@ -3,7 +3,7 @@
 
 namespace Monadic;
 
-public static partial class R
+public static partial class F
 {
 	public static ErrorLogger LogError { get; set; } =
 		_ => { };
