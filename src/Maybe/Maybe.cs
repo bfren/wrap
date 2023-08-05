@@ -18,4 +18,18 @@ public abstract partial record class Maybe<T> : IEither<None, T>
 			yield return some.Value;
 		}
 	}
+
+	public sealed override string ToString() =>
+		M.Switch(this,
+			none: $"None: {typeof(T)}",
+			some: (T v) =>
+				v?.ToString() switch
+				{
+					string value =>
+						value,
+
+					_ =>
+						$"Some: {typeof(T)}"
+				}
+		);
 }

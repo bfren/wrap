@@ -19,4 +19,17 @@ public abstract partial record class Result<T> : IEither<Exception, T>
 			yield return ok.Value;
 		}
 	}
+
+	public sealed override string ToString() =>
+		R.Switch(this,
+			err: x => x.Message,
+			ok: x => x?.ToString() switch
+			{
+				string value =>
+					value,
+
+				_ =>
+					$"OK: {typeof(T)}"
+			}
+		);
 }
