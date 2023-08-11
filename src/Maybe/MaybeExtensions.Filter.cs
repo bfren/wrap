@@ -15,7 +15,7 @@ public static partial class MaybeExtensions
 				M.None,
 
 			true =>
-				M.Some(x)
+				M.Wrap(x)
 		});
 
 	public static Task<Maybe<T>> FilterAsync<T>(this Maybe<T> @this, Func<T, Task<bool>> predicate) =>
@@ -25,7 +25,7 @@ public static partial class MaybeExtensions
 				M.None,
 
 			true =>
-				M.Some(x)
+				M.Wrap(x)
 		});
 
 	public static Task<Maybe<T>> FilterAsync<T>(this Task<Maybe<T>> @this, Func<T, bool> predicate) =>
@@ -35,7 +35,7 @@ public static partial class MaybeExtensions
 				M.None,
 
 			true =>
-				M.Some(x)
+				M.Wrap(x)
 		});
 
 	public static Task<Maybe<T>> FilterAsync<T>(this Task<Maybe<T>> @this, Func<T, Task<bool>> predicate) =>
@@ -45,6 +45,6 @@ public static partial class MaybeExtensions
 				M.None,
 
 			true =>
-				M.Some(x)
+				M.Wrap(x)
 		});
 }
