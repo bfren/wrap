@@ -29,6 +29,9 @@ public static partial class MaybeExtensions
 	public static Task<TReturn> SwitchAsync<T, TReturn>(this Maybe<T> @this, Func<TReturn> none, Func<T, Task<TReturn>> some) =>
 		M.SwitchAsync(@this, none, some);
 
+	public static Task<TReturn> SwitchAsync<T, TReturn>(this Maybe<T> @this, Func<Task<TReturn>> none, Func<T, TReturn> some) =>
+		M.SwitchAsync(@this, none, some);
+
 	public static Task<TReturn> SwitchAsync<T, TReturn>(this Maybe<T> @this, Func<Task<TReturn>> none, Func<T, Task<TReturn>> some) =>
 		M.SwitchAsync(@this, none, some);
 
@@ -38,7 +41,13 @@ public static partial class MaybeExtensions
 	public static Task<TReturn> SwitchAsync<T, TReturn>(this Task<Maybe<T>> @this, TReturn none, Func<T, Task<TReturn>> some) =>
 		M.SwitchAsync(@this, none, some);
 
+	public static Task<TReturn> SwitchAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<TReturn> none, Func<T, TReturn> some) =>
+		M.SwitchAsync(@this, none, some);
+
 	public static Task<TReturn> SwitchAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<TReturn> none, Func<T, Task<TReturn>> some) =>
+		M.SwitchAsync(@this, none, some);
+
+	public static Task<TReturn> SwitchAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<Task<TReturn>> none, Func<T, TReturn> some) =>
 		M.SwitchAsync(@this, none, some);
 
 	public static Task<TReturn> SwitchAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<Task<TReturn>> none, Func<T, Task<TReturn>> some) =>
