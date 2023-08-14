@@ -12,7 +12,7 @@ public class when_input_is_nullable_value_type
 		int? value = null;
 
 		// Act
-		var result = F.IsNullable(value);
+		var result = F.IsNullableValueType(value);
 
 		// Assert
 		Assert.True(result);
@@ -28,7 +28,7 @@ public class when_input_is_non_nullable_value_type
 		var value = 0;
 
 		// Act
-		var result = F.IsNullable(value);
+		var result = F.IsNullableValueType(value);
 
 		// Assert
 		Assert.False(result);
@@ -38,18 +38,18 @@ public class when_input_is_non_nullable_value_type
 public class when_input_is_reference_type
 {
 	[Fact]
-	public void returns_true()
+	public void returns_false()
 	{
 		// Arrange
 		var v0 = string.Empty;
 		string? v1 = null;
 
 		// Act
-		var r0 = F.IsNullable(v0);
-		var r1 = F.IsNullable(v1);
+		var r0 = F.IsNullableValueType(v0);
+		var r1 = F.IsNullableValueType(v1);
 
 		// Assert
-		Assert.True(r0);
-		Assert.True(r1);
+		Assert.False(r0);
+		Assert.False(r1);
 	}
 }
