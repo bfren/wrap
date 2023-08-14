@@ -8,22 +8,22 @@ namespace Monadic;
 public static partial class M
 {
 	/// <summary>
-	/// Attempt to parse the specified <paramref name="input"/>
+	/// Attempt to parse the specified <paramref name="input"/>.
 	/// </summary>
-	/// <typeparam name="T">Result type</typeparam>
-	/// <param name="input">Input value</param>
-	/// <param name="result">Result value</param>
+	/// <typeparam name="T">Result type.</typeparam>
+	/// <param name="input">Input value.</param>
+	/// <param name="result">Result value.</param>
 	internal delegate bool TryParseSpan<T>(ReadOnlySpan<char> input, out T result);
 
 	/// <inheritdoc cref="TryParseSpan{T}"/>
 	internal delegate bool TryParseString<T>(string? input, out T result);
 
 	/// <summary>
-	/// Attempt to parse the specified <paramref name="value"/> using <paramref name="tryParse"/>
+	/// Attempt to parse the specified <paramref name="value"/> using <paramref name="tryParse"/>.
 	/// </summary>
-	/// <typeparam name="T">Result type</typeparam>
-	/// <param name="value">Input value</param>
-	/// <param name="tryParse">Parse function</param>
+	/// <typeparam name="T">Result type.</typeparam>
+	/// <param name="value">Input value.</param>
+	/// <param name="tryParse">Parse function.</param>
 	internal static Maybe<T> Parse<T>(ReadOnlySpan<char> value, TryParseSpan<T> tryParse) =>
 		tryParse(value, out var result) switch
 		{

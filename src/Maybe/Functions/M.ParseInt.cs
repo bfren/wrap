@@ -2,17 +2,11 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
-using System.Globalization;
 
 namespace Monadic;
 
 public static partial class M
 {
-	/// <summary>
-	/// Default number style for formatting floating-point numbers
-	/// </summary>
-	internal static NumberStyles IntegerNumberStyles { get; } = NumberStyles.Integer;
-
 	/// <inheritdoc cref="TryParseSpan{T}"/>
 	public static Maybe<short> ParseInt16(string? input) =>
 		Parse(input, (string? s, out short r) => short.TryParse(s, IntegerNumberStyles, DefaultCulture, out r));

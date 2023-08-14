@@ -3,4 +3,7 @@
 
 namespace Monadic;
 
+/// <summary>
+/// Extension methods for <see cref="System.Collections.Generic.IEnumerable{T}"/> objects.
+/// </summary>
 public static partial class EnumerableExtensions { }

@@ -14,4 +14,9 @@ public static partial class M
 	/// Default culture (en-GB) - used when parsing strings
 	/// </summary>
 	public static CultureInfo DefaultCulture { get; set; } = CultureInfo.GetCultureInfo("en-GB");
+
+	/// <summary>
+	/// Default number style for formatting floating-point numbers.
+	/// </summary>
+	internal static NumberStyles IntegerNumberStyles { get; } = NumberStyles.Integer;
 }

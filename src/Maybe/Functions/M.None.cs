@@ -5,6 +5,9 @@ namespace Monadic;
 
 public static partial class M
 {
+	/// <summary>
+	/// Create a <see cref="None"/> value.
+	/// </summary>
 	public static None None =>
 		new();
 }
