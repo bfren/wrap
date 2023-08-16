@@ -12,15 +12,14 @@ public static partial class F
 	/// </summary>
 	/// <typeparam name="T">Type to check.</typeparam>
 	/// <param name="_">The object is unneeded.</param>
-	/// <returns>True if <typeparamref name="T"/> is a nullable value type</returns>
-	public static bool IsNullableValueType<T>(T _)
-	{
-		var t = typeof(T);
-		if (t.IsValueType && Nullable.GetUnderlyingType(t) is not null)
+	/// <returns>True if <typeparamref name="T"/> is a nullable value type.</returns>
+	public static bool IsNullableValueType<T>(T _) =>
+		typeof(T) switch
 		{
-			return true;
-		}
+			Type t when t.IsValueType && Nullable.GetUnderlyingType(t) == typeof(Nullable<>) =>
+				true,
 
-		return false;
-	}
+			_ =>
+				false
+		};
 }
