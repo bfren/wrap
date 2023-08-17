@@ -16,7 +16,7 @@ public static partial class F
 	public static bool IsNullableValueType<T>(T _) =>
 		typeof(T) switch
 		{
-			Type t when t.IsValueType && Nullable.GetUnderlyingType(t) == typeof(Nullable<>) =>
+			Type t when t.IsValueType && Nullable.GetUnderlyingType(t) is not null =>
 				true,
 
 			_ =>
