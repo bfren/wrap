@@ -15,7 +15,7 @@ public static partial class MaybeExtensions
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="bind">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns><see cref="Some{TReturn}"/> object or <see cref="None"/>.</returns>
+	/// <returns><see cref="Maybe{TReturn}"/> object returned by <paramref name="bind"/> or <see cref="None"/>.</returns>
 	public static Maybe<TReturn> Bind<T, TReturn>(this Maybe<T> @this, Func<T, Maybe<TReturn>> bind) =>
 		M.Switch(@this,
 			none: M.None,
