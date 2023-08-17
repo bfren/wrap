@@ -15,7 +15,7 @@ public static partial class MaybeExtensions
 	/// </summary>
 	/// <remarks>
 	/// <para>
-	/// If <paramref name="@this"/> is not an <see cref="IEnumerable{T}"/> with a single value,
+	/// If <paramref name="this"/> is not an <see cref="IEnumerable{T}"/> with a single value,
 	/// you will get an <see cref="InvalidOperationException"/>.
 	/// </para>
 	/// </remarks>

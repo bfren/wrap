@@ -14,7 +14,7 @@ public static partial class MaybeExtensions
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="none">Audit function to run when <paramref name="this"/> is <see cref="None"/>.</param>
-	/// <param name="none">Audit function to run when <paramref name="this"/> is <see cref="Some{T}"/>.</param>
+	/// <param name="some">Audit function to run when <paramref name="this"/> is <see cref="Some{T}"/>.</param>
 	/// <returns>The original value of <paramref name="this"/>.</returns>
 	public static Maybe<T> Audit<T>(this Maybe<T> @this, Action? none, Action<T>? some)
 	{

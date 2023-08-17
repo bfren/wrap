@@ -30,6 +30,7 @@ public static partial class MaybeExtensions
 				M.Wrap(x)
 		});
 
+	/// <inheritdoc cref="Filter{T}(Maybe{T}, Func{T, bool})"/>
 	public static Task<Maybe<T>> FilterAsync<T>(this Maybe<T> @this, Func<T, Task<bool>> predicate) =>
 		@this.BindAsync(async x => await predicate(x) switch
 		{
@@ -40,6 +41,7 @@ public static partial class MaybeExtensions
 				M.Wrap(x)
 		});
 
+	/// <inheritdoc cref="Filter{T}(Maybe{T}, Func{T, bool})"/>
 	public static Task<Maybe<T>> FilterAsync<T>(this Task<Maybe<T>> @this, Func<T, bool> predicate) =>
 		@this.BindAsync(x => predicate(x) switch
 		{
@@ -50,6 +52,7 @@ public static partial class MaybeExtensions
 				M.Wrap(x)
 		});
 
+	/// <inheritdoc cref="Filter{T}(Maybe{T}, Func{T, bool})"/>
 	public static Task<Maybe<T>> FilterAsync<T>(this Task<Maybe<T>> @this, Func<T, Task<bool>> predicate) =>
 		@this.BindAsync(async x => await predicate(x) switch
 		{

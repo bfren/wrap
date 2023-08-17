@@ -15,7 +15,7 @@ public static partial class EnumerableExtensions
 	/// <typeparam name="T">Maybe value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">List of Maybe objects.</param>
-	/// <param name="predicate">Function to detemine whether or not the value of <paramref name="this"/> should be passed to <paramref name="bind"/>.</param>
+	/// <param name="predicate">Function to detemine whether or not the value of <paramref name="this"/> should be passed to <paramref name="map"/>.</param>
 	/// <param name="map">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
 	/// <returns>List of <see cref="Maybe{TReturn}"/> objects returned by <paramref name="map"/>.</returns>
 	public static IEnumerable<Maybe<TReturn>> FilterMap<T, TReturn>(this IEnumerable<Maybe<T>> @this,

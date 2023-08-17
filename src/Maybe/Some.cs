@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Monadic;
 
 /// <summary>
-/// 'Some' Maybe - wraps value to enable safe non-null returns (see <seealso cref="None{T}"/>)
+/// 'Some' Maybe - wraps value to enable safe non-null returns (see <seealso cref="None"/>)
 /// </summary>
 /// <typeparam name="T">Maybe value type</typeparam>
 public sealed record class Some<T> : Maybe<T>, IRight<None, T>
