@@ -30,4 +30,26 @@ public static partial class EnumerableExtensions
 			}
 		}
 	}
+
+	public static async Task IterateAsync<T>(this IAsyncEnumerable<Maybe<T>> @this, Action<T> f)
+	{
+		await foreach (var item in @this)
+		{
+			foreach (var some in item)
+			{
+				f(some);
+			}
+		}
+	}
+
+	public static async Task IterateAsync<T>(this IAsyncEnumerable<Maybe<T>> @this, Func<T, Task> f)
+	{
+		await foreach (var item in @this)
+		{
+			foreach (var some in item)
+			{
+				await f(some);
+			}
+		}
+	}
 }
