@@ -7,10 +7,7 @@ on:
     tags-ignore:
       - '**'
     paths:
-      - '.github/workflows/test.yml'
-      - 'Directory.Packages.props'
-      - 'src/**'
-      - 'tests/**'
+      - '**'
   workflow_dispatch:
 
 jobs:
