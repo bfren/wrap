@@ -62,6 +62,7 @@
     <DebugType>embedded</DebugType>
     <Description>$(MSBuildProjectName) library</Description>
     <PackageIcon>$(LogoFile)</PackageIcon>
+    <PackageId>Monadic.$(MSBuildProjectName)</PackageId>
     <PackageLicenseFile>$(LicenceFile)</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/bfren/monadic/wiki</PackageProjectUrl>
     <PackageReadmeFile>$(ReadmeFile)</PackageReadmeFile>
@@ -83,7 +84,7 @@
 	-->
   <Import Project="$(LocalPackPath)" Condition="Exists('$(LocalPackPath)') and '$(Configuration)'=='Release'"/>
   <PropertyGroup Label="Local Package Validation" Condition="Exists('$(LocalPackPath)') and '$(Configuration)'=='Release'">
-    <EnablePackageValidation>true</EnablePackageValidation>
+    <EnablePackageValidation>false</EnablePackageValidation>
     <PackageValidationBaselineVersion>9.3.0</PackageValidationBaselineVersion>
   </PropertyGroup>
   <Target Name="PackAndPushToLocalNuget" AfterTargets="DispatchToInnerBuilds" Condition="Exists('$(LocalPackPath)') and '$(Configuration)'=='Release'">

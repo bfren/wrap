@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Monadic</PackageId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Either\Either.csproj" />
+    <ProjectReference Include="..\Maybe\Maybe.csproj" />
+    <ProjectReference Include="..\Result\Result.csproj" />
+  </ItemGroup>
+</Project>
