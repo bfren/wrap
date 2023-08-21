@@ -11,11 +11,18 @@ public static partial class MaybeExtensions
 	/// <summary>
 	/// Run <paramref name="map"/> when <paramref name="this"/> is <see cref="Some{T}"/>.
 	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// This function maps a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object,
+	/// and wraps the result in <see cref="Some{T}"/>.
+	/// </para>
+	/// </remarks>
+	/// <seealso cref="Bind{T, TReturn}(Maybe{T}, Func{T, Maybe{TReturn}})"/>
 	/// <typeparam name="T">Maybe value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="map">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns><see cref="Some{TReturn}"/> object or <see cref="None"/>.</returns>
+	/// <returns><see cref="Some{T}"/> object or <see cref="None"/>.</returns>
 	public static Maybe<TReturn> Map<T, TReturn>(this Maybe<T> @this, Func<T, TReturn> map) =>
 		M.Switch(@this,
 			none: M.None,
