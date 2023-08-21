@@ -8,7 +8,7 @@ namespace Monadic;
 /// </summary>
 /// <remarks>
 /// <para>
-/// See <see cref="M.None"/> which is where values must be created.
+/// See <see cref="M.None"/> which is where values should be created.
 /// </para>
 /// <para>
 /// See <see cref="Maybe{T}"/> implicit operators to see how <see cref="None"/> is converted
@@ -18,10 +18,4 @@ namespace Monadic;
 /// We do this so we don't need to specify the value type when returning a 'None' value.
 /// </para>
 /// </remarks>
-public sealed record class None
-{
-	/// <summary>
-	/// Internal creation only - see <see cref="M.None"/>.
-	/// </summary>
-	internal None() { }
-}
+public readonly struct None { }
