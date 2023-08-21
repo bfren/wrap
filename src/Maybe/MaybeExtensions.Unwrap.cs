@@ -11,6 +11,16 @@ public static partial class MaybeExtensions
 	/// <summary>
 	/// Unwrap the value contained in <paramref name="this"/>.
 	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// Provides access to the value wrapped by a <see cref="Maybe{T}"/> object.
+	/// </para>
+	/// <para>
+	/// You need to provide a default value via <paramref name="ifNone"/> in case
+	/// <paramref name="this"/> is <see cref="None"/>.
+	/// </para>
+	/// </remarks>
+	/// <seealso cref="UnwrapSingle{T, TSingle}(Maybe{T}, Func{TSingle})"/>
 	/// <typeparam name="T">Maybe value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="ifNone">Function to generate a value if <paramref name="this"/> is <see cref="None"/>.</param>

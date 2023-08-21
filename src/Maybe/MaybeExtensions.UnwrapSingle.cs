@@ -19,6 +19,7 @@ public static partial class MaybeExtensions
 	/// you will get an <see cref="InvalidOperationException"/>.
 	/// </para>
 	/// </remarks>
+	/// <seealso cref="Unwrap{T}(Maybe{T}, Func{T})"/>
 	/// <typeparam name="T">Maybe value type - limited to <see cref="IEnumerable{TSingle}"/>.</typeparam>
 	/// <typeparam name="TSingle">IEnumerable value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
