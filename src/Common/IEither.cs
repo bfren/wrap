@@ -21,8 +21,8 @@ public interface IEither<out TLeft, out TRight>
 	/// </para>
 	/// <code>
 	/// foreach (var right in either) {
-	///     // 'right' is TRight
-	///     // if 'either' is TLeft, the loop is empty
+	///     // if 'either' is <typeparamref name="TLeft"/>, the loop is empty
+	///     // otherwise 'right' is <typeparamref name="TRight"/><br/>
 	/// }
 	/// </code>
 	/// </remarks>

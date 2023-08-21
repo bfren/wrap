@@ -3,6 +3,7 @@
 
 namespace Monadic;
 
-public static partial class E
-{
-}
+/// <summary>
+/// Pure functions for interacting with <see cref="Either{TLeft, TRight}"/> types.
+/// </summary>
+public static partial class E { }

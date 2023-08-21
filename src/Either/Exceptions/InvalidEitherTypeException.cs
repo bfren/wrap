@@ -5,10 +5,13 @@ using System;
 
 namespace Monadic.Exceptions;
 
+/// <summary>
+/// Thrown when a switch function encounters an <see cref="Either{TLeft, TRight}"/> type that is
+/// neither <see cref="Left{TLeft, TRight}"/> nor <see cref="Right{TLeft, TRight}"/>.
+/// </summary>
 public sealed class InvalidEitherTypeException : InvalidTypeException
 {
-	private InvalidEitherTypeException(Type type) : base(type, typeof(Either<,>), typeof(Left<,>), typeof(Right<,>)) { }
-
-	public static InvalidEitherTypeException Create(Type type) =>
-		new(type);
+	/// <summary>Create exception.</summary>
+	/// <param name="type">The invalid type that has been encountered.</param>
+	public InvalidEitherTypeException(Type type) : base(type, typeof(Either<,>), typeof(Left<,>), typeof(Right<,>)) { }
 }
