@@ -71,7 +71,7 @@ public static partial class M
 
 	#region With Return Value
 
-	/// <inheritdoc cref="Switch{T, TReturn}(Maybe{T}, Func{T}, Func{T, TReturn})"/>
+	/// <inheritdoc cref="Switch{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static TReturn Switch<T, TReturn>(Maybe<T> maybe, TReturn none, Func<T, TReturn> some) =>
 		Switch(maybe, () => none, some);
 
