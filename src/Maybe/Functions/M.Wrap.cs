@@ -23,9 +23,13 @@ public static partial class M
 	/// without the ? suffix), you will get a <see cref="None"/> object.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T"></typeparam>
-	/// <param name="value"></param>
-	/// <returns></returns>
+	/// <typeparam name="T">Maybe value type.</typeparam>
+	/// <param name="value">Value to wrap.</param>
+	/// <returns>
+	/// <see cref="Some{T}"/> if <paramref name="value"/> is not null
+	/// or <typeparamref name="T"/> is a nullable value type -
+	/// otherwise <see cref="Monadic.None"/>.
+	/// </returns>
 	public static Maybe<T> Wrap<T>(T value) =>
 		value switch
 		{
