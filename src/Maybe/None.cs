@@ -12,10 +12,8 @@ namespace Monadic;
 /// </para>
 /// <para>
 /// See <see cref="Maybe{T}"/> implicit operators to see how <see cref="None"/> is converted
-/// to a <see cref="Maybe{T}"/>.
-/// </para>
-/// <para>
-/// We do this so we don't need to specify the value type when returning a 'None' value.
+/// to a <see cref="Maybe{T}"/>. We do this so we don't need to specify the value type when
+/// returning a 'None' value.
 /// </para>
 /// </remarks>
 public readonly struct None { }
