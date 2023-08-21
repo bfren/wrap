@@ -5,7 +5,7 @@
         {
           "src": "../src",
           "files": [
-            "All/bin/**/*.dll"
+            "All/bin/**/net7.0/*.dll"
           ]
         }
       ],
