@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <!-- Documentation -->
-  <PropertyGroup Label="Documentation" Condition="'$(Configuration)'=='Release'">
+  <PropertyGroup Label="Documentation">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
