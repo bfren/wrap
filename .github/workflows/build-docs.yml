@@ -13,7 +13,7 @@ jobs:
       name: Prepare - Checkout Code
       uses: actions/checkout@v3
     -
-      name: Prepare - Setup .NET 6
+      name: Prepare - Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
@@ -21,7 +21,8 @@ jobs:
       name: Prepare - Build Source
       run: |
         dotnet build src/All/All.csproj \
-          --configuration Debug
+          --configuration Debug \
+          --framework net6.0
     - 
       name: Build Documentation
       uses: nunit/docfx-action@v2.8.0
