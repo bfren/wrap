@@ -47,7 +47,7 @@
     "globalMetadata": {
       "_appTitle": "Monadic",
       "_appName": "Monadic",
-      "_appFooter": null
+      "_appFooter": "<span>Copyright (c) 2019-2023 <a href=\"https://bfren.dev\">bfren</a>. Made with <a href=\"https://dotnet.github.io/docfx\">docfx</a></span>"
     },
     "sitemap": {
       "baseUrl": "https://bfren.github.io/monadic",
