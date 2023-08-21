@@ -3,6 +3,7 @@
     <PackageId>Monadic</PackageId>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\Either\Either.csproj" />
     <ProjectReference Include="..\Maybe\Maybe.csproj" />
     <ProjectReference Include="..\Result\Result.csproj" />
