@@ -44,9 +44,19 @@
         ]
       }
     ],
-    "output": "_site",
+    "globalMetadata": {
+      "_appTitle": "Monadic",
+      "_appName": "Monadic",
+      "_appFooter": null
+    },
+    "sitemap": {
+      "baseUrl": "https://bfren.github.io/monadic",
+      "priority": 0.5,
+      "changefreq": "daily"
+    },
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
+    "output": "_site",
     "template": [
       "default",
       "modern"
