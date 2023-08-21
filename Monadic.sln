@@ -47,7 +47,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Maybe", "tests\Tests.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maybe.Testing", "src\Maybe.Testing\Maybe.Testing.csproj", "{67C3C32F-12A3-4E45-A701-6EA59F22E4A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "All", "src\All\All.csproj", "{118817AD-CCE9-40A4-A8A7-4B403E1EB28F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "All", "src\All\All.csproj", "{118817AD-CCE9-40A4-A8A7-4B403E1EB28F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4B7F8518-4D8F-4CB4-8A4A-35E27952CC93}"
+	ProjectSection(SolutionItems) = preProject
+		docs\docfx.json = docs\docfx.json
+		docs\index.md = docs\index.md
+		docs\toc.yml = docs\toc.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
