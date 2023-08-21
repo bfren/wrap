@@ -9,6 +9,14 @@ namespace Monadic;
 
 public static partial class EnumerableExtensions
 {
+	/// <summary>
+	/// Run <paramref name="map"/> on each value in <paramref name="this"/>.
+	/// </summary>
+	/// <typeparam name="T">Value type.</typeparam>
+	/// <typeparam name="TReturn">Return value type.</typeparam>
+	/// <param name="this">List of values.</param>
+	/// <param name="map">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
+	/// <returns>List of <typeparamref name="TReturn"/> objects returned by <paramref name="map"/> and wrapped as <see cref="Maybe{T}"/>.</returns>
 	public static IEnumerable<Maybe<TReturn>> Map<T, TReturn>(this IEnumerable<T> @this, Func<T, TReturn> map)
 	{
 		foreach (var item in @this)
@@ -20,6 +28,7 @@ public static partial class EnumerableExtensions
 		}
 	}
 
+	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{T}, Func{T, TReturn})"/>
 	public static async IAsyncEnumerable<Maybe<TReturn>> MapAsync<T, TReturn>(this IEnumerable<T> @this, Func<T, Task<TReturn>> map)
 	{
 		foreach (var item in @this)
@@ -31,9 +40,11 @@ public static partial class EnumerableExtensions
 		}
 	}
 
+	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{T}, Func{T, TReturn})"/>
 	public static IAsyncEnumerable<Maybe<TReturn>> MapAsync<T, TReturn>(this IAsyncEnumerable<T> @this, Func<T, TReturn> map) =>
 		MapAsync(@this, x => Task.FromResult(map(x)));
 
+	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{T}, Func{T, TReturn})"/>
 	public static async IAsyncEnumerable<Maybe<TReturn>> MapAsync<T, TReturn>(this IAsyncEnumerable<T> @this, Func<T, Task<TReturn>> map)
 	{
 		await foreach (var item in @this)
