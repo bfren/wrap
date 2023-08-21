@@ -7,11 +7,11 @@ namespace Monadic;
 
 public static partial class M
 {
-	/// <inheritdoc cref="TryParseSpan{T}"/>
+	/// <inheritdoc cref="ParseBool(string?)"/>
 	public static Maybe<Guid> ParseGuid(string? input) =>
 		Parse<Guid>(input, Guid.TryParse);
 
-	/// <inheritdoc cref="TryParseSpan{T}"/>
+	/// <inheritdoc cref="ParseBool(string?)"/>
 	public static Maybe<Guid> ParseGuid(ReadOnlySpan<char> input) =>
 		Parse<Guid>(input, Guid.TryParse);
 }

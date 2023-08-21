@@ -14,6 +14,15 @@ public static partial class M
 	/// <summary>
 	/// Run an action based on the value of <paramref name="maybe"/>.
 	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// It would be possible to achieve the same thing using switch statements, but doing that would add the
+	/// potential for not handling both cases (<see cref="Some{T}"/> and <see cref="Monadic.None"/>).
+	/// </para>
+	/// <para>
+	/// This way there has to be a function to handle both cases.
+	/// </para>
+	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="maybe">Maybe object.</param>
 	/// <param name="none">Function to run when <paramref name="maybe"/> is <see cref="Monadic.None"/>.</param>
@@ -62,13 +71,22 @@ public static partial class M
 
 	#region With Return Value
 
-	/// <inheritdoc cref="Switch{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
+	/// <inheritdoc cref="Switch{T, TReturn}(Maybe{T}, Func{T}, Func{T, TReturn})"/>
 	public static TReturn Switch<T, TReturn>(Maybe<T> maybe, TReturn none, Func<T, TReturn> some) =>
 		Switch(maybe, () => none, some);
 
 	/// <summary>
 	/// Run a function based on the value of <paramref name="maybe"/> and return its value.
 	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// It would be possible to achieve the same thing using switch statements, but doing that would add the
+	/// potential for not handling both cases (<see cref="Some{T}"/> and <see cref="Monadic.None"/>).
+	/// </para>
+	/// <para>
+	/// This way there has to be a function to handle both cases.
+	/// </para>
+	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="maybe">Maybe object.</param>

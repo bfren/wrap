@@ -5,7 +5,7 @@ namespace Monadic;
 
 public static partial class M
 {
-	/// <inheritdoc cref="TryParseSpan{T}"/>
+	/// <inheritdoc cref="ParseBool(string?)"/>
 	public static Maybe<char> ParseChar(string? input) =>
 		Parse<char>(input, char.TryParse);
 }

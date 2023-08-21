@@ -15,7 +15,7 @@ public static partial class M
 	/// <param name="result">Result value.</param>
 	internal delegate bool TryParseSpan<T>(ReadOnlySpan<char> input, out T result);
 
-	/// <inheritdoc cref="TryParseSpan{T}"/>
+	/// <inheritdoc cref="ParseBool(string?)"/>
 	internal delegate bool TryParseString<T>(string? input, out T result);
 
 	/// <summary>
