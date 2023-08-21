@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  prepare:
+  build-deploy:
     runs-on: ubuntu-latest
     steps:
     -
@@ -24,12 +24,12 @@ jobs:
           --configuration Debug \
           --framework net6.0
     -
-      name: Build Documentation
+      name: A - Build Documentation
       uses: nunit/docfx-action@v2.8.0
       with:
         args: docs/docfx.json
     - 
-      name: Deploy to GitHub Pages
+      name: B - Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
