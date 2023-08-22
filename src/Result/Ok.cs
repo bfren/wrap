@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Monadic;
 
 /// <summary>
-/// 'OK' Result - wraps value to enable safe non-null returns (see <seealso cref="None"/>)
+/// 'OK' Result - wraps value to enable safe non-null returns (see <seealso cref="Err"/>)
 /// </summary>
 /// <typeparam name="T">Result value type</typeparam>
 public sealed record class Ok<T> : Result<T>, IRight<Exception, T>

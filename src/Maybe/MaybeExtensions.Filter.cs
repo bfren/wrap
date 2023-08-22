@@ -11,11 +11,7 @@ public static partial class MaybeExtensions
 	/// <summary>
 	/// Run <paramref name="predicate"/> when <paramref name="this"/> is <see cref="Some{T}"/>
 	/// </summary>
-	/// <remarks>
-	/// <para>
-	/// See LINQ extensions, e.g. <see cref="Linq.MaybeExtensions.Where{T}(Maybe{T}, Func{T, bool})"/>.
-	/// </para>
-	/// </remarks>
+	/// <seealso cref="Linq.MaybeExtensions.Where{T}(Maybe{T}, Func{T, bool})"/>
 	/// <typeparam name="T">Maybe value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="predicate">Function to detemine whether or not the value of <paramref name="this"/> should be returned.</param>

@@ -4,6 +4,6 @@
 namespace Monadic;
 
 /// <summary>
-/// Extension methods for <see cref="Result{T}{T}"/> objects.
+/// Extension methods for <see cref="Result{T}"/> objects.
 /// </summary>
 public static partial class ResultExtensions { }
