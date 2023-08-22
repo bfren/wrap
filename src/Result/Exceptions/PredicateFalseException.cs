@@ -13,5 +13,5 @@ namespace Monadic.Exceptions;
 public sealed class PredicateFalseException : Exception
 {
 	/// <summary>Create exception.</summary>
-	internal PredicateFalseException() { }
+	public PredicateFalseException() { }
 }

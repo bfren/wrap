@@ -12,5 +12,5 @@ namespace Monadic.Exceptions;
 public sealed class OkValueCannotBeNullException : Exception
 {
 	/// <summary>Create exception.</summary>
-	internal OkValueCannotBeNullException() { }
+	public OkValueCannotBeNullException() { }
 }
