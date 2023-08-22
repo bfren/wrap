@@ -6,7 +6,7 @@ namespace Monadic;
 public abstract partial record class Result<T>
 {
 	public static implicit operator Result<T>(T value) =>
-		R.Ok(value);
+		R.Wrap(value);
 
 	public static implicit operator Result<T>(Monadic.Err err) =>
 		Err.Create(err.Value);
