@@ -24,10 +24,10 @@ public static partial class ResultExtensions
 	/// and <see cref="Err"/> if not.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Result type</typeparam>
-	/// <typeparam name="TReturn">Return type</typeparam>
-	/// <param name="this">Result</param>
-	/// <param name="f">Return map function</param>
+	/// <typeparam name="T">Result value type.</typeparam>
+	/// <typeparam name="TReturn">Return value type.</typeparam>
+	/// <param name="this">Result object.</param>
+	/// <param name="f">Return map function.</param>
 	public static Result<TReturn> Select<T, TReturn>(this Result<T> @this, Func<T, TReturn> f) =>
 		@this.Map(f);
 

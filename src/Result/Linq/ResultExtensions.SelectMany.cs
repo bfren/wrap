@@ -25,12 +25,12 @@ public static partial class ResultExtensions
 	/// and <see cref="Err"/> if either is <see cref="Err"/>.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Result type</typeparam>
-	/// <typeparam name="TInner">Interim type</typeparam>
-	/// <typeparam name="TReturn">Return type</typeparam>
-	/// <param name="this">Result</param>
-	/// <param name="f">Interim bind function</param>
-	/// <param name="g">Return map function</param>
+	/// <typeparam name="T">Result value type.</typeparam>
+	/// <typeparam name="TInner">Interim value type.</typeparam>
+	/// <typeparam name="TReturn">Return value type.</typeparam>
+	/// <param name="this">Result object.</param>
+	/// <param name="f">Interim bind function.</param>
+	/// <param name="g">Return map function.</param>
 	public static Result<TReturn> SelectMany<T, TInner, TReturn>(this Result<T> @this, Func<T, Result<TInner>> f, Func<T, TInner, TReturn> g) =>
 		@this.Bind(x => from y in f(x) select g(x, y));
 

@@ -25,9 +25,9 @@ public static partial class ResultExtensions
 	/// and <see cref="Err"/> if not.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Result type</typeparam>
-	/// <param name="this">Result</param>
-	/// <param name="predicate">Select where predicate</param>
+	/// <typeparam name="T">Result value type.</typeparam>
+	/// <param name="this">Result object.</param>
+	/// <param name="predicate">Select where predicate.</param>
 	public static Result<T> Where<T>(this Result<T> @this, Func<T, bool> predicate) =>
 		@this.Filter(predicate);
 
