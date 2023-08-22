@@ -7,7 +7,7 @@ public static partial class M
 {
 	/// <summary>
 	/// One of the most important functions in the library: takes a value and returns
-	/// either <see cref="Some{T}"/> or <see cref="None"/>.
+	/// either <see cref="Some{T}"/> or <see cref="Monadic.None"/>.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -20,7 +20,7 @@ public static partial class M
 	/// </para>
 	/// <para>
 	/// If <paramref name="value"/> is null and <typeparamref name="T"/> is a reference type (with or
-	/// without the ? suffix), you will get a <see cref="None"/> object.
+	/// without the ? suffix), you will get a <see cref="Monadic.None"/> object.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Maybe value type.</typeparam>
