@@ -21,7 +21,7 @@ public static partial class ResultExtensions
 	/// </code>
 	/// <para>
 	/// Returns value of x if <see cref="Result{T}"/> object is <see cref="Ok{T}"/>,
-	/// and <see cref="Err{T}"/> if not.
+	/// and <see cref="Err"/> if not.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Result type</typeparam>
