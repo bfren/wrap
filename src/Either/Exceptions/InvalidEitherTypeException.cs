@@ -13,5 +13,5 @@ public sealed class InvalidEitherTypeException : InvalidTypeException
 {
 	/// <summary>Create exception.</summary>
 	/// <param name="type">The invalid type that has been encountered.</param>
-	public InvalidEitherTypeException(Type type) : base(type, typeof(Either<,>), typeof(Left<,>), typeof(Right<,>)) { }
+	internal InvalidEitherTypeException(Type type) : base(type, typeof(Either<,>), typeof(Left<,>), typeof(Right<,>)) { }
 }
