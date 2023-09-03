@@ -23,6 +23,6 @@ public static partial class MaybeExtensions
 	public static Task<bool> IsFalseAsync(this Task<Maybe<bool>> @this) =>
 		M.SwitchAsync(@this,
 			none: false,
-			some: x => x
+			some: x => x == false
 		);
 }
