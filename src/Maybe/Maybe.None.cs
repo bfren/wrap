@@ -1,19 +1,19 @@
-// Monadic: .NET monads for functional style.
+// Monads: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Monadic;
+namespace Monads;
 
 public abstract partial record class Maybe<T>
 {
 	/// <summary>
-	/// Generic None class (see <seealso cref="Monadic.None"/>) that can be returned as a <see cref="Maybe{T}"/> object.
+	/// Generic None class (see <seealso cref="Monads.None"/>) that can be returned as a <see cref="Maybe{T}"/> object.
 	/// </summary>
-	internal sealed record class None : Maybe<T>, ILeft<Monadic.None, T>
+	internal sealed record class None : Maybe<T>, ILeft<Monads.None, T>
 	{
 		/// <summary>
-		/// The actual <see cref="Monadic.None"/> value.
+		/// The actual <see cref="Monads.None"/> value.
 		/// </summary>
-		public Monadic.None Value { get; private init; }
+		public Monads.None Value { get; private init; }
 
 		/// <summary>
 		/// Private creation only - see <see cref="Create"/>.

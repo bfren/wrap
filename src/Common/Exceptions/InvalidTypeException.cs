@@ -1,14 +1,14 @@
-// Monadic: .NET monads for functional style.
+// Monads: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
 
-namespace Monadic.Exceptions;
+namespace Monads.Exceptions;
 
 /// <summary>
 /// Base exception thrown when an <see cref="IEither{TLeft, TRight}"/> monad is matched to an invalid type.
 /// </summary>
-public abstract class InvalidTypeException : MonadicException
+public abstract class InvalidTypeException : MonadException
 {
 	/// <summary>
 	/// Create exception.

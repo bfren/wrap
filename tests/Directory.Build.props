@@ -8,7 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <Using Include="Monadic.Testing"/>
+    <Using Include="Monads.Testing"/>
     <Using Include="NSubstitute"/>
     <Using Include="RndF"/>
     <Using Include="Xunit"/>

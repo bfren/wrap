@@ -1,9 +1,9 @@
-// Monadic: .NET monads for functional style.
+// Monads: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using Monadic.Exceptions;
+using Monads.Exceptions;
 
-namespace Monadic;
+namespace Monads;
 
 public static partial class R
 {
@@ -16,7 +16,7 @@ public static partial class R
 
 	/// <summary>
 	/// One of the most important functions in the library: takes a value and returns
-	/// either <see cref="Ok{T}"/> or <see cref="Monadic.Err"/>.
+	/// either <see cref="Ok{T}"/> or <see cref="Monads.Err"/>.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -29,7 +29,7 @@ public static partial class R
 	/// </para>
 	/// <para>
 	/// If <paramref name="value"/> is null and <typeparamref name="T"/> is a reference type (with or
-	/// without the ? suffix), you will get an <see cref="Monadic.Err"/> object.
+	/// without the ? suffix), you will get an <see cref="Monads.Err"/> object.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Result value type.</typeparam>
@@ -37,7 +37,7 @@ public static partial class R
 	/// <returns>
 	/// <see cref="Ok{T}"/> if <paramref name="value"/> is not null
 	/// or <typeparamref name="T"/> is a nullable value type -
-	/// otherwise <see cref="Monadic.Err"/>.
+	/// otherwise <see cref="Monads.Err"/>.
 	/// </returns>
 	public static Result<T> Wrap<T>(T value) =>
 		value switch

@@ -1,9 +1,9 @@
-// Monadic: .NET monads for functional style.
+// Monads: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace Monadic;
+namespace Monads;
 
 /// <inheritdoc cref="IRight{TLeft, TRight}"/>
 public sealed record class Right<TLeft, TRight> : Either<TLeft, TRight>, IRight<TLeft, TRight>

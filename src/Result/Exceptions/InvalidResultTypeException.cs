@@ -1,9 +1,9 @@
-// Monadic: .NET monads for functional style.
+// Monads: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
 
-namespace Monadic.Exceptions;
+namespace Monads.Exceptions;
 
 /// <summary>
 /// Thrown when a switch function encounters an <see cref="Result{T}"/> type that is

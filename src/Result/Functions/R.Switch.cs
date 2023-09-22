@@ -1,11 +1,11 @@
-// Monadic: .NET monads for functional style.
+// Monads: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
 using System.Threading.Tasks;
-using Monadic.Exceptions;
+using Monads.Exceptions;
 
-namespace Monadic;
+namespace Monads;
 
 public static partial class R
 {

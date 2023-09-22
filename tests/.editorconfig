@@ -1,6 +1,6 @@
 ﻿[*.{cs,csx,cake,vb,vbx}]
 
-file_header_template = Monadic: Unit Tests\nCopyright (c) bfren - licensed under https://mit.bfren.dev/2019
+file_header_template = Monads: Unit Tests\nCopyright (c) bfren - licensed under https://mit.bfren.dev/2019
 insert_final_newline = true
 
 # CA1305: Specify IFormatProvider

@@ -1,11 +1,11 @@
-// Monadic: .NET monads for functional style.
+// Monads: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Monadic;
+namespace Monads;
 
 public abstract partial record class Result<T> : IEither<Exception, T>
 {

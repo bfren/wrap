@@ -1,12 +1,12 @@
-// Monadic: .NET monads for functional style.
+// Monads: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Monadic;
+namespace Monads;
 
 public static partial class M
 {
 	/// <summary>
-	/// Create a new <see cref="Monadic.None"/> value.
+	/// Create a new <see cref="Monads.None"/> value.
 	/// </summary>
 	public static None None =>
 		new();

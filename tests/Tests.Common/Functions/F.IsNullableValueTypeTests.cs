@@ -1,7 +1,7 @@
-// Monadic: Unit Tests
+// Monads: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Monadic.FunctionTests.IsNullableTests;
+namespace Monads.FunctionTests.IsNullableTests;
 
 public class when_input_is_nullable_value_type
 {

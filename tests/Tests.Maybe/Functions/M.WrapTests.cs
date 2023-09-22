@@ -1,7 +1,7 @@
-// Monadic: Unit Tests
+// Monads: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Monadic.FunctionTests.WrapTests;
+namespace Monads.FunctionTests.WrapTests;
 
 public class when_value_is_null
 {

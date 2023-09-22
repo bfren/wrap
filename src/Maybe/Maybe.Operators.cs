@@ -1,7 +1,7 @@
-// Monadic: .NET monads for functional style.
+// Monads: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Monadic;
+namespace Monads;
 
 public abstract partial record class Maybe<T>
 {
@@ -13,9 +13,9 @@ public abstract partial record class Maybe<T>
 		M.Wrap(value);
 
 	/// <summary>
-	/// Implicitly convert a <see cref="Monadic.None"/> into a <see cref="Maybe{T}.None"/> object.
+	/// Implicitly convert a <see cref="Monads.None"/> into a <see cref="Maybe{T}.None"/> object.
 	/// </summary>
 	/// <param name="_"></param>
-	public static implicit operator Maybe<T>(Monadic.None _) =>
+	public static implicit operator Maybe<T>(Monads.None _) =>
 		None.Create();
 }

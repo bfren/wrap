@@ -1,7 +1,7 @@
-// Monadic: .NET monads for functional style.
+// Monads: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Monadic;
+namespace Monads;
 
 public static partial class E
 {
@@ -11,7 +11,7 @@ public static partial class E
 	/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 	/// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
 	/// <param name="value">Left (error / invalid) value.</param>
-	/// <returns><see cref="Monadic.Left{TLeft, TRight}"/> with value <paramref name="value"/>.</returns>
+	/// <returns><see cref="Monads.Left{TLeft, TRight}"/> with value <paramref name="value"/>.</returns>
 	public static Either<TLeft, TRight> Left<TLeft, TRight>(TLeft value) =>
 		new Left<TLeft, TRight>(value);
 }

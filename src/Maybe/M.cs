@@ -1,9 +1,9 @@
-// Monadic: .NET monads for functional style.
+// Monads: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Globalization;
 
-namespace Monadic;
+namespace Monads;
 
 /// <summary>
 /// Pure functions for interacting with <see cref="Maybe{T}"/> types.
