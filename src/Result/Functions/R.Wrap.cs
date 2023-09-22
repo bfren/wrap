@@ -1,9 +1,9 @@
-// Monads: .NET monads for functional style.
+// Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using Monads.Exceptions;
+using Wrap.Exceptions;
 
-namespace Monads;
+namespace Wrap;
 
 public static partial class R
 {
@@ -16,7 +16,7 @@ public static partial class R
 
 	/// <summary>
 	/// One of the most important functions in the library: takes a value and returns
-	/// either <see cref="Ok{T}"/> or <see cref="Monads.Err"/>.
+	/// either <see cref="Ok{T}"/> or <see cref="Wrap.Err"/>.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -29,7 +29,7 @@ public static partial class R
 	/// </para>
 	/// <para>
 	/// If <paramref name="value"/> is null and <typeparamref name="T"/> is a reference type (with or
-	/// without the ? suffix), you will get an <see cref="Monads.Err"/> object.
+	/// without the ? suffix), you will get an <see cref="Wrap.Err"/> object.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Result value type.</typeparam>
@@ -37,7 +37,7 @@ public static partial class R
 	/// <returns>
 	/// <see cref="Ok{T}"/> if <paramref name="value"/> is not null
 	/// or <typeparamref name="T"/> is a nullable value type -
-	/// otherwise <see cref="Monads.Err"/>.
+	/// otherwise <see cref="Wrap.Err"/>.
 	/// </returns>
 	public static Result<T> Wrap<T>(T value) =>
 		value switch

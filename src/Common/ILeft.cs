@@ -1,7 +1,7 @@
-// Monads: .NET monads for functional style.
+// Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Monads;
+namespace Wrap;
 
 /// <summary>
 /// Either monad - left value.

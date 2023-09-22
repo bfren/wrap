@@ -1,19 +1,19 @@
-// Monads: .NET monads for functional style.
+// Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Monads;
+namespace Wrap;
 
 public abstract partial record class Maybe<T>
 {
 	/// <summary>
-	/// Generic None class (see <seealso cref="Monads.None"/>) that can be returned as a <see cref="Maybe{T}"/> object.
+	/// Generic None class (see <seealso cref="Wrap.None"/>) that can be returned as a <see cref="Maybe{T}"/> object.
 	/// </summary>
-	internal sealed record class None : Maybe<T>, ILeft<Monads.None, T>
+	internal sealed record class None : Maybe<T>, ILeft<Wrap.None, T>
 	{
 		/// <summary>
-		/// The actual <see cref="Monads.None"/> value.
+		/// The actual <see cref="Wrap.None"/> value.
 		/// </summary>
-		public Monads.None Value { get; private init; }
+		public Wrap.None Value { get; private init; }
 
 		/// <summary>
 		/// Private creation only - see <see cref="Create"/>.

@@ -5,6 +5,6 @@
         }
     ],
     "settings": {
-        "dotnet.defaultSolution": "monads.sln"
+        "dotnet.defaultSolution": "wraps.sln"
     }
 }

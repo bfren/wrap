@@ -1,10 +1,10 @@
-// Monads: .NET monads for functional style.
+// Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Monads;
+namespace Wrap;
 
 /// <summary>
 /// 'OK' Result - wraps value to enable safe non-null returns (see <seealso cref="Err"/>)

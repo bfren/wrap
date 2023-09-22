@@ -1,9 +1,9 @@
-// Monads: .NET monads for functional style.
+// Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
 
-namespace Monads;
+namespace Wrap;
 
 /// <summary>
 /// Pure functions for interacting with Monad types.

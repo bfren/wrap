@@ -1,7 +1,7 @@
-// Monads: .NET monads for functional style.
+// Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Monads;
+namespace Wrap;
 
 public static partial class E
 {
@@ -11,7 +11,7 @@ public static partial class E
 	/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 	/// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
 	/// <param name="value">Left (error / invalid) value.</param>
-	/// <returns><see cref="Monads.Right{TLeft, TRight}"/> with value <paramref name="value"/>.</returns>
+	/// <returns><see cref="Wrap.Right{TLeft, TRight}"/> with value <paramref name="value"/>.</returns>
 	public static Either<TLeft, TRight> Right<TLeft, TRight>(TRight value) =>
 		new Right<TLeft, TRight>(value);
 }

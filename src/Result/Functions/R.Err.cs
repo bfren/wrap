@@ -1,9 +1,9 @@
-// Monads: .NET monads for functional style.
+// Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
 
-namespace Monads;
+namespace Wrap;
 
 public static partial class R
 {
@@ -23,7 +23,7 @@ public static partial class R
 	}
 
 	/// <summary>
-	/// Create an <see cref="Monads.Err"/> from an error value.
+	/// Create an <see cref="Wrap.Err"/> from an error value.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -45,7 +45,7 @@ public static partial class R
 	}
 
 	/// <summary>
-	/// Create an <see cref="Monads.Err"/> from a simple error message.
+	/// Create an <see cref="Wrap.Err"/> from a simple error message.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -66,7 +66,7 @@ public static partial class R
 	}
 
 	/// <summary>
-	/// Create an <see cref="Monads.Err"/> object from an exception type.
+	/// Create an <see cref="Wrap.Err"/> object from an exception type.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -80,7 +80,7 @@ public static partial class R
 		Err(new TException());
 
 	/// <summary>
-	/// Create an <see cref="Monads.Err"/> object from an exception.
+	/// Create an <see cref="Wrap.Err"/> object from an exception.
 	/// </summary>
 	/// <remarks>
 	/// <para>

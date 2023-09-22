@@ -1,9 +1,9 @@
-// Monads: .NET monads for functional style.
+// Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
 
-namespace Monads.Exceptions;
+namespace Wrap.Exceptions;
 
 /// <summary>
 /// An <see cref="Ok{T}"/> object vannot receive a null value.

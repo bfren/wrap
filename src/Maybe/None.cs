@@ -1,7 +1,7 @@
-// Monads: .NET monads for functional style.
+// Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Monads;
+namespace Wrap;
 
 /// <summary>
 /// Simple 'None' value which can be returned in place of <c>null</c>.

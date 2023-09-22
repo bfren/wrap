@@ -1,9 +1,9 @@
-// Monads: .NET monads for functional style.
+// Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
 
-namespace Monads.Exceptions;
+namespace Wrap.Exceptions;
 
 /// <summary>
 /// Not really an 'exception' but used so <see cref="ResultExtensions.Filter{T}(Result{T}, Func{T, bool})"/>

@@ -1,13 +1,13 @@
-// Monads: .NET monads for functional style.
+// Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Monads;
+namespace Wrap;
 
 public static partial class M
 {
 	/// <summary>
 	/// One of the most important functions in the library: takes a value and returns
-	/// either <see cref="Some{T}"/> or <see cref="Monads.None"/>.
+	/// either <see cref="Some{T}"/> or <see cref="Wrap.None"/>.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -20,7 +20,7 @@ public static partial class M
 	/// </para>
 	/// <para>
 	/// If <paramref name="value"/> is null and <typeparamref name="T"/> is a reference type (with or
-	/// without the ? suffix), you will get a <see cref="Monads.None"/> object.
+	/// without the ? suffix), you will get a <see cref="Wrap.None"/> object.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Maybe value type.</typeparam>
@@ -28,7 +28,7 @@ public static partial class M
 	/// <returns>
 	/// <see cref="Some{T}"/> if <paramref name="value"/> is not null
 	/// or <typeparamref name="T"/> is a nullable value type -
-	/// otherwise <see cref="Monads.None"/>.
+	/// otherwise <see cref="Wrap.None"/>.
 	/// </returns>
 	public static Maybe<T> Wrap<T>(T value) =>
 		value switch

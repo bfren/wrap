@@ -1,9 +1,9 @@
-// Monads: .NET monads for functional style.
+// Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace Monads;
+namespace Wrap;
 
 /// <inheritdoc cref="ILeft{TLeft, TRight}"/>
 public sealed record class Left<TLeft, TRight> : Either<TLeft, TRight>, ILeft<TLeft, TRight>

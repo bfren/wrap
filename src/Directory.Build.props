@@ -6,7 +6,7 @@
     <TargetFrameworks>net7.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <RootNamespace>Monads</RootNamespace>
+    <RootNamespace>Wrap</RootNamespace>
   </PropertyGroup>
 
   <!-- Enable Internal Testing -->
@@ -26,7 +26,7 @@
 
   <!-- Get Paths to Files -->
   <PropertyGroup>
-    <SolutionFilePath>$([MSBuild]::GetPathOfFileAbove('Monads.sln'))</SolutionFilePath>
+    <SolutionFilePath>$([MSBuild]::GetPathOfFileAbove('Wrap.sln'))</SolutionFilePath>
     <SolutionRootPath>$([System.IO.Path]::GetDirectoryName('$(SolutionFilePath)'))</SolutionRootPath>
   </PropertyGroup>
   <PropertyGroup>
@@ -62,12 +62,12 @@
     <DebugType>embedded</DebugType>
     <Description>$(MSBuildProjectName) library</Description>
     <PackageIcon>$(LogoFile)</PackageIcon>
-    <PackageId>Monads.$(MSBuildProjectName)</PackageId>
+    <PackageId>Wrap.$(MSBuildProjectName)</PackageId>
     <PackageLicenseFile>$(LicenceFile)</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/bfren/monads/wiki</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/bfren/wrap/wiki</PackageProjectUrl>
     <PackageReadmeFile>$(ReadmeFile)</PackageReadmeFile>
     <PackageTags>async;C#;Either Type;Exception Handling;LINQ;Maybe Type;Monad;None;null;Option Type;Result Type;Some</PackageTags>
-    <RepositoryUrl>https://github.com/bfren/monads</RepositoryUrl>
+    <RepositoryUrl>https://github.com/bfren/wrap</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Version>$(MonadsVersion)</Version>
   </PropertyGroup>

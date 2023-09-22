@@ -1,4 +1,4 @@
 [*.{cs,csx,cake,vb,vbx}]
 
-file_header_template = Monads: .NET monads for functional style.\nCopyright (c) bfren - licensed under https://mit.bfren.dev/2019
+file_header_template = Wrap: .NET monads for functional style.\nCopyright (c) bfren - licensed under https://mit.bfren.dev/2019
 insert_final_newline = true
