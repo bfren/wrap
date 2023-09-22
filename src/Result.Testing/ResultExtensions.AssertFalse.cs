@@ -10,5 +10,5 @@ public static partial class ResultExtensions
 	/// </summary>
 	/// <param name="this">Result object.</param>
 	public static void AssertFalse(this Result<bool> @this) =>
-		Assert.False(@this.AssertSome());
+		Assert.False(@this.AssertOk());
 }
