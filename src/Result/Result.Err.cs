@@ -7,18 +7,24 @@ namespace Monadic;
 
 public abstract partial record class Result<T>
 {
-	internal sealed record class Err : Result<T>, ILeft<Exception, T>
+	internal sealed record class Err : Result<T>, ILeft<ErrValue, T>
 	{
-		public Exception Value { get; private init; }
+		public ErrValue Value { get; private init; }
 
-		internal static Result<T> Create(Exception ex) =>
-			new Err(ex);
+		internal static Result<T> Create(string message) =>
+			Create(message);
+
+		internal static Result<T> Create(Exception exception) =>
+			Create(exception);
+
+		internal static Result<T> Create(ErrValue value) =>
+			new Err(value);
 
 		/// <summary>
 		/// Internal creation only.
 		/// </summary>
-		/// <param name="ex">Exception value.</param>
-		private Err(Exception ex) =>
-			Value = ex;
+		/// <param name="value">Error value.</param>
+		private Err(ErrValue value) =>
+			Value = value;
 	}
 }

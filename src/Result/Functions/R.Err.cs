@@ -2,17 +2,67 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
-using Monadic.Exceptions;
 
 namespace Monadic;
 
 public static partial class R
 {
+	/// <inheritdoc cref="Err{T}(ErrValue)"/>
+	public static Err Err(ErrValue error)
+	{
+		if (error.Exception is not null)
+		{
+			F.LogException(error.Exception);
+		}
+		else
+		{
+			F.LogError(error.Message);
+		}
+
+		return new() { Value = error };
+	}
+
+	/// <summary>
+	/// Create an <see cref="Monadic.Err"/> from an error value.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// Also logs the error using <see cref="F.LogException"/> or <see cref="F.LogError"/> first.
+	/// </para>
+	/// </remarks>
+	/// <typeparam name="T">Result value type.</typeparam>
+	/// <param name="error">Error value.</param>
+	/// <returns>Error result.</returns>
+	public static Result<T> Err<T>(ErrValue error) =>
+		Err(error);
+
+	/// <inheritdoc cref="Err{T}(string)"/>
+	public static Err Err(string message)
+	{
+		F.LogError(message);
+
+		return new() { Value = message };
+	}
+
+	/// <summary>
+	/// Create an <see cref="Monadic.Err"/> from a simple error message.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// Also logs the error using <see cref="F.LogError"/> first.
+	/// </para>
+	/// </remarks>
+	/// <typeparam name="T">Result value type.</typeparam>
+	/// <param name="message">Error message.</param>
+	/// <returns>Error result.</returns>
+	public static Result<T> Err<T>(string message) =>
+		Err(message);
+
 	/// <inheritdoc cref="Err{T}(Exception)"/>
 	public static Err Err(Exception ex)
 	{
 		F.LogException(ex);
-		return new(ex);
+		return new() { Value = ex };
 	}
 
 	/// <summary>
@@ -42,25 +92,4 @@ public static partial class R
 	/// <returns>Error result.</returns>
 	public static Result<T> Err<T>(Exception ex) =>
 		Err(ex);
-
-	/// <inheritdoc cref="Err{T}(string)"/>
-	public static Err Err(string error)
-	{
-		F.LogError(error);
-		return new(new SimpleErrorException(error));
-	}
-
-	/// <summary>
-	/// Create an <see cref="Monadic.Err"/> from a simple error message.
-	/// </summary>
-	/// <remarks>
-	/// <para>
-	/// Also logs the error using <see cref="F.LogError"/> first.
-	/// </para>
-	/// </remarks>
-	/// <typeparam name="T">Result value type.</typeparam>
-	/// <param name="error">Error message.</param>
-	/// <returns>Error result.</returns>
-	public static Result<T> Err<T>(string error) =>
-		Err(error);
 }
