@@ -13,6 +13,14 @@ public static partial class MaybeExtensions
 		M.Switch(@this, none, some);
 
 	/// <inheritdoc cref="M.Switch{T}(Maybe{T}, Action, Action{T})"/>
+	public static Task SwitchAsync<T>(this Maybe<T> @this, Action none, Func<T, Task> some) =>
+		M.SwitchAsync(@this, none, some);
+
+	/// <inheritdoc cref="M.Switch{T}(Maybe{T}, Action, Action{T})"/>
+	public static Task SwitchAsync<T>(this Maybe<T> @this, Func<Task> none, Action<T> some) =>
+		M.SwitchAsync(@this, none, some);
+
+	/// <inheritdoc cref="M.Switch{T}(Maybe{T}, Action, Action{T})"/>
 	public static Task SwitchAsync<T>(this Maybe<T> @this, Func<Task> none, Func<T, Task> some) =>
 		M.SwitchAsync(@this, none, some);
 

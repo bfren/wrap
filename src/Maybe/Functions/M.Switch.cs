@@ -46,8 +46,16 @@ public static partial class M
 	}
 
 	/// <inheritdoc cref="Switch{T}(Maybe{T}, Action, Action{T})"/>
+	public static Task SwitchAsync<T>(Maybe<T> maybe, Action none, Func<T, Task> some) =>
+		SwitchAsync(maybe.AsTask(), () => { none(); return Task.CompletedTask; }, some);
+
+	/// <inheritdoc cref="Switch{T}(Maybe{T}, Action, Action{T})"/>
+	public static Task SwitchAsync<T>(Maybe<T> maybe, Func<Task> none, Action<T> some) =>
+		SwitchAsync(maybe.AsTask(), none, x => { some(x); return Task.CompletedTask; });
+
+	/// <inheritdoc cref="Switch{T}(Maybe{T}, Action, Action{T})"/>
 	public static Task SwitchAsync<T>(Maybe<T> maybe, Func<Task> none, Func<T, Task> some) =>
-		SwitchAsync(Task.FromResult(maybe), none, some);
+		SwitchAsync(maybe.AsTask(), none, some);
 
 	/// <inheritdoc cref="Switch{T}(Maybe{T}, Action, Action{T})"/>
 	public static async Task SwitchAsync<T>(Task<Maybe<T>> maybe, Func<Task> none, Func<T, Task> some)
