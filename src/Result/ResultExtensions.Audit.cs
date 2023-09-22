@@ -8,7 +8,7 @@ namespace Monadic;
 
 public static partial class ResultExtensions
 {
-	public static Result<T> Audit<T>(this Result<T> @this, Action<Exception>? err, Action<T>? ok)
+	public static Result<T> Audit<T>(this Result<T> @this, Action<ErrValue>? err = null, Action<T>? ok = null)
 	{
 		try
 		{
@@ -43,13 +43,13 @@ public static partial class ResultExtensions
 		return @this;
 	}
 
-	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<Exception, Task>? err, Func<T, Task>? ok) =>
+	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<ErrValue, Task>? err = null, Func<T, Task>? ok = null) =>
 		AuditAsync(@this.AsTask(), err, ok);
 
-	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<Exception>? err, Action<T>? ok) =>
+	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<ErrValue>? err = null, Action<T>? ok = null) =>
 		AuditAsync(@this, x => { err?.Invoke(x); return Task.CompletedTask; }, x => { ok?.Invoke(x); return Task.CompletedTask; });
 
-	public static async Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<Exception, Task>? err, Func<T, Task>? ok)
+	public static async Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<ErrValue, Task>? err = null, Func<T, Task>? ok = null)
 	{
 		var result = await @this;
 
