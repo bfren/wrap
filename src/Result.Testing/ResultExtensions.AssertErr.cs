@@ -10,6 +10,7 @@ public static partial class ResultExtensions
 	/// </summary>
 	/// <typeparam name="T">Result value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	public static void AssertErr<T>(this Result<T> @this) =>
-		Assert.IsType<Result<T>.Err>(@this);
+	/// <returns>The error value of <paramref name="this"/>.</returns>
+	public static ErrValue AssertErr<T>(this Result<T> @this) =>
+		Assert.IsType<Result<T>.Err>(@this).Value;
 }
