@@ -13,18 +13,22 @@ public static partial class R
 
 	public static void Switch<T>(Result<T> result, Action<ErrValue> err, Action<T> ok)
 	{
-		if (result is Result<T>.Err x)
+		Action f = result switch
 		{
-			err(x.Value);
-		}
-		else if (result is Ok<T> y)
-		{
-			ok(y.Value);
-		}
-		else
-		{
-			throw new InvalidResultTypeException(result.GetType());
-		}
+			Result<T>.Err x =>
+				() => err(x.Value),
+
+			Ok<T> y =>
+				() => ok(y.Value),
+
+			{ } m =>
+				throw new InvalidResultTypeException(m.GetType()),
+
+			_ =>
+				throw new NullResultException()
+		};
+
+		f();
 	}
 
 	public static Task SwitchAsync<T>(Result<T> result, Action<ErrValue> err, Func<T, Task> ok) =>
@@ -46,8 +50,11 @@ public static partial class R
 			Ok<T> y =>
 				() => ok(y.Value),
 
-			{ } x =>
-				throw new InvalidResultTypeException(x.GetType())
+			{ } r =>
+				throw new InvalidResultTypeException(r.GetType()),
+
+			_ =>
+				throw new NullResultException()
 		};
 
 		await f();
@@ -64,18 +71,21 @@ public static partial class R
 			Ok<T> y =>
 				ok(y.Value),
 
+			{ } r =>
+				throw new InvalidResultTypeException(r.GetType()),
+
 			_ =>
-				throw new InvalidResultTypeException(result.GetType())
+				throw new NullResultException()
 		};
 
 	public static Task<TReturn> SwitchAsync<T, TReturn>(Result<T> result, Func<ErrValue, TReturn> err, Func<T, Task<TReturn>> ok) =>
-		Switch(result, x => Task.FromResult(err(x)), ok);
+		SwitchAsync(result.AsTask(), x => Task.FromResult(err(x)), ok);
 
 	public static Task<TReturn> SwitchAsync<T, TReturn>(Result<T> result, Func<ErrValue, Task<TReturn>> err, Func<T, TReturn> ok) =>
-		Switch(result, err, x => Task.FromResult(ok(x)));
+		SwitchAsync(result.AsTask(), err, x => Task.FromResult(ok(x)));
 
 	public static Task<TReturn> SwitchAsync<T, TReturn>(Result<T> result, Func<ErrValue, Task<TReturn>> err, Func<T, Task<TReturn>> ok) =>
-		Switch(result, err, ok);
+		SwitchAsync(result.AsTask(), err, ok);
 
 	public static Task<TReturn> SwitchAsync<T, TReturn>(Task<Result<T>> result, Func<ErrValue, TReturn> err, Func<T, TReturn> ok) =>
 		SwitchAsync(result, x => Task.FromResult(err(x)), x => Task.FromResult(ok(x)));
@@ -86,20 +96,6 @@ public static partial class R
 	public static Task<TReturn> SwitchAsync<T, TReturn>(Task<Result<T>> result, Func<ErrValue, Task<TReturn>> err, Func<T, TReturn> ok) =>
 		SwitchAsync(result, err, x => Task.FromResult(ok(x)));
 
-	public static async Task<TReturn> SwitchAsync<T, TReturn>(Task<Result<T>> result, Func<ErrValue, Task<TReturn>> err, Func<T, Task<TReturn>> ok)
-	{
-		Func<Task<TReturn>> f = await result switch
-		{
-			Result<T>.Err x =>
-				() => err(x.Value),
-
-			Ok<T> y =>
-				() => ok(y.Value),
-
-			{ } x =>
-				throw new InvalidResultTypeException(x.GetType())
-		};
-
-		return await f();
-	}
+	public static async Task<TReturn> SwitchAsync<T, TReturn>(Task<Result<T>> result, Func<ErrValue, Task<TReturn>> err, Func<T, Task<TReturn>> ok) =>
+		await Switch(await result, err, ok);
 }
