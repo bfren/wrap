@@ -3,8 +3,4 @@
 
 namespace Wrap;
 
-public static class ObjectExtensions
-{
-	public static Result<T> ToResult<T>(this T obj) =>
-		obj;
-}
+public static partial class ObjectExtensions { }

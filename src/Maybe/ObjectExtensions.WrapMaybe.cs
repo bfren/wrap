@@ -3,4 +3,8 @@
 
 namespace Wrap;
 
-public static partial class ObjectExtensions { }
+public static partial class ObjectExtensions
+{
+	public static Maybe<T> WrapMaybe<T>(this T obj) =>
+		obj;
+}
