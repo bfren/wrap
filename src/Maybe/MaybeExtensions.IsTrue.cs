@@ -14,14 +14,14 @@ public static partial class MaybeExtensions
 	/// <param name="this">Maybe object.</param>
 	/// <returns>Whether or not the value of <paramref name="this"/> is <see langword="true"/>.</returns>
 	public static bool IsTrue(this Maybe<bool> @this) =>
-		M.Switch(@this,
+		M.Match(@this,
 			none: false,
 			some: x => x
 		);
 
 	/// <inheritdoc cref="IsTrue(Maybe{bool})"/>
 	public static Task<bool> IsTrueAsync(this Task<Maybe<bool>> @this) =>
-		M.SwitchAsync(@this,
+		M.MatchAsync(@this,
 			none: false,
 			some: x => x
 		);

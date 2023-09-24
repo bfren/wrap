@@ -21,7 +21,7 @@ public abstract partial record class Result<T> : IEither<Exception, T>
 	}
 
 	public sealed override string ToString() =>
-		R.Switch(this,
+		R.Match(this,
 			err: x => x.Message,
 			ok: x => x?.ToString() switch
 			{

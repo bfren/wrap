@@ -33,7 +33,7 @@ public abstract partial record class Maybe<T> : IEither<None, T>
 	/// </summary>
 	/// <returns>Value string if this is a <see cref="Some{T}"/> or the value type.</returns>
 	public sealed override string ToString() =>
-		M.Switch(this,
+		M.Match(this,
 			none: $"None: {typeof(T)}",
 			some: x =>
 				x.ToString() switch

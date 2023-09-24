@@ -305,7 +305,7 @@ node_modules/
 *.ncb
 *.aps
 
-# Visual Studio LightSwitch build output
+# Visual Studio LightMatch build output
 **/*.HTMLClient/GeneratedArtifacts
 **/*.DesktopClient/GeneratedArtifacts
 **/*.DesktopClient/ModelManifest.xml
