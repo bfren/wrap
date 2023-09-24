@@ -13,7 +13,7 @@ public static partial class EnumerableExtensions
 	/// Loop through list <paramref name="this"/> and apply function <paramref name="f"/> to each element
 	/// that is a <see cref="Some{T}"/>.
 	/// </summary>
-	/// <typeparam name="T">Maybe value type.</typeparam>
+	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">List of <see cref="Maybe{T}"/> objects.</param>
 	/// <param name="f">Function to apply to each <see cref="Some{T}"/> element of <paramref name="this"/>.</param>
 	public static void Iterate<T>(this IEnumerable<Maybe<T>> @this, Action<T> f)

@@ -3,7 +3,13 @@
 
 namespace Wrap;
 
+/// <summary>
+/// 'Error' Result - holds information about the error.
+/// </summary>
 public readonly struct Err
 {
+	/// <summary>
+	/// Error Value object.
+	/// </summary>
 	public readonly required ErrValue Value { get; init; }
 }

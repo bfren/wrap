@@ -30,7 +30,7 @@ public static partial class R
 	/// Also logs the error using <see cref="F.LogException"/> or <see cref="F.LogError"/> first.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Result value type.</typeparam>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="error">Error value.</param>
 	/// <returns>Error result.</returns>
 	public static Result<T> Err<T>(ErrValue error) =>
@@ -52,7 +52,7 @@ public static partial class R
 	/// Also logs the error using <see cref="F.LogError"/> first.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Result value type.</typeparam>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="message">Error message.</param>
 	/// <returns>Error result.</returns>
 	public static Result<T> Err<T>(string message) =>
@@ -87,7 +87,7 @@ public static partial class R
 	/// Also logs the exception using <see cref="F.LogException"/> first.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Result value type.</typeparam>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="ex">Exception object.</param>
 	/// <returns>Error result.</returns>
 	public static Result<T> Err<T>(Exception ex) =>

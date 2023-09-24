@@ -12,7 +12,7 @@ public static partial class MaybeExtensions
 	/// Run <paramref name="predicate"/> when <paramref name="this"/> is <see cref="Some{T}"/>
 	/// </summary>
 	/// <seealso cref="Linq.MaybeExtensions.Where{T}(Maybe{T}, Func{T, bool})"/>
-	/// <typeparam name="T">Maybe value type.</typeparam>
+	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="predicate">Function to detemine whether or not the value of <paramref name="this"/> should be returned.</param>
 	/// <returns>Value of <paramref name="this"/> if <paramref name="predicate"/> returns true, or <see cref="None"/>.</returns>

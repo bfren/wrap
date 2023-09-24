@@ -13,7 +13,7 @@ public static partial class MaybeExtensions
 	/// This is particularly used to get values simply during the Arrange section of a unit test.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Maybe value type.</typeparam>
+	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	public static T UnsafeUnwrap<T>(this Maybe<T> @this) =>
 		@this.Unwrap(() => throw new Exceptions.UnsafeUnwrapException());

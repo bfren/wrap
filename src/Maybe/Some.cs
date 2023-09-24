@@ -8,7 +8,7 @@ namespace Wrap;
 /// <summary>
 /// 'Some' Maybe - wraps value to enable safe non-null returns (see <seealso cref="None"/>)
 /// </summary>
-/// <typeparam name="T">Maybe value type</typeparam>
+/// <typeparam name="T">Some value type</typeparam>
 public sealed record class Some<T> : Maybe<T>, IRight<None, T>
 {
 	/// <summary>

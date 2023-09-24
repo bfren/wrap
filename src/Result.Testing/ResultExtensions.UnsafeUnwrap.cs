@@ -13,7 +13,7 @@ public static partial class ResultExtensions
 	/// This is particularly used to get values simply during the Arrange section of a unit test.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Result value type.</typeparam>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	public static T UnsafeUnwrap<T>(this Result<T> @this) =>
 		@this.Unwrap(_ => throw new Exceptions.UnsafeUnwrapException());

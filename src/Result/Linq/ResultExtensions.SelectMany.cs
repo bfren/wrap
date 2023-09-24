@@ -25,7 +25,7 @@ public static partial class ResultExtensions
 	/// and <see cref="Err"/> if either is <see cref="Err"/>.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Result value type.</typeparam>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <typeparam name="TInner">Interim value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Result object.</param>

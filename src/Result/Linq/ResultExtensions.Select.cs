@@ -24,7 +24,7 @@ public static partial class ResultExtensions
 	/// and <see cref="Err"/> if not.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Result value type.</typeparam>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <param name="f">Return map function.</param>

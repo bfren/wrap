@@ -18,7 +18,7 @@ public static partial class MaybeExtensions
 	/// </para>
 	/// </remarks>
 	/// <seealso cref="Bind{T, TReturn}(Maybe{T}, Func{T, Maybe{TReturn}})"/>
-	/// <typeparam name="T">Maybe value type.</typeparam>
+	/// <typeparam name="T">Some value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="map">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>

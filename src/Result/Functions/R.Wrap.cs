@@ -32,7 +32,7 @@ public static partial class R
 	/// without the ? suffix), you will get an <see cref="Wrap.Err"/> object.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Result value type.</typeparam>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="value">Value to wrap.</param>
 	/// <returns>
 	/// <see cref="Ok{T}"/> if <paramref name="value"/> is not null

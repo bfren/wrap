@@ -23,7 +23,7 @@ public static partial class M
 	/// without the ? suffix), you will get a <see cref="Wrap.None"/> object.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Maybe value type.</typeparam>
+	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="value">Value to wrap.</param>
 	/// <returns>
 	/// <see cref="Some{T}"/> if <paramref name="value"/> is not null

@@ -20,7 +20,7 @@ public static partial class MaybeExtensions
 	/// </para>
 	/// </remarks>
 	/// <seealso cref="Unwrap{T}(Maybe{T}, Func{T})"/>
-	/// <typeparam name="T">Maybe value type - limited to <see cref="IEnumerable{TSingle}"/>.</typeparam>
+	/// <typeparam name="T">Some value type - limited to <see cref="IEnumerable{TSingle}"/>.</typeparam>
 	/// <typeparam name="TSingle">IEnumerable value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="ifNone">Function to generate a value if <paramref name="this"/> is <see cref="None"/>.</param>

@@ -12,7 +12,7 @@ public static partial class EnumerableExtensions
 	/// <summary>
 	/// Run <paramref name="bind"/> on each value in <paramref name="this"/> that is <see cref="Some{T}"/>.
 	/// </summary>
-	/// <typeparam name="T">Maybe value type.</typeparam>
+	/// <typeparam name="T">Some value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">List of Maybe objects.</param>
 	/// <param name="bind">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>

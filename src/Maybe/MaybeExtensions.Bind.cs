@@ -11,7 +11,7 @@ public static partial class MaybeExtensions
 	/// <summary>
 	/// Run <paramref name="bind"/> when <paramref name="this"/> is <see cref="Some{T}"/>.
 	/// </summary>
-	/// <typeparam name="T">Maybe value type.</typeparam>
+	/// <typeparam name="T">Some value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="bind">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>

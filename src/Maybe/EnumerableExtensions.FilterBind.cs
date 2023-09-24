@@ -12,7 +12,7 @@ public static partial class EnumerableExtensions
 	/// <summary>
 	/// Run <paramref name="bind"/> on each element of <paramref name="this"/> that matches <paramref name="predicate"/>.
 	/// </summary>
-	/// <typeparam name="T">Maybe value type.</typeparam>
+	/// <typeparam name="T">Some value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">List of Maybe objects.</param>
 	/// <param name="predicate">Function to detemine whether or not the value of <paramref name="this"/> should be passed to <paramref name="bind"/>.</param>

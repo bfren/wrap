@@ -15,7 +15,7 @@ public abstract partial record class Maybe<T>
 	/// <summary>
 	/// Implicitly convert a <see cref="Wrap.None"/> into a <see cref="Maybe{T}.None"/> object.
 	/// </summary>
-	/// <param name="_"></param>
+	/// <param name="_">None value (discarded).</param>
 	public static implicit operator Maybe<T>(Wrap.None _) =>
 		None.Create();
 }

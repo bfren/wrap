@@ -9,7 +9,7 @@ namespace Wrap;
 /// <summary>
 /// 'OK' Result - wraps value to enable safe non-null returns (see <seealso cref="Err"/>)
 /// </summary>
-/// <typeparam name="T">Result value type</typeparam>
+/// <typeparam name="T">Ok value type</typeparam>
 public sealed record class Ok<T> : Result<T>, IRight<Exception, T>
 {
 	/// <summary>

@@ -8,6 +8,12 @@ namespace Wrap;
 
 public static partial class R
 {
+	/// <summary>
+	/// Execute function <paramref name="f"/>, returning its value and catching any exceptions.
+	/// </summary>
+	/// <typeparam name="T">Ok value type.</typeparam>
+	/// <param name="f">Function to run.</param>
+	/// <returns>The value of <paramref name="f"/> or an <see cref="Wrap.Err"/> result.</returns>
 	public static Result<T> Try<T>(Func<T> f)
 	{
 		try
@@ -20,6 +26,7 @@ public static partial class R
 		}
 	}
 
+	/// <inheritdoc cref="Try{T}(Func{T})"/>
 	public static async Task<Result<T>> TryAsync<T>(Func<Task<T>> f)
 	{
 		try
