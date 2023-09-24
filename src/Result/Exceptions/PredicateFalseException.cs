@@ -10,8 +10,4 @@ namespace Wrap.Exceptions;
 /// can return an <see cref="Err"/> object when a predicate fails.
 /// </summary>
 /// <seealso cref="ResultExtensions.Filter{T}(Result{T}, Func{T, bool})"/>
-public sealed class PredicateFalseException : Exception
-{
-	/// <summary>Create exception.</summary>
-	public PredicateFalseException() { }
-}
+public sealed class PredicateFalseException : WrapException { }

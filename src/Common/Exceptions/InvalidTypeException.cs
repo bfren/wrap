@@ -8,7 +8,7 @@ namespace Wrap.Exceptions;
 /// <summary>
 /// Base exception thrown when an <see cref="IEither{TLeft, TRight}"/> monad is matched to an invalid type.
 /// </summary>
-public abstract class InvalidTypeException : MonadException
+public abstract class InvalidTypeException : WrapException
 {
 	/// <summary>
 	/// Create exception.

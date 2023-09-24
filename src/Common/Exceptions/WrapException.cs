@@ -6,19 +6,19 @@ using System;
 namespace Wrap.Exceptions;
 
 /// <summary>
-/// Base exception thrown during Monad operations.
+/// Base exception thrown during Wrap operations.
 /// </summary>
-public abstract class MonadException : Exception
+public abstract class WrapException : Exception
 {
 	/// <summary>Create exception.</summary>
-	public MonadException() { }
+	public WrapException() { }
 
 	/// <summary>Create exception.</summary>
 	/// <param name="message">Exception message.</param>
-	public MonadException(string message) : base(message) { }
+	public WrapException(string message) : base(message) { }
 
 	/// <summary>Create exception.</summary>
 	/// <param name="message">Exception message.</param>
 	/// <param name="inner">Inner exception.</param>
-	public MonadException(string message, Exception inner) : base(message, inner) { }
+	public WrapException(string message, Exception inner) : base(message, inner) { }
 }
