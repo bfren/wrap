@@ -84,6 +84,8 @@ public static partial class R
 
 	#endregion
 
+	#region With Return Value
+
 	/// <summary>
 	/// Run a function based on the value of <paramref name="result"/> and return its value.
 	/// </summary>
@@ -147,4 +149,6 @@ public static partial class R
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{ErrValue, TReturn}, Func{T, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<ErrValue, Task<TReturn>> err, Func<T, Task<TReturn>> ok) =>
 		await Match(await result, err, ok);
+
+	#endregion
 }
