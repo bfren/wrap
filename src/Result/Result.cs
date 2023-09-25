@@ -11,12 +11,9 @@ namespace Wrap;
 /// Result monad.
 /// </summary>
 /// <typeparam name="T">Ok value type.</typeparam>
-public abstract partial record class Result<T> : IEither<Exception, T>
+public abstract partial record class Result<T> : IEither<Result<T>, Exception, T>
 {
-	/// <summary>
-	/// Shorthand for returning the current object as a task.
-	/// </summary>
-	/// <returns>Task result.</returns>
+	/// <inheritdoc/>
 	public Task<Result<T>> AsTask() =>
 		Task.FromResult(this);
 

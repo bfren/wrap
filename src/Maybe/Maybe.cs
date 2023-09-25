@@ -10,12 +10,9 @@ namespace Wrap;
 /// Maybe monad.
 /// </summary>
 /// <typeparam name="T">Some value type.</typeparam>
-public abstract partial record class Maybe<T> : IEither<None, T>
+public abstract partial record class Maybe<T> : IEither<Maybe<T>, None, T>
 {
-	/// <summary>
-	/// Shorthand for returning the current object as a task.
-	/// </summary>
-	/// <returns>Task result.</returns>
+	/// <inheritdoc/>
 	public Task<Maybe<T>> AsTask() =>
 		Task.FromResult(this);
 

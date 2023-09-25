@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 namespace Wrap;
 
 /// <inheritdoc cref="IEither{TLeft, TRight}"/>
-public abstract partial record class Either<TLeft, TRight> : IEither<TLeft, TRight>
+public abstract record class Either<TLeft, TRight> : IEither<Either<TLeft, TRight>, TLeft, TRight>
 {
-	/// <summary>
-	/// Shorthand for returning the current object as a task.
-	/// </summary>
-	/// <returns>Task result.</returns>
+	/// <inheritdoc/>
 	public Task<Either<TLeft, TRight>> AsTask() =>
 		Task.FromResult(this);
 
