@@ -6,7 +6,9 @@ namespace Wrap;
 /// <summary>
 /// Implementation using <see cref="ulong"/> as the Value type
 /// </summary>
-public abstract record class ULongId : Id<ulong>
+/// <typeparam name="TId">ID implementation type.</typeparam>
+public abstract record class ULongId<TId> : Id<TId, ulong>
+	where TId : ULongId<TId>, new()
 {
 	/// <summary>
 	/// Create ID with default value

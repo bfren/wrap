@@ -13,7 +13,7 @@ public static partial class I
 	/// <param name="value">Value to wrap.</param>
 	/// <returns>Value wrapped as a strongly-typed ID.</returns>
 	public static TId Wrap<TId, TValue>(TValue value)
-		where TId : Id<TValue>, new()
+		where TId : Id<TId, TValue>, new()
 		where TValue : notnull =>
 		new() { Value = value };
 }

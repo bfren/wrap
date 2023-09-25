@@ -6,10 +6,12 @@ using System.Diagnostics.CodeAnalysis;
 namespace Wrap;
 
 /// <summary>
-/// 
+/// ID monad.
 /// </summary>
-/// <typeparam name="TValue"></typeparam>
-public abstract record class Id<TValue> : IId
+/// <typeparam name="TId">Implementation type.</typeparam>
+/// <typeparam name="TValue">ID value type.</typeparam>
+public abstract record class Id<TId, TValue> : IId
+	where TId : Id<TId, TValue>, new()
 	where TValue : notnull
 {
 	/// <inheritdoc cref="IId.Value"/>
@@ -19,9 +21,19 @@ public abstract record class Id<TValue> : IId
 		Value;
 
 	/// <summary>
-	/// Internal implementations only
+	/// Internal implementations only.
 	/// </summary>
-	/// <param name="value">ID Value</param>
+	/// <param name="value">ID value.</param>
 	private protected Id([DisallowNull] TValue value) =>
 		Value = value;
+
+	/// <summary>
+	/// Create a new ID using the specified <paramref name="value"/>.
+	/// </summary>
+	/// <param name="value">ID value.</param>
+	/// <returns>ID object.</returns>
+#pragma warning disable CA1000 // Do not declare static members on generic types
+	public static TId Create(TValue value) =>
+		new() { Value = value };
+#pragma warning restore CA1000 // Do not declare static members on generic types
 }

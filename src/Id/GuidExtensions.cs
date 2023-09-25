@@ -12,6 +12,6 @@ public static class GuidExtensions
 {
 	/// <inheritdoc cref="I.Wrap{TId, TValue}(TValue)"/>
 	public static TId WrapId<TId>(this Guid value)
-		where TId : GuidId, new() =>
+		where TId : GuidId<TId>, new() =>
 		I.Wrap<TId, Guid>(value);
 }

@@ -5,15 +5,12 @@ namespace Wrap;
 
 /// <summary>
 /// Represents a strongly-typed ID - this should never be implemented directly - see
-/// <see cref="GuidId"/>,
-/// <see cref="IntId"/>,
-/// <see cref="LongId"/>,
-/// <see cref="UIntId"/>,
-/// <see cref="ULongId"/>.
+/// <see cref="GuidId{TId}"/>,
+/// <see cref="IntId{TId}"/>,
+/// <see cref="LongId{TId}"/>,
+/// <see cref="UIntId{TId}"/>,
+/// <see cref="ULongId{TId}"/>.
 /// </summary>
-/// <remarks>
-/// This exists only to enable generic querying and parsing of values.
-/// </remarks>
 public interface IId
 {
 	/// <summary>

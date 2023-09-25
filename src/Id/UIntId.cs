@@ -6,7 +6,9 @@ namespace Wrap;
 /// <summary>
 /// Implementation using <see cref="uint"/> as the Value type
 /// </summary>
-public abstract record class UIntId : Id<uint>
+/// <typeparam name="TId">ID implementation type.</typeparam>
+public abstract record class UIntId<TId> : Id<TId, uint>
+	where TId : UIntId<TId>, new()
 {
 	/// <summary>
 	/// Create ID with default value
