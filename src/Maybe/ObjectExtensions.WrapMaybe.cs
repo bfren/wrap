@@ -6,6 +6,6 @@ namespace Wrap;
 public static partial class ObjectExtensions
 {
 	/// <inheritdoc cref="M.Wrap{T}(T)"/>
-	public static Maybe<T> WrapMaybe<T>(this T obj) =>
-		M.Wrap(obj);
+	public static Maybe<T> WrapMaybe<T>(this T value) =>
+		M.Wrap(value);
 }
