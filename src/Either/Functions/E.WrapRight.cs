@@ -6,12 +6,12 @@ namespace Wrap;
 public static partial class E
 {
 	/// <summary>
-	/// Create a left (error / invalid) value.
+	/// Create a right (correct / valid) value.
 	/// </summary>
 	/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 	/// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
 	/// <param name="value">Left (error / invalid) value.</param>
-	/// <returns><see cref="Wrap.Left{TLeft, TRight}"/> with value <paramref name="value"/>.</returns>
-	public static Either<TLeft, TRight> Left<TLeft, TRight>(TLeft value) =>
-		new Left<TLeft, TRight>(value);
+	/// <returns><see cref="Right{TLeft, TRight}"/> with value <paramref name="value"/>.</returns>
+	public static Either<TLeft, TRight> WrapRight<TLeft, TRight>(TRight value) =>
+		new Right<TLeft, TRight>(value);
 }
