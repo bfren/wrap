@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Wrap;
 
 /// <inheritdoc cref="IEither{TEither, TLeft, TRight}"/>
-public interface IEither<out TLeft, out TRight>
+public interface IEither<TLeft, TRight>
 {
 	/// <summary>
 	/// Use enumerator pattern to get <typeparamref name="TRight"/> value.
@@ -33,7 +33,7 @@ public interface IEither<out TLeft, out TRight>
 /// <typeparam name="TEither">Either implementation type.</typeparam>
 /// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 /// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
-public interface IEither<TEither, out TLeft, out TRight> : IEither<TLeft, TRight>
+public interface IEither<TEither, TLeft, TRight> : IEither<TLeft, TRight>
 	where TEither : IEither<TLeft, TRight>
 {
 	/// <summary>
