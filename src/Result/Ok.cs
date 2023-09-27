@@ -1,7 +1,6 @@
 // Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Wrap;
@@ -10,13 +9,13 @@ namespace Wrap;
 /// 'OK' Result - wraps value to enable safe non-null returns (see <seealso cref="Err"/>)
 /// </summary>
 /// <typeparam name="T">Ok value type</typeparam>
-public sealed record class Ok<T> : Result<T>, IRight<Exception, T>
+public sealed record class Ok<T> : Result<T>, IRight<ErrValue, T>
 {
 	/// <summary>
 	/// OK value - nullability will match the nullability of <typeparamref name="T"/>
 	/// </summary>
 	[MemberNotNull]
-	public T Value { get; private init; }
+	public T Value { get; init; }
 
 	/// <summary>
 	/// Internal creation only.

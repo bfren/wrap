@@ -9,13 +9,13 @@ public abstract partial record class Result<T>
 {
 	internal sealed record class Err : Result<T>, ILeft<ErrValue, T>
 	{
-		public ErrValue Value { get; private init; }
+		public ErrValue Value { get; init; }
 
 		internal static Result<T> Create(string message) =>
-			Create(message);
+			new Err(message);
 
 		internal static Result<T> Create(Exception exception) =>
-			Create(exception);
+			new Err(exception);
 
 		internal static Result<T> Create(ErrValue value) =>
 			new Err(value);

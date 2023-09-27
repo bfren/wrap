@@ -13,7 +13,7 @@ public abstract partial record class Maybe<T>
 		/// <summary>
 		/// The actual <see cref="Wrap.None"/> value.
 		/// </summary>
-		public Wrap.None Value { get; private init; }
+		public Wrap.None Value { get; init; }
 
 		/// <summary>
 		/// Private creation only - see <see cref="Create"/>.

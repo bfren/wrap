@@ -6,7 +6,7 @@ namespace Wrap;
 /// <summary>
 /// 'Error' Result - holds information about the error.
 /// </summary>
-public readonly struct Err
+public readonly struct Err : IUnion<ErrValue>
 {
 	/// <summary>
 	/// Error Value object.

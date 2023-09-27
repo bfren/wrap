@@ -1,7 +1,6 @@
 // Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,7 +10,7 @@ namespace Wrap;
 /// Result monad.
 /// </summary>
 /// <typeparam name="T">Ok value type.</typeparam>
-public abstract partial record class Result<T> : IEither<Result<T>, Exception, T>
+public abstract partial record class Result<T> : IEither<Result<T>, ErrValue, T>
 {
 	/// <inheritdoc/>
 	public Task<Result<T>> AsTask() =>

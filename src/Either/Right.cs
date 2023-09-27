@@ -7,7 +7,7 @@ namespace Wrap;
 public sealed record class Right<TLeft, TRight> : Either<TLeft, TRight>, IRight<TLeft, TRight>
 {
 	/// <inheritdoc/>
-	public TRight Value { get; private init; }
+	public TRight Value { get; init; }
 
 	/// <summary>
 	/// Internal creation only.
