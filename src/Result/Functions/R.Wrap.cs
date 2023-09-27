@@ -42,8 +42,8 @@ public static partial class R
 	public static Result<T> Wrap<T>(T value) =>
 		value switch
 		{
-			T x =>
-				new Ok<T>(x),
+			T =>
+				new Ok<T>(value),
 
 			_ when F.IsNullableValueType(value) =>
 				new Ok<T>(value!),

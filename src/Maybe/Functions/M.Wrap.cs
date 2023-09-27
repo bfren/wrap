@@ -33,8 +33,8 @@ public static partial class M
 	public static Maybe<T> Wrap<T>(T value) =>
 		value switch
 		{
-			T x =>
-				new Some<T>(x),
+			T =>
+				new Some<T>(value),
 
 			_ when F.IsNullableValueType(value) =>
 				new Some<T>(value!),
