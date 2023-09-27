@@ -9,7 +9,7 @@ namespace Wrap;
 public static class IntExtensions
 {
 	/// <inheritdoc cref="I.Wrap{TId, TValue}(TValue)"/>
-	public static TId WrapId<TId>(this int value)
+	public static TId WrapId<TId>(this int @this)
 		where TId : IntId<TId>, new() =>
-		I.Wrap<TId, int>(value);
+		I.Wrap<TId, int>(@this);
 }

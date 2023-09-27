@@ -3,16 +3,11 @@
 
 namespace Wrap;
 
-/// <inheritdoc cref="IWithId"/>
-/// <typeparam name="T">ID type.</typeparam>
-public abstract record class WithId<T> : IWithId
-	where T : class, IId, new()
+/// <inheritdoc cref="IWithId{TId, TValue}"/>
+public abstract record class WithId<TId, TValue> : IWithId<TId, TValue>
+	where TId : Id<TId, TValue>, new()
+	where TValue : struct
 {
-	/// <summary>
-	/// <see cref="IId"/> object of type <typeparamref name="T"/> wrapping an ID value.
-	/// </summary>
-	public required T Id { get; init; }
-
-	IId IWithId.Id =>
-		Id;
+	/// <inheritdoc/>
+	public TId Id { get; init; } = new();
 }

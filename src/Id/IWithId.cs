@@ -6,10 +6,14 @@ namespace Wrap;
 /// <summary>
 /// Represents an object (Entity or Model) with a strongly-typed ID.
 /// </summary>
-public interface IWithId
+/// <typeparam name="TId">ID type.</typeparam>
+/// <typeparam name="TValue">ID value type.</typeparam>
+public interface IWithId<TId, TValue>
+	where TId : Id<TId, TValue>, new()
+	where TValue : struct
 {
 	/// <summary>
-	/// <see cref="IId"/> object wrapping an ID value.
+	/// <typeparamref name="TId"/> object of type <typeparamref name="TValue"/> wrapping an ID value.
 	/// </summary>
-	IId Id { get; }
+	TId Id { get; }
 }

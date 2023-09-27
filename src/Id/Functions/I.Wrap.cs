@@ -14,6 +14,6 @@ public static partial class I
 	/// <returns>Value wrapped as a strongly-typed ID.</returns>
 	public static TId Wrap<TId, TValue>(TValue value)
 		where TId : Id<TId, TValue>, new()
-		where TValue : notnull =>
-		new() { Value = value };
+		where TValue : struct =>
+		F.Wrap<TId, TValue>(value);
 }
