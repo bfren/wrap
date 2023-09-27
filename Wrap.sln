@@ -24,7 +24,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Packages.props = Directory.Packages.props
 		.github\FUNDING.yml = .github\FUNDING.yml
 		LICENSE = LICENSE
-		monadic.code-workspace = monadic.code-workspace
 		Pack.csproj = Pack.csproj
 		.github\workflows\publish.yml = .github\workflows\publish.yml
 		README.md = README.md
@@ -32,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\workflows\test.yml = .github\workflows\test.yml
 		Version = Version
 		.github\workflows\workflow-cleanup.yml = .github\workflows\workflow-cleanup.yml
+		wrap.code-workspace = wrap.code-workspace
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "src\Common\Common.csproj", "{FEF06900-2DD1-4C0E-A514-5E60A675526C}"
@@ -57,11 +57,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4B7F8518-4
 		docs\toc.yml = docs\toc.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Id", "src\Id\Id.csproj", "{FD963CA7-A488-4577-8D1D-43297EB6220F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Id", "src\Id\Id.csproj", "{FD963CA7-A488-4577-8D1D-43297EB6220F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Result.Testing", "src\Result.Testing\Result.Testing.csproj", "{1647A9DA-90A0-4B23-B6CD-410F7EE32A89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Result.Testing", "src\Result.Testing\Result.Testing.csproj", "{1647A9DA-90A0-4B23-B6CD-410F7EE32A89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "All.Testing", "src\All.Testing\All.Testing.csproj", "{562EA825-7859-4074-9B6E-8EDC3B393D35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "All.Testing", "src\All.Testing\All.Testing.csproj", "{562EA825-7859-4074-9B6E-8EDC3B393D35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
