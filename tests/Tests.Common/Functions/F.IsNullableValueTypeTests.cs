@@ -1,7 +1,7 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Wrap.FunctionTests.IsNullableTests;
+namespace Wrap.Functions.IsNullableTests;
 
 public class when_input_is_nullable_value_type
 {
