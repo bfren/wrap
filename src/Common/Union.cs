@@ -56,12 +56,3 @@ public abstract record class Union<TUnion, TValue> : IUnion<TValue>
 		F.Wrap<TUnion, TValue>(value);
 #pragma warning restore CA1000 // Do not declare static members on generic types
 }
-
-internal class Foo
-{
-	private void Bar()
-	{
-
-	}
-}
-
