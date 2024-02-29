@@ -37,7 +37,7 @@ public sealed class UnionJsonConverterFactory : JsonConverterFactory
 		}
 
 		// Ensure there is a parameterless contstructor
-		if (typeToConvert.GetConstructor(Array.Empty<Type>()) is null)
+		if (typeToConvert.GetConstructor([]) is null)
 		{
 			throw new JsonConverterException(
 				$"{typeToConvert} does not have a parameterless constructor."

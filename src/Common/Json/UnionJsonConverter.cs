@@ -4,6 +4,7 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Wrap.Exceptions;
 
 namespace Wrap.Json;
 
@@ -20,6 +21,27 @@ internal sealed class UnionJsonConverter<TUnion, TValue> : JsonConverter<TUnion>
 		writer.WriteStringValue(value.Value?.ToString());
 
 	/// <inheritdoc/>
-	public override TUnion? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) =>
-		F.Wrap<TUnion, TValue>(JsonSerializer.Deserialize<TValue>(ref reader, options));
+	public override TUnion? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+	{
+		try
+		{
+			return JsonSerializer.Deserialize<TValue>(ref reader, options) switch
+			{
+				TValue x =>
+					F.Wrap<TUnion, TValue>(x),
+
+				_ =>
+					throw new NullUnionValueException()
+			};
+		}
+		catch (JsonException e)
+		{
+			if (e.Message.StartsWith("The input does not contain any JSON tokens.", StringComparison.OrdinalIgnoreCase))
+			{
+				throw new NullUnionValueException();
+			}
+
+			throw new IncorrectValueTypeException<TUnion, TValue>(e);
+		}
+	}
 }
