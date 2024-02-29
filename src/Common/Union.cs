@@ -7,10 +7,10 @@ using Wrap.Exceptions;
 namespace Wrap;
 
 /// <summary>
-/// 
+/// Wraps simple CLR types.
 /// </summary>
-/// <typeparam name="TUnion"></typeparam>
-/// <typeparam name="TValue"></typeparam>
+/// <typeparam name="TUnion">Union implementation type.</typeparam>
+/// <typeparam name="TValue">Value type.</typeparam>
 public abstract record class Union<TUnion, TValue> : IUnion<TValue>
 	where TUnion : Union<TUnion, TValue>, new()
 {
@@ -18,7 +18,36 @@ public abstract record class Union<TUnion, TValue> : IUnion<TValue>
 	[MemberNotNull]
 	public TValue Value
 	{
-		get => value switch
+		get => Check(value);
+		init => this.value = Check(value);
+	}
+
+	/// <summary>
+	/// Encapsulated value.
+	/// </summary>
+	private readonly TValue? value;
+
+	/// <summary>
+	/// Allow 
+	/// </summary>
+	protected Union() { }
+
+	/// <summary>
+	/// Allow base classes to set .
+	/// </summary>
+	/// <param name="value">Union value.</param>
+	protected Union([DisallowNull] TValue value) =>
+		this.value = value;
+
+	/// <summary>
+	/// Check <paramref name="value"/> and throw an exception if it is null and the underlying type
+	/// does not allow null values.
+	/// </summary>
+	/// <param name="value">Value to check.</param>
+	/// <returns><paramref name="value"/> if not null or null is permitted.</returns>
+	/// <exception cref="NullUnionValueException">If <paramref name="value"/> is null and the underlying type is not nullable.</exception>
+	private TValue Check(TValue? value) =>
+		value switch
 		{
 			TValue =>
 				value,
@@ -29,22 +58,6 @@ public abstract record class Union<TUnion, TValue> : IUnion<TValue>
 			_ =>
 				throw new NullUnionValueException()
 		};
-		init => this.value = value;
-	}
-
-	private readonly TValue? value;
-
-	/// <summary>
-	/// 
-	/// </summary>
-	protected Union() { }
-
-	/// <summary>
-	/// Create Union with a value.
-	/// </summary>
-	/// <param name="value">Union value.</param>
-	protected Union([DisallowNull] TValue value) =>
-		this.value = value;
 
 	/// <summary>
 	/// 
