@@ -13,9 +13,9 @@ public abstract partial record class Result<T>
 		R.Wrap(value);
 
 	/// <summary>
-	/// Implicitly convert a <see cref="Wrap.Err"/> into a <see cref="Result{T}.Err"/> object.
+	/// Implicitly convert a <see cref="Wrap.Fail"/> into a <see cref="Result{T}.Err"/> object.
 	/// </summary>
 	/// <param name="err">Error value.</param>
-	public static implicit operator Result<T>(Wrap.Err err) =>
+	public static implicit operator Result<T>(Wrap.Fail err) =>
 		Err.Create(err.Value);
 }

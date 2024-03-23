@@ -13,7 +13,7 @@ public static partial class R
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="f">Function to run.</param>
-	/// <returns>The value of <paramref name="f"/> or an <see cref="Wrap.Err"/> result.</returns>
+	/// <returns>The value of <paramref name="f"/> or an <see cref="Wrap.Fail"/> result.</returns>
 	public static Result<T> Try<T>(Func<T> f)
 	{
 		try

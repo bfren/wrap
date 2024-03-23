@@ -7,9 +7,9 @@ namespace Wrap;
 
 public abstract partial record class Result<T>
 {
-	internal sealed record class Err : Result<T>, ILeft<ErrValue, T>
+	internal sealed record class Err : Result<T>, ILeft<FailValue, T>
 	{
-		public ErrValue Value { get; init; }
+		public FailValue Value { get; init; }
 
 		internal static Result<T> Create(string message) =>
 			new Err(message);
@@ -17,14 +17,14 @@ public abstract partial record class Result<T>
 		internal static Result<T> Create(Exception exception) =>
 			new Err(exception);
 
-		internal static Result<T> Create(ErrValue value) =>
+		internal static Result<T> Create(FailValue value) =>
 			new Err(value);
 
 		/// <summary>
 		/// Internal creation only.
 		/// </summary>
 		/// <param name="value">Error value.</param>
-		private Err(ErrValue value) =>
+		private Err(FailValue value) =>
 			Value = value;
 	}
 }

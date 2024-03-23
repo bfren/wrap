@@ -22,7 +22,7 @@ public static partial class ResultExtensions
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <param name="map">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns><see cref="Ok{T}"/> object or <see cref="Err"/>.</returns>
+	/// <returns><see cref="Ok{T}"/> object or <see cref="Fail"/>.</returns>
 	public static Result<TReturn> Map<T, TReturn>(this Result<T> @this, Func<T, TReturn> map) =>
 		R.Match(@this,
 			err: R.Err<TReturn>,

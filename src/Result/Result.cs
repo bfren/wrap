@@ -10,7 +10,7 @@ namespace Wrap;
 /// Result monad.
 /// </summary>
 /// <typeparam name="T">Ok value type.</typeparam>
-public abstract partial record class Result<T> : IEither<Result<T>, ErrValue, T>
+public abstract partial record class Result<T> : IEither<Result<T>, FailValue, T>
 {
 	/// <inheritdoc/>
 	public Task<Result<T>> AsTask() =>

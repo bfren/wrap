@@ -7,8 +7,8 @@ namespace Wrap;
 
 public static partial class R
 {
-	/// <inheritdoc cref="Err{T}(ErrValue)"/>
-	public static Err Err(ErrValue error)
+	/// <inheritdoc cref="Err{T}(FailValue)"/>
+	public static Fail Err(FailValue error)
 	{
 		if (error.Exception is not null)
 		{
@@ -23,7 +23,7 @@ public static partial class R
 	}
 
 	/// <summary>
-	/// Create an <see cref="Wrap.Err"/> from an error value.
+	/// Create an <see cref="Wrap.Fail"/> from an error value.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -33,11 +33,11 @@ public static partial class R
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="error">Error value.</param>
 	/// <returns>Error result.</returns>
-	public static Result<T> Err<T>(ErrValue error) =>
+	public static Result<T> Err<T>(FailValue error) =>
 		Err(error);
 
 	/// <inheritdoc cref="Err{T}(string)"/>
-	public static Err Err(string message)
+	public static Fail Err(string message)
 	{
 		F.LogError(message);
 
@@ -45,7 +45,7 @@ public static partial class R
 	}
 
 	/// <summary>
-	/// Create an <see cref="Wrap.Err"/> from a simple error message.
+	/// Create an <see cref="Wrap.Fail"/> from a simple error message.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -59,14 +59,14 @@ public static partial class R
 		Err(message);
 
 	/// <inheritdoc cref="Err{T}(Exception)"/>
-	public static Err Err(Exception ex)
+	public static Fail Err(Exception ex)
 	{
 		F.LogException(ex);
 		return new() { Value = ex };
 	}
 
 	/// <summary>
-	/// Create an <see cref="Wrap.Err"/> object from an exception type.
+	/// Create an <see cref="Wrap.Fail"/> object from an exception type.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -75,12 +75,12 @@ public static partial class R
 	/// </remarks>
 	/// <typeparam name="TException">Exception type.</typeparam>
 	/// <returns>Error result.</returns>
-	public static Err Err<TException>()
+	public static Fail Err<TException>()
 		where TException : Exception, new() =>
 		Err(new TException());
 
 	/// <summary>
-	/// Create an <see cref="Wrap.Err"/> object from an exception.
+	/// Create an <see cref="Wrap.Fail"/> object from an exception.
 	/// </summary>
 	/// <remarks>
 	/// <para>

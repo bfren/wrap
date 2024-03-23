@@ -15,7 +15,7 @@ public static partial class ResultExtensions
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <param name="bind">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns><see cref="Result{T}"/> object returned by <paramref name="bind"/> or <see cref="Err"/>.</returns>
+	/// <returns><see cref="Result{T}"/> object returned by <paramref name="bind"/> or <see cref="Fail"/>.</returns>
 	public static Result<TReturn> Bind<T, TReturn>(this Result<T> @this, Func<T, Result<TReturn>> bind) =>
 		R.Match(@this,
 			err: R.Err<TReturn>,
