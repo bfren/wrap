@@ -25,28 +25,28 @@ public static partial class ResultExtensions
 	/// <returns><see cref="Ok{T}"/> object or <see cref="Fail"/>.</returns>
 	public static Result<TReturn> Map<T, TReturn>(this Result<T> @this, Func<T, TReturn> map) =>
 		R.Match(@this,
-			err: R.Err<TReturn>,
+			err: R.Fail<TReturn>,
 			ok: x => R.Try(() => map(x))
 		);
 
 	/// <inheritdoc cref="Map{T, TReturn}(Result{T}, Func{T, TReturn})"/>
 	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Result<T> @this, Func<T, Task<TReturn>> map) =>
 		R.MatchAsync(@this,
-			err: R.Err<TReturn>,
+			err: R.Fail<TReturn>,
 			ok: x => R.TryAsync(() => map(x))
 		);
 
 	/// <inheritdoc cref="Map{T, TReturn}(Result{T}, Func{T, TReturn})"/>
 	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, TReturn> map) =>
 		R.MatchAsync(@this,
-			err: R.Err<TReturn>,
+			err: R.Fail<TReturn>,
 			ok: x => R.Try(() => map(x))
 		);
 
 	/// <inheritdoc cref="Map{T, TReturn}(Result{T}, Func{T, TReturn})"/>
 	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, Task<TReturn>> map) =>
 		R.MatchAsync(@this,
-			err: R.Err<TReturn>,
+			err: R.Fail<TReturn>,
 			ok: x => R.TryAsync(() => map(x))
 		);
 }

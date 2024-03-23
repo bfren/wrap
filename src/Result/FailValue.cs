@@ -11,10 +11,6 @@ namespace Wrap;
 /// </summary>
 public readonly record struct FailValue
 {
-	/// <summary>
-	/// Error message.
-	/// </summary>
-	public readonly required string Message { get; init; }
 
 	/// <summary>
 	/// [Optional] Exception object.
@@ -27,10 +23,15 @@ public readonly record struct FailValue
 	public readonly LogLevel Level { get; init; }
 
 	/// <summary>
-	/// Convert an error message to an <see cref="FailValue"/> object,
+	/// Failure message.
+	/// </summary>
+	public readonly required string Message { get; init; }
+
+	/// <summary>
+	/// Convert a failure message to an <see cref="FailValue"/> object,
 	/// setting <see cref="Level"/> to <see cref="LogLevel.Unknown"/>.
 	/// </summary>
-	/// <param name="message">Error message.</param>
+	/// <param name="message">Failure message.</param>
 	public static implicit operator FailValue(string message) =>
 		new() { Message = message, Level = LogLevel.Unknown };
 

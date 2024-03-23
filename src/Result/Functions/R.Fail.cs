@@ -7,8 +7,8 @@ namespace Wrap;
 
 public static partial class R
 {
-	/// <inheritdoc cref="Err{T}(FailValue)"/>
-	public static Fail Err(FailValue error)
+	/// <inheritdoc cref="Fail{T}(FailValue)"/>
+	public static Fail Fail(FailValue error)
 	{
 		if (error.Exception is not null)
 		{
@@ -16,50 +16,50 @@ public static partial class R
 		}
 		else
 		{
-			F.LogError(error.Message);
+			F.LogFailure(error.Message);
 		}
 
 		return new() { Value = error };
 	}
 
 	/// <summary>
-	/// Create an <see cref="Wrap.Fail"/> from an error value.
+	/// Create an <see cref="Wrap.Fail"/> from a <see cref="FailValue" />.
 	/// </summary>
 	/// <remarks>
 	/// <para>
-	/// Also logs the error using <see cref="F.LogException"/> or <see cref="F.LogError"/> first.
+	/// Also logs the failure using <see cref="F.LogException"/> or <see cref="F.LogFailure"/> first.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
-	/// <param name="error">Error value.</param>
-	/// <returns>Error result.</returns>
-	public static Result<T> Err<T>(FailValue error) =>
-		Err(error);
+	/// <param name="error">Failure value.</param>
+	/// <returns>Failure result.</returns>
+	public static Result<T> Fail<T>(FailValue error) =>
+		Fail(error);
 
-	/// <inheritdoc cref="Err{T}(string)"/>
-	public static Fail Err(string message)
+	/// <inheritdoc cref="Fail{T}(string)"/>
+	public static Fail Fail(string message)
 	{
-		F.LogError(message);
+		F.LogFailure(message);
 
 		return new() { Value = message };
 	}
 
 	/// <summary>
-	/// Create an <see cref="Wrap.Fail"/> from a simple error message.
+	/// Create an <see cref="Wrap.Fail"/> from a simple failure message.
 	/// </summary>
 	/// <remarks>
 	/// <para>
-	/// Also logs the error using <see cref="F.LogError"/> first.
+	/// Also logs the exception using <see cref="F.LogFailure"/> first.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
-	/// <param name="message">Error message.</param>
-	/// <returns>Error result.</returns>
-	public static Result<T> Err<T>(string message) =>
-		Err(message);
+	/// <param name="message">Failure message.</param>
+	/// <returns>Failure result.</returns>
+	public static Result<T> Fail<T>(string message) =>
+		Fail(message);
 
-	/// <inheritdoc cref="Err{T}(Exception)"/>
-	public static Fail Err(Exception ex)
+	/// <inheritdoc cref="Fail{T}(Exception)"/>
+	public static Fail Fail(Exception ex)
 	{
 		F.LogException(ex);
 		return new() { Value = ex };
@@ -74,10 +74,10 @@ public static partial class R
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="TException">Exception type.</typeparam>
-	/// <returns>Error result.</returns>
-	public static Fail Err<TException>()
+	/// <returns>Failure result.</returns>
+	public static Fail Fail<TException>()
 		where TException : Exception, new() =>
-		Err(new TException());
+		Fail(new TException());
 
 	/// <summary>
 	/// Create an <see cref="Wrap.Fail"/> object from an exception.
@@ -89,7 +89,7 @@ public static partial class R
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="ex">Exception object.</param>
-	/// <returns>Error result.</returns>
-	public static Result<T> Err<T>(Exception ex) =>
-		Err(ex);
+	/// <returns>Failure result.</returns>
+	public static Result<T> Fail<T>(Exception ex) =>
+		Fail(ex);
 }

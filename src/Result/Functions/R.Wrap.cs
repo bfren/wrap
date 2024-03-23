@@ -49,6 +49,6 @@ public static partial class R
 				new Ok<T>(value!),
 
 			_ =>
-				Err<OkValueCannotBeNullException>()
+				Fail<OkValueCannotBeNullException>()
 		};
 }

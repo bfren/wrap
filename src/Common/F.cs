@@ -11,10 +11,10 @@ namespace Wrap;
 public static partial class F
 {
 	/// <summary>
-	/// Log errors.
+	/// Log failures.
 	/// </summary>
-	/// <param name="error">Error message.</param>
-	public delegate void ErrorLogger(string error);
+	/// <param name="failure">Failure message.</param>
+	public delegate void FailureLogger(string failure);
 
 	/// <summary>
 	/// Log exceptions.

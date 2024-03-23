@@ -33,7 +33,7 @@ public static partial class R
 	{
 		Action f = result switch
 		{
-			Result<T>.Err x =>
+			Result<T>.Failure x =>
 				() => err(x.Value),
 
 			Ok<T> y =>
@@ -66,7 +66,7 @@ public static partial class R
 	{
 		Func<Task> f = await result switch
 		{
-			Result<T>.Err x =>
+			Result<T>.Failure x =>
 				() => err(x.Value),
 
 			Ok<T> y =>
@@ -109,7 +109,7 @@ public static partial class R
 	public static TReturn Match<T, TReturn>(Result<T> result, Func<FailValue, TReturn> err, Func<T, TReturn> ok) =>
 		result switch
 		{
-			Result<T>.Err x =>
+			Result<T>.Failure x =>
 				err(x.Value),
 
 			Ok<T> y =>

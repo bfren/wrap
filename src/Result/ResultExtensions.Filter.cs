@@ -21,7 +21,7 @@ public static partial class ResultExtensions
 		@this.Bind(x => predicate(x) switch
 		{
 			false =>
-				R.Err<PredicateFalseException>(),
+				R.Fail<PredicateFalseException>(),
 
 			true =>
 				R.Wrap(x)
@@ -32,7 +32,7 @@ public static partial class ResultExtensions
 		@this.BindAsync(async x => await predicate(x) switch
 		{
 			false =>
-				R.Err<PredicateFalseException>(),
+				R.Fail<PredicateFalseException>(),
 
 			true =>
 				R.Wrap(x)
@@ -43,7 +43,7 @@ public static partial class ResultExtensions
 		@this.BindAsync(x => predicate(x) switch
 		{
 			false =>
-				R.Err<PredicateFalseException>(),
+				R.Fail<PredicateFalseException>(),
 
 			true =>
 				R.Wrap(x)
@@ -54,7 +54,7 @@ public static partial class ResultExtensions
 		@this.BindAsync(async x => await predicate(x) switch
 		{
 			false =>
-				R.Err<PredicateFalseException>(),
+				R.Fail<PredicateFalseException>(),
 
 			true =>
 				R.Wrap(x)

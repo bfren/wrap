@@ -9,20 +9,20 @@ namespace Wrap;
 public static partial class ResultExtensions
 {
 	/// <summary>
-	/// Run <paramref name="err"/> or <paramref name="ok"/> depending on the value of <paramref name="this"/>.
+	/// Run <paramref name="fail"/> or <paramref name="ok"/> depending on the value of <paramref name="this"/>.
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="err">Audit function to run when <paramref name="this"/> is <see cref="Fail"/>.</param>
+	/// <param name="fail">Audit function to run when <paramref name="this"/> is <see cref="Fail"/>.</param>
 	/// <param name="ok">Audit function to run when <paramref name="this"/> is <see cref="Ok{T}"/>.</param>
 	/// <returns>The original value of <paramref name="this"/>.</returns>
-	public static Result<T> Audit<T>(this Result<T> @this, Action<FailValue>? err = null, Action<T>? ok = null)
+	public static Result<T> Audit<T>(this Result<T> @this, Action<FailValue>? fail = null, Action<T>? ok = null)
 	{
 		try
 		{
-			if (@this is Result<T>.Err y && err is not null)
+			if (@this is Result<T>.Failure y && fail is not null)
 			{
-				err(y.Value);
+				fail(y.Value);
 			}
 			else if (@this is Ok<T> x && ok is not null)
 			{
@@ -73,7 +73,7 @@ public static partial class ResultExtensions
 
 		try
 		{
-			if (result is Result<T>.Err y && err is not null)
+			if (result is Result<T>.Failure y && err is not null)
 			{
 				await err(y.Value);
 			}

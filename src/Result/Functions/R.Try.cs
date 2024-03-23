@@ -22,7 +22,7 @@ public static partial class R
 		}
 		catch (Exception ex)
 		{
-			return Err(ex);
+			return Fail(ex);
 		}
 	}
 
@@ -35,7 +35,7 @@ public static partial class R
 		}
 		catch (Exception ex)
 		{
-			return Err(ex);
+			return Fail(ex);
 		}
 	}
 }
