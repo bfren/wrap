@@ -7,20 +7,19 @@ using Wrap.Logging;
 namespace Wrap;
 
 /// <summary>
-/// Holds information about an error - which may or may not have been caused by an exception.
+/// Holds information about a failure - which may or may not have been caused by an exception.
 /// </summary>
 public readonly record struct FailValue
 {
-
 	/// <summary>
 	/// [Optional] Exception object.
 	/// </summary>
 	public readonly Exception? Exception { get; init; }
 
 	/// <summary>
-	/// LogLevel - default value is <see cref="LogLevel.Unknown"/>.
+	/// Log level.
 	/// </summary>
-	public readonly LogLevel Level { get; init; }
+	public readonly required LogLevel Level { get; init; }
 
 	/// <summary>
 	/// Failure message.

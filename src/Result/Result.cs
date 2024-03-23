@@ -31,7 +31,7 @@ public abstract partial record class Result<T> : IEither<Result<T>, FailValue, T
 	/// <returns>Value string if this is a <see cref="Ok{T}"/> or the value type.</returns>
 	public sealed override string ToString() =>
 		R.Match(this,
-			err: x => x.Message,
+			fail: x => x.Message,
 			ok: x => x?.ToString() switch
 			{
 				string value =>

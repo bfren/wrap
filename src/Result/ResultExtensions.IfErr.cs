@@ -28,5 +28,5 @@ public static partial class ResultExtensions
 
 	/// <inheritdoc cref="IfFail{T}(Result{T}, Action{FailValue})"/>
 	public static Task<Result<T>> IfFailAsync<T>(this Task<Result<T>> @this, Func<FailValue, Task> f) =>
-		@this.AuditAsync(err: f);
+		@this.AuditAsync(fail: f);
 }

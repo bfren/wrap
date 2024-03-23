@@ -15,7 +15,7 @@ public abstract partial record class Result<T>
 	/// <summary>
 	/// Implicitly convert a <see cref="Fail"/> into a <see cref="Result{T}.Failure"/> object.
 	/// </summary>
-	/// <param name="err">Failure value.</param>
-	public static implicit operator Result<T>(Fail err) =>
-		Failure.Create(err.Value);
+	/// <param name="fail">Failure value.</param>
+	public static implicit operator Result<T>(Fail fail) =>
+		Failure.Create(fail.Value);
 }

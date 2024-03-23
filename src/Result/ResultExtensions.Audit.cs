@@ -59,23 +59,23 @@ public static partial class ResultExtensions
 	}
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailValue}?, Action{T}?)"/>
-	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<FailValue, Task>? err = null, Func<T, Task>? ok = null) =>
-		AuditAsync(@this.AsTask(), err, ok);
+	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<FailValue, Task>? fail = null, Func<T, Task>? ok = null) =>
+		AuditAsync(@this.AsTask(), fail, ok);
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailValue}?, Action{T}?)"/>
-	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<FailValue>? err = null, Action<T>? ok = null) =>
-		AuditAsync(@this, x => { err?.Invoke(x); return Task.CompletedTask; }, x => { ok?.Invoke(x); return Task.CompletedTask; });
+	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<FailValue>? fail = null, Action<T>? ok = null) =>
+		AuditAsync(@this, x => { fail?.Invoke(x); return Task.CompletedTask; }, x => { ok?.Invoke(x); return Task.CompletedTask; });
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailValue}?, Action{T}?)"/>
-	public static async Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<FailValue, Task>? err = null, Func<T, Task>? ok = null)
+	public static async Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<FailValue, Task>? fail = null, Func<T, Task>? ok = null)
 	{
 		var result = await @this;
 
 		try
 		{
-			if (result is Result<T>.Failure y && err is not null)
+			if (result is Result<T>.Failure y && fail is not null)
 			{
-				await err(y.Value);
+				await fail(y.Value);
 			}
 			else if (result is Ok<T> x && ok is not null)
 			{

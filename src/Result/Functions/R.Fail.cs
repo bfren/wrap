@@ -8,18 +8,18 @@ namespace Wrap;
 public static partial class R
 {
 	/// <inheritdoc cref="Fail{T}(FailValue)"/>
-	public static Fail Fail(FailValue error)
+	public static Fail Fail(FailValue failure)
 	{
-		if (error.Exception is not null)
+		if (failure.Exception is not null)
 		{
-			F.LogException(error.Exception);
+			F.LogException(failure.Exception);
 		}
 		else
 		{
-			F.LogFailure(error.Message);
+			F.LogFailure(failure.Message);
 		}
 
-		return new() { Value = error };
+		return new() { Value = failure };
 	}
 
 	/// <summary>
@@ -31,10 +31,10 @@ public static partial class R
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
-	/// <param name="error">Failure value.</param>
+	/// <param name="failure">Failure value.</param>
 	/// <returns>Failure result.</returns>
-	public static Result<T> Fail<T>(FailValue error) =>
-		Fail(error);
+	public static Result<T> Fail<T>(FailValue failure) =>
+		Fail(failure);
 
 	/// <inheritdoc cref="Fail{T}(string)"/>
 	public static Fail Fail(string message)

@@ -4,7 +4,7 @@
 namespace Wrap;
 
 /// <summary>
-/// 'Fail' Result - holds information about the error / reason why an operation failed.
+/// 'Fail' Result - holds information why an operation failed.
 /// </summary>
 public readonly struct Fail : IUnion<FailValue>
 {
