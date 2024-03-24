@@ -8,12 +8,10 @@ public static partial class F
 	/// <summary>
 	/// Static exception logger - by default do nothing.
 	/// </summary>
-	public static ExceptionLogger LogException { get; set; } =
-		_ => { };
+	public static ExceptionLogger? LogException { get; set; }
 
 	/// <summary>
 	/// Static failure logger - by default do nothing.
 	/// </summary>
-	public static FailureLogger LogFailure { get; set; } =
-		_ => { };
+	public static FailureLogger? LogFailure { get; set; }
 }

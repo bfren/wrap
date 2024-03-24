@@ -12,11 +12,11 @@ public static partial class R
 	{
 		if (failure.Exception is not null)
 		{
-			F.LogException(failure.Exception);
+			F.LogException?.Invoke(failure.Exception);
 		}
 		else
 		{
-			F.LogFailure(failure.Message);
+			F.LogFailure?.Invoke(failure.Message, [.. failure.Args]);
 		}
 
 		return new() { Value = failure };
@@ -36,13 +36,9 @@ public static partial class R
 	public static Result<T> Fail<T>(FailValue failure) =>
 		Fail(failure);
 
-	/// <inheritdoc cref="Fail{T}(string)"/>
-	public static Fail Fail(string message)
-	{
-		F.LogFailure(message);
-
-		return new() { Value = message };
-	}
+	/// <inheritdoc cref="Fail{T}(string, object[])"/>
+	public static Fail Fail(string message, params object[] args) =>
+		Fail(FailValue.Create(message, args));
 
 	/// <summary>
 	/// Create an <see cref="Wrap.Fail"/> from a simple failure message.
@@ -54,16 +50,14 @@ public static partial class R
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="message">Failure message.</param>
+	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
 	/// <returns>Failure result.</returns>
-	public static Result<T> Fail<T>(string message) =>
-		Fail(message);
+	public static Result<T> Fail<T>(string message, params object[] args) =>
+		Fail(message, args);
 
 	/// <inheritdoc cref="Fail{T}(Exception)"/>
-	public static Fail Fail(Exception ex)
-	{
-		F.LogException(ex);
-		return new() { Value = ex };
-	}
+	public static Fail Fail(Exception ex) =>
+		Fail(ex);
 
 	/// <summary>
 	/// Create an <see cref="Wrap.Fail"/> object from an exception type.
