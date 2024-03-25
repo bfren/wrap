@@ -31,7 +31,7 @@ public static partial class MaybeExtensions
 		}
 		catch (Exception ex)
 		{
-			F.LogException(ex);
+			F.LogException?.Invoke(ex);
 		}
 
 		return @this;
@@ -52,7 +52,7 @@ public static partial class MaybeExtensions
 		}
 		catch (Exception ex)
 		{
-			F.LogException(ex);
+			F.LogException?.Invoke(ex);
 		}
 
 		return @this;
@@ -84,7 +84,7 @@ public static partial class MaybeExtensions
 		}
 		catch (Exception ex)
 		{
-			F.LogException(ex);
+			F.LogException?.Invoke(ex);
 		}
 
 		return result;
@@ -109,7 +109,7 @@ public static partial class MaybeExtensions
 		}
 		catch (Exception ex)
 		{
-			F.LogException(ex);
+			F.LogException?.Invoke(ex);
 		}
 
 		return result;
