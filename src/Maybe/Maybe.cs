@@ -12,6 +12,18 @@ namespace Wrap;
 /// <typeparam name="T">Some value type.</typeparam>
 public abstract partial record class Maybe<T> : IEither<Maybe<T>, None, T>
 {
+	/// <summary>
+	/// Returns true if this object is a <see cref="Wrap.None"/>.
+	/// </summary>
+	public bool IsNone =>
+		!IsSome;
+
+	/// <summary>
+	/// Returns true if this object is a <see cref="Some{T}"/>.
+	/// </summary>
+	public bool IsSome =>
+		this is Some<T>;
+
 	/// <inheritdoc/>
 	public Task<Maybe<T>> AsTask() =>
 		Task.FromResult(this);
