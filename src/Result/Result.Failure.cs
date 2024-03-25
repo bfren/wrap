@@ -1,8 +1,6 @@
 // Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System;
-
 namespace Wrap;
 
 public abstract partial record class Result<T>
@@ -12,22 +10,19 @@ public abstract partial record class Result<T>
 		/// <summary>
 		/// Failure value.
 		/// </summary>
-		public FailValue Value { get; init; }
-
-		internal static Result<T> Create(string message) =>
-			new Failure(message);
-
-		internal static Result<T> Create(Exception exception) =>
-			new Failure(exception);
-
-		internal static Result<T> Create(FailValue value) =>
-			new Failure(value);
+		public required FailValue Value { get; init; }
 
 		/// <summary>
-		/// Internal creation only.
+		/// Creation only via <see cref="Create(FailValue)"/>.
 		/// </summary>
-		/// <param name="value">Failure value.</param>
-		private Failure(FailValue value) =>
-			Value = value;
+		private Failure() { }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		internal static Result<T> Create(FailValue value) =>
+			new Failure() { Value = value };
 	}
 }
