@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
+using System.Globalization;
 using Wrap.Logging;
 
 namespace Wrap;
@@ -11,6 +12,8 @@ namespace Wrap;
 /// </summary>
 public readonly record struct FailValue
 {
+	private const string ContextFormat = "{0}.{1}()";
+
 	private const LogLevel DefaultMessageLevel = LogLevel.Verbose;
 
 	private const LogLevel DefaultExceptionLevel = LogLevel.Error;
@@ -40,10 +43,27 @@ public readonly record struct FailValue
 	/// </summary>
 	public readonly required string Message { get; init; }
 
-	/// <inheritdoc cref="Create{T}(string, object[])"/>
+	/// <inheritdoc cref="Create(string, string, string, object[])"/>
 	public static FailValue Create(string message, params object[] args) =>
 		new()
 		{
+			Message = message,
+			Args = args,
+			Level = DefaultMessageLevel
+		};
+
+	/// <summary>
+	/// Create a <see cref="FailValue"/> object from a simple <paramref name="message"/>.
+	/// </summary>
+	/// <param name="class">Context class.</param>
+	/// <param name="function">Context function.</param>
+	/// <param name="message">Failure message.</param>
+	/// <param name="args">[Optional] Arguments to use as values where <see cref="Message"/> contains format placeholders.</param>
+	/// <returns>Object containing failure information.</returns>
+	public static FailValue Create(string @class, string function, string message, params object[] args) =>
+		new()
+		{
+			Context = string.Format(CultureInfo.InvariantCulture, ContextFormat, @class, function),
 			Message = message,
 			Args = args,
 			Level = DefaultMessageLevel
@@ -65,10 +85,26 @@ public readonly record struct FailValue
 			Level = DefaultMessageLevel
 		};
 
-	/// <inheritdoc cref="Create{T}(Exception)"/>
+	/// <inheritdoc cref="Create(string, string, Exception)"/>
 	public static FailValue Create(Exception exception) =>
 		new()
 		{
+			Message = exception.Message,
+			Exception = exception,
+			Level = DefaultExceptionLevel
+		};
+
+	/// <summary>
+	/// Create a <see cref="FailValue"/> object from an <paramref name="exception"/>.
+	/// </summary>
+	/// <param name="class">Context class.</param>
+	/// <param name="function">Context function.</param>
+	/// <param name="exception">Failure exception.</param>
+	/// <returns>Object containing failure information.</returns>
+	public static FailValue Create(string @class, string function, Exception exception) =>
+		new()
+		{
+			Context = string.Format(CultureInfo.InvariantCulture, ContextFormat, @class, function),
 			Message = exception.Message,
 			Exception = exception,
 			Level = DefaultExceptionLevel
@@ -88,20 +124,4 @@ public readonly record struct FailValue
 			Exception = exception,
 			Level = DefaultExceptionLevel
 		};
-
-	///// <summary>
-	///// Convert a failure message to an <see cref="FailValue"/> object,
-	///// setting <see cref="Level"/> to <see cref="LogLevel.Verbose"/>.
-	///// </summary>
-	///// <param name="message">Failure message.</param>
-	//public static implicit operator FailValue(string message) =>
-	//	Create(message);
-
-	///// <summary>
-	///// Convert an exception to an <see cref="FailValue"/> object
-	///// setting <see cref="Level"/> to <see cref="LogLevel.Error"/>.
-	///// </summary>
-	///// <param name="exception">Exception object.</param>
-	//public static implicit operator FailValue(Exception exception) =>
-	//	Create(exception);
 }
