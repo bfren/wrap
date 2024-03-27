@@ -26,7 +26,7 @@ public readonly record struct FailValue
 	/// <summary>
 	/// [Optional] Arguments to use as values where <see cref="Message"/> contains format placeholders.
 	/// </summary>
-	public readonly object[]? Args { get; init; }
+	public readonly object?[]? Args { get; init; }
 
 	/// <summary>
 	/// [Optional] Context (usually full type name) of the failure.
@@ -49,7 +49,7 @@ public readonly record struct FailValue
 	public readonly required string Message { get; init; }
 
 	/// <inheritdoc cref="Create(string, string, string, object[])"/>
-	public static FailValue Create(string message, params object[] args) =>
+	public static FailValue Create(string message, params object?[] args) =>
 		new()
 		{
 			Message = message,
@@ -65,7 +65,7 @@ public readonly record struct FailValue
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use as values where <see cref="Message"/> contains format placeholders.</param>
 	/// <returns>Object containing failure information.</returns>
-	public static FailValue Create(string @class, string function, string message, params object[] args) =>
+	public static FailValue Create(string @class, string function, string message, params object?[] args) =>
 		new()
 		{
 			Context = string.Format(CultureInfo.InvariantCulture, ContextFormat, @class, function),
@@ -81,7 +81,7 @@ public readonly record struct FailValue
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use as values where <see cref="Message"/> contains format placeholders.</param>
 	/// <returns>Object containing failure information.</returns>
-	public static FailValue Create<T>(string message, params object[] args) =>
+	public static FailValue Create<T>(string message, params object?[] args) =>
 		new()
 		{
 			Context = typeof(T).FullName,

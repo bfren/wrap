@@ -39,7 +39,7 @@ public static partial class R
 	#region Without Context
 
 	/// <inheritdoc cref="Fail(string, string, string, object[])"/>
-	public static Fail Fail(string message, params object[] args) =>
+	public static Fail Fail(string message, params object?[] args) =>
 		Fail(FailValue.Create(message, args));
 
 	/// <inheritdoc cref="Fail{TContext, TException}()"/>
@@ -68,7 +68,7 @@ public static partial class R
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
 	/// <returns>Failure result.</returns>
-	public static Fail Fail(string @class, string function, string message, params object[] args) =>
+	public static Fail Fail(string @class, string function, string message, params object?[] args) =>
 		Fail(FailValue.Create(@class, function, message, args));
 
 	/// <summary>
@@ -83,7 +83,7 @@ public static partial class R
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
 	/// <returns>Failure result.</returns>
-	public static Fail Fail<T>(string message, params object[] args) =>
+	public static Fail Fail<T>(string message, params object?[] args) =>
 		Fail(FailValue.Create<T>(message, args));
 
 	/// <summary>
