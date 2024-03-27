@@ -66,7 +66,7 @@
     <PackageLicenseFile>$(LicenceFile)</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/bfren/wrap/wiki</PackageProjectUrl>
     <PackageReadmeFile>$(ReadmeFile)</PackageReadmeFile>
-    <PackageTags>async;C#;Either Type;Exception Handling;LINQ;Maybe Type;Monad;None;null;Option Type;Result Type;Some</PackageTags>
+    <PackageTags>async;C#;Either Type;Exception Handling;LINQ;Maybe Type;Monad;None;null;Option Type;Result Type;Some;ID;Strong ID</PackageTags>
     <RepositoryUrl>https://github.com/bfren/wrap</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Version>$(MonadsVersion)</Version>
@@ -85,7 +85,7 @@
   <Import Project="$(LocalPackPath)" Condition="Exists('$(LocalPackPath)') and '$(Configuration)'=='Release'"/>
   <PropertyGroup Label="Local Package Validation" Condition="Exists('$(LocalPackPath)') and '$(Configuration)'=='Release'">
     <EnablePackageValidation>false</EnablePackageValidation>
-    <PackageValidationBaselineVersion>9.3.0</PackageValidationBaselineVersion>
+    <PackageValidationBaselineVersion>1.0.0</PackageValidationBaselineVersion>
   </PropertyGroup>
   <Target Name="PackAndPushToLocalNuget" AfterTargets="DispatchToInnerBuilds" Condition="Exists('$(LocalPackPath)') and '$(Configuration)'=='Release'">
     <Exec Command="dotnet pack &quot;$(ProjectFileName)&quot; -p:PackageVersion=$(MonadsVersion) --no-build --configuration Release"/>
