@@ -8,17 +8,17 @@ namespace Wrap;
 public static partial class UnsafeExtensions
 {
 	/// <summary>
-	/// Assume <paramref name="this"/> is a <see cref="Some{T}"/> and get the value.
+	/// Assume <paramref name="this"/> is a <see cref="Ok{T}"/> and get the value.
 	/// </summary>
 	/// <remarks>
 	/// <para>
-	/// However (!) if <paramref name="this"/> is a <see cref="None"/>, you will get a null value.
+	/// However (!) if <paramref name="this"/> is a <see cref="Fail"/>, you will get a null value.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Some value type.</typeparam>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Unsafe object.</param>
 	public static T Unwrap<T>(this Unsafe<T> @this) =>
-		@this.Maybe.Unwrap(() => default!);
+		@this.Result.Unwrap(_ => default!);
 
 	/// <inheritdoc cref="Unwrap{T}(Unsafe{T})"/>
 	public static async Task<T> UnwrapAsync<T>(this Task<Unsafe<T>> @this) =>

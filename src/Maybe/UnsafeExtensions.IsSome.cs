@@ -15,7 +15,7 @@ public static partial class UnsafeExtensions
 	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Unsafe object.</param>
-	/// <param name="value">Value (null if <paramref name="this"/> contans <see cref="None"/>).</param>
+	/// <param name="value">Value (null if <paramref name="this"/> contains <see cref="None"/>).</param>
 	/// <returns>True if <paramref name="this"/> contains a <see cref="Some{T}"/>.</returns>
 	public static bool IsSome<T>(this Unsafe<T> @this, out T value)
 	{

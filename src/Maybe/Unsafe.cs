@@ -6,7 +6,7 @@ namespace Wrap;
 /// <summary>
 /// Unsafe wrapper to enable unsafe (i.e. may result in null values) functions.
 /// </summary>
-/// <typeparam name="T">Ok value type.</typeparam>
+/// <typeparam name="T">Some value type.</typeparam>
 public readonly record struct Unsafe<T>
 {
 	/// <summary>
