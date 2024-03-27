@@ -3,6 +3,7 @@
 
 using System;
 using System.Globalization;
+using System.Text;
 using Wrap.Logging;
 
 namespace Wrap;
@@ -12,7 +13,11 @@ namespace Wrap;
 /// </summary>
 public readonly record struct FailValue
 {
+#if NET8_0_OR_GREATER
+	private static readonly CompositeFormat ContextFormat = CompositeFormat.Parse("{0}.{1}()");
+#else
 	private const string ContextFormat = "{0}.{1}()";
+#endif
 
 	private const LogLevel DefaultMessageLevel = LogLevel.Verbose;
 
