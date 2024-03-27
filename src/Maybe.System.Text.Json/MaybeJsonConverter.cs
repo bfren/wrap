@@ -11,8 +11,13 @@ namespace Wrap.Json;
 /// <see cref="Maybe{T}"/> JSON converter.
 /// </summary>
 /// <typeparam name="T">Maybe value type.</typeparam>
-internal sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
+public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 {
+	/// <summary>
+	/// Internal creation only.
+	/// </summary>
+	internal MaybeJsonConverter() { }
+
 	/// <summary>
 	/// Read value and return as <see cref="Some{T}"/> or <see cref="None"/>.
 	/// </summary>

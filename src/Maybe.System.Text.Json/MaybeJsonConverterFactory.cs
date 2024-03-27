@@ -10,7 +10,7 @@ namespace Wrap.Json;
 /// <summary>
 /// <see cref="Maybe{T}"/> JSON converter factory.
 /// </summary>
-internal sealed class MaybeJsonConverterFactory : JsonConverterFactory
+public sealed class MaybeJsonConverterFactory : JsonConverterFactory
 {
 	/// <summary>
 	/// Returns true if <paramref name="typeToConvert"/> is <see cref="Maybe{T}"/>.
