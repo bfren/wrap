@@ -11,9 +11,8 @@ public static partial class UnsafeExtensions
 	/// Assume <paramref name="this"/> is a <see cref="Ok{T}"/> and get the value.
 	/// </summary>
 	/// <remarks>
-	/// <para>
-	/// However (!) if <paramref name="this"/> is a <see cref="Fail"/>, you will get a null value.
-	/// </para>
+	/// However (!) if <paramref name="this"/> is a <see cref="Fail"/>, you will get
+	/// the default value of <typeparamref name="T"/> or null.
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Unsafe object.</param>

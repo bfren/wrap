@@ -10,8 +10,8 @@ public static partial class UnsafeExtensions
 	/// to be <see cref="Ok{T}.Value"/>.
 	/// </summary>
 	/// <remarks>
-	/// Warning: <paramref name="value"/> will be <see langword="null"/> if <paramref name="this"/>
-	/// contains a <see cref="Fail"/>.
+	/// Warning: if <paramref name="this"/> contains a <see cref="Fail"/> <paramref name="value"/>
+	/// will be the default value of <typeparamref name="T"/> or null.
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Unsafe object.</param>
