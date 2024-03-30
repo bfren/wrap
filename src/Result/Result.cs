@@ -12,6 +12,18 @@ namespace Wrap;
 /// <typeparam name="T">Ok value type.</typeparam>
 public abstract partial record class Result<T> : IEither<Result<T>, FailValue, T>
 {
+	/// <summary>
+	/// Returns true if this object is a <see cref="Fail"/>.
+	/// </summary>
+	public bool IsFail =>
+		!IsOk;
+
+	/// <summary>
+	/// Returns true if this object is a <see cref="Ok{T}"/>.
+	/// </summary>
+	public bool IsOk =>
+		this is Ok<T>;
+
 	/// <inheritdoc/>
 	public Task<Result<T>> AsTask() =>
 		Task.FromResult(this);
