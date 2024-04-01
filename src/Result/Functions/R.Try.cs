@@ -8,13 +8,18 @@ namespace Wrap;
 
 public static partial class R
 {
+	/// <inheritdoc cref="Try{T}(Func{T}, ExceptionHandler)"/>
+	public static Result<T> Try<T>(Func<T> f) =>
+		Try(f, DefaultHandler);
+
 	/// <summary>
 	/// Execute function <paramref name="f"/>, returning its value and catching any exceptions.
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="f">Function to run.</param>
+	/// <param name="handler">Exception handler.</param>
 	/// <returns>The value of <paramref name="f"/> or an <see cref="Wrap.Fail"/> result.</returns>
-	public static Result<T> Try<T>(Func<T> f)
+	public static Result<T> Try<T>(Func<T> f, ExceptionHandler handler)
 	{
 		try
 		{
@@ -22,12 +27,16 @@ public static partial class R
 		}
 		catch (Exception ex)
 		{
-			return Fail(ex);
+			return handler(ex);
 		}
 	}
 
-	/// <inheritdoc cref="Try{T}(Func{T})"/>
-	public static async Task<Result<T>> TryAsync<T>(Func<Task<T>> f)
+	/// <inheritdoc cref="Try{T}(Func{T}, ExceptionHandler)"/>
+	public static Task<Result<T>> TryAsync<T>(Func<Task<T>> f) =>
+		TryAsync(f, DefaultHandler);
+
+	/// <inheritdoc cref="Try{T}(Func{T}, ExceptionHandler)"/>
+	public static async Task<Result<T>> TryAsync<T>(Func<Task<T>> f, ExceptionHandler handler)
 	{
 		try
 		{
@@ -35,7 +44,7 @@ public static partial class R
 		}
 		catch (Exception ex)
 		{
-			return Fail(ex);
+			return handler(ex);
 		}
 	}
 }
