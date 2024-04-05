@@ -53,7 +53,7 @@ public static partial class R
 
 	#endregion
 
-	#region With Context
+	#region With Context - Message
 
 	/// <summary>
 	/// Create a <see cref="Wrap.Fail"/> from a simple failure message.
@@ -85,6 +85,10 @@ public static partial class R
 	/// <returns>Failure result.</returns>
 	public static Fail Fail<T>(string message, params object?[] args) =>
 		Fail(FailValue.Create<T>(message, args));
+
+	#endregion
+
+	#region With Context - Exception
 
 	/// <summary>
 	/// Create a <see cref="Wrap.Fail"/> object from an exception type.
@@ -130,6 +134,21 @@ public static partial class R
 	/// <returns>Failure result.</returns>
 	public static Fail Fail<T>(Exception ex) =>
 		Fail(FailValue.Create<T>(ex));
+
+	/// <summary>
+	/// Create a <see cref="Wrap.Fail"/> object from an exception.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// Also logs the exception using <see cref="F.LogException"/> first.
+	/// </para>
+	/// </remarks>
+	/// <param name="class">Context class.</param>
+	/// <param name="function">Context function.</param>
+	/// <param name="ex">Exception object.</param>
+	/// <returns>Failure result.</returns>
+	public static Fail Fail(string @class, string function, Exception ex) =>
+		Fail(FailValue.Create(@class, function, ex));
 
 	#endregion
 }
