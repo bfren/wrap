@@ -16,6 +16,7 @@ public static partial class UnsafeExtensions
 	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Unsafe object.</param>
+	/// <returns>Value of <see cref="Unsafe{T}.Maybe"/>.</returns>
 	public static T Unwrap<T>(this Unsafe<T> @this) =>
 		@this.Maybe.Unwrap(() => default!);
 
