@@ -2,7 +2,8 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Threading.Tasks;
-using Wrap;
+
+namespace Wrap;
 
 public static partial class ResultExtensions
 {
