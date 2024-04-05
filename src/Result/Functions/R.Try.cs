@@ -17,9 +17,9 @@ public static partial class R
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="f">Function to run.</param>
-	/// <param name="handler">Exception handler.</param>
+	/// <param name="e">Exception handler.</param>
 	/// <returns>The value of <paramref name="f"/> or an <see cref="Wrap.Fail"/> result.</returns>
-	public static Result<T> Try<T>(Func<T> f, ExceptionHandler handler)
+	public static Result<T> Try<T>(Func<T> f, ExceptionHandler e)
 	{
 		try
 		{
@@ -27,7 +27,7 @@ public static partial class R
 		}
 		catch (Exception ex)
 		{
-			return handler(ex);
+			return e(ex);
 		}
 	}
 
@@ -36,7 +36,7 @@ public static partial class R
 		TryAsync(f, DefaultHandler);
 
 	/// <inheritdoc cref="Try{T}(Func{T}, ExceptionHandler)"/>
-	public static async Task<Result<T>> TryAsync<T>(Func<Task<T>> f, ExceptionHandler handler)
+	public static async Task<Result<T>> TryAsync<T>(Func<Task<T>> f, ExceptionHandler e)
 	{
 		try
 		{
@@ -44,7 +44,7 @@ public static partial class R
 		}
 		catch (Exception ex)
 		{
-			return handler(ex);
+			return e(ex);
 		}
 	}
 }
