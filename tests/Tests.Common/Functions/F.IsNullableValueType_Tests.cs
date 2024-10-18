@@ -1,12 +1,12 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Wrap.Functions.IsNullableTests;
+namespace Wrap.F_Tests;
 
-public class when_input_is_nullable_value_type
+public class IsNullableValueType_Tests
 {
 	[Fact]
-	public void returns_true()
+	public void return_true__when_input_is_nullable_value_type()
 	{
 		// Arrange
 		int? value = null;
@@ -17,12 +17,9 @@ public class when_input_is_nullable_value_type
 		// Assert
 		Assert.True(result);
 	}
-}
 
-public class when_input_is_non_nullable_value_type
-{
 	[Fact]
-	public void returns_false()
+	public void return_false__when_input_is_non_nullable_value_type()
 	{
 		// Arrange
 		var value = 0;
@@ -33,12 +30,9 @@ public class when_input_is_non_nullable_value_type
 		// Assert
 		Assert.False(result);
 	}
-}
 
-public class when_input_is_reference_type
-{
 	[Fact]
-	public void returns_false()
+	public void return_false__when_input_is_reference_type()
 	{
 		// Arrange
 		var v0 = string.Empty;

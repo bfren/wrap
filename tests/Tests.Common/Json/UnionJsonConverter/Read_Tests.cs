@@ -5,12 +5,12 @@ using System.Text;
 using System.Text.Json;
 using Wrap.Exceptions;
 
-namespace Wrap.Json.UnionJsonConverterTests;
+namespace Wrap.Json.UnionJsonConverter_Tests;
 
-public class when_json_is_valid
+public class Read_Tests
 {
 	[Fact]
-	public void returns_union_with_value()
+	public void return_union_with_value__when_json_is_valid()
 	{
 		// Arrange
 		var value = Rnd.Str;
@@ -26,12 +26,9 @@ public class when_json_is_valid
 		var test = Assert.IsType<Test>(result);
 		Assert.Equal(value, test.Value);
 	}
-}
 
-public class when_json_value_is_empty
-{
 	[Fact]
-	public void throws_NullUnionValueException()
+	public void throw_NullUnionValueException__when_json_value_is_empty_string()
 	{
 		// Arrange
 		var value = Rnd.Lng;
@@ -49,12 +46,9 @@ public class when_json_value_is_empty
 		// Assert
 		_ = Assert.ThrowsAny<NullUnionValueException>(act);
 	}
-}
 
-public class when_json_value_is_null
-{
 	[Fact]
-	public void throws_NullUnionValueException()
+	public void throw_NullUnionValueException__when_json_value_is_null()
 	{
 		// Arrange
 		var value = Rnd.Lng;
@@ -72,12 +66,9 @@ public class when_json_value_is_null
 		// Assert
 		_ = Assert.ThrowsAny<NullUnionValueException>(act);
 	}
-}
 
-public class when_json_value_is_incorrect_type
-{
 	[Fact]
-	public void throws_IncorrectValueTypeException()
+	public void throw_IncorrectValueTypeException__when_json_value_is_incorrect_type()
 	{
 		// Arrange
 		var value = Rnd.Lng;
@@ -95,6 +86,6 @@ public class when_json_value_is_incorrect_type
 		// Assert
 		_ = Assert.ThrowsAny<IncorrectValueTypeException<Test, string>>(act);
 	}
-}
 
-public sealed record class Test : Union<Test, string>;
+	public sealed record class Test : Union<Test, string>;
+}
