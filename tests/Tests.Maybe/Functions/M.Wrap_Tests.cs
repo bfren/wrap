@@ -9,7 +9,7 @@ public class Wrap_Tests
 	public void return_some_with_null_value__when_value_is_null_and_type_is_nullable_value_type()
 	{
 		// Arrange
-		int? value = null;
+		nint? value = null;
 
 		// Act
 		var result = M.Wrap(value);
@@ -35,7 +35,7 @@ public class Wrap_Tests
 	public void return_some_with_value__when_value_is_not_null()
 	{
 		// Arrange
-		var value = Rnd.Int;
+		var value = Rnd.Ptr;
 
 		// Act
 		var result = M.Wrap(value);

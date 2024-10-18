@@ -9,7 +9,7 @@ public class IsNullableValueType_Tests
 	public void return_true__when_input_is_nullable_value_type()
 	{
 		// Arrange
-		int? value = null;
+		nint? value = null;
 
 		// Act
 		var result = F.IsNullableValueType(value);
