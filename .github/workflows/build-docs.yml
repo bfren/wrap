@@ -16,21 +16,21 @@ jobs:
       name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 8.0.x
     -
       name: Prepare - Build Source
       run: |
         dotnet build src/All/All.csproj \
           --configuration Debug \
-          --framework net9.0
+          --framework net8.0
     -
       name: A - Build Documentation
-      uses: bfren/docfx-action@v1
+      uses: bfren/docfx-action@v3
       with:
         args: docs/docfx.json
     - 
       name: B - Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: docs/_site
