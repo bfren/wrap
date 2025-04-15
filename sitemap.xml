@@ -2,2377 +2,2287 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.DictionaryExtensions.GetValueOrNone.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.DictionaryExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.E.Match.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.E.MatchAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.E.WrapLeft.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.E.WrapRight.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.E.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.Either-2.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Either-2.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Either-2.AsTask.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Either-2.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Either-2.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Either-2.GetEnumerator.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Either-2.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Either-2.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Either-2.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Either-2.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Either-2.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Either-2.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EitherExtensions.Match.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EitherExtensions.MatchAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EitherExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.Bind.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.BindAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.ElementAtOrNone.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.Filter.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.FilterAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.FilterBind.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.FilterBindAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.FilterMap.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.FilterMapAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.FirstOrNone.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.Iterate.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.IterateAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.LastOrNone.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.Map.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.MapAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.SingleOrNone.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.EnumerableExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.IncorrectValueTypeException-2.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.IncorrectValueTypeException-2.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.InvalidEitherTypeException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.InvalidMaybeTypeException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.InvalidResultTypeException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.InvalidTypeException.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.InvalidTypeException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.JsonConverterException.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.JsonConverterException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.NullEitherException.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.NullEitherException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.NullMaybeException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.NullResultException.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.NullResultException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.NullUnionValueException.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.NullUnionValueException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.OkValueCannotBeNullException.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.OkValueCannotBeNullException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.PredicateFalseException.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.PredicateFalseException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.UnsafeUnwrapException.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.UnsafeUnwrapException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.WrapException.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.WrapException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Exceptions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.ExceptionLogger.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.ExceptionLogger.BeginInvoke.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.ExceptionLogger.EndInvoke.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.ExceptionLogger.Invoke.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.ExceptionLogger.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.FailureLogger.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.FailureLogger.BeginInvoke.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.FailureLogger.EndInvoke.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.FailureLogger.Invoke.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.FailureLogger.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.IsNullableValueType.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.LogException.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.LogFailure.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.Wrap.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.F.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Fail.Value.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Fail.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailExtensions.AsTask.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailValue.Args.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailValue.Context.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailValue.Create.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailValue.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailValue.Exception.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailValue.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailValue.Level.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailValue.Message.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailValue.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailValue.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailValue.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.FailValue.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.GuidExtensions.WrapId.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.GuidExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.GuidId-1.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.GuidId-1.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.GuidId-1.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.GuidId-1.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.GuidId-1.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.GuidId-1.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.GuidId-1.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.GuidId-1.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.GuidId-1.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.GuidId-1.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.I.Wrap.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.I.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IEither-2.GetEnumerator.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IEither-2.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IEither-3.AsTask.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IEither-3.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ILeft-2.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IRight-2.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IUnion-1.Value.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IUnion-1.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IUnion.Value.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IUnion.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IWithId-2.Id.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IWithId-2.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.Id-2.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Id-2.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Id-2.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Id-2.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Id-2.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Id-2.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Id-2.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Id-2.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Id-2.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Id-2.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IntExtensions.WrapId.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IntExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.IntId-1.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IntId-1.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IntId-1.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IntId-1.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IntId-1.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IntId-1.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IntId-1.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IntId-1.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IntId-1.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.IntId-1.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Json.JsonSerializerOptionsExteionsions.AddUnionConverter.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Json.JsonSerializerOptionsExteionsions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Json.UnionJsonConverterFactory.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Json.UnionJsonConverterFactory.CanConvert.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Json.UnionJsonConverterFactory.CreateConverter.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Json.UnionJsonConverterFactory.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Json.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.Left-2.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Left-2.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Left-2.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Left-2.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Left-2.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Left-2.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Left-2.Value.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Left-2.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Left-2.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Left-2.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Linq.MaybeExtensions.Select.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Linq.MaybeExtensions.SelectMany.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Linq.MaybeExtensions.Where.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Linq.MaybeExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Linq.ResultExtensions.Select.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Linq.ResultExtensions.SelectMany.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Linq.ResultExtensions.Where.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Linq.ResultExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Linq.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Logging.LogLevel.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Logging.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.LongExtensions.WrapId.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.LongExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.LongId-1.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.LongId-1.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.LongId-1.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.LongId-1.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.LongId-1.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.LongId-1.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.LongId-1.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.LongId-1.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.LongId-1.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.LongId-1.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.DefaultCulture.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.Match.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.MatchAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.None.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseBool.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseByte.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseChar.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseDateOnly.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseDateTime.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseDateTimeOffset.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseDecimal.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseDouble.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseGuid.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseInt16.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseInt32.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseInt64.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseIntPtr.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseSByte.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseSingle.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseTimeOnly.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseUInt16.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseUInt32.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseUInt64.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.ParseUIntPtr.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.Wrap.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.M.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.AsTask.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.GetEnumerator.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.IsNone.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.IsSome.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.op_Implicit.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Maybe-1.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.Audit.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.AuditAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.Bind.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.BindAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.Filter.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.FilterAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.IfNone.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.IfNoneAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.IfSome.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.IfSomeAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.IsFalse.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.IsFalseAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.IsTrue.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.IsTrueAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.Map.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.MapAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.Match.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.MatchAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.MatchIf.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.MatchIfAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.ToResult.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.Unsafe.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.Unwrap.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.UnwrapAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.UnwrapSingle.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.UnwrapSingleAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.MaybeExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.None.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ObjectExtensions.WrapLeft.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ObjectExtensions.WrapMaybe.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ObjectExtensions.WrapResult.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ObjectExtensions.WrapRight.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ObjectExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.Ok-1.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Ok-1.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Ok-1.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Ok-1.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Ok-1.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Ok-1.Value.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Ok-1.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Ok-1.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Ok-1.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.DefaultHandler.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.ExceptionHandler.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.ExceptionHandler.BeginInvoke.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.ExceptionHandler.EndInvoke.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.ExceptionHandler.Invoke.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.ExceptionHandler.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.Fail.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.Match.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.MatchAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.Ok.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.Try.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.TryAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.Wrap.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.R.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.AsTask.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.GetEnumerator.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.IsFail.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.IsOk.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.op_Implicit.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Result-1.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.Audit.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.AuditAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.Bind.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.BindAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.Discard.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.DiscardAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.Filter.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.FilterAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.IfFail.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.IfFailAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.IfOk.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.IfOkAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.Map.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.MapAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.Match.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.MatchAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.Unsafe.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.Unwrap.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.UnwrapAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ResultExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.Right-2.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Right-2.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Right-2.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Right-2.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Right-2.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Right-2.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Right-2.Value.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Right-2.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Right-2.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Right-2.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.Some-1.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Some-1.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Some-1.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Some-1.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Some-1.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Some-1.Value.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Some-1.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Some-1.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Some-1.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UIntExtensions.WrapId.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UIntExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.UIntId-1.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UIntId-1.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UIntId-1.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UIntId-1.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UIntId-1.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UIntId-1.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UIntId-1.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UIntId-1.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UIntId-1.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UIntId-1.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ULongExtensions.WrapId.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ULongExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.ULongId-1.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ULongId-1.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ULongId-1.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ULongId-1.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ULongId-1.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ULongId-1.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ULongId-1.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ULongId-1.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ULongId-1.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.ULongId-1.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.Union-2.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Union-2.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Union-2.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Union-2.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Union-2.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Union-2.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Union-2.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Union-2.Value.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Union-2.Wrap.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Union-2.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Union-2.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Union-2.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Unsafe-1.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Unsafe-1.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Unsafe-1.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Unsafe-1.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Unsafe-1.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.Unsafe-1.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UnsafeExtensions.IsOk.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UnsafeExtensions.IsSome.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UnsafeExtensions.Unwrap.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UnsafeExtensions.UnwrapAsync.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.UnsafeExtensions.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bfren.github.io/wrap/api/Wrap.WithId-2.-Clone--.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.WithId-2.-ctor.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.WithId-2.EqualityContract.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.WithId-2.Equals.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.WithId-2.GetHashCode.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.WithId-2.Id.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.WithId-2.PrintMembers.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.WithId-2.ToString.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.WithId-2.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.WithId-2.op_Equality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.WithId-2.op_Inequality.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/Wrap.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/api/index.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/articles/intro.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bfren.github.io/wrap/index.html</loc>
-    <lastmod>2024-10-18T04:11:56+00:00</lastmod>
+    <lastmod>2025-04-15T12:20:49+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>

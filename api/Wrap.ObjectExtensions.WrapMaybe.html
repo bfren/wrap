@@ -29,15 +29,15 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./../public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -73,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -140,7 +140,7 @@ either <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> or <a class="xr
 <dl class="parameters">
   <dt><a class="xref" href="Wrap.Maybe-1.html">Maybe</a>&lt;T&gt;</dt>
   <dd><p><a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> if <code class="paramref">value</code> is not null
-or T is a nullable value type -
+or <code class="typeparamref">T</code> is a nullable value type -
 otherwise <a class="xref" href="Wrap.None.html">None</a>.</p>
 </dd>
 </dl>
@@ -159,17 +159,17 @@ otherwise <a class="xref" href="Wrap.None.html">None</a>.</p>
 
 <h4 class="section" id="Wrap_ObjectExtensions_WrapMaybe__1___0__remarks">Remarks</h4>
 <div class="markdown level1 remarks"><p>
-            If <code class="paramref">value</code> is not null, you will get a <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> object where
-            <a class="xref" href="Wrap.Some-1.Value.html#Wrap_Some_1_Value">Value</a> is <code class="paramref">value</code>.
-            </p>
+        If <code class="paramref">value</code> is not null, you will get a <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> object where
+        <a class="xref" href="Wrap.Some-1.Value.html#Wrap_Some_1_Value">Value</a> is <code class="paramref">value</code>.
+        </p>
 <p>
-            If <code class="paramref">value</code> is null and T is a nullable value type,
-            you will get a <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> object where <a class="xref" href="Wrap.Some-1.Value.html#Wrap_Some_1_Value">Value</a> is null.
-            </p>
+        If <code class="paramref">value</code> is null and <code class="typeparamref">T</code> is a nullable value type,
+        you will get a <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> object where <a class="xref" href="Wrap.Some-1.Value.html#Wrap_Some_1_Value">Value</a> is null.
+        </p>
 <p>
-            If <code class="paramref">value</code> is null and T is a reference type (with or
-            without the ? suffix), you will get a <a class="xref" href="Wrap.None.html">None</a> object.
-            </p>
+        If <code class="paramref">value</code> is null and <code class="typeparamref">T</code> is a reference type (with or
+        without the ? suffix), you will get a <a class="xref" href="Wrap.None.html">None</a> object.
+        </p>
 </div>
 
 

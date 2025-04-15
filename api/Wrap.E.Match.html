@@ -29,15 +29,15 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./../public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -73,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -159,12 +159,12 @@ Method Match
 
 <h4 class="section" id="Wrap_E_Match__2_Wrap_Either___0___1__System_Action___0__System_Action___1___remarks">Remarks</h4>
 <div class="markdown level1 remarks"><p>
-It would be possible to achieve the same thing using switch statements, but doing that would add the
-potential for not handling both cases (<a class="xref" href="Wrap.Right-2.html">Right&lt;TLeft, TRight&gt;</a> and <a class="xref" href="Wrap.Left-2.html">Left&lt;TLeft, TRight&gt;</a>).
-</p>
+        It would be possible to achieve the same thing using switch statements, but doing that would add the
+        potential for not handling both cases (<a class="xref" href="Wrap.Right-2.html">Right&lt;TLeft, TRight&gt;</a> and <a class="xref" href="Wrap.Left-2.html">Left&lt;TLeft, TRight&gt;</a>).
+        </p>
 <p>
-This way there has to be a function to handle both cases.
-</p>
+        This way there has to be a function to handle both cases.
+        </p>
 </div>
 
 <h4 class="section">Exceptions</h4>
@@ -232,12 +232,12 @@ This way there has to be a function to handle both cases.
 
 <h4 class="section" id="Wrap_E_Match__3_Wrap_Either___0___1__System_Func___0___2__System_Func___1___2___remarks">Remarks</h4>
 <div class="markdown level1 remarks"><p>
-It would be possible to achieve the same thing using switch statements, but doing that would add the
-potential for not handling both cases (<a class="xref" href="Wrap.Right-2.html">Right&lt;TLeft, TRight&gt;</a> and <a class="xref" href="Wrap.Left-2.html">Left&lt;TLeft, TRight&gt;</a>).
-</p>
+        It would be possible to achieve the same thing using switch statements, but doing that would add the
+        potential for not handling both cases (<a class="xref" href="Wrap.Right-2.html">Right&lt;TLeft, TRight&gt;</a> and <a class="xref" href="Wrap.Left-2.html">Left&lt;TLeft, TRight&gt;</a>).
+        </p>
 <p>
-This way there has to be a function to handle both cases.
-</p>
+        This way there has to be a function to handle both cases.
+        </p>
 </div>
 
 <h4 class="section">Exceptions</h4>

@@ -29,15 +29,15 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./../public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -73,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -158,15 +158,15 @@ Method Where
 
 <h4 class="section" id="Wrap_Linq_MaybeExtensions_Where__1_Wrap_Maybe___0__System_Func___0_System_Boolean___remarks">Remarks</h4>
 <div class="markdown level1 remarks"><p>
-For example:
-</p>
+        For example:
+        </p>
 <pre><code class="lang-csharp">from x in Maybe
 where x == y
 select x</code></pre>
 <p>
-Returns value of x if <a class="xref" href="Wrap.Maybe-1.html">Maybe&lt;T&gt;</a> object is <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> and x is equal to y,
-and <a class="xref" href="Wrap.None.html">None</a> if not.
-</p>
+        Returns value of x if <a class="xref" href="Wrap.Maybe-1.html">Maybe&lt;T&gt;</a> object is <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> and x is equal to y,
+        and <a class="xref" href="Wrap.None.html">None</a> if not.
+        </p>
 </div>
 
 
@@ -217,17 +217,15 @@ and <a class="xref" href="Wrap.None.html">None</a> if not.
 
 <h4 class="section" id="Wrap_Linq_MaybeExtensions_Where__1_Wrap_Maybe___0__System_Func___0_System_Threading_Tasks_Task_System_Boolean____remarks">Remarks</h4>
 <div class="markdown level1 remarks"><p>
-            For example:
-            </p>
-<pre>
-  <code class="lang-csharp">from x in Maybe
-                where x == y
-                select x</code>
-</pre>
+        For example:
+        </p>
+<pre><code class="lang-csharp">from x in Maybe
+where x == y
+select x</code></pre>
 <p>
-            Returns value of x if <a class="xref" href="Wrap.Maybe-1.html">Maybe&lt;T&gt;</a> object is <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> and x is equal to y,
-            and <a class="xref" href="Wrap.None.html">None</a> if not.
-            </p>
+        Returns value of x if <a class="xref" href="Wrap.Maybe-1.html">Maybe&lt;T&gt;</a> object is <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> and x is equal to y,
+        and <a class="xref" href="Wrap.None.html">None</a> if not.
+        </p>
 </div>
 
 
@@ -278,17 +276,15 @@ and <a class="xref" href="Wrap.None.html">None</a> if not.
 
 <h4 class="section" id="Wrap_Linq_MaybeExtensions_Where__1_System_Threading_Tasks_Task_Wrap_Maybe___0___System_Func___0_System_Boolean___remarks">Remarks</h4>
 <div class="markdown level1 remarks"><p>
-            For example:
-            </p>
-<pre>
-  <code class="lang-csharp">from x in Maybe
-                where x == y
-                select x</code>
-</pre>
+        For example:
+        </p>
+<pre><code class="lang-csharp">from x in Maybe
+where x == y
+select x</code></pre>
 <p>
-            Returns value of x if <a class="xref" href="Wrap.Maybe-1.html">Maybe&lt;T&gt;</a> object is <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> and x is equal to y,
-            and <a class="xref" href="Wrap.None.html">None</a> if not.
-            </p>
+        Returns value of x if <a class="xref" href="Wrap.Maybe-1.html">Maybe&lt;T&gt;</a> object is <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> and x is equal to y,
+        and <a class="xref" href="Wrap.None.html">None</a> if not.
+        </p>
 </div>
 
 
@@ -339,17 +335,15 @@ and <a class="xref" href="Wrap.None.html">None</a> if not.
 
 <h4 class="section" id="Wrap_Linq_MaybeExtensions_Where__1_System_Threading_Tasks_Task_Wrap_Maybe___0___System_Func___0_System_Threading_Tasks_Task_System_Boolean____remarks">Remarks</h4>
 <div class="markdown level1 remarks"><p>
-            For example:
-            </p>
-<pre>
-  <code class="lang-csharp">from x in Maybe
-                where x == y
-                select x</code>
-</pre>
+        For example:
+        </p>
+<pre><code class="lang-csharp">from x in Maybe
+where x == y
+select x</code></pre>
 <p>
-            Returns value of x if <a class="xref" href="Wrap.Maybe-1.html">Maybe&lt;T&gt;</a> object is <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> and x is equal to y,
-            and <a class="xref" href="Wrap.None.html">None</a> if not.
-            </p>
+        Returns value of x if <a class="xref" href="Wrap.Maybe-1.html">Maybe&lt;T&gt;</a> object is <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> and x is equal to y,
+        and <a class="xref" href="Wrap.None.html">None</a> if not.
+        </p>
 </div>
 
 

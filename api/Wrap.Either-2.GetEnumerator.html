@@ -29,15 +29,15 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./../public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -73,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -120,7 +120,7 @@ Method GetEnumerator
   
 </h3>
 
-<div class="markdown level1 summary"><p>Use enumerator pattern to get TRight value.</p>
+<div class="markdown level1 summary"><p>Use enumerator pattern to get <code class="typeparamref">TRight</code> value.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 
@@ -132,7 +132,7 @@ Method GetEnumerator
 <h4 class="section">Returns</h4>
 <dl class="parameters">
   <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator</a>&lt;TRight&gt;</dt>
-  <dd><p>Enumerator containing one value if this is TRight.</p>
+  <dd><p>Enumerator containing one value if this is <code class="typeparamref">TRight</code>.</p>
 </dd>
 </dl>
 
@@ -144,14 +144,12 @@ Method GetEnumerator
 
 <h4 class="section" id="Wrap_Either_2_GetEnumerator_remarks">Remarks</h4>
 <div class="markdown level1 remarks"><p>
-            For example:
-            </p>
-<pre>
-  <code class="lang-csharp">foreach (var right in either) {
-                    // if 'either' is TLeft, the loop is empty
-                    // otherwise 'right' is TRight
-                }</code>
-</pre>
+        For example:
+        </p>
+<pre><code class="lang-csharp">foreach (var right in either) {
+    // if 'either' is TLeft, the loop is empty
+    // otherwise 'right' is TRight
+}</code></pre>
 </div>
 
 

@@ -12,7 +12,7 @@
       "source_relative_path": "api/Wrap.DictionaryExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.DictionaryExtensions.html"
+          "relative_path": "api/Wrap.DictionaryExtensions.GetValueOrNone.html"
         }
       },
       "version": ""
@@ -22,17 +22,7 @@
       "source_relative_path": "api/Wrap.DictionaryExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.DictionaryExtensions.GetValueOrNone.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.E.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.E.html"
+          "relative_path": "api/Wrap.DictionaryExtensions.html"
         }
       },
       "version": ""
@@ -52,7 +42,7 @@
       "source_relative_path": "api/Wrap.E.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.E.WrapLeft.html"
+          "relative_path": "api/Wrap.E.MatchAsync.html"
         }
       },
       "version": ""
@@ -62,7 +52,7 @@
       "source_relative_path": "api/Wrap.E.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.E.MatchAsync.html"
+          "relative_path": "api/Wrap.E.WrapLeft.html"
         }
       },
       "version": ""
@@ -79,20 +69,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Either-2.yml",
+      "source_relative_path": "api/Wrap.E.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Either-2.AsTask.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Either-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Either-2.GetEnumerator.html"
+          "relative_path": "api/Wrap.E.html"
         }
       },
       "version": ""
@@ -112,47 +92,7 @@
       "source_relative_path": "api/Wrap.Either-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Either-2.PrintMembers.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Either-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Either-2.op_Inequality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Either-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Either-2.GetHashCode.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Either-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Either-2.Equals.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Either-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Either-2.-Clone--.html"
+          "relative_path": "api/Wrap.Either-2.EqualityContract.html"
         }
       },
       "version": ""
@@ -172,7 +112,37 @@
       "source_relative_path": "api/Wrap.Either-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Either-2.EqualityContract.html"
+          "relative_path": "api/Wrap.Either-2.GetHashCode.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Either-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Either-2.op_Equality.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Either-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Either-2.Equals.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Either-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Either-2.PrintMembers.html"
         }
       },
       "version": ""
@@ -192,7 +162,27 @@
       "source_relative_path": "api/Wrap.Either-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Either-2.op_Equality.html"
+          "relative_path": "api/Wrap.Either-2.GetEnumerator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Either-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Either-2.AsTask.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Either-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Either-2.op_Inequality.html"
         }
       },
       "version": ""
@@ -232,7 +222,7 @@
       "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.FirstOrNone.html"
+          "relative_path": "api/Wrap.EnumerableExtensions.Iterate.html"
         }
       },
       "version": ""
@@ -302,7 +292,7 @@
       "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.Iterate.html"
+          "relative_path": "api/Wrap.EnumerableExtensions.FirstOrNone.html"
         }
       },
       "version": ""
@@ -312,7 +302,17 @@
       "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.FilterMapAsync.html"
+          "relative_path": "api/Wrap.EnumerableExtensions.ElementAtOrNone.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.FilterMap.html"
         }
       },
       "version": ""
@@ -362,16 +362,6 @@
       "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.ElementAtOrNone.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
           "relative_path": "api/Wrap.EnumerableExtensions.BindAsync.html"
         }
       },
@@ -392,17 +382,7 @@
       "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.FilterMap.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Exceptions.IncorrectValueTypeException-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Exceptions.IncorrectValueTypeException-2.-ctor.html"
+          "relative_path": "api/Wrap.EnumerableExtensions.FilterMapAsync.html"
         }
       },
       "version": ""
@@ -413,6 +393,16 @@
       "output": {
         ".html": {
           "relative_path": "api/Wrap.Exceptions.IncorrectValueTypeException-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Exceptions.IncorrectValueTypeException-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Exceptions.IncorrectValueTypeException-2.-ctor.html"
         }
       },
       "version": ""
@@ -472,7 +462,7 @@
       "source_relative_path": "api/Wrap.Exceptions.JsonConverterException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Exceptions.JsonConverterException.-ctor.html"
+          "relative_path": "api/Wrap.Exceptions.JsonConverterException.html"
         }
       },
       "version": ""
@@ -482,7 +472,7 @@
       "source_relative_path": "api/Wrap.Exceptions.JsonConverterException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Exceptions.JsonConverterException.html"
+          "relative_path": "api/Wrap.Exceptions.JsonConverterException.-ctor.html"
         }
       },
       "version": ""
@@ -522,7 +512,7 @@
       "source_relative_path": "api/Wrap.Exceptions.NullResultException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Exceptions.NullResultException.-ctor.html"
+          "relative_path": "api/Wrap.Exceptions.NullResultException.html"
         }
       },
       "version": ""
@@ -532,7 +522,7 @@
       "source_relative_path": "api/Wrap.Exceptions.NullResultException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Exceptions.NullResultException.html"
+          "relative_path": "api/Wrap.Exceptions.NullResultException.-ctor.html"
         }
       },
       "version": ""
@@ -652,6 +642,16 @@
       "source_relative_path": "api/Wrap.F.ExceptionLogger.yml",
       "output": {
         ".html": {
+          "relative_path": "api/Wrap.F.ExceptionLogger.-ctor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.F.ExceptionLogger.yml",
+      "output": {
+        ".html": {
           "relative_path": "api/Wrap.F.ExceptionLogger.Invoke.html"
         }
       },
@@ -689,16 +689,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.F.ExceptionLogger.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.F.ExceptionLogger.-ctor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Wrap.F.FailureLogger.yml",
       "output": {
         ".html": {
@@ -722,16 +712,6 @@
       "source_relative_path": "api/Wrap.F.FailureLogger.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.F.FailureLogger.-ctor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.F.FailureLogger.yml",
-      "output": {
-        ".html": {
           "relative_path": "api/Wrap.F.FailureLogger.Invoke.html"
         }
       },
@@ -742,17 +722,17 @@
       "source_relative_path": "api/Wrap.F.FailureLogger.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.F.FailureLogger.BeginInvoke.html"
+          "relative_path": "api/Wrap.F.FailureLogger.-ctor.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.F.yml",
+      "source_relative_path": "api/Wrap.F.FailureLogger.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.F.html"
+          "relative_path": "api/Wrap.F.FailureLogger.BeginInvoke.html"
         }
       },
       "version": ""
@@ -799,10 +779,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Fail.yml",
+      "source_relative_path": "api/Wrap.F.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Fail.html"
+          "relative_path": "api/Wrap.F.html"
         }
       },
       "version": ""
@@ -819,10 +799,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.FailExtensions.yml",
+      "source_relative_path": "api/Wrap.Fail.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.FailExtensions.html"
+          "relative_path": "api/Wrap.Fail.html"
         }
       },
       "version": ""
@@ -839,20 +819,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.FailValue.yml",
+      "source_relative_path": "api/Wrap.FailExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.FailValue.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.FailValue.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.FailValue.Message.html"
+          "relative_path": "api/Wrap.FailExtensions.html"
         }
       },
       "version": ""
@@ -892,7 +862,7 @@
       "source_relative_path": "api/Wrap.FailValue.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.FailValue.Create.html"
+          "relative_path": "api/Wrap.FailValue.Args.html"
         }
       },
       "version": ""
@@ -902,7 +872,7 @@
       "source_relative_path": "api/Wrap.FailValue.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.FailValue.Equals.html"
+          "relative_path": "api/Wrap.FailValue.Create.html"
         }
       },
       "version": ""
@@ -952,17 +922,27 @@
       "source_relative_path": "api/Wrap.FailValue.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.FailValue.Args.html"
+          "relative_path": "api/Wrap.FailValue.Equals.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidExtensions.yml",
+      "source_relative_path": "api/Wrap.FailValue.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.GuidExtensions.WrapId.html"
+          "relative_path": "api/Wrap.FailValue.Message.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.FailValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.FailValue.html"
         }
       },
       "version": ""
@@ -979,50 +959,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidId-1.yml",
+      "source_relative_path": "api/Wrap.GuidExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.GuidId-1.ToString.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.GuidId-1.op_Inequality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.GuidId-1.op_Equality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.GuidId-1.GetHashCode.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.GuidId-1.Equals.html"
+          "relative_path": "api/Wrap.GuidExtensions.WrapId.html"
         }
       },
       "version": ""
@@ -1052,7 +992,37 @@
       "source_relative_path": "api/Wrap.GuidId-1.yml",
       "output": {
         ".html": {
+          "relative_path": "api/Wrap.GuidId-1.Equals.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.GuidId-1.yml",
+      "output": {
+        ".html": {
           "relative_path": "api/Wrap.GuidId-1.-ctor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.GuidId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.GuidId-1.op_Equality.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.GuidId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.GuidId-1.op_Inequality.html"
         }
       },
       "version": ""
@@ -1072,7 +1042,17 @@
       "source_relative_path": "api/Wrap.GuidId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.GuidId-1.-Clone--.html"
+          "relative_path": "api/Wrap.GuidId-1.ToString.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.GuidId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.GuidId-1.GetHashCode.html"
         }
       },
       "version": ""
@@ -1122,7 +1102,7 @@
       "source_relative_path": "api/Wrap.IEither-3.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.IEither-3.html"
+          "relative_path": "api/Wrap.IEither-3.AsTask.html"
         }
       },
       "version": ""
@@ -1132,7 +1112,7 @@
       "source_relative_path": "api/Wrap.IEither-3.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.IEither-3.AsTask.html"
+          "relative_path": "api/Wrap.IEither-3.html"
         }
       },
       "version": ""
@@ -1202,7 +1182,7 @@
       "source_relative_path": "api/Wrap.IWithId-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.IWithId-2.html"
+          "relative_path": "api/Wrap.IWithId-2.Id.html"
         }
       },
       "version": ""
@@ -1212,7 +1192,7 @@
       "source_relative_path": "api/Wrap.IWithId-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.IWithId-2.Id.html"
+          "relative_path": "api/Wrap.IWithId-2.html"
         }
       },
       "version": ""
@@ -1222,7 +1202,27 @@
       "source_relative_path": "api/Wrap.Id-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Id-2.PrintMembers.html"
+          "relative_path": "api/Wrap.Id-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Id-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Id-2.EqualityContract.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Id-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Id-2.Equals.html"
         }
       },
       "version": ""
@@ -1252,7 +1252,7 @@
       "source_relative_path": "api/Wrap.Id-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Id-2.GetHashCode.html"
+          "relative_path": "api/Wrap.Id-2.PrintMembers.html"
         }
       },
       "version": ""
@@ -1262,37 +1262,7 @@
       "source_relative_path": "api/Wrap.Id-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Id-2.Equals.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Id-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Id-2.-Clone--.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Id-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Id-2.EqualityContract.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Id-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Id-2.html"
+          "relative_path": "api/Wrap.Id-2.ToString.html"
         }
       },
       "version": ""
@@ -1312,7 +1282,7 @@
       "source_relative_path": "api/Wrap.Id-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Id-2.ToString.html"
+          "relative_path": "api/Wrap.Id-2.GetHashCode.html"
         }
       },
       "version": ""
@@ -1342,77 +1312,7 @@
       "source_relative_path": "api/Wrap.IntId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.IntId-1.-ctor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IntId-1.ToString.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IntId-1.PrintMembers.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
-      "output": {
-        ".html": {
           "relative_path": "api/Wrap.IntId-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IntId-1.op_Equality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IntId-1.Equals.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IntId-1.GetHashCode.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IntId-1.op_Inequality.html"
         }
       },
       "version": ""
@@ -1432,7 +1332,67 @@
       "source_relative_path": "api/Wrap.IntId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.IntId-1.-Clone--.html"
+          "relative_path": "api/Wrap.IntId-1.Equals.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IntId-1.op_Equality.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IntId-1.op_Inequality.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IntId-1.PrintMembers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IntId-1.ToString.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IntId-1.-ctor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IntId-1.GetHashCode.html"
         }
       },
       "version": ""
@@ -1462,17 +1422,7 @@
       "source_relative_path": "api/Wrap.Json.UnionJsonConverterFactory.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Json.UnionJsonConverterFactory.CanConvert.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Json.UnionJsonConverterFactory.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Json.UnionJsonConverterFactory.CreateConverter.html"
+          "relative_path": "api/Wrap.Json.UnionJsonConverterFactory.html"
         }
       },
       "version": ""
@@ -1492,7 +1442,17 @@
       "source_relative_path": "api/Wrap.Json.UnionJsonConverterFactory.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Json.UnionJsonConverterFactory.html"
+          "relative_path": "api/Wrap.Json.UnionJsonConverterFactory.CreateConverter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Json.UnionJsonConverterFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Json.UnionJsonConverterFactory.CanConvert.html"
         }
       },
       "version": ""
@@ -1503,6 +1463,16 @@
       "output": {
         ".html": {
           "relative_path": "api/Wrap.Json.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Left-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Left-2.PrintMembers.html"
         }
       },
       "version": ""
@@ -1542,7 +1512,17 @@
       "source_relative_path": "api/Wrap.Left-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Left-2.-Clone--.html"
+          "relative_path": "api/Wrap.Left-2.ToString.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Left-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Left-2.GetHashCode.html"
         }
       },
       "version": ""
@@ -1572,37 +1552,7 @@
       "source_relative_path": "api/Wrap.Left-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Left-2.PrintMembers.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Left-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Left-2.ToString.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Left-2.yml",
-      "output": {
-        ".html": {
           "relative_path": "api/Wrap.Left-2.Equals.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Left-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Left-2.GetHashCode.html"
         }
       },
       "version": ""
@@ -1613,16 +1563,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Wrap.Linq.MaybeExtensions.Select.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Linq.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Linq.MaybeExtensions.SelectMany.html"
         }
       },
       "version": ""
@@ -1643,6 +1583,16 @@
       "output": {
         ".html": {
           "relative_path": "api/Wrap.Linq.MaybeExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Linq.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Linq.MaybeExtensions.SelectMany.html"
         }
       },
       "version": ""
@@ -1742,37 +1692,7 @@
       "source_relative_path": "api/Wrap.LongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.LongId-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.LongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.LongId-1.EqualityContract.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.LongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.LongId-1.-Clone--.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.LongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.LongId-1.Equals.html"
+          "relative_path": "api/Wrap.LongId-1.-ctor.html"
         }
       },
       "version": ""
@@ -1792,7 +1712,7 @@
       "source_relative_path": "api/Wrap.LongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.LongId-1.op_Equality.html"
+          "relative_path": "api/Wrap.LongId-1.PrintMembers.html"
         }
       },
       "version": ""
@@ -1812,17 +1732,7 @@
       "source_relative_path": "api/Wrap.LongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.LongId-1.PrintMembers.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.LongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.LongId-1.-ctor.html"
+          "relative_path": "api/Wrap.LongId-1.op_Equality.html"
         }
       },
       "version": ""
@@ -1839,10 +1749,30 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
+      "source_relative_path": "api/Wrap.LongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.M.ParseDouble.html"
+          "relative_path": "api/Wrap.LongId-1.Equals.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.LongId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.LongId-1.EqualityContract.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.LongId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.LongId-1.html"
         }
       },
       "version": ""
@@ -1892,7 +1822,17 @@
       "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.M.ParseChar.html"
+          "relative_path": "api/Wrap.M.ParseDateOnly.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.MatchAsync.html"
         }
       },
       "version": ""
@@ -1932,26 +1872,6 @@
       "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.M.MatchAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseDateOnly.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
           "relative_path": "api/Wrap.M.Match.html"
         }
       },
@@ -1962,87 +1882,27 @@
       "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
+          "relative_path": "api/Wrap.M.ParseChar.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.ParseGuid.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
           "relative_path": "api/Wrap.M.ParseSingle.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseUInt16.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseUInt64.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseUInt32.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.None.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseIntPtr.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.DefaultCulture.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseInt64.html"
         }
       },
       "version": ""
@@ -2072,7 +1932,37 @@
       "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.M.ParseGuid.html"
+          "relative_path": "api/Wrap.M.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.DefaultCulture.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.None.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.Wrap.html"
         }
       },
       "version": ""
@@ -2092,7 +1982,57 @@
       "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.M.Wrap.html"
+          "relative_path": "api/Wrap.M.ParseDouble.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.ParseUInt32.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.ParseUInt16.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.ParseIntPtr.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.ParseInt64.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.ParseUInt64.html"
         }
       },
       "version": ""
@@ -2102,7 +2042,57 @@
       "source_relative_path": "api/Wrap.Maybe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.Equals.html"
+          "relative_path": "api/Wrap.Maybe-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Maybe-1.IsNone.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Maybe-1.EqualityContract.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Maybe-1.-ctor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Maybe-1.op_Implicit.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Maybe-1.IsSome.html"
         }
       },
       "version": ""
@@ -2132,27 +2122,7 @@
       "source_relative_path": "api/Wrap.Maybe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.op_Implicit.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Maybe-1.PrintMembers.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Maybe-1.-Clone--.html"
+          "relative_path": "api/Wrap.Maybe-1.AsTask.html"
         }
       },
       "version": ""
@@ -2172,7 +2142,7 @@
       "source_relative_path": "api/Wrap.Maybe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.AsTask.html"
+          "relative_path": "api/Wrap.Maybe-1.PrintMembers.html"
         }
       },
       "version": ""
@@ -2182,47 +2152,7 @@
       "source_relative_path": "api/Wrap.Maybe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.-ctor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Maybe-1.EqualityContract.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Maybe-1.IsNone.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Maybe-1.IsSome.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Maybe-1.html"
+          "relative_path": "api/Wrap.Maybe-1.Equals.html"
         }
       },
       "version": ""
@@ -2252,17 +2182,7 @@
       "source_relative_path": "api/Wrap.MaybeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.FilterAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.Filter.html"
+          "relative_path": "api/Wrap.MaybeExtensions.Unwrap.html"
         }
       },
       "version": ""
@@ -2282,7 +2202,47 @@
       "source_relative_path": "api/Wrap.MaybeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IsTrue.html"
+          "relative_path": "api/Wrap.MaybeExtensions.IfNoneAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.IfSome.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.IfSomeAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.IsFalse.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.IsFalseAsync.html"
         }
       },
       "version": ""
@@ -2302,7 +2262,7 @@
       "source_relative_path": "api/Wrap.MaybeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.Map.html"
+          "relative_path": "api/Wrap.MaybeExtensions.MatchIf.html"
         }
       },
       "version": ""
@@ -2342,7 +2302,7 @@
       "source_relative_path": "api/Wrap.MaybeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.MatchIf.html"
+          "relative_path": "api/Wrap.MaybeExtensions.IsTrue.html"
         }
       },
       "version": ""
@@ -2352,7 +2312,7 @@
       "source_relative_path": "api/Wrap.MaybeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.MatchIfAsync.html"
+          "relative_path": "api/Wrap.MaybeExtensions.Map.html"
         }
       },
       "version": ""
@@ -2372,7 +2332,57 @@
       "source_relative_path": "api/Wrap.MaybeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.Unwrap.html"
+          "relative_path": "api/Wrap.MaybeExtensions.Audit.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.AuditAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.Bind.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.BindAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.Filter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.FilterAsync.html"
         }
       },
       "version": ""
@@ -2412,66 +2422,6 @@
       "source_relative_path": "api/Wrap.MaybeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IfSomeAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IfSome.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IfNoneAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.BindAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.Bind.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
           "relative_path": "api/Wrap.MaybeExtensions.ToResult.html"
         }
       },
@@ -2482,7 +2432,7 @@
       "source_relative_path": "api/Wrap.MaybeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.Audit.html"
+          "relative_path": "api/Wrap.MaybeExtensions.html"
         }
       },
       "version": ""
@@ -2492,27 +2442,7 @@
       "source_relative_path": "api/Wrap.MaybeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.AuditAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IsFalse.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IsFalseAsync.html"
+          "relative_path": "api/Wrap.MaybeExtensions.MatchIfAsync.html"
         }
       },
       "version": ""
@@ -2542,7 +2472,7 @@
       "source_relative_path": "api/Wrap.ObjectExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ObjectExtensions.WrapMaybe.html"
+          "relative_path": "api/Wrap.ObjectExtensions.WrapLeft.html"
         }
       },
       "version": ""
@@ -2552,7 +2482,7 @@
       "source_relative_path": "api/Wrap.ObjectExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ObjectExtensions.WrapLeft.html"
+          "relative_path": "api/Wrap.ObjectExtensions.WrapResult.html"
         }
       },
       "version": ""
@@ -2572,7 +2502,27 @@
       "source_relative_path": "api/Wrap.ObjectExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ObjectExtensions.WrapResult.html"
+          "relative_path": "api/Wrap.ObjectExtensions.WrapMaybe.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Ok-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Ok-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Ok-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Ok-1.PrintMembers.html"
         }
       },
       "version": ""
@@ -2622,7 +2572,7 @@
       "source_relative_path": "api/Wrap.Ok-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Ok-1.-Clone--.html"
+          "relative_path": "api/Wrap.Ok-1.Value.html"
         }
       },
       "version": ""
@@ -2633,36 +2583,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Wrap.Ok-1.EqualityContract.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Ok-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Ok-1.PrintMembers.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Ok-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Ok-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Ok-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Ok-1.Value.html"
         }
       },
       "version": ""
@@ -2682,17 +2602,7 @@
       "source_relative_path": "api/Wrap.R.ExceptionHandler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.R.ExceptionHandler.Invoke.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.ExceptionHandler.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.ExceptionHandler.BeginInvoke.html"
+          "relative_path": "api/Wrap.R.ExceptionHandler.html"
         }
       },
       "version": ""
@@ -2712,7 +2622,77 @@
       "source_relative_path": "api/Wrap.R.ExceptionHandler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.R.ExceptionHandler.html"
+          "relative_path": "api/Wrap.R.ExceptionHandler.BeginInvoke.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.R.ExceptionHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.R.ExceptionHandler.Invoke.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.R.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.R.MatchAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.R.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.R.TryAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.R.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.R.Fail.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.R.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.R.Ok.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.R.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.R.Match.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.R.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.R.Try.html"
         }
       },
       "version": ""
@@ -2743,86 +2723,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Wrap.R.Wrap.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.Ok.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.Try.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.TryAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.MatchAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.Match.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.Fail.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Result-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Result-1.IsOk.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Result-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Result-1.-ctor.html"
         }
       },
       "version": ""
@@ -2892,16 +2792,6 @@
       "source_relative_path": "api/Wrap.Result-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Result-1.op_Equality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Result-1.yml",
-      "output": {
-        ".html": {
           "relative_path": "api/Wrap.Result-1.GetHashCode.html"
         }
       },
@@ -2912,7 +2802,17 @@
       "source_relative_path": "api/Wrap.Result-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Result-1.IsFail.html"
+          "relative_path": "api/Wrap.Result-1.Equals.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Result-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Result-1.-ctor.html"
         }
       },
       "version": ""
@@ -2932,7 +2832,7 @@
       "source_relative_path": "api/Wrap.Result-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Result-1.-Clone--.html"
+          "relative_path": "api/Wrap.Result-1.IsFail.html"
         }
       },
       "version": ""
@@ -2942,7 +2842,17 @@
       "source_relative_path": "api/Wrap.Result-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Result-1.Equals.html"
+          "relative_path": "api/Wrap.Result-1.IsOk.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Result-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Result-1.op_Equality.html"
         }
       },
       "version": ""
@@ -2963,6 +2873,26 @@
       "output": {
         ".html": {
           "relative_path": "api/Wrap.ResultExtensions.Discard.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.ResultExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.ResultExtensions.DiscardAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.ResultExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.ResultExtensions.Audit.html"
         }
       },
       "version": ""
@@ -3042,16 +2972,6 @@
       "source_relative_path": "api/Wrap.ResultExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.Map.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ResultExtensions.yml",
-      "output": {
-        ".html": {
           "relative_path": "api/Wrap.ResultExtensions.IfOkAsync.html"
         }
       },
@@ -3062,7 +2982,7 @@
       "source_relative_path": "api/Wrap.ResultExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.IfOk.html"
+          "relative_path": "api/Wrap.ResultExtensions.Map.html"
         }
       },
       "version": ""
@@ -3142,37 +3062,7 @@
       "source_relative_path": "api/Wrap.ResultExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.Audit.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ResultExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.DiscardAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Right-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Right-2.Value.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Right-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Right-2.html"
+          "relative_path": "api/Wrap.ResultExtensions.IfOk.html"
         }
       },
       "version": ""
@@ -3192,7 +3082,7 @@
       "source_relative_path": "api/Wrap.Right-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Right-2.-Clone--.html"
+          "relative_path": "api/Wrap.Right-2.html"
         }
       },
       "version": ""
@@ -3202,7 +3092,7 @@
       "source_relative_path": "api/Wrap.Right-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Right-2.Equals.html"
+          "relative_path": "api/Wrap.Right-2.Value.html"
         }
       },
       "version": ""
@@ -3222,7 +3112,7 @@
       "source_relative_path": "api/Wrap.Right-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Right-2.ToString.html"
+          "relative_path": "api/Wrap.Right-2.Equals.html"
         }
       },
       "version": ""
@@ -3243,6 +3133,16 @@
       "output": {
         ".html": {
           "relative_path": "api/Wrap.Right-2.PrintMembers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Right-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Right-2.ToString.html"
         }
       },
       "version": ""
@@ -3292,27 +3192,7 @@
       "source_relative_path": "api/Wrap.Some-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Some-1.-Clone--.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Some-1.yml",
-      "output": {
-        ".html": {
           "relative_path": "api/Wrap.Some-1.Equals.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Some-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Some-1.GetHashCode.html"
         }
       },
       "version": ""
@@ -3349,10 +3229,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UIntExtensions.yml",
+      "source_relative_path": "api/Wrap.Some-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.UIntExtensions.html"
+          "relative_path": "api/Wrap.Some-1.GetHashCode.html"
         }
       },
       "version": ""
@@ -3369,20 +3249,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UIntId-1.yml",
+      "source_relative_path": "api/Wrap.UIntExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.UIntId-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UIntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.UIntId-1.op_Equality.html"
+          "relative_path": "api/Wrap.UIntExtensions.html"
         }
       },
       "version": ""
@@ -3402,16 +3272,6 @@
       "source_relative_path": "api/Wrap.UIntId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.UIntId-1.Equals.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UIntId-1.yml",
-      "output": {
-        ".html": {
           "relative_path": "api/Wrap.UIntId-1.EqualityContract.html"
         }
       },
@@ -3422,7 +3282,27 @@
       "source_relative_path": "api/Wrap.UIntId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.UIntId-1.-Clone--.html"
+          "relative_path": "api/Wrap.UIntId-1.Equals.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.UIntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.UIntId-1.op_Equality.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.UIntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.UIntId-1.html"
         }
       },
       "version": ""
@@ -3442,7 +3322,7 @@
       "source_relative_path": "api/Wrap.UIntId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.UIntId-1.op_Inequality.html"
+          "relative_path": "api/Wrap.UIntId-1.ToString.html"
         }
       },
       "version": ""
@@ -3462,7 +3342,7 @@
       "source_relative_path": "api/Wrap.UIntId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.UIntId-1.ToString.html"
+          "relative_path": "api/Wrap.UIntId-1.op_Inequality.html"
         }
       },
       "version": ""
@@ -3492,7 +3372,7 @@
       "source_relative_path": "api/Wrap.ULongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ULongId-1.html"
+          "relative_path": "api/Wrap.ULongId-1.-ctor.html"
         }
       },
       "version": ""
@@ -3502,57 +3382,7 @@
       "source_relative_path": "api/Wrap.ULongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ULongId-1.EqualityContract.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ULongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ULongId-1.-Clone--.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ULongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ULongId-1.Equals.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ULongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ULongId-1.GetHashCode.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ULongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ULongId-1.op_Equality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ULongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ULongId-1.op_Inequality.html"
+          "relative_path": "api/Wrap.ULongId-1.ToString.html"
         }
       },
       "version": ""
@@ -3572,7 +3402,7 @@
       "source_relative_path": "api/Wrap.ULongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ULongId-1.-ctor.html"
+          "relative_path": "api/Wrap.ULongId-1.op_Inequality.html"
         }
       },
       "version": ""
@@ -3582,67 +3412,47 @@
       "source_relative_path": "api/Wrap.ULongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ULongId-1.ToString.html"
+          "relative_path": "api/Wrap.ULongId-1.op_Equality.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
+      "source_relative_path": "api/Wrap.ULongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Union-2.op_Inequality.html"
+          "relative_path": "api/Wrap.ULongId-1.GetHashCode.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
+      "source_relative_path": "api/Wrap.ULongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Union-2.op_Equality.html"
+          "relative_path": "api/Wrap.ULongId-1.Equals.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
+      "source_relative_path": "api/Wrap.ULongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Union-2.GetHashCode.html"
+          "relative_path": "api/Wrap.ULongId-1.EqualityContract.html"
         }
       },
       "version": ""
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
+      "source_relative_path": "api/Wrap.ULongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Union-2.-Clone--.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Union-2.EqualityContract.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Union-2.Value.html"
+          "relative_path": "api/Wrap.ULongId-1.html"
         }
       },
       "version": ""
@@ -3662,7 +3472,17 @@
       "source_relative_path": "api/Wrap.Union-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Union-2.PrintMembers.html"
+          "relative_path": "api/Wrap.Union-2.Value.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Union-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Union-2.EqualityContract.html"
         }
       },
       "version": ""
@@ -3682,7 +3502,47 @@
       "source_relative_path": "api/Wrap.Union-2.yml",
       "output": {
         ".html": {
+          "relative_path": "api/Wrap.Union-2.GetHashCode.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Union-2.yml",
+      "output": {
+        ".html": {
           "relative_path": "api/Wrap.Union-2.Wrap.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Union-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Union-2.op_Inequality.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Union-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Union-2.PrintMembers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Union-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Union-2.ToString.html"
         }
       },
       "version": ""
@@ -3702,27 +3562,7 @@
       "source_relative_path": "api/Wrap.Union-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Union-2.ToString.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Unsafe-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Unsafe-1.GetHashCode.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Unsafe-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Unsafe-1.Equals.html"
+          "relative_path": "api/Wrap.Union-2.op_Equality.html"
         }
       },
       "version": ""
@@ -3742,7 +3582,17 @@
       "source_relative_path": "api/Wrap.Unsafe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Unsafe-1.ToString.html"
+          "relative_path": "api/Wrap.Unsafe-1.Equals.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Unsafe-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Unsafe-1.GetHashCode.html"
         }
       },
       "version": ""
@@ -3762,6 +3612,16 @@
       "source_relative_path": "api/Wrap.Unsafe-1.yml",
       "output": {
         ".html": {
+          "relative_path": "api/Wrap.Unsafe-1.ToString.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Unsafe-1.yml",
+      "output": {
+        ".html": {
           "relative_path": "api/Wrap.Unsafe-1.op_Equality.html"
         }
       },
@@ -3772,17 +3632,7 @@
       "source_relative_path": "api/Wrap.UnsafeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.UnsafeExtensions.IsOk.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UnsafeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.UnsafeExtensions.UnwrapAsync.html"
+          "relative_path": "api/Wrap.UnsafeExtensions.IsSome.html"
         }
       },
       "version": ""
@@ -3802,7 +3652,7 @@
       "source_relative_path": "api/Wrap.UnsafeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.UnsafeExtensions.html"
+          "relative_path": "api/Wrap.UnsafeExtensions.UnwrapAsync.html"
         }
       },
       "version": ""
@@ -3812,7 +3662,17 @@
       "source_relative_path": "api/Wrap.UnsafeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.UnsafeExtensions.IsSome.html"
+          "relative_path": "api/Wrap.UnsafeExtensions.IsOk.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.UnsafeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.UnsafeExtensions.html"
         }
       },
       "version": ""
@@ -3822,7 +3682,7 @@
       "source_relative_path": "api/Wrap.WithId-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.WithId-2.-Clone--.html"
+          "relative_path": "api/Wrap.WithId-2.GetHashCode.html"
         }
       },
       "version": ""
@@ -3832,7 +3692,7 @@
       "source_relative_path": "api/Wrap.WithId-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.WithId-2.ToString.html"
+          "relative_path": "api/Wrap.WithId-2.html"
         }
       },
       "version": ""
@@ -3842,7 +3702,27 @@
       "source_relative_path": "api/Wrap.WithId-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.WithId-2.PrintMembers.html"
+          "relative_path": "api/Wrap.WithId-2.Id.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.WithId-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.WithId-2.EqualityContract.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.WithId-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.WithId-2.-ctor.html"
         }
       },
       "version": ""
@@ -3872,7 +3752,17 @@
       "source_relative_path": "api/Wrap.WithId-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.WithId-2.GetHashCode.html"
+          "relative_path": "api/Wrap.WithId-2.PrintMembers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.WithId-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.WithId-2.ToString.html"
         }
       },
       "version": ""
@@ -3883,46 +3773,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Wrap.WithId-2.Equals.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.WithId-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.WithId-2.-ctor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.WithId-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.WithId-2.EqualityContract.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.WithId-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.WithId-2.Id.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.WithId-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.WithId-2.html"
         }
       },
       "version": ""

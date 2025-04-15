@@ -504,22 +504,6 @@ references:
   fullName.vb: Wrap.Either(Of TLeft, TRight).<>
   nameWithType: Either<TLeft, TRight>.operator !=
   nameWithType.vb: Either(Of TLeft, TRight).<>
-- uid: Wrap.Either`2.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.Either-2.-Clone--.html#Wrap_Either_2__Clone__
-  commentId: M:Wrap.Either`2.{Clone}$
-  fullName: Wrap.Either<TLeft, TRight>.<Clone>$()
-  fullName.vb: Wrap.Either(Of TLeft, TRight).<Clone>$()
-  nameWithType: Either<TLeft, TRight>.<Clone>$()
-  nameWithType.vb: Either(Of TLeft, TRight).<Clone>$()
-- uid: Wrap.Either`2.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.Either-2.-Clone--.html
-  commentId: Overload:Wrap.Either`2.{Clone}$
-  fullName: Wrap.Either<TLeft, TRight>.<Clone>$
-  fullName.vb: Wrap.Either(Of TLeft, TRight).<Clone>$
-  nameWithType: Either<TLeft, TRight>.<Clone>$
-  nameWithType.vb: Either(Of TLeft, TRight).<Clone>$
 - uid: Wrap.EnumerableExtensions
   name: EnumerableExtensions
   href: api/Wrap.EnumerableExtensions.html
@@ -1861,22 +1845,6 @@ references:
   fullName.vb: Wrap.GuidId(Of TId).<>
   nameWithType: GuidId<TId>.operator !=
   nameWithType.vb: GuidId(Of TId).<>
-- uid: Wrap.GuidId`1.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.GuidId-1.-Clone--.html#Wrap_GuidId_1__Clone__
-  commentId: M:Wrap.GuidId`1.{Clone}$
-  fullName: Wrap.GuidId<TId>.<Clone>$()
-  fullName.vb: Wrap.GuidId(Of TId).<Clone>$()
-  nameWithType: GuidId<TId>.<Clone>$()
-  nameWithType.vb: GuidId(Of TId).<Clone>$()
-- uid: Wrap.GuidId`1.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.GuidId-1.-Clone--.html
-  commentId: Overload:Wrap.GuidId`1.{Clone}$
-  fullName: Wrap.GuidId<TId>.<Clone>$
-  fullName.vb: Wrap.GuidId(Of TId).<Clone>$
-  nameWithType: GuidId<TId>.<Clone>$
-  nameWithType.vb: GuidId(Of TId).<Clone>$
 - uid: Wrap.I
   name: I
   href: api/Wrap.I.html
@@ -2205,22 +2173,6 @@ references:
   fullName.vb: Wrap.Id(Of TId, TValue).<>
   nameWithType: Id<TId, TValue>.operator !=
   nameWithType.vb: Id(Of TId, TValue).<>
-- uid: Wrap.Id`2.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.Id-2.-Clone--.html#Wrap_Id_2__Clone__
-  commentId: M:Wrap.Id`2.{Clone}$
-  fullName: Wrap.Id<TId, TValue>.<Clone>$()
-  fullName.vb: Wrap.Id(Of TId, TValue).<Clone>$()
-  nameWithType: Id<TId, TValue>.<Clone>$()
-  nameWithType.vb: Id(Of TId, TValue).<Clone>$()
-- uid: Wrap.Id`2.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.Id-2.-Clone--.html
-  commentId: Overload:Wrap.Id`2.{Clone}$
-  fullName: Wrap.Id<TId, TValue>.<Clone>$
-  fullName.vb: Wrap.Id(Of TId, TValue).<Clone>$
-  nameWithType: Id<TId, TValue>.<Clone>$
-  nameWithType.vb: Id(Of TId, TValue).<Clone>$
 - uid: Wrap.IntExtensions
   name: IntExtensions
   href: api/Wrap.IntExtensions.html
@@ -2413,22 +2365,6 @@ references:
   fullName.vb: Wrap.IntId(Of TId).<>
   nameWithType: IntId<TId>.operator !=
   nameWithType.vb: IntId(Of TId).<>
-- uid: Wrap.IntId`1.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.IntId-1.-Clone--.html#Wrap_IntId_1__Clone__
-  commentId: M:Wrap.IntId`1.{Clone}$
-  fullName: Wrap.IntId<TId>.<Clone>$()
-  fullName.vb: Wrap.IntId(Of TId).<Clone>$()
-  nameWithType: IntId<TId>.<Clone>$()
-  nameWithType.vb: IntId(Of TId).<Clone>$()
-- uid: Wrap.IntId`1.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.IntId-1.-Clone--.html
-  commentId: Overload:Wrap.IntId`1.{Clone}$
-  fullName: Wrap.IntId<TId>.<Clone>$
-  fullName.vb: Wrap.IntId(Of TId).<Clone>$
-  nameWithType: IntId<TId>.<Clone>$
-  nameWithType.vb: IntId(Of TId).<Clone>$
 - uid: Wrap.Json
   name: Wrap.Json
   href: api/Wrap.Json.html
@@ -2661,22 +2597,6 @@ references:
   fullName.vb: Wrap.Left(Of TLeft, TRight).<>
   nameWithType: Left<TLeft, TRight>.operator !=
   nameWithType.vb: Left(Of TLeft, TRight).<>
-- uid: Wrap.Left`2.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.Left-2.-Clone--.html#Wrap_Left_2__Clone__
-  commentId: M:Wrap.Left`2.{Clone}$
-  fullName: Wrap.Left<TLeft, TRight>.<Clone>$()
-  fullName.vb: Wrap.Left(Of TLeft, TRight).<Clone>$()
-  nameWithType: Left<TLeft, TRight>.<Clone>$()
-  nameWithType.vb: Left(Of TLeft, TRight).<Clone>$()
-- uid: Wrap.Left`2.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.Left-2.-Clone--.html
-  commentId: Overload:Wrap.Left`2.{Clone}$
-  fullName: Wrap.Left<TLeft, TRight>.<Clone>$
-  fullName.vb: Wrap.Left(Of TLeft, TRight).<Clone>$
-  nameWithType: Left<TLeft, TRight>.<Clone>$
-  nameWithType.vb: Left(Of TLeft, TRight).<Clone>$
 - uid: Wrap.Linq
   name: Wrap.Linq
   href: api/Wrap.Linq.html
@@ -3193,22 +3113,6 @@ references:
   fullName.vb: Wrap.LongId(Of TId).<>
   nameWithType: LongId<TId>.operator !=
   nameWithType.vb: LongId(Of TId).<>
-- uid: Wrap.LongId`1.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.LongId-1.-Clone--.html#Wrap_LongId_1__Clone__
-  commentId: M:Wrap.LongId`1.{Clone}$
-  fullName: Wrap.LongId<TId>.<Clone>$()
-  fullName.vb: Wrap.LongId(Of TId).<Clone>$()
-  nameWithType: LongId<TId>.<Clone>$()
-  nameWithType.vb: LongId(Of TId).<Clone>$()
-- uid: Wrap.LongId`1.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.LongId-1.-Clone--.html
-  commentId: Overload:Wrap.LongId`1.{Clone}$
-  fullName: Wrap.LongId<TId>.<Clone>$
-  fullName.vb: Wrap.LongId(Of TId).<Clone>$
-  nameWithType: LongId<TId>.<Clone>$
-  nameWithType.vb: LongId(Of TId).<Clone>$
 - uid: Wrap.M
   name: M
   href: api/Wrap.M.html
@@ -5169,22 +5073,6 @@ references:
   fullName.vb: Wrap.Maybe(Of T).<>
   nameWithType: Maybe<T>.operator !=
   nameWithType.vb: Maybe(Of T).<>
-- uid: Wrap.Maybe`1.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.Maybe-1.-Clone--.html#Wrap_Maybe_1__Clone__
-  commentId: M:Wrap.Maybe`1.{Clone}$
-  fullName: Wrap.Maybe<T>.<Clone>$()
-  fullName.vb: Wrap.Maybe(Of T).<Clone>$()
-  nameWithType: Maybe<T>.<Clone>$()
-  nameWithType.vb: Maybe(Of T).<Clone>$()
-- uid: Wrap.Maybe`1.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.Maybe-1.-Clone--.html
-  commentId: Overload:Wrap.Maybe`1.{Clone}$
-  fullName: Wrap.Maybe<T>.<Clone>$
-  fullName.vb: Wrap.Maybe(Of T).<Clone>$
-  nameWithType: Maybe<T>.<Clone>$
-  nameWithType.vb: Maybe(Of T).<Clone>$
 - uid: Wrap.None
   name: None
   href: api/Wrap.None.html
@@ -5401,22 +5289,6 @@ references:
   fullName.vb: Wrap.Ok(Of T).<>
   nameWithType: Ok<T>.operator !=
   nameWithType.vb: Ok(Of T).<>
-- uid: Wrap.Ok`1.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.Ok-1.-Clone--.html#Wrap_Ok_1__Clone__
-  commentId: M:Wrap.Ok`1.{Clone}$
-  fullName: Wrap.Ok<T>.<Clone>$()
-  fullName.vb: Wrap.Ok(Of T).<Clone>$()
-  nameWithType: Ok<T>.<Clone>$()
-  nameWithType.vb: Ok(Of T).<Clone>$()
-- uid: Wrap.Ok`1.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.Ok-1.-Clone--.html
-  commentId: Overload:Wrap.Ok`1.{Clone}$
-  fullName: Wrap.Ok<T>.<Clone>$
-  fullName.vb: Wrap.Ok(Of T).<Clone>$
-  nameWithType: Ok<T>.<Clone>$
-  nameWithType.vb: Ok(Of T).<Clone>$
 - uid: Wrap.R
   name: R
   href: api/Wrap.R.html
@@ -6633,22 +6505,6 @@ references:
   fullName.vb: Wrap.Result(Of T).<>
   nameWithType: Result<T>.operator !=
   nameWithType.vb: Result(Of T).<>
-- uid: Wrap.Result`1.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.Result-1.-Clone--.html#Wrap_Result_1__Clone__
-  commentId: M:Wrap.Result`1.{Clone}$
-  fullName: Wrap.Result<T>.<Clone>$()
-  fullName.vb: Wrap.Result(Of T).<Clone>$()
-  nameWithType: Result<T>.<Clone>$()
-  nameWithType.vb: Result(Of T).<Clone>$()
-- uid: Wrap.Result`1.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.Result-1.-Clone--.html
-  commentId: Overload:Wrap.Result`1.{Clone}$
-  fullName: Wrap.Result<T>.<Clone>$
-  fullName.vb: Wrap.Result(Of T).<Clone>$
-  nameWithType: Result<T>.<Clone>$
-  nameWithType.vb: Result(Of T).<Clone>$
 - uid: Wrap.Right`2
   name: Right<TLeft, TRight>
   href: api/Wrap.Right-2.html
@@ -6809,22 +6665,6 @@ references:
   fullName.vb: Wrap.Right(Of TLeft, TRight).<>
   nameWithType: Right<TLeft, TRight>.operator !=
   nameWithType.vb: Right(Of TLeft, TRight).<>
-- uid: Wrap.Right`2.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.Right-2.-Clone--.html#Wrap_Right_2__Clone__
-  commentId: M:Wrap.Right`2.{Clone}$
-  fullName: Wrap.Right<TLeft, TRight>.<Clone>$()
-  fullName.vb: Wrap.Right(Of TLeft, TRight).<Clone>$()
-  nameWithType: Right<TLeft, TRight>.<Clone>$()
-  nameWithType.vb: Right(Of TLeft, TRight).<Clone>$()
-- uid: Wrap.Right`2.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.Right-2.-Clone--.html
-  commentId: Overload:Wrap.Right`2.{Clone}$
-  fullName: Wrap.Right<TLeft, TRight>.<Clone>$
-  fullName.vb: Wrap.Right(Of TLeft, TRight).<Clone>$
-  nameWithType: Right<TLeft, TRight>.<Clone>$
-  nameWithType.vb: Right(Of TLeft, TRight).<Clone>$
 - uid: Wrap.Some`1
   name: Some<T>
   href: api/Wrap.Some-1.html
@@ -6969,22 +6809,6 @@ references:
   fullName.vb: Wrap.Some(Of T).<>
   nameWithType: Some<T>.operator !=
   nameWithType.vb: Some(Of T).<>
-- uid: Wrap.Some`1.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.Some-1.-Clone--.html#Wrap_Some_1__Clone__
-  commentId: M:Wrap.Some`1.{Clone}$
-  fullName: Wrap.Some<T>.<Clone>$()
-  fullName.vb: Wrap.Some(Of T).<Clone>$()
-  nameWithType: Some<T>.<Clone>$()
-  nameWithType.vb: Some(Of T).<Clone>$()
-- uid: Wrap.Some`1.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.Some-1.-Clone--.html
-  commentId: Overload:Wrap.Some`1.{Clone}$
-  fullName: Wrap.Some<T>.<Clone>$
-  fullName.vb: Wrap.Some(Of T).<Clone>$
-  nameWithType: Some<T>.<Clone>$
-  nameWithType.vb: Some(Of T).<Clone>$
 - uid: Wrap.UIntExtensions
   name: UIntExtensions
   href: api/Wrap.UIntExtensions.html
@@ -7177,22 +7001,6 @@ references:
   fullName.vb: Wrap.UIntId(Of TId).<>
   nameWithType: UIntId<TId>.operator !=
   nameWithType.vb: UIntId(Of TId).<>
-- uid: Wrap.UIntId`1.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.UIntId-1.-Clone--.html#Wrap_UIntId_1__Clone__
-  commentId: M:Wrap.UIntId`1.{Clone}$
-  fullName: Wrap.UIntId<TId>.<Clone>$()
-  fullName.vb: Wrap.UIntId(Of TId).<Clone>$()
-  nameWithType: UIntId<TId>.<Clone>$()
-  nameWithType.vb: UIntId(Of TId).<Clone>$()
-- uid: Wrap.UIntId`1.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.UIntId-1.-Clone--.html
-  commentId: Overload:Wrap.UIntId`1.{Clone}$
-  fullName: Wrap.UIntId<TId>.<Clone>$
-  fullName.vb: Wrap.UIntId(Of TId).<Clone>$
-  nameWithType: UIntId<TId>.<Clone>$
-  nameWithType.vb: UIntId(Of TId).<Clone>$
 - uid: Wrap.ULongExtensions
   name: ULongExtensions
   href: api/Wrap.ULongExtensions.html
@@ -7385,22 +7193,6 @@ references:
   fullName.vb: Wrap.ULongId(Of TId).<>
   nameWithType: ULongId<TId>.operator !=
   nameWithType.vb: ULongId(Of TId).<>
-- uid: Wrap.ULongId`1.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.ULongId-1.-Clone--.html#Wrap_ULongId_1__Clone__
-  commentId: M:Wrap.ULongId`1.{Clone}$
-  fullName: Wrap.ULongId<TId>.<Clone>$()
-  fullName.vb: Wrap.ULongId(Of TId).<Clone>$()
-  nameWithType: ULongId<TId>.<Clone>$()
-  nameWithType.vb: ULongId(Of TId).<Clone>$()
-- uid: Wrap.ULongId`1.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.ULongId-1.-Clone--.html
-  commentId: Overload:Wrap.ULongId`1.{Clone}$
-  fullName: Wrap.ULongId<TId>.<Clone>$
-  fullName.vb: Wrap.ULongId(Of TId).<Clone>$
-  nameWithType: ULongId<TId>.<Clone>$
-  nameWithType.vb: ULongId(Of TId).<Clone>$
 - uid: Wrap.Union`2
   name: Union<TUnion, TValue>
   href: api/Wrap.Union-2.html
@@ -7604,22 +7396,6 @@ references:
   fullName.vb: Wrap.Union(Of TUnion, TValue).<>
   nameWithType: Union<TUnion, TValue>.operator !=
   nameWithType.vb: Union(Of TUnion, TValue).<>
-- uid: Wrap.Union`2.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.Union-2.-Clone--.html#Wrap_Union_2__Clone__
-  commentId: M:Wrap.Union`2.{Clone}$
-  fullName: Wrap.Union<TUnion, TValue>.<Clone>$()
-  fullName.vb: Wrap.Union(Of TUnion, TValue).<Clone>$()
-  nameWithType: Union<TUnion, TValue>.<Clone>$()
-  nameWithType.vb: Union(Of TUnion, TValue).<Clone>$()
-- uid: Wrap.Union`2.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.Union-2.-Clone--.html
-  commentId: Overload:Wrap.Union`2.{Clone}$
-  fullName: Wrap.Union<TUnion, TValue>.<Clone>$
-  fullName.vb: Wrap.Union(Of TUnion, TValue).<Clone>$
-  nameWithType: Union<TUnion, TValue>.<Clone>$
-  nameWithType.vb: Union(Of TUnion, TValue).<Clone>$
 - uid: Wrap.UnsafeExtensions
   name: UnsafeExtensions
   href: api/Wrap.UnsafeExtensions.html
@@ -7967,19 +7743,3 @@ references:
   fullName.vb: Wrap.WithId(Of TId, TValue).<>
   nameWithType: WithId<TId, TValue>.operator !=
   nameWithType.vb: WithId(Of TId, TValue).<>
-- uid: Wrap.WithId`2.{Clone}$
-  name: <Clone>$()
-  href: api/Wrap.WithId-2.-Clone--.html#Wrap_WithId_2__Clone__
-  commentId: M:Wrap.WithId`2.{Clone}$
-  fullName: Wrap.WithId<TId, TValue>.<Clone>$()
-  fullName.vb: Wrap.WithId(Of TId, TValue).<Clone>$()
-  nameWithType: WithId<TId, TValue>.<Clone>$()
-  nameWithType.vb: WithId(Of TId, TValue).<Clone>$()
-- uid: Wrap.WithId`2.{Clone}$*
-  name: <Clone>$
-  href: api/Wrap.WithId-2.-Clone--.html
-  commentId: Overload:Wrap.WithId`2.{Clone}$
-  fullName: Wrap.WithId<TId, TValue>.<Clone>$
-  fullName.vb: Wrap.WithId(Of TId, TValue).<Clone>$
-  nameWithType: WithId<TId, TValue>.<Clone>$
-  nameWithType.vb: WithId(Of TId, TValue).<Clone>$
