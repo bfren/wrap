@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
+using System.Linq;
 
 namespace Wrap;
 
@@ -16,7 +17,8 @@ public static partial class R
 		}
 		else
 		{
-			F.LogFailure?.Invoke(failure.Message, [.. failure.Args]);
+			var args = (failure.Args ?? []).Select(x => x != null);
+			F.LogFailure?.Invoke(failure.Message, [.. args]);
 		}
 
 		return new() { Value = failure };
