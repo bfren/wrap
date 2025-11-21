@@ -15,7 +15,11 @@
           "relative_path": "api/Wrap.DictionaryExtensions.GetValueOrNone.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.DictionaryExtensions.GetValueOrNone",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -25,37 +29,11 @@
           "relative_path": "api/Wrap.DictionaryExtensions.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.E.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.E.Match.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.E.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.E.MatchAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.E.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.E.WrapLeft.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.DictionaryExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.DictionaryExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for <xref href=\"System.Collections.Generic.IDictionary%602\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -65,7 +43,53 @@
           "relative_path": "api/Wrap.E.WrapRight.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.E.WrapRight",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.E.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.E.Match.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.E.Match",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.E.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.E.MatchAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.E.MatchAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.E.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.E.WrapLeft.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.E.WrapLeft",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -75,27 +99,11 @@
           "relative_path": "api/Wrap.E.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Either-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Either-2.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Either-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Either-2.EqualityContract.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.E",
+      "Summary": "<p sourcefile=\"api/Wrap.E.yml\" sourcestartlinenumber=\"1\">Pure functions for interacting with <xref href=\"Wrap.Either%602\" data-throw-if-not-resolved=\"false\"></xref> types.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -105,27 +113,11 @@
           "relative_path": "api/Wrap.Either-2.-ctor.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Either-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Either-2.GetHashCode.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Either-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Either-2.op_Equality.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Either<TLeft, TRight>.Either",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -135,47 +127,39 @@
           "relative_path": "api/Wrap.Either-2.Equals.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Either<TLeft, TRight>.Equals",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.Either-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Either-2.PrintMembers.html"
+          "relative_path": "api/Wrap.Either-2.GetHashCode.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Either<TLeft, TRight>.GetHashCode",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.Either-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Either-2.ToString.html"
+          "relative_path": "api/Wrap.Either-2.op_Equality.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Either-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Either-2.GetEnumerator.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Either-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Either-2.AsTask.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Either<TLeft, TRight>.operator ==",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -185,7 +169,95 @@
           "relative_path": "api/Wrap.Either-2.op_Inequality.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Either<TLeft, TRight>.operator !=",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Either-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Either-2.PrintMembers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Either<TLeft, TRight>.PrintMembers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Either-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Either-2.GetEnumerator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Either<TLeft, TRight>.GetEnumerator",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Either-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Either-2.ToString.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Either<TLeft, TRight>.ToString",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Either-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Either-2.EqualityContract.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Either<TLeft, TRight>.EqualityContract",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Either-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Either-2.AsTask.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Either<TLeft, TRight>.AsTask",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Either-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Either-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Either<TLeft, TRight>",
+      "Summary": "<p sourcefile=\"api/Wrap.Either-2.yml\" sourcestartlinenumber=\"1\">Either Monad.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -195,7 +267,11 @@
           "relative_path": "api/Wrap.EitherExtensions.Match.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EitherExtensions.Match",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -205,7 +281,11 @@
           "relative_path": "api/Wrap.EitherExtensions.MatchAsync.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EitherExtensions.MatchAsync",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -215,7 +295,11 @@
           "relative_path": "api/Wrap.EitherExtensions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EitherExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.EitherExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for <xref href=\"Wrap.Either%602\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -225,67 +309,11 @@
           "relative_path": "api/Wrap.EnumerableExtensions.Iterate.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.SingleOrNone.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.MapAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.Map.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.LastOrNone.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.IterateAsync.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.Iterate",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -295,87 +323,11 @@
           "relative_path": "api/Wrap.EnumerableExtensions.FirstOrNone.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.ElementAtOrNone.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.FilterMap.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.FilterBindAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.FilterBind.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.FilterAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.Filter.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.BindAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.EnumerableExtensions.Bind.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.FirstOrNone",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -385,7 +337,207 @@
           "relative_path": "api/Wrap.EnumerableExtensions.FilterMapAsync.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.FilterMapAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.Map.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.Map",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.IterateAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.IterateAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.LastOrNone.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.LastOrNone",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.MapAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.MapAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.SingleOrNone.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.SingleOrNone",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.EnumerableExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for <xref href=\"System.Collections.Generic.IEnumerable%601\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.FilterMap.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.FilterMap",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.FilterBindAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.FilterBindAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.BindAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.BindAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.FilterAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.FilterAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.Filter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.Filter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.ElementAtOrNone.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.ElementAtOrNone",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.Bind.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.Bind",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.EnumerableExtensions.FilterBind.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.EnumerableExtensions.FilterBind",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -395,7 +547,11 @@
           "relative_path": "api/Wrap.Exceptions.IncorrectValueTypeException-2.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.IncorrectValueTypeException<TUnion, TExpectedValue>",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.IncorrectValueTypeException-2.yml\" sourcestartlinenumber=\"1\">Thrown when <xref href=\"Wrap.Json.UnionJsonConverter%602.Read(System.Text.Json.Utf8JsonReader%40%2cSystem.Type%2cSystem.Text.Json.JsonSerializerOptions)\" data-throw-if-not-resolved=\"false\"></xref>\nencounters a value of the wrong type.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -405,7 +561,11 @@
           "relative_path": "api/Wrap.Exceptions.IncorrectValueTypeException-2.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.IncorrectValueTypeException<TUnion, TExpectedValue>.IncorrectValueTypeException",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -415,7 +575,11 @@
           "relative_path": "api/Wrap.Exceptions.InvalidEitherTypeException.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.InvalidEitherTypeException",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.InvalidEitherTypeException.yml\" sourcestartlinenumber=\"1\">Thrown when a switch function encounters an <xref href=\"Wrap.Either%602\" data-throw-if-not-resolved=\"false\"></xref> type that is\nneither <xref href=\"Wrap.Left%602\" data-throw-if-not-resolved=\"false\"></xref> nor <xref href=\"Wrap.Right%602\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -425,7 +589,11 @@
           "relative_path": "api/Wrap.Exceptions.InvalidMaybeTypeException.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.InvalidMaybeTypeException",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.InvalidMaybeTypeException.yml\" sourcestartlinenumber=\"1\">Thrown when a switch function encounters a <xref href=\"Wrap.Maybe%601\" data-throw-if-not-resolved=\"false\"></xref> type that is neither <xref href=\"Wrap.Some%601\" data-throw-if-not-resolved=\"false\"></xref>\nnor <xref href=\"Wrap.Maybe%601.None\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -435,17 +603,11 @@
           "relative_path": "api/Wrap.Exceptions.InvalidResultTypeException.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Exceptions.InvalidTypeException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Exceptions.InvalidTypeException.-ctor.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.InvalidResultTypeException",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.InvalidResultTypeException.yml\" sourcestartlinenumber=\"1\">Thrown when a switch function encounters an <xref href=\"Wrap.Result%601\" data-throw-if-not-resolved=\"false\"></xref> type that is\nneither <xref href=\"Wrap.Ok%601\" data-throw-if-not-resolved=\"false\"></xref> nor <xref href=\"Wrap.Fail\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -455,7 +617,25 @@
           "relative_path": "api/Wrap.Exceptions.InvalidTypeException.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.InvalidTypeException",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.InvalidTypeException.yml\" sourcestartlinenumber=\"1\">Base exception thrown when an <xref href=\"Wrap.IEither%602\" data-throw-if-not-resolved=\"false\"></xref> monad is matched to an invalid type.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Exceptions.InvalidTypeException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Exceptions.InvalidTypeException.-ctor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.InvalidTypeException.InvalidTypeException",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -465,7 +645,11 @@
           "relative_path": "api/Wrap.Exceptions.JsonConverterException.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.JsonConverterException",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.JsonConverterException.yml\" sourcestartlinenumber=\"1\">Throw when <xref href=\"Wrap.Json.UnionJsonConverterFactory\" data-throw-if-not-resolved=\"false\"></xref> is unable to create a JsonConverter.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -475,7 +659,11 @@
           "relative_path": "api/Wrap.Exceptions.JsonConverterException.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.JsonConverterException.JsonConverterException",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -485,7 +673,11 @@
           "relative_path": "api/Wrap.Exceptions.NullEitherException.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.NullEitherException",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.NullEitherException.yml\" sourcestartlinenumber=\"1\">Thrown when a null <xref href=\"Wrap.Either%602\" data-throw-if-not-resolved=\"false\"></xref> object is encountered.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -495,7 +687,11 @@
           "relative_path": "api/Wrap.Exceptions.NullEitherException.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.NullEitherException.NullEitherException",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -505,7 +701,11 @@
           "relative_path": "api/Wrap.Exceptions.NullMaybeException.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.NullMaybeException",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.NullMaybeException.yml\" sourcestartlinenumber=\"1\">Thrown when a null <xref href=\"Wrap.Maybe%601\" data-throw-if-not-resolved=\"false\"></xref> object is encountered.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -515,7 +715,11 @@
           "relative_path": "api/Wrap.Exceptions.NullResultException.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.NullResultException",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.NullResultException.yml\" sourcestartlinenumber=\"1\">Thrown when a null <xref href=\"Wrap.Result%601\" data-throw-if-not-resolved=\"false\"></xref> object is encountered.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -525,7 +729,11 @@
           "relative_path": "api/Wrap.Exceptions.NullResultException.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.NullResultException.NullResultException",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -535,7 +743,11 @@
           "relative_path": "api/Wrap.Exceptions.NullUnionValueException.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.NullUnionValueException.NullUnionValueException",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -545,17 +757,11 @@
           "relative_path": "api/Wrap.Exceptions.NullUnionValueException.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Exceptions.OkValueCannotBeNullException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Exceptions.OkValueCannotBeNullException.-ctor.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.NullUnionValueException",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.NullUnionValueException.yml\" sourcestartlinenumber=\"1\">Thrown when <xref href=\"Wrap.Union%602.value\" data-throw-if-not-resolved=\"false\"></xref> is accessed without being set.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -565,7 +771,25 @@
           "relative_path": "api/Wrap.Exceptions.OkValueCannotBeNullException.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.OkValueCannotBeNullException",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.OkValueCannotBeNullException.yml\" sourcestartlinenumber=\"1\">An <xref href=\"Wrap.Ok%601\" data-throw-if-not-resolved=\"false\"></xref> object vannot receive a null value.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Exceptions.OkValueCannotBeNullException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Exceptions.OkValueCannotBeNullException.-ctor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.OkValueCannotBeNullException.OkValueCannotBeNullException",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -575,7 +799,11 @@
           "relative_path": "api/Wrap.Exceptions.PredicateFalseException.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.PredicateFalseException.PredicateFalseException",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -585,17 +813,11 @@
           "relative_path": "api/Wrap.Exceptions.PredicateFalseException.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Exceptions.UnsafeUnwrapException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Exceptions.UnsafeUnwrapException.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.PredicateFalseException",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.PredicateFalseException.yml\" sourcestartlinenumber=\"1\">Not really an 'exception' but used so <xref href=\"Wrap.ResultExtensions.Filter%60%601(Wrap.Result%7b%60%600%7d%2cSystem.Func%7b%60%600%2cSystem.Boolean%7d)\" data-throw-if-not-resolved=\"false\"></xref>\ncan return an <xref href=\"Wrap.Fail\" data-throw-if-not-resolved=\"false\"></xref> object when a predicate fails.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -605,17 +827,25 @@
           "relative_path": "api/Wrap.Exceptions.UnsafeUnwrapException.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.UnsafeUnwrapException.UnsafeUnwrapException",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Exceptions.WrapException.yml",
+      "source_relative_path": "api/Wrap.Exceptions.UnsafeUnwrapException.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Exceptions.WrapException.html"
+          "relative_path": "api/Wrap.Exceptions.UnsafeUnwrapException.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.UnsafeUnwrapException",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.UnsafeUnwrapException.yml\" sourcestartlinenumber=\"1\">Thrown when <xref href=\"Wrap.UnsafeExtensions.Unwrap%60%601(Wrap.Unsafe%7b%60%600%7d)\" data-throw-if-not-resolved=\"false\"></xref> fails.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -625,7 +855,25 @@
           "relative_path": "api/Wrap.Exceptions.WrapException.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.WrapException.WrapException",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Exceptions.WrapException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Exceptions.WrapException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions.WrapException",
+      "Summary": "<p sourcefile=\"api/Wrap.Exceptions.WrapException.yml\" sourcestartlinenumber=\"1\">Base exception thrown during Wrap operations.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -635,47 +883,11 @@
           "relative_path": "api/Wrap.Exceptions.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.F.ExceptionLogger.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.F.ExceptionLogger.-ctor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.F.ExceptionLogger.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.F.ExceptionLogger.Invoke.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.F.ExceptionLogger.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.F.ExceptionLogger.BeginInvoke.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.F.ExceptionLogger.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.F.ExceptionLogger.EndInvoke.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Exceptions",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -685,7 +897,67 @@
           "relative_path": "api/Wrap.F.ExceptionLogger.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.ExceptionLogger",
+      "Summary": "<p sourcefile=\"api/Wrap.F.ExceptionLogger.yml\" sourcestartlinenumber=\"1\">Log exceptions.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.F.ExceptionLogger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.F.ExceptionLogger.-ctor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.ExceptionLogger.ExceptionLogger",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.F.ExceptionLogger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.F.ExceptionLogger.Invoke.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.ExceptionLogger.Invoke",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.F.ExceptionLogger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.F.ExceptionLogger.BeginInvoke.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.ExceptionLogger.BeginInvoke",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.F.ExceptionLogger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.F.ExceptionLogger.EndInvoke.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.ExceptionLogger.EndInvoke",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -695,7 +967,11 @@
           "relative_path": "api/Wrap.F.FailureLogger.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.FailureLogger",
+      "Summary": "<p sourcefile=\"api/Wrap.F.FailureLogger.yml\" sourcestartlinenumber=\"1\">Log failures.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -705,27 +981,11 @@
           "relative_path": "api/Wrap.F.FailureLogger.EndInvoke.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.F.FailureLogger.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.F.FailureLogger.Invoke.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.F.FailureLogger.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.F.FailureLogger.-ctor.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.FailureLogger.EndInvoke",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -735,37 +995,39 @@
           "relative_path": "api/Wrap.F.FailureLogger.BeginInvoke.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.FailureLogger.BeginInvoke",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.F.yml",
+      "source_relative_path": "api/Wrap.F.FailureLogger.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.F.IsNullableValueType.html"
+          "relative_path": "api/Wrap.F.FailureLogger.Invoke.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.FailureLogger.Invoke",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.F.yml",
+      "source_relative_path": "api/Wrap.F.FailureLogger.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.F.Wrap.html"
+          "relative_path": "api/Wrap.F.FailureLogger.-ctor.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.F.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.F.LogException.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.FailureLogger.FailureLogger",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -775,7 +1037,53 @@
           "relative_path": "api/Wrap.F.LogFailure.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.LogFailure",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.F.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.F.LogException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.LogException",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.F.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.F.Wrap.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.Wrap",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.F.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.F.IsNullableValueType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F.IsNullableValueType",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -785,7 +1093,11 @@
           "relative_path": "api/Wrap.F.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.F",
+      "Summary": "<p sourcefile=\"api/Wrap.F.yml\" sourcestartlinenumber=\"1\">Pure functions for interacting with Monad types.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -795,7 +1107,11 @@
           "relative_path": "api/Wrap.Fail.Value.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Fail.Value",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -805,7 +1121,11 @@
           "relative_path": "api/Wrap.Fail.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Fail",
+      "Summary": "<p sourcefile=\"api/Wrap.Fail.yml\" sourcestartlinenumber=\"1\">'Fail' Result - holds information why an operation failed.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -815,7 +1135,11 @@
           "relative_path": "api/Wrap.FailExtensions.AsTask.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailExtensions.AsTask",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -825,47 +1149,11 @@
           "relative_path": "api/Wrap.FailExtensions.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.FailValue.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.FailValue.Level.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.FailValue.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.FailValue.Exception.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.FailValue.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.FailValue.Context.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.FailValue.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.FailValue.Args.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.FailExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for <xref href=\"Wrap.Fail\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -875,37 +1163,25 @@
           "relative_path": "api/Wrap.FailValue.Create.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailValue.Create",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.FailValue.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.FailValue.GetHashCode.html"
+          "relative_path": "api/Wrap.FailValue.Context.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.FailValue.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.FailValue.op_Equality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.FailValue.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.FailValue.op_Inequality.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailValue.Context",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -915,7 +1191,53 @@
           "relative_path": "api/Wrap.FailValue.ToString.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailValue.ToString",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.FailValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.FailValue.op_Inequality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailValue.operator !=",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.FailValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.FailValue.op_Equality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailValue.operator ==",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.FailValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.FailValue.GetHashCode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailValue.GetHashCode",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -925,7 +1247,53 @@
           "relative_path": "api/Wrap.FailValue.Equals.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailValue.Equals",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.FailValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.FailValue.Args.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailValue.Args",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.FailValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.FailValue.Exception.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailValue.Exception",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.FailValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.FailValue.Level.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailValue.Level",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -935,7 +1303,11 @@
           "relative_path": "api/Wrap.FailValue.Message.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailValue.Message",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -945,17 +1317,11 @@
           "relative_path": "api/Wrap.FailValue.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.GuidExtensions.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.FailValue",
+      "Summary": "<p sourcefile=\"api/Wrap.FailValue.yml\" sourcestartlinenumber=\"1\">Holds information about a failure.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -965,27 +1331,25 @@
           "relative_path": "api/Wrap.GuidExtensions.WrapId.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.GuidExtensions.WrapId",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidId-1.yml",
+      "source_relative_path": "api/Wrap.GuidExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.GuidId-1.html"
+          "relative_path": "api/Wrap.GuidExtensions.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.GuidId-1.EqualityContract.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.GuidExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.GuidExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for <xref href=\"System.Guid\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -995,57 +1359,11 @@
           "relative_path": "api/Wrap.GuidId-1.Equals.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.GuidId-1.-ctor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.GuidId-1.op_Equality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.GuidId-1.op_Inequality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.GuidId-1.PrintMembers.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.GuidId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.GuidId-1.ToString.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.GuidId<TId>.Equals",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1055,17 +1373,109 @@
           "relative_path": "api/Wrap.GuidId-1.GetHashCode.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.GuidId<TId>.GetHashCode",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.I.yml",
+      "source_relative_path": "api/Wrap.GuidId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.I.Wrap.html"
+          "relative_path": "api/Wrap.GuidId-1.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.GuidId<TId>",
+      "Summary": "<p sourcefile=\"api/Wrap.GuidId-1.yml\" sourcestartlinenumber=\"1\">Implementation using <xref href=\"System.Guid\" data-throw-if-not-resolved=\"false\"></xref> as the Value type.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.GuidId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.GuidId-1.op_Equality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.GuidId<TId>.operator ==",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.GuidId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.GuidId-1.op_Inequality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.GuidId<TId>.operator !=",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.GuidId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.GuidId-1.PrintMembers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.GuidId<TId>.PrintMembers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.GuidId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.GuidId-1.ToString.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.GuidId<TId>.ToString",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.GuidId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.GuidId-1.-ctor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.GuidId<TId>.GuidId",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.GuidId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.GuidId-1.EqualityContract.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.GuidId<TId>.EqualityContract",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1075,17 +1485,25 @@
           "relative_path": "api/Wrap.I.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.I",
+      "Summary": "<p sourcefile=\"api/Wrap.I.yml\" sourcestartlinenumber=\"1\">Pure functions for interacting with <xref href=\"Wrap.Id%602\" data-throw-if-not-resolved=\"false\"></xref> types.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IEither-2.yml",
+      "source_relative_path": "api/Wrap.I.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.IEither-2.GetEnumerator.html"
+          "relative_path": "api/Wrap.I.Wrap.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.I.Wrap",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1095,17 +1513,25 @@
           "relative_path": "api/Wrap.IEither-2.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IEither<TLeft, TRight>",
+      "Summary": "<p sourcefile=\"api/Wrap.IEither-2.yml\" sourcestartlinenumber=\"1\">Either Monad.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IEither-3.yml",
+      "source_relative_path": "api/Wrap.IEither-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.IEither-3.AsTask.html"
+          "relative_path": "api/Wrap.IEither-2.GetEnumerator.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IEither<TLeft, TRight>.GetEnumerator",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1115,7 +1541,25 @@
           "relative_path": "api/Wrap.IEither-3.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IEither<TEither, TLeft, TRight>",
+      "Summary": "<p sourcefile=\"api/Wrap.IEither-3.yml\" sourcestartlinenumber=\"1\">Either Monad.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IEither-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IEither-3.AsTask.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IEither<TEither, TLeft, TRight>.AsTask",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1125,7 +1569,11 @@
           "relative_path": "api/Wrap.ILeft-2.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ILeft<TLeft, TRight>",
+      "Summary": "<p sourcefile=\"api/Wrap.ILeft-2.yml\" sourcestartlinenumber=\"1\">Either monad - left value.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1135,17 +1583,11 @@
           "relative_path": "api/Wrap.IRight-2.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IUnion-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IUnion-1.Value.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IRight<TLeft, TRight>",
+      "Summary": "<p sourcefile=\"api/Wrap.IRight-2.yml\" sourcestartlinenumber=\"1\">Either monad - right value.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1155,7 +1597,25 @@
           "relative_path": "api/Wrap.IUnion-1.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IUnion<T>",
+      "Summary": "<p sourcefile=\"api/Wrap.IUnion-1.yml\" sourcestartlinenumber=\"1\">Single-case Union monad.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IUnion-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IUnion-1.Value.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IUnion<T>.Value",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1165,7 +1625,11 @@
           "relative_path": "api/Wrap.IUnion.Value.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IUnion.Value",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1175,17 +1639,11 @@
           "relative_path": "api/Wrap.IUnion.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IWithId-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IWithId-2.Id.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IUnion",
+      "Summary": "<p sourcefile=\"api/Wrap.IUnion.yml\" sourcestartlinenumber=\"1\">Single-case Union monad.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1195,27 +1653,25 @@
           "relative_path": "api/Wrap.IWithId-2.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IWithId<TId, TValue>",
+      "Summary": "<p sourcefile=\"api/Wrap.IWithId-2.yml\" sourcestartlinenumber=\"1\">Represents an object (Entity or Model) with a strongly-typed ID.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Id-2.yml",
+      "source_relative_path": "api/Wrap.IWithId-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Id-2.html"
+          "relative_path": "api/Wrap.IWithId-2.Id.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Id-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Id-2.EqualityContract.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IWithId<TId, TValue>.Id",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1225,47 +1681,11 @@
           "relative_path": "api/Wrap.Id-2.Equals.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Id-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Id-2.op_Inequality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Id-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Id-2.op_Equality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Id-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Id-2.PrintMembers.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Id-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Id-2.ToString.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Id<TId, TValue>.Equals",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1275,7 +1695,67 @@
           "relative_path": "api/Wrap.Id-2.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Id<TId, TValue>.Id",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Id-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Id-2.ToString.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Id<TId, TValue>.ToString",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Id-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Id-2.PrintMembers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Id<TId, TValue>.PrintMembers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Id-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Id-2.op_Inequality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Id<TId, TValue>.operator !=",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Id-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Id-2.op_Equality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Id<TId, TValue>.operator ==",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1285,17 +1765,39 @@
           "relative_path": "api/Wrap.Id-2.GetHashCode.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Id<TId, TValue>.GetHashCode",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntExtensions.yml",
+      "source_relative_path": "api/Wrap.Id-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.IntExtensions.WrapId.html"
+          "relative_path": "api/Wrap.Id-2.EqualityContract.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Id<TId, TValue>.EqualityContract",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Id-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Id-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Id<TId, TValue>",
+      "Summary": "<p sourcefile=\"api/Wrap.Id-2.yml\" sourcestartlinenumber=\"1\">ID monad.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1305,77 +1807,25 @@
           "relative_path": "api/Wrap.IntExtensions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IntExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.IntExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for <xref href=\"System.Int32\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
+      "source_relative_path": "api/Wrap.IntExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.IntId-1.html"
+          "relative_path": "api/Wrap.IntExtensions.WrapId.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IntId-1.EqualityContract.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IntId-1.Equals.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IntId-1.op_Equality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IntId-1.op_Inequality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IntId-1.PrintMembers.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.IntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.IntId-1.ToString.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IntExtensions.WrapId",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1385,7 +1835,67 @@
           "relative_path": "api/Wrap.IntId-1.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IntId<TId>.IntId",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IntId-1.ToString.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IntId<TId>.ToString",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IntId-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IntId<TId>",
+      "Summary": "<p sourcefile=\"api/Wrap.IntId-1.yml\" sourcestartlinenumber=\"1\">Implementation using <xref href=\"System.Int32\" data-throw-if-not-resolved=\"false\"></xref> as the Value type.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IntId-1.EqualityContract.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IntId<TId>.EqualityContract",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IntId-1.Equals.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IntId<TId>.Equals",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1395,17 +1905,53 @@
           "relative_path": "api/Wrap.IntId-1.GetHashCode.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IntId<TId>.GetHashCode",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Json.JsonSerializerOptionsExteionsions.yml",
+      "source_relative_path": "api/Wrap.IntId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Json.JsonSerializerOptionsExteionsions.AddUnionConverter.html"
+          "relative_path": "api/Wrap.IntId-1.op_Equality.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IntId<TId>.operator ==",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IntId-1.op_Inequality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IntId<TId>.operator !=",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.IntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.IntId-1.PrintMembers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.IntId<TId>.PrintMembers",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1415,37 +1961,25 @@
           "relative_path": "api/Wrap.Json.JsonSerializerOptionsExteionsions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Json.JsonSerializerOptionsExteionsions",
+      "Summary": "<p sourcefile=\"api/Wrap.Json.JsonSerializerOptionsExteionsions.yml\" sourcestartlinenumber=\"1\">Extenstion methods for <xref href=\"System.Text.Json.JsonSerializerOptions\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Json.UnionJsonConverterFactory.yml",
+      "source_relative_path": "api/Wrap.Json.JsonSerializerOptionsExteionsions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Json.UnionJsonConverterFactory.html"
+          "relative_path": "api/Wrap.Json.JsonSerializerOptionsExteionsions.AddUnionConverter.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Json.UnionJsonConverterFactory.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Json.UnionJsonConverterFactory.-ctor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Json.UnionJsonConverterFactory.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Json.UnionJsonConverterFactory.CreateConverter.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Json.JsonSerializerOptionsExteionsions.AddUnionConverter",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1455,7 +1989,53 @@
           "relative_path": "api/Wrap.Json.UnionJsonConverterFactory.CanConvert.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Json.UnionJsonConverterFactory.CanConvert",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Json.UnionJsonConverterFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Json.UnionJsonConverterFactory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Json.UnionJsonConverterFactory",
+      "Summary": "<p sourcefile=\"api/Wrap.Json.UnionJsonConverterFactory.yml\" sourcestartlinenumber=\"1\">Create a <xref href=\"Wrap.Json.UnionJsonConverter%602\" data-throw-if-not-resolved=\"false\"></xref> object for supported objects.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Json.UnionJsonConverterFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Json.UnionJsonConverterFactory.CreateConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Json.UnionJsonConverterFactory.CreateConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Json.UnionJsonConverterFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Json.UnionJsonConverterFactory.-ctor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Json.UnionJsonConverterFactory.UnionJsonConverterFactory",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1465,47 +2045,11 @@
           "relative_path": "api/Wrap.Json.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Left-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Left-2.PrintMembers.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Left-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Left-2.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Left-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Left-2.Value.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Left-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Left-2.EqualityContract.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Json",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1515,17 +2059,25 @@
           "relative_path": "api/Wrap.Left-2.ToString.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Left<TLeft, TRight>.ToString",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.Left-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Left-2.GetHashCode.html"
+          "relative_path": "api/Wrap.Left-2.PrintMembers.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Left<TLeft, TRight>.PrintMembers",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1535,17 +2087,25 @@
           "relative_path": "api/Wrap.Left-2.op_Equality.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Left<TLeft, TRight>.operator ==",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.Left-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Left-2.op_Inequality.html"
+          "relative_path": "api/Wrap.Left-2.GetHashCode.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Left<TLeft, TRight>.GetHashCode",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1555,7 +2115,67 @@
           "relative_path": "api/Wrap.Left-2.Equals.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Left<TLeft, TRight>.Equals",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Left-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Left-2.EqualityContract.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Left<TLeft, TRight>.EqualityContract",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Left-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Left-2.Value.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Left<TLeft, TRight>.Value",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Left-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Left-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Left<TLeft, TRight>",
+      "Summary": "<p sourcefile=\"api/Wrap.Left-2.yml\" sourcestartlinenumber=\"1\">Either monad - left value.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Left-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Left-2.op_Inequality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Left<TLeft, TRight>.operator !=",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1565,27 +2185,11 @@
           "relative_path": "api/Wrap.Linq.MaybeExtensions.Select.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Linq.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Linq.MaybeExtensions.Where.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Linq.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Linq.MaybeExtensions.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Linq.MaybeExtensions.Select",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1595,27 +2199,39 @@
           "relative_path": "api/Wrap.Linq.MaybeExtensions.SelectMany.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Linq.MaybeExtensions.SelectMany",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Linq.ResultExtensions.yml",
+      "source_relative_path": "api/Wrap.Linq.MaybeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Linq.ResultExtensions.Select.html"
+          "relative_path": "api/Wrap.Linq.MaybeExtensions.Where.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Linq.MaybeExtensions.Where",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Linq.ResultExtensions.yml",
+      "source_relative_path": "api/Wrap.Linq.MaybeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Linq.ResultExtensions.SelectMany.html"
+          "relative_path": "api/Wrap.Linq.MaybeExtensions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Linq.MaybeExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.Linq.MaybeExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods enabling LINQ syntax for <xref href=\"Wrap.Maybe%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1625,7 +2241,39 @@
           "relative_path": "api/Wrap.Linq.ResultExtensions.Where.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Linq.ResultExtensions.Where",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Linq.ResultExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Linq.ResultExtensions.Select.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Linq.ResultExtensions.Select",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Linq.ResultExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Linq.ResultExtensions.SelectMany.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Linq.ResultExtensions.SelectMany",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1635,7 +2283,11 @@
           "relative_path": "api/Wrap.Linq.ResultExtensions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Linq.ResultExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.Linq.ResultExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods enabling LINQ syntax for <xref href=\"Wrap.Result%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1645,7 +2297,11 @@
           "relative_path": "api/Wrap.Linq.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Linq",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1655,7 +2311,11 @@
           "relative_path": "api/Wrap.Logging.LogLevel.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Logging.LogLevel",
+      "Summary": "<p sourcefile=\"api/Wrap.Logging.LogLevel.yml\" sourcestartlinenumber=\"1\">Log Levels - descriptions taken from <a href=\"https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.loglevel?view=dotnet-plat-ext-5.0\" sourcefile=\"api/Wrap.Logging.LogLevel.yml\" sourcestartlinenumber=\"1\">https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.loglevel?view=dotnet-plat-ext-5.0</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1665,17 +2325,11 @@
           "relative_path": "api/Wrap.Logging.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.LongExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.LongExtensions.WrapId.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Logging",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1685,17 +2339,25 @@
           "relative_path": "api/Wrap.LongExtensions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.LongExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.LongExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for <xref href=\"System.Int64\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.LongId-1.yml",
+      "source_relative_path": "api/Wrap.LongExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.LongId-1.-ctor.html"
+          "relative_path": "api/Wrap.LongExtensions.WrapId.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.LongExtensions.WrapId",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1705,7 +2367,11 @@
           "relative_path": "api/Wrap.LongId-1.ToString.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.LongId<TId>.ToString",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1715,57 +2381,11 @@
           "relative_path": "api/Wrap.LongId-1.PrintMembers.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.LongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.LongId-1.op_Inequality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.LongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.LongId-1.op_Equality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.LongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.LongId-1.GetHashCode.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.LongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.LongId-1.Equals.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.LongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.LongId-1.EqualityContract.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.LongId<TId>.PrintMembers",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1775,17 +2395,95 @@
           "relative_path": "api/Wrap.LongId-1.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.LongId<TId>",
+      "Summary": "<p sourcefile=\"api/Wrap.LongId-1.yml\" sourcestartlinenumber=\"1\">Implementation using <xref href=\"System.Int64\" data-throw-if-not-resolved=\"false\"></xref> as the Value type.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
+      "source_relative_path": "api/Wrap.LongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.M.ParseDecimal.html"
+          "relative_path": "api/Wrap.LongId-1.EqualityContract.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.LongId<TId>.EqualityContract",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.LongId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.LongId-1.Equals.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.LongId<TId>.Equals",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.LongId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.LongId-1.GetHashCode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.LongId<TId>.GetHashCode",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.LongId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.LongId-1.op_Equality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.LongId<TId>.operator ==",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.LongId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.LongId-1.op_Inequality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.LongId<TId>.operator !=",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.LongId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.LongId-1.-ctor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.LongId<TId>.LongId",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1795,127 +2493,25 @@
           "relative_path": "api/Wrap.M.ParseTimeOnly.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseTimeOnly",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.M.ParseDateTimeOffset.html"
+          "relative_path": "api/Wrap.M.ParseDecimal.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseDateTime.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseDateOnly.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.MatchAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseSByte.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseByte.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseBool.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.Match.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseChar.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseGuid.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseSingle.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseInt32.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseDecimal",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -1925,97 +2521,53 @@
           "relative_path": "api/Wrap.M.ParseInt16.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseInt16",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.M.html"
+          "relative_path": "api/Wrap.M.ParseSingle.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseSingle",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.M.DefaultCulture.html"
+          "relative_path": "api/Wrap.M.ParseGuid.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseGuid",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.M.None.html"
+          "relative_path": "api/Wrap.M.ParseInt32.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.Wrap.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseUIntPtr.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseDouble.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseUInt32.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseUInt16.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.M.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.M.ParseIntPtr.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseInt32",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2025,7 +2577,109 @@
           "relative_path": "api/Wrap.M.ParseInt64.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseInt64",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.ParseIntPtr.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseIntPtr",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.ParseUInt16.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseUInt16",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.ParseUInt32.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseUInt32",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.ParseUIntPtr.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseUIntPtr",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.Wrap.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.Wrap",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.None.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.None",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.ParseDouble.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseDouble",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2035,87 +2689,165 @@
           "relative_path": "api/Wrap.M.ParseUInt64.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseUInt64",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.html"
+          "relative_path": "api/Wrap.M.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M",
+      "Summary": "<p sourcefile=\"api/Wrap.M.yml\" sourcestartlinenumber=\"1\">Pure functions for interacting with <xref href=\"Wrap.Maybe%601\" data-throw-if-not-resolved=\"false\"></xref> types.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.IsNone.html"
+          "relative_path": "api/Wrap.M.ParseBool.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseBool",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.EqualityContract.html"
+          "relative_path": "api/Wrap.M.DefaultCulture.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.DefaultCulture",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.-ctor.html"
+          "relative_path": "api/Wrap.M.ParseDateTimeOffset.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseDateTimeOffset",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.op_Implicit.html"
+          "relative_path": "api/Wrap.M.ParseDateTime.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseDateTime",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.IsSome.html"
+          "relative_path": "api/Wrap.M.ParseDateOnly.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseDateOnly",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.op_Equality.html"
+          "relative_path": "api/Wrap.M.ParseChar.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseChar",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "source_relative_path": "api/Wrap.M.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.op_Inequality.html"
+          "relative_path": "api/Wrap.M.ParseSByte.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseSByte",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.ParseByte.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.ParseByte",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.MatchAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.MatchAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.M.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.M.Match.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.M.Match",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2125,7 +2857,11 @@
           "relative_path": "api/Wrap.Maybe-1.AsTask.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>.AsTask",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2135,17 +2871,25 @@
           "relative_path": "api/Wrap.Maybe-1.GetEnumerator.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>.GetEnumerator",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.Maybe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.PrintMembers.html"
+          "relative_path": "api/Wrap.Maybe-1.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>",
+      "Summary": "<p sourcefile=\"api/Wrap.Maybe-1.yml\" sourcestartlinenumber=\"1\">Maybe monad.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2155,17 +2899,39 @@
           "relative_path": "api/Wrap.Maybe-1.Equals.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>.Equals",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.Maybe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Maybe-1.GetHashCode.html"
+          "relative_path": "api/Wrap.Maybe-1.IsSome.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>.IsSome",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Maybe-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Maybe-1.IsNone.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>.IsNone",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2175,147 +2941,109 @@
           "relative_path": "api/Wrap.Maybe-1.ToString.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>.ToString",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "source_relative_path": "api/Wrap.Maybe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.Unwrap.html"
+          "relative_path": "api/Wrap.Maybe-1.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>.Maybe",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "source_relative_path": "api/Wrap.Maybe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IfNone.html"
+          "relative_path": "api/Wrap.Maybe-1.PrintMembers.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>.PrintMembers",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "source_relative_path": "api/Wrap.Maybe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IfNoneAsync.html"
+          "relative_path": "api/Wrap.Maybe-1.EqualityContract.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>.EqualityContract",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "source_relative_path": "api/Wrap.Maybe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IfSome.html"
+          "relative_path": "api/Wrap.Maybe-1.op_Inequality.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>.operator !=",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "source_relative_path": "api/Wrap.Maybe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IfSomeAsync.html"
+          "relative_path": "api/Wrap.Maybe-1.op_Equality.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>.operator ==",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "source_relative_path": "api/Wrap.Maybe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IsFalse.html"
+          "relative_path": "api/Wrap.Maybe-1.GetHashCode.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>.GetHashCode",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "source_relative_path": "api/Wrap.Maybe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IsFalseAsync.html"
+          "relative_path": "api/Wrap.Maybe-1.op_Implicit.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IsTrueAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.MatchIf.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.MapAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.Match.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.MatchAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.IsTrue.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.Map.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Maybe<T>.implicit operator",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2325,97 +3053,11 @@
           "relative_path": "api/Wrap.MaybeExtensions.Unsafe.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.Audit.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.AuditAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.Bind.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.BindAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.Filter.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.FilterAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.UnwrapAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.UnwrapSingle.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.UnwrapSingleAsync.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.Unsafe",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2425,17 +3067,67 @@
           "relative_path": "api/Wrap.MaybeExtensions.ToResult.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.ToResult",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.MaybeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.MaybeExtensions.html"
+          "relative_path": "api/Wrap.MaybeExtensions.UnwrapSingleAsync.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.UnwrapSingleAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.UnwrapSingle.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.UnwrapSingle",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.UnwrapAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.UnwrapAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.Unwrap.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.Unwrap",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2445,7 +3137,291 @@
           "relative_path": "api/Wrap.MaybeExtensions.MatchIfAsync.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.MatchIfAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.MaybeExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for <xref href=\"Wrap.Maybe%601\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.MatchAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.MatchAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.Audit.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.Audit",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.AuditAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.AuditAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.Bind.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.Bind",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.Filter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.Filter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.FilterAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.FilterAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.IfNone.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.IfNone",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.IfNoneAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.IfNoneAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.IfSome.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.IfSome",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.IfSomeAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.IfSomeAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.MatchIf.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.MatchIf",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.BindAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.BindAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.Match.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.Match",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.MapAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.MapAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.Map.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.Map",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.IsTrueAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.IsTrueAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.IsTrue.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.IsTrue",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.IsFalseAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.IsFalseAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.MaybeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.MaybeExtensions.IsFalse.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.MaybeExtensions.IsFalse",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2455,37 +3431,11 @@
           "relative_path": "api/Wrap.None.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ObjectExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ObjectExtensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ObjectExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ObjectExtensions.WrapLeft.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ObjectExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ObjectExtensions.WrapResult.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.None",
+      "Summary": "<p sourcefile=\"api/Wrap.None.yml\" sourcestartlinenumber=\"1\">Simple 'None' value which can be returned in place of <code>null</code>.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2495,7 +3445,25 @@
           "relative_path": "api/Wrap.ObjectExtensions.WrapRight.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ObjectExtensions.WrapRight",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.ObjectExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.ObjectExtensions.WrapLeft.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ObjectExtensions.WrapLeft",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2505,17 +3473,39 @@
           "relative_path": "api/Wrap.ObjectExtensions.WrapMaybe.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ObjectExtensions.WrapMaybe",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Ok-1.yml",
+      "source_relative_path": "api/Wrap.ObjectExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Ok-1.html"
+          "relative_path": "api/Wrap.ObjectExtensions.WrapResult.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ObjectExtensions.WrapResult",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.ObjectExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.ObjectExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ObjectExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.ObjectExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for all objects.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2525,7 +3515,11 @@
           "relative_path": "api/Wrap.Ok-1.PrintMembers.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Ok<T>.PrintMembers",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2535,7 +3529,11 @@
           "relative_path": "api/Wrap.Ok-1.op_Inequality.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Ok<T>.operator !=",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2545,7 +3543,25 @@
           "relative_path": "api/Wrap.Ok-1.op_Equality.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Ok<T>.operator ==",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Ok-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Ok-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Ok<T>",
+      "Summary": "<p sourcefile=\"api/Wrap.Ok-1.yml\" sourcestartlinenumber=\"1\">'OK' Result - wraps value to enable safe non-null returns (see <xref href=\"Wrap.Fail\" data-throw-if-not-resolved=\"false\"></xref>)</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2555,7 +3571,11 @@
           "relative_path": "api/Wrap.Ok-1.GetHashCode.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Ok<T>.GetHashCode",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2565,17 +3585,11 @@
           "relative_path": "api/Wrap.Ok-1.Equals.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Ok-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Ok-1.Value.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Ok<T>.Equals",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2585,37 +3599,25 @@
           "relative_path": "api/Wrap.Ok-1.EqualityContract.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Ok<T>.EqualityContract",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.ExceptionHandler.yml",
+      "source_relative_path": "api/Wrap.Ok-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.R.ExceptionHandler.-ctor.html"
+          "relative_path": "api/Wrap.Ok-1.Value.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.ExceptionHandler.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.ExceptionHandler.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.ExceptionHandler.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.ExceptionHandler.EndInvoke.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Ok<T>.Value",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2625,7 +3627,25 @@
           "relative_path": "api/Wrap.R.ExceptionHandler.BeginInvoke.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R.ExceptionHandler.BeginInvoke",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.R.ExceptionHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.R.ExceptionHandler.-ctor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R.ExceptionHandler.ExceptionHandler",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2635,17 +3655,39 @@
           "relative_path": "api/Wrap.R.ExceptionHandler.Invoke.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R.ExceptionHandler.Invoke",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.yml",
+      "source_relative_path": "api/Wrap.R.ExceptionHandler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.R.MatchAsync.html"
+          "relative_path": "api/Wrap.R.ExceptionHandler.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R.ExceptionHandler",
+      "Summary": "<p sourcefile=\"api/Wrap.R.ExceptionHandler.yml\" sourcestartlinenumber=\"1\">Handles exceptions when an operation fails - see <xref href=\"Wrap.R.Try%60%601(System.Func%7b%60%600%7d)\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.R.ExceptionHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.R.ExceptionHandler.EndInvoke.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R.ExceptionHandler.EndInvoke",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2655,17 +3697,11 @@
           "relative_path": "api/Wrap.R.TryAsync.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.Fail.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R.TryAsync",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2675,47 +3711,11 @@
           "relative_path": "api/Wrap.R.Ok.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.Match.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.Try.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.R.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.R.DefaultHandler.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R.Ok",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2725,97 +3725,95 @@
           "relative_path": "api/Wrap.R.Wrap.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R.Wrap",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Result-1.yml",
+      "source_relative_path": "api/Wrap.R.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Result-1.AsTask.html"
+          "relative_path": "api/Wrap.R.DefaultHandler.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R.DefaultHandler",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Result-1.yml",
+      "source_relative_path": "api/Wrap.R.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Result-1.GetEnumerator.html"
+          "relative_path": "api/Wrap.R.Match.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R.Match",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Result-1.yml",
+      "source_relative_path": "api/Wrap.R.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Result-1.ToString.html"
+          "relative_path": "api/Wrap.R.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R",
+      "Summary": "<p sourcefile=\"api/Wrap.R.yml\" sourcestartlinenumber=\"1\">Pure functions for interacting with <xref href=\"Wrap.Result%601\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Result-1.yml",
+      "source_relative_path": "api/Wrap.R.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Result-1.op_Implicit.html"
+          "relative_path": "api/Wrap.R.Fail.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R.Fail",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Result-1.yml",
+      "source_relative_path": "api/Wrap.R.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Result-1.PrintMembers.html"
+          "relative_path": "api/Wrap.R.Try.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R.Try",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Result-1.yml",
+      "source_relative_path": "api/Wrap.R.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Result-1.op_Inequality.html"
+          "relative_path": "api/Wrap.R.MatchAsync.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Result-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Result-1.GetHashCode.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Result-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Result-1.Equals.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Result-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Result-1.-ctor.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.R.MatchAsync",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2825,17 +3823,95 @@
           "relative_path": "api/Wrap.Result-1.EqualityContract.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>.EqualityContract",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.Result-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Result-1.IsFail.html"
+          "relative_path": "api/Wrap.Result-1.GetHashCode.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>.GetHashCode",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Result-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Result-1.PrintMembers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>.PrintMembers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Result-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Result-1.op_Implicit.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>.implicit operator",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Result-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Result-1.ToString.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>.ToString",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Result-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Result-1.GetEnumerator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>.GetEnumerator",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Result-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Result-1.AsTask.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>.AsTask",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2845,17 +3921,11 @@
           "relative_path": "api/Wrap.Result-1.IsOk.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Result-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Result-1.op_Equality.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>.IsOk",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2865,37 +3935,81 @@
           "relative_path": "api/Wrap.Result-1.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>",
+      "Summary": "<p sourcefile=\"api/Wrap.Result-1.yml\" sourcestartlinenumber=\"1\">Result monad.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ResultExtensions.yml",
+      "source_relative_path": "api/Wrap.Result-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.Discard.html"
+          "relative_path": "api/Wrap.Result-1.Equals.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>.Equals",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ResultExtensions.yml",
+      "source_relative_path": "api/Wrap.Result-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.DiscardAsync.html"
+          "relative_path": "api/Wrap.Result-1.IsFail.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>.IsFail",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ResultExtensions.yml",
+      "source_relative_path": "api/Wrap.Result-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.Audit.html"
+          "relative_path": "api/Wrap.Result-1.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>.Result",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Result-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Result-1.op_Inequality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>.operator !=",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Result-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Result-1.op_Equality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Result<T>.operator ==",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2905,7 +4019,39 @@
           "relative_path": "api/Wrap.ResultExtensions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.ResultExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for <xref href=\"Wrap.Result%601\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.ResultExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.ResultExtensions.DiscardAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.DiscardAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.ResultExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.ResultExtensions.Discard.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.Discard",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2915,7 +4061,11 @@
           "relative_path": "api/Wrap.ResultExtensions.UnwrapAsync.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.UnwrapAsync",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2925,7 +4075,11 @@
           "relative_path": "api/Wrap.ResultExtensions.Unwrap.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.Unwrap",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2935,7 +4089,11 @@
           "relative_path": "api/Wrap.ResultExtensions.Unsafe.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.Unsafe",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2945,37 +4103,11 @@
           "relative_path": "api/Wrap.ResultExtensions.MatchAsync.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ResultExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.Match.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ResultExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.MapAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ResultExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.IfOkAsync.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.MatchAsync",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2985,77 +4117,39 @@
           "relative_path": "api/Wrap.ResultExtensions.Map.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.Map",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.ResultExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.IfFailAsync.html"
+          "relative_path": "api/Wrap.ResultExtensions.Audit.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.Audit",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
       "source_relative_path": "api/Wrap.ResultExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.IfFail.html"
+          "relative_path": "api/Wrap.ResultExtensions.IfOkAsync.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ResultExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.FilterAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ResultExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.Filter.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ResultExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.BindAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ResultExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.Bind.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ResultExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ResultExtensions.AuditAsync.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.IfOkAsync",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3065,77 +4159,137 @@
           "relative_path": "api/Wrap.ResultExtensions.IfOk.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.IfOk",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Right-2.yml",
+      "source_relative_path": "api/Wrap.ResultExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Right-2.EqualityContract.html"
+          "relative_path": "api/Wrap.ResultExtensions.IfFailAsync.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.IfFailAsync",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Right-2.yml",
+      "source_relative_path": "api/Wrap.ResultExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Right-2.html"
+          "relative_path": "api/Wrap.ResultExtensions.IfFail.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.IfFail",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Right-2.yml",
+      "source_relative_path": "api/Wrap.ResultExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Right-2.Value.html"
+          "relative_path": "api/Wrap.ResultExtensions.FilterAsync.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.FilterAsync",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Right-2.yml",
+      "source_relative_path": "api/Wrap.ResultExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Right-2.GetHashCode.html"
+          "relative_path": "api/Wrap.ResultExtensions.Filter.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.Filter",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Right-2.yml",
+      "source_relative_path": "api/Wrap.ResultExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Right-2.Equals.html"
+          "relative_path": "api/Wrap.ResultExtensions.BindAsync.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.BindAsync",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Right-2.yml",
+      "source_relative_path": "api/Wrap.ResultExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Right-2.op_Inequality.html"
+          "relative_path": "api/Wrap.ResultExtensions.Match.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.Match",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Right-2.yml",
+      "source_relative_path": "api/Wrap.ResultExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Right-2.PrintMembers.html"
+          "relative_path": "api/Wrap.ResultExtensions.Bind.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.Bind",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.ResultExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.ResultExtensions.AuditAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.AuditAsync",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.ResultExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.ResultExtensions.MapAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ResultExtensions.MapAsync",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3145,7 +4299,11 @@
           "relative_path": "api/Wrap.Right-2.ToString.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Right<TLeft, TRight>.ToString",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3155,37 +4313,109 @@
           "relative_path": "api/Wrap.Right-2.op_Equality.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Right<TLeft, TRight>.operator ==",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Some-1.yml",
+      "source_relative_path": "api/Wrap.Right-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Some-1.html"
+          "relative_path": "api/Wrap.Right-2.GetHashCode.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Right<TLeft, TRight>.GetHashCode",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Some-1.yml",
+      "source_relative_path": "api/Wrap.Right-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Some-1.Value.html"
+          "relative_path": "api/Wrap.Right-2.Equals.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Right<TLeft, TRight>.Equals",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Some-1.yml",
+      "source_relative_path": "api/Wrap.Right-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Some-1.EqualityContract.html"
+          "relative_path": "api/Wrap.Right-2.EqualityContract.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Right<TLeft, TRight>.EqualityContract",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Right-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Right-2.Value.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Right<TLeft, TRight>.Value",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Right-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Right-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Right<TLeft, TRight>",
+      "Summary": "<p sourcefile=\"api/Wrap.Right-2.yml\" sourcestartlinenumber=\"1\">Either monad - right value.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Right-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Right-2.op_Inequality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Right<TLeft, TRight>.operator !=",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Right-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Right-2.PrintMembers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Right<TLeft, TRight>.PrintMembers",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3195,7 +4425,11 @@
           "relative_path": "api/Wrap.Some-1.Equals.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Some<T>.Equals",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3205,27 +4439,11 @@
           "relative_path": "api/Wrap.Some-1.op_Equality.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Some-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Some-1.op_Inequality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Some-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Some-1.PrintMembers.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Some<T>.operator ==",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3235,17 +4453,81 @@
           "relative_path": "api/Wrap.Some-1.GetHashCode.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Some<T>.GetHashCode",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UIntExtensions.yml",
+      "source_relative_path": "api/Wrap.Some-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.UIntExtensions.WrapId.html"
+          "relative_path": "api/Wrap.Some-1.EqualityContract.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Some<T>.EqualityContract",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Some-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Some-1.Value.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Some<T>.Value",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Some-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Some-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Some<T>",
+      "Summary": "<p sourcefile=\"api/Wrap.Some-1.yml\" sourcestartlinenumber=\"1\">'Some' Maybe - wraps value to enable safe non-null returns (see <xref href=\"Wrap.None\" data-throw-if-not-resolved=\"false\"></xref>).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Some-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Some-1.op_Inequality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Some<T>.operator !=",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Some-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Some-1.PrintMembers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Some<T>.PrintMembers",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3255,57 +4537,25 @@
           "relative_path": "api/Wrap.UIntExtensions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UIntExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.UIntExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for <xref href=\"System.UInt32\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UIntId-1.yml",
+      "source_relative_path": "api/Wrap.UIntExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.UIntId-1.GetHashCode.html"
+          "relative_path": "api/Wrap.UIntExtensions.WrapId.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UIntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.UIntId-1.EqualityContract.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UIntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.UIntId-1.Equals.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UIntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.UIntId-1.op_Equality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UIntId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.UIntId-1.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UIntExtensions.WrapId",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3315,7 +4565,81 @@
           "relative_path": "api/Wrap.UIntId-1.PrintMembers.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UIntId<TId>.PrintMembers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.UIntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.UIntId-1.op_Equality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UIntId<TId>.operator ==",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.UIntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.UIntId-1.GetHashCode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UIntId<TId>.GetHashCode",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.UIntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.UIntId-1.Equals.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UIntId<TId>.Equals",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.UIntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.UIntId-1.EqualityContract.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UIntId<TId>.EqualityContract",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.UIntId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.UIntId-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UIntId<TId>",
+      "Summary": "<p sourcefile=\"api/Wrap.UIntId-1.yml\" sourcestartlinenumber=\"1\">Implementation using <xref href=\"System.UInt32\" data-throw-if-not-resolved=\"false\"></xref> as the Value type.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -3325,7 +4649,11 @@
           "relative_path": "api/Wrap.UIntId-1.ToString.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UIntId<TId>.ToString",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3335,7 +4663,11 @@
           "relative_path": "api/Wrap.UIntId-1.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UIntId<TId>.UIntId",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3345,17 +4677,11 @@
           "relative_path": "api/Wrap.UIntId-1.op_Inequality.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ULongExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ULongExtensions.WrapId.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UIntId<TId>.operator !=",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3365,77 +4691,25 @@
           "relative_path": "api/Wrap.ULongExtensions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ULongExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.ULongExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for <xref href=\"System.UInt64\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ULongId-1.yml",
+      "source_relative_path": "api/Wrap.ULongExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.ULongId-1.-ctor.html"
+          "relative_path": "api/Wrap.ULongExtensions.WrapId.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ULongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ULongId-1.ToString.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ULongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ULongId-1.PrintMembers.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ULongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ULongId-1.op_Inequality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ULongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ULongId-1.op_Equality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ULongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ULongId-1.GetHashCode.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.ULongId-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.ULongId-1.Equals.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ULongExtensions.WrapId",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3445,7 +4719,67 @@
           "relative_path": "api/Wrap.ULongId-1.EqualityContract.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ULongId<TId>.EqualityContract",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.ULongId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.ULongId-1.Equals.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ULongId<TId>.Equals",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.ULongId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.ULongId-1.GetHashCode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ULongId<TId>.GetHashCode",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.ULongId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.ULongId-1.op_Equality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ULongId<TId>.operator ==",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.ULongId-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.ULongId-1.op_Inequality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ULongId<TId>.operator !=",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3455,67 +4789,53 @@
           "relative_path": "api/Wrap.ULongId-1.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ULongId<TId>",
+      "Summary": "<p sourcefile=\"api/Wrap.ULongId-1.yml\" sourcestartlinenumber=\"1\">Implementation using <xref href=\"System.UInt64\" data-throw-if-not-resolved=\"false\"></xref> as the Value type.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
+      "source_relative_path": "api/Wrap.ULongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Union-2.html"
+          "relative_path": "api/Wrap.ULongId-1.PrintMembers.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ULongId<TId>.PrintMembers",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
+      "source_relative_path": "api/Wrap.ULongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Union-2.Value.html"
+          "relative_path": "api/Wrap.ULongId-1.ToString.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ULongId<TId>.ToString",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
+      "source_relative_path": "api/Wrap.ULongId-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.Union-2.EqualityContract.html"
+          "relative_path": "api/Wrap.ULongId-1.-ctor.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Union-2.Equals.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Union-2.GetHashCode.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Union-2.Wrap.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.ULongId<TId>.ULongId",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3525,27 +4845,11 @@
           "relative_path": "api/Wrap.Union-2.op_Inequality.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Union-2.PrintMembers.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Union-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Union-2.ToString.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Union<TUnion, TValue>.operator !=",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3555,7 +4859,81 @@
           "relative_path": "api/Wrap.Union-2.-ctor.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Union<TUnion, TValue>.Union",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Union-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Union-2.Wrap.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Union<TUnion, TValue>.Wrap",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Union-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Union-2.ToString.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Union<TUnion, TValue>.ToString",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Union-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Union-2.PrintMembers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Union<TUnion, TValue>.PrintMembers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Union-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Union-2.Value.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Union<TUnion, TValue>.Value",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Union-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Union-2.EqualityContract.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Union<TUnion, TValue>.EqualityContract",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3565,7 +4943,53 @@
           "relative_path": "api/Wrap.Union-2.op_Equality.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Union<TUnion, TValue>.operator ==",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Union-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Union-2.GetHashCode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Union<TUnion, TValue>.GetHashCode",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Union-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Union-2.Equals.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Union<TUnion, TValue>.Equals",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.Union-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.Union-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Union<TUnion, TValue>",
+      "Summary": "<p sourcefile=\"api/Wrap.Union-2.yml\" sourcestartlinenumber=\"1\">Wraps simple CLR types.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -3575,7 +4999,11 @@
           "relative_path": "api/Wrap.Unsafe-1.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Unsafe<T>",
+      "Summary": "<p sourcefile=\"api/Wrap.Unsafe-1.yml\" sourcestartlinenumber=\"1\">Unsafe wrapper to enable unsafe (i.e. may result in null values) functions.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -3585,7 +5013,11 @@
           "relative_path": "api/Wrap.Unsafe-1.Equals.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Unsafe<T>.Equals",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3595,27 +5027,11 @@
           "relative_path": "api/Wrap.Unsafe-1.GetHashCode.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Unsafe-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Unsafe-1.op_Inequality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.Unsafe-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.Unsafe-1.ToString.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Unsafe<T>.GetHashCode",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3625,47 +5041,39 @@
           "relative_path": "api/Wrap.Unsafe-1.op_Equality.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Unsafe<T>.operator ==",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UnsafeExtensions.yml",
+      "source_relative_path": "api/Wrap.Unsafe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.UnsafeExtensions.IsSome.html"
+          "relative_path": "api/Wrap.Unsafe-1.op_Inequality.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Unsafe<T>.operator !=",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UnsafeExtensions.yml",
+      "source_relative_path": "api/Wrap.Unsafe-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.UnsafeExtensions.Unwrap.html"
+          "relative_path": "api/Wrap.Unsafe-1.ToString.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UnsafeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.UnsafeExtensions.UnwrapAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.UnsafeExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.UnsafeExtensions.IsOk.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.Unsafe<T>.ToString",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3675,37 +5083,67 @@
           "relative_path": "api/Wrap.UnsafeExtensions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UnsafeExtensions",
+      "Summary": "<p sourcefile=\"api/Wrap.UnsafeExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for <xref href=\"Wrap.Unsafe%601\" data-throw-if-not-resolved=\"false\"></xref> objects.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.WithId-2.yml",
+      "source_relative_path": "api/Wrap.UnsafeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.WithId-2.GetHashCode.html"
+          "relative_path": "api/Wrap.UnsafeExtensions.IsSome.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UnsafeExtensions.IsSome",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.WithId-2.yml",
+      "source_relative_path": "api/Wrap.UnsafeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.WithId-2.html"
+          "relative_path": "api/Wrap.UnsafeExtensions.UnwrapAsync.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UnsafeExtensions.UnwrapAsync",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.WithId-2.yml",
+      "source_relative_path": "api/Wrap.UnsafeExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Wrap.WithId-2.Id.html"
+          "relative_path": "api/Wrap.UnsafeExtensions.Unwrap.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UnsafeExtensions.Unwrap",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.UnsafeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.UnsafeExtensions.IsOk.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.UnsafeExtensions.IsOk",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3715,7 +5153,11 @@
           "relative_path": "api/Wrap.WithId-2.EqualityContract.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.WithId<TId, TValue>.EqualityContract",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3725,37 +5167,11 @@
           "relative_path": "api/Wrap.WithId-2.-ctor.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.WithId-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.WithId-2.op_Inequality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.WithId-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.WithId-2.op_Equality.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Wrap.WithId-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Wrap.WithId-2.PrintMembers.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.WithId<TId, TValue>.WithId",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3765,7 +5181,67 @@
           "relative_path": "api/Wrap.WithId-2.ToString.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.WithId<TId, TValue>.ToString",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.WithId-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.WithId-2.PrintMembers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.WithId<TId, TValue>.PrintMembers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.WithId-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.WithId-2.op_Inequality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.WithId<TId, TValue>.operator !=",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.WithId-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.WithId-2.op_Equality.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.WithId<TId, TValue>.operator ==",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.WithId-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.WithId-2.GetHashCode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.WithId<TId, TValue>.GetHashCode",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3775,7 +5251,39 @@
           "relative_path": "api/Wrap.WithId-2.Equals.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.WithId<TId, TValue>.Equals",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.WithId-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.WithId-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.WithId<TId, TValue>",
+      "Summary": "<p sourcefile=\"api/Wrap.WithId-2.yml\" sourcestartlinenumber=\"1\">Represents an object (Entity or Model) with a strongly-typed ID.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wrap.WithId-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wrap.WithId-2.Id.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap.WithId<TId, TValue>.Id",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3785,7 +5293,11 @@
           "relative_path": "api/Wrap.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wrap",
+      "Summary": null
     },
     {
       "type": "Conceptual",
@@ -3801,11 +5313,11 @@
       "type": "Toc",
       "source_relative_path": "api/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "api/toc.json"
-        },
         ".html": {
           "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
         }
       },
       "version": ""
@@ -3824,11 +5336,11 @@
       "type": "Toc",
       "source_relative_path": "articles/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "articles/toc.json"
-        },
         ".html": {
           "relative_path": "articles/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/toc.json"
         }
       },
       "version": ""
@@ -3847,11 +5359,11 @@
       "type": "Toc",
       "source_relative_path": "toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "toc.json"
-        },
         ".html": {
           "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
         }
       },
       "version": ""

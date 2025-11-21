@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -130,30 +130,37 @@ Enum LogLevel
 </h2>
   <dl class="parameters">
     <dt id="Wrap_Logging_LogLevel_Debug"><code>Debug = 2</code></dt>
-    <dd><p>Logs that are used for interactive investigation during development.
+  
+  <dd><p>Logs that are used for interactive investigation during development.
 These logs should primarily contain information useful for debugging and have no long-term value.</p>
 </dd>
     <dt id="Wrap_Logging_LogLevel_Error"><code>Error = 16</code></dt>
-    <dd><p>Logs that highlight when the current flow of execution is stopped due to a failure.
+  
+  <dd><p>Logs that highlight when the current flow of execution is stopped due to a failure.
 These should indicate a failure in the current activity, not an application-wide failure.</p>
 </dd>
     <dt id="Wrap_Logging_LogLevel_Fatal"><code>Fatal = 32</code></dt>
-    <dd><p>Logs that describe an unrecoverable application or system crash,
+  
+  <dd><p>Logs that describe an unrecoverable application or system crash,
 or a catastrophic failure that requires immediate attention.</p>
 </dd>
     <dt id="Wrap_Logging_LogLevel_Information"><code>Information = 4</code></dt>
-    <dd><p>Logs that track the general flow of the application. These logs should have long-term value.</p>
+  
+  <dd><p>Logs that track the general flow of the application. These logs should have long-term value.</p>
 </dd>
     <dt id="Wrap_Logging_LogLevel_Unknown"><code>Unknown = 0</code></dt>
-    <dd><p>Unknown log level - will use default.</p>
+  
+  <dd><p>Unknown log level - will use default.</p>
 </dd>
     <dt id="Wrap_Logging_LogLevel_Verbose"><code>Verbose = 1</code></dt>
-    <dd><p>Logs that contain the most detailed messages.
+  
+  <dd><p>Logs that contain the most detailed messages.
 These messages may contain sensitive application data.
 These messages are disabled by default and should never be enabled in a production environment.</p>
 </dd>
     <dt id="Wrap_Logging_LogLevel_Warning"><code>Warning = 8</code></dt>
-    <dd><p>Logs that highlight an abnormal or unexpected event in the application flow,
+  
+  <dd><p>Logs that highlight an abnormal or unexpected event in the application flow,
 but do not otherwise cause the application execution to stop.</p>
 </dd>
   </dl>

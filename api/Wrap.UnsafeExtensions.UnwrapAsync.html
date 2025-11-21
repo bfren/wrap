@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -92,7 +92,7 @@ Method UnwrapAsync
 
 <div class="facts text-secondary">
   <dl><dt>Namespace</dt><dd><a class="xref" href="Wrap.html">Wrap</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Maybe.dll</dd></dl>
+  <dl><dt>Assembly</dt><dd>Result.dll</dd></dl>
 </div>
 
 <div class="markdown summary"></div>
@@ -120,7 +120,7 @@ Method UnwrapAsync
   
 </h3>
 
-<div class="markdown level1 summary"><p>Assume <code class="paramref">this</code> is a <a class="xref" href="Wrap.Some-1.html">Some&lt;T&gt;</a> and get the value.</p>
+<div class="markdown level1 summary"><p>Assume <code class="paramref">this</code> is a <a class="xref" href="Wrap.Ok-1.html">Ok&lt;T&gt;</a> and get the value.</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 
@@ -138,14 +138,14 @@ Method UnwrapAsync
 <h4 class="section">Returns</h4>
 <dl class="parameters">
   <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</dt>
-  <dd><p>Value of <span class="xref">Wrap.Unsafe`1.Maybe</span>.</p>
+  <dd><p>Value of <span class="xref">Wrap.Unsafe`1.Result</span>.</p>
 </dd>
 </dl>
 
 <h4 class="section">Type Parameters</h4>
 <dl class="parameters">
   <dt><code>T</code></dt>
-  <dd><p>Some value type.</p>
+  <dd><p>Ok value type.</p>
 </dd>
 </dl>
 
@@ -155,7 +155,7 @@ Method UnwrapAsync
 
 
 <h4 class="section" id="Wrap_UnsafeExtensions_UnwrapAsync__1_System_Threading_Tasks_Task_Wrap_Unsafe___0____remarks">Remarks</h4>
-<div class="markdown level1 remarks"><p>However (!) if <code class="paramref">this</code> is a <a class="xref" href="Wrap.None.html">None</a>, you will get
+<div class="markdown level1 remarks"><p>However (!) if <code class="paramref">this</code> is a <a class="xref" href="Wrap.Fail.html">Fail</a>, you will get
 the default value of <code class="typeparamref">T</code> or null.</p>
 </div>
 
