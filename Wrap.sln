@@ -67,6 +67,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maybe.System.Text.Json", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Id.Dapper", "src\Id.Dapper\Id.Dapper.csproj", "{F9C91DED-047A-4AB0-9210-B20D743860A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Id.Testing", "src\Id.Testing\Id.Testing.csproj", "{6C6C98B7-A68D-46D5-BB7F-DA3AA6CF06CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,10 @@ Global
 		{F9C91DED-047A-4AB0-9210-B20D743860A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9C91DED-047A-4AB0-9210-B20D743860A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9C91DED-047A-4AB0-9210-B20D743860A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C6C98B7-A68D-46D5-BB7F-DA3AA6CF06CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C6C98B7-A68D-46D5-BB7F-DA3AA6CF06CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C6C98B7-A68D-46D5-BB7F-DA3AA6CF06CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C6C98B7-A68D-46D5-BB7F-DA3AA6CF06CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -143,6 +149,7 @@ Global
 		{562EA825-7859-4074-9B6E-8EDC3B393D35} = {79CFFFAB-0E14-4828-9237-8985C5428F00}
 		{B1FAC0A5-36A0-4F9B-A67A-F6B27BCFAC20} = {79CFFFAB-0E14-4828-9237-8985C5428F00}
 		{F9C91DED-047A-4AB0-9210-B20D743860A7} = {79CFFFAB-0E14-4828-9237-8985C5428F00}
+		{6C6C98B7-A68D-46D5-BB7F-DA3AA6CF06CE} = {79CFFFAB-0E14-4828-9237-8985C5428F00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0E447EF-EBC5-4EF0-AA29-E602AB168C93}
