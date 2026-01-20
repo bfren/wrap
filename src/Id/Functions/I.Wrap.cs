@@ -12,7 +12,7 @@ public static partial class I
 	/// <typeparam name="TValue">ID value type.</typeparam>
 	/// <param name="value">Value to wrap.</param>
 	/// <returns>Value wrapped as a strongly-typed ID.</returns>
-	public static TId Wrap<TId, TValue>(TValue value)
+	internal static TId Wrap<TId, TValue>(TValue value)
 		where TId : Id<TId, TValue>, new()
 		where TValue : struct =>
 		F.Wrap<TId, TValue>(value);

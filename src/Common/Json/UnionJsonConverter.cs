@@ -13,7 +13,7 @@ namespace Wrap.Json;
 /// </summary>
 /// <typeparam name="TUnion">Union type.</typeparam>
 /// <typeparam name="TValue">Union value type.</typeparam>
-internal sealed class UnionJsonConverter<TUnion, TValue> : JsonConverter<TUnion>
+public sealed class UnionJsonConverter<TUnion, TValue> : JsonConverter<TUnion>
 	where TUnion : IUnion<TValue>, new()
 {
 	/// <inheritdoc/>

@@ -4,12 +4,12 @@
 namespace Wrap;
 
 /// <summary>
-/// Represents an object (Entity or Model) with a strongly-typed ID.
+/// Generid ID using <see cref="uint"/> as the Value type.
 /// </summary>
-public interface IWithId
+public interface IUintId : IUnion
 {
 	/// <summary>
-	/// Generic ID value.
+	/// ID Value.
 	/// </summary>
-	IUnion Id { get; }
+	new uint Value { get; }
 }

@@ -10,6 +10,6 @@ public static class ULongExtensions
 {
 	/// <inheritdoc cref="I.Wrap{TId, TValue}(TValue)"/>
 	public static TId WrapId<TId>(this ulong @this)
-		where TId : ULongId<TId>, new() =>
+		where TId : ULongId<TId>, IULongId, new() =>
 		I.Wrap<TId, ulong>(@this);
 }

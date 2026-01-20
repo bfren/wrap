@@ -1,15 +1,17 @@
 // Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System;
+
 namespace Wrap;
 
 /// <summary>
-/// Represents an object (Entity or Model) with a strongly-typed ID.
+/// Generid ID using <see cref="Guid"/> as the Value type.
 /// </summary>
-public interface IWithId
+public interface IGuidId : IUnion
 {
 	/// <summary>
-	/// Generic ID value.
+	/// ID Value.
 	/// </summary>
-	IUnion Id { get; }
+	new Guid Value { get; }
 }

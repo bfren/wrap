@@ -10,6 +10,6 @@ public static class UIntExtensions
 {
 	/// <inheritdoc cref="I.Wrap{TId, TValue}(TValue)"/>
 	public static TId WrapId<TId>(this uint @this)
-		where TId : UIntId<TId>, new() =>
+		where TId : UIntId<TId>, IUintId, new() =>
 		I.Wrap<TId, uint>(@this);
 }

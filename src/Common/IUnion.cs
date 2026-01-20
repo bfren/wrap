@@ -9,7 +9,7 @@ public interface IUnion
 	/// <summary>
 	/// Value.
 	/// </summary>
-	object? Value { get; }
+	object Value { get; }
 }
 
 /// <summary>
@@ -23,6 +23,6 @@ public interface IUnion<T> : IUnion
 	/// </summary>
 	new T Value { get; init; }
 
-	object? IUnion.Value =>
-		Value;
+	object IUnion.Value =>
+		Value ?? new object();
 }

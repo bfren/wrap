@@ -7,5 +7,5 @@ namespace Wrap;
 /// Implementation using <see cref="long"/> as the Value type.
 /// </summary>
 /// <typeparam name="TId">ID implementation type.</typeparam>
-public abstract record class LongId<TId>() : Id<TId, long>(0L)
-	where TId : LongId<TId>, new();
+public abstract record class LongId<TId>() : Id<TId, long>(0L), ILongId
+	where TId : LongId<TId>, ILongId, new();
