@@ -90,7 +90,7 @@ public readonly record struct FailValue
 			Level = DefaultMessageLevel
 		};
 
-	/// <inheritdoc cref="Create(string, string, Exception)"/>
+	/// <inheritdoc cref="Create(string, string, Exception, string?)"/>
 	public static FailValue Create(Exception exception) =>
 		new()
 		{
@@ -105,12 +105,13 @@ public readonly record struct FailValue
 	/// <param name="class">Context class.</param>
 	/// <param name="function">Context function.</param>
 	/// <param name="exception">Failure exception.</param>
+	/// <param name="message">Optional failure message to use instead of <see cref="Exception.Message"/>.</param>
 	/// <returns>Object containing failure information.</returns>
-	public static FailValue Create(string @class, string function, Exception exception) =>
+	public static FailValue Create(string @class, string function, Exception exception, string? message) =>
 		new()
 		{
 			Context = string.Format(CultureInfo.InvariantCulture, ContextFormat, @class, function),
-			Message = exception.Message,
+			Message = message ?? exception.Message,
 			Exception = exception,
 			Level = DefaultExceptionLevel
 		};

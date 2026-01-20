@@ -40,10 +40,6 @@ public static partial class R
 
 	#region Without Context
 
-	/// <inheritdoc cref="Fail(string, string, string, object[])"/>
-	public static Fail Fail(string message, params object?[] args) =>
-		Fail(FailValue.Create(message, args));
-
 	/// <inheritdoc cref="Fail{TContext, TException}()"/>
 	public static Fail Fail<TException>()
 		where TException : Exception, new() =>
@@ -148,9 +144,27 @@ public static partial class R
 	/// <param name="class">Context class.</param>
 	/// <param name="function">Context function.</param>
 	/// <param name="ex">Exception object.</param>
+	/// <param name="message">[Optional] Failure message to use instead of <see cref="Exception.Message"/>.</param>
 	/// <returns>Failure result.</returns>
-	public static Fail Fail(string @class, string function, Exception ex) =>
-		Fail(FailValue.Create(@class, function, ex));
+	public static Fail Fail(string @class, string function, Exception ex, string? message = null) =>
+		Fail(FailValue.Create(@class, function, ex, message));
+
+	/// <summary>
+	/// Create a <see cref="Wrap.Fail"/> object from an exception.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// Also logs the exception using <see cref="F.LogException"/> first.
+	/// </para>
+	/// </remarks>
+	/// <param name="class">Context class.</param>
+	/// <param name="function">Context function.</param>
+	/// <param name="ex">Exception object.</param>
+	/// <param name="message">[Optional] Failure message to use instead of <see cref="Exception.Message"/>.</param>
+	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
+	/// <returns>Failure result.</returns>
+	public static Fail Fail(string @class, string function, Exception ex, string message, params object?[] args) =>
+		Fail(FailValue.Create(@class, function, ex, message, args));
 
 	#endregion
 }
