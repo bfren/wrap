@@ -21,11 +21,12 @@ public static partial class ResultExtensions
 	/// </para>
 	/// </remarks>
 	/// <seealso cref="Unwrap{T}(Result{T})"/>
-	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable{TSingle}"/>.</typeparam>
+	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
 	/// <typeparam name="TSingle">IEnumerable value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Fail"/></returns>
-	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this) =>
+	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this)
+		where T : IEnumerable =>
 		Bind(@this, x => x switch
 		{
 			IEnumerable<TSingle> list when list.Count() == 1 =>
@@ -53,18 +54,25 @@ public static partial class ResultExtensions
 		});
 
 	/// <summary>
-	/// Asynchronously projects a single element from the result of a task that yields a collection, using a specified
-	/// selector function.
+	/// Unwrap an <see cref="IEnumerable{T}"/> object that has a single value.
 	/// </summary>
-	/// <remarks>Use this method to extract or transform a single element from a collection result in an
-	/// asynchronous workflow. The selector function can be used to specify which element to retrieve or how to handle
-	/// cases such as empty or multiple elements.</remarks>
-	/// <typeparam name="T">The type of the collection contained in the result.</typeparam>
-	/// <typeparam name="TSingle">The type of the single element to be projected from the collection.</typeparam>
-	/// <param name="this">A task that, when completed, provides a result containing a collection of elements.</param>
-	/// <param name="unwrap">A function that defines how to select a single element from the provided collection result.</param>
-	/// <returns>A task that represents the asynchronous operation. The task result contains a result wrapping the single projected
-	/// element.</returns>
+	/// <remarks>
+	/// <para>
+	/// If <paramref name="this"/> is not an <see cref="IEnumerable{T}"/> with a single value,
+	/// you will get an <see cref="InvalidOperationException"/>.
+	/// </para>
+	/// </remarks>
+	/// <seealso cref="Unwrap{T}(Result{T})"/>
+	/// <typeparam name="T">Ok value type (should be an IEnumerable).</typeparam>
+	/// <typeparam name="TSingle">IEnumerable value type.</typeparam>
+	/// <param name="this">Result object.</param>
+	/// <param name="unwrap">Fluent unwrap function.</param>
+	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Fail"/></returns>
+	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, Func<FluentGetSingle<T>, Result<TSingle>> unwrap)
+		where T : IEnumerable<TSingle> =>
+		unwrap(new FluentGetSingle<T>(@this));
+
+	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, Func{FluentGetSingle{T}, Result{TSingle}})"/>
 	public static async Task<Result<TSingle>> GetSingleAsync<T, TSingle>(this Task<Result<T>> @this, Func<FluentGetSingle<T>, Result<TSingle>> unwrap)
 		where T : IEnumerable<TSingle> =>
 		unwrap(new FluentGetSingle<T>(await @this.ConfigureAwait(false)));
@@ -74,6 +82,7 @@ public static partial class ResultExtensions
 	/// </summary>
 	/// <typeparam name="T">The type of the value to retrieve from the query result.</typeparam>
 	public sealed class FluentGetSingle<T>(Result<T> result)
+		where T : IEnumerable
 	{
 		/// <summary>
 		/// Retrieves the result value as an instance of the specified type.
