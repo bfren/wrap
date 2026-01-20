@@ -1,4 +1,4 @@
-﻿[*.{cs,csx,cake,vb,vbx}]
+[*.{cs,csx,cake,vb,vbx}]
 
 file_header_template = Wrap: Unit Tests\nCopyright (c) bfren - licensed under https://mit.bfren.dev/2019
 insert_final_newline = true
@@ -26,6 +26,9 @@ dotnet_diagnostic.IDE0130.severity = none
 
 # IDE1006: Naming Styles.
 dotnet_diagnostic.IDE1006.severity = none
+
+# IDE0130: Namespace does not match folder structure
+dotnet_diagnostic.IDE0130.severity = none
 
 # RCS1090: Add call to 'ConfigureAwait' (or vice versa).
 dotnet_diagnostic.RCS1090.severity = none
