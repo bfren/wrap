@@ -3,9 +3,11 @@
     <ProjectReference Include="..\Result\Result.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Using Include="RndF" />
     <Using Include="Xunit" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Rnd" />
     <PackageReference Include="xunit.assert" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Rnd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="RndF" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Id\Id.csproj" />
+  </ItemGroup>
+</Project>
