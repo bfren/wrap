@@ -13,6 +13,6 @@ public static partial class FailValueExtensions
 	/// <param name="this">FailValue object.</param>
 	/// <param name="message">Expected failure message.</param>
 	/// <param name="args">Optional arguments to fill in failure message values.</param>
-	public static void AssertMessage(this Generator @this, string message, params object?[] args) =>
+	public static void AssertMessage(this FailValue @this, string message, params object?[] args) =>
 		Assert.Equal(string.Format(CultureInfo.InvariantCulture, message, args), @this.Message);
 }

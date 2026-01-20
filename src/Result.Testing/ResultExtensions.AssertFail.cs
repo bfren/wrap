@@ -11,7 +11,7 @@ public static partial class ResultExtensions
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <returns>The failure value of <paramref name="this"/>.</returns>
-	public static Generator AssertFail<T>(this Result<T> @this) =>
+	public static FailValue AssertFail<T>(this Result<T> @this) =>
 		Assert.IsType<Result<T>.Failure>(@this).Value;
 
 	/// <summary>
@@ -22,7 +22,7 @@ public static partial class ResultExtensions
 	/// <param name="message">Expected failure message.</param>
 	/// <param name="args">Optional arguments to fill in failure message values.</param>
 	/// <returns>The failure value of <paramref name="this"/>.</returns>
-	public static Generator AssertFail<T>(this Result<T> @this, string message, params object?[] args)
+	public static FailValue AssertFail<T>(this Result<T> @this, string message, params object?[] args)
 	{
 		// Assert failure and get value
 		var value = AssertFail(@this);
