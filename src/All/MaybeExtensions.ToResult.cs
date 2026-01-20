@@ -7,13 +7,6 @@ public static partial class MaybeExtensions
 {
 	private const string NoneFailureMessage = "Maybe<{Type}> was 'None'.";
 
-	/// <inheritdoc cref="ToResult{T}(Maybe{T}, string, string)"/>
-	public static Result<T> ToResult<T>(this Maybe<T> @this) =>
-		@this.Match(
-			none: () => R.Fail(NoneFailureMessage, typeof(T).Name),
-			some: x => R.Wrap(x)
-		);
-
 	/// <summary>
 	/// Convert a <see cref="Maybe{T}"/> to a <see cref="Result{T}"/>.
 	/// </summary>
