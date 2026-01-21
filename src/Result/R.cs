@@ -11,10 +11,16 @@ namespace Wrap;
 public static partial class R
 {
 	/// <summary>
+	/// Allows custom error handling when an operation fail.
+	/// </summary>
+	/// <returns>Fail object</returns>
+	public delegate Fail ErrorHandler();
+
+	/// <summary>
 	/// Handles exceptions when an operation fails - see <see cref="Try{T}(Func{T})"/>.
 	/// </summary>
 	/// <param name="e">Exception object.</param>
-	/// <returns>Fail value.</returns>
+	/// <returns>Fail object.</returns>
 	public delegate Fail ExceptionHandler(Exception e);
 
 	/// <summary>

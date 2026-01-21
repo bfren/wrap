@@ -24,8 +24,9 @@ public static partial class ResultExtensions
 	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
 	/// <typeparam name="TSingle">IEnumerable value type.</typeparam>
 	/// <param name="this">Result object.</param>
+	/// <param name="onError">[Optional] Return custom error on failure.</param>
 	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Fail"/></returns>
-	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this)
+	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, R.ErrorHandler? onError = null)
 		where T : IEnumerable =>
 		Bind(@this, x => x switch
 		{
@@ -33,22 +34,22 @@ public static partial class ResultExtensions
 				R.Wrap(list.Single()),
 
 			IEnumerable<TSingle> list when !list.Any() =>
-				R.Fail(nameof(ResultExtensions), nameof(GetSingle),
+				onError?.Invoke() ?? R.Fail(nameof(ResultExtensions), nameof(GetSingle),
 					"Cannot get single value from an empty list."
 				),
 
 			IEnumerable<TSingle> =>
-				R.Fail(nameof(ResultExtensions), nameof(GetSingle),
+				onError?.Invoke() ?? R.Fail(nameof(ResultExtensions), nameof(GetSingle),
 					"Cannot get single value from a list with multiple values."
 				),
 
 			IEnumerable =>
-				R.Fail(nameof(ResultExtensions), nameof(GetSingle),
+				onError?.Invoke() ?? R.Fail(nameof(ResultExtensions), nameof(GetSingle),
 					"Cannot get single value from a list with incompatible value type."
 				),
 
 			_ =>
-				R.Fail(nameof(ResultExtensions), nameof(GetSingle),
+				onError?.Invoke() ?? R.Fail(nameof(ResultExtensions), nameof(GetSingle),
 					"Result value type is not a list."
 				)
 		});
@@ -63,25 +64,31 @@ public static partial class ResultExtensions
 	/// </para>
 	/// </remarks>
 	/// <seealso cref="Unwrap{T}(Result{T})"/>
-	/// <typeparam name="T">Ok value type (should be an IEnumerable).</typeparam>
+	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
 	/// <typeparam name="TSingle">IEnumerable value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <param name="unwrap">Fluent unwrap function.</param>
+	/// <param name="onError">[Optional] Return custom error on failure.</param>
 	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Fail"/></returns>
-	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, Func<FluentGetSingle<T>, Result<TSingle>> unwrap)
+	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, Func<FluentGetSingle<T>,
+		Result<TSingle>> unwrap, R.ErrorHandler? onError = null
+	)
 		where T : IEnumerable<TSingle> =>
-		unwrap(new FluentGetSingle<T>(@this));
+		unwrap(new FluentGetSingle<T>(@this, onError));
 
-	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, Func{FluentGetSingle{T}, Result{TSingle}})"/>
-	public static async Task<Result<TSingle>> GetSingleAsync<T, TSingle>(this Task<Result<T>> @this, Func<FluentGetSingle<T>, Result<TSingle>> unwrap)
+	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, Func{FluentGetSingle{T}, Result{TSingle}}, R.ErrorHandler?)"/>
+	public static async Task<Result<TSingle>> GetSingleAsync<T, TSingle>(this Task<Result<T>> @this,
+		Func<FluentGetSingle<T>, Result<TSingle>> unwrap, R.ErrorHandler? onError = null)
 		where T : IEnumerable<TSingle> =>
-		unwrap(new FluentGetSingle<T>(await @this.ConfigureAwait(false)));
+		unwrap(new FluentGetSingle<T>(await @this, onError));
 
 	/// <summary>
-	/// Provides a fluent API for retrieving a single result value of type <typeparamref name="T"/> from a query operation.
+	/// Provides a fluent interface for retrieving a single value from a result containing an enumerable type.
 	/// </summary>
-	/// <typeparam name="T">The type of the value to retrieve from the query result.</typeparam>
-	public sealed class FluentGetSingle<T>(Result<T> result)
+	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
+	/// <param name="result">The result object containing the enumerable value to be processed.</param>
+	/// <param name="onError">[Optional] Return custom error on failure.</param>
+	public sealed class FluentGetSingle<T>(Result<T> result, R.ErrorHandler? onError = null)
 		where T : IEnumerable
 	{
 		/// <summary>
@@ -90,7 +97,7 @@ public static partial class ResultExtensions
 		/// <typeparam name="TSingle">The type to which the result value is converted.</typeparam>
 		/// <returns>A <see cref="Result{TSingle}"/> containing the result value converted to <typeparamref name="TSingle"/>.</returns>
 		public Result<TSingle> Value<TSingle>() =>
-			GetSingle<T, TSingle>(result);
+			GetSingle<T, TSingle>(result, onError);
 	}
 }
 

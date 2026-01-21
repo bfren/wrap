@@ -16,8 +16,18 @@ public static partial class MaybeExtensions
 	/// <param name="function">Context function.</param>
 	/// <returns>Result object.</returns>
 	public static Result<T> ToResult<T>(this Maybe<T> @this, string @class, string function) =>
+		ToResult(@this, () => R.Fail(@class, function, NoneFailureMessage, typeof(T).FullName));
+
+	/// <summary>
+	/// Convert a <see cref="Maybe{T}"/> to a <see cref="Result{T}"/>.
+	/// </summary>
+	/// <typeparam name="T">Value type.</typeparam>
+	/// <param name="this">Maybe object.</param>
+	/// <param name="ifNone">Error handler when <paramref name="this"/> is <see cref="None"/>.</param>
+	/// <returns>Result object.</returns>
+	public static Result<T> ToResult<T>(this Maybe<T> @this, R.ErrorHandler ifNone) =>
 		@this.Match(
-			none: () => R.Fail(@class, function, NoneFailureMessage, typeof(T).Name),
+			none: () => ifNone(),
 			some: x => R.Wrap(x)
 		);
 }
