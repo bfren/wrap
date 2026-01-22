@@ -4,10 +4,10 @@
 
 Various monads (including Maybe - see [here](https://en.wikipedia.org/wiki/Monad_(functional_programming)#An_example:_Maybe)) for C# - to handle null values and exceptions better - including Linq support, chaining, and asynchronous programming.  Includes:
 
-- Either<TLeft, TRight>
-- Id<T> (support for `int`, `uint`, `long`, `ulong` and `Guid` value types)
-- Result<T>
-- Wrap<T>
+- `Either<TLeft, TRight>`
+- `Id<T>` (support for `int`, `uint`, `long`, `ulong` and `Guid` value types)
+- `Maybe<T>` (either: `Some<T>` or `None`)
+- `Result<T>` (either: `Ok<T>` or `Fail`)
 
 View the [Wiki](https://github.com/bfren/wrap/wiki) for documentation.
 
