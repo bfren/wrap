@@ -18,10 +18,10 @@ public abstract partial record class Result<T>
 		private Failure() { }
 
 		/// <summary>
-		/// 
+		/// Create a failure result from a pre-existing <see cref="FailValue"/>.
 		/// </summary>
-		/// <param name="value"></param>
-		/// <returns></returns>
+		/// <param name="value">FailValue.</param>
+		/// <returns>Failure result.</returns>
 		internal static Result<T> Create(FailValue value) =>
 			new Failure() { Value = value };
 	}

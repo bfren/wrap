@@ -11,17 +11,17 @@ namespace Wrap;
 public static partial class R
 {
 	/// <summary>
-	/// Allows custom error handling when an operation fail.
+	/// Allows custom error handling when an operation fails.
 	/// </summary>
-	/// <returns>Fail object</returns>
-	public delegate Fail ErrorHandler();
+	/// <returns>FluentFailure object</returns>
+	public delegate FluentFailure ErrorHandler();
 
 	/// <summary>
 	/// Handles exceptions when an operation fails - see <see cref="Try{T}(Func{T})"/>.
 	/// </summary>
 	/// <param name="e">Exception object.</param>
-	/// <returns>Fail object.</returns>
-	public delegate Fail ExceptionHandler(Exception e);
+	/// <returns>FluentFailure object.</returns>
+	public delegate FluentFailure ExceptionHandler(Exception e);
 
 	/// <summary>
 	/// Default exception handler.
