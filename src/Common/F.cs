@@ -15,7 +15,7 @@ public static partial class F
 	/// </summary>
 	/// <param name="failure">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="failure"/> contains placeholders.</param>
-	public delegate void FailureLogger(string failure, object? args = null);
+	public delegate void FailureLogger(string failure, params object?[] args);
 
 	/// <summary>
 	/// Log exceptions.

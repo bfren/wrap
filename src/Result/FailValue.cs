@@ -18,7 +18,7 @@ public readonly record struct FailValue
 	/// <summary>
 	/// [Optional] Arguments to use as values where <see cref="Message"/> contains format placeholders.
 	/// </summary>
-	public readonly object? Args { get; init; }
+	public readonly object?[] Args { get; init; }
 
 	/// <summary>
 	/// [Optional] Context (usually full type name) of the failure.
@@ -46,7 +46,7 @@ public readonly record struct FailValue
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
 	/// <returns>FailValue.</returns>
-	public static FailValue Create(string message, object? args = null) =>
+	public static FailValue Create(string message, params object?[] args) =>
 		new()
 		{
 			Message = message,
