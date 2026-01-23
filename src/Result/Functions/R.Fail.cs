@@ -22,7 +22,7 @@ public static partial class R
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
 	/// <returns>FluentFail.</returns>
-	public static FluentFailure Fail(string message, params object?[] args) =>
+	public static FluentFailure Fail(string message, object? args = null) =>
 		new(message, args);
 
 	/// <summary>

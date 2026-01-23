@@ -1,8 +1,6 @@
 // Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System.Linq;
-
 namespace Wrap;
 
 public abstract partial record class Result<T>
@@ -36,8 +34,7 @@ public abstract partial record class Result<T>
 		}
 		else if (F.LogFailure is not null)
 		{
-			var args = (fluent.Value.Args ?? []).Select(x => x != null);
-			F.LogFailure?.Invoke(fluent.Value.Message, [.. args]);
+			F.LogFailure?.Invoke(fluent.Value.Message, fluent.Value.Args);
 		}
 
 		return Failure.Create(fluent.Value);

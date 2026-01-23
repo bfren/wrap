@@ -30,7 +30,7 @@ public sealed class FluentFailure
 	/// </summary>
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
-	internal FluentFailure(string message, params object?[] args) =>
+	internal FluentFailure(string message, object? args = null) =>
 		Value = FailValue.Create(message, args);
 
 	/// <summary>
@@ -45,7 +45,7 @@ public sealed class FluentFailure
 	/// </summary>
 	/// <param name="args">Arguments.</param>
 	/// <returns>FluentFail.</returns>
-	public FluentFailure Arg(object?[] args)
+	public FluentFailure Arg<T>(T args)
 	{
 		Value = Value with
 		{

@@ -24,23 +24,8 @@ public static partial class ResultExtensions
 	/// <param name="message">Expected failure message.</param>
 	/// <param name="args">Optional arguments to fill in failure message values.</param>
 	/// <returns>The failure value of <paramref name="this"/>.</returns>
-	public static FailValue AssertFail<T>(this Result<T> @this, string message, params object?[] args)
-	{
-		// Assert failure and get value
-		var value = AssertFail(@this);
-
-		// Assert correct message
-		Assert.Equal(message, value.Message);
-
-		// Assert args if provided
-		if (args?.Length > 0)
-		{
-			Assert.Equal(args, value.Args);
-		}
-
-		// Return FailValue
-		return value;
-	}
+	public static FailValue AssertFail<T>(this Result<T> @this, string message, object? args = null) =>
+		AssertFail(@this).AssertMessage(message, args);
 
 	/// <summary>
 	/// Assert that <paramref name="this"/> is <see cref="Result{T}.Failure"/>.
@@ -51,15 +36,18 @@ public static partial class ResultExtensions
 	/// <param name="message">Expected failure message.</param>
 	/// <param name="args">Optional arguments to fill in failure message values.</param>
 	/// <returns>The failure value of <paramref name="this"/>.</returns>
-	public static FailValue AssertFail<T>(this Result<T> @this, Exception ex, string message, params object?[] args)
-	{
-		// Assert failure and get value
-		var value = AssertFail(@this, message, args);
+	public static FailValue AssertFail<T>(this Result<T> @this, Exception ex) =>
+		AssertFail(@this).AssertException(ex);
 
-		// Assert correct Exception
-		Assert.Equal(ex, value.Exception);
-
-		// Return FailValue
-		return value;
-	}
+	/// <summary>
+	/// Assert that <paramref name="this"/> is <see cref="Result{T}.Failure"/>.
+	/// </summary>
+	/// <typeparam name="T">Ok value type.</typeparam>
+	/// <param name="this">Result object.</param>
+	/// <param name="ex">Expected exception message.</param>
+	/// <param name="message">Expected failure message.</param>
+	/// <param name="args">Optional arguments to fill in failure message values.</param>
+	/// <returns>The failure value of <paramref name="this"/>.</returns>
+	public static FailValue AssertFail<T>(this Result<T> @this, Exception ex, string message, object? args = null) =>
+		AssertFail(@this, message, args).AssertException(ex);
 }

@@ -13,7 +13,7 @@ namespace Wrap.Exceptions;
 public sealed class FailureException(FailValue failure) : Exception(failure.Message, failure.Exception)
 {
 	/// <inheritdoc cref="FailValue.Args"/>
-	public object?[]? Args { get; } =
+	public object? Args { get; } =
 		failure.Args;
 
 	/// <summary>
