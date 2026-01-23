@@ -34,24 +34,20 @@ public static partial class ResultExtensions
 				R.Wrap(list.Single()),
 
 			IEnumerable<TSingle> list when !list.Any() =>
-				onError?.Invoke() ?? R.Fail(nameof(ResultExtensions), nameof(GetSingle),
-					"Cannot get single value from an empty list."
-				),
+				onError?.Invoke() ?? R.Fail("Cannot get single value from an empty list.")
+					.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
 
 			IEnumerable<TSingle> =>
-				onError?.Invoke() ?? R.Fail(nameof(ResultExtensions), nameof(GetSingle),
-					"Cannot get single value from a list with multiple values."
-				),
+				onError?.Invoke() ?? R.Fail("Cannot get single value from a list with multiple values.")
+					.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
 
 			IEnumerable =>
-				onError?.Invoke() ?? R.Fail(nameof(ResultExtensions), nameof(GetSingle),
-					"Cannot get single value from a list with incompatible value type."
-				),
+				onError?.Invoke() ?? R.Fail("Cannot get single value from a list with incompatible value type.")
+					.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
 
 			_ =>
-				onError?.Invoke() ?? R.Fail(nameof(ResultExtensions), nameof(GetSingle),
-					"Result value type is not a list."
-				)
+				onError?.Invoke() ?? R.Fail("Result value type is not a list.")
+					.Ctx(nameof(ResultExtensions), nameof(GetSingle))
 		});
 
 	/// <summary>

@@ -16,7 +16,7 @@ public static partial class MaybeExtensions
 	/// <param name="function">Context function.</param>
 	/// <returns>Result object.</returns>
 	public static Result<T> ToResult<T>(this Maybe<T> @this, string @class, string function) =>
-		ToResult(@this, () => R.Fail(@class, function, NoneFailureMessage, typeof(T).FullName));
+		ToResult(@this, () => R.Fail(NoneFailureMessage, new { Type = typeof(T).FullName }).Ctx(@class, function));
 
 	/// <summary>
 	/// Convert a <see cref="Maybe{T}"/> to a <see cref="Result{T}"/>.
