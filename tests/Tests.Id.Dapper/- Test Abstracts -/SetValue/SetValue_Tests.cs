@@ -6,7 +6,7 @@ using System.Data;
 namespace Abstracts;
 
 public abstract class SetValue_Tests<TId, TIdValue, TIdTypeHandler>
-	where TId : IId<TId, TIdValue>, new()
+	where TId : Id<TId, TIdValue>, new()
 	where TIdValue : struct
 	where TIdTypeHandler : IdTypeHandler<TId, TIdValue>, new()
 {

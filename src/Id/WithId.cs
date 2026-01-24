@@ -5,7 +5,7 @@ namespace Wrap;
 
 /// <inheritdoc cref="IWithId"/>
 public abstract record class WithId<TId, TValue> : IWithId<TId, TValue>
-	where TId : IId<TId, TValue>, new()
+	where TId : Id<TId, TValue>, new()
 	where TValue : struct
 {
 	/// <inheritdoc/>

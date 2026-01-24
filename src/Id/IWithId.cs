@@ -34,7 +34,7 @@ public interface IWithId<T> : IWithId
 /// <typeparam name="TId">ID type.</typeparam>
 /// <typeparam name="TValue">ID Value type.</typeparam>
 public interface IWithId<TId, TValue> : IWithId<TValue>
-	where TId : IId<TId, TValue>, new()
+	where TId : class, IId<TId, TValue>, new()
 	where TValue : struct
 {
 	/// <inheritdoc cref="IWithId.Id"/>

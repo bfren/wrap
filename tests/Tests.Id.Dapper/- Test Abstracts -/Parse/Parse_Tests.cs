@@ -4,7 +4,7 @@
 namespace Abstracts;
 
 public abstract class Parse_Tests<TId, TIdValue, TIdTypeHandler>
-	where TId : IId<TId, TIdValue>, new()
+	where TId : Id<TId, TIdValue>, new()
 	where TIdValue : struct
 	where TIdTypeHandler : IdTypeHandler<TId, TIdValue>, new()
 {

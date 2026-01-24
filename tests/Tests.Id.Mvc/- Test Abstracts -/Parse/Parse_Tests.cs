@@ -7,7 +7,7 @@ namespace Abstracts;
 
 public abstract class Parse_Tests<TBinder, TId, TIdValue>
 	where TBinder : IdModelBinder<TId, TIdValue>, new()
-	where TId : IId<TId, TIdValue>, new()
+	where TId : Id<TId, TIdValue>, new()
 	where TIdValue : struct
 {
 	public abstract void Test00_Valid_Input_Returns_Parsed_Result(string? input);
