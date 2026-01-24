@@ -1,0 +1,45 @@
+// Wrap: .NET monads for functional style.
+// Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
+
+using System;
+using System.Linq;
+
+namespace Wrap;
+
+public static partial class I
+{
+	/// <summary>
+	/// Get the <see cref="Id{TId, TValue}"/> Value type if <paramref name="type"/>
+	/// implements <see cref="Id{TId, TValue}"/>.
+	/// </summary>
+	/// <param name="type">Type to check.</param>
+	public static Type? GetStrongIdValueType(Type type)
+	{
+		// Strong IDs must implement IStrongId as a minimum
+		if (!typeof(IUnion).IsAssignableFrom(type))
+		{
+			return null;
+		}
+
+		// Get    .. all base types implemented by the type we are checking
+		// If     .. the base type is a generic type (i.e. has generic type arguments)
+		//        .. and the generic type definition is Id<,>
+		// Select .. the second generic type argument - this is the Id<TId, TValue> Value type
+		var valueTypesQuery = from i in type.GetBaseTypes()
+							  where i.IsGenericType && i.GetGenericTypeDefinition() == typeof(Id<,>)
+							  let args = i.GenericTypeArguments
+							  where args.Length == 2
+							  select args[1];
+		var valueTypes = valueTypesQuery.ToList();
+
+		// If the count is not 1, this means the type doesn't implement Id<TId, TValue>,
+		// or it implements it multiple times, which is not supported
+		if (valueTypes.Count != 1)
+		{
+			return null;
+		}
+
+		// Precisely one value type has been identified, so return it
+		return valueTypes[0];
+	}
+}
