@@ -1,10 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <RootNamespace>Wrap.Dapper</RootNamespace>
+    <RootNamespace>Wrap.Json</RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Dapper" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Id\Id.csproj" />
   </ItemGroup>

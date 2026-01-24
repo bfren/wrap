@@ -2,6 +2,9 @@
   <PropertyGroup>
     <PackageId>Wrap</PackageId>
   </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Wrap</RootNamespace>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\Either\Either.csproj" />

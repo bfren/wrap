@@ -2,8 +2,10 @@
   <PropertyGroup>
     <PackageId>Wrap.Testing</PackageId>
   </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Wrap.Testing</RootNamespace>
+  </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Id.Testing\Id.Testing.csproj" />
     <ProjectReference Include="..\Maybe.Testing\Maybe.Testing.csproj" />
     <ProjectReference Include="..\Result.Testing\Result.Testing.csproj" />
   </ItemGroup>
