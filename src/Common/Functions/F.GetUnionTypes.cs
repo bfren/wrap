@@ -29,12 +29,6 @@ public static partial class F
 	/// <returns>Union implementation and value types.</returns>
 	public static (Type? unionType, Type? valueType) GetUnionTypes(Type type, Type genericType)
 	{
-		// IDs must implement IUnion as a minimum
-		if (!typeof(IUnion).IsAssignableFrom(type))
-		{
-			return (null, null);
-		}
-
 		// Get generic type arguments
 		var types = GetGenericTypeArguments(type, genericType);
 
