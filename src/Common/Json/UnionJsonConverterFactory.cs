@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
-using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Wrap.Exceptions;
@@ -18,22 +17,20 @@ public sealed class UnionJsonConverterFactory : JsonConverterFactory
 	/// Returns true if <see cref="UnionJsonConverterFactory"/> can convert <paramref name="typeToConvert"/>.
 	/// </summary>
 	/// <param name="typeToConvert">The type to convert to / from JSON.</param>
-	/// <returns>Whether or not <paramref name="typeToConvert"/> implements <see cref="IUnion{T}"/>.</returns>
+	/// <returns>Whether or not <paramref name="typeToConvert"/> implements <see cref="IUnion{TUnion,TValue}"/>.</returns>
 	public override bool CanConvert(Type typeToConvert) =>
-		typeToConvert.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IUnion<>));
+		F.GetUnionTypes(typeToConvert, typeof(IUnion<,>)) is not (null, null);
 
 	/// <inheritdoc/>
 	public override JsonConverter? CreateConverter(Type typeToConvert, JsonSerializerOptions options)
 	{
-		// Get the Union Value type
-		var valueTypeQuery = from i in typeToConvert.GetInterfaces()
-							 where i.IsGenericType
-							 && i.GetGenericTypeDefinition() == typeof(IUnion<>)
-							 select i.GenericTypeArguments[0];
-		var valueType = valueTypeQuery.SingleOrDefault();
-		if (valueType is null)
+		// IUnion<,> requires two type arguments
+		var (unionType, valueType) = F.GetUnionTypes(typeToConvert, typeof(IUnion<,>));
+		if (unionType is null || valueType is null)
 		{
-			return null;
+			throw new JsonConverterException(
+				$"{typeToConvert} is an invalid {typeof(IUnion<,>)}."
+			);
 		}
 
 		// Ensure there is a parameterless contstructor

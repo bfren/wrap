@@ -14,7 +14,7 @@ namespace Wrap.Json;
 /// <typeparam name="TUnion">Union type.</typeparam>
 /// <typeparam name="TValue">Union value type.</typeparam>
 public sealed class UnionJsonConverter<TUnion, TValue> : JsonConverter<TUnion>
-	where TUnion : IUnion<TValue>, new()
+	where TUnion : IUnion<TUnion, TValue>, new()
 {
 	/// <inheritdoc/>
 	public override void Write(Utf8JsonWriter writer, TUnion value, JsonSerializerOptions options) =>

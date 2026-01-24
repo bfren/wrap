@@ -26,15 +26,15 @@ public sealed class IdModelBinderProvider : IModelBinderProvider
 	/// <exception cref="ModelBinderException"></exception>
 	internal static IModelBinder? GetBinderFromModelType(Type modelType)
 	{
-		// If this type isn't a StrongId, return null so MVC can move on to try the next model binder
-		var strongIdValueType = I.GetIdValueType(modelType);
-		if (strongIdValueType is null)
+		// If this type isn't an ID, return null so MVC can move on to try the next model binder
+		var idValueType = F.GetUnionValueType(modelType, typeof(IId<,>));
+		if (idValueType is null)
 		{
 			return null;
 		}
 
 		// Use the Value type to determine which binder to use
-		var strongIdBinder = strongIdValueType switch
+		var strongIdBinder = idValueType switch
 		{
 			Type t when t == typeof(Guid) =>
 				typeof(GuidIdModelBinder<>),
