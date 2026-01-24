@@ -5,7 +5,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Wrap.Json;
+namespace Wrap.Json.Converters;
 
 /// <summary>
 /// <see cref="Maybe{T}"/> JSON converter.

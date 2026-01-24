@@ -4,7 +4,7 @@
 using System;
 using System.Text.Json;
 
-namespace Wrap.Json;
+namespace Wrap.Json.Converters;
 
 /// <summary>
 /// JSON converter for <see cref="GuidId{TId}"/> value types.

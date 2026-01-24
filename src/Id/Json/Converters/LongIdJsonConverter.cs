@@ -5,7 +5,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Wrap.Json;
+namespace Wrap.Json.Converters;
 
 /// <summary>
 /// JSON converter for <see cref="LongId{TId}"/> value types.

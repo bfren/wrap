@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Wrap.Exceptions;
 
-namespace Wrap.Json;
+namespace Wrap.Json.Converters;
 
 /// <summary>
 /// Convert <see cref="Union{TUnion, TValue}"/> types to and from JSON.

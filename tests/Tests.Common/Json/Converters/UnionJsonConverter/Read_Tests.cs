@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using Wrap.Exceptions;
 
-namespace Wrap.Json.UnionJsonConverter_Tests;
+namespace Wrap.Json.Converters.UnionJsonConverter_Tests;
 
 public class Read_Tests
 {

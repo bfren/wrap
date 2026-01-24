@@ -24,11 +24,11 @@ internal abstract class IdJsonConverter<TId, TValue> : JsonConverter<TId>
 	public override void Write(Utf8JsonWriter writer, TId value, JsonSerializerOptions options) =>
 		writer.WriteStringValue(value switch
 		{
-			TId =>
-				value.ToString(),
+			TId id =>
+				id.Value.ToString(),
 
 			_ =>
-				string.Empty
+				null
 		});
 
 	/// <summary>
