@@ -8,6 +8,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Rnd" />
-    <PackageReference Include="xunit.assert" />
+    <PackageReference Include="xunit.v3.assert" />
   </ItemGroup>
 </Project>
