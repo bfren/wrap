@@ -17,6 +17,14 @@ public static partial class R
 		Result<T>.Failure.Create(value);
 
 	/// <summary>
+	/// Start fluently creating a <see cref="Wrap.Fail"/> from a pre-existing failure message.
+	/// </summary>
+	/// <param name="value">FailValue.</param>
+	/// <returns>FluentFail.</returns>
+	public static FluentFailure Fail(FailValue value) =>
+		new(value);
+
+	/// <summary>
 	/// Start fluently creating a <see cref="Wrap.Fail"/> from a simple failure message.
 	/// </summary>
 	/// <param name="message">Failure message.</param>
