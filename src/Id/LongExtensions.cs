@@ -6,10 +6,4 @@ namespace Wrap;
 /// <summary>
 /// Extension methods for <see cref="long"/> objects.
 /// </summary>
-public static class LongExtensions
-{
-	/// <inheritdoc cref="I.Wrap{TId, TValue}(TValue)"/>
-	public static TId WrapId<TId>(this long @this)
-		where TId : LongId<TId>, ILongId, new() =>
-		I.Wrap<TId, long>(@this);
-}
+public static partial class LongExtensions { }

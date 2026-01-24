@@ -6,10 +6,4 @@ namespace Wrap;
 /// <summary>
 /// Extension methods for <see cref="uint"/> objects.
 /// </summary>
-public static class UIntExtensions
-{
-	/// <inheritdoc cref="I.Wrap{TId, TValue}(TValue)"/>
-	public static TId WrapId<TId>(this uint @this)
-		where TId : UIntId<TId>, IUintId, new() =>
-		I.Wrap<TId, uint>(@this);
-}
+public static partial class UIntExtensions { }
