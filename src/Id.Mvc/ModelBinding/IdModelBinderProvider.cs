@@ -27,7 +27,7 @@ public sealed class IdModelBinderProvider : IModelBinderProvider
 	internal static IModelBinder? GetBinderFromModelType(Type modelType)
 	{
 		// If this type isn't a StrongId, return null so MVC can move on to try the next model binder
-		var strongIdValueType = I.GetStrongIdValueType(modelType);
+		var strongIdValueType = I.GetIdValueType(modelType);
 		if (strongIdValueType is null)
 		{
 			return null;
