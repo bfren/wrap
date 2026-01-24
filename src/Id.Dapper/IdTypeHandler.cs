@@ -11,6 +11,6 @@ namespace Wrap;
 /// <typeparam name="TId">Implementation type.</typeparam>
 /// <typeparam name="TIdValue">ID value type.</typeparam>
 public abstract class IdTypeHandler<TId, TIdValue> : SqlMapper.TypeHandler<TId>
-	where TId : Id<TId, TIdValue>, new()
+	where TId : IId<TId, TIdValue>, new()
 	where TIdValue : struct
 { }

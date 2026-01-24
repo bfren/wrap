@@ -8,7 +8,7 @@ namespace Wrap.Mvc.ModelBinding.StrongIdModelBinder_Tests;
 public class BindModelAsync_Tests
 {
 	internal static (IdModelBinder<TId, TIdValue>, Vars<TIdValue>) Setup<TId, TIdValue>()
-		where TId : Id<TId, TIdValue>, new()
+		where TId : IId<TId, TIdValue>, new()
 		where TIdValue : struct
 	{
 		var modelName = Rnd.Str;
@@ -47,7 +47,7 @@ public class BindModelAsync_Tests
 	);
 
 	private async Task ValueProvider_Result_Is_None__Does_Not_Change_BindingResult<TId, TIdValue>()
-		where TId : Id<TId, TIdValue>, new()
+		where TId : IId<TId, TIdValue>, new()
 		where TIdValue : struct
 	{
 		// Arrange
@@ -75,7 +75,7 @@ public class BindModelAsync_Tests
 		await ValueProvider_Result_Is_None__Does_Not_Change_BindingResult<TestLongId, long>();
 
 	private async Task ValueProvider_Result_Is_Not_None__Sets_Model_Value_Using_Result_Value<TId, TIdValue>()
-		where TId : Id<TId, TIdValue>, new()
+		where TId : IId<TId, TIdValue>, new()
 		where TIdValue : struct
 	{
 		// Arrange
@@ -101,7 +101,7 @@ public class BindModelAsync_Tests
 		await ValueProvider_Result_Is_Not_None__Sets_Model_Value_Using_Result_Value<TestLongId, long>();
 
 	private async Task ValueProvider_Result_Is_Not_None__Calls_Parse__With_Correct_Value<TId, TIdValue>()
-		where TId : Id<TId, TIdValue>, new()
+		where TId : IId<TId, TIdValue>, new()
 		where TIdValue : struct
 	{
 		// Arrange
@@ -127,7 +127,7 @@ public class BindModelAsync_Tests
 		await ValueProvider_Result_Is_Not_None__Calls_Parse__With_Correct_Value<TestLongId, long>();
 
 	private async Task ValueProvider_Result_Is_Not_None__Calls_Parse__Receives_None__Returns_Result_Success_With_Default<TId, TIdValue>()
-		where TId : Id<TId, TIdValue>, new()
+		where TId : IId<TId, TIdValue>, new()
 		where TIdValue : struct
 	{
 		// Arrange
@@ -155,7 +155,7 @@ public class BindModelAsync_Tests
 		await ValueProvider_Result_Is_Not_None__Calls_Parse__Receives_None__Returns_Result_Success_With_Default<TestLongId, long>();
 
 	private async Task ValueProvider_Result_Is_Not_None__Calls_Parse__Receives_Some__Returns_Result_Success_With_Value<TId, TIdValue>(TIdValue id)
-		where TId : Id<TId, TIdValue>, new()
+		where TId : IId<TId, TIdValue>, new()
 		where TIdValue : struct
 	{
 		// Arrange

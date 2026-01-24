@@ -26,3 +26,12 @@ public interface IUnion<T> : IUnion
 	object IUnion.Value =>
 		Value ?? new object();
 }
+
+/// <summary>
+/// Single-case Union monad.
+/// </summary>
+/// <typeparam name="TUnion">Union type.</typeparam>
+/// <typeparam name="TValue">Value type.</typeparam>
+public interface IUnion<TUnion, TValue> : IUnion<TValue>
+	where TUnion : IUnion<TUnion, TValue>
+{ }

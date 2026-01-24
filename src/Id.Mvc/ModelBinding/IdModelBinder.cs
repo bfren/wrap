@@ -12,7 +12,7 @@ namespace Wrap.Mvc.ModelBinding;
 /// <typeparam name="TId"><see cref="Id{TId, TValue}"/> type.</typeparam>
 /// <typeparam name="TIdValue"><see cref="Id{TId, TValue}"/> Value type.</typeparam>
 public abstract class IdModelBinder<TId, TIdValue> : IModelBinder
-	where TId : Id<TId, TIdValue>, new()
+	where TId : IId<TId, TIdValue>, new()
 	where TIdValue : struct
 {
 	/// <summary>

@@ -11,8 +11,8 @@ namespace Wrap;
 /// </summary>
 /// <typeparam name="TUnion">Union implementation type.</typeparam>
 /// <typeparam name="TValue">Value type.</typeparam>
-public abstract record class Union<TUnion, TValue> : IUnion<TValue>
-	where TUnion : Union<TUnion, TValue>, new()
+public abstract record class Union<TUnion, TValue> : IUnion<TUnion, TValue>
+	where TUnion : IUnion<TUnion, TValue>, new()
 {
 	/// <inheritdoc cref="IUnion{T}.Value"/>
 	[MemberNotNull]
