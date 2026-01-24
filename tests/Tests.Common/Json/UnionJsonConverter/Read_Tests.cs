@@ -87,5 +87,5 @@ public class Read_Tests
 		_ = Assert.ThrowsAny<IncorrectValueTypeException<Test, string>>(act);
 	}
 
-	public sealed record class Test : Union<Test, string>;
+	public sealed record class Test() : Union<Test, string>(Rnd.Str);
 }
