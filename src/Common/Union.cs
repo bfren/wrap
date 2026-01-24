@@ -28,12 +28,7 @@ public abstract record class Union<TUnion, TValue> : IUnion<TUnion, TValue>
 	private readonly TValue? value;
 
 	/// <summary>
-	/// Allow 
-	/// </summary>
-	protected Union() { }
-
-	/// <summary>
-	/// Allow base classes to set .
+	/// Allow base classes to set <see cref="value"/>.
 	/// </summary>
 	/// <param name="value">Union value.</param>
 	protected Union([DisallowNull] TValue value) =>
@@ -58,14 +53,4 @@ public abstract record class Union<TUnion, TValue> : IUnion<TUnion, TValue>
 			_ =>
 				throw new NullUnionValueException()
 		};
-
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="value"></param>
-	/// <returns></returns>
-#pragma warning disable CA1000 // Do not declare static members on generic types
-	public static TUnion Wrap([DisallowNull] TValue value) =>
-		F.Wrap<TUnion, TValue>(value);
-#pragma warning restore CA1000 // Do not declare static members on generic types
 }
