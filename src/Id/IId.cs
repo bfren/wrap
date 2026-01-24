@@ -7,7 +7,9 @@ namespace Wrap;
 /// ID monad.
 /// </summary>
 /// <typeparam name="TValue">ID value type.</typeparam>
-public interface IId<TValue> : IUnion<TValue>;
+public interface IId<TValue> : IUnion<TValue>
+	where TValue : struct
+{ }
 
 /// <summary>
 /// ID monad.

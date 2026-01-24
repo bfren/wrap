@@ -13,20 +13,20 @@ public static partial class I
 	/// implements <see cref="Id{TId, TValue}"/>.
 	/// </summary>
 	/// <param name="type">Type to check.</param>
-	public static Type? GetStrongIdValueType(Type type)
+	public static Type? GetIdValueType(Type type)
 	{
-		// Strong IDs must implement IStrongId as a minimum
+		// IDs must implement IUnion as a minimum
 		if (!typeof(IUnion).IsAssignableFrom(type))
 		{
 			return null;
 		}
 
-		// Get    .. all base types implemented by the type we are checking
-		// If     .. the base type is a generic type (i.e. has generic type arguments)
-		//        .. and the generic type definition is Id<,>
+		// Get    .. all interfaces implemented by the type we are checking
+		// If     .. the interface is a generic type (i.e. has generic type arguments)
+		//        .. and the generic type definition is IId<,>
 		// Select .. the second generic type argument - this is the Id<TId, TValue> Value type
-		var valueTypesQuery = from i in type.GetBaseTypes()
-							  where i.IsGenericType && i.GetGenericTypeDefinition() == typeof(Id<,>)
+		var valueTypesQuery = from i in type.GetInterfaces()
+							  where i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IId<,>)
 							  let args = i.GenericTypeArguments
 							  where args.Length == 2
 							  select args[1];
