@@ -6,9 +6,9 @@ using System.Text.Json;
 namespace Wrap.Json;
 
 /// <summary>
-/// Extenstion methods for <see cref="JsonSerializerOptions"/> objects.
+/// Extension methods for <see cref="JsonSerializerOptions"/> objects.
 /// </summary>
-public static class JsonSerializerOptionsExteionsions
+public static class JsonSerializerOptionsExtensions
 {
 	/// <summary>
 	/// Add <see cref="UnionJsonConverterFactory"/> to the list of converters.
