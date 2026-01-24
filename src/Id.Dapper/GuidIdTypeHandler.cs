@@ -1,6 +1,7 @@
 // Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System;
 using System.Data;
 
 namespace Wrap.Dapper;
@@ -9,7 +10,7 @@ namespace Wrap.Dapper;
 /// <see cref="GuidId{TId}"/> TypeHandler.
 /// </summary>
 /// <typeparam name="T"><see cref="GuidId{TId}"/> type.</typeparam>
-public sealed class GuidIdTypeHandler<T> : global::Dapper.SqlMapper.TypeHandler<T>
+public sealed class GuidIdTypeHandler<T> : IdTypeHandler<T, Guid>
 	where T : GuidId<T>, IGuidId, new()
 {
 	/// <summary>

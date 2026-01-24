@@ -9,7 +9,7 @@ namespace Wrap.Dapper;
 /// <see cref="LongId{TId}"/> TypeHandler.
 /// </summary>
 /// <typeparam name="T"><see cref="LongId{TId}"/> type.</typeparam>
-public sealed class LongIdTypeHandler<T> : global::Dapper.SqlMapper.TypeHandler<T>
+public sealed class LongIdTypeHandler<T> : IdTypeHandler<T, long>
 	where T : LongId<T>, ILongId, new()
 {
 	/// <summary>

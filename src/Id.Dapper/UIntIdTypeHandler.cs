@@ -9,7 +9,7 @@ namespace Wrap.Dapper;
 /// <see cref="UIntId{TId}"/> TypeHandler.
 /// </summary>
 /// <typeparam name="T"><see cref="UIntId{TId}"/> type.</typeparam>
-public sealed class UIntIdTypeHandler<T> : global::Dapper.SqlMapper.TypeHandler<T>
+public sealed class UIntIdTypeHandler<T> : IdTypeHandler<T, uint>
 	where T : UIntId<T>, IUintId, new()
 {
 	/// <summary>
