@@ -53,4 +53,14 @@ public abstract record class Union<TUnion, TValue> : IUnion<TUnion, TValue>
 			_ =>
 				throw new NullUnionValueException()
 		};
+
+	/// <summary>
+	/// Wrap a value as the current type.
+	/// </summary>
+	/// <param name="value">Union value.</param>
+	/// <returns>Wrapped <typeparamref name="TUnion"/> value.</returns>
+#pragma warning disable CA1000 // Do not declare static members on generic types
+	public static TUnion Wrap(TValue value) =>
+		F.Wrap<TUnion, TValue>(value);
+#pragma warning restore CA1000 // Do not declare static members on generic types
 }
