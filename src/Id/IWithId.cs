@@ -13,3 +13,20 @@ public interface IWithId
 	/// </summary>
 	IUnion Id { get; }
 }
+
+/// <summary>
+/// Represents an object (Entity or Model) with a strongly-typed ID.
+/// </summary>
+public interface IWithId<TId, TValue> : IWithId
+	where TId : IId<TId, TValue>, new()
+	where TValue : struct
+{
+	/// <summary>
+	/// Generic ID value.
+	/// </summary>
+	new TId Id { get; }
+
+	/// <inheritdoc/>
+	IUnion IWithId.Id =>
+		Id;
+}

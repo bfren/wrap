@@ -11,7 +11,7 @@ namespace Wrap.Dapper;
 /// </summary>
 /// <typeparam name="T"><see cref="GuidId{TId}"/> type.</typeparam>
 public sealed class GuidIdTypeHandler<T> : IdTypeHandler<T, Guid>
-	where T : GuidId<T>, IGuidId, new()
+	where T : GuidId<T>, new()
 {
 	/// <summary>
 	/// Parse value and create new <see cref="GuidId{TId}"/>.

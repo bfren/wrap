@@ -7,5 +7,5 @@ namespace Wrap;
 /// Implementation using <see cref="ulong"/> as the Value type.
 /// </summary>
 /// <typeparam name="TId">ID implementation type.</typeparam>
-public abstract record class ULongId<TId>() : Id<TId, ulong>(0UL), IULongId
-	where TId : ULongId<TId>, IULongId, new();
+public abstract record class ULongId<TId>() : Id<TId, ulong>(0UL), IULongId<TId>
+	where TId : ULongId<TId>, new();

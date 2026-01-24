@@ -4,12 +4,14 @@
 namespace Wrap;
 
 /// <summary>
+/// Generic ID using <see cref="ulong"/> as the Value type.
+/// </summary>
+public interface IULongId : IId<ulong>;
+
+/// <summary>
 /// Generid ID using <see cref="ulong"/> as the Value type.
 /// </summary>
-public interface IULongId : IUnion
-{
-	/// <summary>
-	/// ID Value.
-	/// </summary>
-	new ulong Value { get; }
-}
+/// <typeparam name="TId">ID implementation type.</typeparam>
+public interface IULongId<TId> : IULongId, IId<TId, ulong>
+	where TId : class, IId<TId, ulong>, new()
+{ }

@@ -9,5 +9,5 @@ namespace Wrap;
 /// Implementation using <see cref="Guid"/> as the Value type.
 /// </summary>
 /// <typeparam name="TId">ID implementation type.</typeparam>
-public abstract record class GuidId<TId>() : Id<TId, Guid>(Guid.Empty), IGuidId
-	where TId : GuidId<TId>, IGuidId, new();
+public abstract record class GuidId<TId>() : Id<TId, Guid>(Guid.Empty), IGuidId<TId>
+	where TId : GuidId<TId>, new();

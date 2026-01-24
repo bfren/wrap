@@ -4,14 +4,10 @@
 namespace Wrap;
 
 /// <inheritdoc cref="IWithId"/>
-public abstract record class WithId<TId, TValue> : IWithId
+public abstract record class WithId<TId, TValue> : IWithId<TId, TValue>
 	where TId : Id<TId, TValue>, new()
 	where TValue : struct
 {
 	/// <inheritdoc/>
 	public TId Id { get; init; } = new();
-
-	/// <inheritdoc/>
-	IUnion IWithId.Id =>
-		Id;
 }

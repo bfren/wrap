@@ -6,12 +6,14 @@ using System;
 namespace Wrap;
 
 /// <summary>
-/// Generid ID using <see cref="Guid"/> as the Value type.
+/// Generic ID using <see cref="Guid"/> as the Value type.
 /// </summary>
-public interface IGuidId : IUnion
-{
-	/// <summary>
-	/// ID Value.
-	/// </summary>
-	new Guid Value { get; }
-}
+public interface IGuidId : IId<Guid>;
+
+/// <summary>
+/// Generic ID using <see cref="Guid"/> as the Value type.
+/// </summary>
+/// <typeparam name="TId">ID implementation type.</typeparam>
+public interface IGuidId<TId> : IGuidId, IId<TId, Guid>
+	where TId : class, IId<TId, Guid>, new()
+{ }
