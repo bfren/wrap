@@ -9,7 +9,7 @@ namespace Wrap;
 public interface IWithId
 {
 	/// <summary>
-	/// ID value.
+	/// Union ID value.
 	/// </summary>
 	IUnion Id { get; }
 }
@@ -20,12 +20,10 @@ public interface IWithId
 /// <typeparam name="T">ID Value type.</typeparam>
 public interface IWithId<T> : IWithId
 {
-	/// <inheritdoc cref="IWithId.Id"/>
+	/// <summary>
+	/// Union ID value with specific type.
+	/// </summary>
 	new IUnion<T> Id { get; }
-
-	/// <inheritdoc/>
-	IUnion IWithId.Id =>
-		Id;
 }
 
 /// <summary>
@@ -37,10 +35,8 @@ public interface IWithId<TId, TValue> : IWithId<TValue>
 	where TId : class, IId<TId, TValue>, new()
 	where TValue : struct
 {
-	/// <inheritdoc cref="IWithId.Id"/>
+	/// <summary>
+	/// Strongly-typed ID value.
+	/// </summary>
 	new TId Id { get; init; }
-
-	/// <inheritdoc/>
-	IUnion<TValue> IWithId<TValue>.Id =>
-		Id;
 }

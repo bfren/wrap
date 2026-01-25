@@ -10,4 +10,12 @@ public abstract record class WithId<TId, TValue> : IWithId<TId, TValue>
 {
 	/// <inheritdoc/>
 	public TId Id { get; init; } = new();
+
+	/// <inheritdoc/>
+	IUnion IWithId.Id =>
+		Id;
+
+	/// <inheritdoc/>
+	IUnion<TValue> IWithId<TValue>.Id =>
+		Id;
 }
