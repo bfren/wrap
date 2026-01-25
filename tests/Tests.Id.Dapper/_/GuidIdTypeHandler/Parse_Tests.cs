@@ -1,6 +1,8 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using Wrap.Ids;
+
 namespace Wrap.Dapper.GuidIdTypeHandler_Tests;
 
 public class Parse_Tests : Abstracts.Parse_Tests<Parse_Tests.TestGuidId, Guid, GuidIdTypeHandler<Parse_Tests.TestGuidId>>

@@ -1,7 +1,7 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using Wrap.Mvc.ModelBinding;
+using Wrap.Mvc;
 
 namespace Abstracts;
 

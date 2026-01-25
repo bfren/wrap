@@ -2,9 +2,9 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
-using Wrap.Mvc.ModelBinding;
+using Wrap.Mvc;
 
-namespace Wrap.Mvc.Exceptions;
+namespace Wrap.Exceptions;
 
 /// <summary>
 /// Thrown when creating a StrongId MVC model binder fails -

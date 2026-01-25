@@ -1,7 +1,7 @@
 // Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Wrap;
+namespace Wrap.Extensions;
 
 public static partial class MaybeExtensions
 {

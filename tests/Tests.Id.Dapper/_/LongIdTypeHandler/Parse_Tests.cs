@@ -1,6 +1,8 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using Wrap.Ids;
+
 namespace Wrap.Dapper.LongIdTypeHandler_Tests;
 
 public class Parse_Tests : Abstracts.Parse_Tests<Parse_Tests.TestLongId, long, LongIdTypeHandler<Parse_Tests.TestLongId>>

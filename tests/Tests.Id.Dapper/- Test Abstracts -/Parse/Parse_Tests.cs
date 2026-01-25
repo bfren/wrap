@@ -1,6 +1,8 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using Wrap.Dapper;
+
 namespace Abstracts;
 
 public abstract class Parse_Tests<TId, TIdValue, TIdTypeHandler>

@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Text.Json;
+using Wrap.Ids;
 
 namespace Wrap.Json.IdJsonConverter_Tests;
 

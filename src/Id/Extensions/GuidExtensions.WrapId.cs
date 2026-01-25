@@ -2,8 +2,9 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
+using Wrap.Ids;
 
-namespace Wrap;
+namespace Wrap.Extensions;
 
 public static partial class GuidExtensions
 {

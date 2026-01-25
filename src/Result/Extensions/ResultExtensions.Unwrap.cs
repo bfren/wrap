@@ -5,7 +5,7 @@ using System;
 using System.Threading.Tasks;
 using Wrap.Exceptions;
 
-namespace Wrap;
+namespace Wrap.Extensions;
 
 public static partial class ResultExtensions
 {

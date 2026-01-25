@@ -3,7 +3,7 @@
 
 using Dapper;
 
-namespace Wrap;
+namespace Wrap.Dapper;
 
 /// <summary>
 /// <see cref="Id{TId, TValue}"/> TypeHandler.

@@ -2,7 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Text.Json;
-using Wrap.Json.Converters;
+using Wrap.Json;
 
 namespace Wrap.Exceptions;
 

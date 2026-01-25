@@ -1,6 +1,8 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using Wrap.Ids;
+
 namespace Wrap.Dapper.IntIdTypeHandler_Tests;
 
 public class SetValue_Tests : Abstracts.SetValue_Tests<SetValue_Tests.TestIntId, int, IntIdTypeHandler<SetValue_Tests.TestIntId>>

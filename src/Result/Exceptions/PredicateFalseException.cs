@@ -1,13 +1,13 @@
 // Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System;
+using Wrap.Extensions;
 
 namespace Wrap.Exceptions;
 
 /// <summary>
-/// Not really an 'exception' but used so <see cref="ResultExtensions.Filter{T}(Result{T}, Func{T, bool})"/>
+/// Not really an 'exception' but used so <see cref="ResultExtensions.Filter{T}(Result{T}, System.Func{T, bool})"/>
 /// can return an <see cref="Fail"/> object when a predicate fails.
 /// </summary>
-/// <seealso cref="ResultExtensions.Filter{T}(Result{T}, Func{T, bool})"/>
+/// <seealso cref="ResultExtensions.Filter{T}(Result{T}, System.Func{T, bool})"/>
 public sealed class PredicateFalseException : WrapException { }
