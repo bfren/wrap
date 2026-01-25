@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
+using Wrap.Exceptions;
 
 namespace Wrap;
 
@@ -17,6 +18,14 @@ public static partial class R
 	public delegate FluentFailure ErrorHandler();
 
 	/// <summary>
+	/// Allows custom error handling when an operation fails.
+	/// </summary>
+	/// <param name="message">Error message to bubble up.</param>
+	/// <param name="args">[Optional] message arguments.</param>
+	/// <returns>FluentFailure object</returns>
+	public delegate FluentFailure ErrorHandlerWithMsg(string message, params object?[] args);
+
+	/// <summary>
 	/// Handles exceptions when an operation fails - see <see cref="Try{T}(Func{T})"/>.
 	/// </summary>
 	/// <param name="e">Exception object.</param>
@@ -28,4 +37,14 @@ public static partial class R
 	/// </summary>
 	public static ExceptionHandler DefaultHandler =>
 		Fail;
+
+	/// <summary>
+	/// Throw a <see cref="FailureException"/> using <paramref name="failure"/>.
+	/// </summary>
+	/// <typeparam name="T">Return type.</typeparam>
+	/// <param name="failure">Failure value.</param>
+	/// <returns>Nothing - return type is specified so this can be used as a delegate.</returns>
+	/// <exception cref="FailureException"></exception>
+	public static T ThrowFailure<T>(FailValue failure) =>
+		throw new FailureException(failure);
 }

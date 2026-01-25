@@ -20,7 +20,7 @@ public static partial class ResultExtensions
 	/// <exception cref="FailureException"></exception>
 	public static T Unwrap<T>(this Result<T> @this) =>
 		R.Match(@this,
-			fail: f => throw new FailureException(f),
+			fail: R.ThrowFailure<T>,
 			ok: x => x
 		);
 
@@ -28,7 +28,7 @@ public static partial class ResultExtensions
 	public static Task<T> UnwrapAsync<T>(this Task<Result<T>> @this)
 	{
 		// use local functions to avoid function signature ambiguity
-		static Task<T> fail(FailValue f) => throw new FailureException(f);
+		static Task<T> fail(FailValue f) => R.ThrowFailure<Task<T>>(f);
 		static Task<T> ok(T x) => Task.FromResult(x);
 		return R.MatchAsync(@this, fail, ok);
 	}
