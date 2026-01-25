@@ -124,11 +124,13 @@ public sealed class FluentFailure
 
 		return this;
 	}
+
 	/// <summary>
-	/// Wrap <see cref="Value"/> as a Task for simple async returns.
+	/// Create Failure object from <see cref="Value"/> and wrap as a completed Task
+	/// for simple async returns.
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
-	/// <returns>Result task.</returns>
+	/// <returns>Failure task.</returns>
 	public Task<Result<T>> AsTask<T>() =>
 		Result<T>.Failure.Create(Value).AsTask();
 }
