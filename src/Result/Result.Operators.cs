@@ -26,17 +26,6 @@ public abstract partial record class Result<T>
 	/// </summary>
 	/// <param name="fluent">FluentFail object.</param>
 	/// <returns>Failure value.</returns>
-	public static implicit operator Result<T>(FluentFailure fluent)
-	{
-		if (F.LogException is not null && fluent.Value.Exception is not null)
-		{
-			F.LogException?.Invoke(fluent.Value.Exception);
-		}
-		else if (F.LogFailure is not null)
-		{
-			F.LogFailure?.Invoke(fluent.Value.Message, fluent.Value.Args);
-		}
-
-		return Failure.Create(fluent.Value);
-	}
+	public static implicit operator Result<T>(FluentFailure fluent) =>
+		Failure.Create(fluent.Value);
 }

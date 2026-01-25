@@ -10,7 +10,23 @@ public abstract partial record class Result<T>
 		/// <summary>
 		/// Failure value.
 		/// </summary>
-		public required FailValue Value { get; init; }
+		public required FailValue Value
+		{
+			get;
+			init
+			{
+				if (F.LogException is not null && value.Exception is not null)
+				{
+					F.LogException?.Invoke(value.Exception);
+				}
+				else if (F.LogFailure is not null)
+				{
+					F.LogFailure?.Invoke(value.Message, value.Args);
+				}
+
+				field = value;
+			}
+		}
 
 		/// <summary>
 		/// Creation only via <see cref="Create(FailValue)"/>.
