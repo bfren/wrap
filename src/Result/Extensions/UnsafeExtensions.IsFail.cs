@@ -17,9 +17,9 @@ public static partial class UnsafeExtensions
 	/// <param name="this">Unsafe object.</param>
 	/// <param name="value">Value (null if <paramref name="this"/> contains <see cref="Ok{T}"/>).</param>
 	/// <returns>True if <paramref name="this"/> contains a <see cref="Fail"/>.</returns>
-	public static bool IsFail<T>(this Unsafe<T> @this, out FailValue value)
+	public static bool IsFail<T>(this Unsafe<Result<T>, FailValue, T> @this, out FailValue value)
 	{
-		if (@this.Result is Result<T>.Failure failure)
+		if (@this.Value is Result<T>.Failure failure)
 		{
 			value = failure.Value;
 			return true;

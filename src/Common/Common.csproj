@@ -2,4 +2,12 @@
   <PropertyGroup>
     <RootNamespace>Wrap</RootNamespace>
   </PropertyGroup>
+  <ItemGroup Label="Test Internals">
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Maybe</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Result</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 </Project>

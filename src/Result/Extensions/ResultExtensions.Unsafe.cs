@@ -8,14 +8,16 @@ namespace Wrap.Extensions;
 public static partial class ResultExtensions
 {
 	/// <summary>
-	/// Wraps <paramref name="this"/> in an <see cref="Unsafe{T}(Result{T})"/> to enable unsafe functions.
+	/// Create a new <see cref="Unsafe{TEither, TLeft, TRight}"/> object,
+	/// wrapping round <paramref name="this"/>.
 	/// </summary>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <returns>Unsafe wrapper containing <paramref name="this"/>.</returns>
-	public static Unsafe2<Result<T>, FailValue, T> Unsafe<T>(this Result<T> @this) =>
-		@this.Unsafe2<Result<T>, FailValue, T>();
+	/// <returns><see cref="Unsafe{TEither, TLeft, TRight}"/> object wrapping <paramref name="this"/>.</returns>
+	public static Unsafe<Result<T>, FailValue, T> Unsafe<T>(this Result<T> @this) =>
+		new(@this);
 
 	/// <inheritdoc cref="Unsafe{T}(Result{T})"/>
-	public static async Task<Unsafe2<T>> Unsafe<T>(this Task<Result<T>> @this) =>
-		new() { Result = await @this };
+	public static async Task<Unsafe<Result<T>, FailValue, T>> Unsafe<T>(this Task<Result<T>> @this) =>
+		new() { Value = await @this };
 }
