@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace Wrap;
+namespace Wrap.Extensions;
 
 public static partial class DictionaryExtensions
 {

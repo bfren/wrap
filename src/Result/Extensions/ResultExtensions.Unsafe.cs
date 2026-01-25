@@ -12,10 +12,10 @@ public static partial class ResultExtensions
 	/// </summary>
 	/// <param name="this">Result object.</param>
 	/// <returns>Unsafe wrapper containing <paramref name="this"/>.</returns>
-	public static Unsafe<T> Unsafe<T>(this Result<T> @this) =>
-		new() { Result = @this };
+	public static Unsafe2<Result<T>, FailValue, T> Unsafe<T>(this Result<T> @this) =>
+		@this.Unsafe2<Result<T>, FailValue, T>();
 
 	/// <inheritdoc cref="Unsafe{T}(Result{T})"/>
-	public static async Task<Unsafe<T>> Unsafe<T>(this Task<Result<T>> @this) =>
+	public static async Task<Unsafe2<T>> Unsafe<T>(this Task<Result<T>> @this) =>
 		new() { Result = await @this };
 }

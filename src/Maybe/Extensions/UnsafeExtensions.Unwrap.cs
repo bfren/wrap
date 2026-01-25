@@ -3,7 +3,7 @@
 
 using System.Threading.Tasks;
 
-namespace Wrap;
+namespace Wrap.Extensions;
 
 public static partial class UnsafeExtensions
 {

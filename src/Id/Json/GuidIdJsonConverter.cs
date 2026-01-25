@@ -3,6 +3,7 @@
 
 using System;
 using System.Text.Json;
+using Wrap.Extensions;
 using Wrap.Ids;
 
 namespace Wrap.Json;

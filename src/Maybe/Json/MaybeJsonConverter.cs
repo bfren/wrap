@@ -4,6 +4,7 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Wrap.Extensions;
 
 namespace Wrap.Json;
 

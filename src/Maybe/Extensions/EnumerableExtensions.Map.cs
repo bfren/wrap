@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Wrap;
+namespace Wrap.Extensions;
 
 public static partial class EnumerableExtensions
 {
