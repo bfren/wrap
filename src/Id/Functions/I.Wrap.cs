@@ -3,7 +3,7 @@
 
 namespace Wrap;
 
-public static partial class I
+internal static partial class I
 {
 	/// <summary>
 	/// Wrap a value as a strongly-typed ID.

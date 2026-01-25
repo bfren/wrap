@@ -6,4 +6,4 @@ namespace Wrap;
 /// <summary>
 /// Pure functions for interacting with <see cref="Id{TId, TValue}"/> types.
 /// </summary>
-public static partial class I { }
+internal static partial class I { }
