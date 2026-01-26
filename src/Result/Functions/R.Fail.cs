@@ -21,7 +21,7 @@ public static partial class R
 	/// </summary>
 	/// <param name="value">FailValue.</param>
 	/// <returns>FluentFail.</returns>
-	public static FluentFailure Fail(FailureValue value) =>
+	public static Failure Fail(FailureValue value) =>
 		new(value);
 
 	/// <summary>
@@ -30,7 +30,7 @@ public static partial class R
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
 	/// <returns>FluentFail.</returns>
-	public static FluentFailure Fail(string message, params object?[] args) =>
+	public static Failure Fail(string message, params object?[] args) =>
 		new(message, args);
 
 	/// <summary>
@@ -38,7 +38,7 @@ public static partial class R
 	/// </summary>
 	/// <typeparam name="T">Exception type.</typeparam>
 	/// <returns>FluentFail.</returns>
-	public static FluentFailure Fail<T>()
+	public static Failure Fail<T>()
 		where T : Exception, new() =>
 		Fail(new T());
 
@@ -47,7 +47,7 @@ public static partial class R
 	/// </summary>
 	/// <param name="ex">Exception.</param>
 	/// <returns>FluentFail.</returns>
-	public static FluentFailure Fail<T>(T ex)
+	public static Failure Fail<T>(T ex)
 		where T : Exception, new() =>
 		new(ex);
 }

@@ -20,12 +20,4 @@ public abstract partial record class Result<T>
 	/// <returns>Failure value.</returns>
 	public static implicit operator Result<T>(Wrap.Failure fail) =>
 		Failure.Create(fail.Value);
-
-	/// <summary>
-	/// Implicitly convert a <see cref="R.FluentFailure"/> to a <see cref="Result{T}"/> failure.
-	/// </summary>
-	/// <param name="fluent">FluentFail object.</param>
-	/// <returns>Failure value.</returns>
-	public static implicit operator Result<T>(R.FluentFailure fluent) =>
-		Failure.Create(fluent.Value);
 }
