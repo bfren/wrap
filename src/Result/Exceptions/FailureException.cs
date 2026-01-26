@@ -10,9 +10,9 @@ namespace Wrap.Exceptions;
 /// Usually used in constructors where returning a <see cref="Result{T}"/> object is not possible.
 /// </summary>
 /// <param name="failure">Failure value.</param>
-public sealed class FailureException(FailValue failure) : Exception(failure.Message, failure.Exception)
+public sealed class FailureException(FailureValue failure) : Exception(failure.Message, failure.Exception)
 {
-	/// <inheritdoc cref="FailValue.Args"/>
+	/// <inheritdoc cref="FailureValue.Args"/>
 	public object? Args { get; } =
 		failure.Args;
 

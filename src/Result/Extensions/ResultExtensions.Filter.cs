@@ -16,7 +16,7 @@ public static partial class ResultExtensions
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <param name="predicate">Function to detemine whether or not the value of <paramref name="this"/> should be returned.</param>
-	/// <returns>Value of <paramref name="this"/> if <paramref name="predicate"/> returns true, or <see cref="Fail"/>.</returns>
+	/// <returns>Value of <paramref name="this"/> if <paramref name="predicate"/> returns true, or <see cref="Failure"/>.</returns>
 	public static Result<T> Filter<T>(this Result<T> @this, Func<T, bool> predicate) =>
 		@this.Bind(x => predicate(x) switch
 		{

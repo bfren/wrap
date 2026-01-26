@@ -5,12 +5,15 @@ namespace Wrap;
 
 public abstract partial record class Result<T>
 {
-	internal sealed record class Failure : Result<T>, ILeft<FailValue, T>
+	/// <summary>
+	/// Internal implementation of <see cref="Result{T}"/> to 
+	/// </summary>
+	internal sealed record class Failure : Result<T>, ILeft<FailureValue, T>
 	{
 		/// <summary>
 		/// Failure value.
 		/// </summary>
-		public required FailValue Value
+		public required FailureValue Value
 		{
 			get;
 			init
@@ -29,16 +32,16 @@ public abstract partial record class Result<T>
 		}
 
 		/// <summary>
-		/// Creation only via <see cref="Create(FailValue)"/>.
+		/// Creation only via <see cref="Create(FailureValue)"/>.
 		/// </summary>
 		private Failure() { }
 
 		/// <summary>
-		/// Create a failure result from a pre-existing <see cref="FailValue"/>.
+		/// Create a failure result from a pre-existing <see cref="FailureValue"/>.
 		/// </summary>
 		/// <param name="value">FailValue.</param>
 		/// <returns>Failure result.</returns>
-		internal static Result<T> Create(FailValue value) =>
+		internal static Result<T> Create(FailureValue value) =>
 			new Failure() { Value = value };
 	}
 }

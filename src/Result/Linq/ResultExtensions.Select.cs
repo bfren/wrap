@@ -22,7 +22,7 @@ public static partial class ResultExtensions
 	/// </code>
 	/// <para>
 	/// Returns value of x if <see cref="Result{T}"/> object is <see cref="Ok{T}"/>,
-	/// and <see cref="Fail"/> if not.
+	/// and <see cref="Failure"/> if not.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>

@@ -6,10 +6,10 @@ using System.Diagnostics.CodeAnalysis;
 namespace Wrap;
 
 /// <summary>
-/// 'OK' Result - wraps value to enable safe non-null returns (see <seealso cref="Fail"/>)
+/// 'OK' Result - wraps value to enable safe non-null returns (see <seealso cref="Failure"/>)
 /// </summary>
 /// <typeparam name="T">Ok value type</typeparam>
-public sealed record class Ok<T> : Result<T>, IRight<FailValue, T>
+public sealed record class Ok<T> : Result<T>, IRight<FailureValue, T>
 {
 	/// <summary>
 	/// OK value - nullability will match the nullability of <typeparamref name="T"/>

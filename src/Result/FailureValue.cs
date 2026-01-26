@@ -9,7 +9,7 @@ namespace Wrap;
 /// <summary>
 /// Holds information about a failure.
 /// </summary>
-public readonly record struct FailValue
+public readonly record struct FailureValue
 {
 	private const LogLevel DefaultFailureLevel = LogLevel.Warning;
 
@@ -41,12 +41,12 @@ public readonly record struct FailValue
 	public readonly required string Message { get; init; }
 
 	/// <summary>
-	/// Create a <see cref="FailValue"/> from a simple failure message.
+	/// Create a <see cref="FailureValue"/> from a simple failure message.
 	/// </summary>
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
 	/// <returns>FailValue.</returns>
-	public static FailValue Create(string message, params object?[] args) =>
+	public static FailureValue Create(string message, params object?[] args) =>
 		new()
 		{
 			Message = message,
@@ -55,11 +55,11 @@ public readonly record struct FailValue
 		};
 
 	/// <summary>
-	/// Create a <see cref="Fail"/> object from an exception.
+	/// Create a <see cref="Failure"/> object from an exception.
 	/// </summary>
 	/// <param name="ex">Exception object.</param>
 	/// <returns>FailValue.</returns>
-	public static FailValue Create(Exception ex) =>
+	public static FailureValue Create(Exception ex) =>
 		new()
 		{
 			Message = ex.Message,

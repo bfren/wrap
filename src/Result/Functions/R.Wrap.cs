@@ -16,7 +16,7 @@ public static partial class R
 
 	/// <summary>
 	/// One of the most important functions in the library: takes a value and returns
-	/// either <see cref="Ok{T}"/> or <see cref="Wrap.Fail"/>.
+	/// either <see cref="Ok{T}"/> or <see cref="Failure"/>.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -29,7 +29,7 @@ public static partial class R
 	/// </para>
 	/// <para>
 	/// If <paramref name="value"/> is null and <typeparamref name="T"/> is a reference type (with or
-	/// without the ? suffix), you will get an <see cref="Wrap.Fail"/> object.
+	/// without the ? suffix), you will get an <see cref="Failure"/> object.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
@@ -37,7 +37,7 @@ public static partial class R
 	/// <returns>
 	/// <see cref="Ok{T}"/> if <paramref name="value"/> is not null
 	/// or <typeparamref name="T"/> is a nullable value type -
-	/// otherwise <see cref="Wrap.Fail"/>.
+	/// otherwise <see cref="Failure"/>.
 	/// </returns>
 	public static Result<T> Wrap<T>(T value) =>
 		value switch

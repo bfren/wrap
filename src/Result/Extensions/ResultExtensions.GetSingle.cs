@@ -37,7 +37,7 @@ public static partial class ResultExtensions
 	/// <typeparam name="TSingle">IEnumerable value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <param name="onError">[Optional] Return custom error on failure.</param>
-	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Fail"/></returns>
+	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Failure"/></returns>
 	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, R.ErrorHandlerWithMsg? onError = null)
 		where T : IEnumerable =>
 		Bind(@this, x => x switch
@@ -77,7 +77,7 @@ public static partial class ResultExtensions
 	/// <param name="this">Result object.</param>
 	/// <param name="unwrap">Fluent unwrap function.</param>
 	/// <param name="onError">[Optional] Return custom error on failure.</param>
-	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Fail"/></returns>
+	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Failure"/></returns>
 	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, Func<FluentGetSingle<T>,
 		Result<TSingle>> unwrap, R.ErrorHandlerWithMsg? onError = null
 	)

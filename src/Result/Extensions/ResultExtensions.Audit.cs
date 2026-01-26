@@ -13,10 +13,10 @@ public static partial class ResultExtensions
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="fail">Audit function to run when <paramref name="this"/> is <see cref="Fail"/>.</param>
+	/// <param name="fail">Audit function to run when <paramref name="this"/> is <see cref="Failure"/>.</param>
 	/// <param name="ok">Audit function to run when <paramref name="this"/> is <see cref="Ok{T}"/>.</param>
 	/// <returns>The original value of <paramref name="this"/>.</returns>
-	public static Result<T> Audit<T>(this Result<T> @this, Action<FailValue>? fail = null, Action<T>? ok = null)
+	public static Result<T> Audit<T>(this Result<T> @this, Action<FailureValue>? fail = null, Action<T>? ok = null)
 	{
 		try
 		{
@@ -58,16 +58,22 @@ public static partial class ResultExtensions
 		return @this;
 	}
 
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailValue}?, Action{T}?)"/>
-	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<FailValue, Task>? fail = null, Func<T, Task>? ok = null) =>
-		AuditAsync(@this.AsTask(), fail, ok);
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<FailureValue, Task>? fail = null, Func<T, Task>? ok = null) =>
+		AuditAsync(@this.AsTask(),
+			fail: fail,
+			ok: ok
+		);
 
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailValue}?, Action{T}?)"/>
-	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<FailValue>? fail = null, Action<T>? ok = null) =>
-		AuditAsync(@this, x => { fail?.Invoke(x); return Task.CompletedTask; }, x => { ok?.Invoke(x); return Task.CompletedTask; });
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<FailureValue>? fail = null, Action<T>? ok = null) =>
+		AuditAsync(@this,
+			fail: x => { fail?.Invoke(x); return Task.CompletedTask; },
+			ok: x => { ok?.Invoke(x); return Task.CompletedTask; }
+		);
 
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailValue}?, Action{T}?)"/>
-	public static async Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<FailValue, Task>? fail = null, Func<T, Task>? ok = null)
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	public static async Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<FailureValue, Task>? fail = null, Func<T, Task>? ok = null)
 	{
 		var result = await @this;
 
@@ -92,11 +98,15 @@ public static partial class ResultExtensions
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Result{T}})"/>
 	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<Result<T>, Task> either) =>
-		AuditAsync(@this.AsTask(), either);
+		AuditAsync(@this.AsTask(),
+			either: either
+		);
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Result{T}})"/>
 	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<Result<T>> either) =>
-		AuditAsync(@this, x => { either(x); return Task.CompletedTask; });
+		AuditAsync(@this,
+			either: x => { either(x); return Task.CompletedTask; }
+		);
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Result{T}})"/>
 	public static async Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<Result<T>, Task> either)

@@ -9,13 +9,13 @@ namespace Wrap;
 /// <typeparam name="TEither">Either implementation type.</typeparam>
 /// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 /// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
-public readonly record struct Unsafe<TEither, TLeft, TRight>
+public readonly record struct Unsafe<TEither, TLeft, TRight> : IUnion<TEither>
 	where TEither : IEither<TEither, TLeft, TRight>
 {
 	/// <summary>
 	/// Wrapped <typeparamref name="TEither"/> object.
 	/// </summary>
-	internal TEither Value { get; init; }
+	public TEither Value { get; init; }
 
 	/// <summary>
 	/// Internal creation only.

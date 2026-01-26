@@ -13,7 +13,7 @@ public static partial class FailValueExtensions
 	/// <param name="this">FailValue object.</param>
 	/// <param name="ex">Expected Exception.</param>
 	/// <returns>Original FailValue.</returns>
-	public static FailValue AssertException(this FailValue @this, Exception ex)
+	public static FailureValue AssertException(this FailureValue @this, Exception ex)
 	{
 		// Assert correct Exception
 		Assert.Equal(ex, @this.Exception);

@@ -11,7 +11,7 @@ public static partial class ResultExtensions
 	/// Discard the failure value of a <see cref="Result{T}"/> and return a <see cref="Maybe{T}"/>.
 	/// </summary>
 	/// <remarks>
-	/// WARNING: this will discard the <see cref="Fail"/> value that explains why an operation failed.
+	/// WARNING: this will discard the <see cref="Failure"/> value that explains why an operation failed.
 	/// You should only use this method if you have logged the failure value, or *really* don't care.
 	/// </remarks>
 	/// <typeparam name="T">Value type.</typeparam>

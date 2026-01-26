@@ -4,12 +4,12 @@
 namespace Wrap;
 
 /// <summary>
-/// 'Fail' Result - holds information why an operation failed.
+/// 'Failure' Result - holds information why an operation failed.
 /// </summary>
-public readonly struct Fail : IUnion<FailValue>
+public readonly struct Failure : IUnion<FailureValue>
 {
 	/// <summary>
 	/// Returns information about the failure.
 	/// </summary>
-	public readonly required FailValue Value { get; init; }
+	public readonly required FailureValue Value { get; init; }
 }

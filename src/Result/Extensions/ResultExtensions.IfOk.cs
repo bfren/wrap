@@ -16,17 +16,17 @@ public static partial class ResultExtensions
 	/// <param name="f">Function to run when <paramref name="this"/> is <see cref="Ok{T}"/>.</param>
 	/// <returns>The original value of <paramref name="this"/>.</returns>
 	public static Result<T> IfOk<T>(this Result<T> @this, Action<T> f) =>
-		@this.Audit(ok: f);
+		Audit(@this, ok: f);
 
 	/// <inheritdoc cref="IfOk{T}(Result{T}, Action{T})"/>
 	public static Task<Result<T>> IfOkAsync<T>(this Result<T> @this, Func<T, Task> f) =>
-		IfOkAsync(@this.AsTask(), f);
+		AuditAsync(@this, ok: f);
 
 	/// <inheritdoc cref="IfOk{T}(Result{T}, Action{T})"/>
 	public static Task<Result<T>> IfOkAsync<T>(this Task<Result<T>> @this, Action<T> f) =>
-		IfOkAsync(@this, x => { f(x); return Task.CompletedTask; });
+		AuditAsync(@this, ok: f);
 
 	/// <inheritdoc cref="IfOk{T}(Result{T}, Action{T})"/>
 	public static Task<Result<T>> IfOkAsync<T>(this Task<Result<T>> @this, Func<T, Task> f) =>
-		@this.AuditAsync(ok: f);
+		AuditAsync(@this, ok: f);
 }

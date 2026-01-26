@@ -4,6 +4,6 @@
 namespace Wrap.Testing;
 
 /// <summary>
-/// Extension methods for <see cref="FailValue"/> objects.
+/// Extension methods for <see cref="FailureValue"/> objects.
 /// </summary>
 public static partial class FailValueExtensions { }

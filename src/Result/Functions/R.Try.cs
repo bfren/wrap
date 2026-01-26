@@ -18,7 +18,7 @@ public static partial class R
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="f">Function to run.</param>
 	/// <param name="e">Exception handler.</param>
-	/// <returns>The value of <paramref name="f"/> or an <see cref="Wrap.Fail"/> result.</returns>
+	/// <returns>The value of <paramref name="f"/> or an <see cref="Failure"/> result.</returns>
 	public static Result<T> Try<T>(Func<T> f, ExceptionHandler e)
 	{
 		try

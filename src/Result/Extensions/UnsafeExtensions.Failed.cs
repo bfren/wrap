@@ -6,8 +6,8 @@ namespace Wrap.Extensions;
 public static partial class UnsafeExtensions
 {
 	/// <summary>
-	/// If <paramref name="this"/> contains a <see cref="Fail"/>, set <paramref name="value"/>
-	/// to be <see cref="Fail.Value"/>.
+	/// If <paramref name="this"/> contains a <see cref="Failure"/>, set <paramref name="value"/>
+	/// to be <see cref="Failure.Value"/>.
 	/// </summary>
 	/// <remarks>
 	/// Warning: if <paramref name="this"/> contains an <see cref="Ok{T}"/> <paramref name="value"/>
@@ -16,8 +16,8 @@ public static partial class UnsafeExtensions
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Unsafe object.</param>
 	/// <param name="value">Value (null if <paramref name="this"/> contains <see cref="Ok{T}"/>).</param>
-	/// <returns>True if <paramref name="this"/> contains a <see cref="Fail"/>.</returns>
-	public static bool IsFail<T>(this Unsafe<Result<T>, FailValue, T> @this, out FailValue value)
+	/// <returns>True if <paramref name="this"/> contains a <see cref="Failure"/>.</returns>
+	public static bool Failed<T>(this Unsafe<Result<T>, FailureValue, T> @this, out FailureValue value)
 	{
 		if (@this.Value is Result<T>.Failure failure)
 		{

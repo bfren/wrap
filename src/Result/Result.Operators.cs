@@ -14,18 +14,18 @@ public abstract partial record class Result<T>
 		R.Wrap(value);
 
 	/// <summary>
-	/// Implicitly convert a <see cref="Fail"/> to a <see cref="Result{T}"/> failure.
+	/// Implicitly convert a <see cref="Wrap.Failure"/> to a <see cref="Result{T}"/> failure.
 	/// </summary>
 	/// <param name="fail">Fail object.</param>
 	/// <returns>Failure value.</returns>
-	public static implicit operator Result<T>(Fail fail) =>
+	public static implicit operator Result<T>(Wrap.Failure fail) =>
 		Failure.Create(fail.Value);
 
 	/// <summary>
-	/// Implicitly convert a <see cref="FluentFailure"/> to a <see cref="Result{T}"/> failure.
+	/// Implicitly convert a <see cref="R.FluentFailure"/> to a <see cref="Result{T}"/> failure.
 	/// </summary>
 	/// <param name="fluent">FluentFail object.</param>
 	/// <returns>Failure value.</returns>
-	public static implicit operator Result<T>(FluentFailure fluent) =>
+	public static implicit operator Result<T>(R.FluentFailure fluent) =>
 		Failure.Create(fluent.Value);
 }

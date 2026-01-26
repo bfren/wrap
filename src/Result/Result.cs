@@ -10,12 +10,12 @@ namespace Wrap;
 /// Result monad.
 /// </summary>
 /// <typeparam name="T">Ok value type.</typeparam>
-public abstract partial record class Result<T> : IEither<Result<T>, FailValue, T>
+public abstract partial record class Result<T> : IEither<Result<T>, FailureValue, T>
 {
 	/// <summary>
-	/// Returns true if this object is a <see cref="Fail"/>.
+	/// Returns true if this object is a <see cref="Wrap.Failure"/>.
 	/// </summary>
-	public bool IsFail =>
+	public bool Failed =>
 		!IsOk;
 
 	/// <summary>

@@ -45,6 +45,6 @@ public static partial class R
 	/// <param name="failure">Failure value.</param>
 	/// <returns>Nothing - return type is specified so this can be used as a delegate.</returns>
 	/// <exception cref="FailureException"></exception>
-	public static T ThrowFailure<T>(FailValue failure) =>
+	public static T ThrowFailure<T>(FailureValue failure) =>
 		throw new FailureException(failure);
 }
