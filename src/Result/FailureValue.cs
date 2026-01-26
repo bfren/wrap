@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Wrap.Logging;
 
 namespace Wrap;
@@ -18,7 +19,7 @@ public readonly record struct FailureValue
 	/// <summary>
 	/// [Optional] Arguments to use as values where <see cref="Message"/> contains format placeholders.
 	/// </summary>
-	public readonly object?[] Args { get; init; }
+	public readonly object?[] Args { get; init; } = [];
 
 	/// <summary>
 	/// [Optional] Context (usually full type name) of the failure.
@@ -45,25 +46,15 @@ public readonly record struct FailureValue
 	/// </summary>
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
-	/// <returns>FailValue.</returns>
-	public static FailureValue Create(string message, params object?[] args) =>
-		new()
-		{
-			Message = message,
-			Args = args,
-			Level = DefaultFailureLevel
-		};
+	[SetsRequiredMembers]
+	public FailureValue(string message, params object?[] args) =>
+		(Message, Args, Level) = (message, args, DefaultFailureLevel);
 
 	/// <summary>
 	/// Create a <see cref="Failure"/> object from an exception.
 	/// </summary>
 	/// <param name="ex">Exception object.</param>
-	/// <returns>FailValue.</returns>
-	public static FailureValue Create(Exception ex) =>
-		new()
-		{
-			Message = ex.Message,
-			Exception = ex,
-			Level = DefaultExceptionLevel
-		};
+	[SetsRequiredMembers]
+	public FailureValue(Exception ex) =>
+		(Message, Exception, Level) = (ex.Message, ex, DefaultExceptionLevel);
 }

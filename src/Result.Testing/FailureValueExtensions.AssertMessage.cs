@@ -3,7 +3,7 @@
 
 namespace Wrap.Testing;
 
-public static partial class FailValueExtensions
+public static partial class FailureValueExtensions
 {
 	/// <summary>
 	/// Assert that <paramref name="this"/> contains the specified message.

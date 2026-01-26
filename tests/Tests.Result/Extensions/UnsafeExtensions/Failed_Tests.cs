@@ -35,30 +35,30 @@ public class Failed_Tests
 		}
 	}
 
-	public class input_is_fail
+	public class input_is_failure
 	{
 		[Fact]
 		public void out_var_is_failure()
 		{
 			// Arrange
-			var failure = FailureValue.Create(Rnd.Str);
-			var wrapped = FailGen.Create<int>(failure);
+			var value = new FailureValue(Rnd.Str);
+			var failure = FailGen.Create<int>(value);
 
 			// Act
-			_ = wrapped.Unsafe().Failed(out var result);
+			_ = failure.Unsafe().Failed(out var result);
 
 			// Assert
-			Assert.Equal(failure, result);
+			Assert.Equal(value, result);
 		}
 
 		[Fact]
 		public void returns_false()
 		{
 			// Arrange
-			var wrapped = FailGen.Create<int>();
+			var failure = FailGen.Create<int>();
 
 			// Act
-			var result = wrapped.Unsafe().Failed(out var _);
+			var result = failure.Unsafe().Failed(out var _);
 
 			// Assert
 			Assert.True(result);

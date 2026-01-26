@@ -16,7 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Using Include="Wrap.Testing.IdGenerator" Alias="IdGen" />
-    <Using Include="Wrap.Testing.FailGenerator" Alias="FailGen" />
+    <Using Include="Wrap.Testing.FailureGenerator" Alias="FailGen" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\All.Testing\All.Testing.csproj" />

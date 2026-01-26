@@ -39,7 +39,7 @@ public readonly struct Failure : IUnion<Failure, FailureValue>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
 	[SetsRequiredMembers]
 	internal Failure(string message, params object?[] args) =>
-		Value = FailureValue.Create(message, args);
+		Value = new(message, args);
 
 	/// <summary>
 	/// Fluently create a <see cref="Failure"/> object from an exception.
@@ -47,7 +47,7 @@ public readonly struct Failure : IUnion<Failure, FailureValue>
 	/// <param name="ex">Exception object.</param>
 	[SetsRequiredMembers]
 	internal Failure(Exception ex) =>
-		Value = FailureValue.Create(ex);
+		Value = new(ex);
 
 	/// <summary>
 	/// Add arguments to the failure value.

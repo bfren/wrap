@@ -36,16 +36,16 @@ public class IsOk_Tests
 		}
 	}
 
-	public class input_is_fail
+	public class input_is_failure
 	{
 		[Fact]
 		public void out_var_is_default()
 		{
 			// Arrange
-			var wrapped = FailGen.Create<int>();
+			var failure = FailGen.Create<int>();
 
 			// Act
-			_ = wrapped.Unsafe().IsOk(out var result);
+			_ = failure.Unsafe().IsOk(out var result);
 
 			// Assert
 			Assert.Equal(default, result);
@@ -55,10 +55,10 @@ public class IsOk_Tests
 		public void returns_false()
 		{
 			// Arrange
-			var wrapped = FailGen.Create<int>();
+			var failure = FailGen.Create<int>();
 
 			// Act
-			var result = wrapped.Unsafe().IsOk(out var _);
+			var result = failure.Unsafe().IsOk(out var _);
 
 			// Assert
 			Assert.False(result);
