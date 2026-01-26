@@ -4,10 +4,10 @@
   </PropertyGroup>
   <ItemGroup Label="Test Internals">
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>Maybe</_Parameter1>
+      <_Parameter1>Wrap.Maybe</_Parameter1>
     </AssemblyAttribute>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>Result</_Parameter1>
+      <_Parameter1>Wrap.Result</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 </Project>

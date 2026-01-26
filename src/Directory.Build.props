@@ -7,6 +7,7 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <RootNamespace>Wrap</RootNamespace>
+    <AssemblyName>Wrap.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
   <!-- Enable Internal Testing -->
@@ -15,7 +16,7 @@
       <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
     </AssemblyAttribute>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>Tests.$(AssemblyName)</_Parameter1>
+      <_Parameter1>Tests.$(MSBuildProjectName)</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 
@@ -51,7 +52,7 @@
 
   <!-- Read Version File -->
   <PropertyGroup Label="Version">
-    <MonadsVersion>$([System.IO.File]::ReadAllText('$(VersionPath)'))</MonadsVersion>
+    <WrapVersion>$([System.IO.File]::ReadAllText('$(VersionPath)'))</WrapVersion>
   </PropertyGroup>
 
   <!-- Package Configuration -->
@@ -69,7 +70,7 @@
     <PackageTags>async;C#;Either Type;Exception Handling;LINQ;Maybe Type;Monad;None;null;Option Type;Result Type;Some;ID;Strong ID</PackageTags>
     <RepositoryUrl>https://github.com/bfren/wrap</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>$(MonadsVersion)</Version>
+    <Version>$(WrapVersion)</Version>
   </PropertyGroup>
 
   <!--
@@ -88,7 +89,7 @@
     <PackageValidationBaselineVersion>1.0.0</PackageValidationBaselineVersion>
   </PropertyGroup>
   <Target Name="PackAndPushToLocalNuget" AfterTargets="DispatchToInnerBuilds" Condition="Exists('$(LocalPackPath)') and '$(Configuration)'=='Release'">
-    <Exec Command="dotnet pack &quot;$(ProjectFileName)&quot; -p:PackageVersion=$(MonadsVersion) --no-build --configuration Release"/>
+    <Exec Command="dotnet pack &quot;$(ProjectFileName)&quot; -p:PackageVersion=$(WrapVersion) --no-build --configuration Release"/>
     <Exec Command="nuget init &quot;$(MSBuildProjectDirectory)\bin\Release&quot; &quot;$(LocalNugetRepository)&quot;"/>
     <Exec Command="del &quot;$(MSBuildProjectDirectory)\bin\Release\*.nupkg&quot;"/>
   </Target>

@@ -1,9 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>Wrap</PackageId>
-  </PropertyGroup>
-  <PropertyGroup>
     <RootNamespace>Wrap</RootNamespace>
+    <AssemblyName>Wrap</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />

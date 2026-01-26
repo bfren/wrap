@@ -1,0 +1,99 @@
+// Wrap: Unit Tests
+// Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
+
+using Microsoft.Extensions.Caching.Memory;
+
+namespace Wrap.Caching.WrapCache_Tests;
+
+public class GetValue_Tests
+{
+	[Fact]
+	public void Key_Null__Returns_None_With_KeyIsNullMsg()
+	{
+		// Arrange
+		var mc = Substitute.For<IMemoryCache>();
+		var cache = new WrapCache<string>(mc);
+
+		// Act
+		var result = cache.GetValue<string>(null!);
+
+		// Assert
+		result.AssertNone();
+		cache.AssertFailure("Key cannot be null.");
+	}
+
+	[Fact]
+	public void Incorrect_Type__Returns_None_With_IncorrectTypeMsg()
+	{
+		// Arrange
+		var mc = new MemoryCache(new MemoryCacheOptions());
+		var cache = new WrapCache<string>(mc);
+		var key = Rnd.Str;
+		cache.SetValue(key, Rnd.Guid);
+
+		// Act
+		var result = cache.GetValue<int>(key);
+
+		// Assert
+		result.AssertNone();
+		cache.AssertFailure(
+			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
+			key, nameof(Guid), nameof(Int32)
+		);
+	}
+
+	[Fact]
+	public void Value_Exists__Returns_Value()
+	{
+		// Arrange
+		var mc = Substitute.For<IMemoryCache>();
+		var value = Rnd.Guid;
+		mc.TryGetValue(Arg.Any<string>(), out Arg.Any<object>()!)
+			.Returns(x =>
+			{
+				x[1] = value;
+				return true;
+			});
+		var cache = new WrapCache<string>(mc);
+
+		// Act
+		var result = cache.GetValue<Guid>(Rnd.Str);
+
+		// Assert
+		result.AssertSome(value);
+	}
+
+	[Fact]
+	public void Value_Is_Null__Returns_None()
+	{
+		// Arrange
+		var mc = Substitute.For<IMemoryCache>();
+		mc.TryGetValue(Arg.Any<string>(), out Arg.Any<object>()!)
+			.Returns(x =>
+			{
+				x[1] = null;
+				return true;
+			});
+		var cache = new WrapCache<string>(mc);
+
+		// Act
+		var result = cache.GetValue<string>(Rnd.Str);
+
+		// Assert
+		result.AssertNone();
+	}
+
+	[Fact]
+	public void Value_Does_Not_Exist__Returns_None()
+	{
+		// Arrange
+		var mc = Substitute.For<IMemoryCache>();
+		var cache = new WrapCache<string>(mc);
+
+		// Act
+		var result = cache.GetValue<long>(Rnd.Str);
+
+		// Assert
+		result.AssertNone();
+	}
+}

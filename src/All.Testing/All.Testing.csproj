@@ -1,9 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>Wrap.Testing</PackageId>
-  </PropertyGroup>
-  <PropertyGroup>
     <RootNamespace>Wrap.Testing</RootNamespace>
+    <AssemblyName>Wrap.Testing</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Id.Testing\Id.Testing.csproj" />
