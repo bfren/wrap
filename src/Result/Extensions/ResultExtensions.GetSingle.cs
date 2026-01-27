@@ -89,7 +89,7 @@ public static partial class ResultExtensions
 	/// <param name="onError">[Optional] Return custom error on failure.</param>
 	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Failure"/></returns>
 	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, Func<FluentGetSingle<T>,
-		Result<TSingle>> unwrap, R.ErrorHandler? onError = null
+		Result<TSingle>> unwrap, R.ErrorHandler? onError
 	)
 		where T : IEnumerable<TSingle> =>
 		unwrap(new FluentGetSingle<T>(@this, onError));
@@ -102,7 +102,7 @@ public static partial class ResultExtensions
 
 	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, Func{FluentGetSingle{T}, Result{TSingle}}, R.ErrorHandler?)"/>
 	public static async Task<Result<TSingle>> GetSingleAsync<T, TSingle>(this Task<Result<T>> @this,
-		Func<FluentGetSingle<T>, Result<TSingle>> unwrap, R.ErrorHandler? onError = null)
+		Func<FluentGetSingle<T>, Result<TSingle>> unwrap, R.ErrorHandler? onError)
 		where T : IEnumerable<TSingle> =>
 		unwrap(new FluentGetSingle<T>(await @this, onError));
 
