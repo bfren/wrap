@@ -160,7 +160,6 @@ Global
 		{EA861BA6-0589-4BF1-BF8B-25AF1818BDCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA861BA6-0589-4BF1-BF8B-25AF1818BDCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA861BA6-0589-4BF1-BF8B-25AF1818BDCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA861BA6-0589-4BF1-BF8B-25AF1818BDCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
