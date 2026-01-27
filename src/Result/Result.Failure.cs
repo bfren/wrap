@@ -42,6 +42,6 @@ public abstract partial record class Result<T>
 		/// <param name="value">FailValue.</param>
 		/// <returns>Failure result.</returns>
 		internal static Result<T> Create(FailureValue value) =>
-			new Failure() { Value = value };
+			new Failure { Value = value };
 	}
 }
