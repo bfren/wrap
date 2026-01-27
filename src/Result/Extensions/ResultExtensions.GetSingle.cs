@@ -23,6 +23,11 @@ public static partial class ResultExtensions
 	private const string NotAList =
 		"Result value type is not a list.";
 
+	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, R.ErrorHandler?)"/>
+	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this)
+		where T : IEnumerable =>
+		GetSingle<T, TSingle>(@this, null);
+
 	/// <summary>
 	/// Unwrap an <see cref="IEnumerable{T}"/> object that has a single value.
 	/// </summary>
@@ -38,7 +43,7 @@ public static partial class ResultExtensions
 	/// <param name="this">Result object.</param>
 	/// <param name="onError">[Optional] Return custom error on failure.</param>
 	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Failure"/></returns>
-	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, R.ErrorHandler? onError = null)
+	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, R.ErrorHandler? onError)
 		where T : IEnumerable =>
 		Bind(@this, x => x switch
 		{
@@ -61,6 +66,11 @@ public static partial class ResultExtensions
 				onError?.Invoke(NotAList) ?? R.Fail(NotAList)
 					.Ctx(nameof(ResultExtensions), nameof(GetSingle))
 		});
+
+	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, Func{FluentGetSingle{T}, Result{TSingle}}, R.ErrorHandler?)"/>
+	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, Func<FluentGetSingle<T>, Result<TSingle>> unwrap)
+		where T : IEnumerable<TSingle> =>
+		GetSingle(@this, unwrap, null);
 
 	/// <summary>
 	/// Unwrap an <see cref="IEnumerable{T}"/> object that has a single value.
@@ -85,6 +95,12 @@ public static partial class ResultExtensions
 		unwrap(new FluentGetSingle<T>(@this, onError));
 
 	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, Func{FluentGetSingle{T}, Result{TSingle}}, R.ErrorHandler?)"/>
+	public static Task<Result<TSingle>> GetSingleAsync<T, TSingle>(this Task<Result<T>> @this,
+		Func<FluentGetSingle<T>, Result<TSingle>> unwrap)
+		where T : IEnumerable<TSingle> =>
+		GetSingleAsync(@this, unwrap, null);
+
+	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, Func{FluentGetSingle{T}, Result{TSingle}}, R.ErrorHandler?)"/>
 	public static async Task<Result<TSingle>> GetSingleAsync<T, TSingle>(this Task<Result<T>> @this,
 		Func<FluentGetSingle<T>, Result<TSingle>> unwrap, R.ErrorHandler? onError = null)
 		where T : IEnumerable<TSingle> =>
@@ -96,7 +112,7 @@ public static partial class ResultExtensions
 	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
 	/// <param name="result">The result object containing the enumerable value to be processed.</param>
 	/// <param name="onError">[Optional] Return custom error on failure.</param>
-	public sealed class FluentGetSingle<T>(Result<T> result, R.ErrorHandler? onError = null)
+	public sealed class FluentGetSingle<T>(Result<T> result, R.ErrorHandler? onError)
 		where T : IEnumerable
 	{
 		/// <summary>

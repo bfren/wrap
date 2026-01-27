@@ -1,6 +1,8 @@
 // Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System;
+
 namespace Wrap;
 
 /// <summary>
@@ -16,4 +18,25 @@ namespace Wrap;
 /// returning a 'None' value.
 /// </para>
 /// </remarks>
-public readonly struct None { }
+public readonly struct None : IEquatable<None>
+{
+	/// <inheritdoc/>
+	public bool Equals(None other) =>
+		true;
+
+	/// <inheritdoc/>
+	public override bool Equals(object? obj) =>
+		obj is None;
+
+	/// <inheritdoc/>
+	public override int GetHashCode() =>
+		0;
+
+	/// <inheritdoc/>
+	public static bool operator ==(None left, None right) =>
+		left.Equals(right);
+
+	/// <inheritdoc/>
+	public static bool operator !=(None left, None right) =>
+		left.Equals(right);
+}
