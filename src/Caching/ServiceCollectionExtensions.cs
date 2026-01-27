@@ -15,7 +15,7 @@ public static class ServiceCollectionExtensions
 	/// </summary>
 	/// <typeparam name="TKey">Cache Key type.</typeparam>
 	/// <param name="this">IServiceCollection.</param>
-	public static IServiceCollection AddMaybeCache<TKey>(this IServiceCollection @this)
+	public static IServiceCollection AddWrapCache<TKey>(this IServiceCollection @this)
 		where TKey : notnull =>
 		@this.AddSingleton<IWrapCache<TKey>, WrapCache<TKey>>();
 }
