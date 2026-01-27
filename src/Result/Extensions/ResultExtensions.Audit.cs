@@ -1,4 +1,4 @@
-// Wrap: .NET monads for functional style.
+// Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
@@ -8,6 +8,14 @@ namespace Wrap.Extensions;
 
 public static partial class ResultExtensions
 {
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	public static Result<T> Audit<T>(this Result<T> @this, Action<FailureValue> fail) =>
+		Audit(@this, fail, null);
+
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	public static Result<T> Audit<T>(this Result<T> @this, Action<T> ok) =>
+		Audit(@this, null, ok);
+
 	/// <summary>
 	/// Run <paramref name="fail"/> or <paramref name="ok"/> depending on the value of <paramref name="this"/>.
 	/// </summary>
@@ -16,7 +24,7 @@ public static partial class ResultExtensions
 	/// <param name="fail">Audit function to run when <paramref name="this"/> is <see cref="Failure"/>.</param>
 	/// <param name="ok">Audit function to run when <paramref name="this"/> is <see cref="Ok{T}"/>.</param>
 	/// <returns>The original value of <paramref name="this"/>.</returns>
-	public static Result<T> Audit<T>(this Result<T> @this, Action<FailureValue>? fail = null, Action<T>? ok = null)
+	public static Result<T> Audit<T>(this Result<T> @this, Action<FailureValue>? fail, Action<T>? ok)
 	{
 		try
 		{
@@ -59,21 +67,45 @@ public static partial class ResultExtensions
 	}
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
-	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<FailureValue, Task>? fail = null, Func<T, Task>? ok = null) =>
+	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<FailureValue, Task> fail) =>
+		AuditAsync(@this, fail, null);
+
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<T, Task> ok) =>
+		AuditAsync(@this, null, ok);
+
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<FailureValue, Task>? fail, Func<T, Task>? ok) =>
 		AuditAsync(@this.AsTask(),
 			fail: fail,
 			ok: ok
 		);
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
-	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<FailureValue>? fail = null, Action<T>? ok = null) =>
+	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<FailureValue> fail) =>
+		AuditAsync(@this, fail, null);
+
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<T> ok) =>
+		AuditAsync(@this, null, ok);
+
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<FailureValue>? fail, Action<T>? ok) =>
 		AuditAsync(@this,
 			fail: x => { fail?.Invoke(x); return Task.CompletedTask; },
 			ok: x => { ok?.Invoke(x); return Task.CompletedTask; }
 		);
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
-	public static async Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<FailureValue, Task>? fail = null, Func<T, Task>? ok = null)
+	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<FailureValue, Task> fail) =>
+		AuditAsync(@this, fail, null);
+
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<T, Task> ok) =>
+		AuditAsync(@this, null, ok);
+
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	public static async Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<FailureValue, Task>? fail, Func<T, Task>? ok)
 	{
 		var result = await @this;
 

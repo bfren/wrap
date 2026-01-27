@@ -1,4 +1,4 @@
-// Wrap: Unit Tests
+// Wrap: Unit Tests.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Text;
@@ -31,7 +31,6 @@ public class Read_Tests
 	public void throw_NullUnionValueException__when_json_value_is_empty_string()
 	{
 		// Arrange
-		var value = Rnd.Ptr;
 		var json = string.Empty;
 		var opt = new JsonSerializerOptions();
 		var converter = new UnionJsonConverter<Test, string>();
@@ -51,7 +50,6 @@ public class Read_Tests
 	public void throw_NullUnionValueException__when_json_value_is_null()
 	{
 		// Arrange
-		var value = Rnd.Ptr;
 		var json = "null";
 		var opt = new JsonSerializerOptions();
 		var converter = new UnionJsonConverter<Test, string>();

@@ -1,4 +1,4 @@
-// Wrap: .NET monads for functional style.
+// Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
@@ -9,37 +9,37 @@ namespace Wrap.Extensions;
 public static partial class MaybeExtensions
 {
 	/// <summary>
-	/// Run <paramref name="bind"/> when <paramref name="this"/> is <see cref="Some{T}"/>.
+	/// Run <paramref name="f"/> when <paramref name="this"/> is <see cref="Some{T}"/>.
 	/// </summary>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
-	/// <param name="bind">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns><see cref="Maybe{T}"/> object returned by <paramref name="bind"/> or <see cref="None"/>.</returns>
-	public static Maybe<TReturn> Bind<T, TReturn>(this Maybe<T> @this, Func<T, Maybe<TReturn>> bind) =>
+	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
+	/// <returns><see cref="Maybe{T}"/> object returned by <paramref name="f"/> or <see cref="None"/>.</returns>
+	public static Maybe<TReturn> Bind<T, TReturn>(this Maybe<T> @this, Func<T, Maybe<TReturn>> f) =>
 		M.Match(@this,
 			none: M.None,
-			some: bind
+			some: f
 		);
 
 	/// <inheritdoc cref="Bind{T, TReturn}(Maybe{T}, Func{T, Maybe{TReturn}})"/>
-	public static Task<Maybe<TReturn>> BindAsync<T, TReturn>(this Maybe<T> @this, Func<T, Task<Maybe<TReturn>>> bind) =>
+	public static Task<Maybe<TReturn>> BindAsync<T, TReturn>(this Maybe<T> @this, Func<T, Task<Maybe<TReturn>>> f) =>
 		M.MatchAsync(@this,
 			none: M.None,
-			some: bind
+			some: f
 		);
 
 	/// <inheritdoc cref="Bind{T, TReturn}(Maybe{T}, Func{T, Maybe{TReturn}})"/>
-	public static Task<Maybe<TReturn>> BindAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, Maybe<TReturn>> bind) =>
+	public static Task<Maybe<TReturn>> BindAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, Maybe<TReturn>> f) =>
 		M.MatchAsync(@this,
 			none: M.None,
-			some: bind
+			some: f
 		);
 
 	/// <inheritdoc cref="Bind{T, TReturn}(Maybe{T}, Func{T, Maybe{TReturn}})"/>
-	public static Task<Maybe<TReturn>> BindAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<Maybe<TReturn>>> bind) =>
+	public static Task<Maybe<TReturn>> BindAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<Maybe<TReturn>>> f) =>
 		M.MatchAsync(@this,
 			none: M.None,
-			some: bind
+			some: f
 		);
 }

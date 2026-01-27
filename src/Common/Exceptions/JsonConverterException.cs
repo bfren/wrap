@@ -1,4 +1,4 @@
-// Wrap: .NET monads for functional style.
+// Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 namespace Wrap.Exceptions;
@@ -8,5 +8,4 @@ namespace Wrap.Exceptions;
 /// </summary>
 /// <param name="message">Exception message.</param>
 public sealed class JsonConverterException(string message) :
-	WrapException(message)
-{ }
+	WrapException(message);

@@ -1,4 +1,4 @@
-// Wrap: .NET monads for functional style.
+// Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 namespace Wrap.Testing;
@@ -21,8 +21,16 @@ public static class FailureGenerator
 	/// Creates a new instance of the <see cref="Failure"/> class with a randomly generated failure value.
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
-	/// <param name="failure">[Optional] Provided Failvalue.</param>
 	/// <returns>A <see cref="Failure"/> object implicitly returned as <see cref="Result{T}"/>.</returns>
-	public static Result<T> Create<T>(FailureValue? failure = null) =>
-		new Failure(failure ?? new(Rnd.Str));
+	public static Result<T> Create<T>() =>
+		new Failure(new FailureValue(Rnd.Str));
+
+	/// <summary>
+	/// Creates a new instance of the <see cref="Failure"/> class with the specified failure value.
+	/// </summary>
+	/// <typeparam name="T">Ok value type.</typeparam>
+	/// <param name="failure">Provided Failvalue.</param>
+	/// <returns>A <see cref="Failure"/> object implicitly returned as <see cref="Result{T}"/>.</returns>
+	public static Result<T> Create<T>(FailureValue failure) =>
+		new Failure(failure);
 }

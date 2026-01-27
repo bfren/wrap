@@ -1,4 +1,4 @@
-// Wrap: .NET monads for functional style.
+// Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 namespace Wrap.Extensions;
@@ -17,7 +17,7 @@ public static partial class UnsafeExtensions
 	/// <param name="this">Unsafe object.</param>
 	/// <param name="value">Value (null if <paramref name="this"/> contains <see cref="Ok{T}"/>).</param>
 	/// <returns>True if <paramref name="this"/> contains a <see cref="Failure"/>.</returns>
-	public static bool Failed<T>(this Unsafe<Result<T>, FailureValue, T> @this, out FailureValue value)
+	public static bool TryFailure<T>(this Unsafe<Result<T>, FailureValue, T> @this, out FailureValue value)
 	{
 		if (@this.Value is Result<T>.Failure failure)
 		{

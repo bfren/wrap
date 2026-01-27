@@ -1,4 +1,4 @@
-// Wrap: .NET monads for functional style.
+// Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
@@ -15,7 +15,7 @@ public abstract class WrapCache
 	/// <summary>
 	/// Internal creation only.
 	/// </summary>
-	internal WrapCache() { }
+	private protected WrapCache() { }
 }
 
 /// <inheritdoc cref="IWrapCache{TKey}"/>

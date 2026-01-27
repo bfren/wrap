@@ -1,4 +1,4 @@
-// Wrap: .NET monads for functional style.
+// Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
@@ -9,11 +9,11 @@ namespace Wrap.Extensions;
 public static partial class ResultExtensions
 {
 	/// <inheritdoc cref="Map{T, TReturn}(Result{T}, Func{T, TReturn}, R.ExceptionHandler)"/>
-	public static Result<TReturn> Map<T, TReturn>(this Result<T> @this, Func<T, TReturn> map) =>
-		Map(@this, map, R.DefaultExceptionHandler);
+	public static Result<TReturn> Map<T, TReturn>(this Result<T> @this, Func<T, TReturn> f) =>
+		Map(@this, f, R.DefaultExceptionHandler);
 
 	/// <summary>
-	/// Run <paramref name="map"/> when <paramref name="this"/> is <see cref="Ok{T}"/>.
+	/// Run <paramref name="f"/> when <paramref name="this"/> is <see cref="Ok{T}"/>.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -25,45 +25,45 @@ public static partial class ResultExtensions
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="map">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
+	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
 	/// <param name="e">Exception handler.</param>
 	/// <returns><see cref="Ok{T}"/> object or <see cref="Failure"/>.</returns>
-	public static Result<TReturn> Map<T, TReturn>(this Result<T> @this, Func<T, TReturn> map, R.ExceptionHandler e) =>
+	public static Result<TReturn> Map<T, TReturn>(this Result<T> @this, Func<T, TReturn> f, R.ExceptionHandler e) =>
 		R.Match(@this,
 			fail: R.Fail<TReturn>,
-			ok: x => R.Try(() => map(x), e)
+			ok: x => R.Try(() => f(x), e)
 		);
 
 	/// <inheritdoc cref="Map{T, TReturn}(Result{T}, Func{T, TReturn}, R.ExceptionHandler)"/>
-	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Result<T> @this, Func<T, Task<TReturn>> map) =>
-		MapAsync(@this, map, R.DefaultExceptionHandler);
+	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Result<T> @this, Func<T, Task<TReturn>> f) =>
+		MapAsync(@this, f, R.DefaultExceptionHandler);
 
 	/// <inheritdoc cref="Map{T, TReturn}(Result{T}, Func{T, TReturn}, R.ExceptionHandler)"/>
-	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Result<T> @this, Func<T, Task<TReturn>> map, R.ExceptionHandler e) =>
+	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Result<T> @this, Func<T, Task<TReturn>> f, R.ExceptionHandler e) =>
 		R.MatchAsync(@this,
 			fail: R.Fail<TReturn>,
-			ok: x => R.TryAsync(() => map(x), e)
+			ok: x => R.TryAsync(() => f(x), e)
 		);
 
 	/// <inheritdoc cref="Map{T, TReturn}(Result{T}, Func{T, TReturn}, R.ExceptionHandler)"/>
-	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, TReturn> map) =>
-		MapAsync(@this, map, R.DefaultExceptionHandler);
+	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, TReturn> f) =>
+		MapAsync(@this, f, R.DefaultExceptionHandler);
 
 	/// <inheritdoc cref="Map{T, TReturn}(Result{T}, Func{T, TReturn}, R.ExceptionHandler)"/>
-	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, TReturn> map, R.ExceptionHandler e) =>
+	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, TReturn> f, R.ExceptionHandler e) =>
 		R.MatchAsync(@this,
 			fail: R.Fail<TReturn>,
-			ok: x => R.Try(() => map(x), e)
+			ok: x => R.Try(() => f(x), e)
 		);
 
 	/// <inheritdoc cref="Map{T, TReturn}(Result{T}, Func{T, TReturn}, R.ExceptionHandler)"/>
-	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, Task<TReturn>> map) =>
-		MapAsync(@this, map, R.DefaultExceptionHandler);
+	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, Task<TReturn>> f) =>
+		MapAsync(@this, f, R.DefaultExceptionHandler);
 
 	/// <inheritdoc cref="Map{T, TReturn}(Result{T}, Func{T, TReturn}, R.ExceptionHandler)"/>
-	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, Task<TReturn>> map, R.ExceptionHandler e) =>
+	public static Task<Result<TReturn>> MapAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, Task<TReturn>> f, R.ExceptionHandler e) =>
 		R.MatchAsync(@this,
 			fail: R.Fail<TReturn>,
-			ok: x => R.TryAsync(() => map(x), e)
+			ok: x => R.TryAsync(() => f(x), e)
 		);
 }
