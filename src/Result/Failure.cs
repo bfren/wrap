@@ -3,7 +3,6 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using Wrap.Logging;
@@ -74,7 +73,7 @@ public readonly struct Failure : IUnion<Failure, FailureValue>
 		{
 			Value = Value with
 			{
-				Context = string.Format(CultureInfo.InvariantCulture, ContextFormat, @class, function)
+				Context = string.Format(F.DefaultCulture, ContextFormat, @class, function)
 			}
 		};
 

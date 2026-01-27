@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
+using System.Globalization;
 
 namespace Wrap;
 
@@ -10,6 +11,11 @@ namespace Wrap;
 /// </summary>
 public static partial class F
 {
+	/// <summary>
+	/// Default culture (en-GB) - used when working with strings.
+	/// </summary>
+	public static CultureInfo DefaultCulture { get; set; } = CultureInfo.GetCultureInfo("en-GB");
+
 	/// <summary>
 	/// Log failures.
 	/// </summary>
