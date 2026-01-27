@@ -10,7 +10,7 @@ public static partial class R
 {
 	/// <inheritdoc cref="Try{T}(Func{T}, ExceptionHandler)"/>
 	public static Result<T> Try<T>(Func<T> f) =>
-		Try(f, DefaultHandler);
+		Try(f, DefaultExceptionHandler);
 
 	/// <summary>
 	/// Execute function <paramref name="f"/>, returning its value and catching any exceptions.
@@ -33,7 +33,7 @@ public static partial class R
 
 	/// <inheritdoc cref="Try{T}(Func{T}, ExceptionHandler)"/>
 	public static Task<Result<T>> TryAsync<T>(Func<Task<T>> f) =>
-		TryAsync(f, DefaultHandler);
+		TryAsync(f, DefaultExceptionHandler);
 
 	/// <inheritdoc cref="Try{T}(Func{T}, ExceptionHandler)"/>
 	public static async Task<Result<T>> TryAsync<T>(Func<Task<T>> f, ExceptionHandler e)

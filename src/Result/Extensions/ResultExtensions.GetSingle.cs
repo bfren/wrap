@@ -38,7 +38,7 @@ public static partial class ResultExtensions
 	/// <param name="this">Result object.</param>
 	/// <param name="onError">[Optional] Return custom error on failure.</param>
 	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Failure"/></returns>
-	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, R.ErrorHandlerWithMsg? onError = null)
+	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, R.ErrorHandler? onError = null)
 		where T : IEnumerable =>
 		Bind(@this, x => x switch
 		{
@@ -79,14 +79,14 @@ public static partial class ResultExtensions
 	/// <param name="onError">[Optional] Return custom error on failure.</param>
 	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Failure"/></returns>
 	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, Func<FluentGetSingle<T>,
-		Result<TSingle>> unwrap, R.ErrorHandlerWithMsg? onError = null
+		Result<TSingle>> unwrap, R.ErrorHandler? onError = null
 	)
 		where T : IEnumerable<TSingle> =>
 		unwrap(new FluentGetSingle<T>(@this, onError));
 
-	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, Func{FluentGetSingle{T}, Result{TSingle}}, R.ErrorHandlerWithMsg?)"/>
+	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, Func{FluentGetSingle{T}, Result{TSingle}}, R.ErrorHandler?)"/>
 	public static async Task<Result<TSingle>> GetSingleAsync<T, TSingle>(this Task<Result<T>> @this,
-		Func<FluentGetSingle<T>, Result<TSingle>> unwrap, R.ErrorHandlerWithMsg? onError = null)
+		Func<FluentGetSingle<T>, Result<TSingle>> unwrap, R.ErrorHandler? onError = null)
 		where T : IEnumerable<TSingle> =>
 		unwrap(new FluentGetSingle<T>(await @this, onError));
 
@@ -96,7 +96,7 @@ public static partial class ResultExtensions
 	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
 	/// <param name="result">The result object containing the enumerable value to be processed.</param>
 	/// <param name="onError">[Optional] Return custom error on failure.</param>
-	public sealed class FluentGetSingle<T>(Result<T> result, R.ErrorHandlerWithMsg? onError = null)
+	public sealed class FluentGetSingle<T>(Result<T> result, R.ErrorHandler? onError = null)
 		where T : IEnumerable
 	{
 		/// <summary>

@@ -14,16 +14,10 @@ public static partial class R
 	/// <summary>
 	/// Allows custom error handling when an operation fails.
 	/// </summary>
-	/// <returns>Failure object</returns>
-	public delegate Failure ErrorHandler();
-
-	/// <summary>
-	/// Allows custom error handling when an operation fails.
-	/// </summary>
 	/// <param name="message">Error message to bubble up.</param>
 	/// <param name="args">[Optional] message arguments.</param>
 	/// <returns>Failure object</returns>
-	public delegate Failure ErrorHandlerWithMsg(string message, params object?[] args);
+	public delegate Failure ErrorHandler(string message, params object?[] args);
 
 	/// <summary>
 	/// Handles exceptions when an operation fails - see <see cref="Try{T}(Func{T})"/>.
@@ -35,7 +29,7 @@ public static partial class R
 	/// <summary>
 	/// Default exception handler.
 	/// </summary>
-	public static ExceptionHandler DefaultHandler =>
+	public static ExceptionHandler DefaultExceptionHandler =>
 		Fail;
 
 	/// <summary>

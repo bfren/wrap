@@ -1,6 +1,8 @@
 // Wrap: .NET monads for functional style.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System;
+
 namespace Wrap.Extensions;
 
 public static partial class MaybeExtensions
@@ -25,7 +27,7 @@ public static partial class MaybeExtensions
 	/// <param name="this">Maybe object.</param>
 	/// <param name="ifNone">Error handler when <paramref name="this"/> is <see cref="None"/>.</param>
 	/// <returns>Result object.</returns>
-	public static Result<T> ToResult<T>(this Maybe<T> @this, R.ErrorHandler ifNone) =>
+	public static Result<T> ToResult<T>(this Maybe<T> @this, Func<Failure> ifNone) =>
 		@this.Match(
 			none: () => ifNone(),
 			some: x => R.Wrap(x)
