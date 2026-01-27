@@ -15,7 +15,7 @@ public abstract class WrapCache
 	/// <summary>
 	/// Internal creation only.
 	/// </summary>
-	internal WrapCache() { }
+	private protected WrapCache() { }
 }
 
 /// <inheritdoc cref="IWrapCache{TKey}"/>

@@ -20,7 +20,7 @@ public static partial class MaybeExtensions
 	{
 		try
 		{
-			if (@this is Maybe<T>.None y && none is not null)
+			if (@this is Maybe<T>.None && none is not null)
 			{
 				none();
 			}
@@ -73,7 +73,7 @@ public static partial class MaybeExtensions
 
 		try
 		{
-			if (result is Maybe<T>.None y && none is not null)
+			if (result is Maybe<T>.None && none is not null)
 			{
 				await none();
 			}

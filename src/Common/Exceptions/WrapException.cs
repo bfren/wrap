@@ -11,14 +11,14 @@ namespace Wrap.Exceptions;
 public abstract class WrapException : Exception
 {
 	/// <summary>Create exception.</summary>
-	public WrapException() { }
+	protected WrapException() { }
 
 	/// <summary>Create exception.</summary>
 	/// <param name="message">Exception message.</param>
-	public WrapException(string message) : base(message) { }
+	protected WrapException(string message) : base(message) { }
 
 	/// <summary>Create exception.</summary>
 	/// <param name="message">Exception message.</param>
 	/// <param name="inner">Inner exception.</param>
-	public WrapException(string message, Exception inner) : base(message, inner) { }
+	protected WrapException(string message, Exception inner) : base(message, inner) { }
 }
