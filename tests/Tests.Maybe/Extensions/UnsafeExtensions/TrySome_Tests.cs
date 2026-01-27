@@ -3,19 +3,19 @@
 
 namespace Wrap.Extensions.UnsafeExtensions_Tests;
 
-public class IsOk_Tests
+public class TrySome_Tests
 {
-	public class input_is_ok
+	public class input_is_some
 	{
 		[Fact]
 		public void out_var_is_value()
 		{
 			// Arrange
 			var value = Rnd.Guid;
-			var wrapped = R.Wrap(value);
+			var maybe = M.Wrap(value);
 
 			// Act
-			_ = wrapped.Unsafe().IsOk(out var result);
+			_ = maybe.Unsafe().TrySome(out var result);
 
 			// Assert
 			Assert.Equal(value, result);
@@ -26,26 +26,26 @@ public class IsOk_Tests
 		{
 			// Arrange
 			var value = Rnd.Guid;
-			var wrapped = R.Wrap(value);
+			var maybe = M.Wrap(value);
 
 			// Act
-			var result = wrapped.Unsafe().IsOk(out var _);
+			var result = maybe.Unsafe().TrySome(out var _);
 
 			// Assert
 			Assert.True(result);
 		}
 	}
 
-	public class input_is_failure
+	public class input_is_none
 	{
 		[Fact]
 		public void out_var_is_default()
 		{
 			// Arrange
-			var failure = FailGen.Create<int>();
+			var maybe = (Maybe<int>)M.None;
 
 			// Act
-			_ = failure.Unsafe().IsOk(out var result);
+			_ = maybe.Unsafe().TrySome(out var result);
 
 			// Assert
 			Assert.Equal(default, result);
@@ -55,10 +55,10 @@ public class IsOk_Tests
 		public void returns_false()
 		{
 			// Arrange
-			var failure = FailGen.Create<int>();
+			var maybe = (Maybe<int>)M.None;
 
 			// Act
-			var result = failure.Unsafe().IsOk(out var _);
+			var result = maybe.Unsafe().TrySome(out var _);
 
 			// Assert
 			Assert.False(result);

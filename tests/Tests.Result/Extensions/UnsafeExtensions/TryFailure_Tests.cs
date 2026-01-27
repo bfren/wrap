@@ -3,7 +3,7 @@
 
 namespace Wrap.Extensions.UnsafeExtensions_Tests;
 
-public class Failed_Tests
+public class TryFailure_Tests
 {
 	public class input_is_ok
 	{
@@ -14,7 +14,7 @@ public class Failed_Tests
 			var wrapped = R.Wrap(Rnd.Guid);
 
 			// Act
-			_ = wrapped.Unsafe().Failed(out var result);
+			_ = wrapped.Unsafe().TryFailure(out var result);
 
 			// Assert
 			Assert.Equal(default, result);
@@ -28,7 +28,7 @@ public class Failed_Tests
 			var wrapped = R.Wrap(value);
 
 			// Act
-			var result = wrapped.Unsafe().Failed(out var _);
+			var result = wrapped.Unsafe().TryFailure(out var _);
 
 			// Assert
 			Assert.False(result);
@@ -45,7 +45,7 @@ public class Failed_Tests
 			var failure = FailGen.Create<int>(value);
 
 			// Act
-			_ = failure.Unsafe().Failed(out var result);
+			_ = failure.Unsafe().TryFailure(out var result);
 
 			// Assert
 			Assert.Equal(value, result);
@@ -58,7 +58,7 @@ public class Failed_Tests
 			var failure = FailGen.Create<int>();
 
 			// Act
-			var result = failure.Unsafe().Failed(out var _);
+			var result = failure.Unsafe().TryFailure(out var _);
 
 			// Assert
 			Assert.True(result);
