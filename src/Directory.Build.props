@@ -52,7 +52,7 @@
 
   <!-- Read Version File -->
   <PropertyGroup Label="Version">
-    <WrapVersion>$([System.IO.File]::ReadAllText('$(VersionPath)'))</WrapVersion>
+    <WrapVersion>$([System.IO.File]::ReadAllText('$(VersionPath)').Trim())</WrapVersion>
   </PropertyGroup>
 
   <!-- Package Configuration -->
