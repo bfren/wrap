@@ -38,5 +38,5 @@ public readonly struct None : IEquatable<None>
 
 	/// <inheritdoc/>
 	public static bool operator !=(None left, None right) =>
-		left.Equals(right);
+		!left.Equals(right);
 }

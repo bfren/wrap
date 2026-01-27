@@ -7,5 +7,4 @@ namespace Wrap.Exceptions;
 /// Thrown when <see cref="Union{TWrap, TValue}.value"/> is accessed without being set.
 /// </summary>
 public sealed class NullUnionValueException() :
-	WrapException("You must set the value of a Union type when creating it.")
-{ }
+	WrapException("You must set the value of a Union type when creating it.");

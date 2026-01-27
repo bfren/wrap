@@ -50,7 +50,6 @@ public class Read_Tests
 	public void throw_NullUnionValueException__when_json_value_is_null()
 	{
 		// Arrange
-		var value = Rnd.Ptr;
 		var json = "null";
 		var opt = new JsonSerializerOptions();
 		var converter = new UnionJsonConverter<Test, string>();

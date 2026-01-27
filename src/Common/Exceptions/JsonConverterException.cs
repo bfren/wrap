@@ -8,5 +8,4 @@ namespace Wrap.Exceptions;
 /// </summary>
 /// <param name="message">Exception message.</param>
 public sealed class JsonConverterException(string message) :
-	WrapException(message)
-{ }
+	WrapException(message);
