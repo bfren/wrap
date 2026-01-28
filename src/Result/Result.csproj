@@ -13,6 +13,9 @@
       <_Parameter1>$(AssemblyName).Testing</_Parameter1>
     </AssemblyAttribute>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Wrap</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>Tests.$(AssemblyName).Testing</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
