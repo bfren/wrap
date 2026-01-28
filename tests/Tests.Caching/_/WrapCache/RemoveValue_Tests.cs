@@ -15,10 +15,10 @@ public class RemoveValue_Tests
 		var cache = new WrapCache<string>(mc);
 
 		// Act
-		var action = void () => cache.RemoveValue(null!);
+		var result = Record.Exception(() => cache.RemoveValue(null!));
 
 		// Assert
-		Assert.Throws<ArgumentNullException>(action);
+		Assert.IsType<ArgumentNullException>(result);
 	}
 
 	[Fact]

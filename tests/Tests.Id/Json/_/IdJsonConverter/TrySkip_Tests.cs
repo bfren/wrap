@@ -29,10 +29,10 @@ public class TrySkip_Tests
 		var converter = Substitute.ForPartsOf<IdJsonConverter<TestLongId, long>>();
 
 		// Act
-		var action = void () => converter.HandleSkip(false, Rnd.Lng);
+		var result = Record.Exception(() => converter.HandleSkip(false, Rnd.Lng));
 
 		// Assert
-		var ex = Assert.Throws<JsonException>(action);
+		var ex = Assert.IsType<JsonException>(result);
 		Assert.Equal($"Invalid {typeof(long)} and unable to skip reading current token.", ex.Message);
 	}
 
