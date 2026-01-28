@@ -54,12 +54,19 @@ public readonly partial struct Failure : IEquatable<Failure>, IUnion<Failure, Fa
 	/// <param name="args">Arguments.</param>
 	/// <returns>FluentFail.</returns>
 	public Failure Arg(params object?[] args) =>
-		this with
+		args switch
 		{
-			Value = Value with
-			{
-				Args = args
-			}
+			{ } =>
+				this with
+				{
+					Value = Value with
+					{
+						Args = args ?? []
+					}
+				},
+
+			_ =>
+				this
 		};
 
 	/// <summary>
@@ -111,7 +118,7 @@ public readonly partial struct Failure : IEquatable<Failure>, IUnion<Failure, Fa
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
 	/// <returns>FluentFail.</returns>
-	public Failure Msg(string? message, params object?[] args) =>
+	public Failure Msg(string message, params object?[] args) =>
 		message switch
 		{
 			string =>
