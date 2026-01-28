@@ -51,15 +51,23 @@ public static partial class M
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static Task MatchAsync<T>(Maybe<T> maybe, Action none, Func<T, Task> some) =>
-		MatchAsync(maybe.AsTask(), () => { none(); return Task.CompletedTask; }, some);
+		MatchAsync(Task.FromResult(maybe), () => { none(); return Task.CompletedTask; }, some);
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static Task MatchAsync<T>(Maybe<T> maybe, Func<Task> none, Action<T> some) =>
-		MatchAsync(maybe.AsTask(), none, x => { some(x); return Task.CompletedTask; });
+		MatchAsync(Task.FromResult(maybe), none, x => { some(x); return Task.CompletedTask; });
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static Task MatchAsync<T>(Maybe<T> maybe, Func<Task> none, Func<T, Task> some) =>
-		MatchAsync(maybe.AsTask(), none, some);
+		MatchAsync(Task.FromResult(maybe), none, some);
+
+	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
+	public static Task MatchAsync<T>(Task<Maybe<T>> maybe, Action none, Func<T, Task> some) =>
+		MatchAsync(maybe, () => { none(); return Task.CompletedTask; }, some);
+
+	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
+	public static Task MatchAsync<T>(Task<Maybe<T>> maybe, Func<Task> none, Action<T> some) =>
+		MatchAsync(maybe, none, x => { some(x); return Task.CompletedTask; });
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static async Task MatchAsync<T>(Task<Maybe<T>> maybe, Func<Task> none, Func<T, Task> some)
@@ -85,10 +93,6 @@ public static partial class M
 	#endregion
 
 	#region With Return Value
-
-	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
-	public static TReturn Match<T, TReturn>(Maybe<T> maybe, TReturn none, Func<T, TReturn> some) =>
-		Match(maybe, () => none, some);
 
 	/// <summary>
 	/// Run a function based on the value of <paramref name="maybe"/> and return its value.
@@ -127,10 +131,6 @@ public static partial class M
 		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchAsync<T, TReturn>(Maybe<T> maybe, TReturn none, Func<T, Task<TReturn>> some) =>
-		Match(maybe, () => Task.FromResult(none), some);
-
-	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(Maybe<T> maybe, Func<TReturn> none, Func<T, Task<TReturn>> some) =>
 		Match(maybe, () => Task.FromResult(none()), some);
 
@@ -141,14 +141,6 @@ public static partial class M
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(Maybe<T> maybe, Func<Task<TReturn>> none, Func<T, Task<TReturn>> some) =>
 		Match(maybe, none, some);
-
-	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchAsync<T, TReturn>(Task<Maybe<T>> maybe, TReturn none, Func<T, TReturn> some) =>
-		MatchAsync(maybe, () => Task.FromResult(none), x => Task.FromResult(some(x)));
-
-	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchAsync<T, TReturn>(Task<Maybe<T>> maybe, TReturn none, Func<T, Task<TReturn>> some) =>
-		MatchAsync(maybe, () => Task.FromResult(none), some);
 
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(Task<Maybe<T>> maybe, Func<TReturn> none, Func<T, TReturn> some) =>
