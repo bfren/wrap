@@ -12,9 +12,9 @@ namespace Wrap;
 /// </summary>
 public readonly record struct FailureValue
 {
-	private const LogLevel DefaultFailureLevel = LogLevel.Warning;
+	internal const LogLevel DefaultFailureLevel = LogLevel.Warning;
 
-	private const LogLevel DefaultExceptionLevel = LogLevel.Error;
+	internal const LogLevel DefaultExceptionLevel = LogLevel.Error;
 
 	/// <summary>
 	/// [Optional] Arguments to use as values where <see cref="Message"/> contains format placeholders.
