@@ -32,7 +32,7 @@ public class ToResultAsync_Tests
 			public async Task Returns_Failure_With_InvalidMaybeTypeException()
 			{
 				// Arrange
-				var maybe = new Helpers.InvalidMaybe<Guid>().AsTask();
+				var maybe = new InvalidMaybe<Guid>().AsTask();
 
 				// Act
 				var result = await maybe.ToResultAsync(Rnd.Str, Rnd.Str);
