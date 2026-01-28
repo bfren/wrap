@@ -4,7 +4,6 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Wrap.Extensions;
 
 namespace Wrap.Json;
 
@@ -37,7 +36,7 @@ public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 	/// <param name="value">Maybe object to be converted.</param>
 	/// <param name="options">JsonSerializerOptions.</param>
 	public override void Write(Utf8JsonWriter writer, Maybe<T> value, JsonSerializerOptions options) =>
-		value.Match(
+		M.Match(value,
 			some: x => JsonSerializer.Serialize(writer, x, options),
 			none: () => writer.WriteStringValue(string.Empty)
 		);

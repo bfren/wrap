@@ -6,6 +6,6 @@
     <PackageReference Include="Dapper" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Id\Id.csproj" />
+    <ProjectReference Include="..\All\All.csproj" />
   </ItemGroup>
 </Project>
