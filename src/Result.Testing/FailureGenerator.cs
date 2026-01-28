@@ -15,7 +15,7 @@ public static class FailureGenerator
 	/// instance will have its value set to a randomly generated string.</remarks>
 	/// <returns>A <see cref="Failure"/> object initialized with a random failure value.</returns>
 	public static Failure Create() =>
-		new(new FailureValue(Rnd.Str));
+		new(new FailureValue(Rnd.Str, Rnd.Int, Rnd.Guid));
 
 	/// <summary>
 	/// Creates a new instance of the <see cref="Failure"/> class with a randomly generated failure value.
@@ -23,7 +23,7 @@ public static class FailureGenerator
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <returns>A <see cref="Failure"/> object implicitly returned as <see cref="Result{T}"/>.</returns>
 	public static Result<T> Create<T>() =>
-		new Failure(new FailureValue(Rnd.Str));
+		new Failure(new FailureValue(Rnd.Str, Rnd.Int, Rnd.Guid));
 
 	/// <summary>
 	/// Creates a new instance of the <see cref="Failure"/> class with the specified failure value.
