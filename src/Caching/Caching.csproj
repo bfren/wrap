@@ -10,7 +10,6 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Maybe\Maybe.csproj" />
-    <ProjectReference Include="..\Result\Result.csproj" />
+    <ProjectReference Include="..\All\All.csproj" />
   </ItemGroup>
 </Project>
