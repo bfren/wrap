@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Wrap</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\All\All.csproj" />
+    <ProjectReference Include="..\Tests.Maybe\Tests.Maybe.csproj" />
+  </ItemGroup>
+</Project>

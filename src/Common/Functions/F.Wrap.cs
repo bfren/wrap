@@ -22,7 +22,7 @@ public static partial class F
 	/// <returns>Value wrapped as <typeparamref name="TUnion"/>.</returns>
 	/// <exception cref="NullUnionValueException"></exception>
 	public static TUnion Wrap<TUnion, TValue>(TValue? value)
-		where TUnion : IUnion<TValue>, new() =>
+		where TUnion : IUnion<TUnion, TValue>, new() =>
 		value switch
 		{
 			TValue =>

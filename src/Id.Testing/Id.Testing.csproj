@@ -3,7 +3,7 @@
     <RootNamespace>Wrap.Testing</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Rnd" />
+    <PackageReference Include="Rnd" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <Using Include="RndF" />

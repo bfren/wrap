@@ -3,7 +3,6 @@
 
 using System;
 using System.Data;
-using Wrap.Extensions;
 using Wrap.Ids;
 
 namespace Wrap.Dapper;

@@ -1,6 +1,7 @@
 // Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,6 +10,20 @@ namespace Wrap;
 /// <inheritdoc cref="IEither{TEither, TLeft, TRight}"/>
 public interface IEither<TLeft, TRight>
 {
+	/// <remarks>
+	/// <para>
+	/// Provides access to the value wrapped by a this object if it is a <see cref="IRight{TLeft, TRight}"/>.
+	/// </para>
+	/// <para>
+	/// You need to provide a default value via <paramref name="getValue"/> in case the object is
+	/// is a <see cref="ILeft{TLeft, TRight}"/>.
+	/// </para>
+	/// </remarks>
+	/// <param name="getValue">Used to handle error / invalid state and return correct / valid value if
+	/// the object is <typeparamref name="TLeft"/>.</param>
+	/// <returns>Value of object or provided by <paramref name="getValue"/>.</returns>
+	TRight Unwrap(Func<TLeft, TRight> getValue);
+
 	/// <summary>
 	/// Use enumerator pattern to get <typeparamref name="TRight"/> value.
 	/// </summary>
