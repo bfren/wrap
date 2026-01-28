@@ -7,7 +7,7 @@ using Wrap.Extensions;
 
 namespace Wrap.Linq;
 
-public static partial class MaybeExtensions
+public static partial class MaybeToMaybeExtensions
 {
 	/// <summary>
 	/// Enables LINQ Select() on <see cref="Maybe{T}"/> objects.
@@ -25,10 +25,10 @@ public static partial class MaybeExtensions
 	/// and <see cref="None"/> if not.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Maybe type</typeparam>
-	/// <typeparam name="TReturn">Return type</typeparam>
-	/// <param name="this">Maybe</param>
-	/// <param name="f">Return map function</param>
+	/// <typeparam name="T">Maybe type.</typeparam>
+	/// <typeparam name="TReturn">Return type.</typeparam>
+	/// <param name="this">Maybe.</param>
+	/// <param name="f">Return map function.</param>
 	public static Maybe<TReturn> Select<T, TReturn>(this Maybe<T> @this, Func<T, TReturn> f) =>
 		@this.Map(f);
 

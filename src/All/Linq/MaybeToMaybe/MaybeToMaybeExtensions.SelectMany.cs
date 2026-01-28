@@ -7,7 +7,7 @@ using Wrap.Extensions;
 
 namespace Wrap.Linq;
 
-public static partial class MaybeExtensions
+public static partial class MaybeToMaybeExtensions
 {
 	/// <summary>
 	/// Enables LINQ SelectMany() on <see cref="Maybe{T}"/> objects.
@@ -26,24 +26,36 @@ public static partial class MaybeExtensions
 	/// and <see cref="None"/> if either is <see cref="None"/>.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Maybe type</typeparam>
-	/// <typeparam name="TInner">Interim type</typeparam>
-	/// <typeparam name="TReturn">Return type</typeparam>
-	/// <param name="this">Maybe</param>
-	/// <param name="f">Interim bind function</param>
-	/// <param name="g">Return map function</param>
+	/// <typeparam name="T">Maybe type.</typeparam>
+	/// <typeparam name="TInner">Interim type.</typeparam>
+	/// <typeparam name="TReturn">Return type.</typeparam>
+	/// <param name="this">Maybe.</param>
+	/// <param name="f">Interim bind function.</param>
+	/// <param name="g">Return map function.</param>
 	public static Maybe<TReturn> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Maybe<TInner>> f, Func<T, TInner, TReturn> g) =>
-		@this.Bind(x => from y in f(x) select g(x, y));
+		M.Match(@this,
+			none: M.None,
+			some: x => f(x).Map(y => g(x, y))
+		);
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Maybe{TInner}}, Func{T, TInner, TReturn})"/>
 	public static Task<Maybe<TReturn>> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Task<Maybe<TInner>>> f, Func<T, TInner, TReturn> g) =>
-		@this.BindAsync(x => from y in f(x) select g(x, y));
+		M.MatchAsync(@this,
+			none: M.None,
+			some: x => f(x).MapAsync(y => g(x, y))
+		);
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Maybe{TInner}}, Func{T, TInner, TReturn})"/>
 	public static Task<Maybe<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Maybe<TInner>> f, Func<T, TInner, TReturn> g) =>
-		@this.BindAsync(x => from y in f(x) select g(x, y));
+		M.MatchAsync(@this,
+			none: M.None,
+			some: x => f(x).Map(y => g(x, y))
+		);
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Maybe{TInner}}, Func{T, TInner, TReturn})"/>
 	public static Task<Maybe<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<Maybe<TInner>>> f, Func<T, TInner, TReturn> g) =>
-		@this.BindAsync(x => from y in f(x) select g(x, y));
+		M.MatchAsync(@this,
+			none: M.None,
+			some: x => f(x).MapAsync(y => g(x, y))
+		);
 }

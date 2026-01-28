@@ -7,7 +7,7 @@ using Wrap.Extensions;
 
 namespace Wrap.Linq;
 
-public static partial class MaybeExtensions
+public static partial class MaybeToMaybeExtensions
 {
 	/// <summary>
 	/// Enables LINQ Where() on <see cref="Maybe{T}"/> objects.
@@ -26,9 +26,9 @@ public static partial class MaybeExtensions
 	/// and <see cref="None"/> if not.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Maybe type</typeparam>
-	/// <param name="this">Maybe</param>
-	/// <param name="predicate">Select where predicate</param>
+	/// <typeparam name="T">Maybe type.</typeparam>
+	/// <param name="this">Maybe.</param>
+	/// <param name="predicate">Select where predicate.</param>
 	public static Maybe<T> Where<T>(this Maybe<T> @this, Func<T, bool> predicate) =>
 		@this.Filter(predicate);
 
