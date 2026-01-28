@@ -1,21 +1,21 @@
 // Wrap: Unit Tests.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Wrap.Extensions.UnsafeMaybeExtensions_Tests;
+namespace Wrap.Extensions.UnsafeExtensions_Tests;
 
-public class TrySome_Tests
+public class TryOk_Tests
 {
-	public class Some
+	public class Ok
 	{
 		[Fact]
 		public void Out_Var_Is_Value()
 		{
 			// Arrange
 			var value = Rnd.Guid;
-			var maybe = M.Wrap(value);
+			var wrapped = R.Wrap(value);
 
 			// Act
-			_ = maybe.Unsafe().TrySome(out var result);
+			_ = wrapped.Unsafe().TryOk(out var result);
 
 			// Assert
 			Assert.Equal(value, result);
@@ -26,26 +26,26 @@ public class TrySome_Tests
 		{
 			// Arrange
 			var value = Rnd.Guid;
-			var maybe = M.Wrap(value);
+			var wrapped = R.Wrap(value);
 
 			// Act
-			var result = maybe.Unsafe().TrySome(out var _);
+			var result = wrapped.Unsafe().TryOk(out var _);
 
 			// Assert
 			Assert.True(result);
 		}
 	}
 
-	public class None
+	public class Failure
 	{
 		[Fact]
-		public void Our_Var_Is_Default()
+		public void Out_Var_Is_Default()
 		{
 			// Arrange
-			var maybe = (Maybe<int>)M.None;
+			var failure = FailGen.Create<int>();
 
 			// Act
-			_ = maybe.Unsafe().TrySome(out var result);
+			_ = failure.Unsafe().TryOk(out var result);
 
 			// Assert
 			Assert.Equal(default, result);
@@ -55,10 +55,10 @@ public class TrySome_Tests
 		public void Returns_False()
 		{
 			// Arrange
-			var maybe = (Maybe<int>)M.None;
+			var failure = FailGen.Create<int>();
 
 			// Act
-			var result = maybe.Unsafe().TrySome(out var _);
+			var result = failure.Unsafe().TryOk(out var _);
 
 			// Assert
 			Assert.False(result);
