@@ -12,7 +12,7 @@ public class ToResultAsync_Tests
 		public class Null_Maybe
 		{
 			[Fact]
-			public async Task Returns_Failure_With_NullMaybeException()
+			public async Task Returns_Failure_With_NullReferenceException()
 			{
 				// Arrange
 				Task<Maybe<int>> maybe = null!;
@@ -22,7 +22,7 @@ public class ToResultAsync_Tests
 
 				// Assert
 				var f = result.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Int32));
-				Assert.IsType<NullMaybeException>(f.Exception);
+				Assert.IsType<NullReferenceException>(f.Exception);
 			}
 		}
 
@@ -93,7 +93,7 @@ public class ToResultAsync_Tests
 				_ = await maybe.ToResultAsync(() => Task.FromResult(handler()));
 
 				// Assert
-				handler.Received(1).Invoke();
+				handler.Received(2).Invoke();
 			}
 
 			[Fact]
