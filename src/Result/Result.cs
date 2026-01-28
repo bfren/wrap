@@ -1,8 +1,10 @@
 // Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Wrap.Exceptions;
 
 namespace Wrap;
 
@@ -27,6 +29,35 @@ public abstract partial record class Result<T> : IEither<Result<T>, FailureValue
 	/// <inheritdoc/>
 	public Task<Result<T>> AsTask() =>
 		Task.FromResult(this);
+
+	/// <inheritdoc/>
+	public T Unwrap(Func<FailureValue, T> getValue) =>
+		R.Match(this,
+			fail: f => getValue(f),
+			ok: x => x
+		);
+
+	/// <summary>
+	/// Unwrap the value contained in this object - throws an exception if the result is <see cref="Failure"/>.
+	/// </summary>
+	/// <returns>Result value or throws a <see cref="FailureException"/>.</returns>
+	/// <exception cref="FailureException"></exception>
+	public T Unwrap() =>
+		R.Match(this,
+			fail: R.ThrowFailure<T>,
+			ok: x => x
+		);
+
+	/// <summary>
+	/// Unwrap the value contained in this object - uses failure handler if the result is <see cref="Failure"/>.
+	/// </summary>
+	/// <returns>Result value or throws a <see cref="FailureException"/>.</returns>
+	/// <exception cref="FailureException"></exception>
+	public T Unwrap(Action<FailureValue> ifFailed, Func<T> getValue) =>
+		R.Match(this,
+			fail: f => { ifFailed(f); return getValue(); },
+			ok: x => x
+		);
 
 	/// <inheritdoc cref="IEither{TLeft, TRight}.GetEnumerator"/>
 	public IEnumerator<T> GetEnumerator()
