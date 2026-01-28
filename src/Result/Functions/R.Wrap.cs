@@ -1,8 +1,6 @@
 // Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using Wrap.Exceptions;
-
 namespace Wrap;
 
 public static partial class R
@@ -39,16 +37,14 @@ public static partial class R
 	/// or <typeparamref name="T"/> is a nullable value type -
 	/// otherwise <see cref="Failure"/>.
 	/// </returns>
-	public static Result<T> Wrap<T>(T value) =>
+	public static Result<T> Wrap<T>(T value)
+		where T : notnull =>
 		value switch
 		{
 			T =>
 				new Ok<T>(value),
 
-			_ when F.IsNullableValueType(value) =>
-				new Ok<T>(value!),
-
 			_ =>
-				Fail<OkValueCannotBeNullException>()
+				Fail("Null value of type '{Type}'.", typeof(T).Name),
 		};
 }
