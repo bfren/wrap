@@ -29,7 +29,7 @@ public abstract partial record class Maybe<T> : IEither<Maybe<T>, None, T>, IEqu
 	public Task<Maybe<T>> AsTask() =>
 		Task.FromResult(this);
 
-	/// <see cref="Unwrap(Func{Wrap.None, T})"/>
+	/// <inheritdoc cref="Unwrap(Func{Wrap.None, T})"/>
 	public T Unwrap(Func<T> getValue) =>
 		Unwrap(_ => getValue());
 
