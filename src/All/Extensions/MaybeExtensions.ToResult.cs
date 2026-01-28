@@ -8,8 +8,6 @@ namespace Wrap.Extensions;
 
 public static partial class MaybeExtensions
 {
-	private const string NoneFailureMessage = "Maybe<{Type}> was 'None'.";
-
 	/// <summary>
 	/// Convert a <see cref="Maybe{T}"/> to a <see cref="Result{T}"/>, converting <see cref="None"/>
 	/// values to a <see cref="Failure"/>.
@@ -21,14 +19,14 @@ public static partial class MaybeExtensions
 	/// <returns>Result object.</returns>
 	public static Result<T> ToResult<T>(this Maybe<T> @this, string @class, string function) =>
 		ToResult(@this,
-			() => R.Fail(NoneFailureMessage, typeof(T).Name)
+			() => R.Fail(C.NoneFailureMessage, typeof(T).Name)
 				.Ctx(@class, function)
 		);
 
 	/// <inheritdoc cref="ToResult{T}(Maybe{T}, string, string)"/>
 	public static Task<Result<T>> ToResultAsync<T>(this Task<Maybe<T>> @this, string @class, string function) =>
 		ToResultAsync(@this,
-			() => R.Fail(NoneFailureMessage, typeof(T).Name)
+			() => R.Fail(C.NoneFailureMessage, typeof(T).Name)
 				.Ctx(@class, function)
 		);
 
