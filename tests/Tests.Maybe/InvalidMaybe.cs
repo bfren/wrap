@@ -3,7 +3,4 @@
 
 namespace Wrap;
 
-public static class Helpers
-{
-	public sealed record class InvalidMaybe<T> : Maybe<T>;
-}
+public sealed record class InvalidMaybe<T> : Maybe<T>;
