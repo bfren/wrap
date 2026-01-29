@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Wrap;
@@ -20,13 +19,4 @@ public abstract record class Either<TLeft, TRight> : IEither<Either<TLeft, TRigh
 			left: l => getValue(l),
 			right: x => x
 		);
-
-	/// <inheritdoc cref="IEither{TLeft, TRight}.GetEnumerator"/>
-	public IEnumerator<TRight> GetEnumerator()
-	{
-		if (this is Right<TLeft, TRight> right)
-		{
-			yield return right.Value;
-		}
-	}
 }
