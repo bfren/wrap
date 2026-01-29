@@ -14,7 +14,17 @@ public static partial class R
 	/// <param name="value">FailureValue.</param>
 	/// <returns>Failure result.</returns>
 	public static Result<T> Fail<T>(FailureValue value) =>
-		new Result<T>.FailureImpl(value);
+		new Failure(value);
+
+	/// <summary>
+	/// Create a failure result from a simple failure message.
+	/// </summary>
+	/// <typeparam name="T">Ok result type.</typeparam>
+	/// <param name="message">Failure message.</param>
+	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
+	/// <returns>Failure result.</returns>
+	public static Result<T> Fail<T>(string message, params object?[] args) =>
+		new Failure(message, args);
 
 	/// <summary>
 	/// Start fluently creating a <see cref="Failure"/> from a pre-existing failure message.
@@ -36,18 +46,18 @@ public static partial class R
 	/// <summary>
 	/// Start fluently creating a <see cref="Failure"/> from an exception.
 	/// </summary>
-	/// <typeparam name="T">Exception type.</typeparam>
+	/// <typeparam name="TException">Exception type.</typeparam>
 	/// <returns>FluentFail.</returns>
-	public static Failure Fail<T>()
-		where T : Exception, new() =>
-		Fail(new T());
+	public static Failure Fail<TException>()
+		where TException : Exception, new() =>
+		Fail(new TException());
 
 	/// <summary>
 	/// Start fluently creating a <see cref="Failure"/> from an exception.
 	/// </summary>
 	/// <param name="ex">Exception.</param>
 	/// <returns>FluentFail.</returns>
-	public static Failure Fail<T>(T ex)
-		where T : Exception, new() =>
+	public static Failure Fail<TException>(TException ex)
+		where TException : Exception =>
 		new(ex);
 }
