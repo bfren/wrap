@@ -5,6 +5,23 @@ namespace Wrap.Failure_Tests;
 
 public class Msg_Tests
 {
+	public class With_Null
+	{
+		[Fact]
+		public void Does_Not_Set_Message_Or_Args_In_FailureValue()
+		{
+			// Arrange
+			var failure = FailGen.Create();
+
+			// Act
+			var result = failure.Msg(null);
+
+			// Assert
+			Assert.Equal(failure.Value.Message, result.Value.Message);
+			Assert.Equal(failure.Value.Args, result.Value.Args);
+		}
+	}
+
 	public class With_Message
 	{
 		[Fact]
