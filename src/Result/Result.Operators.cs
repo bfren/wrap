@@ -19,5 +19,5 @@ public abstract partial record class Result<T>
 	/// <param name="fail">Fail object.</param>
 	/// <returns>Failure value.</returns>
 	public static implicit operator Result<T>(Wrap.Failure fail) =>
-		Failure.Create(fail.Value);
+		FailureImpl.Create(fail.Value);
 }

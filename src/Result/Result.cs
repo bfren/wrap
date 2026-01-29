@@ -38,7 +38,7 @@ public abstract partial record class Result<T> : IEither<Result<T>, FailureValue
 		);
 
 	/// <summary>
-	/// Unwrap the value contained in this object - throws an exception if the result is <see cref="Failure"/>.
+	/// Unwrap the value contained in this object - throws an exception if the result is <see cref="FailureImpl"/>.
 	/// </summary>
 	/// <returns>Result value or throws a <see cref="FailureException"/>.</returns>
 	/// <exception cref="FailureException"></exception>
@@ -49,7 +49,7 @@ public abstract partial record class Result<T> : IEither<Result<T>, FailureValue
 		);
 
 	/// <summary>
-	/// Unwrap the value contained in this object - uses failure handler if the result is <see cref="Failure"/>.
+	/// Unwrap the value contained in this object - uses failure handler if the result is <see cref="FailureImpl"/>.
 	/// </summary>
 	/// <returns>Result value or throws a <see cref="FailureException"/>.</returns>
 	/// <exception cref="FailureException"></exception>

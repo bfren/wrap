@@ -33,7 +33,7 @@ public static partial class M
 	{
 		var f = maybe switch
 		{
-			Maybe<T>.None =>
+			Maybe<T>.NoneImpl =>
 				none,
 
 			Some<T> x =>
@@ -74,7 +74,7 @@ public static partial class M
 	{
 		var f = await maybe switch
 		{
-			Maybe<T>.None =>
+			Maybe<T>.NoneImpl =>
 				none,
 
 			Some<T> x =>
@@ -117,7 +117,7 @@ public static partial class M
 	public static TReturn Match<T, TReturn>(Maybe<T> maybe, Func<TReturn> none, Func<T, TReturn> some) =>
 		maybe switch
 		{
-			Maybe<T>.None =>
+			Maybe<T>.NoneImpl =>
 				none(),
 
 			Some<T> x =>

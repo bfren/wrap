@@ -7,7 +7,7 @@ namespace Wrap.Exceptions;
 
 /// <summary>
 /// Thrown when a switch function encounters a <see cref="Maybe{T}"/> type that is neither <see cref="Some{T}"/>
-/// nor <see cref="Maybe{T}.None"/>.
+/// nor <see cref="Maybe{T}.NoneImpl"/>.
 /// </summary>
 public sealed class InvalidMaybeTypeException : InvalidTypeException
 {

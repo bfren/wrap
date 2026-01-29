@@ -28,7 +28,7 @@ public static partial class ResultExtensions
 	{
 		try
 		{
-			if (@this is Result<T>.Failure y && fail is not null)
+			if (@this is Result<T>.FailureImpl y && fail is not null)
 			{
 				fail(y.Value);
 			}
@@ -111,7 +111,7 @@ public static partial class ResultExtensions
 
 		try
 		{
-			if (result is Result<T>.Failure y && fail is not null)
+			if (result is Result<T>.FailureImpl y && fail is not null)
 			{
 				await fail(y.Value);
 			}

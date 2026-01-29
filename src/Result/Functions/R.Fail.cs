@@ -14,7 +14,7 @@ public static partial class R
 	/// <param name="value">FailValue.</param>
 	/// <returns>Failure result.</returns>
 	public static Result<T> Fail<T>(FailureValue value) =>
-		Result<T>.Failure.Create(value);
+		Result<T>.FailureImpl.Create(value);
 
 	/// <summary>
 	/// Start fluently creating a <see cref="Failure"/> from a pre-existing failure message.

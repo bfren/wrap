@@ -19,7 +19,7 @@ public static partial class UnsafeExtensions
 	/// <returns>True if <paramref name="this"/> contains a <see cref="Failure"/>.</returns>
 	public static bool TryFailure<T>(this Unsafe<Result<T>, FailureValue, T> @this, out FailureValue value)
 	{
-		if (@this.Value is Result<T>.Failure failure)
+		if (@this.Value is Result<T>.FailureImpl failure)
 		{
 			value = failure.Value;
 			return true;

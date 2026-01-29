@@ -12,7 +12,7 @@ public abstract partial record class Maybe<T>
 			Some<T> x when other is Some<T> y =>
 				Equals(x.Value, y.Value),
 
-			None when other is None =>
+			NoneImpl when other is NoneImpl =>
 				true,
 
 			_ =>

@@ -20,5 +20,5 @@ public static partial class M
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <returns>None value wrapped as a Task.</returns>
 	public static Task<Maybe<T>> NoneAsTask<T>() =>
-		Maybe<T>.None.Create().AsTask();
+		new Maybe<T>.NoneImpl().AsTask();
 }

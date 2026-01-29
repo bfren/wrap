@@ -14,7 +14,7 @@ namespace Wrap;
 public abstract partial record class Maybe<T> : IEither<Maybe<T>, None, T>, IEquatable<Maybe<T>>
 {
 	/// <summary>
-	/// Returns true if this object is a <see cref="Wrap.None"/>.
+	/// Returns true if this object is a <see cref="None"/>.
 	/// </summary>
 	public bool IsNone =>
 		!IsSome;
@@ -29,12 +29,12 @@ public abstract partial record class Maybe<T> : IEither<Maybe<T>, None, T>, IEqu
 	public Task<Maybe<T>> AsTask() =>
 		Task.FromResult(this);
 
-	/// <inheritdoc cref="Unwrap(Func{Wrap.None, T})"/>
+	/// <inheritdoc cref="Unwrap(Func{None, T})"/>
 	public T Unwrap(Func<T> getValue) =>
 		Unwrap(_ => getValue());
 
 	/// <inheritdoc/>
-	public T Unwrap(Func<Wrap.None, T> getValue) =>
+	public T Unwrap(Func<None, T> getValue) =>
 		M.Match(this,
 			none: () => getValue(M.None),
 			some: x => x

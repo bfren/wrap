@@ -8,16 +8,16 @@ namespace Wrap.Testing;
 public static partial class ResultExtensions
 {
 	/// <summary>
-	/// Assert that <paramref name="this"/> is <see cref="Result{T}.Failure"/>.
+	/// Assert that <paramref name="this"/> is <see cref="Result{T}.FailureImpl"/>.
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <returns>The failure value of <paramref name="this"/>.</returns>
 	public static FailureValue AssertFailure<T>(this Result<T> @this) =>
-		Assert.IsType<Result<T>.Failure>(@this).Value;
+		Assert.IsType<Result<T>.FailureImpl>(@this).Value;
 
 	/// <summary>
-	/// Assert that <paramref name="this"/> is <see cref="Result{T}.Failure"/>.
+	/// Assert that <paramref name="this"/> is <see cref="Result{T}.FailureImpl"/>.
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
@@ -28,7 +28,7 @@ public static partial class ResultExtensions
 		AssertFailure(@this).AssertMessage(message, args);
 
 	/// <summary>
-	/// Assert that <paramref name="this"/> is <see cref="Result{T}.Failure"/>.
+	/// Assert that <paramref name="this"/> is <see cref="Result{T}.FailureImpl"/>.
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
@@ -38,7 +38,7 @@ public static partial class ResultExtensions
 		AssertFailure(@this).AssertException(ex);
 
 	/// <summary>
-	/// Assert that <paramref name="this"/> is <see cref="Result{T}.Failure"/>.
+	/// Assert that <paramref name="this"/> is <see cref="Result{T}.FailureImpl"/>.
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>

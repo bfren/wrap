@@ -8,7 +8,7 @@ public abstract partial record class Result<T>
 	/// <summary>
 	/// Internal implementation of <see cref="Result{T}"/> to 
 	/// </summary>
-	internal sealed record class Failure : Result<T>, ILeft<FailureValue, T>
+	internal sealed record class FailureImpl : Result<T>, ILeft<FailureValue, T>
 	{
 		/// <summary>
 		/// Failure value.
@@ -34,7 +34,7 @@ public abstract partial record class Result<T>
 		/// <summary>
 		/// Creation only via <see cref="Create(FailureValue)"/>.
 		/// </summary>
-		private Failure() { }
+		private FailureImpl() { }
 
 		/// <summary>
 		/// Create a failure result from a pre-existing <see cref="FailureValue"/>.
@@ -42,6 +42,6 @@ public abstract partial record class Result<T>
 		/// <param name="value">FailValue.</param>
 		/// <returns>Failure result.</returns>
 		internal static Result<T> Create(FailureValue value) =>
-			new Failure { Value = value };
+			new FailureImpl { Value = value };
 	}
 }
