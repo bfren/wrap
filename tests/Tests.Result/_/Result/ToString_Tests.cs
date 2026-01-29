@@ -29,6 +29,23 @@ public class ToString_Tests
 
 	public class When_Ok
 	{
+		public class When_Value_ToString_Returns_Null
+		{
+			[Fact]
+			public void Returns_Ok_With_Type()
+			{
+				// Arrange
+				var wrapped = R.Wrap(new Test());
+				var expected = $"OK: {nameof(Test)}";
+
+				// Act
+				var result = wrapped.ToString();
+
+				// Assert
+				Assert.Equal(expected, result);
+			}
+		}
+
 		[Fact]
 		public void Returns_Ok_Value()
 		{
@@ -42,5 +59,11 @@ public class ToString_Tests
 			// Assert
 			Assert.Equal(value.ToString(), result);
 		}
+	}
+
+	public class Test
+	{
+		public override string ToString() =>
+			null!;
 	}
 }
