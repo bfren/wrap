@@ -40,13 +40,5 @@ public abstract partial record class Result<T>
 		[SetsRequiredMembers]
 		internal FailureImpl(FailureValue value) =>
 			Value = value;
-
-		/// <summary>
-		/// Create a failure result from a pre-existing <see cref="FailureValue"/>.
-		/// </summary>
-		/// <param name="value">FailureValue.</param>
-		/// <returns>Failure result.</returns>
-		internal static Result<T> Create(FailureValue value) =>
-			new FailureImpl { Value = value };
 	}
 }
