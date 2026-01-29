@@ -24,9 +24,9 @@ public readonly partial struct Failure : IEquatable<Failure>, IUnion<Failure, Fa
 	public readonly required FailureValue Value { get; init; }
 
 	/// <summary>
-	/// Use a pre-existing FailValue.
+	/// Use a pre-existing FailureValue.
 	/// </summary>
-	/// <param name="value">FailValue.</param>
+	/// <param name="value">FailureValue.</param>
 	[SetsRequiredMembers]
 	internal Failure(FailureValue value) =>
 		Value = value;

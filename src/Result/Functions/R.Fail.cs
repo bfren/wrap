@@ -11,7 +11,7 @@ public static partial class R
 	/// Create a failure result from a pre-existing <see cref="FailureValue"/>.
 	/// </summary>
 	/// <typeparam name="T">Ok result type.</typeparam>
-	/// <param name="value">FailValue.</param>
+	/// <param name="value">FailureValue.</param>
 	/// <returns>Failure result.</returns>
 	public static Result<T> Fail<T>(FailureValue value) =>
 		Result<T>.FailureImpl.Create(value);
@@ -19,7 +19,7 @@ public static partial class R
 	/// <summary>
 	/// Start fluently creating a <see cref="Failure"/> from a pre-existing failure message.
 	/// </summary>
-	/// <param name="value">FailValue.</param>
+	/// <param name="value">FailureValue.</param>
 	/// <returns>FluentFail.</returns>
 	public static Failure Fail(FailureValue value) =>
 		new(value);

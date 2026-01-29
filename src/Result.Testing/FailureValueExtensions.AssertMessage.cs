@@ -8,7 +8,7 @@ public static partial class FailureValueExtensions
 	/// <summary>
 	/// Assert that <paramref name="this"/> contains the specified message.
 	/// </summary>
-	/// <param name="this">FailValue object.</param>
+	/// <param name="this">FailureValue object.</param>
 	/// <param name="message">Expected failure message.</param>
 	/// <param name="args">Optional arguments to fill in failure message values.</param>
 	public static FailureValue AssertMessage(this FailureValue @this, string message, params object?[] args)
