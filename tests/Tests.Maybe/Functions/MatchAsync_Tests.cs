@@ -87,7 +87,7 @@ public class MatchAsync_Tests
 			public async Task Executes_Some_Action_With_Correct_Value()
 			{
 				// Arrange
-				var value = Rnd.Int32;
+				var value = Rnd.Int;
 				var maybe = M.Wrap(value);
 				var some = Substitute.For<Action<int>>();
 
@@ -221,7 +221,7 @@ public class MatchAsync_Tests
 			public async Task Executes_Some_Action_With_Correct_Value()
 			{
 				// Arrange
-				var value = Rnd.Int32;
+				var value = Rnd.Int;
 				var maybe = M.Wrap(value);
 				var some = Substitute.For<Func<int, string>>();
 
@@ -242,7 +242,7 @@ public class MatchAsync_Tests
 			public async Task Returns_Some_Value()
 			{
 				// Arrange
-				var maybe = M.Wrap(Rnd.Int32);
+				var maybe = M.Wrap(Rnd.Int);
 				var value = Rnd.Str;
 				var some = Substitute.For<Func<int, string>>();
 				some.Invoke(default).ReturnsForAnyArgs(value);

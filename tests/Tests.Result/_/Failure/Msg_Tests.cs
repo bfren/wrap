@@ -31,7 +31,7 @@ public class Msg_Tests
 			// Arrange
 			var failure = FailGen.Create();
 			var message = Rnd.Str;
-			var args = new object?[] { Rnd.Int32, Rnd.Str, Rnd.Date };
+			var args = new object?[] { Rnd.Int, Rnd.Str, Rnd.Date };
 
 			// Act
 			var result = failure.Msg(message, args);

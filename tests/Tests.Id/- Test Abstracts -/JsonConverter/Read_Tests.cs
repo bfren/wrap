@@ -28,7 +28,7 @@ public abstract class Read_Tests<TId, TIdValue>
 	protected static void Test01(string format, TIdValue value)
 	{
 		// Arrange
-		var id = Rnd.Int32;
+		var id = Rnd.Int;
 		var json = $"{{ \"Id\": {id}, \"WrappedId\": {string.Format(format, value)} }}";
 
 		// Act
@@ -57,7 +57,7 @@ public abstract class Read_Tests<TId, TIdValue>
 	protected static void Test03(string input, TIdValue defaultValue)
 	{
 		// Arrange
-		var id = Rnd.Int32;
+		var id = Rnd.Int;
 		var json = $"{{ \"Id\": {id}, \"WrappedId\": {input} }}";
 
 		// Act

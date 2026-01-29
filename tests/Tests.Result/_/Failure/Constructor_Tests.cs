@@ -28,7 +28,7 @@ public class Constructor_Tests
 		{
 			// Arrange
 			var message = Rnd.Str;
-			var args = new object?[] { Rnd.Int32, Rnd.Str, Rnd.Date };
+			var args = new object?[] { Rnd.Int, Rnd.Str, Rnd.Date };
 
 			// Act
 			var result = new Failure(message, args);

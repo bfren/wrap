@@ -12,7 +12,7 @@ public class Constructor_Tests
 		{
 			// Arrange
 			var message = Rnd.Str;
-			var a0 = Rnd.Int32;
+			var a0 = Rnd.Int;
 			var a1 = Rnd.Guid;
 
 			// Act

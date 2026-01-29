@@ -29,7 +29,7 @@ public class TrySkip_Tests
 		var converter = Substitute.ForPartsOf<IdJsonConverter<TestLongId, long>>();
 
 		// Act
-		var result = Record.Exception(() => converter.HandleSkip(false, Rnd.Int64));
+		var result = Record.Exception(() => converter.HandleSkip(false, Rnd.Lng));
 
 		// Assert
 		var ex = Assert.IsType<JsonException>(result);

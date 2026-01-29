@@ -44,7 +44,7 @@ public class Arg_Tests
 		{
 			// Arrange
 			var failure = FailGen.Create();
-			var args = new object?[] { Rnd.Int32, Rnd.Str, Rnd.Date };
+			var args = new object?[] { Rnd.Int, Rnd.Str, Rnd.Date };
 
 			// Act
 			var result = failure.Arg(args);
