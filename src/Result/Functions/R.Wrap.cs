@@ -30,8 +30,7 @@ public static partial class R
 	/// <returns>
 	/// <see cref="Ok{T}"/> if <paramref name="value"/> is not null - otherwise <see cref="Failure"/>.
 	/// </returns>
-	public static Result<T> Wrap<T>(T value)
-		where T : notnull =>
+	public static Result<T> Wrap<T>(T value) =>
 		value switch
 		{
 			T =>
