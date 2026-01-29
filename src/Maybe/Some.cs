@@ -1,6 +1,7 @@
 // Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Wrap;
@@ -18,9 +19,16 @@ public sealed record class Some<T> : Maybe<T>, IRight<None, T>
 	public T Value { get; init; }
 
 	/// <summary>
-	/// Only allow internal creation by Some() functions and implicit operator.
+	/// Only allow internal creation by Wrap() function.
 	/// </summary>
 	/// <param name="value">Value to wrap</param>
 	internal Some([DisallowNull] T value) =>
-		Value = value;
+		Value = value switch
+		{
+			T =>
+				value,
+
+			_ =>
+				throw new ArgumentNullException(nameof(value))
+		};
 }
