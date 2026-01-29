@@ -28,7 +28,7 @@ public sealed record class Some<T> : Maybe<T>, IRight<None, T>
 			T =>
 				value,
 
-			_ =>
+			_ => // should never get here - only called from M.Wrap() which checks for null
 				throw new ArgumentNullException(nameof(value))
 		};
 }
