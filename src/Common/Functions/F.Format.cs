@@ -10,6 +10,10 @@ namespace Wrap;
 
 public static partial class F
 {
+	/// <inheritdoc cref="Format{T}(string, T, string?)"/>
+	public static string Format<T>(string formatString, T source) =>
+		Format(formatString, source, null);
+
 	/// <summary>
 	/// Works like string.Format() but with named as well as numbered placeholders.
 	/// <para>Source is Array: values will be inserted in order (regardless of placeholder values).</para>
@@ -22,17 +26,24 @@ public static partial class F
 	/// <typeparam name="T">Source type.</typeparam>
 	/// <param name="formatString">String to format.</param>
 	/// <param name="source">Source object to use for template values.</param>
+	/// <param name="replaceIfNullOrEmpty">Returned if <paramref name="formatString"/> or <paramref name="source"/> are null / empty.</param>
 	/// <returns>Formatted string.</returns>
-	public static string Format<T>(string formatString, T source)
+	public static string Format<T>(string formatString, T source, string? replaceIfNullOrEmpty)
 	{
-		// Return original if source is null or if it is an empty array
+		// Return if format string is null or empty
+		if (string.IsNullOrWhiteSpace(formatString))
+		{
+			return replaceIfNullOrEmpty ?? string.Empty;
+		}
+
+		// Return if source is null or an empty array
 		if (source is null)
 		{
-			return formatString;
+			return replaceIfNullOrEmpty ?? formatString;
 		}
 		else if (source is Array arr && arr.Length == 0)
 		{
-			return formatString;
+			return replaceIfNullOrEmpty ?? formatString;
 		}
 
 		// Thanks James Newton-King!
@@ -40,6 +51,7 @@ public static partial class F
 
 		var values = new List<object>();
 		var replaceIndex = 0; // keeps track of replace loop so we can match named template values with an array source
+		var numberedTemplates = true;
 		var rewrittenFormat = regex.Replace(formatString, (m) =>
 		{
 			var startGroup = m.Groups["start"];
@@ -51,11 +63,17 @@ public static partial class F
 			// Remove any @ symbols from the start - used by Serilog to denote an object format
 			// but breaks the following
 			var template = templateGroup.Value.TrimStart('@');
+			var templateIsNumber = int.TryParse(template, out var templateNumber);
+			numberedTemplates = numberedTemplates && templateIsNumber;
 
 			// Switch on the source type, using variety of methods to get this template's value
 			var flags = BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
 			var value = source switch
 			{
+				// Source array - get specific item in array
+				Array arr when numberedTemplates && templateNumber < arr.Length && arr.GetValue(templateNumber) is object val =>
+					val,
+
 				// Source array - get next item in array
 				Array arr when replaceIndex < arr.Length && arr.GetValue(replaceIndex++) is object val =>
 					val,
@@ -64,7 +82,7 @@ public static partial class F
 				{ } obj when typeof(T).GetProperty(template, flags)?.GetValue(obj) is object val =>
 					val,
 
-				// Nothing has matched yet so to be safe put the template back
+				// Nothing matches to use 
 				_ =>
 					$"{{{template}}}"
 			};
@@ -78,7 +96,11 @@ public static partial class F
 				+ new string('}', endGroup.Captures.Count);
 		});
 
-		return string.Format(DefaultCulture, rewrittenFormat, [.. values]);
+		// Format string
+		var formatted = string.Format(DefaultCulture, rewrittenFormat, [.. values]);
+
+		// If the string still contains any templates, return original format string
+		return regex.IsMatch(formatted) ? formatString : formatted;
 	}
 
 	[GeneratedRegex("(?<start>\\{)+(?<template>[\\w\\.\\[\\]@]+)(?<format>:[^}]+)?(?<end>\\})+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
