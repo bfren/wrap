@@ -56,7 +56,7 @@ public class Wrap_Tests
 				// Assert
 				result.AssertFailure(
 					"Null value of type '{Type}' - try using Maybe<T> to wrap null values safely.",
-					nameof(Int32)
+					typeof(int?).Name
 				);
 			}
 		}
