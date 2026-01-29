@@ -10,7 +10,7 @@
     <Using Include="Xunit" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Rnd" />
-    <PackageReference Include="xunit.v3.assert" />
+    <PackageReference Include="Rnd" PrivateAssets="All" />
+    <PackageReference Include="xunit.v3.assert" PrivateAssets="All" />
   </ItemGroup>
 </Project>

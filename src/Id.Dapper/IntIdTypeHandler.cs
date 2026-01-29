@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Data;
-using Wrap.Extensions;
 using Wrap.Ids;
 
 namespace Wrap.Dapper;
