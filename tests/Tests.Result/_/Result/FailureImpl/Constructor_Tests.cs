@@ -9,7 +9,7 @@ public class Constructor_Tests
 	public void Sets_Value_To_NoneImpl()
 	{
 		// Arrange
-		var value = FailGen.Create().Value;
+		var value = FailGen.Value;
 
 		// Act
 		var result = new Result<int>.FailureImpl(value);
