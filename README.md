@@ -8,7 +8,7 @@ Various monads (including Maybe - see [here](https://en.wikipedia.org/wiki/Monad
 - `Union<T>`
 - `Id<T>` (support for `int`, `uint`, `long`, `ulong` and `Guid` value types)
 - `Maybe<T>` (either: `Some<T>` or `None`)
-- `Result<T>` (either: `Ok<T>` or `Fail`)
+- `Result<T>` (either: `Ok<T>` or `Failure`)
 
 View the [Wiki](https://github.com/bfren/wrap/wiki) for documentation.
 
