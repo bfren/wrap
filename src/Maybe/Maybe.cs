@@ -69,15 +69,14 @@ public abstract partial record class Maybe<T> : IEither<Maybe<T>, None, T>, IEqu
 	/// <returns>Value string if this is a <see cref="Some{T}"/> or the value type.</returns>
 	public sealed override string ToString() =>
 		M.Match(this,
-			none: () => $"None: {typeof(T)}",
-			some: x =>
-				x.ToString() switch
-				{
-					string value =>
-						value,
+			none: () => $"None: {typeof(T).Name}",
+			some: x => x?.ToString() switch
+			{
+				string value =>
+					value,
 
-					_ =>
-						$"Some: {typeof(T)}"
-				}
+				_ =>
+					$"Some: {typeof(T).Name}"
+			}
 		);
 }
