@@ -4,7 +4,7 @@
 namespace Wrap.Testing;
 
 /// <summary>
-/// Generate StrongIds with random values.
+/// Generate Failures with random values.
 /// </summary>
 public static class FailureGenerator
 {
