@@ -11,7 +11,7 @@ public class Value_Tests : Abstracts.Value_Tests
 
 	[Fact]
 	public override void Test01_Generic_Set__Receives_Correct_Type__Uses_Value() =>
-		Test01<TestId, long>(Rnd.Lng);
+		Test01<TestId, long>(Rnd.Int64);
 
 	public sealed record class TestId : LongId<TestId>;
 }

@@ -39,7 +39,7 @@ public class GetOrCreate_Tests
 		mc.TryGetValue(key, out Arg.Any<object>()!)
 			.Returns(x =>
 			{
-				x[1] = Rnd.Lng;
+				x[1] = Rnd.Int64;
 				return true;
 			});
 
@@ -104,7 +104,7 @@ public class GetOrCreate_Tests
 	{
 		// Arrange
 		var key = Rnd.Str;
-		var value = Rnd.Lng;
+		var value = Rnd.Int64;
 		var mc = Substitute.For<IMemoryCache>();
 		mc.TryGetValue(key, out Arg.Any<object>()!)
 			.Returns(x =>
@@ -115,10 +115,10 @@ public class GetOrCreate_Tests
 		var cache = new WrapCache<string>(mc);
 
 		// Act
-		var r0 = cache.GetOrCreate(key, () => Rnd.Lng);
-		var r1 = cache.GetOrCreate(key, () => M.Wrap(Rnd.Lng));
-		var r2 = cache.GetOrCreate(key, () => Rnd.Lng, new());
-		var r3 = cache.GetOrCreate(key, () => M.Wrap(Rnd.Lng), new());
+		var r0 = cache.GetOrCreate(key, () => Rnd.Int64);
+		var r1 = cache.GetOrCreate(key, () => M.Wrap(Rnd.Int64));
+		var r2 = cache.GetOrCreate(key, () => Rnd.Int64, new());
+		var r3 = cache.GetOrCreate(key, () => M.Wrap(Rnd.Int64), new());
 
 		// Assert
 		r0.AssertSome(value);
@@ -132,7 +132,7 @@ public class GetOrCreate_Tests
 	{
 		// Arrange
 		var key = Rnd.Str;
-		var value = Rnd.Lng;
+		var value = Rnd.Int64;
 		var f0 = Substitute.For<Func<long>>();
 		f0.Invoke()
 			.Returns(value);
@@ -211,7 +211,7 @@ public class GetOrCreate_Tests
 		mc.TryGetValue(key, out Arg.Any<object>()!)
 			.Returns(x =>
 			{
-				x[1] = Rnd.Lng;
+				x[1] = Rnd.Int64;
 				return created;
 			});
 		mc.When(x => x.CreateEntry(key))
@@ -234,8 +234,8 @@ public class GetOrCreate_Tests
 	{
 		// Arrange
 		var key = Rnd.Str;
-		var v0 = Rnd.Lng;
-		var v1 = Rnd.Lng;
+		var v0 = Rnd.Int64;
+		var v1 = Rnd.Int64;
 		var mc = new MemoryCache(new MemoryCacheOptions());
 		var ms = 200;
 		var cache = new WrapCache<string>(mc);

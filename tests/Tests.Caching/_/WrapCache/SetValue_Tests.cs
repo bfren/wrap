@@ -15,8 +15,8 @@ public class SetValue_Tests
 		var cache = new WrapCache<string>(mc);
 
 		// Act
-		var a0 = void () => cache.SetValue(null!, Rnd.Lng);
-		var a1 = void () => cache.SetValue(null!, Rnd.Lng, new());
+		var a0 = void () => cache.SetValue(null!, Rnd.Int64);
+		var a1 = void () => cache.SetValue(null!, Rnd.Int64, new());
 
 		// Assert
 		Assert.Throws<ArgumentNullException>(a0);
@@ -31,8 +31,8 @@ public class SetValue_Tests
 		var cache = new WrapCache<long>(mc);
 
 		// Act
-		var a0 = void () => cache.SetValue<string>(Rnd.Lng, null!);
-		var a1 = void () => cache.SetValue<string>(Rnd.Lng, null!, new());
+		var a0 = void () => cache.SetValue<string>(Rnd.Int64, null!);
+		var a1 = void () => cache.SetValue<string>(Rnd.Int64, null!, new());
 
 		// Assert
 		Assert.Throws<ArgumentNullException>(a0);
@@ -44,7 +44,7 @@ public class SetValue_Tests
 	{
 		// Arrange
 		var key = Rnd.Str;
-		var value = Rnd.Lng;
+		var value = Rnd.Int64;
 		var mc = Substitute.For<IMemoryCache>();
 		var cache = new WrapCache<string>(mc);
 

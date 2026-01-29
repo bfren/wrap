@@ -59,7 +59,7 @@ public class Constructor_Tests
 		public void Sets_Value_Property()
 		{
 			// Arrange
-			var value = Rnd.UPtr;
+			var value = Rnd.UIntPtr;
 
 			// Act
 			var result = new Some<nuint>(value);

@@ -179,11 +179,11 @@ public class BindModelAsync_Tests
 
 	[Fact]
 	public async Task Int__ValueProvider_Result_Is_Not_None__Calls_Parse__Receives_Some__Returns_Result_Success_With_Value() =>
-		await ValueProvider_Result_Is_Not_None__Calls_Parse__Receives_Some__Returns_Result_Success_With_Value<TestIntId, int>(Rnd.Int);
+		await ValueProvider_Result_Is_Not_None__Calls_Parse__Receives_Some__Returns_Result_Success_With_Value<TestIntId, int>(Rnd.Int32);
 
 	[Fact]
 	public async Task Long__ValueProvider_Result_Is_Not_None__Calls_Parse__Receives_Some__Returns_Result_Success_With_Value() =>
-		await ValueProvider_Result_Is_Not_None__Calls_Parse__Receives_Some__Returns_Result_Success_With_Value<TestLongId, long>(Rnd.Lng);
+		await ValueProvider_Result_Is_Not_None__Calls_Parse__Receives_Some__Returns_Result_Success_With_Value<TestLongId, long>(Rnd.Int64);
 
 	public sealed record class TestGuidId : GuidId<TestGuidId>;
 

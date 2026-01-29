@@ -120,7 +120,7 @@ public class ToResult_Tests
 		public void Returns_Wrapped_Value()
 		{
 			// Arrange
-			var value = Rnd.Int;
+			var value = Rnd.Int32;
 			var maybe = M.Wrap(value);
 
 			// Act

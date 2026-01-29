@@ -46,7 +46,7 @@ public class Match_Tests
 			public void Executes_Some_Action_With_Correct_Value()
 			{
 				// Arrange
-				var value = Rnd.Int;
+				var value = Rnd.Int32;
 				var maybe = M.Wrap(value);
 				var none = Substitute.For<Action>();
 				var some = Substitute.For<Action<int>>();

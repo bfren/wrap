@@ -126,7 +126,7 @@ public class ToResultAsync_Tests
 			public async Task Returns_Wrapped_Value()
 			{
 				// Arrange
-				var value = Rnd.Int;
+				var value = Rnd.Int32;
 				var maybe = M.Wrap(value).AsTask();
 
 				// Act
@@ -143,7 +143,7 @@ public class ToResultAsync_Tests
 			public async Task Returns_Wrapped_Value()
 			{
 				// Arrange
-				var value = Rnd.Int;
+				var value = Rnd.Int32;
 				var maybe = M.Wrap(value).AsTask();
 				var handler = Substitute.For<Func<Result<int>>>();
 
