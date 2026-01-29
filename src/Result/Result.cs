@@ -64,14 +64,14 @@ public abstract partial record class Result<T> : IEither<Result<T>, FailureValue
 	/// <returns>Value string if this is a <see cref="Ok{T}"/> or the value type.</returns>
 	public sealed override string ToString() =>
 		R.Match(this,
-			fail: x => x.Message,
+			fail: x => F.Format(x.Message, x.Args),
 			ok: x => x?.ToString() switch
 			{
 				string value =>
 					value,
 
 				_ =>
-					$"OK: {typeof(T)}"
+					$"OK: {typeof(T).Name}"
 			}
 		);
 }
