@@ -15,7 +15,7 @@ public class ToString_Tests
 			var v1 = Rnd.Date;
 			var f0 = R.Fail<int>("Failure with values {A} and {B}.", v0, v1);
 			var f1 = R.Fail<int>("Failure with values {0} and {1}.", v0, v1);
-			var expected = string.Format("Failure with values {0} and {1}.", v0, v1);
+			var expected = string.Format(F.DefaultCulture, "Failure with values {0} and {1}.", v0, v1);
 
 			// Act
 			var r0 = f0.ToString();
