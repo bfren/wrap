@@ -15,7 +15,7 @@ namespace Wrap;
 public abstract partial record class Result<T> : IEither<Result<T>, FailureValue, T>
 {
 	/// <summary>
-	/// Returns true if this object is a <see cref="Wrap.Failure"/>.
+	/// Returns true if this object is a <see cref="Failure"/>.
 	/// </summary>
 	public bool Failed =>
 		!IsOk;

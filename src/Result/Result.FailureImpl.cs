@@ -1,6 +1,8 @@
 // Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Wrap;
 
 public abstract partial record class Result<T>
@@ -32,14 +34,17 @@ public abstract partial record class Result<T>
 		}
 
 		/// <summary>
-		/// Creation only via <see cref="Create(FailureValue)"/>.
+		/// Internal creation only.
 		/// </summary>
-		private FailureImpl() { }
+		/// <param name="value">FailureValue.</param>
+		[SetsRequiredMembers]
+		internal FailureImpl(FailureValue value) =>
+			Value = value;
 
 		/// <summary>
 		/// Create a failure result from a pre-existing <see cref="FailureValue"/>.
 		/// </summary>
-		/// <param name="value">FailValue.</param>
+		/// <param name="value">FailureValue.</param>
 		/// <returns>Failure result.</returns>
 		internal static Result<T> Create(FailureValue value) =>
 			new FailureImpl { Value = value };

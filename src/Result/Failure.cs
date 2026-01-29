@@ -142,5 +142,5 @@ public readonly partial struct Failure : IEquatable<Failure>, IUnion<Failure, Fa
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <returns>Failure task.</returns>
 	public Task<Result<T>> AsTask<T>() =>
-		Result<T>.FailureImpl.Create(Value).AsTask();
+		new Result<T>.FailureImpl(Value).AsTask();
 }
