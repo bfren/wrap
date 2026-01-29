@@ -40,7 +40,21 @@ public abstract partial record class Maybe<T> : IEither<Maybe<T>, None, T>, IEqu
 			some: x => x
 		);
 
-	/// <inheritdoc cref="IEither{TLeft, TRight}.GetEnumerator"/>
+	/// <summary>
+	/// Use enumerator pattern to get <typeparamref name="T"/> value.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// For example:
+	/// </para>
+	/// <code>
+	/// foreach (var some in maybe) {
+	///     // if 'maybe' is <see cref="None"/>, the loop is empty
+	///     // otherwise 'some' is <typeparamref name="T"/><br/>
+	/// }
+	/// </code>
+	/// </remarks>
+	/// <returns>Enumerator containing one value if this is <typeparamref name="T"/>.</returns>
 	public IEnumerator<T> GetEnumerator()
 	{
 		if (this is Some<T> some)

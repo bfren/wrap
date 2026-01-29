@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wrap.Exceptions;
 
@@ -58,15 +57,6 @@ public abstract partial record class Result<T> : IEither<Result<T>, FailureValue
 			fail: f => { ifFailed(f); return getValue(); },
 			ok: x => x
 		);
-
-	/// <inheritdoc cref="IEither{TLeft, TRight}.GetEnumerator"/>
-	public IEnumerator<T> GetEnumerator()
-	{
-		if (this is Ok<T> ok)
-		{
-			yield return ok.Value;
-		}
-	}
 
 	/// <summary>
 	/// Convert the current object to a string.
