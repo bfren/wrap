@@ -22,20 +22,13 @@ public static partial class R
 	/// <see cref="Ok{T}.Value"/> is <paramref name="value"/>.
 	/// </para>
 	/// <para>
-	/// If <paramref name="value"/> is null and <typeparamref name="T"/> is a nullable value type,
-	/// you will get a <see cref="Ok{T}"/> object where <see cref="Ok{T}.Value"/> is null.
-	/// </para>
-	/// <para>
-	/// If <paramref name="value"/> is null and <typeparamref name="T"/> is a reference type (with or
-	/// without the ? suffix), you will get an <see cref="Failure"/> object.
+	/// If <paramref name="value"/> is null, you will get a <see cref="Failure"/> object.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="value">Value to wrap.</param>
 	/// <returns>
-	/// <see cref="Ok{T}"/> if <paramref name="value"/> is not null
-	/// or <typeparamref name="T"/> is a nullable value type -
-	/// otherwise <see cref="Failure"/>.
+	/// <see cref="Ok{T}"/> if <paramref name="value"/> is not null - otherwise <see cref="Failure"/>.
 	/// </returns>
 	public static Result<T> Wrap<T>(T value)
 		where T : notnull =>
@@ -45,6 +38,9 @@ public static partial class R
 				new Ok<T>(value),
 
 			_ =>
-				Fail("Null value of type '{Type}'.", typeof(T).Name),
+				Fail(
+					"Null value of type '{Type}' - try using Maybe<T> to wrap null values safely.",
+					typeof(T).Name
+				),
 		};
 }
