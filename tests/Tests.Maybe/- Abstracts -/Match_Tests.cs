@@ -36,7 +36,7 @@ public class Match_Tests
 		void action() => match(maybe);
 
 		// Assert
-		Assert.Throws<NullMaybeException>(action);
+		_ = Assert.Throws<NullMaybeException>(action);
 	}
 
 	protected async Task Test00_Async<T>(Func<Maybe<T>, Task> match)
@@ -48,7 +48,7 @@ public class Match_Tests
 		Task action() => match(maybe);
 
 		// Assert
-		await Assert.ThrowsAsync<NullMaybeException>(action);
+		_ = await Assert.ThrowsAsync<NullMaybeException>(action);
 	}
 
 	protected void Test01<T>(Action<Maybe<T>> match)
@@ -60,7 +60,7 @@ public class Match_Tests
 		void action() => match(maybe);
 
 		// Assert
-		var ex = Assert.Throws<InvalidMaybeTypeException>(action);
+		_ = Assert.Throws<InvalidMaybeTypeException>(action);
 	}
 
 	protected async Task Test01_Async<T>(Func<Maybe<T>, Task> match)
@@ -72,6 +72,6 @@ public class Match_Tests
 		Task action() => match(maybe);
 
 		// Assert
-		await Assert.ThrowsAsync<InvalidMaybeTypeException>(action);
+		_ = await Assert.ThrowsAsync<InvalidMaybeTypeException>(action);
 	}
 }
