@@ -11,8 +11,7 @@ public static partial class M
 	/// Create a new <see cref="Wrap.None"/> value.
 	/// </summary>
 	/// <returns>None value.</returns>
-	public static None None =>
-		new();
+	public static None None { get; }
 
 	/// <summary>
 	/// Create a new <see cref="Wrap.None"/> value wrapped as a Task.
