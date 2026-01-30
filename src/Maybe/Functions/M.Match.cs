@@ -62,6 +62,10 @@ public static partial class M
 		MatchAsync(Task.FromResult(maybe), none, some);
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
+	public static Task MatchAsync<T>(Task<Maybe<T>> maybe, Action none, Action<T> some) =>
+		MatchAsync(maybe, () => { none(); return Task.CompletedTask; }, x => { some(x); return Task.CompletedTask; });
+
+	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static Task MatchAsync<T>(Task<Maybe<T>> maybe, Action none, Func<T, Task> some) =>
 		MatchAsync(maybe, () => { none(); return Task.CompletedTask; }, some);
 

@@ -51,15 +51,27 @@ public static partial class R
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
 	public static Task MatchAsync<T>(Result<T> result, Action<FailureValue> fail, Func<T, Task> ok) =>
-		MatchAsync(result.AsTask(), x => { fail(x); return Task.CompletedTask; }, ok);
+		MatchAsync(Task.FromResult(result), x => { fail(x); return Task.CompletedTask; }, ok);
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
 	public static Task MatchAsync<T>(Result<T> result, Func<FailureValue, Task> fail, Action<T> ok) =>
-		MatchAsync(result.AsTask(), fail, x => { ok(x); return Task.CompletedTask; });
+		MatchAsync(Task.FromResult(result), fail, x => { ok(x); return Task.CompletedTask; });
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
 	public static Task MatchAsync<T>(Result<T> result, Func<FailureValue, Task> fail, Func<T, Task> ok) =>
-		MatchAsync(result.AsTask(), fail, ok);
+		MatchAsync(Task.FromResult(result), fail, ok);
+
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
+	public static Task MatchAsync<T>(Task<Result<T>> result, Action<FailureValue> fail, Action<T> ok) =>
+		MatchAsync(result, f => { fail(f); return Task.CompletedTask; }, x => { ok(x); return Task.CompletedTask; });
+
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
+	public static Task MatchAsync<T>(Task<Result<T>> result, Func<FailureValue, Task> fail, Action<T> ok) =>
+		MatchAsync(result, fail, x => { ok(x); return Task.CompletedTask; });
+
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
+	public static Task MatchAsync<T>(Task<Result<T>> result, Action<FailureValue> fail, Func<T, Task> ok) =>
+		MatchAsync(result, f => { fail(f); return Task.CompletedTask; }, ok);
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
 	public static async Task MatchAsync<T>(Task<Result<T>> result, Func<FailureValue, Task> fail, Func<T, Task> ok)
@@ -124,15 +136,15 @@ public static partial class R
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<FailureValue, TReturn> fail, Func<T, Task<TReturn>> ok) =>
-		MatchAsync(result.AsTask(), x => Task.FromResult(fail(x)), ok);
+		MatchAsync(Task.FromResult(result), x => Task.FromResult(fail(x)), ok);
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<FailureValue, Task<TReturn>> fail, Func<T, TReturn> ok) =>
-		MatchAsync(result.AsTask(), fail, x => Task.FromResult(ok(x)));
+		MatchAsync(Task.FromResult(result), fail, x => Task.FromResult(ok(x)));
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<FailureValue, Task<TReturn>> fail, Func<T, Task<TReturn>> ok) =>
-		MatchAsync(result.AsTask(), fail, ok);
+		MatchAsync(Task.FromResult(result), fail, ok);
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<FailureValue, TReturn> fail, Func<T, TReturn> ok) =>

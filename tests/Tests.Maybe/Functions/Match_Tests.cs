@@ -11,14 +11,14 @@ public class Match_Tests
 		{
 			[Fact]
 			public override void Test00_Throws_NullMaybeException() =>
-				Test00<int>(mbe => M.Match(mbe, Substitute.For<Action>(), Substitute.For<Action<int>>()));
+				Test00<int>(m => M.Match(m, Substitute.For<Action>(), Substitute.For<Action<int>>()));
 		}
 
 		public class Invalid_Maybe : Abstracts.Match_Tests.Unknown_Maybe
 		{
 			[Fact]
 			public override void Test01_Throws_InvalidMaybeTypeException() =>
-				Test00<int>(mbe => M.Match(mbe, Substitute.For<Action>(), Substitute.For<Action<int>>()));
+				Test00<int>(m => M.Match(m, Substitute.For<Action>(), Substitute.For<Action<int>>()));
 		}
 
 		public class None
@@ -67,13 +67,13 @@ public class Match_Tests
 		{
 			[Fact]
 			public override void Test00_Throws_NullMaybeException() =>
-				Test00<int>(mbe => M.Match(mbe, Substitute.For<Func<int>>(), Substitute.For<Func<int, int>>()));
+				Test00<int>(m => M.Match(m, Substitute.For<Func<int>>(), Substitute.For<Func<int, int>>()));
 		}
 		public class Invalid_Maybe : Abstracts.Match_Tests.Unknown_Maybe
 		{
 			[Fact]
 			public override void Test01_Throws_InvalidMaybeTypeException() =>
-				Test00<int>(mbe => M.Match(mbe, Substitute.For<Func<int>>(), Substitute.For<Func<int, int>>()));
+				Test00<int>(m => M.Match(m, Substitute.For<Func<int>>(), Substitute.For<Func<int, int>>()));
 		}
 	}
 }

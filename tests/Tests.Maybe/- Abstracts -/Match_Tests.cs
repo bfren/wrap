@@ -30,48 +30,48 @@ public class Match_Tests
 	protected static void Test00<T>(Action<Maybe<T>> match)
 	{
 		// Arrange
-		Maybe<T> maybe = null!;
+		Maybe<T> value = null!;
 
 		// Act
-		void action() => match(maybe);
+		var result = Record.Exception(() => match(value));
 
 		// Assert
-		_ = Assert.Throws<NullMaybeException>(action);
+		_ = Assert.IsType<NullMaybeException>(result);
 	}
 
 	protected async Task Test00_Async<T>(Func<Maybe<T>, Task> match)
 	{
 		// Arrange
-		Maybe<T> maybe = null!;
+		Maybe<T> value = null!;
 
 		// Act
-		Task action() => match(maybe);
+		var result = await Record.ExceptionAsync(() => match(value));
 
 		// Assert
-		_ = await Assert.ThrowsAsync<NullMaybeException>(action);
+		_ = Assert.IsType<NullResultException>(result);
 	}
 
 	protected void Test01<T>(Action<Maybe<T>> match)
 	{
 		// Arrange
-		var maybe = new InvalidMaybe<T>();
+		var value = new InvalidMaybe<T>();
 
 		// Act
-		void action() => match(maybe);
+		var result = Record.Exception(() => match(value));
 
 		// Assert
-		_ = Assert.Throws<InvalidMaybeTypeException>(action);
+		_ = Assert.IsType<InvalidMaybeTypeException>(result);
 	}
 
 	protected async Task Test01_Async<T>(Func<Maybe<T>, Task> match)
 	{
 		// Arrange
-		var maybe = new InvalidMaybe<T>();
+		var value = new InvalidMaybe<T>();
 
 		// Act
-		Task action() => match(maybe);
+		var result = await Record.ExceptionAsync(() => match(value));
 
 		// Assert
-		_ = await Assert.ThrowsAsync<InvalidMaybeTypeException>(action);
+		_ = Assert.IsType<InvalidMaybeTypeException>(result);
 	}
 }
