@@ -42,10 +42,7 @@ public abstract partial record class Result<T> : IEither<Result<T>, FailureValue
 	/// <returns>Result value or throws a <see cref="FailureException"/>.</returns>
 	/// <exception cref="FailureException"></exception>
 	public T Unwrap() =>
-		R.Match(this,
-			fail: R.ThrowFailure<T>,
-			ok: x => x
-		);
+		Unwrap(R.ThrowFailure<T>);
 
 	/// <summary>
 	/// Unwrap the value contained in this object - uses failure handler if the result is <see cref="FailureImpl"/>.
@@ -53,10 +50,7 @@ public abstract partial record class Result<T> : IEither<Result<T>, FailureValue
 	/// <returns>Result value or throws a <see cref="FailureException"/>.</returns>
 	/// <exception cref="FailureException"></exception>
 	public T Unwrap(Action<FailureValue> ifFailed, Func<T> getValue) =>
-		R.Match(this,
-			fail: f => { ifFailed(f); return getValue(); },
-			ok: x => x
-		);
+		Unwrap(f => { ifFailed(f); return getValue(); });
 
 	/// <summary>
 	/// Convert the current object to a string.
