@@ -11,7 +11,7 @@ namespace Wrap;
 /// Result monad.
 /// </summary>
 /// <typeparam name="T">Ok value type.</typeparam>
-public abstract partial record class Result<T> : IEither<Result<T>, FailureValue, T>
+public abstract partial record class Result<T> : IEither<Result<T>, FailureValue, T>, IEquatable<Result<T>>
 {
 	/// <summary>
 	/// Returns true if this object is a <see cref="Failure"/>.
