@@ -18,7 +18,7 @@ public class ParseDateTime_Tests : Abstracts.Parse_Tests<DateTime>
 
 	public static TheoryData<string> Invalid_DateTime_Input() =>
 		[
-			"Invalid",
+			"Invalid DateTime",
 			"5/16/2009 14:57:32.8",
 			"2009-16-05 14:57:32.8",
 			"2009-16-05T14:57:32.8375298-04:00",

@@ -15,7 +15,7 @@ public class ParseDateOnly_Tests : Abstracts.Parse_Tests<DateOnly>
 
 	public static TheoryData<string> Invalid_DateOnly_Input() =>
 		[
-			"Invalid",
+			"Invalid DateOnly",
 			"5/16/2009",
 			"2009-16-5",
 			"32/5/2009",
@@ -35,8 +35,8 @@ public class ParseDateOnly_Tests : Abstracts.Parse_Tests<DateOnly>
 
 	[Theory]
 	[MemberData(nameof(Invalid_DateOnly_Input))]
-	[MemberData(nameof(ParseDateTime_Tests.Invalid_DateTime_Input), MemberType = typeof(ParseDateTime_Tests))]
 	[MemberData(nameof(ParseDateTime_Tests.Valid_DateTime_Input), MemberType = typeof(ParseDateTime_Tests))]
+	[MemberData(nameof(ParseDateTime_Tests.Invalid_DateTime_Input), MemberType = typeof(ParseDateTime_Tests))]
 	public override void Test01_Invalid_Input_Returns_None(string? input) =>
 		Test01(input, M.ParseDateOnly, M.ParseDateOnly);
 
