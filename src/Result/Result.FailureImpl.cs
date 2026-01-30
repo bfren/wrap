@@ -12,6 +12,10 @@ public abstract partial record class Result<T>
 	/// </summary>
 	internal sealed record class FailureImpl : Result<T>, ILeft<FailureValue, T>
 	{
+		private readonly F.ExceptionLogger? exceptionLogger;
+
+		private readonly F.FailureLogger? failureLogger;
+
 		/// <summary>
 		/// Failure value.
 		/// </summary>
@@ -20,13 +24,13 @@ public abstract partial record class Result<T>
 			get;
 			init
 			{
-				if (F.LogException is not null && value.Exception is not null)
+				if (exceptionLogger is not null && value.Exception is not null)
 				{
-					F.LogException?.Invoke(value.Exception);
+					exceptionLogger(value.Exception);
 				}
-				else if (F.LogFailure is not null)
+				else if (failureLogger is not null)
 				{
-					F.LogFailure?.Invoke(value.Message, value.Args);
+					failureLogger(value.Message, value.Args);
 				}
 
 				field = value;
@@ -38,7 +42,16 @@ public abstract partial record class Result<T>
 		/// </summary>
 		/// <param name="value">FailureValue.</param>
 		[SetsRequiredMembers]
-		internal FailureImpl(FailureValue value) =>
-			Value = value;
+		internal FailureImpl(FailureValue value) : this(F.LogException, F.LogFailure, value) { }
+
+		/// <summary>
+		/// Internal creation only (for testing).
+		/// </summary>
+		/// <param name="exceptionLogger">ExceptionLogger.</param>
+		/// <param name="failureLogger">FailureLogger.</param>
+		/// <param name="value">FailureValue.</param>
+		[SetsRequiredMembers]
+		internal FailureImpl(F.ExceptionLogger? exceptionLogger, F.FailureLogger? failureLogger, FailureValue value) =>
+			(this.exceptionLogger, this.failureLogger, Value) = (exceptionLogger, failureLogger, value);
 	}
 }

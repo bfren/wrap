@@ -56,10 +56,11 @@ public class Unwrap_Tests
 				var handler = Substitute.For<Action<FailureValue>>();
 
 				// Act
-				var result = failure.Unwrap(handler, Substitute.For<Func<int>>());
+				_ = failure.Unwrap(f => { handler(f); return Rnd.Int; });
+				_ = failure.Unwrap(handler, Substitute.For<Func<int>>());
 
 				// Assert
-				handler.Received(1).Invoke(value);
+				handler.Received(2).Invoke(value);
 			}
 
 			[Fact]
@@ -72,10 +73,12 @@ public class Unwrap_Tests
 				getValue.Invoke().Returns(value);
 
 				// Act
-				var result = failure.Unwrap(Substitute.For<Action<FailureValue>>(), getValue);
+				var r0 = failure.Unwrap(_ => getValue());
+				var r1 = failure.Unwrap(Substitute.For<Action<FailureValue>>(), getValue);
 
 				// Assert
-				Assert.Equal(value, result);
+				Assert.Equal(value, r0);
+				Assert.Equal(value, r1);
 			}
 		}
 
