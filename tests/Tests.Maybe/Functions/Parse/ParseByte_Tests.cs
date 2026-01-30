@@ -1,0 +1,46 @@
+// Wrap: Unit Tests.
+// Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
+
+namespace Wrap.Functions_Tests;
+
+public class ParseByte_Tests : Abstracts.Parse_Tests<byte>
+{
+	public static TheoryData<string> Valid_Byte_Input() =>
+		[
+			"101",
+			"  101  ",
+			"+101",
+			"00000000101"
+		];
+
+	public static TheoryData<string> Negative_Byte_Input() =>
+		[
+			"-101",
+			"-00000000101"
+		];
+
+	public static TheoryData<string> Invalid_Byte_Input() =>
+		[
+			"",
+			"1024",
+			"100.1",
+			"FF",
+			"0x1F"
+		];
+
+	[Theory]
+	[MemberData(nameof(Valid_Byte_Input))]
+	public override void Test00_Valid_Input_Returns_Parsed_Result(string? input) =>
+		Test00(input, s => byte.Parse(s, F.DefaultCulture), M.ParseByte, M.ParseByte);
+
+	[Theory]
+	[MemberData(nameof(Invalid_Byte_Input))]
+	[MemberData(nameof(Negative_Byte_Input))]
+	public override void Test01_Invalid_Input_Returns_None(string? input) =>
+		Test01(input, M.ParseByte, M.ParseByte);
+
+	[Theory]
+	[InlineData(null)]
+	public override void Test02_Null_Input_Returns_None(string? input) =>
+		Test02(input, M.ParseByte, M.ParseByte);
+}

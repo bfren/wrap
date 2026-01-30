@@ -1,0 +1,64 @@
+// Wrap: Unit Tests.
+// Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
+
+namespace Wrap.Functions_Tests;
+
+public class ParseSingle_Tests : Abstracts.Parse_Tests<float>
+{
+	public static TheoryData<string> Valid_Float_Input() =>
+		[
+			"1",
+			"  1  ",
+			"-1",
+			"1.01",
+			"-1.01",
+			"1,01",
+			"-1,01",
+			"1,000",
+			"-1,000",
+			"1,000.01",
+			"-1,000.01"
+		];
+
+	public static TheoryData<string> Valid_Float_Exponential_Input() =>
+		[
+			"1e10",
+			"-1e10",
+			"1e-10",
+			"-1e-10"
+		];
+
+	public static TheoryData<string> Invalid_Float_Input() =>
+		[
+			"",
+			"Invalid",
+			"1-",
+			"(1)",
+			"1.00.1",
+			"£1",
+			"£1.10"
+		];
+
+	public static TheoryData<string> Extreme_Single_Input() =>
+		[
+			float.MinValue.ToString(),
+			float.MaxValue.ToString()
+		];
+
+	[Theory]
+	[MemberData(nameof(Valid_Float_Input))]
+	[MemberData(nameof(Valid_Float_Exponential_Input))]
+	[MemberData(nameof(Extreme_Single_Input))]
+	public override void Test00_Valid_Input_Returns_Parsed_Result(string? input) =>
+		Test00(input, s => float.Parse(s, F.DefaultCulture), M.ParseSingle, M.ParseSingle);
+
+	[Theory]
+	[MemberData(nameof(Invalid_Float_Input))]
+	public override void Test01_Invalid_Input_Returns_None(string? input) =>
+		Test01(input, M.ParseSingle, M.ParseSingle);
+
+	[Theory]
+	[InlineData(null)]
+	public override void Test02_Null_Input_Returns_None(string? input) =>
+		Test02(input, M.ParseSingle, M.ParseSingle);
+}

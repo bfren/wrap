@@ -1,0 +1,43 @@
+// Wrap: Unit Tests.
+// Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
+
+namespace Wrap.Functions_Tests;
+
+public class ParseTimeOnly_Tests : Abstracts.Parse_Tests<TimeOnly>
+{
+	public static TheoryData<string> Valid_TimeOnly_Input() =>
+		[
+			"13:59",
+			"1:59 PM",
+			"13:59 PM",
+			"13:59:59",
+			"1:59:59 PM",
+			"1.59.59 PM"
+		];
+
+	public static TheoryData<string> Invalid_TimeOnly_Input() =>
+		[
+			"Invalid",
+			"1:59.59 PM",
+			"24:59",
+			"13:79",
+			"1:79 PM"
+		];
+
+	[Theory]
+	[MemberData(nameof(Valid_TimeOnly_Input))]
+	public override void Test00_Valid_Input_Returns_Parsed_Result(string? input) =>
+		Test00(input, s => TimeOnly.Parse(s, F.DefaultCulture), M.ParseTimeOnly, M.ParseTimeOnly);
+
+	[Theory]
+	[MemberData(nameof(Invalid_TimeOnly_Input))]
+	[MemberData(nameof(ParseDateTime_Tests.Invalid_DateTime_Input), MemberType = typeof(ParseDateTime_Tests))]
+	[MemberData(nameof(ParseDateTime_Tests.Valid_DateTime_Input), MemberType = typeof(ParseDateTime_Tests))]
+	public override void Test01_Invalid_Input_Returns_None(string? input) =>
+		Test01(input, M.ParseTimeOnly, M.ParseTimeOnly);
+
+	[Theory]
+	[InlineData(null)]
+	public override void Test02_Null_Input_Returns_None(string? input) =>
+		Test02(input, M.ParseTimeOnly, M.ParseTimeOnly);
+}

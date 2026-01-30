@@ -1,6 +1,8 @@
 // Wrap: Unit Tests.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System.Globalization;
+
 namespace Wrap.M_Tests;
 
 public class FloatNumberStyles_Tests
@@ -14,6 +16,6 @@ public class FloatNumberStyles_Tests
 		var result = M.FloatNumberStyles;
 
 		// Assert
-		Assert.Equal(System.Globalization.NumberStyles.Number, result);
+		Assert.Equal(NumberStyles.Float | NumberStyles.AllowThousands, result);
 	}
 }
