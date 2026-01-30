@@ -7,6 +7,8 @@ namespace Wrap;
 
 public static partial class R
 {
+	#region Explicit Result<T>
+
 	/// <summary>
 	/// Create a failure result from a pre-existing <see cref="FailureValue"/>.
 	/// </summary>
@@ -27,6 +29,29 @@ public static partial class R
 		new Failure(message, args);
 
 	/// <summary>
+	/// Create a failure result from an exception type.
+	/// </summary>
+	/// <typeparam name="T">Ok result type.</typeparam>
+	/// <typeparam name="TException">Exception type.</typeparam>
+	/// <returns>Failure result.</returns>
+	public static Result<T> Fail<T, TException>()
+		where TException : Exception, new() =>
+		Fail<T>(new TException());
+
+	/// <summary>
+	/// Create a failure result from an exception.
+	/// </summary>
+	/// <typeparam name="T">Ok result type.</typeparam>
+	/// <param name="ex">Exception.</param>
+	/// <returns>Failure result.</returns>
+	public static Result<T> Fail<T>(Exception ex) =>
+		new Failure(ex);
+
+	#endregion
+
+	#region Implicit Result<T>
+
+	/// <summary>
 	/// Start fluently creating a <see cref="Failure"/> from a pre-existing failure message.
 	/// </summary>
 	/// <param name="value">FailureValue.</param>
@@ -44,7 +69,7 @@ public static partial class R
 		new(message, args);
 
 	/// <summary>
-	/// Start fluently creating a <see cref="Failure"/> from an exception.
+	/// Start fluently creating a <see cref="Failure"/> from an exception type.
 	/// </summary>
 	/// <typeparam name="TException">Exception type.</typeparam>
 	/// <returns>FluentFail.</returns>
@@ -60,4 +85,6 @@ public static partial class R
 	public static Failure Fail<TException>(TException ex)
 		where TException : Exception =>
 		new(ex);
+
+	#endregion
 }
