@@ -48,7 +48,7 @@ public class Match_Tests
 		var result = await Record.ExceptionAsync(() => match(value));
 
 		// Assert
-		_ = Assert.IsType<NullResultException>(result);
+		_ = Assert.IsType<NullMaybeException>(result);
 	}
 
 	protected void Test01<T>(Action<Maybe<T>> match)
