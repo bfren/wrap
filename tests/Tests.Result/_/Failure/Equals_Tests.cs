@@ -88,4 +88,20 @@ public class Equals_Tests
 			Assert.False(result);
 		}
 	}
+
+	public class With_Null
+	{
+		[Fact]
+		public void Returns_False()
+		{
+			// Arrange
+			var none = new Failure(Rnd.Str);
+
+			// Act
+			var result = none.Equals(null);
+
+			// Assert
+			Assert.False(result);
+		}
+	}
 }
