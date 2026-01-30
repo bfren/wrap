@@ -32,6 +32,14 @@ public static partial class M
 		Parse(input, (ReadOnlySpan<char> s, out long r) => long.TryParse(s, IntegerNumberStyles, F.DefaultCulture, out r));
 
 	/// <inheritdoc cref="ParseBool(string?)"/>
+	public static Maybe<Int128> ParseInt128(string? input) =>
+		Parse(input, (string? s, out Int128 r) => Int128.TryParse(s, IntegerNumberStyles, F.DefaultCulture, out r));
+
+	/// <inheritdoc cref="ParseBool(string?)"/>
+	public static Maybe<Int128> ParseInt128(ReadOnlySpan<char> input) =>
+		Parse(input, (ReadOnlySpan<char> s, out Int128 r) => Int128.TryParse(s, IntegerNumberStyles, F.DefaultCulture, out r));
+
+	/// <inheritdoc cref="ParseBool(string?)"/>
 	public static Maybe<nint> ParseIntPtr(string? input) =>
 		Parse(input, (string? s, out nint r) => nint.TryParse(s, IntegerNumberStyles, F.DefaultCulture, out r));
 
@@ -62,6 +70,14 @@ public static partial class M
 	/// <inheritdoc cref="ParseBool(string?)"/>
 	public static Maybe<ulong> ParseUInt64(ReadOnlySpan<char> input) =>
 		Parse(input, (ReadOnlySpan<char> s, out ulong r) => ulong.TryParse(s, IntegerNumberStyles, F.DefaultCulture, out r));
+
+	/// <inheritdoc cref="ParseBool(string?)"/>
+	public static Maybe<UInt128> ParseUInt128(string? input) =>
+		Parse(input, (string? s, out UInt128 r) => UInt128.TryParse(s, IntegerNumberStyles, F.DefaultCulture, out r));
+
+	/// <inheritdoc cref="ParseBool(string?)"/>
+	public static Maybe<UInt128> ParseUInt128(ReadOnlySpan<char> input) =>
+		Parse(input, (ReadOnlySpan<char> s, out UInt128 r) => UInt128.TryParse(s, IntegerNumberStyles, F.DefaultCulture, out r));
 
 	/// <inheritdoc cref="ParseBool(string?)"/>
 	public static Maybe<nuint> ParseUIntPtr(string? input) =>

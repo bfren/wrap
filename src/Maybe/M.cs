@@ -13,7 +13,7 @@ public static partial class M
 	/// <summary>
 	/// Default number style for formatting floating-point numbers - see <see cref="ParseDouble(string?)"/> etc.
 	/// </summary>
-	internal static NumberStyles FloatNumberStyles { get; } = NumberStyles.Number;
+	internal static NumberStyles FloatNumberStyles { get; } = NumberStyles.Float | NumberStyles.AllowThousands;
 
 	/// <summary>
 	/// Default number style for parsing integers - see <see cref="ParseInt64(string?)"/> etc.
