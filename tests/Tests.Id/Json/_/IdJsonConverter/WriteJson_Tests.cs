@@ -23,8 +23,8 @@ public class WriteJson_Tests
 
 		// Assert
 		Assert.Equal($"\"{guidId.Value}\"", r0);
-		Assert.Equal($"\"{intId.Value}\"", r1);
-		Assert.Equal($"\"{longId.Value}\"", r2);
+		Assert.Equal($"{intId.Value}", r1);
+		Assert.Equal($"{longId.Value}", r2);
 	}
 
 	[Theory]
