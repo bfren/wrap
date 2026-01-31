@@ -10,9 +10,9 @@ public static partial class FailureValueExtensions
 	/// <summary>
 	/// Assert that <paramref name="this"/> contains the specified message.
 	/// </summary>
-	/// <param name="this">FailValue object.</param>
+	/// <param name="this">FailureValue object.</param>
 	/// <param name="ex">Expected Exception.</param>
-	/// <returns>Original FailValue.</returns>
+	/// <returns>Original FailureValue.</returns>
 	public static FailureValue AssertException(this FailureValue @this, Exception ex)
 	{
 		// Assert correct Exception

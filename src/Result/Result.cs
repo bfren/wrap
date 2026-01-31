@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wrap.Exceptions;
 
@@ -12,10 +11,10 @@ namespace Wrap;
 /// Result monad.
 /// </summary>
 /// <typeparam name="T">Ok value type.</typeparam>
-public abstract partial record class Result<T> : IEither<Result<T>, FailureValue, T>
+public abstract partial record class Result<T> : IEither<Result<T>, FailureValue, T>, IEquatable<Result<T>>
 {
 	/// <summary>
-	/// Returns true if this object is a <see cref="Wrap.Failure"/>.
+	/// Returns true if this object is a <see cref="Failure"/>.
 	/// </summary>
 	public bool Failed =>
 		!IsOk;
@@ -38,35 +37,20 @@ public abstract partial record class Result<T> : IEither<Result<T>, FailureValue
 		);
 
 	/// <summary>
-	/// Unwrap the value contained in this object - throws an exception if the result is <see cref="Failure"/>.
+	/// Unwrap the value contained in this object - throws an exception if the result is <see cref="FailureImpl"/>.
 	/// </summary>
 	/// <returns>Result value or throws a <see cref="FailureException"/>.</returns>
 	/// <exception cref="FailureException"></exception>
 	public T Unwrap() =>
-		R.Match(this,
-			fail: R.ThrowFailure<T>,
-			ok: x => x
-		);
+		Unwrap(R.ThrowFailure<T>);
 
 	/// <summary>
-	/// Unwrap the value contained in this object - uses failure handler if the result is <see cref="Failure"/>.
+	/// Unwrap the value contained in this object - uses failure handler if the result is <see cref="FailureImpl"/>.
 	/// </summary>
 	/// <returns>Result value or throws a <see cref="FailureException"/>.</returns>
 	/// <exception cref="FailureException"></exception>
 	public T Unwrap(Action<FailureValue> ifFailed, Func<T> getValue) =>
-		R.Match(this,
-			fail: f => { ifFailed(f); return getValue(); },
-			ok: x => x
-		);
-
-	/// <inheritdoc cref="IEither{TLeft, TRight}.GetEnumerator"/>
-	public IEnumerator<T> GetEnumerator()
-	{
-		if (this is Ok<T> ok)
-		{
-			yield return ok.Value;
-		}
-	}
+		Unwrap(f => { ifFailed(f); return getValue(); });
 
 	/// <summary>
 	/// Convert the current object to a string.
@@ -74,14 +58,14 @@ public abstract partial record class Result<T> : IEither<Result<T>, FailureValue
 	/// <returns>Value string if this is a <see cref="Ok{T}"/> or the value type.</returns>
 	public sealed override string ToString() =>
 		R.Match(this,
-			fail: x => x.Message,
+			fail: x => F.Format(x.Message, x.Args),
 			ok: x => x?.ToString() switch
 			{
 				string value =>
 					value,
 
 				_ =>
-					$"OK: {typeof(T)}"
+					$"OK: {typeof(T).Name}"
 			}
 		);
 }

@@ -8,9 +8,15 @@ Various monads (including Maybe - see [here](https://en.wikipedia.org/wiki/Monad
 - `Union<T>`
 - `Id<T>` (support for `int`, `uint`, `long`, `ulong` and `Guid` value types)
 - `Maybe<T>` (either: `Some<T>` or `None`)
-- `Result<T>` (either: `Ok<T>` or `Fail`)
+- `Result<T>` (either: `Ok<T>` or `Failure`)
 
 View the [Wiki](https://github.com/bfren/wrap/wiki) for documentation.
+
+## History
+
+Although this library is at v1, it brings together some mature projects I have been working on since 2019. It started with a Result<T> implementation which morphed into Maybe - which reached v10 in November 2025 - and I figured it would be best to have both.
+
+At the same time I was maintaining a StrongId library - which reached v8.5 in November 2024 - to avoid using primitives for Entity IDs. I realised the similarities between Result<T>, Maybe<T> and Id<T> and decided to bring them all together in one library: Wrap.
 
 ## Licence
 

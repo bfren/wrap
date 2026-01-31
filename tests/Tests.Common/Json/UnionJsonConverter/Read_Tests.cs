@@ -69,7 +69,7 @@ public class Read_Tests
 	public void throw_IncorrectValueTypeException__when_json_value_is_incorrect_type()
 	{
 		// Arrange
-		var value = Rnd.Ptr;
+		var value = Rnd.IntPtr;
 		var json = $"{value}";
 		var opt = new JsonSerializerOptions();
 		var converter = new UnionJsonConverter<Test, string>();

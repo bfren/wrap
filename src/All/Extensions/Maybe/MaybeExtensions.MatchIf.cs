@@ -26,7 +26,7 @@ public static partial class MaybeExtensions
 		Func<T, TReturn> someTrue
 	) =>
 		Match(@this,
-			none: none(),
+			none: none,
 			some: x => predicate(x) switch
 			{
 				false =>

@@ -29,16 +29,8 @@ public static partial class MaybeExtensions
 		M.MatchAsync(@this, none, some);
 
 	/// <inheritdoc cref="M.Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
-	public static TReturn Match<T, TReturn>(this Maybe<T> @this, TReturn none, Func<T, TReturn> some) =>
-		M.Match(@this, none, some);
-
-	/// <inheritdoc cref="M.Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static TReturn Match<T, TReturn>(this Maybe<T> @this, Func<TReturn> none, Func<T, TReturn> some) =>
 		M.Match(@this, none, some);
-
-	/// <inheritdoc cref="M.Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchAsync<T, TReturn>(this Maybe<T> @this, TReturn none, Func<T, Task<TReturn>> some) =>
-		M.MatchAsync(@this, none, some);
 
 	/// <inheritdoc cref="M.Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(this Maybe<T> @this, Func<TReturn> none, Func<T, Task<TReturn>> some) =>
@@ -50,14 +42,6 @@ public static partial class MaybeExtensions
 
 	/// <inheritdoc cref="M.Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(this Maybe<T> @this, Func<Task<TReturn>> none, Func<T, Task<TReturn>> some) =>
-		M.MatchAsync(@this, none, some);
-
-	/// <inheritdoc cref="M.Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchAsync<T, TReturn>(this Task<Maybe<T>> @this, TReturn none, Func<T, TReturn> some) =>
-		M.MatchAsync(@this, none, some);
-
-	/// <inheritdoc cref="M.Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchAsync<T, TReturn>(this Task<Maybe<T>> @this, TReturn none, Func<T, Task<TReturn>> some) =>
 		M.MatchAsync(@this, none, some);
 
 	/// <inheritdoc cref="M.Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>

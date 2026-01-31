@@ -11,14 +11,14 @@ public class Read_Tests : Abstracts.Read_Tests<Read_Tests.TestULongId, ulong>
 	[MemberData(nameof(Helpers.Valid_Numeric_Json_Data), MemberType = typeof(Helpers))]
 	public override void Test00_Deserialise__Valid_Json__Returns_Id_With_Value(string format)
 	{
-		Test00(format, Rnd.ULng);
+		Test00(format, Rnd.UInt64);
 	}
 
 	[Theory]
 	[MemberData(nameof(Helpers.Valid_Numeric_Json_Data), MemberType = typeof(Helpers))]
 	public override void Test01_Deserialise__Valid_Json__Returns_Object_With_Id_Value(string format)
 	{
-		Test01(format, Rnd.ULng);
+		Test01(format, Rnd.UInt64);
 	}
 
 	[Theory]

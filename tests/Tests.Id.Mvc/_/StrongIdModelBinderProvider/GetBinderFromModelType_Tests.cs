@@ -30,10 +30,10 @@ public class GetBinderFromModelType_Tests
 		var type = typeof(TestDateTimeId);
 
 		// Act
-		var action = () => IdModelBinderProvider.GetBinderFromModelType(type);
+		var result = Record.Exception(() => IdModelBinderProvider.GetBinderFromModelType(type));
 
 		// Assert
-		Assert.Throws<ModelBinderException>(action);
+		Assert.IsType<ModelBinderException>(result);
 	}
 
 	[Fact]

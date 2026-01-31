@@ -58,7 +58,7 @@ public static class IdGenerator
 	/// <param name="limit">If true, ID Value will be limited to 0-10000 - for testing this is all that's needed.</param>
 	public static TId UIntId<TId>(bool limit)
 		where TId : UIntId<TId>, new() =>
-		new() { Value = limit ? Rnd.UInt : Rnd.NumberF.GetUInt32() };
+		new() { Value = limit ? Rnd.UInt32 : Rnd.NumberF.GetUInt32() };
 
 	/// <inheritdoc cref="ULongId{TId}(bool)"/>
 	public static TId ULongId<TId>()
@@ -72,5 +72,5 @@ public static class IdGenerator
 	/// <param name="limit">If true, ID Value will be limited to 0-10000 - for testing this is all that's needed.</param>
 	public static TId ULongId<TId>(bool limit)
 		where TId : ULongId<TId>, new() =>
-		new() { Value = limit ? Rnd.ULng : Rnd.NumberF.GetUInt64() };
+		new() { Value = limit ? Rnd.UInt64 : Rnd.NumberF.GetUInt64() };
 }

@@ -24,9 +24,9 @@ public readonly partial struct Failure : IEquatable<Failure>, IUnion<Failure, Fa
 	public readonly required FailureValue Value { get; init; }
 
 	/// <summary>
-	/// Use a pre-existing FailValue.
+	/// Use a pre-existing FailureValue.
 	/// </summary>
-	/// <param name="value">FailValue.</param>
+	/// <param name="value">FailureValue.</param>
 	[SetsRequiredMembers]
 	internal Failure(FailureValue value) =>
 		Value = value;
@@ -54,12 +54,19 @@ public readonly partial struct Failure : IEquatable<Failure>, IUnion<Failure, Fa
 	/// <param name="args">Arguments.</param>
 	/// <returns>FluentFail.</returns>
 	public Failure Arg(params object?[] args) =>
-		this with
+		args switch
 		{
-			Value = Value with
-			{
-				Args = args
-			}
+			{ } =>
+				this with
+				{
+					Value = Value with
+					{
+						Args = args ?? []
+					}
+				},
+
+			_ =>
+				this
 		};
 
 	/// <summary>
@@ -135,5 +142,5 @@ public readonly partial struct Failure : IEquatable<Failure>, IUnion<Failure, Fa
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <returns>Failure task.</returns>
 	public Task<Result<T>> AsTask<T>() =>
-		Result<T>.Failure.Create(Value).AsTask();
+		new Result<T>.FailureImpl(Value).AsTask();
 }

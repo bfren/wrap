@@ -14,7 +14,7 @@ namespace Wrap;
 public abstract partial record class Maybe<T> : IEither<Maybe<T>, None, T>, IEquatable<Maybe<T>>
 {
 	/// <summary>
-	/// Returns true if this object is a <see cref="Wrap.None"/>.
+	/// Returns true if this object is a <see cref="None"/>.
 	/// </summary>
 	public bool IsNone =>
 		!IsSome;
@@ -29,18 +29,32 @@ public abstract partial record class Maybe<T> : IEither<Maybe<T>, None, T>, IEqu
 	public Task<Maybe<T>> AsTask() =>
 		Task.FromResult(this);
 
-	/// <inheritdoc cref="Unwrap(Func{Wrap.None, T})"/>
+	/// <inheritdoc cref="Unwrap(Func{None, T})"/>
 	public T Unwrap(Func<T> getValue) =>
 		Unwrap(_ => getValue());
 
 	/// <inheritdoc/>
-	public T Unwrap(Func<Wrap.None, T> getValue) =>
+	public T Unwrap(Func<None, T> getValue) =>
 		M.Match(this,
-			none: getValue(M.None),
+			none: () => getValue(M.None),
 			some: x => x
 		);
 
-	/// <inheritdoc cref="IEither{TLeft, TRight}.GetEnumerator"/>
+	/// <summary>
+	/// Use enumerator pattern to get <typeparamref name="T"/> value.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// For example:
+	/// </para>
+	/// <code>
+	/// foreach (var some in maybe) {
+	///     // if 'maybe' is <see cref="None"/>, the loop is empty
+	///     // otherwise 'some' is <typeparamref name="T"/><br/>
+	/// }
+	/// </code>
+	/// </remarks>
+	/// <returns>Enumerator containing one value if this is <typeparamref name="T"/>.</returns>
 	public IEnumerator<T> GetEnumerator()
 	{
 		if (this is Some<T> some)
@@ -55,15 +69,14 @@ public abstract partial record class Maybe<T> : IEither<Maybe<T>, None, T>, IEqu
 	/// <returns>Value string if this is a <see cref="Some{T}"/> or the value type.</returns>
 	public sealed override string ToString() =>
 		M.Match(this,
-			none: $"None: {typeof(T)}",
-			some: x =>
-				x.ToString() switch
-				{
-					string value =>
-						value,
+			none: () => $"None: {typeof(T).Name}",
+			some: x => x?.ToString() switch
+			{
+				string value =>
+					value,
 
-					_ =>
-						$"Some: {typeof(T)}"
-				}
+				_ =>
+					$"Some: {typeof(T).Name}"
+			}
 		);
 }

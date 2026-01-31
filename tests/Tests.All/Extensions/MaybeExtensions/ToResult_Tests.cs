@@ -22,7 +22,7 @@ public class ToResult_Tests
 
 				// Assert
 				var f = result.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Int32));
-				Assert.IsType<NullMaybeException>(f.Exception);
+				_ = Assert.IsType<NullMaybeException>(f.Exception);
 			}
 		}
 
@@ -32,14 +32,14 @@ public class ToResult_Tests
 			public void Returns_Failure_With_InvalidMaybeTypeException()
 			{
 				// Arrange
-				var maybe = new Helpers.InvalidMaybe<Guid>();
+				var maybe = new InvalidMaybe<Guid>();
 
 				// Act
 				var result = maybe.ToResult(Rnd.Str, Rnd.Str);
 
 				// Assert
 				var f = result.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Guid));
-				Assert.IsType<InvalidMaybeTypeException>(f.Exception);
+				_ = Assert.IsType<InvalidMaybeTypeException>(f.Exception);
 			}
 		}
 	}
@@ -58,7 +58,7 @@ public class ToResult_Tests
 				var result = maybe.ToResult(Rnd.Str, Rnd.Str);
 
 				// Assert
-				var f = result.AssertFailure("Maybe<{Type}> was 'None'.", nameof(Int32));
+				_ = result.AssertFailure("Maybe<{Type}> was 'None'.", nameof(Int32));
 			}
 
 			[Fact]

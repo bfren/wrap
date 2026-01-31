@@ -12,7 +12,7 @@ public abstract partial record class Maybe<T>
 			Some<T> x when other is Some<T> y =>
 				Equals(x.Value, y.Value),
 
-			None when other is None =>
+			NoneImpl when other is NoneImpl =>
 				true,
 
 			_ =>
@@ -35,7 +35,7 @@ public abstract partial record class Maybe<T>
 	/// <returns>True if <paramref name="l"/> is <see cref="Some{T}"/> and its value equals <paramref name="r"/>.</returns>
 	public static bool operator ==(Maybe<T> l, T r) =>
 		M.Match(l,
-			none: false,
+			none: () => false,
 			some: x => Equals(x, r)
 		);
 
@@ -48,7 +48,7 @@ public abstract partial record class Maybe<T>
 	/// <returns>True if <paramref name="l"/> is <see cref="Some{T}"/> and its value does not equal <paramref name="r"/>.</returns>
 	public static bool operator !=(Maybe<T> l, T r) =>
 		M.Match(l,
-			none: true,
+			none: () => true,
 			some: x => !Equals(x, r)
 		);
 
@@ -61,7 +61,7 @@ public abstract partial record class Maybe<T>
 	/// <returns>True if <paramref name="r"/> is <see cref="Some{T}"/> and its value equals <paramref name="l"/>.</returns>
 	public static bool operator ==(T l, Maybe<T> r) =>
 		M.Match(r,
-			none: false,
+			none: () => false,
 			some: x => Equals(x, l)
 		);
 
@@ -74,7 +74,7 @@ public abstract partial record class Maybe<T>
 	/// <returns>True if <paramref name="r"/> is <see cref="Some{T}"/> and its value does not equal <paramref name="l"/>.</returns>
 	public static bool operator !=(T l, Maybe<T> r) =>
 		M.Match(r,
-			none: true,
+			none: () => true,
 			some: x => !Equals(x, l)
 		);
 }

@@ -1,6 +1,8 @@
 // Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System.Collections.Generic;
+
 namespace Wrap;
 
 /// <summary>
@@ -23,4 +25,27 @@ public readonly record struct Unsafe<TEither, TLeft, TRight> : IUnion<TEither>
 	/// <param name="value"><typeparamref name="TEither"/> object to wrap.</param>
 	internal Unsafe(TEither value) =>
 		Value = value;
+
+	/// <summary>
+	/// Use enumerator pattern to get <typeparamref name="TRight"/> value.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// For example:
+	/// </para>
+	/// <code>
+	/// foreach (var right in either) {
+	///     // if 'either' is <typeparamref name="TLeft"/>, the loop is empty
+	///     // otherwise 'right' is <typeparamref name="TRight"/><br/>
+	/// }
+	/// </code>
+	/// </remarks>
+	/// <returns>Enumerator containing one value if this is <typeparamref name="TRight"/>.</returns>
+	public IEnumerator<TRight> GetEnumerator()
+	{
+		if (Value is IRight<TLeft, TRight> right)
+		{
+			yield return right.Value;
+		}
+	}
 }
