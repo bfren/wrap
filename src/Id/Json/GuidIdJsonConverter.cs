@@ -15,6 +15,22 @@ internal sealed class GuidIdJsonConverter<TId> : IdJsonConverter<TId, Guid>
 	where TId : GuidId<TId>, new()
 {
 	/// <summary>
+	/// Write an <see cref="IId{TId, TValue}"/> type value.
+	/// </summary>
+	/// <param name="writer">Json Writer.</param>
+	/// <param name="value">ID value.</param>
+	/// <param name="options">JSON options.</param>
+	public override void Write(Utf8JsonWriter writer, TId value, JsonSerializerOptions options) =>
+		writer.WriteStringValue(value switch
+		{
+			TId id =>
+				id.Value.ToString(),
+
+			_ =>
+				null
+		});
+
+	/// <summary>
 	/// Read <see cref="GuidId{TId}"/> type value.
 	/// </summary>
 	/// <param name="reader">JSON reader.</param>
