@@ -16,22 +16,6 @@ internal abstract class IdJsonConverter<TId, TValue> : JsonConverter<TId>
 	where TValue : struct
 {
 	/// <summary>
-	/// Write an <see cref="IId{TId, TValue}"/> type value.
-	/// </summary>
-	/// <param name="writer">Json Writer.</param>
-	/// <param name="value">ID value.</param>
-	/// <param name="options">JSON options.</param>
-	public override void Write(Utf8JsonWriter writer, TId value, JsonSerializerOptions options) =>
-		writer.WriteStringValue(value switch
-		{
-			TId id =>
-				id.Value.ToString(),
-
-			_ =>
-				null
-		});
-
-	/// <summary>
 	/// Try to skip the JSON token (because it hasn't been matched correctly) and return a default value.
 	/// </summary>
 	/// <param name="skipped">Whether or not the JSON token has been skipped.</param>
