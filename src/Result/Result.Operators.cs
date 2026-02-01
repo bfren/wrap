@@ -20,4 +20,11 @@ public abstract partial record class Result<T>
 	/// <returns>Failure value.</returns>
 	public static implicit operator Result<T>(Failure fail) =>
 		new FailureImpl(fail.Value);
+
+	/// <summary>
+	/// Implicitly convert a <see cref="Union{T}"/> into a <see cref="Result{T}"/> object.
+	/// </summary>
+	/// <param name="obj">Wrapped object.</param>
+	public static implicit operator Result<T>(Union<T> obj) =>
+		R.Wrap(obj.Value);
 }
