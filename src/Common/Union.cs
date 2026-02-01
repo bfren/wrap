@@ -7,6 +7,12 @@ using Wrap.Exceptions;
 namespace Wrap;
 
 /// <summary>
+/// Simple Union type.
+/// </summary>
+/// <typeparam name="T">Value type.</typeparam>
+public sealed record class Union<T> : Union<Union<T>, T>;
+
+/// <summary>
 /// Wraps simple CLR types.
 /// </summary>
 /// <typeparam name="TUnion">Union implementation type.</typeparam>
@@ -18,21 +24,21 @@ public abstract record class Union<TUnion, TValue> : IUnion<TUnion, TValue>
 	[MemberNotNull]
 	public TValue Value
 	{
-		get => Check(value);
-		init => this.value = Check(value);
+		get => Check(field);
+		init => field = Check(value);
 	}
 
 	/// <summary>
-	/// Encapsulated value.
+	/// Create an empty object.
 	/// </summary>
-	private readonly TValue? value;
+	protected Union() { }
 
 	/// <summary>
-	/// Allow base classes to set <see cref="value"/>.
+	/// Allow base classes to set <see cref="Value"/> on construction.
 	/// </summary>
 	/// <param name="value">Union value.</param>
 	protected Union([DisallowNull] TValue value) =>
-		this.value = value;
+		Value = value;
 
 	/// <summary>
 	/// Check <paramref name="value"/> and throw an exception if it is null and the underlying type

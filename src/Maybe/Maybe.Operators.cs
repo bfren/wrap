@@ -18,4 +18,11 @@ public abstract partial record class Maybe<T>
 	/// <param name="_">None value (discarded).</param>
 	public static implicit operator Maybe<T>(None _) =>
 		new NoneImpl();
+
+	/// <summary>
+	/// Implicitly convert a <see cref="Union{T}"/> into a <see cref="Maybe{T}"/> object.
+	/// </summary>
+	/// <param name="obj">Wrapped object.</param>
+	public static implicit operator Maybe<T>(Union<T> obj) =>
+		M.Wrap(obj.Value);
 }
