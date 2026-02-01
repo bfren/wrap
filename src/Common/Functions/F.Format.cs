@@ -70,19 +70,23 @@ public static partial class F
 			var flags = BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
 			var value = source switch
 			{
-				// Source array - get specific item in array
+				// Source array - get specific item in array for numbered template
 				Array arr when numberedTemplates && templateNumber < arr.Length && arr.GetValue(templateNumber) is object val =>
 					val,
 
-				// Source array - get next item in array
-				Array arr when replaceIndex < arr.Length && arr.GetValue(replaceIndex++) is object val =>
+				// Source value - use string value but only for the first template, i.e. {0}
+				{ } obj when numberedTemplates && templateNumber == 0 && obj.ToString() is string val =>
 					val,
 
-				// Source object - get matching property value
-				{ } obj when typeof(T).GetProperty(template, flags)?.GetValue(obj) is object val =>
+				// Source array - get next item in array for named template
+				Array arr when !numberedTemplates && replaceIndex < arr.Length && arr.GetValue(replaceIndex++) is object val =>
 					val,
 
-				// Nothing matches to use 
+				// Source object - get matching property value for named template
+				{ } obj when !numberedTemplates && typeof(T).GetProperty(template, flags)?.GetValue(obj) is object val =>
+					val,
+
+				// Nothing matches so put placeholder back
 				_ =>
 					$"{{{template}}}"
 			};
@@ -96,10 +100,10 @@ public static partial class F
 				+ new string('}', endGroup.Captures.Count);
 		});
 
-		// Format string
+		// Format string with ordered values
 		var formatted = string.Format(DefaultCulture, rewrittenFormat, [.. values]);
 
-		// If the string still contains any templates, return original format string
+		// If the string still contains any placeholders, return original format string
 		return regex.IsMatch(formatted) ? formatString : formatted;
 	}
 
