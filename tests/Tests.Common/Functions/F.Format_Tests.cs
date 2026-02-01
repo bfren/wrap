@@ -41,6 +41,23 @@ public class Format_Tests
 
 	public class With_Numbered_Placeholders
 	{
+		public class With_Single_Value_Source
+		{
+			[Fact]
+			public void Replaces_With_Value()
+			{
+				// Arrange
+				var format = "{0}/";
+				var value = Rnd.Guid;
+
+				// Act
+				var result = F.Format(format, value, string.Empty);
+
+				// Assert
+				Assert.Equal($"{value}/", result);
+			}
+		}
+
 		public class With_Object_Source
 		{
 			[Fact]
@@ -132,6 +149,22 @@ public class Format_Tests
 
 	public class With_Named_Placeholders
 	{
+		public class With_Single_Value_Source
+		{
+			[Fact]
+			public void Returns_Format()
+			{
+				// Arrange
+				var format = "{bar}/";
+
+				// Act
+				var result = F.Format(format, Rnd.Lng, string.Empty);
+
+				// Assert
+				Assert.Equal(format, result);
+			}
+		}
+
 		public class With_Object_Source
 		{
 			[Fact]
@@ -263,6 +296,4 @@ public class Format_Tests
 			}
 		}
 	}
-
-
 }
