@@ -3,8 +3,8 @@
 
 namespace Wrap;
 
-/// <inheritdoc cref="IUnion{T}"/>
-public interface IUnion
+/// <inheritdoc cref="IMonad{TMonad, TValue}"/>
+public interface IMonad
 {
 	/// <summary>
 	/// Value.
@@ -12,26 +12,23 @@ public interface IUnion
 	object Value { get; }
 }
 
-/// <summary>
-/// Single-case Union monad.
-/// </summary>
-/// <typeparam name="T">Value type.</typeparam>
-public interface IUnion<T> : IUnion
+/// <inheritdoc cref="IMonad{TMonad, TValue}"/>
+public interface IMonad<T> : IMonad
 {
 	/// <summary>
 	/// Value - nullability will match the nullability of <typeparamref name="T"/>.
 	/// </summary>
 	new T Value { get; init; }
 
-	object IUnion.Value =>
+	object IMonad.Value =>
 		Value ?? new object();
 }
 
 /// <summary>
-/// Single-case Union monad.
+/// Single-case Monad monad to wrap an object.
 /// </summary>
-/// <typeparam name="TUnion">Union type.</typeparam>
+/// <typeparam name="TMonad">Monad type.</typeparam>
 /// <typeparam name="TValue">Value type.</typeparam>
-public interface IUnion<TUnion, TValue> : IUnion<TValue>
-	where TUnion : IUnion<TUnion, TValue>
+public interface IMonad<TMonad, TValue> : IMonad<TValue>
+	where TMonad : IMonad<TMonad, TValue>
 { }

@@ -7,7 +7,7 @@ namespace Wrap;
 /// ID monad.
 /// </summary>
 /// <typeparam name="TValue">ID value type.</typeparam>
-public interface IId<TValue> : IUnion<TValue>
+public interface IId<TValue> : IMonad<TValue>
 	where TValue : struct
 { }
 
@@ -16,7 +16,7 @@ public interface IId<TValue> : IUnion<TValue>
 /// </summary>
 /// <typeparam name="TId">ID implementation type.</typeparam>
 /// <typeparam name="TValue">ID value type.</typeparam>
-public interface IId<TId, TValue> : IId<TValue>, IUnion<TId, TValue>
+public interface IId<TId, TValue> : IId<TValue>, IMonad<TId, TValue>
 	where TId : class, IId<TId, TValue>, new()
 	where TValue : struct
 { }

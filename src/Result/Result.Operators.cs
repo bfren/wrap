@@ -22,9 +22,9 @@ public abstract partial record class Result<T>
 		new FailureImpl(fail.Value);
 
 	/// <summary>
-	/// Implicitly convert a <see cref="Union{T}"/> into a <see cref="Result{T}"/> object.
+	/// Implicitly convert a <see cref="Monad{T}"/> into a <see cref="Result{T}"/> object.
 	/// </summary>
 	/// <param name="obj">Wrapped object.</param>
-	public static implicit operator Result<T>(Union<T> obj) =>
+	public static implicit operator Result<T>(Monad<T> obj) =>
 		R.Wrap(obj.Value);
 }

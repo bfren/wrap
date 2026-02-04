@@ -9,9 +9,9 @@ namespace Wrap;
 public interface IWithId
 {
 	/// <summary>
-	/// Union ID value.
+	/// Monad ID value.
 	/// </summary>
-	IUnion Id { get; }
+	IMonad Id { get; }
 }
 
 /// <summary>
@@ -21,9 +21,9 @@ public interface IWithId
 public interface IWithId<T> : IWithId
 {
 	/// <summary>
-	/// Union ID value with specific type.
+	/// Monad ID value with specific type.
 	/// </summary>
-	new IUnion<T> Id { get; }
+	new IMonad<T> Id { get; }
 }
 
 /// <summary>

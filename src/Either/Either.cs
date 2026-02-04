@@ -21,16 +21,16 @@ public abstract record class Either<TLeft, TRight> : IEither<Either<TLeft, TRigh
 		);
 
 	/// <summary>
-	/// Implicitly convert a <see cref="Union{T}"/> into a <see cref="Either{TLeft, TRight}"/> object.
+	/// Implicitly convert a <see cref="Monad{T}"/> into a <see cref="Either{TLeft, TRight}"/> object.
 	/// </summary>
 	/// <param name="obj">Wrapped object.</param>
-	public static implicit operator Either<TLeft, TRight>(Union<TLeft> obj) =>
+	public static implicit operator Either<TLeft, TRight>(Monad<TLeft> obj) =>
 		E.WrapLeft<TLeft, TRight>(obj.Value);
 
 	/// <summary>
-	/// Implicitly convert a <see cref="Union{T}"/> into a <see cref="Either{TLeft, TRight}"/> object.
+	/// Implicitly convert a <see cref="Monad{T}"/> into a <see cref="Either{TLeft, TRight}"/> object.
 	/// </summary>
 	/// <param name="obj">Wrapped object.</param>
-	public static implicit operator Either<TLeft, TRight>(Union<TRight> obj) =>
+	public static implicit operator Either<TLeft, TRight>(Monad<TRight> obj) =>
 		E.WrapRight<TLeft, TRight>(obj.Value);
 }

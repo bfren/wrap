@@ -11,7 +11,7 @@ namespace Wrap;
 /// <typeparam name="TEither">Either implementation type.</typeparam>
 /// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 /// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
-public readonly record struct Unsafe<TEither, TLeft, TRight> : IUnion<TEither>
+public readonly record struct Unsafe<TEither, TLeft, TRight> : IMonad<TEither>
 	where TEither : IEither<TEither, TLeft, TRight>
 {
 	/// <summary>

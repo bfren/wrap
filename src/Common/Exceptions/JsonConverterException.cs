@@ -4,7 +4,7 @@
 namespace Wrap.Exceptions;
 
 /// <summary>
-/// Throw when <see cref="Json.UnionJsonConverterFactory"/> is unable to create a JsonConverter.
+/// Throw when <see cref="Json.MonadJsonConverterFactory"/> is unable to create a JsonConverter.
 /// </summary>
 /// <param name="message">Exception message.</param>
 public sealed class JsonConverterException(string message) :

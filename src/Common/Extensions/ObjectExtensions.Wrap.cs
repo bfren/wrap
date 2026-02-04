@@ -5,7 +5,7 @@ namespace Wrap.Extensions;
 
 public static partial class ObjectExtensions
 {
-	/// <inheritdoc cref="F.Wrap{TUnion, TValue}(TValue)"/>
-	public static Union<T> Wrap<T>(this T value) =>
-		F.Wrap<Union<T>, T>(value);
+	/// <inheritdoc cref="F.Wrap{TMonad, TValue}(TValue)"/>
+	public static Monad<T> Wrap<T>(this T value) =>
+		F.Wrap<Monad<T>, T>(value);
 }
