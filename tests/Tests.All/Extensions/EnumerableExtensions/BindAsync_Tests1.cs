@@ -5,11 +5,11 @@ namespace Wrap.Extensions.EnumerableExtensions_Tests;
 
 public partial class BindAsync_Tests
 {
-	private static ResultVars SetupResult(bool withValue, bool mixed = false)
+	private static ResultVars SetupResult(bool withValues, bool mixed = false)
 	{
 		var values = new[] { Rnd.Int, Rnd.Int, Rnd.Int };
 		return new(
-			GetResult(withValue ? values : null, mixed),
+			GetResult(withValues ? values : null, mixed),
 			Substitute.For<Func<int, Result<string>>>(),
 			values
 		);

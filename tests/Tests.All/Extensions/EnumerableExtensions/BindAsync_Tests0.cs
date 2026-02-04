@@ -5,11 +5,11 @@ namespace Wrap.Extensions.EnumerableExtensions_Tests;
 
 public partial class BindAsync_Tests
 {
-	private static MaybeVars SetupMaybe(bool withValue, bool mixed = false)
+	private static MaybeVars SetupMaybe(bool withValues, bool mixed = false)
 	{
 		var values = new[] { Rnd.Int, Rnd.Int, Rnd.Int };
 		return new(
-			GetMaybe(withValue ? values : null, mixed),
+			GetMaybe(withValues ? values : null, mixed),
 			Substitute.For<Func<int, Maybe<string>>>(),
 			values
 		);
