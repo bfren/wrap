@@ -27,7 +27,7 @@ public sealed class IdModelBinderProvider : IModelBinderProvider
 	internal static IModelBinder? GetBinderFromModelType(Type modelType)
 	{
 		// If this type isn't an ID, return null so MVC can move on to try the next model binder
-		var idValueType = F.GetUnionValueType(modelType, typeof(IId<,>));
+		var idValueType = F.GetMonadValueType(modelType, typeof(IId<,>));
 		if (idValueType is null)
 		{
 			return null;

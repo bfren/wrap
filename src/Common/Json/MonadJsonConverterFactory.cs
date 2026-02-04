@@ -9,27 +9,27 @@ using Wrap.Exceptions;
 namespace Wrap.Json;
 
 /// <summary>
-/// Create a <see cref="UnionJsonConverter{TUnion, TValue}"/> object for supported objects.
+/// Create a <see cref="MonadJsonConverter{TMonad, TValue}"/> object for supported objects.
 /// </summary>
-public sealed class UnionJsonConverterFactory : JsonConverterFactory
+public sealed class MonadJsonConverterFactory : JsonConverterFactory
 {
 	/// <summary>
-	/// Returns true if <see cref="UnionJsonConverterFactory"/> can convert <paramref name="typeToConvert"/>.
+	/// Returns true if <see cref="MonadJsonConverterFactory"/> can convert <paramref name="typeToConvert"/>.
 	/// </summary>
 	/// <param name="typeToConvert">The type to convert to / from JSON.</param>
-	/// <returns>Whether or not <paramref name="typeToConvert"/> implements <see cref="IUnion{TUnion,TValue}"/>.</returns>
+	/// <returns>Whether or not <paramref name="typeToConvert"/> implements <see cref="IMonad{TMonad,TValue}"/>.</returns>
 	public override bool CanConvert(Type typeToConvert) =>
-		F.GetUnionTypes(typeToConvert, typeof(IUnion<,>)) is not (null, null);
+		F.GetMonadTypes(typeToConvert, typeof(IMonad<,>)) is not (null, null);
 
 	/// <inheritdoc/>
 	public override JsonConverter? CreateConverter(Type typeToConvert, JsonSerializerOptions options)
 	{
-		// IUnion<,> requires two type arguments
-		var (unionType, valueType) = F.GetUnionTypes(typeToConvert, typeof(IUnion<,>));
-		if (unionType is null || valueType is null)
+		// IMonad<,> requires two type arguments
+		var (monadType, valueType) = F.GetMonadTypes(typeToConvert, typeof(IMonad<,>));
+		if (monadType is null || valueType is null)
 		{
 			throw new JsonConverterException(
-				$"{typeToConvert} is an invalid {typeof(IUnion<,>)}."
+				$"{typeToConvert} is an invalid {typeof(IMonad<,>)}."
 			);
 		}
 
@@ -42,7 +42,7 @@ public sealed class UnionJsonConverterFactory : JsonConverterFactory
 		}
 
 		// Attempt to create and return the converter
-		var genericType = typeof(UnionJsonConverter<,>).MakeGenericType(typeToConvert, valueType);
+		var genericType = typeof(MonadJsonConverter<,>).MakeGenericType(typeToConvert, valueType);
 		return Activator.CreateInstance(genericType) switch
 		{
 			JsonConverter converter =>
@@ -50,7 +50,7 @@ public sealed class UnionJsonConverterFactory : JsonConverterFactory
 
 			_ =>
 				throw new JsonConverterException(
-					$"Unable to create {typeof(UnionJsonConverter<,>)} for type {typeToConvert}."
+					$"Unable to create {typeof(MonadJsonConverter<,>)} for type {typeToConvert}."
 				)
 		};
 	}

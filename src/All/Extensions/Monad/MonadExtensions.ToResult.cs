@@ -3,14 +3,14 @@
 
 namespace Wrap.Extensions;
 
-public static partial class UnionExtensions
+public static partial class MonadExtensions
 {
 	/// <summary>
-	/// Convert a <see cref="IUnion{T}"/> to <see cref="Result{T}"/>.
+	/// Convert a <see cref="IMonad{T}"/> to <see cref="Result{T}"/>.
 	/// </summary>
 	/// <typeparam name="T">Value type.</typeparam>
-	/// <param name="this">Union object.</param>
+	/// <param name="this">Monad object.</param>
 	/// <returns>Result object.</returns>
-	public static Result<T> ToResult<T>(this IUnion<T> @this) =>
+	public static Result<T> ToResult<T>(this IMonad<T> @this) =>
 		R.Wrap(@this.Value);
 }

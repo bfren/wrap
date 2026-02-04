@@ -12,11 +12,11 @@ public abstract record class WithId<TId, TValue> : IWithId<TId, TValue>
 	public TId Id { get; init; } = new();
 
 	/// <inheritdoc/>
-	IUnion IWithId.Id =>
+	IMonad IWithId.Id =>
 		Id;
 
 	/// <inheritdoc/>
-	IUnion<TValue> IWithId<TValue>.Id =>
+	IMonad<TValue> IWithId<TValue>.Id =>
 		Id;
 
 	/// <summary>

@@ -14,7 +14,7 @@ namespace Wrap;
 /// enables implicit operators to handle returning it as <see cref="Result{T}"/>
 /// without knowing the generic type.
 /// </summary>
-public readonly partial struct Failure : IEquatable<Failure>, IUnion<Failure, FailureValue>
+public readonly partial struct Failure : IEquatable<Failure>, IMonad<Failure, FailureValue>
 {
 	private static readonly CompositeFormat ContextFormat = CompositeFormat.Parse("{0}.{1}()");
 

@@ -6,17 +6,17 @@ namespace Abstracts;
 public abstract class Value_Tests
 {
 	private object Get<T>(T id)
-		where T : IUnion =>
+		where T : IMonad =>
 		id.Value;
 
 	private TId Set<TId, TValue>(TValue value)
-		where TId : IUnion<TValue>, new() =>
+		where TId : IMonad<TValue>, new() =>
 		new() { Value = value };
 
 	public abstract void Test00_Generic_Get__With_Value__Returns_Value();
 
 	protected void Test00<TId>(TId input)
-		where TId : IUnion, new()
+		where TId : IMonad, new()
 	{
 		// Arrange
 
@@ -30,7 +30,7 @@ public abstract class Value_Tests
 	public abstract void Test01_Generic_Set__Receives_Correct_Type__Uses_Value();
 
 	public void Test01<TId, TValue>(TValue input)
-		where TId : IUnion<TValue>, new()
+		where TId : IMonad<TValue>, new()
 	{
 		// Arrange
 

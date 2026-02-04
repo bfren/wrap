@@ -14,11 +14,11 @@ namespace Wrap.Json;
 public sealed class IdJsonConverterFactory : JsonConverterFactory
 {
 	/// <summary>
-	/// Returns true if <paramref name="typeToConvert"/> is a <see cref="IUnion{TUnion, TValue}"/>.
+	/// Returns true if <paramref name="typeToConvert"/> is a <see cref="IMonad{TMonad, TValue}"/>.
 	/// </summary>
 	/// <param name="typeToConvert"><see cref="IId{TId, TValue}"/> type.</param>
 	public override bool CanConvert(Type typeToConvert) =>
-		F.GetUnionTypes(typeToConvert, typeof(IId<,>)) is not (null, null);
+		F.GetMonadTypes(typeToConvert, typeof(IId<,>)) is not (null, null);
 
 	/// <summary>
 	/// Creates JsonConverter using <paramref name="typeToConvert"/> type as generic argument.
@@ -29,7 +29,7 @@ public sealed class IdJsonConverterFactory : JsonConverterFactory
 	public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
 	{
 		// IId<,> requires two type arguments
-		var (idType, idValueType) = F.GetUnionTypes(typeToConvert, typeof(IId<,>));
+		var (idType, idValueType) = F.GetMonadTypes(typeToConvert, typeof(IId<,>));
 		if (idType is null || idValueType is null)
 		{
 			throw new JsonConverterException(

@@ -8,7 +8,7 @@ namespace Wrap;
 /// </summary>
 /// <typeparam name="TId">Implementation type.</typeparam>
 /// <typeparam name="TValue">ID value type.</typeparam>
-public abstract record class Id<TId, TValue> : Union<TId, TValue>, IId<TId, TValue>
+public abstract record class Id<TId, TValue> : Monad<TId, TValue>, IId<TId, TValue>
 	where TId : Id<TId, TValue>, new()
 	where TValue : struct
 {

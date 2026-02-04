@@ -4,6 +4,6 @@
 namespace Wrap.Extensions;
 
 /// <summary>
-/// Extension methods for <see cref="Union{T}"/> objects.
+/// Extension methods for <see cref="Monad{T}"/> objects.
 /// </summary>
-public static partial class UnionExtensions { }
+public static partial class MonadExtensions { }

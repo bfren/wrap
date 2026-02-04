@@ -18,7 +18,7 @@ public static partial class HtmlHelperExtensions
 	/// <param name="this">HtmlHelper.</param>
 	/// <param name="expression">Expression to return ID property.</param>
 	public static IHtmlContent HiddenForId<TModel, TId>(this IHtmlHelper<TModel> @this, Expression<Func<TModel, TId>> expression)
-		where TId : IUnion
+		where TId : IMonad
 	{
 		// Use helper to generate input name
 		var name = @this.NameFor(expression);

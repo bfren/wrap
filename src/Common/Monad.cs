@@ -6,21 +6,14 @@ using Wrap.Exceptions;
 
 namespace Wrap;
 
-/// <summary>
-/// Simple Union type.
-/// </summary>
-/// <typeparam name="T">Value type.</typeparam>
-public sealed record class Union<T> : Union<Union<T>, T>;
+/// <see cref="IMonad{TMonad, TValue}"/>
+public sealed record class Monad<T> : Monad<Monad<T>, T>;
 
-/// <summary>
-/// Wraps simple CLR types.
-/// </summary>
-/// <typeparam name="TUnion">Union implementation type.</typeparam>
-/// <typeparam name="TValue">Value type.</typeparam>
-public abstract record class Union<TUnion, TValue> : IUnion<TUnion, TValue>
-	where TUnion : IUnion<TUnion, TValue>, new()
+/// <see cref="IMonad{TMonad, TValue}"/>
+public abstract record class Monad<TMonad, TValue> : IMonad<TMonad, TValue>
+	where TMonad : IMonad<TMonad, TValue>, new()
 {
-	/// <inheritdoc cref="IUnion{T}.Value"/>
+	/// <inheritdoc cref="IMonad{T}.Value"/>
 	[MemberNotNull]
 	public TValue Value
 	{
@@ -31,13 +24,13 @@ public abstract record class Union<TUnion, TValue> : IUnion<TUnion, TValue>
 	/// <summary>
 	/// Create an empty object.
 	/// </summary>
-	protected Union() { }
+	protected Monad() { }
 
 	/// <summary>
 	/// Allow base classes to set <see cref="Value"/> on construction.
 	/// </summary>
-	/// <param name="value">Union value.</param>
-	protected Union([DisallowNull] TValue value) =>
+	/// <param name="value">Monad value.</param>
+	protected Monad([DisallowNull] TValue value) =>
 		Value = value;
 
 	/// <summary>
@@ -46,7 +39,7 @@ public abstract record class Union<TUnion, TValue> : IUnion<TUnion, TValue>
 	/// </summary>
 	/// <param name="value">Value to check.</param>
 	/// <returns><paramref name="value"/> if not null or null is permitted.</returns>
-	/// <exception cref="NullUnionValueException">If <paramref name="value"/> is null and the underlying type is not nullable.</exception>
+	/// <exception cref="NullMonadValueException">If <paramref name="value"/> is null and the underlying type is not nullable.</exception>
 	private TValue Check(TValue? value) =>
 		value switch
 		{
@@ -57,16 +50,20 @@ public abstract record class Union<TUnion, TValue> : IUnion<TUnion, TValue>
 				value!,
 
 			_ =>
-				throw new NullUnionValueException()
+				throw new NullMonadValueException()
 		};
 
 	/// <summary>
 	/// Wrap a value as the current type.
 	/// </summary>
-	/// <param name="value">Union value.</param>
-	/// <returns>Wrapped <typeparamref name="TUnion"/> value.</returns>
+	/// <param name="value">Monad value.</param>
+	/// <returns>Wrapped <typeparamref name="TMonad"/> value.</returns>
 #pragma warning disable CA1000 // Do not declare static members on generic types
-	public static TUnion Wrap(TValue value) =>
-		F.Wrap<TUnion, TValue>(value);
+	public static TMonad Wrap(TValue value) =>
+		F.Wrap<TMonad, TValue>(value);
+
+	/// <inheritdoc cref="Wrap(TValue)"/>
+	public static TMonad Bind(TValue value) =>
+		F.Wrap<TMonad, TValue>(value);
 #pragma warning restore CA1000 // Do not declare static members on generic types
 }

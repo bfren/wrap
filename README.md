@@ -5,7 +5,7 @@
 Various monads (including Maybe - see [here](https://en.wikipedia.org/wiki/Monad_(functional_programming)#An_example:_Maybe)) for C# - to handle null values and exceptions better - including Linq support, chaining, and asynchronous programming.  Includes:
 
 - `Either<TLeft, TRight>`
-- `Union<T>`
+- `Monad<T>`
 - `Id<T>` (support for `int`, `uint`, `long`, `ulong` and `Guid` value types)
 - `Maybe<T>` (either: `Some<T>` or `None`)
 - `Result<T>` (either: `Ok<T>` or `Failure`)

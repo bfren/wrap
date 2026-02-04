@@ -8,4 +8,4 @@ namespace Wrap;
 /// </summary>
 /// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 /// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
-public interface IRight<TLeft, TRight> : IEither<TLeft, TRight>, IUnion<TRight> { }
+public interface IRight<TLeft, TRight> : IEither<TLeft, TRight>, IMonad<TRight> { }
