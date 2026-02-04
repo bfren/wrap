@@ -37,4 +37,9 @@ public static partial class F
 			_ =>
 				throw new NullMonadValueException()
 		};
+
+	/// <inheritdoc cref="Wrap{TMonad, TValue}(TValue)"/>
+	public static TMonad Bind<TMonad, TValue>(TValue? value)
+		where TMonad : IMonad<TMonad, TValue>, new() =>
+		Wrap<TMonad, TValue>(value);
 }
