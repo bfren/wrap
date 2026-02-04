@@ -4,6 +4,11 @@
 namespace Wrap;
 
 /// <inheritdoc cref="IMonad{TMonad, TValue}"/>
+/// <remarks>
+/// This is the base type for all monad objects in the Wrap libraries,
+/// though most implementations use the more useful <see cref="IMonad{T}"/>
+/// and <see cref="IMonad{TMonad, TValue}"/>.
+/// </remarks>
 public interface IMonad
 {
 	/// <summary>
@@ -16,7 +21,7 @@ public interface IMonad
 public interface IMonad<T> : IMonad
 {
 	/// <summary>
-	/// Value - nullability will match the nullability of <typeparamref name="T"/>.
+	/// Value - nullability will match that of <typeparamref name="T"/>.
 	/// </summary>
 	new T Value { get; init; }
 
@@ -25,7 +30,7 @@ public interface IMonad<T> : IMonad
 }
 
 /// <summary>
-/// Single-case Monad monad to wrap an object.
+/// Single-case monad type to wrap an object value.
 /// </summary>
 /// <typeparam name="TMonad">Monad type.</typeparam>
 /// <typeparam name="TValue">Value type.</typeparam>
