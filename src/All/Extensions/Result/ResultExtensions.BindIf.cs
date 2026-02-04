@@ -22,7 +22,7 @@ public static partial class ResultExtensions
 			x => predicate(x) switch
 			{
 				false =>
-					R.Fail("Predicate was false.").Ctx(nameof(ResultExtensions), nameof(BindIfAsync)),
+					R.Fail(C.PredicateFalseMessage).Ctx(nameof(ResultExtensions), nameof(BindIfAsync)),
 
 				true =>
 					f(x)
@@ -32,6 +32,10 @@ public static partial class ResultExtensions
 	/// <inheritdoc cref="BindIf{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
 	public static Task<Result<TReturn>> BindIfAsync<T, TReturn>(this Result<T> @this, Func<T, bool> predicate, Func<T, Task<Result<TReturn>>> f) =>
 		BindIfAsync(@this.AsTask(), x => Task.FromResult(predicate(x)), f);
+
+	/// <inheritdoc cref="BindIf{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static Task<Result<TReturn>> BindIfAsync<T, TReturn>(this Result<T> @this, Func<T, Task<bool>> predicate, Func<T, Result<TReturn>> f) =>
+		BindIfAsync(@this.AsTask(), predicate, x => f(x).AsTask());
 
 	/// <inheritdoc cref="BindIf{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
 	public static Task<Result<TReturn>> BindIfAsync<T, TReturn>(this Result<T> @this, Func<T, Task<bool>> predicate, Func<T, Task<Result<TReturn>>> f) =>
@@ -46,12 +50,16 @@ public static partial class ResultExtensions
 		BindIfAsync(@this, predicate, x => f(x).AsTask());
 
 	/// <inheritdoc cref="BindIf{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static Task<Result<TReturn>> BindIfAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, bool> predicate, Func<T, Task<Result<TReturn>>> f) =>
+		BindIfAsync(@this, x => Task.FromResult(predicate(x)), f);
+
+	/// <inheritdoc cref="BindIf{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
 	public static async Task<Result<TReturn>> BindIfAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, Task<bool>> predicate, Func<T, Task<Result<TReturn>>> f) =>
 		await BindAsync(@this,
 			async x => await predicate(x) switch
 			{
 				false =>
-					R.Fail("Predicate was false.").Ctx(nameof(ResultExtensions), nameof(BindIfAsync)),
+					R.Fail(C.PredicateFalseMessage).Ctx(nameof(ResultExtensions), nameof(BindIfAsync)),
 
 				true =>
 					await f(x)

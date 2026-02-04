@@ -6,4 +6,6 @@ namespace Wrap;
 internal static class C
 {
 	internal const string NoneFailureMessage = "Maybe<{Type}> was 'None'.";
+
+	internal const string PredicateFalseMessage = "Predicate was false.";
 }

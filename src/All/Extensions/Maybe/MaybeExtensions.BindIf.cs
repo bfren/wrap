@@ -34,12 +34,20 @@ public static partial class MaybeExtensions
 		BindIfAsync(@this.AsTask(), x => Task.FromResult(predicate(x)), f);
 
 	/// <inheritdoc cref="BindIf{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
+	public static Task<Maybe<TReturn>> BindIfAsync<T, TReturn>(this Maybe<T> @this, Func<T, Task<bool>> predicate, Func<T, Maybe<TReturn>> f) =>
+		BindIfAsync(@this.AsTask(), predicate, x => f(x).AsTask());
+
+	/// <inheritdoc cref="BindIf{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
 	public static Task<Maybe<TReturn>> BindIfAsync<T, TReturn>(this Maybe<T> @this, Func<T, Task<bool>> predicate, Func<T, Task<Maybe<TReturn>>> f) =>
 		BindIfAsync(@this.AsTask(), predicate, f);
 
 	/// <inheritdoc cref="BindIf{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
 	public static Task<Maybe<TReturn>> BindIfAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, bool> predicate, Func<T, Maybe<TReturn>> f) =>
 		BindIfAsync(@this, x => Task.FromResult(predicate(x)), x => f(x).AsTask());
+
+	/// <inheritdoc cref="BindIf{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
+	public static Task<Maybe<TReturn>> BindIfAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, bool> predicate, Func<T, Task<Maybe<TReturn>>> f) =>
+		BindIfAsync(@this, x => Task.FromResult(predicate(x)), f);
 
 	/// <inheritdoc cref="BindIf{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
 	public static Task<Maybe<TReturn>> BindIfAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<bool>> predicate, Func<T, Maybe<TReturn>> f) =>
