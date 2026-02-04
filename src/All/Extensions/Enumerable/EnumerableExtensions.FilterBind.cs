@@ -9,6 +9,8 @@ namespace Wrap.Extensions;
 
 public static partial class EnumerableExtensions
 {
+	#region Maybe
+
 	/// <summary>
 	/// Run <paramref name="bind"/> on each element of <paramref name="this"/> that matches <paramref name="predicate"/>.
 	/// </summary>
@@ -38,6 +40,13 @@ public static partial class EnumerableExtensions
 	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
 	public static IAsyncEnumerable<Maybe<TReturn>> FilterBindAsync<T, TReturn>(this IEnumerable<Maybe<T>> @this,
 		Func<T, bool> predicate,
+		Func<T, Maybe<TReturn>> bind
+	) =>
+		FilterBindAsync(@this, x => Task.FromResult(predicate(x)), x => bind(x).AsTask());
+
+	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
+	public static IAsyncEnumerable<Maybe<TReturn>> FilterBindAsync<T, TReturn>(this IEnumerable<Maybe<T>> @this,
+		Func<T, bool> predicate,
 		Func<T, Task<Maybe<TReturn>>> bind
 	) =>
 		FilterBindAsync(@this, x => Task.FromResult(predicate(x)), bind);
@@ -47,7 +56,7 @@ public static partial class EnumerableExtensions
 		Func<T, Task<bool>> predicate,
 		Func<T, Maybe<TReturn>> bind
 	) =>
-		FilterBindAsync(@this, predicate, x => Task.FromResult(bind(x)));
+		FilterBindAsync(@this, predicate, x => bind(x).AsTask());
 
 	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
 	public static async IAsyncEnumerable<Maybe<TReturn>> FilterBindAsync<T, TReturn>(this IEnumerable<Maybe<T>> @this,
@@ -66,6 +75,13 @@ public static partial class EnumerableExtensions
 			}
 		}
 	}
+
+	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
+	public static IAsyncEnumerable<Maybe<TReturn>> FilterBindAsync<T, TReturn>(this IAsyncEnumerable<Maybe<T>> @this,
+		Func<T, bool> predicate,
+		Func<T, Maybe<TReturn>> bind
+	) =>
+		FilterBindAsync(@this, x => Task.FromResult(predicate(x)), x => bind(x).AsTask());
 
 	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
 	public static IAsyncEnumerable<Maybe<TReturn>> FilterBindAsync<T, TReturn>(this IAsyncEnumerable<Maybe<T>> @this,
@@ -98,4 +114,96 @@ public static partial class EnumerableExtensions
 			}
 		}
 	}
+
+	#endregion
+
+	#region Result
+
+	/// <summary>
+	/// Run <paramref name="bind"/> on each element of <paramref name="this"/> that matches <paramref name="predicate"/>.
+	/// </summary>
+	/// <typeparam name="T">Some value type.</typeparam>
+	/// <typeparam name="TReturn">Return value type.</typeparam>
+	/// <param name="this">List of Result objects.</param>
+	/// <param name="predicate">Function to detemine whether or not the value of <paramref name="this"/> should be passed to <paramref name="bind"/>.</param>
+	/// <param name="bind">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
+	/// <returns>List of <see cref="Result{T}"/> objects returned by <paramref name="bind"/>.</returns>
+	public static IEnumerable<Result<TReturn>> FilterBind<T, TReturn>(this IEnumerable<Result<T>> @this,
+		Func<T, bool> predicate,
+		Func<T, Result<TReturn>> bind
+	)
+	{
+		foreach (var item in @this)
+		{
+			yield return item.BindIf(x => predicate(x), bind);
+		}
+	}
+
+	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static IAsyncEnumerable<Result<TReturn>> FilterBindAsync<T, TReturn>(this IEnumerable<Result<T>> @this,
+		Func<T, bool> predicate,
+		Func<T, Result<TReturn>> bind
+	) =>
+		FilterBindAsync(@this, x => Task.FromResult(predicate(x)), x => bind(x).AsTask());
+
+	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static IAsyncEnumerable<Result<TReturn>> FilterBindAsync<T, TReturn>(this IEnumerable<Result<T>> @this,
+		Func<T, bool> predicate,
+		Func<T, Task<Result<TReturn>>> bind
+	) =>
+		FilterBindAsync(@this, x => Task.FromResult(predicate(x)), bind);
+
+	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static IAsyncEnumerable<Result<TReturn>> FilterBindAsync<T, TReturn>(this IEnumerable<Result<T>> @this,
+		Func<T, Task<bool>> predicate,
+		Func<T, Result<TReturn>> bind
+	) =>
+		FilterBindAsync(@this, predicate, x => Task.FromResult(bind(x)));
+
+	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static async IAsyncEnumerable<Result<TReturn>> FilterBindAsync<T, TReturn>(this IEnumerable<Result<T>> @this,
+		Func<T, Task<bool>> predicate,
+		Func<T, Task<Result<TReturn>>> bind
+	)
+	{
+		foreach (var item in @this)
+		{
+			yield return await item.BindIfAsync(predicate, bind);
+		}
+	}
+
+	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static IAsyncEnumerable<Result<TReturn>> FilterBindAsync<T, TReturn>(this IAsyncEnumerable<Result<T>> @this,
+		Func<T, bool> predicate,
+		Func<T, Result<TReturn>> bind
+	) =>
+		FilterBindAsync(@this, x => Task.FromResult(predicate(x)), x => bind(x).AsTask());
+
+	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static IAsyncEnumerable<Result<TReturn>> FilterBindAsync<T, TReturn>(this IAsyncEnumerable<Result<T>> @this,
+		Func<T, bool> predicate,
+		Func<T, Task<Result<TReturn>>> bind
+	) =>
+		FilterBindAsync(@this, x => Task.FromResult(predicate(x)), bind);
+
+	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static IAsyncEnumerable<Result<TReturn>> FilterBindAsync<T, TReturn>(this IAsyncEnumerable<Result<T>> @this,
+		Func<T, Task<bool>> predicate,
+		Func<T, Result<TReturn>> bind
+	) =>
+		FilterBindAsync(@this, predicate, x => bind(x).AsTask());
+
+	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static async IAsyncEnumerable<Result<TReturn>> FilterBindAsync<T, TReturn>(this IAsyncEnumerable<Result<T>> @this,
+		Func<T, Task<bool>> predicate,
+		Func<T, Task<Result<TReturn>>> bind
+	)
+	{
+		await foreach (var item in @this)
+		{
+			yield return await item.BindIfAsync(predicate, bind);
+		}
+	}
+
+	#endregion
 }
