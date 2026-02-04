@@ -9,6 +9,8 @@ namespace Wrap.Extensions;
 
 public static partial class EnumerableExtensions
 {
+	#region Maybe
+
 	/// <summary>
 	/// Run <paramref name="f"/> on each value in <paramref name="this"/> that is <see cref="Some{T}"/>.
 	/// </summary>
@@ -64,4 +66,48 @@ public static partial class EnumerableExtensions
 			}
 		}
 	}
+
+	#endregion
+
+	#region Result
+
+	/// <summary>
+	/// Run <paramref name="f"/> on each value in <paramref name="this"/> that is <see cref="Ok{T}"/>.
+	/// </summary>
+	/// <typeparam name="T">Ok value type.</typeparam>
+	/// <typeparam name="TReturn">Return value type.</typeparam>
+	/// <param name="this">List of Resultobjects.</param>
+	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
+	/// <returns>List of <see cref="Result{T}"/> objects returned by <paramref name="f"/>.</returns>
+	public static IEnumerable<Result<TReturn>> Bind<T, TReturn>(this IEnumerable<Result<T>> @this, Func<T, Result<TReturn>> f)
+	{
+		foreach (var item in @this)
+		{
+			yield return item.Bind(f);
+		}
+	}
+
+	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Result{T}}, Func{T, Result{TReturn}})"/>
+	public static async IAsyncEnumerable<Result<TReturn>> BindAsync<T, TReturn>(this IEnumerable<Result<T>> @this, Func<T, Task<Result<TReturn>>> f)
+	{
+		foreach (var item in @this)
+		{
+			yield return await item.BindAsync(f);
+		}
+	}
+
+	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Result{T}}, Func{T, Result{TReturn}})"/>
+	public static IAsyncEnumerable<Result<TReturn>> BindAsync<T, TReturn>(this IAsyncEnumerable<Result<T>> @this, Func<T, Result<TReturn>> f) =>
+		BindAsync(@this, x => Task.FromResult(f(x)));
+
+	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Result{T}}, Func{T, Result{TReturn}})"/>
+	public static async IAsyncEnumerable<Result<TReturn>> BindAsync<T, TReturn>(this IAsyncEnumerable<Result<T>> @this, Func<T, Task<Result<TReturn>>> f)
+	{
+		await foreach (var item in @this)
+		{
+			yield return await item.BindAsync(f);
+		}
+	}
+
+	#endregion
 }
