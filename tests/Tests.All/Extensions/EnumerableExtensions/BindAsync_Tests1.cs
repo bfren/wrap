@@ -1,7 +1,7 @@
 // Wrap: Unit Tests.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-namespace Wrap.Extensions.Enumerable_Tests;
+namespace Wrap.Extensions.EnumerableExtensions_Tests;
 
 public partial class BindAsync_Tests
 {
