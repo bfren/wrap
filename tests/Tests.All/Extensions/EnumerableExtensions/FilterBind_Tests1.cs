@@ -5,6 +5,13 @@ namespace Wrap.Extensions.EnumerableExtensions_Tests;
 
 public partial class FilterBind_Tests
 {
+	internal static void AssertFailures<T>(IEnumerable<Result<T>> actual) =>
+		Assert.Collection(actual,
+			x => x.AssertFailure(C.PredicateFalseMessage),
+			x => x.AssertFailure(C.PredicateFalseMessage),
+			x => x.AssertFailure(C.PredicateFalseMessage)
+		);
+
 	private static ResultVars SetupResult(bool predicateReturn, bool withValues, bool mixed = false)
 	{
 		var predicate = Substitute.For<Func<int, bool>>();
@@ -14,7 +21,7 @@ public partial class FilterBind_Tests
 
 		var list = new[] { Rnd.Int, Rnd.Int, Rnd.Int };
 
-		return new(GetResult(withValues ? list : null, mixed), predicate, bind, list);
+		return new([.. GetResult(withValues ? list : null, mixed)], predicate, bind, list);
 	}
 
 	private static IEnumerable<Result<int>> GetResult(int[]? values, bool mixed)
@@ -42,7 +49,7 @@ public partial class FilterBind_Tests
 		public class Predicate_Returns_False
 		{
 			[Fact]
-			public void Returns_Failures()
+			public void Returns_Original_Failures()
 			{
 				// Arrange
 				var v = SetupResult(false, false);
@@ -51,11 +58,7 @@ public partial class FilterBind_Tests
 				var result = v.List.FilterBind(v.Predicate, v.Bind);
 
 				// Assert
-				Assert.Collection(result,
-					x => x.AssertFailure(),
-					x => x.AssertFailure(),
-					x => x.AssertFailure()
-				);
+				Bind_Tests.AssertFailures([.. v.List], result);
 			}
 
 			[Fact]
@@ -75,7 +78,7 @@ public partial class FilterBind_Tests
 		public class Predicate_Returns_True
 		{
 			[Fact]
-			public void Returns_Failures()
+			public void Returns_Original_Failures()
 			{
 				// Arrange
 				var v = SetupResult(true, false);
@@ -84,11 +87,7 @@ public partial class FilterBind_Tests
 				var result = v.List.FilterBind(v.Predicate, v.Bind);
 
 				// Assert
-				Assert.Collection(result,
-					x => x.AssertFailure(),
-					x => x.AssertFailure(),
-					x => x.AssertFailure()
-				);
+				Bind_Tests.AssertFailures([.. v.List], result);
 			}
 
 			[Fact]
@@ -120,11 +119,7 @@ public partial class FilterBind_Tests
 				var result = v.List.FilterBind(v.Predicate, v.Bind);
 
 				// Assert
-				Assert.Collection(result,
-					x => x.AssertFailure(C.PredicateFalseMessage),
-					x => x.AssertFailure(C.PredicateFalseMessage),
-					x => x.AssertFailure(C.PredicateFalseMessage)
-				);
+				AssertFailures(result);
 			}
 
 			[Fact]

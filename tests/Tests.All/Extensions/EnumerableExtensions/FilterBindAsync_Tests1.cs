@@ -163,13 +163,13 @@ public partial class FilterBindAsync_Tests
 				var r6 = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.BindAsync);
 
 				// Assert
-				BindIf_Tests.AssertFailures(r0);
-				BindIf_Tests.AssertFailures(r1);
-				BindIf_Tests.AssertFailures(r2);
-				BindIf_Tests.AssertFailures(r3);
-				BindIf_Tests.AssertFailures(r4);
-				BindIf_Tests.AssertFailures(r5);
-				BindIf_Tests.AssertFailures(r6);
+				FilterBind_Tests.AssertFailures(r0);
+				FilterBind_Tests.AssertFailures(r1);
+				FilterBind_Tests.AssertFailures(r2);
+				FilterBind_Tests.AssertFailures(r3);
+				FilterBind_Tests.AssertFailures(r4);
+				FilterBind_Tests.AssertFailures(r5);
+				FilterBind_Tests.AssertFailures(r6);
 			}
 
 			[Fact]
