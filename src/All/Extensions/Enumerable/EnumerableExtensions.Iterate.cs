@@ -9,6 +9,8 @@ namespace Wrap.Extensions;
 
 public static partial class EnumerableExtensions
 {
+	#region Maybe
+
 	/// <summary>
 	/// Loop through list <paramref name="this"/> and apply function <paramref name="f"/> to each element
 	/// that is a <see cref="Some{T}"/>.
@@ -40,9 +42,9 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Maybe{T}}, Action{T})"/>
-	public static async Task IterateAsync<T>(this IAsyncEnumerable<Maybe<T>> @this, Action<T> f)
+	public static async Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Action<T> f)
 	{
-		await foreach (var item in @this)
+		foreach (var item in await @this)
 		{
 			foreach (var some in item)
 			{
@@ -52,9 +54,9 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Maybe{T}}, Action{T})"/>
-	public static async Task IterateAsync<T>(this IAsyncEnumerable<Maybe<T>> @this, Func<T, Task> f)
+	public static async Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task> f)
 	{
-		await foreach (var item in @this)
+		foreach (var item in await @this)
 		{
 			foreach (var some in item)
 			{
@@ -62,4 +64,6 @@ public static partial class EnumerableExtensions
 			}
 		}
 	}
+
+	#endregion
 }
