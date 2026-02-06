@@ -2,14 +2,13 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Wrap;
 
 public static partial class F
 {
-	private static List<Type> GetGenericTypeArguments(Type type, Type genericType) =>
+	private static Type[] GetGenericTypeArguments(Type type, Type genericType) =>
 		// Get    .. all interfaces implemented by the type we are checking
 		// If     .. the interface is a generic type (i.e. has generic type arguments)
 		//        .. and the generic type definition is IMonad<,>
@@ -34,7 +33,7 @@ public static partial class F
 
 		// If the count is not 2, this means the type doesn't implement IMonad<TMonad, TValue>,
 		// or it implements it multiple times, which is not supported
-		if (types.Count != 2)
+		if (types.Length != 2)
 		{
 			return (null, null);
 		}
