@@ -269,7 +269,7 @@ public class Format_Tests
 				var zero = Rnd.Int;
 				var one = Rnd.Int;
 				var two = Rnd.Int;
-				var values = new object[] { zero, one, two };
+				var values = new { zero, one, two };
 
 				// Act
 				var result = F.Format(format, values);
