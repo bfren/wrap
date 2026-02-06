@@ -20,81 +20,75 @@ public static partial class EnumerableExtensions
 	/// <param name="predicate">Function to detemine whether or not the value of <paramref name="this"/> should be passed to <paramref name="f"/>.</param>
 	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
 	/// <returns>List of <see cref="Maybe{T}"/> objects returned by <paramref name="f"/>.</returns>
-	public static IEnumerable<Maybe<TReturn>> FilterMap<T, TReturn>(this IEnumerable<Maybe<T>> @this,
+	public static IEnumerable<Maybe<TReturn>> FilterMap<T, TReturn>(this IEnumerable<T> @this,
 		Func<T, bool> predicate,
-		Func<T, TReturn> f
+		Func<T, Maybe<TReturn>> f
 	)
 	{
 		foreach (var item in @this)
 		{
-			foreach (var some in item)
+			if (item is T value && predicate(value))
 			{
-				if (some is T value && predicate(value))
-				{
-					yield return f(value);
-				}
+				yield return f(value);
 			}
 		}
 	}
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this IEnumerable<Maybe<T>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
+	public static Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this IEnumerable<T> @this,
 		Func<T, bool> predicate,
-		Func<T, Task<TReturn>> f
+		Func<T, Task<Maybe<TReturn>>> f
 	) =>
 		FilterMapAsync(Task.FromResult(@this), x => Task.FromResult(predicate(x)), f);
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this IEnumerable<Maybe<T>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
+	public static Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this IEnumerable<T> @this,
 		Func<T, Task<bool>> predicate,
-		Func<T, TReturn> f
+		Func<T, Maybe<TReturn>> f
 	) =>
 		FilterMapAsync(Task.FromResult(@this), predicate, x => Task.FromResult(f(x)));
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this IEnumerable<Maybe<T>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
+	public static Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this IEnumerable<T> @this,
 		Func<T, Task<bool>> predicate,
-		Func<T, Task<TReturn>> f
+		Func<T, Task<Maybe<TReturn>>> f
 	) =>
 		FilterMapAsync(Task.FromResult(@this), predicate, f);
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
+	public static Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<T>> @this,
 		Func<T, bool> predicate,
-		Func<T, TReturn> f
+		Func<T, Maybe<TReturn>> f
 	) =>
 		FilterMapAsync(@this, x => Task.FromResult(predicate(x)), x => Task.FromResult(f(x)));
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
+	public static Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<T>> @this,
 		Func<T, bool> predicate,
-		Func<T, Task<TReturn>> f
+		Func<T, Task<Maybe<TReturn>>> f
 	) =>
 		FilterMapAsync(@this, x => Task.FromResult(predicate(x)), f);
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
+	public static Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<T>> @this,
 		Func<T, Task<bool>> predicate,
-		Func<T, TReturn> f
+		Func<T, Maybe<TReturn>> f
 	) =>
 		FilterMapAsync(@this, predicate, x => Task.FromResult(f(x)));
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static async Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
+	public static async Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<T>> @this,
 		Func<T, Task<bool>> predicate,
-		Func<T, Task<TReturn>> f
+		Func<T, Task<Maybe<TReturn>>> f
 	)
 	{
 		var list = new List<Maybe<TReturn>>();
 
 		foreach (var item in await @this)
 		{
-			foreach (var some in item)
+			if (item is T value && await predicate(value))
 			{
-				if (some is T value && await predicate(value))
-				{
-					list.Add(await f(value));
-				}
+				list.Add(await f(value));
 			}
 		}
 
@@ -114,71 +108,76 @@ public static partial class EnumerableExtensions
 	/// <param name="predicate">Function to detemine whether or not the value of <paramref name="this"/> should be passed to <paramref name="f"/>.</param>
 	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
 	/// <returns>List of <see cref="Result{T}"/> objects returned by <paramref name="f"/>.</returns>
-	public static IEnumerable<Result<TReturn>> FilterMap<T, TReturn>(this IEnumerable<Result<T>> @this,
+	public static IEnumerable<Result<TReturn>> FilterMap<T, TReturn>(this IEnumerable<T> @this,
 		Func<T, bool> predicate,
-		Func<T, TReturn> f
+		Func<T, Result<TReturn>> f
 	)
 	{
 		foreach (var item in @this)
 		{
-			yield return item.BindIf(predicate, x => R.Wrap(f(x)));
+			if (item is T value && predicate(value))
+			{
+				yield return f(value);
+			}
 		}
 	}
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this IEnumerable<Result<T>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this IEnumerable<T> @this,
 		Func<T, bool> predicate,
-		Func<T, Task<TReturn>> f
+		Func<T, Task<Result<TReturn>>> f
 	) =>
 		FilterMapAsync(Task.FromResult(@this), x => Task.FromResult(predicate(x)), f);
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this IEnumerable<Result<T>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this IEnumerable<T> @this,
 		Func<T, Task<bool>> predicate,
-		Func<T, TReturn> f
+		Func<T, Result<TReturn>> f
 	) =>
 		FilterMapAsync(Task.FromResult(@this), predicate, x => Task.FromResult(f(x)));
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this IEnumerable<Result<T>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this IEnumerable<T> @this,
 		Func<T, Task<bool>> predicate,
-		Func<T, Task<TReturn>> f
+		Func<T, Task<Result<TReturn>>> f
 	) =>
 		FilterMapAsync(Task.FromResult(@this), predicate, f);
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<T>> @this,
 		Func<T, bool> predicate,
-		Func<T, TReturn> f
+		Func<T, Result<TReturn>> f
 	) =>
 		FilterMapAsync(@this, x => Task.FromResult(predicate(x)), x => Task.FromResult(f(x)));
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<T>> @this,
 		Func<T, bool> predicate,
-		Func<T, Task<TReturn>> f
+		Func<T, Task<Result<TReturn>>> f
 	) =>
 		FilterMapAsync(@this, x => Task.FromResult(predicate(x)), f);
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<T>> @this,
 		Func<T, Task<bool>> predicate,
-		Func<T, TReturn> f
+		Func<T, Result<TReturn>> f
 	) =>
 		FilterMapAsync(@this, predicate, x => Task.FromResult(f(x)));
 
-	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static async Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
+	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
+	public static async Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<T>> @this,
 		Func<T, Task<bool>> predicate,
-		Func<T, Task<TReturn>> f
+		Func<T, Task<Result<TReturn>>> f
 	)
 	{
 		var list = new List<Result<TReturn>>();
-		async Task<Result<TReturn>> bind(T x) => await f(x);
 
 		foreach (var item in await @this)
 		{
-			list.Add(await item.BindIfAsync(predicate, bind));
+			if (item is T value && await predicate(value))
+			{
+				list.Add(await f(value));
+			}
 		}
 
 		return list;

@@ -3,53 +3,53 @@
 
 namespace Wrap.Extensions.EnumerableExtensions_Tests;
 
-public partial class FilterMapAsync_Tests
+public class FilterMapAsync_Tests1
 {
 	private static ResultVars SetupResult(bool predicateReturn, bool withValues, bool mixed = false)
 	{
-		var predicate = Substitute.For<Func<int, bool>>();
-		var predicateAsync = Substitute.For<Func<int, Task<bool>>>();
-		predicate.Invoke(Arg.Any<int>()).Returns(predicateReturn);
-		predicateAsync.Invoke(Arg.Any<int>()).Returns(predicateReturn);
+		var predicate = Substitute.For<Func<string, bool>>();
+		var predicateAsync = Substitute.For<Func<string, Task<bool>>>();
+		predicate.Invoke(Arg.Any<string>()).Returns(predicateReturn);
+		predicateAsync.Invoke(Arg.Any<string>()).Returns(predicateReturn);
 
-		var list = new[] { Rnd.Int, Rnd.Int, Rnd.Int };
+		var list = new[] { Rnd.Str, Rnd.Str, Rnd.Str };
 
 		return new(
 			[.. GetResult(withValues ? list : null, mixed)],
 			predicate,
 			predicateAsync,
-			Substitute.For<Func<int, string>>(),
-			Substitute.For<Func<int, Task<string>>>(),
+			Substitute.For<Func<string, Result<string>>>(),
+			Substitute.For<Func<string, Task<Result<string>>>>(),
 			list
 		);
 	}
 
-	private static IEnumerable<Result<int>> GetResult(int[]? values, bool mixed)
+	private static IEnumerable<string> GetResult(string[]? values, bool mixed)
 	{
 		for (var i = 0; i < 3; i++)
 		{
 			if (values is not null)
 			{
-				yield return R.Wrap(values[i]);
+				yield return values[i];
 			}
 			else
 			{
-				yield return FailGen.Create();
+				yield return null!;
 			}
 
 			if (mixed)
 			{
-				yield return FailGen.Create();
+				yield return null!;
 			}
 		}
 	}
 
-	public class With_Failure
+	public class With_Null_Values
 	{
 		public class Predicate_Returns_False
 		{
 			[Fact]
-			public async Task Returns_Original_Failures()
+			public async Task Returns_Empty_List()
 			{
 				// Arrange
 				var v = SetupResult(false, false);
@@ -64,13 +64,13 @@ public partial class FilterMapAsync_Tests
 				var r6 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
 
 				// Assert
-				Bind_Tests.AssertFailures([.. v.List], r0);
-				Bind_Tests.AssertFailures([.. v.List], r1);
-				Bind_Tests.AssertFailures([.. v.List], r2);
-				Bind_Tests.AssertFailures([.. v.List], r3);
-				Bind_Tests.AssertFailures([.. v.List], r4);
-				Bind_Tests.AssertFailures([.. v.List], r5);
-				Bind_Tests.AssertFailures([.. v.List], r6);
+				Assert.Empty(r0);
+				Assert.Empty(r1);
+				Assert.Empty(r2);
+				Assert.Empty(r3);
+				Assert.Empty(r4);
+				Assert.Empty(r5);
+				Assert.Empty(r6);
 			}
 
 			[Fact]
@@ -89,15 +89,15 @@ public partial class FilterMapAsync_Tests
 				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
 
 				// Assert
-				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
-				await v.MapAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
+				await v.MapAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
 			}
 		}
 
 		public class Predicate_Returns_True
 		{
 			[Fact]
-			public async Task Returns_Original_Failures()
+			public async Task Returns_Empty_List()
 			{
 				// Arrange
 				var v = SetupResult(true, false);
@@ -112,13 +112,13 @@ public partial class FilterMapAsync_Tests
 				var r6 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
 
 				// Assert
-				Bind_Tests.AssertFailures([.. v.List], r0);
-				Bind_Tests.AssertFailures([.. v.List], r1);
-				Bind_Tests.AssertFailures([.. v.List], r2);
-				Bind_Tests.AssertFailures([.. v.List], r3);
-				Bind_Tests.AssertFailures([.. v.List], r4);
-				Bind_Tests.AssertFailures([.. v.List], r5);
-				Bind_Tests.AssertFailures([.. v.List], r6);
+				Assert.Empty(r0);
+				Assert.Empty(r1);
+				Assert.Empty(r2);
+				Assert.Empty(r3);
+				Assert.Empty(r4);
+				Assert.Empty(r5);
+				Assert.Empty(r6);
 			}
 
 			[Fact]
@@ -137,13 +137,13 @@ public partial class FilterMapAsync_Tests
 				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
 
 				// Assert
-				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
-				await v.MapAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
+				await v.MapAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
 			}
 		}
 	}
 
-	public class With_Ok
+	public class With_Values
 	{
 		public class Predicate_Returns_False
 		{
@@ -188,8 +188,8 @@ public partial class FilterMapAsync_Tests
 				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
 
 				// Assert
-				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
-				await v.MapAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
+				await v.MapAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
 			}
 		}
 
@@ -200,8 +200,8 @@ public partial class FilterMapAsync_Tests
 			{
 				// Arrange
 				var v = SetupResult(true, true);
-				v.Map.Invoke(Arg.Any<int>()).Returns(c => c.Arg<int>().ToString());
-				v.MapAsync.Invoke(Arg.Any<int>()).Returns(c => c.Arg<int>().ToString());
+				v.Map.Invoke(Arg.Any<string>()).Returns(c => c.Arg<string>().ToString());
+				v.MapAsync.Invoke(Arg.Any<string>()).Returns(c => c.Arg<string>().ToString());
 				var assertCollection = (IEnumerable<Result<string>> list) =>
 					Assert.Collection(list,
 						x => x.AssertOk(v.Values[0].ToString()),
@@ -231,15 +231,15 @@ public partial class FilterMapAsync_Tests
 	}
 
 	internal record class ResultVars(
-		IEnumerable<Result<int>> List,
-		Func<int, bool> Predicate,
-		Func<int, Task<bool>> PredicateAsync,
-		Func<int, string> Map,
-		Func<int, Task<string>> MapAsync,
-		int[] Values
+		IEnumerable<string> List,
+		Func<string, bool> Predicate,
+		Func<string, Task<bool>> PredicateAsync,
+		Func<string, Result<string>> Map,
+		Func<string, Task<Result<string>>> MapAsync,
+		string[] Values
 	)
 	{
-		public Task<IEnumerable<Result<int>>> ListAsync =>
+		public Task<IEnumerable<string>> ListAsync =>
 			Task.FromResult(List);
 	}
 }

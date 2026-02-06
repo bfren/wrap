@@ -7,44 +7,44 @@ public partial class FilterMapAsync_Tests
 {
 	private static MaybeVars SetupMaybe(bool predicateReturn, bool withValues, bool mixed = false)
 	{
-		var predicate = Substitute.For<Func<int, bool>>();
-		var predicateAsync = Substitute.For<Func<int, Task<bool>>>();
-		predicate.Invoke(Arg.Any<int>()).Returns(predicateReturn);
-		predicateAsync.Invoke(Arg.Any<int>()).Returns(predicateReturn);
+		var predicate = Substitute.For<Func<string, bool>>();
+		var predicateAsync = Substitute.For<Func<string, Task<bool>>>();
+		predicate.Invoke(Arg.Any<string>()).Returns(predicateReturn);
+		predicateAsync.Invoke(Arg.Any<string>()).Returns(predicateReturn);
 
-		var list = new[] { Rnd.Int, Rnd.Int, Rnd.Int };
+		var list = new[] { Rnd.Str, Rnd.Str, Rnd.Str };
 
 		return new(
 			GetMaybe(withValues ? list : null, mixed),
 			predicate,
 			predicateAsync,
-			Substitute.For<Func<int, string>>(),
-			Substitute.For<Func<int, Task<string>>>(),
+			Substitute.For<Func<string, Maybe<string>>>(),
+			Substitute.For<Func<string, Task<Maybe<string>>>>(),
 			list
 		);
 	}
 
-	private static IEnumerable<Maybe<int>> GetMaybe(int[]? values, bool mixed)
+	private static IEnumerable<string> GetMaybe(string[]? values, bool mixed)
 	{
 		for (var i = 0; i < 3; i++)
 		{
 			if (values is not null)
 			{
-				yield return M.Wrap(values[i]);
+				yield return values[i];
 			}
 			else
 			{
-				yield return M.None;
+				yield return null!;
 			}
 
 			if (mixed)
 			{
-				yield return M.None;
+				yield return null!;
 			}
 		}
 	}
 
-	public class With_None
+	public class With_Null_Values
 	{
 		public class Predicate_Returns_False
 		{
@@ -89,8 +89,8 @@ public partial class FilterMapAsync_Tests
 				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
 
 				// Assert
-				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
-				await v.MapAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
+				await v.MapAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
 			}
 		}
 
@@ -137,13 +137,13 @@ public partial class FilterMapAsync_Tests
 				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
 
 				// Assert
-				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
-				await v.MapAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
+				await v.MapAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
 			}
 		}
 	}
 
-	public class With_Some
+	public class With_Values
 	{
 		public class Predicate_Returns_False
 		{
@@ -188,8 +188,8 @@ public partial class FilterMapAsync_Tests
 				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
 
 				// Assert
-				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
-				await v.MapAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
+				await v.MapAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
 			}
 		}
 
@@ -200,8 +200,8 @@ public partial class FilterMapAsync_Tests
 			{
 				// Arrange
 				var v = SetupMaybe(true, true);
-				v.Map.Invoke(Arg.Any<int>()).Returns(c => c.Arg<int>().ToString());
-				v.MapAsync.Invoke(Arg.Any<int>()).Returns(c => c.Arg<int>().ToString());
+				v.Map.Invoke(Arg.Any<string>()).Returns(c => c.Arg<string>().ToString());
+				v.MapAsync.Invoke(Arg.Any<string>()).Returns(c => c.Arg<string>().ToString());
 				var assertCollection = (IEnumerable<Maybe<string>> list) =>
 					Assert.Collection(list,
 						x => x.AssertSome(v.Values[0].ToString()),
@@ -231,15 +231,15 @@ public partial class FilterMapAsync_Tests
 	}
 
 	internal record class MaybeVars(
-		IEnumerable<Maybe<int>> List,
-		Func<int, bool> Predicate,
-		Func<int, Task<bool>> PredicateAsync,
-		Func<int, string> Map,
-		Func<int, Task<string>> MapAsync,
-		int[] Values
+		IEnumerable<string> List,
+		Func<string, bool> Predicate,
+		Func<string, Task<bool>> PredicateAsync,
+		Func<string, Maybe<string>> Map,
+		Func<string, Task<Maybe<string>>> MapAsync,
+		string[] Values
 	)
 	{
-		public Task<IEnumerable<Maybe<int>>> ListAsync =>
+		public Task<IEnumerable<string>> ListAsync =>
 			Task.FromResult(List);
 	}
 }

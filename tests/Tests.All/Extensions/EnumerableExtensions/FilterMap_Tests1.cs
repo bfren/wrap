@@ -3,46 +3,46 @@
 
 namespace Wrap.Extensions.EnumerableExtensions_Tests;
 
-public partial class FilterMap_Tests
+public class FilterMap_Tests1
 {
 	private static ResultVars SetupResult(bool predicateReturn, bool withValues, bool mixed = false)
 	{
-		var predicate = Substitute.For<Func<int, bool>>();
-		predicate.Invoke(Arg.Any<int>()).Returns(predicateReturn);
+		var predicate = Substitute.For<Func<string, bool>>();
+		predicate.Invoke(Arg.Any<string>()).Returns(predicateReturn);
 
-		var map = Substitute.For<Func<int, string>>();
+		var map = Substitute.For<Func<string, Result<string>>>();
 
-		var list = new[] { Rnd.Int, Rnd.Int, Rnd.Int };
+		var list = new[] { Rnd.Str, Rnd.Str, Rnd.Str };
 
 		return new([.. GetResult(withValues ? list : null, mixed)], predicate, map, list);
 	}
 
-	private static IEnumerable<Result<int>> GetResult(int[]? values, bool mixed)
+	private static IEnumerable<string> GetResult(string[]? values, bool mixed)
 	{
 		for (var i = 0; i < 3; i++)
 		{
 			if (values is not null)
 			{
-				yield return R.Wrap(values[i]);
+				yield return values[i];
 			}
 			else
 			{
-				yield return FailGen.Create();
+				yield return null!;
 			}
 
 			if (mixed)
 			{
-				yield return FailGen.Create();
+				yield return null!;
 			}
 		}
 	}
 
-	public class With_Failure
+	public class With_Null_Values
 	{
 		public class Predicate_Returns_False
 		{
 			[Fact]
-			public void Returns_Original_Failures()
+			public void Returns_Empty_List()
 			{
 				// Arrange
 				var v = SetupResult(false, false);
@@ -51,7 +51,7 @@ public partial class FilterMap_Tests
 				var result = v.List.FilterMap(v.Predicate, v.Map);
 
 				// Assert
-				Bind_Tests.AssertFailures([.. v.List], result);
+				Assert.Empty(result);
 			}
 
 			[Fact]
@@ -64,14 +64,14 @@ public partial class FilterMap_Tests
 				_ = v.List.FilterMap(v.Predicate, v.Map);
 
 				// Assert
-				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
 			}
 		}
 
 		public class Predicate_Returns_True
 		{
 			[Fact]
-			public void Returns_Original_Failures()
+			public void Returns_Empty_List()
 			{
 				// Arrange
 				var v = SetupResult(true, false);
@@ -80,7 +80,7 @@ public partial class FilterMap_Tests
 				var result = v.List.FilterMap(v.Predicate, v.Map);
 
 				// Assert
-				Bind_Tests.AssertFailures([.. v.List], result);
+				Assert.Empty(result);
 			}
 
 			[Fact]
@@ -93,17 +93,17 @@ public partial class FilterMap_Tests
 				_ = v.List.FilterMap(v.Predicate, v.Map);
 
 				// Assert
-				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
 			}
 		}
 	}
 
-	public class With_Ok
+	public class With_Values
 	{
 		public class Predicate_Returns_False
 		{
 			[Fact]
-			public void Returns_Failures()
+			public void Returns_Empty_List()
 			{
 				// Arrange
 				var v = SetupResult(false, true);
@@ -112,7 +112,7 @@ public partial class FilterMap_Tests
 				var result = v.List.FilterMap(v.Predicate, v.Map);
 
 				// Assert
-				FilterBind_Tests.AssertFailures(result);
+				Assert.Empty(result);
 			}
 
 			[Fact]
@@ -125,7 +125,7 @@ public partial class FilterMap_Tests
 				_ = v.List.FilterMap(v.Predicate, v.Map);
 
 				// Assert
-				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
 			}
 		}
 
@@ -136,7 +136,7 @@ public partial class FilterMap_Tests
 			{
 				// Arrange
 				var v = SetupResult(true, true);
-				v.Map.Invoke(Arg.Any<int>()).Returns(c => c.Arg<int>().ToString());
+				v.Map.Invoke(Arg.Any<string>()).Returns(c => c.Arg<string>().ToString());
 
 				// Act
 				var result = v.List.FilterMap(v.Predicate, v.Map);
@@ -152,9 +152,9 @@ public partial class FilterMap_Tests
 	}
 
 	private sealed record class ResultVars(
-		IEnumerable<Result<int>> List,
-		Func<int, bool> Predicate,
-		Func<int, string> Map,
-		int[] Values
+		IEnumerable<string> List,
+		Func<string, bool> Predicate,
+		Func<string, Result<string>> Map,
+		string[] Values
 	);
 }

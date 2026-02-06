@@ -3,41 +3,41 @@
 
 namespace Wrap.Extensions.EnumerableExtensions_Tests;
 
-public partial class FilterMap_Tests
+public class FilterMap_Tests0
 {
 	private static MaybeVars SetupMaybe(bool predicateReturn, bool withValues, bool mixed = false)
 	{
-		var predicate = Substitute.For<Func<int, bool>>();
-		predicate.Invoke(Arg.Any<int>()).Returns(predicateReturn);
+		var predicate = Substitute.For<Func<string, bool>>();
+		predicate.Invoke(Arg.Any<string>()).Returns(predicateReturn);
 
-		var map = Substitute.For<Func<int, string>>();
+		var map = Substitute.For<Func<string, Maybe<string>>>();
 
-		var list = new[] { Rnd.Int, Rnd.Int, Rnd.Int };
+		var list = new[] { Rnd.Str, Rnd.Str, Rnd.Str };
 
 		return new(GetMaybe(withValues ? list : null, mixed), predicate, map, list);
 	}
 
-	private static IEnumerable<Maybe<int>> GetMaybe(int[]? values, bool mixed)
+	private static IEnumerable<string> GetMaybe(string[]? values, bool mixed)
 	{
 		for (var i = 0; i < 3; i++)
 		{
 			if (values is not null)
 			{
-				yield return M.Wrap(values[i]);
+				yield return values[i];
 			}
 			else
 			{
-				yield return M.None;
+				yield return null!;
 			}
 
 			if (mixed)
 			{
-				yield return M.None;
+				yield return null!;
 			}
 		}
 	}
 
-	public class With_None
+	public class With_Null_Values
 	{
 		public class Predicate_Returns_False
 		{
@@ -64,7 +64,7 @@ public partial class FilterMap_Tests
 				_ = v.List.FilterMap(v.Predicate, v.Map);
 
 				// Assert
-				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
 			}
 		}
 
@@ -93,12 +93,12 @@ public partial class FilterMap_Tests
 				_ = v.List.FilterMap(v.Predicate, v.Map);
 
 				// Assert
-				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
 			}
 		}
 	}
 
-	public class With_Some
+	public class With_Values
 	{
 		public class Predicate_Returns_False
 		{
@@ -125,7 +125,7 @@ public partial class FilterMap_Tests
 				_ = v.List.FilterMap(v.Predicate, v.Map);
 
 				// Assert
-				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
 			}
 		}
 
@@ -136,25 +136,25 @@ public partial class FilterMap_Tests
 			{
 				// Arrange
 				var v = SetupMaybe(true, true);
-				v.Map.Invoke(Arg.Any<int>()).Returns(c => c.Arg<int>().ToString());
+				v.Map.Invoke(Arg.Any<string>()).Returns(c => c.Arg<string>().ToLower(F.DefaultCulture));
 
 				// Act
 				var result = v.List.FilterMap(v.Predicate, v.Map);
 
 				// Assert
 				Assert.Collection(result,
-					x => x.AssertSome(v.Values[0].ToString()),
-					x => x.AssertSome(v.Values[1].ToString()),
-					x => x.AssertSome(v.Values[2].ToString())
+					x => x.AssertSome(v.Values[0].ToLower(F.DefaultCulture)),
+					x => x.AssertSome(v.Values[1].ToLower(F.DefaultCulture)),
+					x => x.AssertSome(v.Values[2].ToLower(F.DefaultCulture))
 				);
 			}
 		}
 	}
 
 	private sealed record class MaybeVars(
-		IEnumerable<Maybe<int>> List,
-		Func<int, bool> Predicate,
-		Func<int, string> Map,
-		int[] Values
+		IEnumerable<string> List,
+		Func<string, bool> Predicate,
+		Func<string, Maybe<string>> Map,
+		string[] Values
 	);
 }
