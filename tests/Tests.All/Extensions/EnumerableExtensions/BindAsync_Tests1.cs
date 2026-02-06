@@ -11,6 +11,7 @@ public partial class BindAsync_Tests
 		return new(
 			GetResult(withValues ? values : null, mixed),
 			Substitute.For<Func<int, Result<string>>>(),
+			Substitute.For<Func<int, Task<Result<string>>>>(),
 			values
 		);
 	}
@@ -44,12 +45,13 @@ public partial class BindAsync_Tests
 			var v = SetupResult(false);
 
 			// Act
-			_ = await v.List.BindAsync(x => Task.FromResult(v.Bind(x)));
+			_ = await v.List.BindAsync(v.BindAsync);
 			_ = await v.ListAsync.BindAsync(v.Bind);
-			_ = await v.ListAsync.BindAsync(x => Task.FromResult(v.Bind(x)));
+			_ = await v.ListAsync.BindAsync(v.BindAsync);
 
 			// Assert
 			v.Bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+			await v.BindAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
 		}
 
 		[Fact]
@@ -59,9 +61,9 @@ public partial class BindAsync_Tests
 			var v = SetupResult(false);
 
 			// Act
-			var r0 = await v.List.BindAsync(Substitute.For<Func<int, Task<Result<string>>>>());
-			var r1 = await v.ListAsync.BindAsync(Substitute.For<Func<int, Result<string>>>());
-			var r2 = await v.ListAsync.BindAsync(Substitute.For<Func<int, Task<Result<string>>>>());
+			var r0 = await v.List.BindAsync(v.BindAsync);
+			var r1 = await v.ListAsync.BindAsync(v.Bind);
+			var r2 = await v.ListAsync.BindAsync(v.BindAsync);
 
 			// Assert
 			Assert.Equal(3, r0.Count());
@@ -121,14 +123,15 @@ public partial class BindAsync_Tests
 			Assert.Equal(6, r2.Count());
 		}
 	}
-}
 
-internal record struct ResultVars(
-	IEnumerable<Result<int>> List,
-	Func<int, Result<string>> Bind,
-	int[] Values
-)
-{
-	public readonly Task<IEnumerable<Result<int>>> ListAsync =>
-		Task.FromResult(List);
+	internal record class ResultVars(
+		IEnumerable<Result<int>> List,
+		Func<int, Result<string>> Bind,
+		Func<int, Task<Result<string>>> BindAsync,
+		int[] Values
+	)
+	{
+		public Task<IEnumerable<Result<int>>> ListAsync =>
+			Task.FromResult(List);
+	}
 }

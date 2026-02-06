@@ -151,7 +151,7 @@ public partial class FilterBind_Tests
 		}
 	}
 
-	private record class MaybeVars(
+	private sealed record class MaybeVars(
 		IEnumerable<Maybe<int>> List,
 		Func<int, bool> Predicate,
 		Func<int, Maybe<string>> Bind,

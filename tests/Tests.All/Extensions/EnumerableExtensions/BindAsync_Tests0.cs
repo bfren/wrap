@@ -11,6 +11,7 @@ public partial class BindAsync_Tests
 		return new(
 			GetMaybe(withValues ? values : null, mixed),
 			Substitute.For<Func<int, Maybe<string>>>(),
+			Substitute.For<Func<int, Task<Maybe<string>>>>(),
 			values
 		);
 	}
@@ -44,12 +45,13 @@ public partial class BindAsync_Tests
 			var v = SetupMaybe(false);
 
 			// Act
-			_ = await v.List.BindAsync(x => Task.FromResult(v.Bind(x)));
+			_ = await v.List.BindAsync(v.BindAsync);
 			_ = await v.ListAsync.BindAsync(v.Bind);
-			_ = await v.ListAsync.BindAsync(x => Task.FromResult(v.Bind(x)));
+			_ = await v.ListAsync.BindAsync(v.BindAsync);
 
 			// Assert
 			v.Bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+			await v.BindAsync.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
 		}
 
 		[Fact]
@@ -59,9 +61,9 @@ public partial class BindAsync_Tests
 			var v = SetupMaybe(false);
 
 			// Act
-			var r0 = await v.List.BindAsync(Substitute.For<Func<int, Task<Maybe<string>>>>());
-			var r1 = await v.ListAsync.BindAsync(Substitute.For<Func<int, Maybe<string>>>());
-			var r2 = await v.ListAsync.BindAsync(Substitute.For<Func<int, Task<Maybe<string>>>>());
+			var r0 = await v.List.BindAsync(v.BindAsync);
+			var r1 = await v.ListAsync.BindAsync(v.Bind);
+			var r2 = await v.ListAsync.BindAsync(v.BindAsync);
 
 			// Assert
 			Assert.Empty(r0);
@@ -150,14 +152,15 @@ public partial class BindAsync_Tests
 			);
 		}
 	}
-}
 
-internal record struct MaybeVars(
-	IEnumerable<Maybe<int>> List,
-	Func<int, Maybe<string>> Bind,
-	int[] Values
-)
-{
-	public readonly Task<IEnumerable<Maybe<int>>> ListAsync =>
-		Task.FromResult(List);
+	internal record class MaybeVars(
+		IEnumerable<Maybe<int>> List,
+		Func<int, Maybe<string>> Bind,
+		Func<int, Task<Maybe<string>>> BindAsync,
+		int[] Values
+	)
+	{
+		public Task<IEnumerable<Maybe<int>>> ListAsync =>
+			Task.FromResult(List);
+	}
 }

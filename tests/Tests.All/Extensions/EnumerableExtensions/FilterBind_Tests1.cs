@@ -163,7 +163,7 @@ public partial class FilterBind_Tests
 		}
 	}
 
-	private record class ResultVars(
+	private sealed record class ResultVars(
 		IEnumerable<Result<int>> List,
 		Func<int, bool> Predicate,
 		Func<int, Result<string>> Bind,
