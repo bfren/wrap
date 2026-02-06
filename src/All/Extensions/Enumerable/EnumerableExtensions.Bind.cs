@@ -34,15 +34,15 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, Maybe{TReturn}})"/>
-	public static Task<IEnumerable<Maybe<TReturn>>> BindAsync<T, TReturn>(this IEnumerable<Maybe<T>> @this, Func<T, Task<Maybe<TReturn>>> f) =>
+	public static Task<List<Maybe<TReturn>>> BindAsync<T, TReturn>(this IEnumerable<Maybe<T>> @this, Func<T, Task<Maybe<TReturn>>> f) =>
 		BindAsync(Task.FromResult(@this), f);
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, Maybe{TReturn}})"/>
-	public static Task<IEnumerable<Maybe<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Maybe<TReturn>> f) =>
+	public static Task<List<Maybe<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Maybe<TReturn>> f) =>
 		BindAsync(@this, x => Task.FromResult(f(x)));
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, Maybe{TReturn}})"/>
-	public static async Task<IEnumerable<Maybe<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<Maybe<TReturn>>> f)
+	public static async Task<List<Maybe<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<Maybe<TReturn>>> f)
 	{
 		var items = new List<Maybe<TReturn>>();
 
@@ -81,15 +81,15 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Result{T}}, Func{T, Result{TReturn}})"/>
-	public static Task<IEnumerable<Result<TReturn>>> BindAsync<T, TReturn>(this IEnumerable<Result<T>> @this, Func<T, Task<Result<TReturn>>> f) =>
+	public static Task<List<Result<TReturn>>> BindAsync<T, TReturn>(this IEnumerable<Result<T>> @this, Func<T, Task<Result<TReturn>>> f) =>
 		BindAsync(Task.FromResult(@this), f);
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Result{T}}, Func{T, Result{TReturn}})"/>
-	public static Task<IEnumerable<Result<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Result<TReturn>> f) =>
+	public static Task<List<Result<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Result<TReturn>> f) =>
 		BindAsync(@this, x => Task.FromResult(f(x)));
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Result{T}}, Func{T, Result{TReturn}})"/>
-	public static async Task<IEnumerable<Result<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<Result<TReturn>>> f)
+	public static async Task<List<Result<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<Result<TReturn>>> f)
 	{
 		var items = new List<Result<TReturn>>();
 
