@@ -30,5 +30,5 @@ public static partial class MaybeExtensions
 
 	/// <inheritdoc cref="MapIf{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, TReturn})"/>
 	public static Task<Maybe<TReturn>> MapIfAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, bool> fTest, Func<T, Task<TReturn>> f) =>
-		IfAsync(@this, fTest, x => M.Wrap(f(x)), _ => M.None));
+		IfAsync(@this, fTest, async x => M.Wrap(await f(x)), async _ => M.None);
 }
