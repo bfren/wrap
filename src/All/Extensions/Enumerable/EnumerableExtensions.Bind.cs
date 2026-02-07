@@ -21,15 +21,9 @@ public static partial class EnumerableExtensions
 	/// <returns>List of <see cref="Maybe{T}"/> objects returned by <paramref name="f"/>.</returns>
 	public static IEnumerable<Maybe<TReturn>> Bind<T, TReturn>(this IEnumerable<Maybe<T>> @this, Func<T, Maybe<TReturn>> f)
 	{
-		foreach (var item in @this)
+		foreach (var item in @this.Filter())
 		{
-			foreach (var value in item)
-			{
-				if (value is not null)
-				{
-					yield return f(value);
-				}
-			}
+			yield return item.Bind(f);
 		}
 	}
 
@@ -46,15 +40,9 @@ public static partial class EnumerableExtensions
 	{
 		var items = new List<Maybe<TReturn>>();
 
-		foreach (var item in await @this)
+		foreach (var item in await @this.FilterAsync())
 		{
-			foreach (var value in item)
-			{
-				if (value is not null)
-				{
-					items.Add(await f(value));
-				}
-			}
+			items.Add(await item.BindAsync(f));
 		}
 
 		return items;
