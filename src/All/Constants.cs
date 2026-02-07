@@ -9,5 +9,5 @@ internal static class C
 
 	internal const string NullValueFailureMessage = "Null value of type '{Type}'.";
 
-	internal const string PredicateFalseMessage = "Predicate was false.";
+	internal const string TestFalseMessage = "Test returned false.";
 }
