@@ -16,8 +16,8 @@ public abstract record class Either<TLeft, TRight> : IEither<Either<TLeft, TRigh
 	/// <inheritdoc/>
 	public TRight Unwrap(Func<TLeft, TRight> getValue) =>
 		E.Match<Either<TLeft, TRight>, TLeft, TRight, TRight>(this,
-			left: l => getValue(l),
-			right: x => x
+			fLeft: l => getValue(l),
+			fRight: x => x
 		);
 
 	/// <summary>
