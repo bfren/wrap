@@ -41,9 +41,22 @@ public static partial class F
 		{
 			return replaceIfNullOrEmpty ?? formatString;
 		}
-		else if (source is Array arr && arr.Length == 0)
+		else if (source is Array arr)
 		{
-			return replaceIfNullOrEmpty ?? formatString;
+			if (arr.Length == 0)
+			{
+				return replaceIfNullOrEmpty ?? formatString;
+			}
+
+			// Attempt to use string.Format
+			try
+			{
+				return string.Format(DefaultCulture, formatString, [.. arr]);
+			}
+			catch (Exception)
+			{
+				// do nothing
+			}
 		}
 
 		// Thanks James Newton-King!
@@ -52,6 +65,7 @@ public static partial class F
 		var values = new List<object>();
 		var replaceIndex = 0; // keeps track of replace loop so we can match named template values with an array source
 		var numberedTemplates = true;
+		var flags = BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
 		var rewrittenFormat = regex.Replace(formatString, (m) =>
 		{
 			var startGroup = m.Groups["start"];
@@ -67,7 +81,6 @@ public static partial class F
 			numberedTemplates = numberedTemplates && templateIsNumber;
 
 			// Switch on the source type, using variety of methods to get this template's value
-			var flags = BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
 			var value = source switch
 			{
 				// Source array - get specific item in array for numbered template
@@ -101,10 +114,7 @@ public static partial class F
 		});
 
 		// Format string with ordered values
-		var formatted = string.Format(DefaultCulture, rewrittenFormat, [.. values]);
-
-		// If the string still contains any placeholders, return original format string
-		return regex.IsMatch(formatted) ? formatString : formatted;
+		return string.Format(DefaultCulture, rewrittenFormat, [.. values]);
 	}
 
 	[GeneratedRegex("(?<start>\\{)+(?<template>[\\w\\.\\[\\]@]+)(?<format>:[^}]+)?(?<end>\\})+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
