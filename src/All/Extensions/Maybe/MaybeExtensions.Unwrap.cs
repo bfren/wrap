@@ -35,13 +35,13 @@ public static partial class MaybeExtensions
 	public static Task<T> UnwrapAsync<T>(this Task<Maybe<T>> @this, Func<T> fNone) =>
 		M.MatchAsync(@this,
 			fNone: fNone,
-			fSome: x => Task.FromResult(x)
+			fSome: async x => x
 		);
 
 	/// <inheritdoc cref="UnwrapAsync{T}(Maybe{T}, Func{Task{T}})"/>
 	public static Task<T> UnwrapAsync<T>(this Task<Maybe<T>> @this, Func<Task<T>> fNone) =>
 		M.MatchAsync(@this,
 			fNone: fNone,
-			fSome: x => Task.FromResult(x)
+			fSome: async x => x
 		);
 }

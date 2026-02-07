@@ -88,7 +88,7 @@ public static partial class MaybeExtensions
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
 	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action? fNone, Action<T>? fSome) =>
-		AuditAsync(@this, () => { fNone?.Invoke(); return Task.CompletedTask; }, x => { fSome?.Invoke(x); return Task.CompletedTask; });
+		AuditAsync(@this, async () => fNone?.Invoke(), async x => fSome?.Invoke(x));
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
 	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Task> fNone) =>
@@ -128,7 +128,7 @@ public static partial class MaybeExtensions
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action{Maybe{T}})"/>
 	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action<Maybe<T>> either) =>
-		AuditAsync(@this, either: x => { either(x); return Task.CompletedTask; });
+		AuditAsync(@this, either: async x => either(x));
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action{Maybe{T}})"/>
 	public static async Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Maybe<T>, Task> either)

@@ -46,7 +46,7 @@ public static partial class EnumerableExtensions
 		Func<T, bool> fTest,
 		Func<T, Maybe<TReturn>> f
 	) =>
-		FilterBindAsync(@this, fTest, x => f(x).AsTask());
+		FilterBindAsync(@this, fTest, async x => f(x));
 
 	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
 	public static async Task<List<Maybe<TReturn>>> FilterBindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
@@ -103,7 +103,7 @@ public static partial class EnumerableExtensions
 		Func<T, bool> fTest,
 		Func<T, Result<TReturn>> f
 	) =>
-		FilterBindAsync(@this, fTest, x => f(x).AsTask());
+		FilterBindAsync(@this, fTest, async x => f(x));
 
 	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, Result{TReturn}})"/>
 	public static async Task<List<Result<TReturn>>> FilterBindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,

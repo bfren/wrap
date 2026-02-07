@@ -51,11 +51,11 @@ public static partial class M
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static Task MatchAsync<T>(Maybe<T> maybe, Action fNone, Func<T, Task> fSome) =>
-		MatchAsync(Task.FromResult(maybe), () => { fNone(); return Task.CompletedTask; }, fSome);
+		MatchAsync(Task.FromResult(maybe), async () => fNone(), fSome);
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static Task MatchAsync<T>(Maybe<T> maybe, Func<Task> fNone, Action<T> fSome) =>
-		MatchAsync(Task.FromResult(maybe), fNone, x => { fSome(x); return Task.CompletedTask; });
+		MatchAsync(Task.FromResult(maybe), fNone, async x => fSome(x));
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static Task MatchAsync<T>(Maybe<T> maybe, Func<Task> fNone, Func<T, Task> fSome) =>
@@ -63,15 +63,15 @@ public static partial class M
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static Task MatchAsync<T>(Task<Maybe<T>> maybe, Action fNone, Action<T> fSome) =>
-		MatchAsync(maybe, () => { fNone(); return Task.CompletedTask; }, x => { fSome(x); return Task.CompletedTask; });
+		MatchAsync(maybe, async () => fNone(), async x => fSome(x));
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static Task MatchAsync<T>(Task<Maybe<T>> maybe, Action fNone, Func<T, Task> fSome) =>
-		MatchAsync(maybe, () => { fNone(); return Task.CompletedTask; }, fSome);
+		MatchAsync(maybe, async () => fNone(), fSome);
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static Task MatchAsync<T>(Task<Maybe<T>> maybe, Func<Task> fNone, Action<T> fSome) =>
-		MatchAsync(maybe, fNone, x => { fSome(x); return Task.CompletedTask; });
+		MatchAsync(maybe, fNone, async x => fSome(x));
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static async Task MatchAsync<T>(Task<Maybe<T>> maybe, Func<Task> fNone, Func<T, Task> fSome)
@@ -136,11 +136,11 @@ public static partial class M
 
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(Maybe<T> maybe, Func<TReturn> fNone, Func<T, Task<TReturn>> fSome) =>
-		Match(maybe, () => Task.FromResult(fNone()), fSome);
+		Match(maybe, async () => fNone(), fSome);
 
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(Maybe<T> maybe, Func<Task<TReturn>> fNone, Func<T, TReturn> fSome) =>
-		Match(maybe, fNone, x => Task.FromResult(fSome(x)));
+		Match(maybe, fNone, async x => fSome(x));
 
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(Maybe<T> maybe, Func<Task<TReturn>> fNone, Func<T, Task<TReturn>> fSome) =>
@@ -148,15 +148,15 @@ public static partial class M
 
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(Task<Maybe<T>> maybe, Func<TReturn> fNone, Func<T, TReturn> fSome) =>
-		MatchAsync(maybe, () => Task.FromResult(fNone()), x => Task.FromResult(fSome(x)));
+		MatchAsync(maybe, async () => fNone(), async x => fSome(x));
 
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(Task<Maybe<T>> maybe, Func<TReturn> fNone, Func<T, Task<TReturn>> fSome) =>
-		MatchAsync(maybe, () => Task.FromResult(fNone()), fSome);
+		MatchAsync(maybe, async () => fNone(), fSome);
 
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(Task<Maybe<T>> maybe, Func<Task<TReturn>> fNone, Func<T, TReturn> fSome) =>
-		MatchAsync(maybe, fNone, x => Task.FromResult(fSome(x)));
+		MatchAsync(maybe, fNone, async x => fSome(x));
 
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Maybe<T>> maybe, Func<Task<TReturn>> fNone, Func<T, Task<TReturn>> fSome) =>

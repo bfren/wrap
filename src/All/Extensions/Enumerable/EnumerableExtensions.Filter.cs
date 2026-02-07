@@ -65,7 +65,7 @@ public static partial class EnumerableExtensions
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
 	public static Task<List<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, bool> fTest) =>
-		FilterAsync(@this, x => Task.FromResult(fTest(x)));
+		FilterAsync(@this, async x => fTest(x));
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
 	public static async Task<List<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<bool>> fTest)
@@ -105,7 +105,7 @@ public static partial class EnumerableExtensions
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Result{T}}, Func{T, bool})"/>
 	public static Task<List<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, bool> fTest) =>
-		FilterAsync(@this, x => Task.FromResult(fTest(x)));
+		FilterAsync(@this, async x => fTest(x));
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Result{T}}, Func{T, bool})"/>
 	public static async Task<List<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<bool>> fTest)

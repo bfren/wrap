@@ -76,10 +76,7 @@ public static partial class ResultExtensions
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
 	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<FailureValue, Task>? fFail, Func<T, Task>? fOk) =>
-		AuditAsync(@this.AsTask(),
-			fFail: fFail,
-			fOk: fOk
-		);
+		AuditAsync(@this.AsTask(), fFail: fFail, fOk: fOk);
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
 	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<FailureValue> fFail) =>
@@ -91,10 +88,7 @@ public static partial class ResultExtensions
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
 	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<FailureValue>? fFail, Action<T>? fOk) =>
-		AuditAsync(@this,
-			fFail: x => { fFail?.Invoke(x); return Task.CompletedTask; },
-			fOk: x => { fOk?.Invoke(x); return Task.CompletedTask; }
-		);
+		AuditAsync(@this, fFail: async x => fFail?.Invoke(x), fOk: async x => fOk?.Invoke(x));
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
 	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<FailureValue, Task> fFail) =>
@@ -130,15 +124,11 @@ public static partial class ResultExtensions
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Result{T}})"/>
 	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<Result<T>, Task> either) =>
-		AuditAsync(@this.AsTask(),
-			either: either
-		);
+		AuditAsync(@this.AsTask(), either: either);
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Result{T}})"/>
 	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<Result<T>> either) =>
-		AuditAsync(@this,
-			either: x => { either(x); return Task.CompletedTask; }
-		);
+		AuditAsync(@this, either: async x => either(x));
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Result{T}})"/>
 	public static async Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<Result<T>, Task> either)

@@ -56,14 +56,14 @@ public static partial class ResultExtensions
 	public static Task<T> UnwrapAsync<T>(this Task<Result<T>> @this, Func<FailureValue, T> ifFailed) =>
 		R.MatchAsync(@this,
 			fFail: ifFailed,
-			fOk: x => Task.FromResult(x)
+			fOk: async x => x
 		);
 
 	/// <inheritdoc cref="UnwrapAsync{T}(Result{T}, Func{FailureValue, Task{T}})"/>
 	public static Task<T> UnwrapAsync<T>(this Task<Result<T>> @this, Func<FailureValue, Task<T>> ifFailed) =>
 		R.MatchAsync(@this,
 			fFail: ifFailed,
-			fOk: x => Task.FromResult(x)
+			fOk: async x => x
 		);
 
 	#endregion
