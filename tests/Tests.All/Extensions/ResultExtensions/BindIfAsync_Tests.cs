@@ -5,14 +5,14 @@ namespace Wrap.Extensions.ResultExtensions_Tests;
 
 public class BindIfAsync_Tests
 {
-	private static (Func<string, bool> predicate, Func<string, Result<int>> bind) Setup(bool predicateReturn)
+	private static (Func<string, bool> fTest, Func<string, Result<int>> bind) Setup(bool predicateReturn)
 	{
-		var predicate = Substitute.For<Func<string, bool>>();
-		predicate.Invoke(Arg.Any<string>()).Returns(predicateReturn);
+		var fTest = Substitute.For<Func<string, bool>>();
+		fTest.Invoke(Arg.Any<string>()).Returns(predicateReturn);
 
 		var bind = Substitute.For<Func<string, Result<int>>>();
 
-		return (predicate, bind);
+		return (fTest, bind);
 	}
 
 	public class With_Failure
@@ -25,25 +25,17 @@ public class BindIfAsync_Tests
 				// Arrange
 				var value = Rnd.Str;
 				var input = FailGen.Create<string>(new(value));
-				var (predicate, bind) = Setup(false);
+				var (fTest, bind) = Setup(false);
 
 				// Act
-				var r0 = await input.BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				var r1 = await input.BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				var r2 = await input.BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
-				var r3 = await input.AsTask().BindIfAsync(predicate, bind);
-				var r4 = await input.AsTask().BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				var r5 = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				var r6 = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
+				var r0 = await input.BindIfAsync(fTest, x => Task.FromResult(bind(x)));
+				var r1 = await input.AsTask().BindIfAsync(fTest, bind);
+				var r2 = await input.AsTask().BindIfAsync(fTest, x => Task.FromResult(bind(x)));
 
 				// Assert
 				r0.AssertFailure(value);
 				r1.AssertFailure(value);
 				r2.AssertFailure(value);
-				r3.AssertFailure(value);
-				r4.AssertFailure(value);
-				r5.AssertFailure(value);
-				r6.AssertFailure(value);
 			}
 
 			[Fact]
@@ -51,16 +43,12 @@ public class BindIfAsync_Tests
 			{
 				// Arrange
 				var input = FailGen.Create<string>();
-				var (predicate, bind) = Setup(false);
+				var (fTest, bind) = Setup(false);
 
 				// Act
-				_ = await input.BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				_ = await input.BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				_ = await input.BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
-				_ = await input.AsTask().BindIfAsync(predicate, bind);
-				_ = await input.AsTask().BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				_ = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				_ = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
+				_ = await input.BindIfAsync(fTest, x => Task.FromResult(bind(x)));
+				_ = await input.AsTask().BindIfAsync(fTest, bind);
+				_ = await input.AsTask().BindIfAsync(fTest, x => Task.FromResult(bind(x)));
 
 				// Assert
 				bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -75,25 +63,17 @@ public class BindIfAsync_Tests
 				// Arrange
 				var value = Rnd.Str;
 				var input = FailGen.Create<string>(new(value));
-				var (predicate, bind) = Setup(true);
+				var (fTest, bind) = Setup(true);
 
 				// Act
-				var r0 = await input.BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				var r1 = await input.BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				var r2 = await input.BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
-				var r3 = await input.AsTask().BindIfAsync(predicate, bind);
-				var r4 = await input.AsTask().BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				var r5 = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				var r6 = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
+				var r0 = await input.BindIfAsync(fTest, x => Task.FromResult(bind(x)));
+				var r1 = await input.AsTask().BindIfAsync(fTest, bind);
+				var r2 = await input.AsTask().BindIfAsync(fTest, x => Task.FromResult(bind(x)));
 
 				// Assert
 				r0.AssertFailure(value);
 				r1.AssertFailure(value);
 				r2.AssertFailure(value);
-				r3.AssertFailure(value);
-				r4.AssertFailure(value);
-				r5.AssertFailure(value);
-				r6.AssertFailure(value);
 			}
 
 			[Fact]
@@ -101,16 +81,12 @@ public class BindIfAsync_Tests
 			{
 				// Arrange
 				var input = FailGen.Create<string>();
-				var (predicate, bind) = Setup(true);
+				var (fTest, bind) = Setup(true);
 
 				// Act
-				_ = await input.BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				_ = await input.BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				_ = await input.BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
-				_ = await input.AsTask().BindIfAsync(predicate, bind);
-				_ = await input.AsTask().BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				_ = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				_ = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
+				_ = await input.BindIfAsync(fTest, x => Task.FromResult(bind(x)));
+				_ = await input.AsTask().BindIfAsync(fTest, bind);
+				_ = await input.AsTask().BindIfAsync(fTest, x => Task.FromResult(bind(x)));
 
 				// Assert
 				bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -126,25 +102,17 @@ public class BindIfAsync_Tests
 			public async Task Returns_None()
 			{
 				var input = R.Wrap(Rnd.Str);
-				var (predicate, bind) = Setup(false);
+				var (fTest, bind) = Setup(false);
 
 				// Act
-				var r0 = await input.BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				var r1 = await input.BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				var r2 = await input.BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
-				var r3 = await input.AsTask().BindIfAsync(predicate, bind);
-				var r4 = await input.AsTask().BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				var r5 = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				var r6 = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
+				var r0 = await input.BindIfAsync(fTest, x => Task.FromResult(bind(x)));
+				var r1 = await input.AsTask().BindIfAsync(fTest, bind);
+				var r2 = await input.AsTask().BindIfAsync(fTest, x => Task.FromResult(bind(x)));
 
 				// Assert
-				r0.AssertFailure(C.PredicateFalseMessage);
-				r1.AssertFailure(C.PredicateFalseMessage);
-				r2.AssertFailure(C.PredicateFalseMessage);
-				r3.AssertFailure(C.PredicateFalseMessage);
-				r4.AssertFailure(C.PredicateFalseMessage);
-				r5.AssertFailure(C.PredicateFalseMessage);
-				r6.AssertFailure(C.PredicateFalseMessage);
+				r0.AssertFailure(C.TestFalseMessage);
+				r1.AssertFailure(C.TestFalseMessage);
+				r2.AssertFailure(C.TestFalseMessage);
 			}
 
 			[Fact]
@@ -152,16 +120,12 @@ public class BindIfAsync_Tests
 			{
 				// Arrange
 				var input = R.Wrap(Rnd.Str);
-				var (predicate, bind) = Setup(false);
+				var (fTest, bind) = Setup(false);
 
 				// Act
-				_ = await input.BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				_ = await input.BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				_ = await input.BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
-				_ = await input.AsTask().BindIfAsync(predicate, bind);
-				_ = await input.AsTask().BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				_ = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				_ = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
+				_ = await input.BindIfAsync(fTest, x => Task.FromResult(bind(x)));
+				_ = await input.AsTask().BindIfAsync(fTest, bind);
+				_ = await input.AsTask().BindIfAsync(fTest, x => Task.FromResult(bind(x)));
 
 				// Assert
 				bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -176,26 +140,18 @@ public class BindIfAsync_Tests
 				// Arrange
 				var value = Rnd.Int;
 				var input = R.Wrap(Rnd.Str);
-				var (predicate, bind) = Setup(true);
+				var (fTest, bind) = Setup(true);
 				bind.Invoke(Arg.Any<string>()).Returns(value);
 
 				// Act
-				var r0 = await input.BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				var r1 = await input.BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				var r2 = await input.BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
-				var r3 = await input.AsTask().BindIfAsync(predicate, bind);
-				var r4 = await input.AsTask().BindIfAsync(predicate, x => Task.FromResult(bind(x)));
-				var r5 = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), bind);
-				var r6 = await input.AsTask().BindIfAsync(x => Task.FromResult(predicate(x)), x => Task.FromResult(bind(x)));
+				var r0 = await input.BindIfAsync(fTest, x => Task.FromResult(bind(x)));
+				var r1 = await input.AsTask().BindIfAsync(fTest, bind);
+				var r2 = await input.AsTask().BindIfAsync(fTest, x => Task.FromResult(bind(x)));
 
 				// Assert
 				r0.AssertOk(value);
 				r1.AssertOk(value);
 				r2.AssertOk(value);
-				r3.AssertOk(value);
-				r4.AssertOk(value);
-				r5.AssertOk(value);
-				r6.AssertOk(value);
 			}
 		}
 	}

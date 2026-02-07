@@ -5,14 +5,14 @@ namespace Wrap.Extensions.ResultExtensions_Tests;
 
 public class BindIf_Tests
 {
-	private static (Func<string, bool> predicate, Func<string, Result<int>> bind) Setup(bool predicateReturn)
+	private static (Func<string, bool> fTest, Func<string, Result<int>> bind) Setup(bool predicateReturn)
 	{
-		var predicate = Substitute.For<Func<string, bool>>();
-		predicate.Invoke(Arg.Any<string>()).Returns(predicateReturn);
+		var fTest = Substitute.For<Func<string, bool>>();
+		fTest.Invoke(Arg.Any<string>()).Returns(predicateReturn);
 
 		var bind = Substitute.For<Func<string, Result<int>>>();
 
-		return (predicate, bind);
+		return (fTest, bind);
 	}
 
 	public class With_Failure
@@ -25,10 +25,10 @@ public class BindIf_Tests
 				// Arrange
 				var value = Rnd.Str;
 				var input = FailGen.Create<string>(new(value));
-				var (predicate, bind) = Setup(false);
+				var (fTest, bind) = Setup(false);
 
 				// Act
-				var result = input.BindIf(predicate, bind);
+				var result = input.BindIf(fTest, bind);
 
 				// Assert
 				result.AssertFailure(value);
@@ -39,10 +39,10 @@ public class BindIf_Tests
 			{
 				// Arrange
 				var input = FailGen.Create<string>();
-				var (predicate, bind) = Setup(false);
+				var (fTest, bind) = Setup(false);
 
 				// Act
-				_ = input.BindIf(predicate, bind);
+				_ = input.BindIf(fTest, bind);
 
 				// Assert
 				bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -57,10 +57,10 @@ public class BindIf_Tests
 				// Arrange
 				var value = Rnd.Str;
 				var input = FailGen.Create<string>(new(value));
-				var (predicate, bind) = Setup(true);
+				var (fTest, bind) = Setup(true);
 
 				// Act
-				var result = input.BindIf(predicate, bind);
+				var result = input.BindIf(fTest, bind);
 
 				// Assert
 				result.AssertFailure(value);
@@ -71,10 +71,10 @@ public class BindIf_Tests
 			{
 				// Arrange
 				var input = FailGen.Create<string>();
-				var (predicate, bind) = Setup(true);
+				var (fTest, bind) = Setup(true);
 
 				// Act
-				_ = input.BindIf(predicate, bind);
+				_ = input.BindIf(fTest, bind);
 
 				// Assert
 				bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -91,13 +91,13 @@ public class BindIf_Tests
 			{
 				// Arrange
 				var input = R.Wrap(Rnd.Str);
-				var (predicate, bind) = Setup(false);
+				var (fTest, bind) = Setup(false);
 
 				// Act
-				var result = input.BindIf(predicate, bind);
+				var result = input.BindIf(fTest, bind);
 
 				// Assert
-				result.AssertFailure(C.PredicateFalseMessage);
+				result.AssertFailure(C.TestFalseMessage);
 			}
 
 			[Fact]
@@ -105,10 +105,10 @@ public class BindIf_Tests
 			{
 				// Arrange
 				var input = R.Wrap(Rnd.Str);
-				var (predicate, bind) = Setup(false);
+				var (fTest, bind) = Setup(false);
 
 				// Act
-				_ = input.BindIf(predicate, bind);
+				_ = input.BindIf(fTest, bind);
 
 				// Assert
 				bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -123,11 +123,11 @@ public class BindIf_Tests
 				// Arrange
 				var value = Rnd.Int;
 				var input = R.Wrap(Rnd.Str);
-				var (predicate, bind) = Setup(true);
+				var (fTest, bind) = Setup(true);
 				bind.Invoke(Arg.Any<string>()).Returns(value);
 
 				// Act
-				var result = input.BindIf(predicate, bind);
+				var result = input.BindIf(fTest, bind);
 
 				// Assert
 				result.AssertOk(value);
