@@ -36,8 +36,8 @@ public abstract partial record class Maybe<T> : IEither<Maybe<T>, None, T>, IEqu
 	/// <inheritdoc/>
 	public T Unwrap(Func<None, T> getValue) =>
 		M.Match(this,
-			none: () => getValue(M.None),
-			some: x => x
+			fNone: () => getValue(M.None),
+			fSome: x => x
 		);
 
 	/// <summary>
@@ -69,8 +69,8 @@ public abstract partial record class Maybe<T> : IEither<Maybe<T>, None, T>, IEqu
 	/// <returns>Value string if this is a <see cref="Some{T}"/> or the value type.</returns>
 	public sealed override string ToString() =>
 		M.Match(this,
-			none: () => $"None: {typeof(T).Name}",
-			some: x => x?.ToString() switch
+			fNone: () => $"None: {typeof(T).Name}",
+			fSome: x => x?.ToString() switch
 			{
 				string value =>
 					value,

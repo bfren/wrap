@@ -35,28 +35,28 @@ public static partial class MaybeToResultExtensions
 	/// <returns>Result object.</returns>
 	public static Result<TReturn> Select<T, TReturn>(this Maybe<T> @this, Func<T, TReturn> f) =>
 		M.Match(@this,
-			none: ConvertNoneToFail<T, TReturn>,
-			some: x => f(x)
+			fNone: ConvertNoneToFail<T, TReturn>,
+			fSome: x => f(x)
 		);
 
 	/// <inheritdoc cref="Select{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>
 	public static Task<Result<TReturn>> Select<T, TReturn>(this Maybe<T> @this, Func<T, Task<TReturn>> f) =>
 		M.MatchAsync<T, Result<TReturn>>(@this,
-			none: ConvertNoneToFail<T, TReturn>,
-			some: async x => (await f(x)).Wrap()
+			fNone: ConvertNoneToFail<T, TReturn>,
+			fSome: async x => (await f(x)).Wrap()
 		);
 
 	/// <inheritdoc cref="Select{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>
 	public static Task<Result<TReturn>> Select<T, TReturn>(this Task<Maybe<T>> @this, Func<T, TReturn> f) =>
 		M.MatchAsync<T, Result<TReturn>>(@this,
-			none: ConvertNoneToFail<T, TReturn>,
-			some: async x => f(x).Wrap()
+			fNone: ConvertNoneToFail<T, TReturn>,
+			fSome: async x => f(x).Wrap()
 		);
 
 	/// <inheritdoc cref="Select{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>
 	public static Task<Result<TReturn>> Select<T, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<TReturn>> f) =>
 		M.MatchAsync<T, Result<TReturn>>(@this,
-			none: ConvertNoneToFail<T, TReturn>,
-			some: async x => (await f(x)).Wrap()
+			fNone: ConvertNoneToFail<T, TReturn>,
+			fSome: async x => (await f(x)).Wrap()
 		);
 }

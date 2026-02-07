@@ -16,17 +16,17 @@ public static partial class ResultExtensions
 	/// <param name="f">Function to run when <paramref name="this"/> is <see cref="Failure"/>.</param>
 	/// <returns>The original value of <paramref name="this"/>.</returns>
 	public static Result<T> IfFailed<T>(this Result<T> @this, Action<FailureValue> f) =>
-		Audit(@this, fail: f);
+		Audit(@this, fFail: f);
 
 	/// <inheritdoc cref="IfFailed{T}(Result{T}, Action{FailureValue})"/>
 	public static Task<Result<T>> IfFailedAsync<T>(this Result<T> @this, Func<FailureValue, Task> f) =>
-		AuditAsync(@this, fail: f);
+		AuditAsync(@this, fFail: f);
 
 	/// <inheritdoc cref="IfFailed{T}(Result{T}, Action{FailureValue})"/>
 	public static Task<Result<T>> IfFailedAsync<T>(this Task<Result<T>> @this, Action<FailureValue> f) =>
-		AuditAsync(@this, fail: f);
+		AuditAsync(@this, fFail: f);
 
 	/// <inheritdoc cref="IfFailed{T}(Result{T}, Action{FailureValue})"/>
 	public static Task<Result<T>> IfFailedAsync<T>(this Task<Result<T>> @this, Func<FailureValue, Task> f) =>
-		AuditAsync(@this, fail: f);
+		AuditAsync(@this, fFail: f);
 }

@@ -22,8 +22,8 @@ public abstract partial record class Result<T>
 	/// <inheritdoc/>
 	public override int GetHashCode() =>
 		R.Match(this,
-			fail: f => f.GetHashCode(),
-			ok: x => x.GetHashCode()
+			fFail: f => f.GetHashCode(),
+			fOk: x => x.GetHashCode()
 		);
 
 	/// <summary>
@@ -35,8 +35,8 @@ public abstract partial record class Result<T>
 	/// <returns>True if <paramref name="l"/> is <see cref="Ok{T}"/> and its value equals <paramref name="r"/>.</returns>
 	public static bool operator ==(Result<T> l, T r) =>
 		R.Match(l,
-			fail: _ => false,
-			ok: x => Equals(x, r)
+			fFail: _ => false,
+			fOk: x => Equals(x, r)
 		);
 
 	/// <summary>
@@ -48,8 +48,8 @@ public abstract partial record class Result<T>
 	/// <returns>True if <paramref name="l"/> is <see cref="Ok{T}"/> and its value does not equal <paramref name="r"/>.</returns>
 	public static bool operator !=(Result<T> l, T r) =>
 		R.Match(l,
-			fail: _ => true,
-			ok: x => !Equals(x, r)
+			fFail: _ => true,
+			fOk: x => !Equals(x, r)
 		);
 
 	/// <summary>
@@ -61,8 +61,8 @@ public abstract partial record class Result<T>
 	/// <returns>True if <paramref name="r"/> is <see cref="Ok{T}"/> and its value equals <paramref name="l"/>.</returns>
 	public static bool operator ==(T l, Result<T> r) =>
 		R.Match(r,
-			fail: _ => false,
-			ok: x => Equals(x, l)
+			fFail: _ => false,
+			fOk: x => Equals(x, l)
 		);
 
 	/// <summary>
@@ -74,7 +74,7 @@ public abstract partial record class Result<T>
 	/// <returns>True if <paramref name="r"/> is <see cref="Ok{T}"/> and its value does not equal <paramref name="l"/>.</returns>
 	public static bool operator !=(T l, Result<T> r) =>
 		R.Match(r,
-			fail: _ => true,
-			ok: x => !Equals(x, l)
+			fFail: _ => true,
+			fOk: x => !Equals(x, l)
 		);
 }

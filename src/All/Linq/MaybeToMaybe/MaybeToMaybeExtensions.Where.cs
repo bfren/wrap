@@ -28,19 +28,19 @@ public static partial class MaybeToMaybeExtensions
 	/// </remarks>
 	/// <typeparam name="T">Maybe type.</typeparam>
 	/// <param name="this">Maybe.</param>
-	/// <param name="predicate">Select where predicate.</param>
-	public static Maybe<T> Where<T>(this Maybe<T> @this, Func<T, bool> predicate) =>
-		@this.Filter(predicate);
+	/// <param name="fTest">Select where fTest.</param>
+	public static Maybe<T> Where<T>(this Maybe<T> @this, Func<T, bool> fTest) =>
+		@this.Filter(fTest);
 
 	/// <inheritdoc cref="Where{T}(Maybe{T}, Func{T, bool})"/>
-	public static Task<Maybe<T>> Where<T>(this Maybe<T> @this, Func<T, Task<bool>> predicate) =>
-		@this.FilterAsync(predicate);
+	public static Task<Maybe<T>> Where<T>(this Maybe<T> @this, Func<T, Task<bool>> fTest) =>
+		@this.FilterAsync(fTest);
 
 	/// <inheritdoc cref="Where{T}(Maybe{T}, Func{T, bool})"/>
-	public static Task<Maybe<T>> Where<T>(this Task<Maybe<T>> @this, Func<T, bool> predicate) =>
-		@this.FilterAsync(predicate);
+	public static Task<Maybe<T>> Where<T>(this Task<Maybe<T>> @this, Func<T, bool> fTest) =>
+		@this.FilterAsync(fTest);
 
 	/// <inheritdoc cref="Where{T}(Maybe{T}, Func{T, bool})"/>
-	public static Task<Maybe<T>> Where<T>(this Task<Maybe<T>> @this, Func<T, Task<bool>> predicate) =>
-		@this.FilterAsync(predicate);
+	public static Task<Maybe<T>> Where<T>(this Task<Maybe<T>> @this, Func<T, Task<bool>> fTest) =>
+		@this.FilterAsync(fTest);
 }

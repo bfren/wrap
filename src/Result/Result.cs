@@ -32,8 +32,8 @@ public abstract partial record class Result<T> : IEither<Result<T>, FailureValue
 	/// <inheritdoc/>
 	public T Unwrap(Func<FailureValue, T> getValue) =>
 		R.Match(this,
-			fail: f => getValue(f),
-			ok: x => x
+			fFail: f => getValue(f),
+			fOk: x => x
 		);
 
 	/// <summary>
@@ -58,8 +58,8 @@ public abstract partial record class Result<T> : IEither<Result<T>, FailureValue
 	/// <returns>Value string if this is a <see cref="Ok{T}"/> or the value type.</returns>
 	public sealed override string ToString() =>
 		R.Match(this,
-			fail: x => F.Format(x.Message, x.Args),
-			ok: x => x?.ToString() switch
+			fFail: x => F.Format(x.Message, x.Args),
+			fOk: x => x?.ToString() switch
 			{
 				string value =>
 					value,

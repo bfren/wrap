@@ -15,14 +15,14 @@ public static partial class ResultExtensions
 	/// <returns>Whether or not the value of <paramref name="this"/> is <see langword="false"/>.</returns>
 	public static bool IsFalse(this Result<bool> @this) =>
 		R.Match(@this,
-			fail: _ => false,
-			ok: x => !x
+			fFail: _ => false,
+			fOk: x => !x
 		);
 
 	/// <inheritdoc cref="IsTrue(Result{bool})"/>
 	public static Task<bool> IsFalseAsync(this Task<Result<bool>> @this) =>
 		R.MatchAsync(@this,
-			fail: _ => false,
-			ok: x => !x
+			fFail: _ => false,
+			fOk: x => !x
 		);
 }
