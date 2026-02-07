@@ -15,14 +15,14 @@ public static partial class MaybeExtensions
 	/// <returns>Whether or not the value of <paramref name="this"/> is <see langword="true"/>.</returns>
 	public static bool IsTrue(this Maybe<bool> @this) =>
 		M.Match(@this,
-			none: () => false,
-			some: x => x
+			fNone: () => false,
+			fSome: x => x
 		);
 
 	/// <inheritdoc cref="IsTrue(Maybe{bool})"/>
 	public static Task<bool> IsTrueAsync(this Task<Maybe<bool>> @this) =>
 		M.MatchAsync(@this,
-			none: () => false,
-			some: x => x
+			fNone: () => false,
+			fSome: x => x
 		);
 }

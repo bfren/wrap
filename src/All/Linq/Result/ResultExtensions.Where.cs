@@ -28,19 +28,19 @@ public static partial class ResultExtensions
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="predicate">Select where predicate.</param>
-	public static Result<T> Where<T>(this Result<T> @this, Func<T, bool> predicate) =>
-		@this.Filter(predicate);
+	/// <param name="fTest">Select where fTest.</param>
+	public static Result<T> Where<T>(this Result<T> @this, Func<T, bool> fTest) =>
+		@this.Filter(fTest);
 
 	/// <inheritdoc cref="Where{T}(Result{T}, Func{T, bool})"/>
-	public static Task<Result<T>> Where<T>(this Result<T> @this, Func<T, Task<bool>> predicate) =>
-		@this.FilterAsync(predicate);
+	public static Task<Result<T>> Where<T>(this Result<T> @this, Func<T, Task<bool>> fTest) =>
+		@this.FilterAsync(fTest);
 
 	/// <inheritdoc cref="Where{T}(Result{T}, Func{T, bool})"/>
-	public static Task<Result<T>> Where<T>(this Task<Result<T>> @this, Func<T, bool> predicate) =>
-		@this.FilterAsync(predicate);
+	public static Task<Result<T>> Where<T>(this Task<Result<T>> @this, Func<T, bool> fTest) =>
+		@this.FilterAsync(fTest);
 
 	/// <inheritdoc cref="Where{T}(Result{T}, Func{T, bool})"/>
-	public static Task<Result<T>> Where<T>(this Task<Result<T>> @this, Func<T, Task<bool>> predicate) =>
-		@this.FilterAsync(predicate);
+	public static Task<Result<T>> Where<T>(this Task<Result<T>> @this, Func<T, Task<bool>> fTest) =>
+		@this.FilterAsync(fTest);
 }

@@ -6,4 +6,8 @@ namespace Wrap;
 internal static class C
 {
 	internal const string NoneFailureMessage = "Maybe<{Type}> was 'None'.";
+
+	internal const string NullValueFailureMessage = "Null value of type '{Type}'.";
+
+	internal const string TestFalseMessage = "Test returned false.";
 }

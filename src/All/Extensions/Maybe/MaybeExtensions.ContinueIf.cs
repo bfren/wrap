@@ -9,17 +9,17 @@ namespace Wrap.Extensions;
 public static partial class MaybeExtensions
 {
 	/// <summary>
-	/// Return a value determined by the value of <paramref name="this"/> and the result of <paramref name="predicate"/>.
+	/// Return a value determined by the value of <paramref name="this"/> and the result of <paramref name="fTest"/>.
 	/// </summary>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
-	/// <param name="predicate">Uses value of <paramref name="this"/> to determines whether to pass on the original value or return <see cref="None"/>.</param>
+	/// <param name="fTest">Uses value of <paramref name="this"/> to determines whether to pass on the original value or return <see cref="None"/>.</param>
 	/// <returns>Original value or <see cref="None"/>.</returns>
-	public static Maybe<T> ContinueIf<T>(this Maybe<T> @this, Func<T, bool> predicate) =>
-		If<T, T>(@this, predicate, x => x, _ => M.None);
+	public static Maybe<T> ContinueIf<T>(this Maybe<T> @this, Func<T, bool> fTest) =>
+		If<T, T>(@this, fTest, x => x, _ => M.None);
 
 	/// <inheritdoc cref="ContinueIf{T}(Maybe{T}, Func{T, bool})"/>
-	public static Task<Maybe<T>> ContinueIfAsync<T>(this Task<Maybe<T>> @this, Func<T, bool> predicate) =>
-		IfAsync<T, T>(@this, predicate, x => x, _ => M.None);
+	public static Task<Maybe<T>> ContinueIfAsync<T>(this Task<Maybe<T>> @this, Func<T, bool> fTest) =>
+		IfAsync<T, T>(@this, fTest, x => x, _ => M.None);
 
 }

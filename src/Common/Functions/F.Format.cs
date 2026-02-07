@@ -20,7 +20,7 @@ public static partial class F
 	/// <para>Source is Object: property names must match placeholders or they will be left in place.</para>
 	/// </summary>
 	/// <remarks>
-	/// Inspired by http://james.newtonking.com/archive/2008/03/29/formatwith-2-0-string-formatting-with-named-variables,
+	/// Inspired by https://james.newtonking.com/archive/2008/03/28/formatwith-2-0-string-formatting-with-named-variables/,
 	/// (significantly) altered to work without requiring DataBinder.
 	/// </remarks>
 	/// <typeparam name="T">Source type.</typeparam>

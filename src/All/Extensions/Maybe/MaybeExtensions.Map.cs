@@ -25,28 +25,28 @@ public static partial class MaybeExtensions
 	/// <returns><see cref="Some{T}"/> object or <see cref="None"/>.</returns>
 	public static Maybe<TReturn> Map<T, TReturn>(this Maybe<T> @this, Func<T, TReturn> f) =>
 		M.Match(@this,
-			none: () => M.None,
-			some: x => M.Wrap(f(x))
+			fNone: () => M.None,
+			fSome: x => M.Wrap(f(x))
 		);
 
 	/// <inheritdoc cref="Map{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>
 	public static Task<Maybe<TReturn>> MapAsync<T, TReturn>(this Maybe<T> @this, Func<T, Task<TReturn>> f) =>
 		M.MatchAsync(@this,
-			none: () => M.None,
-			some: async x => M.Wrap(await f(x))
+			fNone: () => M.None,
+			fSome: async x => M.Wrap(await f(x))
 		);
 
 	/// <inheritdoc cref="Map{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>
 	public static Task<Maybe<TReturn>> MapAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, TReturn> f) =>
 		M.MatchAsync(@this,
-			none: () => M.None,
-			some: x => M.Wrap(f(x))
+			fNone: () => M.None,
+			fSome: x => M.Wrap(f(x))
 		);
 
 	/// <inheritdoc cref="Map{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>
 	public static Task<Maybe<TReturn>> MapAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<TReturn>> f) =>
 		M.MatchAsync(@this,
-			none: () => M.None,
-			some: async x => M.Wrap(await f(x))
+			fNone: () => M.None,
+			fSome: async x => M.Wrap(await f(x))
 		);
 }

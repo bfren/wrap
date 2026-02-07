@@ -42,8 +42,8 @@ public static partial class MaybeExtensions
 		try
 		{
 			return M.Match(@this,
-				none: () => noneHandler(),
-				some: R.Wrap
+				fNone: () => noneHandler(),
+				fSome: R.Wrap
 			);
 		}
 		catch (Exception ex)
@@ -64,8 +64,8 @@ public static partial class MaybeExtensions
 		try
 		{
 			return await M.MatchAsync(@this,
-				none: async () => await noneHandler(),
-				some: R.Wrap
+				fNone: async () => await noneHandler(),
+				fSome: R.Wrap
 			);
 		}
 		catch (Exception ex)

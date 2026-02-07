@@ -49,8 +49,8 @@ public abstract class IdModelBinder<TId, TIdValue> : IModelBinder
 				valueProviderResult.FirstValue
 			)
 			.Match(
-				some: x => ModelBindingResult.Success(new TId { Value = x }),
-				none: () => ModelBindingResult.Success(new TId { Value = Default })
+				fSome: x => ModelBindingResult.Success(new TId { Value = x }),
+				fNone: () => ModelBindingResult.Success(new TId { Value = Default })
 			);
 
 		return Task.CompletedTask;

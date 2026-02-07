@@ -9,6 +9,8 @@ namespace Wrap.Extensions;
 
 public static partial class EnumerableExtensions
 {
+	#region Maybe
+
 	/// <summary>
 	/// Filter out <see cref="None"/> objects from a list.
 	/// </summary>
@@ -19,82 +21,104 @@ public static partial class EnumerableExtensions
 	{
 		foreach (var item in @this)
 		{
-			yield return item;
+			foreach (var some in item)
+			{
+				yield return some;
+			}
 		}
 	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}})"/>
-	public static async IAsyncEnumerable<Maybe<T>> FilterAsync<T>(this IAsyncEnumerable<Maybe<T>> @this)
+	public static async Task<List<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this)
 	{
-		await foreach (var item in @this)
+		var list = new List<Maybe<T>>();
+
+		foreach (var item in await @this)
 		{
-			yield return item;
+			foreach (var some in item)
+			{
+				list.Add(some);
+			}
 		}
+
+		return list;
 	}
 
 	/// <summary>
-	/// Run <paramref name="predicate"/> on each value in <paramref name="this"/> that is <see cref="Some{T}"/>.
+	/// Run <paramref name="fTest"/> on each value in <paramref name="this"/> that is <see cref="Some{T}"/>.
 	/// </summary>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">List of Maybe objects.</param>
-	/// <param name="predicate">Function to detemine whether or not the value of <paramref name="this"/> should be returned.</param>
-	/// <returns>Value of <paramref name="this"/> if <paramref name="predicate"/> returns true, or <see cref="None"/>.</returns>
-	public static IEnumerable<Maybe<T>> Filter<T>(this IEnumerable<Maybe<T>> @this, Func<T, bool> predicate)
+	/// <param name="fTest">Function to detemine whether or not the value of <paramref name="this"/> should be returned.</param>
+	/// <returns>Value of <paramref name="this"/> if <paramref name="fTest"/> returns true, or <see cref="None"/>.</returns>
+	public static IEnumerable<Maybe<T>> Filter<T>(this IEnumerable<Maybe<T>> @this, Func<T, bool> fTest)
 	{
 		foreach (var item in @this)
 		{
-			foreach (var some in item)
-			{
-				if (some is T value && predicate(value))
-				{
-					yield return value;
-				}
-			}
+			yield return item.Filter(fTest);
 		}
 	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
-	public static async IAsyncEnumerable<Maybe<T>> FilterAsync<T>(this IEnumerable<Maybe<T>> @this, Func<T, Task<bool>> predicate)
+	public static Task<List<Maybe<T>>> FilterAsync<T>(this IEnumerable<Maybe<T>> @this, Func<T, Task<bool>> fTest) =>
+		FilterAsync(Task.FromResult(@this), fTest);
+
+	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
+	public static Task<List<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, bool> fTest) =>
+		FilterAsync(@this, x => Task.FromResult(fTest(x)));
+
+	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
+	public static async Task<List<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<bool>> fTest)
+	{
+		var list = new List<Maybe<T>>();
+
+		foreach (var item in await @this)
+		{
+			list.Add(await item.FilterAsync(fTest));
+		}
+
+		return list;
+	}
+
+	#endregion
+
+	#region Result
+
+	/// <summary>
+	/// Run <paramref name="fTest"/> on each value in <paramref name="this"/> that is <see cref="Some{T}"/>.
+	/// </summary>
+	/// <typeparam name="T">Some value type.</typeparam>
+	/// <param name="this">List of Result objects.</param>
+	/// <param name="fTest">Function to detemine whether or not the value of <paramref name="this"/> should be returned.</param>
+	/// <returns>Value of <paramref name="this"/> if <paramref name="fTest"/> returns true, or <see cref="None"/>.</returns>
+	public static IEnumerable<Result<T>> Filter<T>(this IEnumerable<Result<T>> @this, Func<T, bool> fTest)
 	{
 		foreach (var item in @this)
 		{
-			foreach (var some in item)
-			{
-				if (some is T value && await predicate(value))
-				{
-					yield return value;
-				}
-			}
+			yield return item.Filter(fTest);
 		}
 	}
 
-	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
-	public static async IAsyncEnumerable<Maybe<T>> FilterAsync<T>(this IAsyncEnumerable<Maybe<T>> @this, Func<T, bool> predicate)
+	/// <inheritdoc cref="Filter{T}(IEnumerable{Result{T}}, Func{T, bool})"/>
+	public static Task<List<Result<T>>> FilterAsync<T>(this IEnumerable<Result<T>> @this, Func<T, Task<bool>> fTest) =>
+		FilterAsync(Task.FromResult(@this), fTest);
+
+	/// <inheritdoc cref="Filter{T}(IEnumerable{Result{T}}, Func{T, bool})"/>
+	public static Task<List<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, bool> fTest) =>
+		FilterAsync(@this, x => Task.FromResult(fTest(x)));
+
+	/// <inheritdoc cref="Filter{T}(IEnumerable{Result{T}}, Func{T, bool})"/>
+	public static async Task<List<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<bool>> fTest)
 	{
-		await foreach (var item in @this)
+		var list = new List<Result<T>>();
+
+		foreach (var item in await @this)
 		{
-			foreach (var some in item)
-			{
-				if (some is T value && predicate(value))
-				{
-					yield return value;
-				}
-			}
+			list.Add(await item.FilterAsync(fTest));
 		}
+
+		return list;
 	}
 
-	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
-	public static async IAsyncEnumerable<Maybe<T>> FilterAsync<T>(this IAsyncEnumerable<Maybe<T>> @this, Func<T, Task<bool>> predicate)
-	{
-		await foreach (var item in @this)
-		{
-			foreach (var some in item)
-			{
-				if (some is T value && await predicate(value))
-				{
-					yield return value;
-				}
-			}
-		}
-	}
+	#endregion
 }

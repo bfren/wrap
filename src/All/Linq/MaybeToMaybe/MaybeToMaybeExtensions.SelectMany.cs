@@ -34,28 +34,28 @@ public static partial class MaybeToMaybeExtensions
 	/// <param name="g">Return map function.</param>
 	public static Maybe<TReturn> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Maybe<TInner>> f, Func<T, TInner, TReturn> g) =>
 		M.Match(@this,
-			none: () => M.None,
-			some: x => f(x).Map(y => g(x, y))
+			fNone: () => M.None,
+			fSome: x => f(x).Map(y => g(x, y))
 		);
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Maybe{TInner}}, Func{T, TInner, TReturn})"/>
 	public static Task<Maybe<TReturn>> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Task<Maybe<TInner>>> f, Func<T, TInner, TReturn> g) =>
 		M.MatchAsync(@this,
-			none: () => M.None,
-			some: x => f(x).MapAsync(y => g(x, y))
+			fNone: () => M.None,
+			fSome: x => f(x).MapAsync(y => g(x, y))
 		);
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Maybe{TInner}}, Func{T, TInner, TReturn})"/>
 	public static Task<Maybe<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Maybe<TInner>> f, Func<T, TInner, TReturn> g) =>
 		M.MatchAsync(@this,
-			none: () => M.None,
-			some: x => f(x).Map(y => g(x, y))
+			fNone: () => M.None,
+			fSome: x => f(x).Map(y => g(x, y))
 		);
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Maybe{TInner}}, Func{T, TInner, TReturn})"/>
 	public static Task<Maybe<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<Maybe<TInner>>> f, Func<T, TInner, TReturn> g) =>
 		M.MatchAsync(@this,
-			none: () => M.None,
-			some: x => f(x).MapAsync(y => g(x, y))
+			fNone: () => M.None,
+			fSome: x => f(x).MapAsync(y => g(x, y))
 		);
 }

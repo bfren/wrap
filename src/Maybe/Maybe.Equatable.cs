@@ -22,8 +22,8 @@ public abstract partial record class Maybe<T>
 	/// <inheritdoc/>
 	public override int GetHashCode() =>
 		M.Match(this,
-			none: M.None.GetHashCode,
-			some: x => x.GetHashCode()
+			fNone: M.None.GetHashCode,
+			fSome: x => x.GetHashCode()
 		);
 
 	/// <summary>
@@ -35,8 +35,8 @@ public abstract partial record class Maybe<T>
 	/// <returns>True if <paramref name="l"/> is <see cref="Some{T}"/> and its value equals <paramref name="r"/>.</returns>
 	public static bool operator ==(Maybe<T> l, T r) =>
 		M.Match(l,
-			none: () => false,
-			some: x => Equals(x, r)
+			fNone: () => false,
+			fSome: x => Equals(x, r)
 		);
 
 	/// <summary>
@@ -48,8 +48,8 @@ public abstract partial record class Maybe<T>
 	/// <returns>True if <paramref name="l"/> is <see cref="Some{T}"/> and its value does not equal <paramref name="r"/>.</returns>
 	public static bool operator !=(Maybe<T> l, T r) =>
 		M.Match(l,
-			none: () => true,
-			some: x => !Equals(x, r)
+			fNone: () => true,
+			fSome: x => !Equals(x, r)
 		);
 
 	/// <summary>
@@ -61,8 +61,8 @@ public abstract partial record class Maybe<T>
 	/// <returns>True if <paramref name="r"/> is <see cref="Some{T}"/> and its value equals <paramref name="l"/>.</returns>
 	public static bool operator ==(T l, Maybe<T> r) =>
 		M.Match(r,
-			none: () => false,
-			some: x => Equals(x, l)
+			fNone: () => false,
+			fSome: x => Equals(x, l)
 		);
 
 	/// <summary>
@@ -74,7 +74,7 @@ public abstract partial record class Maybe<T>
 	/// <returns>True if <paramref name="r"/> is <see cref="Some{T}"/> and its value does not equal <paramref name="l"/>.</returns>
 	public static bool operator !=(T l, Maybe<T> r) =>
 		M.Match(r,
-			none: () => true,
-			some: x => !Equals(x, l)
+			fNone: () => true,
+			fSome: x => !Equals(x, l)
 		);
 }

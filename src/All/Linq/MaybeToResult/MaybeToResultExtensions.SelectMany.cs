@@ -35,28 +35,28 @@ public static partial class MaybeToResultExtensions
 	/// <returns>Result object.</returns>
 	public static Result<TReturn> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Result<TInner>> f, Func<T, TInner, TReturn> g) =>
 		M.Match(@this,
-			none: ConvertNoneToFail<T, TReturn>,
-			some: x => f(x).Map(y => g(x, y))
+			fNone: ConvertNoneToFail<T, TReturn>,
+			fSome: x => f(x).Map(y => g(x, y))
 		);
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Result{TInner}}, Func{T, TInner, TReturn})"/>
 	public static Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Task<Result<TInner>>> f, Func<T, TInner, TReturn> g) =>
 		M.MatchAsync(@this,
-			none: ConvertNoneToFail<T, TReturn>,
-			some: x => f(x).MapAsync(y => g(x, y))
+			fNone: ConvertNoneToFail<T, TReturn>,
+			fSome: x => f(x).MapAsync(y => g(x, y))
 		);
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Result{TInner}}, Func{T, TInner, TReturn})"/>
 	public static Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Result<TInner>> f, Func<T, TInner, TReturn> g) =>
 		M.MatchAsync(@this,
-			none: ConvertNoneToFail<T, TReturn>,
-			some: x => f(x).Map(y => g(x, y))
+			fNone: ConvertNoneToFail<T, TReturn>,
+			fSome: x => f(x).Map(y => g(x, y))
 		);
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Result{TInner}}, Func{T, TInner, TReturn})"/>
 	public static Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<Result<TInner>>> f, Func<T, TInner, TReturn> g) =>
 		M.MatchAsync(@this,
-			none: ConvertNoneToFail<T, TReturn>,
-			some: x => f(x).MapAsync(y => g(x, y))
+			fNone: ConvertNoneToFail<T, TReturn>,
+			fSome: x => f(x).MapAsync(y => g(x, y))
 		);
 }

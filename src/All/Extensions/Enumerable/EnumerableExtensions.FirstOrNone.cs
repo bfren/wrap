@@ -15,10 +15,10 @@ public static partial class EnumerableExtensions
 	/// <param name="this">IEnumerable object</param>
 	/// <returns>Value of the first element of <paramref name="this"/>, or <see cref="None"/>.</returns>
 	public static Maybe<T> FirstOrNone<T>(this IEnumerable<T> @this) =>
-		@this.FirstOrDefault() switch
+		@this.Any() switch
 		{
-			T value =>
-				value,
+			true =>
+				@this.First(),
 
 			_ =>
 				M.None

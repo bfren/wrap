@@ -24,8 +24,8 @@ public static partial class UnsafeExtensions
 		where TEither : IEither<TEither, TLeft, TRight> =>
 		E.Match<TEither, TLeft, TRight, Maybe<TRight>>(
 			@this.Value,
-			left: _ => M.None,
-			right: M.Wrap
+			fLeft: _ => M.None,
+			fRight: M.Wrap
 		);
 
 	/// <inheritdoc cref="Discard{TEither, TLeft, TRight}(Unsafe{TEither, TLeft, TRight})"/>
@@ -33,7 +33,7 @@ public static partial class UnsafeExtensions
 		where TEither : IEither<TEither, TLeft, TRight> =>
 		await E.MatchAsync<TEither, TLeft, TRight, Maybe<TRight>>(
 			(await @this).Value,
-			left: _ => M.None,
-			right: x => M.Wrap(x).AsTask()
+			fLeft: _ => M.None,
+			fRight: async x => x
 		);
 }

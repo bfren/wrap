@@ -7,7 +7,7 @@ namespace Wrap.Exceptions;
 
 /// <summary>
 /// Not really an 'exception' but used so <see cref="ResultExtensions.Filter{T}(Result{T}, System.Func{T, bool})"/>
-/// can return an <see cref="Failure"/> object when a predicate fails.
+/// can return an <see cref="Failure"/> object when a fTest fails.
 /// </summary>
 /// <seealso cref="ResultExtensions.Filter{T}(Result{T}, System.Func{T, bool})"/>
-public sealed class PredicateFalseException : WrapException { }
+public sealed class TestFalseException : WrapException { }

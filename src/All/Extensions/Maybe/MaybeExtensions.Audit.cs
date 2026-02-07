@@ -9,32 +9,32 @@ namespace Wrap.Extensions;
 public static partial class MaybeExtensions
 {
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static Maybe<T> Audit<T>(this Maybe<T> @this, Action none) =>
-		Audit(@this, none, null);
+	public static Maybe<T> Audit<T>(this Maybe<T> @this, Action fNone) =>
+		Audit(@this, fNone, null);
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static Maybe<T> Audit<T>(this Maybe<T> @this, Action<T> some) =>
-		Audit(@this, null, some);
+	public static Maybe<T> Audit<T>(this Maybe<T> @this, Action<T> fSome) =>
+		Audit(@this, null, fSome);
 
 	/// <summary>
-	/// Run <paramref name="none"/> or <paramref name="some"/> depending on the value of <paramref name="this"/>.
+	/// Run <paramref name="fNone"/> or <paramref name="fSome"/> depending on the value of <paramref name="this"/>.
 	/// </summary>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
-	/// <param name="none">Audit function to run when <paramref name="this"/> is <see cref="None"/>.</param>
-	/// <param name="some">Audit function to run when <paramref name="this"/> is <see cref="Some{T}"/>.</param>
+	/// <param name="fNone">Audit function to run when <paramref name="this"/> is <see cref="None"/>.</param>
+	/// <param name="fSome">Audit function to run when <paramref name="this"/> is <see cref="Some{T}"/>.</param>
 	/// <returns>The original value of <paramref name="this"/>.</returns>
-	public static Maybe<T> Audit<T>(this Maybe<T> @this, Action? none, Action<T>? some)
+	public static Maybe<T> Audit<T>(this Maybe<T> @this, Action? fNone, Action<T>? fSome)
 	{
 		try
 		{
-			if (@this is Maybe<T>.NoneImpl && none is not null)
+			if (@this is Maybe<T>.NoneImpl && fNone is not null)
 			{
-				none();
+				fNone();
 			}
-			else if (@this is Some<T> x && some is not null)
+			else if (@this is Some<T> x && fSome is not null)
 			{
-				some(x.Value);
+				fSome(x.Value);
 			}
 		}
 		catch (Exception ex)
@@ -67,51 +67,51 @@ public static partial class MaybeExtensions
 	}
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static Task<Maybe<T>> AuditAsync<T>(this Maybe<T> @this, Func<Task> none) =>
-		AuditAsync(@this, none, null);
+	public static Task<Maybe<T>> AuditAsync<T>(this Maybe<T> @this, Func<Task> fNone) =>
+		AuditAsync(@this, fNone, null);
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static Task<Maybe<T>> AuditAsync<T>(this Maybe<T> @this, Func<T, Task> some) =>
-		AuditAsync(@this, null, some);
+	public static Task<Maybe<T>> AuditAsync<T>(this Maybe<T> @this, Func<T, Task> fSome) =>
+		AuditAsync(@this, null, fSome);
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static Task<Maybe<T>> AuditAsync<T>(this Maybe<T> @this, Func<Task>? none, Func<T, Task>? some) =>
-		AuditAsync(@this.AsTask(), none, some);
+	public static Task<Maybe<T>> AuditAsync<T>(this Maybe<T> @this, Func<Task>? fNone, Func<T, Task>? fSome) =>
+		AuditAsync(@this.AsTask(), fNone, fSome);
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action none) =>
-		AuditAsync(@this, none, null);
+	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action fNone) =>
+		AuditAsync(@this, fNone, null);
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action<T> some) =>
-		AuditAsync(@this, null, some);
+	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action<T> fSome) =>
+		AuditAsync(@this, null, fSome);
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action? none, Action<T>? some) =>
-		AuditAsync(@this, () => { none?.Invoke(); return Task.CompletedTask; }, x => { some?.Invoke(x); return Task.CompletedTask; });
+	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action? fNone, Action<T>? fSome) =>
+		AuditAsync(@this, () => { fNone?.Invoke(); return Task.CompletedTask; }, x => { fSome?.Invoke(x); return Task.CompletedTask; });
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Task> none) =>
-		AuditAsync(@this, none, null);
+	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Task> fNone) =>
+		AuditAsync(@this, fNone, null);
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<T, Task> some) =>
-		AuditAsync(@this, null, some);
+	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<T, Task> fSome) =>
+		AuditAsync(@this, null, fSome);
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static async Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Task>? none, Func<T, Task>? some)
+	public static async Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Task>? fNone, Func<T, Task>? fSome)
 	{
 		var result = await @this;
 
 		try
 		{
-			if (result is Maybe<T>.NoneImpl && none is not null)
+			if (result is Maybe<T>.NoneImpl && fNone is not null)
 			{
-				await none();
+				await fNone();
 			}
-			else if (result is Some<T> x && some is not null)
+			else if (result is Some<T> x && fSome is not null)
 			{
-				await some(x.Value);
+				await fSome(x.Value);
 			}
 		}
 		catch (Exception ex)
