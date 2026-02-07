@@ -17,8 +17,17 @@ public sealed class MonadJsonConverter<TMonad, TValue> : JsonConverter<TMonad>
 	where TMonad : IMonad<TMonad, TValue>, new()
 {
 	/// <inheritdoc/>
-	public override void Write(Utf8JsonWriter writer, TMonad value, JsonSerializerOptions options) =>
-		writer.WriteStringValue(value.Value?.ToString());
+	public override void Write(Utf8JsonWriter writer, TMonad value, JsonSerializerOptions options)
+	{
+		if (value is null)
+		{
+			writer.WriteNullValue();
+			return;
+		}
+
+		var json = JsonSerializer.SerializeToUtf8Bytes(value.Value, options);
+		writer.WriteRawValue(json);
+	}
 
 	/// <inheritdoc/>
 	public override TMonad? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
