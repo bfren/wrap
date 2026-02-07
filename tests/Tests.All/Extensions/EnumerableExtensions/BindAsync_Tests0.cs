@@ -118,9 +118,9 @@ public partial class BindAsync_Tests
 			var r2 = await v.ListAsync.BindAsync(x => M.Wrap(x.ToString()).AsTask());
 
 			// Assert
-			Assert.Equal(3, r0.Count());
-			Assert.Equal(3, r1.Count());
-			Assert.Equal(3, r2.Count());
+			Assert.Equal(3, r0.Count);
+			Assert.Equal(3, r1.Count);
+			Assert.Equal(3, r2.Count);
 		}
 
 		[Fact]
@@ -153,7 +153,7 @@ public partial class BindAsync_Tests
 		}
 	}
 
-	internal record class MaybeVars(
+	internal sealed record class MaybeVars(
 		IEnumerable<Maybe<int>> List,
 		Func<int, Maybe<string>> Bind,
 		Func<int, Task<Maybe<string>>> BindAsync,

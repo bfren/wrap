@@ -3,16 +3,16 @@
 
 namespace Wrap.Extensions.EnumerableExtensions_Tests;
 
-public class MapAsync_Tests1
+public partial class MapAsync_Tests
 {
-	public class With_Null_Input
+	public class With_Failure
 	{
 		[Fact]
 		public async Task Does_Not_Call_Map_Function()
 		{
 			// Arrange
-			IEnumerable<string> list = [null!, null!, null!];
-			var map = Substitute.For<Func<string, Result<int>>>();
+			IEnumerable<Result<string>> list = [FailGen.Create(), FailGen.Create(), FailGen.Create()];
+			var map = Substitute.For<Func<string, int>>();
 
 			// Act
 			_ = await list.MapAsync(x => Task.FromResult(map(x)));
@@ -24,11 +24,11 @@ public class MapAsync_Tests1
 		}
 
 		[Fact]
-		public async Task Returns_None_Values()
+		public async Task Returns_Failure_Values()
 		{
 			// Arrange
-			IEnumerable<string> list = [null!, null!, null!];
-			var map = Substitute.For<Func<string, Result<int>>>();
+			IEnumerable<Result<string>> list = [FailGen.Create(), FailGen.Create(), FailGen.Create()];
+			var map = Substitute.For<Func<string, int>>();
 
 			// Act
 			var r0 = await list.MapAsync(x => Task.FromResult(map(x)));
@@ -36,13 +36,13 @@ public class MapAsync_Tests1
 			var r2 = await Task.FromResult(list).MapAsync(x => Task.FromResult(map(x)));
 
 			// Assert
-			Map_Tests1.AssertFailures<string, int>(r0);
-			Map_Tests1.AssertFailures<string, int>(r1);
-			Map_Tests1.AssertFailures<string, int>(r2);
+			Map_Tests.AssertFailures([.. list], r0);
+			Map_Tests.AssertFailures([.. list], r1);
+			Map_Tests.AssertFailures([.. list], r2);
 		}
 	}
 
-	public class With_Value_Input
+	public class With_Ok
 	{
 		public class Func_Returns_Value
 		{
@@ -53,8 +53,8 @@ public class MapAsync_Tests1
 				var v0 = Rnd.Str;
 				var v1 = Rnd.Str;
 				var v2 = Rnd.Str;
-				IEnumerable<string> list = [v0, v1, v2];
-				static Result<string> map(string x) => x.ToLower(F.DefaultCulture);
+				IEnumerable<Result<string>> list = [v0, v1, v2];
+				static string map(string x) => x.ToLower(F.DefaultCulture);
 
 				// Act
 				var r0 = await list.MapAsync(x => Task.FromResult(map(x)));

@@ -7,17 +7,15 @@ public partial class FilterBindAsync_Tests
 {
 	private static ResultVars SetupResult(bool predicateReturn, bool withValues, bool mixed = false)
 	{
-		var predicate = Substitute.For<Func<int, bool>>();
+		var fTest = Substitute.For<Func<int, bool>>();
 		var predicateAsync = Substitute.For<Func<int, Task<bool>>>();
-		predicate.Invoke(Arg.Any<int>()).Returns(predicateReturn);
-		predicateAsync.Invoke(Arg.Any<int>()).Returns(predicateReturn);
+		fTest.Invoke(Arg.Any<int>()).Returns(predicateReturn);
 
 		var list = new[] { Rnd.Int, Rnd.Int, Rnd.Int };
 
 		return new(
 			[.. GetResult(withValues ? list : null, mixed)],
-			predicate,
-			predicateAsync,
+			fTest,
 			Substitute.For<Func<int, Result<string>>>(),
 			Substitute.For<Func<int, Task<Result<string>>>>(),
 			list
@@ -55,22 +53,14 @@ public partial class FilterBindAsync_Tests
 				var v = SetupResult(false, false);
 
 				// Act
-				var r0 = await v.List.FilterBindAsync(v.Predicate, v.BindAsync);
-				var r1 = await v.List.FilterBindAsync(v.PredicateAsync, v.Bind);
-				var r2 = await v.List.FilterBindAsync(v.PredicateAsync, v.BindAsync);
-				var r3 = await v.ListAsync.FilterBindAsync(v.Predicate, v.Bind);
-				var r4 = await v.ListAsync.FilterBindAsync(v.Predicate, v.BindAsync);
-				var r5 = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.Bind);
-				var r6 = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.BindAsync);
+				var r0 = await v.List.FilterBindAsync(v.Test, v.BindAsync);
+				var r1 = await v.ListAsync.FilterBindAsync(v.Test, v.Bind);
+				var r2 = await v.ListAsync.FilterBindAsync(v.Test, v.BindAsync);
 
 				// Assert
 				Bind_Tests.AssertFailures([.. v.List], r0);
 				Bind_Tests.AssertFailures([.. v.List], r1);
 				Bind_Tests.AssertFailures([.. v.List], r2);
-				Bind_Tests.AssertFailures([.. v.List], r3);
-				Bind_Tests.AssertFailures([.. v.List], r4);
-				Bind_Tests.AssertFailures([.. v.List], r5);
-				Bind_Tests.AssertFailures([.. v.List], r6);
 			}
 
 			[Fact]
@@ -80,13 +70,9 @@ public partial class FilterBindAsync_Tests
 				var v = SetupResult(false, false);
 
 				// Act
-				_ = await v.List.FilterBindAsync(v.Predicate, v.BindAsync);
-				_ = await v.List.FilterBindAsync(v.PredicateAsync, v.Bind);
-				_ = await v.List.FilterBindAsync(v.PredicateAsync, v.BindAsync);
-				_ = await v.ListAsync.FilterBindAsync(v.Predicate, v.Bind);
-				_ = await v.ListAsync.FilterBindAsync(v.Predicate, v.BindAsync);
-				_ = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.Bind);
-				_ = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.BindAsync);
+				_ = await v.List.FilterBindAsync(v.Test, v.BindAsync);
+				_ = await v.ListAsync.FilterBindAsync(v.Test, v.Bind);
+				_ = await v.ListAsync.FilterBindAsync(v.Test, v.BindAsync);
 
 				// Assert
 				v.Bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -103,22 +89,14 @@ public partial class FilterBindAsync_Tests
 				var v = SetupResult(true, false);
 
 				// Act
-				var r0 = await v.List.FilterBindAsync(v.Predicate, v.BindAsync);
-				var r1 = await v.List.FilterBindAsync(v.PredicateAsync, v.Bind);
-				var r2 = await v.List.FilterBindAsync(v.PredicateAsync, v.BindAsync);
-				var r3 = await v.ListAsync.FilterBindAsync(v.Predicate, v.Bind);
-				var r4 = await v.ListAsync.FilterBindAsync(v.Predicate, v.BindAsync);
-				var r5 = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.Bind);
-				var r6 = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.BindAsync);
+				var r0 = await v.List.FilterBindAsync(v.Test, v.BindAsync);
+				var r1 = await v.ListAsync.FilterBindAsync(v.Test, v.Bind);
+				var r2 = await v.ListAsync.FilterBindAsync(v.Test, v.BindAsync);
 
 				// Assert
 				Bind_Tests.AssertFailures([.. v.List], r0);
 				Bind_Tests.AssertFailures([.. v.List], r1);
 				Bind_Tests.AssertFailures([.. v.List], r2);
-				Bind_Tests.AssertFailures([.. v.List], r3);
-				Bind_Tests.AssertFailures([.. v.List], r4);
-				Bind_Tests.AssertFailures([.. v.List], r5);
-				Bind_Tests.AssertFailures([.. v.List], r6);
 			}
 
 			[Fact]
@@ -128,13 +106,9 @@ public partial class FilterBindAsync_Tests
 				var v = SetupResult(true, false);
 
 				// Act
-				_ = await v.List.FilterBindAsync(v.Predicate, v.BindAsync);
-				_ = await v.List.FilterBindAsync(v.PredicateAsync, v.Bind);
-				_ = await v.List.FilterBindAsync(v.PredicateAsync, v.BindAsync);
-				_ = await v.ListAsync.FilterBindAsync(v.Predicate, v.Bind);
-				_ = await v.ListAsync.FilterBindAsync(v.Predicate, v.BindAsync);
-				_ = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.Bind);
-				_ = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.BindAsync);
+				_ = await v.List.FilterBindAsync(v.Test, v.BindAsync);
+				_ = await v.ListAsync.FilterBindAsync(v.Test, v.Bind);
+				_ = await v.ListAsync.FilterBindAsync(v.Test, v.BindAsync);
 
 				// Assert
 				v.Bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -154,22 +128,14 @@ public partial class FilterBindAsync_Tests
 				var v = SetupResult(false, true);
 
 				// Act
-				var r0 = await v.List.FilterBindAsync(v.Predicate, v.BindAsync);
-				var r1 = await v.List.FilterBindAsync(v.PredicateAsync, v.Bind);
-				var r2 = await v.List.FilterBindAsync(v.PredicateAsync, v.BindAsync);
-				var r3 = await v.ListAsync.FilterBindAsync(v.Predicate, v.Bind);
-				var r4 = await v.ListAsync.FilterBindAsync(v.Predicate, v.BindAsync);
-				var r5 = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.Bind);
-				var r6 = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.BindAsync);
+				var r0 = await v.List.FilterBindAsync(v.Test, v.BindAsync);
+				var r1 = await v.ListAsync.FilterBindAsync(v.Test, v.Bind);
+				var r2 = await v.ListAsync.FilterBindAsync(v.Test, v.BindAsync);
 
 				// Assert
 				FilterBind_Tests.AssertFailures(r0);
 				FilterBind_Tests.AssertFailures(r1);
 				FilterBind_Tests.AssertFailures(r2);
-				FilterBind_Tests.AssertFailures(r3);
-				FilterBind_Tests.AssertFailures(r4);
-				FilterBind_Tests.AssertFailures(r5);
-				FilterBind_Tests.AssertFailures(r6);
 			}
 
 			[Fact]
@@ -179,13 +145,9 @@ public partial class FilterBindAsync_Tests
 				var v = SetupResult(false, true);
 
 				// Act
-				_ = await v.List.FilterBindAsync(v.Predicate, v.BindAsync);
-				_ = await v.List.FilterBindAsync(v.PredicateAsync, v.Bind);
-				_ = await v.List.FilterBindAsync(v.PredicateAsync, v.BindAsync);
-				_ = await v.ListAsync.FilterBindAsync(v.Predicate, v.Bind);
-				_ = await v.ListAsync.FilterBindAsync(v.Predicate, v.BindAsync);
-				_ = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.Bind);
-				_ = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.BindAsync);
+				_ = await v.List.FilterBindAsync(v.Test, v.BindAsync);
+				_ = await v.ListAsync.FilterBindAsync(v.Test, v.Bind);
+				_ = await v.ListAsync.FilterBindAsync(v.Test, v.BindAsync);
 
 				// Assert
 				v.Bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -210,30 +172,21 @@ public partial class FilterBindAsync_Tests
 					);
 
 				// Act
-				var r0 = await v.List.FilterBindAsync(v.Predicate, v.BindAsync);
-				var r1 = await v.List.FilterBindAsync(v.PredicateAsync, v.Bind);
-				var r2 = await v.List.FilterBindAsync(v.PredicateAsync, v.BindAsync);
-				var r3 = await v.ListAsync.FilterBindAsync(v.Predicate, v.Bind);
-				var r4 = await v.ListAsync.FilterBindAsync(v.Predicate, v.BindAsync);
-				var r5 = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.Bind);
-				var r6 = await v.ListAsync.FilterBindAsync(v.PredicateAsync, v.BindAsync);
+				var r0 = await v.List.FilterBindAsync(v.Test, v.BindAsync);
+				var r1 = await v.ListAsync.FilterBindAsync(v.Test, v.Bind);
+				var r2 = await v.ListAsync.FilterBindAsync(v.Test, v.BindAsync);
 
 				// Assert
 				assertCollection(r0);
 				assertCollection(r1);
 				assertCollection(r2);
-				assertCollection(r3);
-				assertCollection(r4);
-				assertCollection(r5);
-				assertCollection(r6);
 			}
 		}
 	}
 
-	internal record class ResultVars(
+	internal sealed record class ResultVars(
 		IEnumerable<Result<int>> List,
-		Func<int, bool> Predicate,
-		Func<int, Task<bool>> PredicateAsync,
+		Func<int, bool> Test,
 		Func<int, Result<string>> Bind,
 		Func<int, Task<Result<string>>> BindAsync,
 		int[] Values

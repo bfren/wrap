@@ -3,15 +3,15 @@
 
 namespace Wrap.Extensions.EnumerableExtensions_Tests;
 
-public class Map_Tests0
+public partial class Map_Tests
 {
-	public class With_Null_Input
+	public class With_None
 	{
 		[Fact]
 		public void Does_Not_Call_Map_Function()
 		{
 			// Arrange
-			var list = new string[] { null!, null!, null! };
+			var list = new Maybe<string>[] { M.None, M.None, M.None };
 			var map = Substitute.For<Func<string, Maybe<int>>>();
 
 			// Act
@@ -25,7 +25,7 @@ public class Map_Tests0
 		public void Returns_None_Values()
 		{
 			// Arrange
-			var list = new string[] { null!, null!, null! };
+			var list = new Maybe<string>[] { M.None, M.None, M.None };
 			var map = Substitute.For<Func<string, Maybe<int>>>();
 
 			// Act
@@ -40,7 +40,7 @@ public class Map_Tests0
 		}
 	}
 
-	public class With_Value_Input
+	public class With_Some
 	{
 		public class Func_Returns_Value
 		{
@@ -51,7 +51,7 @@ public class Map_Tests0
 				var v0 = Rnd.Str;
 				var v1 = Rnd.Str;
 				var v2 = Rnd.Str;
-				var list = new[] { v0, v1, v2 };
+				var list = new[] { M.Wrap(v0), M.Wrap(v1), M.Wrap(v2) };
 
 				// Act
 				var result = list.Map(x => M.Wrap(x.ToLower(F.DefaultCulture)));

@@ -3,28 +3,27 @@
 
 namespace Wrap.Extensions.EnumerableExtensions_Tests;
 
-public class FilterMapAsync_Tests1
+public partial class FilterMapAsync_Tests
 {
 	private static ResultVars SetupResult(bool predicateReturn, bool withValues, bool mixed = false)
 	{
-		var predicate = Substitute.For<Func<string, bool>>();
+		var fTest = Substitute.For<Func<string, bool>>();
 		var predicateAsync = Substitute.For<Func<string, Task<bool>>>();
-		predicate.Invoke(Arg.Any<string>()).Returns(predicateReturn);
+		fTest.Invoke(Arg.Any<string>()).Returns(predicateReturn);
 		predicateAsync.Invoke(Arg.Any<string>()).Returns(predicateReturn);
 
 		var list = new[] { Rnd.Str, Rnd.Str, Rnd.Str };
 
 		return new(
 			[.. GetResult(withValues ? list : null, mixed)],
-			predicate,
-			predicateAsync,
-			Substitute.For<Func<string, Result<string>>>(),
-			Substitute.For<Func<string, Task<Result<string>>>>(),
+			fTest,
+			Substitute.For<Func<string, string>>(),
+			Substitute.For<Func<string, Task<string>>>(),
 			list
 		);
 	}
 
-	private static IEnumerable<string> GetResult(string[]? values, bool mixed)
+	private static IEnumerable<Result<string>> GetResult(string[]? values, bool mixed)
 	{
 		for (var i = 0; i < 3; i++)
 		{
@@ -34,43 +33,35 @@ public class FilterMapAsync_Tests1
 			}
 			else
 			{
-				yield return null!;
+				yield return FailGen.Create();
 			}
 
 			if (mixed)
 			{
-				yield return null!;
+				yield return FailGen.Create();
 			}
 		}
 	}
 
-	public class With_Null_Values
+	public class With_Failure
 	{
 		public class Predicate_Returns_False
 		{
 			[Fact]
-			public async Task Returns_Empty_List()
+			public async Task Returns_Original_Failures()
 			{
 				// Arrange
 				var v = SetupResult(false, false);
 
 				// Act
-				var r0 = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r1 = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r2 = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				var r3 = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				var r4 = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r5 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r6 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				var r0 = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				var r1 = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				var r2 = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
-				Assert.Empty(r0);
-				Assert.Empty(r1);
-				Assert.Empty(r2);
-				Assert.Empty(r3);
-				Assert.Empty(r4);
-				Assert.Empty(r5);
-				Assert.Empty(r6);
+				Map_Tests.AssertFailures([.. v.List], r0);
+				Map_Tests.AssertFailures([.. v.List], r1);
+				Map_Tests.AssertFailures([.. v.List], r2);
 			}
 
 			[Fact]
@@ -80,13 +71,9 @@ public class FilterMapAsync_Tests1
 				var v = SetupResult(false, false);
 
 				// Act
-				_ = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				_ = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				_ = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				_ = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				_ = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				_ = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				_ = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				_ = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
 				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -97,28 +84,20 @@ public class FilterMapAsync_Tests1
 		public class Predicate_Returns_True
 		{
 			[Fact]
-			public async Task Returns_Empty_List()
+			public async Task Returns_Original_Failures()
 			{
 				// Arrange
 				var v = SetupResult(true, false);
 
 				// Act
-				var r0 = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r1 = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r2 = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				var r3 = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				var r4 = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r5 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r6 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				var r0 = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				var r1 = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				var r2 = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
-				Assert.Empty(r0);
-				Assert.Empty(r1);
-				Assert.Empty(r2);
-				Assert.Empty(r3);
-				Assert.Empty(r4);
-				Assert.Empty(r5);
-				Assert.Empty(r6);
+				Map_Tests.AssertFailures([.. v.List], r0);
+				Map_Tests.AssertFailures([.. v.List], r1);
+				Map_Tests.AssertFailures([.. v.List], r2);
 			}
 
 			[Fact]
@@ -128,13 +107,9 @@ public class FilterMapAsync_Tests1
 				var v = SetupResult(true, false);
 
 				// Act
-				_ = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				_ = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				_ = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				_ = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				_ = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				_ = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				_ = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				_ = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
 				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -143,7 +118,7 @@ public class FilterMapAsync_Tests1
 		}
 	}
 
-	public class With_Values
+	public class With_Ok
 	{
 		public class Predicate_Returns_False
 		{
@@ -154,22 +129,14 @@ public class FilterMapAsync_Tests1
 				var v = SetupResult(false, true);
 
 				// Act
-				var r0 = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r1 = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r2 = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				var r3 = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				var r4 = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r5 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r6 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				var r0 = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				var r1 = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				var r2 = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
 				FilterBind_Tests.AssertFailures(r0);
 				FilterBind_Tests.AssertFailures(r1);
 				FilterBind_Tests.AssertFailures(r2);
-				FilterBind_Tests.AssertFailures(r3);
-				FilterBind_Tests.AssertFailures(r4);
-				FilterBind_Tests.AssertFailures(r5);
-				FilterBind_Tests.AssertFailures(r6);
 			}
 
 			[Fact]
@@ -179,13 +146,9 @@ public class FilterMapAsync_Tests1
 				var v = SetupResult(false, true);
 
 				// Act
-				_ = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				_ = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				_ = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				_ = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				_ = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				_ = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				_ = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				_ = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
 				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -210,36 +173,26 @@ public class FilterMapAsync_Tests1
 					);
 
 				// Act
-				var r0 = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r1 = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r2 = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				var r3 = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				var r4 = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r5 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r6 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				var r0 = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				var r1 = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				var r2 = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
 				assertCollection(r0);
 				assertCollection(r1);
 				assertCollection(r2);
-				assertCollection(r3);
-				assertCollection(r4);
-				assertCollection(r5);
-				assertCollection(r6);
 			}
 		}
 	}
-
-	internal record class ResultVars(
-		IEnumerable<string> List,
-		Func<string, bool> Predicate,
-		Func<string, Task<bool>> PredicateAsync,
-		Func<string, Result<string>> Map,
-		Func<string, Task<Result<string>>> MapAsync,
+	internal sealed record class ResultVars(
+		IEnumerable<Result<string>> List,
+		Func<string, bool> Test,
+		Func<string, string> Map,
+		Func<string, Task<string>> MapAsync,
 		string[] Values
 	)
 	{
-		public Task<IEnumerable<string>> ListAsync =>
+		public Task<IEnumerable<Result<string>>> ListAsync =>
 			Task.FromResult(List);
 	}
 }

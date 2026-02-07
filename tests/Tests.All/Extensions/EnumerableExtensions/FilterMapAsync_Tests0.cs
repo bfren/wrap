@@ -7,24 +7,22 @@ public partial class FilterMapAsync_Tests
 {
 	private static MaybeVars SetupMaybe(bool predicateReturn, bool withValues, bool mixed = false)
 	{
-		var predicate = Substitute.For<Func<string, bool>>();
+		var fTest = Substitute.For<Func<string, bool>>();
 		var predicateAsync = Substitute.For<Func<string, Task<bool>>>();
-		predicate.Invoke(Arg.Any<string>()).Returns(predicateReturn);
-		predicateAsync.Invoke(Arg.Any<string>()).Returns(predicateReturn);
+		fTest.Invoke(Arg.Any<string>()).Returns(predicateReturn);
 
 		var list = new[] { Rnd.Str, Rnd.Str, Rnd.Str };
 
 		return new(
 			GetMaybe(withValues ? list : null, mixed),
-			predicate,
-			predicateAsync,
-			Substitute.For<Func<string, Maybe<string>>>(),
-			Substitute.For<Func<string, Task<Maybe<string>>>>(),
+			fTest,
+			Substitute.For<Func<string, string>>(),
+			Substitute.For<Func<string, Task<string>>>(),
 			list
 		);
 	}
 
-	private static IEnumerable<string> GetMaybe(string[]? values, bool mixed)
+	private static IEnumerable<Maybe<string>> GetMaybe(string[]? values, bool mixed)
 	{
 		for (var i = 0; i < 3; i++)
 		{
@@ -34,17 +32,17 @@ public partial class FilterMapAsync_Tests
 			}
 			else
 			{
-				yield return null!;
+				yield return M.None;
 			}
 
 			if (mixed)
 			{
-				yield return null!;
+				yield return M.None;
 			}
 		}
 	}
 
-	public class With_Null_Values
+	public class With_None
 	{
 		public class Predicate_Returns_False
 		{
@@ -55,22 +53,14 @@ public partial class FilterMapAsync_Tests
 				var v = SetupMaybe(false, false);
 
 				// Act
-				var r0 = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r1 = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r2 = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				var r3 = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				var r4 = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r5 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r6 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				var r0 = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				var r1 = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				var r2 = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
 				Assert.Empty(r0);
 				Assert.Empty(r1);
 				Assert.Empty(r2);
-				Assert.Empty(r3);
-				Assert.Empty(r4);
-				Assert.Empty(r5);
-				Assert.Empty(r6);
 			}
 
 			[Fact]
@@ -80,13 +70,9 @@ public partial class FilterMapAsync_Tests
 				var v = SetupMaybe(false, false);
 
 				// Act
-				_ = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				_ = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				_ = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				_ = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				_ = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				_ = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				_ = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				_ = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
 				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -103,22 +89,14 @@ public partial class FilterMapAsync_Tests
 				var v = SetupMaybe(true, false);
 
 				// Act
-				var r0 = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r1 = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r2 = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				var r3 = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				var r4 = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r5 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r6 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				var r0 = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				var r1 = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				var r2 = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
 				Assert.Empty(r0);
 				Assert.Empty(r1);
 				Assert.Empty(r2);
-				Assert.Empty(r3);
-				Assert.Empty(r4);
-				Assert.Empty(r5);
-				Assert.Empty(r6);
 			}
 
 			[Fact]
@@ -128,13 +106,9 @@ public partial class FilterMapAsync_Tests
 				var v = SetupMaybe(true, false);
 
 				// Act
-				_ = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				_ = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				_ = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				_ = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				_ = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				_ = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				_ = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				_ = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
 				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -143,7 +117,7 @@ public partial class FilterMapAsync_Tests
 		}
 	}
 
-	public class With_Values
+	public class With_Some
 	{
 		public class Predicate_Returns_False
 		{
@@ -154,22 +128,14 @@ public partial class FilterMapAsync_Tests
 				var v = SetupMaybe(false, true);
 
 				// Act
-				var r0 = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r1 = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r2 = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				var r3 = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				var r4 = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r5 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r6 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				var r0 = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				var r1 = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				var r2 = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
 				Assert.Empty(r0);
 				Assert.Empty(r1);
 				Assert.Empty(r2);
-				Assert.Empty(r3);
-				Assert.Empty(r4);
-				Assert.Empty(r5);
-				Assert.Empty(r6);
 			}
 
 			[Fact]
@@ -179,13 +145,9 @@ public partial class FilterMapAsync_Tests
 				var v = SetupMaybe(false, true);
 
 				// Act
-				_ = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				_ = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				_ = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				_ = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				_ = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				_ = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				_ = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				_ = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				_ = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
 				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -210,36 +172,27 @@ public partial class FilterMapAsync_Tests
 					);
 
 				// Act
-				var r0 = await v.List.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r1 = await v.List.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r2 = await v.List.FilterMapAsync(v.PredicateAsync, v.MapAsync);
-				var r3 = await v.ListAsync.FilterMapAsync(v.Predicate, v.Map);
-				var r4 = await v.ListAsync.FilterMapAsync(v.Predicate, v.MapAsync);
-				var r5 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.Map);
-				var r6 = await v.ListAsync.FilterMapAsync(v.PredicateAsync, v.MapAsync);
+				var r0 = await v.List.FilterMapAsync(v.Test, v.MapAsync);
+				var r1 = await v.ListAsync.FilterMapAsync(v.Test, v.Map);
+				var r2 = await v.ListAsync.FilterMapAsync(v.Test, v.MapAsync);
 
 				// Assert
 				assertCollection(r0);
 				assertCollection(r1);
 				assertCollection(r2);
-				assertCollection(r3);
-				assertCollection(r4);
-				assertCollection(r5);
-				assertCollection(r6);
 			}
 		}
 	}
 
-	internal record class MaybeVars(
-		IEnumerable<string> List,
-		Func<string, bool> Predicate,
-		Func<string, Task<bool>> PredicateAsync,
-		Func<string, Maybe<string>> Map,
-		Func<string, Task<Maybe<string>>> MapAsync,
+	internal sealed record class MaybeVars(
+		IEnumerable<Maybe<string>> List,
+		Func<string, bool> Test,
+		Func<string, string> Map,
+		Func<string, Task<string>> MapAsync,
 		string[] Values
 	)
 	{
-		public Task<IEnumerable<string>> ListAsync =>
+		public Task<IEnumerable<Maybe<string>>> ListAsync =>
 			Task.FromResult(List);
 	}
 }

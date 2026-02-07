@@ -3,21 +3,21 @@
 
 namespace Wrap.Extensions.EnumerableExtensions_Tests;
 
-public class FilterMap_Tests1
+public partial class FilterMap_Tests
 {
 	private static ResultVars SetupResult(bool predicateReturn, bool withValues, bool mixed = false)
 	{
-		var predicate = Substitute.For<Func<string, bool>>();
-		predicate.Invoke(Arg.Any<string>()).Returns(predicateReturn);
+		var fTest = Substitute.For<Func<string, bool>>();
+		fTest.Invoke(Arg.Any<string>()).Returns(predicateReturn);
 
 		var map = Substitute.For<Func<string, Result<string>>>();
 
 		var list = new[] { Rnd.Str, Rnd.Str, Rnd.Str };
 
-		return new([.. GetResult(withValues ? list : null, mixed)], predicate, map, list);
+		return new([.. GetResult(withValues ? list : null, mixed)], fTest, map, list);
 	}
 
-	private static IEnumerable<string> GetResult(string[]? values, bool mixed)
+	private static IEnumerable<Result<string>> GetResult(string[]? values, bool mixed)
 	{
 		for (var i = 0; i < 3; i++)
 		{
@@ -27,31 +27,31 @@ public class FilterMap_Tests1
 			}
 			else
 			{
-				yield return null!;
+				yield return FailGen.Create();
 			}
 
 			if (mixed)
 			{
-				yield return null!;
+				yield return FailGen.Create();
 			}
 		}
 	}
 
-	public class With_Null_Values
+	public class With_Failure
 	{
 		public class Predicate_Returns_False
 		{
 			[Fact]
-			public void Returns_Empty_List()
+			public void Returns_Original_Failure()
 			{
 				// Arrange
 				var v = SetupResult(false, false);
 
 				// Act
-				var result = v.List.FilterMap(v.Predicate, v.Map);
+				var result = v.List.FilterMap(v.Test, v.Map);
 
 				// Assert
-				Assert.Empty(result);
+				Map_Tests.AssertFailures([.. v.List], result);
 			}
 
 			[Fact]
@@ -61,7 +61,7 @@ public class FilterMap_Tests1
 				var v = SetupResult(false, false);
 
 				// Act
-				_ = v.List.FilterMap(v.Predicate, v.Map);
+				_ = v.List.FilterMap(v.Test, v.Map);
 
 				// Assert
 				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -71,16 +71,16 @@ public class FilterMap_Tests1
 		public class Predicate_Returns_True
 		{
 			[Fact]
-			public void Returns_Empty_List()
+			public void Returns_Original_Failure()
 			{
 				// Arrange
 				var v = SetupResult(true, false);
 
 				// Act
-				var result = v.List.FilterMap(v.Predicate, v.Map);
+				var result = v.List.FilterMap(v.Test, v.Map);
 
 				// Assert
-				Assert.Empty(result);
+				Map_Tests.AssertFailures([.. v.List], result);
 			}
 
 			[Fact]
@@ -90,7 +90,7 @@ public class FilterMap_Tests1
 				var v = SetupResult(true, false);
 
 				// Act
-				_ = v.List.FilterMap(v.Predicate, v.Map);
+				_ = v.List.FilterMap(v.Test, v.Map);
 
 				// Assert
 				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -98,7 +98,7 @@ public class FilterMap_Tests1
 		}
 	}
 
-	public class With_Values
+	public class With_Ok
 	{
 		public class Predicate_Returns_False
 		{
@@ -109,10 +109,10 @@ public class FilterMap_Tests1
 				var v = SetupResult(false, true);
 
 				// Act
-				var result = v.List.FilterMap(v.Predicate, v.Map);
+				var result = v.List.FilterMap(v.Test, v.Map);
 
 				// Assert
-				Assert.Empty(result);
+				FilterBind_Tests.AssertFailures(result);
 			}
 
 			[Fact]
@@ -122,7 +122,7 @@ public class FilterMap_Tests1
 				var v = SetupResult(true, true);
 
 				// Act
-				_ = v.List.FilterMap(v.Predicate, v.Map);
+				_ = v.List.FilterMap(v.Test, v.Map);
 
 				// Assert
 				v.Map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -139,7 +139,7 @@ public class FilterMap_Tests1
 				v.Map.Invoke(Arg.Any<string>()).Returns(c => c.Arg<string>().ToString());
 
 				// Act
-				var result = v.List.FilterMap(v.Predicate, v.Map);
+				var result = v.List.FilterMap(v.Test, v.Map);
 
 				// Assert
 				Assert.Collection(result,
@@ -152,8 +152,8 @@ public class FilterMap_Tests1
 	}
 
 	private sealed record class ResultVars(
-		IEnumerable<string> List,
-		Func<string, bool> Predicate,
+		IEnumerable<Result<string>> List,
+		Func<string, bool> Test,
 		Func<string, Result<string>> Map,
 		string[] Values
 	);

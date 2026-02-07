@@ -3,23 +3,23 @@
 
 namespace Wrap.Extensions.EnumerableExtensions_Tests;
 
-public class Map_Tests1
+public partial class Map_Tests
 {
-	internal static void AssertFailures<T0, T1>(IEnumerable<Result<T1>> actual) =>
+	internal static void AssertFailures<T0, T1>(Result<T0>[] expected, IEnumerable<Result<T1>> actual) =>
 		Assert.Collection(actual,
-			x => x.AssertFailure(C.NullValueFailureMessage, typeof(T0).Name),
-			x => x.AssertFailure(C.NullValueFailureMessage, typeof(T0).Name),
-			x => x.AssertFailure(C.NullValueFailureMessage, typeof(T0).Name)
+			x => Assert.Equal(expected[0].AssertFailure(), x.AssertFailure()),
+			x => Assert.Equal(expected[1].AssertFailure(), x.AssertFailure()),
+			x => Assert.Equal(expected[2].AssertFailure(), x.AssertFailure())
 		);
 
-	public class With_Null_Input
+	public class With_Failure
 	{
 		[Fact]
 		public void Does_Not_Call_Map_Function()
 		{
 			// Arrange
-			var list = new string[] { null!, null!, null! };
-			var map = Substitute.For<Func<string, Result<int>>>();
+			var list = new[] { FailGen.Create<string>(), FailGen.Create<string>(), FailGen.Create<string>() };
+			var map = Substitute.For<Func<string, int>>();
 
 			// Act
 			_ = list.Map(map);
@@ -29,21 +29,21 @@ public class Map_Tests1
 		}
 
 		[Fact]
-		public void Returns_NullValue_Failures()
+		public void Returns_Original_Failures()
 		{
 			// Arrange
-			var list = new string[] { null!, null!, null! };
-			var map = Substitute.For<Func<string, Result<int>>>();
+			var list = new[] { FailGen.Create<string>(), FailGen.Create<string>(), FailGen.Create<string>() };
+			var map = Substitute.For<Func<string, int>>();
 
 			// Act
 			var result = list.Map(map);
 
 			// Assert
-			AssertFailures<string, int>(result);
+			AssertFailures([.. list], result);
 		}
 	}
 
-	public class With_Value_Input
+	public class With_Ok
 	{
 		public class Func_Returns_Value
 		{
@@ -54,10 +54,10 @@ public class Map_Tests1
 				var v0 = Rnd.Str;
 				var v1 = Rnd.Str;
 				var v2 = Rnd.Str;
-				var list = new[] { v0, v1, v2 };
+				var list = new[] { R.Wrap(v0), R.Wrap(v1), R.Wrap(v2) };
 
 				// Act
-				var result = list.Map(x => R.Wrap(x.ToLower(F.DefaultCulture)));
+				var result = list.Map(x => x.ToLower(F.DefaultCulture));
 
 				// Assert
 				Assert.Collection(result,

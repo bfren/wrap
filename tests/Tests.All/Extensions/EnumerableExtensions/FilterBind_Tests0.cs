@@ -7,14 +7,14 @@ public partial class FilterBind_Tests
 {
 	private static MaybeVars SetupMaybe(bool predicateReturn, bool withValues, bool mixed = false)
 	{
-		var predicate = Substitute.For<Func<int, bool>>();
-		predicate.Invoke(Arg.Any<int>()).Returns(predicateReturn);
+		var fTest = Substitute.For<Func<int, bool>>();
+		fTest.Invoke(Arg.Any<int>()).Returns(predicateReturn);
 
 		var bind = Substitute.For<Func<int, Maybe<string>>>();
 
 		var list = new[] { Rnd.Int, Rnd.Int, Rnd.Int };
 
-		return new(GetMaybe(withValues ? list : null, mixed), predicate, bind, list);
+		return new(GetMaybe(withValues ? list : null, mixed), fTest, bind, list);
 	}
 
 	private static IEnumerable<Maybe<int>> GetMaybe(int[]? values, bool mixed)
@@ -48,7 +48,7 @@ public partial class FilterBind_Tests
 				var v = SetupMaybe(false, false);
 
 				// Act
-				var result = v.List.FilterBind(v.Predicate, v.Bind);
+				var result = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				Assert.Empty(result);
@@ -61,7 +61,7 @@ public partial class FilterBind_Tests
 				var v = SetupMaybe(false, false);
 
 				// Act
-				_ = v.List.FilterBind(v.Predicate, v.Bind);
+				_ = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				v.Bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -77,7 +77,7 @@ public partial class FilterBind_Tests
 				var v = SetupMaybe(true, false);
 
 				// Act
-				var result = v.List.FilterBind(v.Predicate, v.Bind);
+				var result = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				Assert.Empty(result);
@@ -90,7 +90,7 @@ public partial class FilterBind_Tests
 				var v = SetupMaybe(true, false);
 
 				// Act
-				_ = v.List.FilterBind(v.Predicate, v.Bind);
+				_ = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				v.Bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -109,7 +109,7 @@ public partial class FilterBind_Tests
 				var v = SetupMaybe(false, true);
 
 				// Act
-				var result = v.List.FilterBind(v.Predicate, v.Bind);
+				var result = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				Assert.Empty(result);
@@ -122,7 +122,7 @@ public partial class FilterBind_Tests
 				var v = SetupMaybe(true, true);
 
 				// Act
-				_ = v.List.FilterBind(v.Predicate, v.Bind);
+				_ = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				v.Bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -139,7 +139,7 @@ public partial class FilterBind_Tests
 				v.Bind.Invoke(Arg.Any<int>()).Returns(c => c.Arg<int>().ToString());
 
 				// Act
-				var result = v.List.FilterBind(v.Predicate, v.Bind);
+				var result = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				Assert.Collection(result,
@@ -153,7 +153,7 @@ public partial class FilterBind_Tests
 
 	private sealed record class MaybeVars(
 		IEnumerable<Maybe<int>> List,
-		Func<int, bool> Predicate,
+		Func<int, bool> Test,
 		Func<int, Maybe<string>> Bind,
 		int[] Values
 	);

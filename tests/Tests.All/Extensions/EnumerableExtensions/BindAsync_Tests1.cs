@@ -66,9 +66,9 @@ public partial class BindAsync_Tests
 			var r2 = await v.ListAsync.BindAsync(v.BindAsync);
 
 			// Assert
-			Assert.Equal(3, r0.Count());
-			Assert.Equal(3, r1.Count());
-			Assert.Equal(3, r2.Count());
+			Assert.Equal(3, r0.Count);
+			Assert.Equal(3, r1.Count);
+			Assert.Equal(3, r2.Count);
 		}
 	}
 
@@ -118,13 +118,13 @@ public partial class BindAsync_Tests
 			var r2 = await v.ListAsync.BindAsync(x => R.Wrap(x.ToString()).AsTask());
 
 			// Assert
-			Assert.Equal(6, r0.Count());
-			Assert.Equal(6, r1.Count());
-			Assert.Equal(6, r2.Count());
+			Assert.Equal(6, r0.Count);
+			Assert.Equal(6, r1.Count);
+			Assert.Equal(6, r2.Count);
 		}
 	}
 
-	internal record class ResultVars(
+	internal sealed record class ResultVars(
 		IEnumerable<Result<int>> List,
 		Func<int, Result<string>> Bind,
 		Func<int, Task<Result<string>>> BindAsync,

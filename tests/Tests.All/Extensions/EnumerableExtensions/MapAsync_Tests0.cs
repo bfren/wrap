@@ -3,15 +3,15 @@
 
 namespace Wrap.Extensions.EnumerableExtensions_Tests;
 
-public class MapAsync_Tests0
+public partial class MapAsync_Tests
 {
-	public class With_Null_Input
+	public class With_None
 	{
 		[Fact]
 		public async Task Does_Not_Call_Map_Function()
 		{
 			// Arrange
-			IEnumerable<string> list = [null!, null!, null!];
+			IEnumerable<Maybe<string>> list = [M.None, M.None, M.None];
 			var map = Substitute.For<Func<string, Maybe<int>>>();
 
 			// Act
@@ -27,7 +27,7 @@ public class MapAsync_Tests0
 		public async Task Returns_None_Values()
 		{
 			// Arrange
-			IEnumerable<string> list = [null!, null!, null!];
+			IEnumerable<Maybe<string>> list = [M.None, M.None, M.None];
 			var map = Substitute.For<Func<string, Maybe<int>>>();
 
 			// Act
@@ -54,7 +54,7 @@ public class MapAsync_Tests0
 		}
 	}
 
-	public class With_Value_Input
+	public class With_Some
 	{
 		public class Func_Returns_Value
 		{
@@ -65,8 +65,8 @@ public class MapAsync_Tests0
 				var v0 = Rnd.Str;
 				var v1 = Rnd.Str;
 				var v2 = Rnd.Str;
-				IEnumerable<string> list = [v0, v1, v2];
-				static Maybe<string> map(string x) => x.ToLower(F.DefaultCulture);
+				IEnumerable<Maybe<string>> list = [v0, v1, v2];
+				static string map(string x) => x.ToLower(F.DefaultCulture);
 
 				// Act
 				var r0 = await list.MapAsync(x => Task.FromResult(map(x)));

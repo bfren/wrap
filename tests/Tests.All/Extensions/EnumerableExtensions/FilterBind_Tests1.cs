@@ -7,21 +7,21 @@ public partial class FilterBind_Tests
 {
 	internal static void AssertFailures<T>(IEnumerable<Result<T>> actual) =>
 		Assert.Collection(actual,
-			x => x.AssertFailure(C.PredicateFalseMessage),
-			x => x.AssertFailure(C.PredicateFalseMessage),
-			x => x.AssertFailure(C.PredicateFalseMessage)
+			x => x.AssertFailure(C.TestFalseMessage),
+			x => x.AssertFailure(C.TestFalseMessage),
+			x => x.AssertFailure(C.TestFalseMessage)
 		);
 
 	private static ResultVars SetupResult(bool predicateReturn, bool withValues, bool mixed = false)
 	{
-		var predicate = Substitute.For<Func<int, bool>>();
-		predicate.Invoke(Arg.Any<int>()).Returns(predicateReturn);
+		var fTest = Substitute.For<Func<int, bool>>();
+		fTest.Invoke(Arg.Any<int>()).Returns(predicateReturn);
 
 		var bind = Substitute.For<Func<int, Result<string>>>();
 
 		var list = new[] { Rnd.Int, Rnd.Int, Rnd.Int };
 
-		return new([.. GetResult(withValues ? list : null, mixed)], predicate, bind, list);
+		return new([.. GetResult(withValues ? list : null, mixed)], fTest, bind, list);
 	}
 
 	private static IEnumerable<Result<int>> GetResult(int[]? values, bool mixed)
@@ -55,7 +55,7 @@ public partial class FilterBind_Tests
 				var v = SetupResult(false, false);
 
 				// Act
-				var result = v.List.FilterBind(v.Predicate, v.Bind);
+				var result = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				Bind_Tests.AssertFailures([.. v.List], result);
@@ -68,7 +68,7 @@ public partial class FilterBind_Tests
 				var v = SetupResult(false, false);
 
 				// Act
-				_ = v.List.FilterBind(v.Predicate, v.Bind);
+				_ = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				v.Bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -84,7 +84,7 @@ public partial class FilterBind_Tests
 				var v = SetupResult(true, false);
 
 				// Act
-				var result = v.List.FilterBind(v.Predicate, v.Bind);
+				var result = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				Bind_Tests.AssertFailures([.. v.List], result);
@@ -97,7 +97,7 @@ public partial class FilterBind_Tests
 				var v = SetupResult(true, false);
 
 				// Act
-				_ = v.List.FilterBind(v.Predicate, v.Bind);
+				_ = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				v.Bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -116,7 +116,7 @@ public partial class FilterBind_Tests
 				var v = SetupResult(false, true);
 
 				// Act
-				var result = v.List.FilterBind(v.Predicate, v.Bind);
+				var result = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				AssertFailures(result);
@@ -129,7 +129,7 @@ public partial class FilterBind_Tests
 				var v = SetupResult(true, true);
 
 				// Act
-				_ = v.List.FilterBind(v.Predicate, v.Bind);
+				_ = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				v.Bind.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -146,7 +146,7 @@ public partial class FilterBind_Tests
 				v.Bind.Invoke(Arg.Any<int>()).Returns(c => c.Arg<int>().ToString());
 
 				// Act
-				var result = v.List.FilterBind(v.Predicate, v.Bind);
+				var result = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
 				Assert.Collection(result,
@@ -160,7 +160,7 @@ public partial class FilterBind_Tests
 
 	private sealed record class ResultVars(
 		IEnumerable<Result<int>> List,
-		Func<int, bool> Predicate,
+		Func<int, bool> Test,
 		Func<int, Result<string>> Bind,
 		int[] Values
 	);
