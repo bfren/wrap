@@ -19,44 +19,30 @@ public static partial class EnumerableExtensions
 	/// <param name="this">List of values.</param>
 	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
 	/// <returns>List of <typeparamref name="TReturn"/> objects returned by <paramref name="f"/> and wrapped as <see cref="Maybe{T}"/>.</returns>
-	public static IEnumerable<Maybe<TReturn>> Map<T, TReturn>(this IEnumerable<T> @this, Func<T, Maybe<TReturn>> f)
+	public static IEnumerable<Maybe<TReturn>> Map<T, TReturn>(this IEnumerable<Maybe<T>> @this, Func<T, TReturn> f)
 	{
 		foreach (var item in @this)
 		{
-			yield return item switch
-			{
-				T =>
-					f(item),
-
-				_ =>
-					M.None
-			};
+			yield return item.Map(f);
 		}
 	}
 
-	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{T}, Func{T, Maybe{TReturn}})"/>
-	public static Task<List<Maybe<TReturn>>> MapAsync<T, TReturn>(this IEnumerable<T> @this, Func<T, Task<Maybe<TReturn>>> f) =>
+	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, TReturn})"/>
+	public static Task<List<Maybe<TReturn>>> MapAsync<T, TReturn>(this IEnumerable<Maybe<T>> @this, Func<T, Task<TReturn>> f) =>
 		MapAsync(Task.FromResult(@this), f);
 
-	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{T}, Func{T, Maybe{TReturn}})"/>
-	public static Task<List<Maybe<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<T>> @this, Func<T, Maybe<TReturn>> f) =>
+	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, TReturn})"/>
+	public static Task<List<Maybe<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, TReturn> f) =>
 		MapAsync(@this, x => Task.FromResult(f(x)));
 
-	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{T}, Func{T, Maybe{TReturn}})"/>
-	public static async Task<List<Maybe<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<T>> @this, Func<T, Task<Maybe<TReturn>>> f)
+	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, TReturn})"/>
+	public static async Task<List<Maybe<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<TReturn>> f)
 	{
 		var list = new List<Maybe<TReturn>>();
 
 		foreach (var item in await @this)
 		{
-			list.Add(item switch
-			{
-				T =>
-					await f(item),
-
-				_ =>
-					M.None
-			});
+			list.Add(await item.MapAsync(f));
 		}
 
 		return list;
@@ -74,44 +60,30 @@ public static partial class EnumerableExtensions
 	/// <param name="this">List of values.</param>
 	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
 	/// <returns>List of <typeparamref name="TReturn"/> objects returned by <paramref name="f"/> and wrapped as <see cref="Result{T}"/>.</returns>
-	public static IEnumerable<Result<TReturn>> Map<T, TReturn>(this IEnumerable<T> @this, Func<T, Result<TReturn>> f)
+	public static IEnumerable<Result<TReturn>> Map<T, TReturn>(this IEnumerable<Result<T>> @this, Func<T, TReturn> f)
 	{
 		foreach (var item in @this)
 		{
-			yield return item switch
-			{
-				T =>
-					f(item),
-
-				_ =>
-					R.Fail(C.NullValueFailureMessage, typeof(T).Name)
-			};
+			yield return item.Map(f);
 		}
 	}
 
-	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{T}, Func{T, Result{TReturn}})"/>
-	public static Task<List<Result<TReturn>>> MapAsync<T, TReturn>(this IEnumerable<T> @this, Func<T, Task<Result<TReturn>>> f) =>
+	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{Result{T}}, Func{T, TReturn})"/>
+	public static Task<List<Result<TReturn>>> MapAsync<T, TReturn>(this IEnumerable<Result<T>> @this, Func<T, Task<TReturn>> f) =>
 		MapAsync(Task.FromResult(@this), f);
 
-	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{T}, Func{T, Result{TReturn}})"/>
-	public static Task<List<Result<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<T>> @this, Func<T, Result<TReturn>> f) =>
+	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{Result{T}}, Func{T, TReturn})"/>
+	public static Task<List<Result<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, TReturn> f) =>
 		MapAsync(@this, x => Task.FromResult(f(x)));
 
-	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{T}, Func{T, Result{TReturn}})"/>
-	public static async Task<List<Result<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<T>> @this, Func<T, Task<Result<TReturn>>> f)
+	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{Result{T}}, Func{T, TReturn})"/>
+	public static async Task<List<Result<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<TReturn>> f)
 	{
 		var list = new List<Result<TReturn>>();
 
 		foreach (var item in await @this)
 		{
-			list.Add(item switch
-			{
-				T =>
-					await f(item),
-
-				_ =>
-					R.Fail(C.NullValueFailureMessage, typeof(T).Name)
-			});
+			list.Add(await item.MapAsync(f));
 		}
 
 		return list;
