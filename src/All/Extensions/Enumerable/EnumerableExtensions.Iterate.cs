@@ -35,7 +35,7 @@ public static partial class EnumerableExtensions
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Maybe{T}}, Action{T})"/>
 	public static Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Action<T> f) =>
-		IterateAsync(@this, x => { f(x); return Task.CompletedTask; });
+		IterateAsync(@this, async x => f(x));
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Maybe{T}}, Action{T})"/>
 	public static async Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task> f)
@@ -77,7 +77,7 @@ public static partial class EnumerableExtensions
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Result{T}}, Action{T})"/>
 	public static Task IterateAsync<T>(this Task<IEnumerable<Result<T>>> @this, Action<T> f) =>
-		IterateAsync(@this, x => { f(x); return Task.CompletedTask; });
+		IterateAsync(@this, async x => f(x));
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Result{T}}, Action{T})"/>
 	public static async Task IterateAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task> f)

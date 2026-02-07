@@ -101,7 +101,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 
 	/// <inheritdoc/>
 	public Maybe<TValue> GetOrCreate<TValue>(TKey key, Func<TValue> valueFactory) =>
-		GetOrCreate(key, valueFactory, new());
+		GetOrCreate(key, () => M.Wrap(valueFactory()), new());
 
 	/// <inheritdoc/>
 	public Maybe<TValue> GetOrCreate<TValue>(TKey key, Func<TValue> valueFactory, MemoryCacheEntryOptions opt) =>
@@ -113,11 +113,11 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 
 	/// <inheritdoc/>
 	public Maybe<TValue> GetOrCreate<TValue>(TKey key, Func<Maybe<TValue>> valueFactory, MemoryCacheEntryOptions opt) =>
-		GetOrCreateAsync(key, () => Task.FromResult(valueFactory()), opt).Result;
+		GetOrCreateAsync(key, async () => valueFactory(), opt).Result;
 
 	/// <inheritdoc/>
 	public Task<Maybe<TValue>> GetOrCreateAsync<TValue>(TKey key, Func<Task<TValue>> valueFactory) =>
-		GetOrCreateAsync(key, valueFactory, new());
+		GetOrCreateAsync(key, async () => M.Wrap(await valueFactory()), new());
 
 	/// <inheritdoc/>
 	public Task<Maybe<TValue>> GetOrCreateAsync<TValue>(TKey key, Func<Task<TValue>> valueFactory, MemoryCacheEntryOptions opt) =>

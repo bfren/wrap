@@ -26,7 +26,7 @@ public static partial class ResultExtensions
 
 	/// <inheritdoc cref="MapIf{T, TReturn}(Result{T}, Func{T, bool}, Func{T, TReturn})"/>
 	public static Task<Result<TReturn>> MapIfAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, TReturn> f) =>
-		MapIfAsync(@this, fTest, x => Task.FromResult(f(x)));
+		MapIfAsync(@this, fTest, async x => f(x));
 
 	/// <inheritdoc cref="MapIf{T, TReturn}(Result{T}, Func{T, bool}, Func{T, TReturn})"/>
 	public static Task<Result<TReturn>> MapIfAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Task<TReturn>> f) =>

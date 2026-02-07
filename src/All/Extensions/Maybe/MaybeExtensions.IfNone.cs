@@ -24,7 +24,7 @@ public static partial class MaybeExtensions
 
 	/// <inheritdoc cref="IfNone{T}(Maybe{T}, Action)"/>
 	public static Task<Maybe<T>> IfNoneAsync<T>(this Task<Maybe<T>> @this, Action f) =>
-		IfNoneAsync(@this, () => { f(); return Task.CompletedTask; });
+		IfNoneAsync(@this, async () => f());
 
 	/// <inheritdoc cref="IfNone{T}(Maybe{T}, Action)"/>
 	public static Task<Maybe<T>> IfNoneAsync<T>(this Task<Maybe<T>> @this, Func<Task> f) =>

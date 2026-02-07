@@ -45,10 +45,10 @@ public static partial class ResultExtensions
 		Func<T, TReturn> fTrue
 	) =>
 		MatchIfAsync(Task.FromResult(@this),
-			fFail: f => Task.FromResult(fFail(f)),
-			fTest: x => Task.FromResult(fTest(x)),
+			fFail: async f => fFail(f),
+			fTest: async x => fTest(x),
 			fFalse: fFalse,
-			fTrue: x => Task.FromResult(fTrue(x))
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -59,9 +59,9 @@ public static partial class ResultExtensions
 		Func<T, Task<TReturn>> fTrue
 	) =>
 		MatchIfAsync(Task.FromResult(@this),
-			fFail: f => Task.FromResult(fFail(f)),
-			fTest: x => Task.FromResult(fTest(x)),
-			fFalse: x => Task.FromResult(fFalse(x)),
+			fFail: async f => fFail(f),
+			fTest: async x => fTest(x),
+			fFalse: async x => fFalse(x),
 			fTrue: fTrue
 		);
 
@@ -73,8 +73,8 @@ public static partial class ResultExtensions
 		Func<T, Task<TReturn>> fTrue
 	) =>
 		MatchIfAsync(Task.FromResult(@this),
-			fFail: f => Task.FromResult(fFail(f)),
-			fTest: x => Task.FromResult(fTest(x)),
+			fFail: async f => fFail(f),
+			fTest: async x => fTest(x),
 			fFalse: fFalse,
 			fTrue: fTrue
 		);
@@ -87,10 +87,10 @@ public static partial class ResultExtensions
 		Func<T, TReturn> fTrue
 	) =>
 		MatchIfAsync(Task.FromResult(@this),
-			fFail: f => Task.FromResult(fFail(f)),
+			fFail: async f => fFail(f),
 			fTest: fTest,
-			fFalse: x => Task.FromResult(fFalse(x)),
-			fTrue: x => Task.FromResult(fTrue(x))
+			fFalse: async x => fFalse(x),
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -101,10 +101,10 @@ public static partial class ResultExtensions
 		Func<T, TReturn> fTrue
 	) =>
 		MatchIfAsync(Task.FromResult(@this),
-			fFail: f => Task.FromResult(fFail(f)),
+			fFail: async f => fFail(f),
 			fTest: fTest,
 			fFalse: fFalse,
-			fTrue: x => Task.FromResult(fTrue(x))
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -115,9 +115,9 @@ public static partial class ResultExtensions
 		Func<T, Task<TReturn>> fTrue
 	) =>
 		MatchIfAsync(Task.FromResult(@this),
-			fFail: f => Task.FromResult(fFail(f)),
+			fFail: async f => fFail(f),
 			fTest: fTest,
-			fFalse: x => Task.FromResult(fFalse(x)),
+			fFalse: async x => fFalse(x),
 			fTrue: fTrue
 		);
 
@@ -129,7 +129,7 @@ public static partial class ResultExtensions
 		Func<T, Task<TReturn>> fTrue
 	) =>
 		MatchIfAsync(Task.FromResult(@this),
-			fFail: f => Task.FromResult(fFail(f)),
+			fFail: async f => fFail(f),
 			fTest: fTest,
 			fFalse: fFalse,
 			fTrue: fTrue
@@ -143,10 +143,10 @@ public static partial class ResultExtensions
 		Func<T, TReturn> fTrue
 	) =>
 		MatchIfAsync(@this,
-			fFail: f => Task.FromResult(fFail(f)),
-			fTest: x => Task.FromResult(fTest(x)),
-			fFalse: x => Task.FromResult(fFalse(x)),
-			fTrue: x => Task.FromResult(fTrue(x))
+			fFail: async f => fFail(f),
+			fTest: async x => fTest(x),
+			fFalse: async x => fFalse(x),
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -157,10 +157,10 @@ public static partial class ResultExtensions
 		Func<T, TReturn> fTrue
 	) =>
 		MatchIfAsync(@this,
-			fFail: f => Task.FromResult(fFail(f)),
-			fTest: x => Task.FromResult(fTest(x)),
+			fFail: async f => fFail(f),
+			fTest: async x => fTest(x),
 			fFalse: fFalse,
-			fTrue: x => Task.FromResult(fTrue(x))
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -171,9 +171,9 @@ public static partial class ResultExtensions
 		Func<T, Task<TReturn>> fTrue
 	) =>
 		MatchIfAsync(@this,
-			fFail: f => Task.FromResult(fFail(f)),
-			fTest: x => Task.FromResult(fTest(x)),
-			fFalse: x => Task.FromResult(fFalse(x)),
+			fFail: async f => fFail(f),
+			fTest: async x => fTest(x),
+			fFalse: async x => fFalse(x),
 			fTrue: fTrue
 		);
 
@@ -185,8 +185,8 @@ public static partial class ResultExtensions
 		Func<T, Task<TReturn>> fTrue
 	) =>
 		MatchIfAsync(@this,
-			fFail: f => Task.FromResult(fFail(f)),
-			fTest: x => Task.FromResult(fTest(x)),
+			fFail: async f => fFail(f),
+			fTest: async x => fTest(x),
 			fFalse: fFalse,
 			fTrue: fTrue
 		);
@@ -199,10 +199,10 @@ public static partial class ResultExtensions
 		Func<T, TReturn> fTrue
 	) =>
 		MatchIfAsync(@this,
-			fFail: f => Task.FromResult(fFail(f)),
+			fFail: async f => fFail(f),
 			fTest: fTest,
-			fFalse: x => Task.FromResult(fFalse(x)),
-			fTrue: x => Task.FromResult(fTrue(x))
+			fFalse: async x => fFalse(x),
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -213,10 +213,10 @@ public static partial class ResultExtensions
 		Func<T, TReturn> fTrue
 	) =>
 		MatchIfAsync(@this,
-			fFail: f => Task.FromResult(fFail(f)),
+			fFail: async f => fFail(f),
 			fTest: fTest,
 			fFalse: fFalse,
-			fTrue: x => Task.FromResult(fTrue(x))
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -227,9 +227,9 @@ public static partial class ResultExtensions
 		Func<T, Task<TReturn>> fTrue
 	) =>
 		MatchIfAsync(@this,
-			fFail: f => Task.FromResult(fFail(f)),
+			fFail: async f => fFail(f),
 			fTest: fTest,
-			fFalse: x => Task.FromResult(fFalse(x)),
+			fFalse: async x => fFalse(x),
 			fTrue: fTrue
 		);
 
@@ -242,9 +242,9 @@ public static partial class ResultExtensions
 	) =>
 		MatchIfAsync(Task.FromResult(@this),
 			fFail: fFail,
-			fTest: x => Task.FromResult(fTest(x)),
-			fFalse: x => Task.FromResult(fFalse(x)),
-			fTrue: x => Task.FromResult(fTrue(x))
+			fTest: async x => fTest(x),
+			fFalse: async x => fFalse(x),
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -256,9 +256,9 @@ public static partial class ResultExtensions
 	) =>
 		MatchIfAsync(Task.FromResult(@this),
 			fFail: fFail,
-			fTest: x => Task.FromResult(fTest(x)),
+			fTest: async x => fTest(x),
 			fFalse: fFalse,
-			fTrue: x => Task.FromResult(fTrue(x))
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -270,8 +270,8 @@ public static partial class ResultExtensions
 	) =>
 		MatchIfAsync(Task.FromResult(@this),
 			fFail: fFail,
-			fTest: x => Task.FromResult(fTest(x)),
-			fFalse: x => Task.FromResult(fFalse(x)),
+			fTest: async x => fTest(x),
+			fFalse: async x => fFalse(x),
 			fTrue: fTrue
 		);
 
@@ -284,7 +284,7 @@ public static partial class ResultExtensions
 	) =>
 		MatchIfAsync(Task.FromResult(@this),
 			fFail: fFail,
-			fTest: x => Task.FromResult(fTest(x)),
+			fTest: async x => fTest(x),
 			fFalse: fFalse,
 			fTrue: fTrue
 		);
@@ -299,8 +299,8 @@ public static partial class ResultExtensions
 		MatchIfAsync(Task.FromResult(@this),
 			fFail: fFail,
 			fTest: fTest,
-			fFalse: x => Task.FromResult(fFalse(x)),
-			fTrue: x => Task.FromResult(fTrue(x))
+			fFalse: async x => fFalse(x),
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -314,7 +314,7 @@ public static partial class ResultExtensions
 			fFail: fFail,
 			fTest: fTest,
 			fFalse: fFalse,
-			fTrue: x => Task.FromResult(fTrue(x))
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -327,7 +327,7 @@ public static partial class ResultExtensions
 		MatchIfAsync(Task.FromResult(@this),
 			fFail: fFail,
 			fTest: fTest,
-			fFalse: x => Task.FromResult(fFalse(x)),
+			fFalse: async x => fFalse(x),
 			fTrue: fTrue
 		);
 
@@ -354,9 +354,9 @@ public static partial class ResultExtensions
 	) =>
 		MatchIfAsync(@this,
 			fFail: fFail,
-			fTest: x => Task.FromResult(fTest(x)),
-			fFalse: x => Task.FromResult(fFalse(x)),
-			fTrue: x => Task.FromResult(fTrue(x))
+			fTest: async x => fTest(x),
+			fFalse: async x => fFalse(x),
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -368,9 +368,9 @@ public static partial class ResultExtensions
 	) =>
 		MatchIfAsync(@this,
 			fFail: fFail,
-			fTest: x => Task.FromResult(fTest(x)),
+			fTest: async x => fTest(x),
 			fFalse: fFalse,
-			fTrue: x => Task.FromResult(fTrue(x))
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -382,8 +382,8 @@ public static partial class ResultExtensions
 	) =>
 		MatchIfAsync(@this,
 			fFail: fFail,
-			fTest: x => Task.FromResult(fTest(x)),
-			fFalse: x => Task.FromResult(fFalse(x)),
+			fTest: async x => fTest(x),
+			fFalse: async x => fFalse(x),
 			fTrue: fTrue
 		);
 
@@ -396,7 +396,7 @@ public static partial class ResultExtensions
 	) =>
 		MatchIfAsync(@this,
 			fFail: fFail,
-			fTest: x => Task.FromResult(fTest(x)),
+			fTest: async x => fTest(x),
 			fFalse: fFalse,
 			fTrue: fTrue
 		);
@@ -411,8 +411,8 @@ public static partial class ResultExtensions
 		MatchIfAsync(@this,
 			fFail: fFail,
 			fTest: fTest,
-			fFalse: x => Task.FromResult(fFalse(x)),
-			fTrue: x => Task.FromResult(fTrue(x))
+			fFalse: async x => fFalse(x),
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -426,7 +426,7 @@ public static partial class ResultExtensions
 			fFail: fFail,
 			fTest: fTest,
 			fFalse: fFalse,
-			fTrue: x => Task.FromResult(fTrue(x))
+			fTrue: async x => fTrue(x)
 		);
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
@@ -439,7 +439,7 @@ public static partial class ResultExtensions
 		MatchIfAsync(@this,
 			fFail: fFail,
 			fTest: fTest,
-			fFalse: x => Task.FromResult(fFalse(x)),
+			fFalse: async x => fFalse(x),
 			fTrue: fTrue
 		);
 

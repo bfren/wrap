@@ -18,8 +18,8 @@ public static partial class MonadExtensions
 		@this.Value;
 
 	/// <inheritdoc cref="ToResult{T}(IMonad{T})"/>
-	public static Task<Result<T>> ToResultAsync<T>(this IMonad<T> @this) =>
-		R.Wrap(@this.Value).AsTask();
+	public static async Task<Result<T>> ToResultAsync<T>(this IMonad<T> @this) =>
+		@this.Value;
 
 	/// <inheritdoc cref="ToResult{T}(IMonad{T})"/>
 	public static async Task<Result<T>> ToResultAsync<T>(this Task<IMonad<T>> @this) =>

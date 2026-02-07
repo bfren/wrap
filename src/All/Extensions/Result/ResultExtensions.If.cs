@@ -97,7 +97,7 @@ public static partial class ResultExtensions
 
 	/// <inheritdoc cref="IfNot{T}(Result{T}, Func{T, bool}, Func{T, Result{T}})"/>
 	public static Task<Result<T>> IfNotAsync<T>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Result<T>> fFalse) =>
-		IfAsync(@this, fTest, async x => x, x => fFalse(x).AsTask());
+		IfAsync(@this, fTest, async x => x, async x => fFalse(x));
 
 	/// <inheritdoc cref="IfNot{T}(Result{T}, Func{T, bool}, Func{T, Result{T}})"/>
 	public static Task<Result<T>> ContinueIfAsync<T>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Task<Result<T>>> fFalse) =>
