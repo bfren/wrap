@@ -3,37 +3,37 @@
 
 using Wrap.Ids;
 
-namespace Wrap.Json.UIntIdJsonConverter_Tests;
+namespace Wrap.Json.IntId_Tests;
 
-public class Read_Tests : Abstracts.Read_Tests<Read_Tests.TestUIntId, uint>
+public class Deserialize_Tests : Abstracts.Deserialize_Tests<Deserialize_Tests.TestIntId, int>
 {
 	[Theory]
-	[MemberData(nameof(Helpers.Valid_Numeric_Json_Data), MemberType = typeof(Helpers))]
+	[MemberData(nameof(Helpers.Json.Valid_Numeric_Json_Data), MemberType = typeof(Helpers.Json))]
 	public override void Test00_Deserialise__Valid_Json__Returns_Id_With_Value(string format)
 	{
-		Test00(format, Rnd.UInt32);
+		Test00(format, Rnd.Int);
 	}
 
 	[Theory]
-	[MemberData(nameof(Helpers.Valid_Numeric_Json_Data), MemberType = typeof(Helpers))]
+	[MemberData(nameof(Helpers.Json.Valid_Numeric_Json_Data), MemberType = typeof(Helpers.Json))]
 	public override void Test01_Deserialise__Valid_Json__Returns_Object_With_Id_Value(string format)
 	{
-		Test01(format, Rnd.UInt32);
+		Test01(format, Rnd.Int);
 	}
 
 	[Theory]
-	[MemberData(nameof(Helpers.Invalid_Json_Data), MemberType = typeof(Helpers))]
+	[MemberData(nameof(Helpers.Json.Invalid_Json_Data), MemberType = typeof(Helpers.Json))]
 	public override void Test02_Deserialise__Null_Or_Invalid_Json__Returns_Default_Id_Value(string input)
 	{
 		Test02(input, 0);
 	}
 
 	[Theory]
-	[MemberData(nameof(Helpers.Invalid_Json_Data), MemberType = typeof(Helpers))]
+	[MemberData(nameof(Helpers.Json.Invalid_Json_Data), MemberType = typeof(Helpers.Json))]
 	public override void Test03_Deserialise__Null_Or_Invalid_Json__Returns_Object_With_Default_Id_Value(string input)
 	{
 		Test03(input, 0);
 	}
 
-	public sealed record class TestUIntId : UIntId<TestUIntId>;
+	public sealed record class TestIntId : IntId<TestIntId>;
 }
