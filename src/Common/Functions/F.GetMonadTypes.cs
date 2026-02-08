@@ -2,24 +2,11 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
-using System.Linq;
 
 namespace Wrap;
 
 public static partial class F
 {
-	private static Type[] GetGenericTypeArguments(Type type, Type genericType) =>
-		// Get    .. all interfaces implemented by the type we are checking
-		// If     .. the interface is a generic type (i.e. has generic type arguments)
-		//        .. and the generic type definition is IMonad<,>
-		// Select .. all generic type arguments: the Monad implementation type and value type
-		[..
-			from i in type.GetInterfaces()
-			where i.IsGenericType && i.GetGenericTypeDefinition() == genericType
-			from a in i.GenericTypeArguments
-			select a
-		];
-
 	/// <summary>
 	/// Get the implentation and value types if <paramref name="type"/> implements <see cref="IMonad{TMonad, TValue}"/>.
 	/// </summary>
