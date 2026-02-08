@@ -4,7 +4,7 @@
 namespace Wrap.Exceptions;
 
 /// <summary>
-/// Thrown when <see cref="Monad{TMonad, TValue}.Value"/> is accessed without being set.
+/// Thrown when <see cref="Monad{TMonad, TValue}.Value"/> is accessed without being set,
+/// or an attempt is made to set it to null.
 /// </summary>
-public sealed class NullMonadValueException() :
-	WrapException("You must set the value of a Monad type when creating it.");
+public sealed class NullMonadValueException() : WrapException("Monad value cannot be null.");

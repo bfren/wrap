@@ -11,9 +11,13 @@ namespace Wrap.Json;
 public static class JsonSerializerOptionsExtensions
 {
 	/// <summary>
-	/// Add <see cref="MonadJsonConverterFactory"/> to the list of converters.
+	/// Add <see cref="MaybeJsonConverterFactory"/> and
+	/// <see cref="MonadJsonConverterFactory"/> to the list of JSON converters.
 	/// </summary>
 	/// <param name="this">JSON serializer options.</param>
-	public static void AddMonadConverter(this JsonSerializerOptions @this) =>
+	public static void AddWrapConverters(this JsonSerializerOptions @this)
+	{
+		@this.Converters.Add(new MaybeJsonConverterFactory());
 		@this.Converters.Add(new MonadJsonConverterFactory());
+	}
 }
