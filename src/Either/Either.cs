@@ -21,11 +21,25 @@ public abstract record class Either<TLeft, TRight> : IEither<Either<TLeft, TRigh
 		);
 
 	/// <summary>
+	/// Implicitly convert a <typeparamref name="TLeft"/> into a <see cref="Either{TLeft, TRight}"/> object.
+	/// </summary>
+	/// <param name="value">Value to wrap.</param>
+	public static implicit operator Either<TLeft, TRight>(TLeft value) =>
+		E.WrapLeft<TLeft, TRight>(value);
+
+	/// <summary>
 	/// Implicitly convert a <see cref="Monad{T}"/> into a <see cref="Either{TLeft, TRight}"/> object.
 	/// </summary>
 	/// <param name="obj">Wrapped object.</param>
 	public static implicit operator Either<TLeft, TRight>(Monad<TLeft> obj) =>
 		E.WrapLeft<TLeft, TRight>(obj.Value);
+
+	/// <summary>
+	/// Implicitly convert a <typeparamref name="TRight"/> into a <see cref="Either{TLeft, TRight}"/> object.
+	/// </summary>
+	/// <param name="value">Value to wrap.</param>
+	public static implicit operator Either<TLeft, TRight>(TRight value) =>
+		E.WrapRight<TLeft, TRight>(value);
 
 	/// <summary>
 	/// Implicitly convert a <see cref="Monad{T}"/> into a <see cref="Either{TLeft, TRight}"/> object.
