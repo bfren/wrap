@@ -15,7 +15,7 @@ public class Write_Tests
 			// Arrange
 			var obj = new TestObj(null!, null!, null!, null!);
 			var opt = new JsonSerializerOptions();
-			opt.AddMonadConverter();
+			opt.AddWrapConverters();
 
 			// Act
 			var result = JsonSerializer.Serialize(obj, opt);
@@ -42,7 +42,7 @@ public class Write_Tests
 				TestDate.Wrap(dtVal)
 			);
 			var opt = new JsonSerializerOptions();
-			opt.AddMonadConverter();
+			opt.AddWrapConverters();
 
 			// Act
 			var result = JsonSerializer.Serialize(obj, opt);
