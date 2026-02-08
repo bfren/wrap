@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Abstracts;
 
-public abstract class Read_Tests<TId, TIdValue>
+public abstract class Deserialize_Tests<TId, TIdValue>
 	where TId : Id<TId, TIdValue>, new()
 	where TIdValue : struct
 {
@@ -17,7 +17,7 @@ public abstract class Read_Tests<TId, TIdValue>
 		var json = string.Format(format, value);
 
 		// Act
-		var result = JsonSerializer.Deserialize<TId>(json, Helpers.Options);
+		var result = JsonSerializer.Deserialize<TId>(json, Helpers.Json.Options);
 
 		// Assert
 		Assert.Equal(value, result!.Value);
@@ -32,7 +32,7 @@ public abstract class Read_Tests<TId, TIdValue>
 		var json = $"{{ \"Id\": {id}, \"WrappedId\": {string.Format(format, value)} }}";
 
 		// Act
-		var result = JsonSerializer.Deserialize<TestWrappedId>(json, Helpers.Options);
+		var result = JsonSerializer.Deserialize<TestWrappedId>(json, Helpers.Json.Options);
 
 		// Assert
 		Assert.Equal(id, result!.Id);
@@ -46,7 +46,7 @@ public abstract class Read_Tests<TId, TIdValue>
 		// Arrange
 
 		// Act
-		var result = JsonSerializer.Deserialize<TId>(input, Helpers.Options);
+		var result = JsonSerializer.Deserialize<TId>(input, Helpers.Json.Options);
 
 		// Assert
 		Assert.Equal(defaultValue, result!.Value);
@@ -61,7 +61,7 @@ public abstract class Read_Tests<TId, TIdValue>
 		var json = $"{{ \"Id\": {id}, \"WrappedId\": {input} }}";
 
 		// Act
-		var result = JsonSerializer.Deserialize<TestWrappedId>(json, Helpers.Options);
+		var result = JsonSerializer.Deserialize<TestWrappedId>(json, Helpers.Json.Options);
 
 		// Assert
 		Assert.Equal(id, result!.Id);

@@ -55,7 +55,10 @@ public static partial class EnumerableExtensions
 	{
 		foreach (var item in @this)
 		{
-			yield return item.Filter(fTest);
+			foreach (var value in item.Filter(fTest))
+			{
+				yield return value;
+			}
 		}
 	}
 
@@ -74,7 +77,10 @@ public static partial class EnumerableExtensions
 
 		foreach (var item in await @this)
 		{
-			list.Add(await item.FilterAsync(fTest));
+			foreach (var value in await item.FilterAsync(fTest))
+			{
+				list.Add(value);
+			}
 		}
 
 		return list;
@@ -95,7 +101,10 @@ public static partial class EnumerableExtensions
 	{
 		foreach (var item in @this)
 		{
-			yield return item.Filter(fTest);
+			foreach (var value in item.Filter(fTest).Unsafe())
+			{
+				yield return value;
+			}
 		}
 	}
 
@@ -114,7 +123,10 @@ public static partial class EnumerableExtensions
 
 		foreach (var item in await @this)
 		{
-			list.Add(await item.FilterAsync(fTest));
+			foreach (var value in await item.FilterAsync(fTest).Unsafe())
+			{
+				list.Add(value);
+			}
 		}
 
 		return list;

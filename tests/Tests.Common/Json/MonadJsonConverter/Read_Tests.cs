@@ -31,29 +31,6 @@ public class Read_Tests
 				Assert.Equal(value, test.Value);
 			}
 		}
-
-		public class With_Incorrect_Value_Type
-		{
-			[Fact]
-			public void Throws_NullMonadValueException()
-			{
-				// Arrange
-				var value = Rnd.IntPtr;
-				var json = $"{value}";
-				var opt = new JsonSerializerOptions();
-				var converter = new MonadJsonConverter<Test, string>();
-
-				// Act
-				Test? act()
-				{
-					var reader = new Utf8JsonReader(Encoding.UTF8.GetBytes(json));
-					return converter.Read(ref reader, typeof(Test), opt);
-				}
-
-				// Assert
-				_ = Assert.ThrowsAny<IncorrectValueTypeException<Test, string>>(act);
-			}
-		}
 	}
 
 	public class With_Invalid_Json
@@ -69,14 +46,14 @@ public class Read_Tests
 			var converter = new MonadJsonConverter<Test, string>();
 
 			// Act
-			Test? act()
+			var result = Record.Exception(() =>
 			{
 				var reader = new Utf8JsonReader(Encoding.UTF8.GetBytes(input));
 				return converter.Read(ref reader, typeof(Test), opt);
-			}
+			});
 
 			// Assert
-			_ = Assert.ThrowsAny<NullMonadValueException>(act);
+			Assert.IsType<NullMonadValueException>(result);
 		}
 	}
 

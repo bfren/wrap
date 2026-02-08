@@ -47,7 +47,7 @@ public partial class FilterBindAsync_Tests
 		public class Predicate_Returns_False
 		{
 			[Fact]
-			public async Task Returns_Original_Failures()
+			public async Task Returns_Empty_List()
 			{
 				// Arrange
 				var v = SetupResult(false, false);
@@ -58,9 +58,9 @@ public partial class FilterBindAsync_Tests
 				var r2 = await v.ListAsync.FilterBindAsync(v.Test, v.BindAsync);
 
 				// Assert
-				Bind_Tests.AssertFailures([.. v.List], r0);
-				Bind_Tests.AssertFailures([.. v.List], r1);
-				Bind_Tests.AssertFailures([.. v.List], r2);
+				Assert.Empty(r0);
+				Assert.Empty(r1);
+				Assert.Empty(r2);
 			}
 
 			[Fact]
@@ -83,7 +83,7 @@ public partial class FilterBindAsync_Tests
 		public class Predicate_Returns_True
 		{
 			[Fact]
-			public async Task Returns_Original_Failures()
+			public async Task Returns_Empty_List()
 			{
 				// Arrange
 				var v = SetupResult(true, false);
@@ -94,9 +94,9 @@ public partial class FilterBindAsync_Tests
 				var r2 = await v.ListAsync.FilterBindAsync(v.Test, v.BindAsync);
 
 				// Assert
-				Bind_Tests.AssertFailures([.. v.List], r0);
-				Bind_Tests.AssertFailures([.. v.List], r1);
-				Bind_Tests.AssertFailures([.. v.List], r2);
+				Assert.Empty(r0);
+				Assert.Empty(r1);
+				Assert.Empty(r2);
 			}
 
 			[Fact]
@@ -122,7 +122,7 @@ public partial class FilterBindAsync_Tests
 		public class Predicate_Returns_False
 		{
 			[Fact]
-			public async Task Returns_Predicate_Was_False_Failures()
+			public async Task Returns_Empty_List()
 			{
 				// Arrange
 				var v = SetupResult(false, true);
@@ -133,9 +133,9 @@ public partial class FilterBindAsync_Tests
 				var r2 = await v.ListAsync.FilterBindAsync(v.Test, v.BindAsync);
 
 				// Assert
-				FilterBind_Tests.AssertFailures(r0);
-				FilterBind_Tests.AssertFailures(r1);
-				FilterBind_Tests.AssertFailures(r2);
+				Assert.Empty(r0);
+				Assert.Empty(r1);
+				Assert.Empty(r2);
 			}
 
 			[Fact]
