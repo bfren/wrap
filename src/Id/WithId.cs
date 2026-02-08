@@ -15,10 +15,6 @@ public abstract record class WithId<TId, TValue> : IWithId<TId, TValue>
 	IMonad IWithId.Id =>
 		Id;
 
-	/// <inheritdoc/>
-	IMonad<TValue> IWithId<TValue>.Id =>
-		Id;
-
 	/// <summary>
 	/// Create with blank ID.
 	/// </summary>

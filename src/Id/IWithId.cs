@@ -17,21 +17,9 @@ public interface IWithId
 /// <summary>
 /// Represents an object (Entity or Model) with a strongly-typed ID.
 /// </summary>
-/// <typeparam name="T">ID Value type.</typeparam>
-public interface IWithId<T> : IWithId
-{
-	/// <summary>
-	/// Monad ID value with specific type.
-	/// </summary>
-	new IMonad<T> Id { get; }
-}
-
-/// <summary>
-/// Represents an object (Entity or Model) with a strongly-typed ID.
-/// </summary>
 /// <typeparam name="TId">ID type.</typeparam>
 /// <typeparam name="TValue">ID Value type.</typeparam>
-public interface IWithId<TId, TValue> : IWithId<TValue>
+public interface IWithId<TId, TValue> : IWithId
 	where TId : class, IId<TId, TValue>, new()
 	where TValue : struct
 {
