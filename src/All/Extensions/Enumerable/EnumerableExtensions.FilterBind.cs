@@ -25,7 +25,7 @@ public static partial class EnumerableExtensions
 		Func<T, Maybe<TReturn>> f
 	)
 	{
-		foreach (var item in @this.Filter())
+		foreach (var item in @this)
 		{
 			foreach (var value in item.BindIf(fTest, f))
 			{
@@ -56,7 +56,7 @@ public static partial class EnumerableExtensions
 	{
 		var items = new List<Maybe<TReturn>>();
 
-		foreach (var item in await @this.FilterAsync())
+		foreach (var item in await @this)
 		{
 			foreach (var value in await item.BindIfAsync(fTest, f))
 			{
@@ -87,7 +87,10 @@ public static partial class EnumerableExtensions
 	{
 		foreach (var item in @this)
 		{
-			yield return item.BindIf(fTest, f);
+			foreach (var value in item.BindIf(fTest, f).Unsafe())
+			{
+				yield return value;
+			}
 		}
 	}
 
@@ -115,7 +118,10 @@ public static partial class EnumerableExtensions
 
 		foreach (var item in await @this)
 		{
-			items.Add(await item.BindIfAsync(fTest, f));
+			foreach (var value in await item.BindIfAsync(fTest, f).Unsafe())
+			{
+				items.Add(value);
+			}
 		}
 
 		return items;

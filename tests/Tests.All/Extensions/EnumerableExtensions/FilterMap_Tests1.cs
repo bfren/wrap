@@ -42,7 +42,7 @@ public partial class FilterMap_Tests
 		public class Predicate_Returns_False
 		{
 			[Fact]
-			public void Returns_Original_Failure()
+			public void Returns_Empty_List()
 			{
 				// Arrange
 				var v = SetupResult(false, false);
@@ -51,7 +51,7 @@ public partial class FilterMap_Tests
 				var result = v.List.FilterMap(v.Test, v.Map);
 
 				// Assert
-				Map_Tests.AssertFailures([.. v.List], result);
+				Assert.Empty(result);
 			}
 
 			[Fact]
@@ -71,7 +71,7 @@ public partial class FilterMap_Tests
 		public class Predicate_Returns_True
 		{
 			[Fact]
-			public void Returns_Original_Failure()
+			public void Returns_Empty_List()
 			{
 				// Arrange
 				var v = SetupResult(true, false);
@@ -80,7 +80,7 @@ public partial class FilterMap_Tests
 				var result = v.List.FilterMap(v.Test, v.Map);
 
 				// Assert
-				Map_Tests.AssertFailures([.. v.List], result);
+				Assert.Empty(result);
 			}
 
 			[Fact]
@@ -112,7 +112,7 @@ public partial class FilterMap_Tests
 				var result = v.List.FilterMap(v.Test, v.Map);
 
 				// Assert
-				FilterBind_Tests.AssertFailures(result);
+				Assert.Empty(result);
 			}
 
 			[Fact]

@@ -49,7 +49,7 @@ public partial class FilterBind_Tests
 		public class Predicate_Returns_False
 		{
 			[Fact]
-			public void Returns_Original_Failures()
+			public void Returns_Empty_List()
 			{
 				// Arrange
 				var v = SetupResult(false, false);
@@ -58,7 +58,7 @@ public partial class FilterBind_Tests
 				var result = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
-				Bind_Tests.AssertFailures([.. v.List], result);
+				Assert.Empty(result);
 			}
 
 			[Fact]
@@ -78,7 +78,7 @@ public partial class FilterBind_Tests
 		public class Predicate_Returns_True
 		{
 			[Fact]
-			public void Returns_Original_Failures()
+			public void Returns_Empty_List()
 			{
 				// Arrange
 				var v = SetupResult(true, false);
@@ -87,7 +87,7 @@ public partial class FilterBind_Tests
 				var result = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
-				Bind_Tests.AssertFailures([.. v.List], result);
+				Assert.Empty(result);
 			}
 
 			[Fact]
@@ -110,7 +110,7 @@ public partial class FilterBind_Tests
 		public class Predicate_Returns_False
 		{
 			[Fact]
-			public void Returns_Failures()
+			public void Returns_Empty_List()
 			{
 				// Arrange
 				var v = SetupResult(false, true);
@@ -119,7 +119,7 @@ public partial class FilterBind_Tests
 				var result = v.List.FilterBind(v.Test, v.Bind);
 
 				// Assert
-				AssertFailures(result);
+				Assert.Empty(result);
 			}
 
 			[Fact]
