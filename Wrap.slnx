@@ -1,0 +1,63 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".github/FUNDING.yml" />
+    <File Path=".github/workflows/publish.yml" />
+    <File Path=".github/workflows/test.yml" />
+    <File Path=".github/workflows/workflow-cleanup.yml" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Packages.props" />
+    <File Path="LICENSE" />
+    <File Path="Pack.csproj" />
+    <File Path="README.md" />
+    <File Path="Test.csproj" />
+    <File Path="Version" />
+    <File Path="wrap.code-workspace" />
+  </Folder>
+  <Folder Name="/src/">
+    <File Path="src/.editorconfig" />
+    <File Path="src/Directory.Build.props" />
+    <File Path="src/Local.pack.props" />
+    <Project Path="src/All.Testing/All.Testing.csproj" />
+    <Project Path="src/All/All.csproj" />
+    <Project Path="src/Caching/Caching.csproj" />
+    <Project Path="src/Common/Common.csproj" />
+    <Project Path="src/Either/Either.csproj" />
+    <Project Path="src/Id.Dapper/Id.Dapper.csproj" />
+    <Project Path="src/Id.Mvc/Id.Mvc.csproj" />
+    <Project Path="src/Id.Testing/Id.Testing.csproj" />
+    <Project Path="src/Id/Id.csproj" />
+    <Project Path="src/Maybe.Testing/Maybe.Testing.csproj" />
+    <Project Path="src/Maybe/Maybe.csproj" />
+    <Project Path="src/Result.Testing/Result.Testing.csproj" />
+    <Project Path="src/Result/Result.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <File Path="tests/.editorconfig" />
+    <File Path="tests/Directory.Build.props" />
+    <Project Path="tests/Tests.All/Tests.All.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="tests/Tests.Caching/Tests.Caching.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="tests/Tests.Common/Tests.Common.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="tests/Tests.Id.Dapper/Tests.Id.Dapper.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="tests/Tests.Id.Mvc/Tests.Id.Mvc.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="tests/Tests.Id/Tests.Id.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="tests/Tests.Maybe/Tests.Maybe.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="tests/Tests.Result/Tests.Result.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+</Solution>
