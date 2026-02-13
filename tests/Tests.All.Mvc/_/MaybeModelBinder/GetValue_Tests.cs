@@ -82,8 +82,9 @@ public class GetValue_Tests
 				var (valueResult, bindingResult) = binder.GetValue(v.Provider, v.ModelName);
 
 				// Assert
-				Assert.Equal(ValueProviderResult.None, valueResult);
-				Assert.False(bindingResult.IsModelSet);
+				Assert.Equal(nameof(M.None), valueResult.FirstValue);
+				Assert.True(bindingResult.IsModelSet);
+				Assert.IsType<Maybe<Guid>>(bindingResult.Model, false).AssertNone();
 			}
 		}
 
