@@ -42,14 +42,17 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 	/// Parse Monad value from the binding context.
 	/// </summary>
 	/// <param name="bindingContext">ModelBindingContext.</param>
-	public virtual async Task BindModelAsync(ModelBindingContext bindingContext)
+	public virtual Task BindModelAsync(ModelBindingContext bindingContext)
 	{
 		// Perform bind
-		var (valueResult, bindingResult) = await GetValueAsync(bindingContext.ValueProvider, bindingContext.ModelName);
+		var (valueResult, bindingResult) = GetValue(bindingContext.ValueProvider, bindingContext.ModelName);
 
 		// Set binding values
 		bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueResult);
 		bindingContext.Result = bindingResult;
+
+		// No async work to do
+		return Task.CompletedTask;
 	}
 
 	/// <summary>
@@ -58,7 +61,7 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 	/// <param name="provider">IValueProvider.</param>
 	/// <param name="model">Model Name.</param>
 	/// <returns>ValueProviderResult and ModelBindingResult.</returns>
-	public async Task<(ValueProviderResult valueResult, ModelBindingResult bindingResult)> GetValueAsync(
+	public (ValueProviderResult valueResult, ModelBindingResult bindingResult) GetValue(
 		IValueProvider provider,
 		string model
 	)
@@ -156,7 +159,7 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 					(result, ModelBindingResult.Success(Wrap(x))),
 
 				_ when new MonadModelBinderProvider().GetBinder(typeof(TValue)) is IWrapModelBinder<TValue> x =>
-					await x.GetValueAsync(provider, model),
+					x.GetValue(provider, model),
 
 				_ when JsonSerializer.Deserialize<TValue>($"\"{value}\"", WrapModelBinderHelpers.Options) is TValue x =>
 					(result, ModelBindingResult.Success(Wrap(x))),

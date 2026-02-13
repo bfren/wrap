@@ -1,7 +1,6 @@
 // Wrap: .NET monads.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Wrap.Mvc;
@@ -18,7 +17,7 @@ public interface IWrapModelBinder<TValue> : IModelBinder
 	/// <param name="provider">IValueProvider.</param>
 	/// <param name="model">Model Name.</param>
 	/// <returns>ValueProviderResult and ModelBindingResult.</returns>
-	Task<(ValueProviderResult valueResult, ModelBindingResult bindingResult)> GetValueAsync(IValueProvider provider, string model);
+	(ValueProviderResult valueResult, ModelBindingResult bindingResult) GetValue(IValueProvider provider, string model);
 
 	/// <summary>
 	/// Wrap a value to insert correctly into the binding context.
