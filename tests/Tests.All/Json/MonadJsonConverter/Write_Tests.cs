@@ -14,6 +14,8 @@ public class Write_Tests
 		{
 			// Arrange
 			var obj = new TestObj(null!, null!, null!, null!);
+			var opt = new JsonSerializerOptions();
+			opt.Converters.AddWrapConverters();
 
 			// Act
 			var result = JsonSerializer.Serialize(obj, Helpers.Json.Options);
@@ -39,6 +41,8 @@ public class Write_Tests
 				TestGuid.Wrap(guidVal),
 				TestDate.Wrap(dtVal)
 			);
+			var opt = new JsonSerializerOptions();
+			opt.Converters.AddWrapConverters();
 
 			// Act
 			var result = JsonSerializer.Serialize(obj, Helpers.Json.Options);
