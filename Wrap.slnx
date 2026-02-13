@@ -1,4 +1,9 @@
 <Solution>
+  <Folder Name="/apps/">
+    <File Path="apps/.editorconfig" />
+    <File Path="apps/Directory.Build.props" />
+    <Project Path="apps/AppMvc/AppMvc.csproj" Id="c6311ce6-256f-4930-abc1-f5065b03d288" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path=".github/FUNDING.yml" />
