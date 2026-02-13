@@ -30,7 +30,7 @@ public sealed class MonadModelBinderProvider : IModelBinderProvider
 				x,
 
 			_ =>
-				throw new ModelBinderException($"Unable to create {typeof(MonadModelBinder<,>)} for type {monadType}.")
+				throw new ModelBinderException($"Unable to create {typeof(MonadModelBinder<,>)} for type {monadType.Name}.")
 		};
 	}
 }
