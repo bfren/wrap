@@ -12,6 +12,6 @@ public sealed class MonadModelBinder<TMonad, TValue> : WrapModelBinder<TValue>
 	where TMonad : IMonad<TMonad, TValue>, new()
 {
 	/// <inheritdoc/>
-	internal override object Wrap(TValue value) =>
+	public override object Wrap(TValue value) =>
 		F.Wrap<TMonad, TValue>(value);
 }

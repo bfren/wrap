@@ -13,10 +13,13 @@ namespace Wrap.Mvc;
 public sealed class MonadModelBinderProvider : IModelBinderProvider
 {
 	/// <inheritdoc/>
-	public IModelBinder? GetBinder(ModelBinderProviderContext context)
+	public IModelBinder? GetBinder(ModelBinderProviderContext context) =>
+		GetBinder(context.Metadata.ModelType);
+
+	internal IModelBinder? GetBinder(Type modelType)
 	{
 		// If this type isn't an ID, return null so MVC can move on to try the next model binder
-		var (monadType, valueType) = F.GetMonadTypes(context.Metadata.ModelType, typeof(IMonad<,>));
+		var (monadType, valueType) = F.GetMonadTypes(modelType, typeof(IMonad<,>));
 		if (monadType is null || valueType is null)
 		{
 			return null;

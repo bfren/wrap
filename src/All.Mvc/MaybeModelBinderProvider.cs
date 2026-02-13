@@ -13,17 +13,19 @@ namespace Wrap.Mvc;
 public sealed class MaybeModelBinderProvider : IModelBinderProvider
 {
 	/// <inheritdoc/>
-	public IModelBinder? GetBinder(ModelBinderProviderContext context)
+	public IModelBinder? GetBinder(ModelBinderProviderContext context) =>
+		GetBinder(context.Metadata.ModelType);
+
+	internal IModelBinder? GetBinder(Type modelType)
 	{
 		// If this type isn't Maybe<T>, return null so MVC can move on to try the next model binder
-		var type = context.Metadata.ModelType;
-		if (!type.IsGenericType || type.GetGenericTypeDefinition() != typeof(Maybe<>))
+		if (!modelType.IsGenericType || modelType.GetGenericTypeDefinition() != typeof(Maybe<>))
 		{
 			return null;
 		}
 
 		// Build the model binder with the correct value type
-		var wrappedType = type.GetGenericArguments()[0];
+		var wrappedType = modelType.GetGenericArguments()[0];
 		var binderType = typeof(MaybeModelBinder<>).MakeGenericType(wrappedType);
 
 		// Attempt to create and return the binder
@@ -33,7 +35,7 @@ public sealed class MaybeModelBinderProvider : IModelBinderProvider
 				x,
 
 			_ =>
-				throw new ModelBinderException($"Unable to create {typeof(MaybeModelBinder<>)} for type {type.Name}.")
+				throw new ModelBinderException($"Unable to create {typeof(MaybeModelBinder<>)} for type {modelType.Name}.")
 		};
 	}
 }
