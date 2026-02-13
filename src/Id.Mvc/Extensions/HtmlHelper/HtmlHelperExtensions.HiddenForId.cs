@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Wrap.Extensions;
+namespace Wrap.Mvc;
 
 public static partial class HtmlHelperExtensions
 {

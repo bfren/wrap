@@ -3,7 +3,7 @@
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Wrap.Extensions;
+namespace Wrap.Mvc;
 
 /// <summary>
 /// <see cref="IHtmlHelper"/> extension methods
