@@ -8,7 +8,7 @@ namespace Wrap.Exceptions;
 
 /// <summary>
 /// Thrown when creating a StrongId MVC model binder fails -
-/// see <see cref="IdModelBinderProvider.GetBinderFromModelType(Type)"/>.
+/// see <see cref="MonadModelBinderProvider.GetBinderFromModelType(Type)"/>.
 /// </summary>
 public sealed class ModelBinderException : Exception
 {
