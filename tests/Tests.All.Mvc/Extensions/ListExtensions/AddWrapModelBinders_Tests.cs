@@ -17,6 +17,7 @@ public class AddWrapModelBinders_Tests
 		list.AddWrapModelBinders();
 
 		// Assert
-		list.Received().Insert(0, Arg.Any<MonadModelBinderProvider>());
+		list.Received().Insert(0, Arg.Any<MaybeModelBinderProvider>());
+		list.Received().Insert(1, Arg.Any<MonadModelBinderProvider>());
 	}
 }
