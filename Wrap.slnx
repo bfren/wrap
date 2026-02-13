@@ -18,13 +18,13 @@
     <File Path="src/.editorconfig" />
     <File Path="src/Directory.Build.props" />
     <File Path="src/Local.pack.props" />
+    <Project Path="src/All.Mvc/All.Mvc.csproj" />
     <Project Path="src/All.Testing/All.Testing.csproj" />
     <Project Path="src/All/All.csproj" />
     <Project Path="src/Caching/Caching.csproj" />
     <Project Path="src/Common/Common.csproj" />
     <Project Path="src/Either/Either.csproj" />
     <Project Path="src/Id.Dapper/Id.Dapper.csproj" />
-    <Project Path="src/Id.Mvc/Id.Mvc.csproj" />
     <Project Path="src/Id.Testing/Id.Testing.csproj" />
     <Project Path="src/Id/Id.csproj" />
     <Project Path="src/Maybe.Testing/Maybe.Testing.csproj" />
@@ -35,6 +35,9 @@
   <Folder Name="/tests/">
     <File Path="tests/.editorconfig" />
     <File Path="tests/Directory.Build.props" />
+    <Project Path="tests/Tests.All.Mvc/Tests.All.Mvc.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
     <Project Path="tests/Tests.All/Tests.All.csproj">
       <Build Solution="Release|*" Project="false" />
     </Project>
@@ -45,9 +48,6 @@
       <Build Solution="Release|*" Project="false" />
     </Project>
     <Project Path="tests/Tests.Id.Dapper/Tests.Id.Dapper.csproj">
-      <Build Solution="Release|*" Project="false" />
-    </Project>
-    <Project Path="tests/Tests.Id.Mvc/Tests.Id.Mvc.csproj">
       <Build Solution="Release|*" Project="false" />
     </Project>
     <Project Path="tests/Tests.Id/Tests.Id.csproj">
