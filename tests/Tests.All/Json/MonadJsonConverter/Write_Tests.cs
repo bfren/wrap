@@ -14,11 +14,9 @@ public class Write_Tests
 		{
 			// Arrange
 			var obj = new TestObj(null!, null!, null!, null!);
-			var opt = new JsonSerializerOptions();
-			opt.Converters.AddWrapConverters();
 
 			// Act
-			var result = JsonSerializer.Serialize(obj, opt);
+			var result = JsonSerializer.Serialize(obj, Helpers.Json.Options);
 
 			// Assert
 			Assert.Equal(/*lang=json,strict*/ "{\"Foo\":null,\"Bar\":null,\"Gu\":null,\"When\":null}", result);
@@ -41,11 +39,9 @@ public class Write_Tests
 				TestGuid.Wrap(guidVal),
 				TestDate.Wrap(dtVal)
 			);
-			var opt = new JsonSerializerOptions();
-			opt.Converters.AddWrapConverters();
 
 			// Act
-			var result = JsonSerializer.Serialize(obj, opt);
+			var result = JsonSerializer.Serialize(obj, Helpers.Json.Options);
 
 			// Assert
 			Assert.Equal($"{{\"Foo\":{intVal},\"Bar\":\"{strVal}\",\"Gu\":\"{guidVal}\",\"When\":\"{dtVal:o}\"}}", result);
