@@ -21,8 +21,7 @@ public static partial class Helpers
 					NumberHandling = JsonNumberHandling.AllowReadingFromString
 				};
 
-				opt.Converters.Add(new MaybeJsonConverterFactory());
-				opt.Converters.Add(new MonadJsonConverterFactory());
+				opt.Converters.AddWrapConverters();
 				return opt;
 			}
 		}

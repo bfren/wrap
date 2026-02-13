@@ -20,11 +20,10 @@ public class Read_Tests
 				var value = Rnd.Str;
 				var json = $"\"{value}\"";
 				var reader = new Utf8JsonReader(Encoding.UTF8.GetBytes(json));
-				var opt = new JsonSerializerOptions();
 				var converter = new MonadJsonConverter<Test, string>();
 
 				// Act
-				var result = converter.Read(ref reader, typeof(Test), opt);
+				var result = converter.Read(ref reader, typeof(Test), new());
 
 				// Assert
 				var test = Assert.IsType<Test>(result);
@@ -42,14 +41,13 @@ public class Read_Tests
 		public void Throws_NullMonadValueException(string input)
 		{
 			// Arrange
-			var opt = new JsonSerializerOptions();
 			var converter = new MonadJsonConverter<Test, string>();
 
 			// Act
 			var result = Record.Exception(() =>
 			{
 				var reader = new Utf8JsonReader(Encoding.UTF8.GetBytes(input));
-				return converter.Read(ref reader, typeof(Test), opt);
+				return converter.Read(ref reader, typeof(Test), new());
 			});
 
 			// Assert

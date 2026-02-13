@@ -3,7 +3,7 @@
 
 using System.Text.Json;
 
-namespace Wrap.Json.Maybe_Tests;
+namespace Wrap.Json.MaybeJsonConverter_Tests;
 
 public class Deserialize_Tests
 {
