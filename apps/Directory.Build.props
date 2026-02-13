@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <TargetFrameworks>net10.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="Wrap"/>
+    <Using Include="Wrap.Extensions"/>
+    <Using Include="Wrap.Linq"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\All\All.csproj" />
+  </ItemGroup>
+</Project>
