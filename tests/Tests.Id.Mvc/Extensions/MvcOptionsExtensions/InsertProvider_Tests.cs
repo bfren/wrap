@@ -15,7 +15,7 @@ public class InsertProvider_Tests
 		var insert = Substitute.For<Action<int, IModelBinderProvider>>();
 
 		// Act
-		MvcOptionsExtensions.InsertProvider(insert);
+		ListExtensions.InsertProvider(insert);
 
 		// Assert
 		insert.Received().Invoke(0, Arg.Any<IdModelBinderProvider>());
