@@ -10,18 +10,18 @@ public class BindModelAsync_Tests
 	public class With_None : MaybeModelBinder_Tests<string>
 	{
 		[Fact]
-		public async Task Fails()
+		public async Task Returns_None()
 		{
 			// Arrange
 			var (binder, v) = Setup(null!);
-			var expected = ModelBindingResult.Failed();
+			var expected = ModelBindingResult.Success((Maybe<string>)M.None);
 
 			// Act
 			await binder.BindModelAsync(v.Context);
 
 			// Assert
 			Assert.Null(v.Context.Model);
-			Assert.Empty(v.Context.ModelState.Values);
+			Assert.Single(v.Context.ModelState.Values, x => x.AttemptedValue == nameof(M.None));
 			Assert.Equal(expected, v.Context.Result);
 		}
 	}

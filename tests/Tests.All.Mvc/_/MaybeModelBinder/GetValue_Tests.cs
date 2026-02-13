@@ -20,8 +20,9 @@ public class GetValue_Tests
 			var (valueResult, bindingResult) = binder.GetValue(v.Provider, v.ModelName);
 
 			// Assert
-			Assert.Equal(ValueProviderResult.None, valueResult);
-			Assert.Null(bindingResult);
+			Assert.Equal(nameof(M.None), valueResult.FirstValue);
+			Assert.True(bindingResult.IsModelSet);
+			Assert.IsType<Maybe<string>>(bindingResult.Model, false).AssertNone();
 		}
 	}
 
@@ -39,8 +40,9 @@ public class GetValue_Tests
 			var (valueResult, bindingResult) = binder.GetValue(v.Provider, v.ModelName);
 
 			// Assert
-			Assert.Equal(ValueProviderResult.None, valueResult);
-			Assert.Null(bindingResult);
+			Assert.Equal(nameof(M.None), valueResult.FirstValue);
+			Assert.True(bindingResult.IsModelSet);
+			Assert.IsType<Maybe<string>>(bindingResult.Model, false).AssertNone();
 		}
 	}
 
@@ -58,8 +60,9 @@ public class GetValue_Tests
 			var (valueResult, bindingResult) = binder.GetValue(v.Provider, v.ModelName);
 
 			// Assert
-			Assert.Equal(ValueProviderResult.None, valueResult);
-			Assert.Null(bindingResult);
+			Assert.Equal(nameof(M.None), valueResult.FirstValue);
+			Assert.True(bindingResult.IsModelSet);
+			Assert.IsType<Maybe<string>>(bindingResult.Model, false).AssertNone();
 		}
 	}
 
@@ -80,7 +83,7 @@ public class GetValue_Tests
 
 				// Assert
 				Assert.Equal(ValueProviderResult.None, valueResult);
-				Assert.Null(bindingResult);
+				Assert.False(bindingResult.IsModelSet);
 			}
 		}
 
@@ -97,10 +100,8 @@ public class GetValue_Tests
 
 				// Assert
 				Assert.Equal(v.Value.ToString(), valueResult.FirstValue);
-				Assert.True(bindingResult.HasValue);
-				Assert.True(bindingResult.Value.IsModelSet);
-				var m = Assert.IsType<Some<long>>(bindingResult.Value.Model);
-				Assert.Equal(v.Value, m.Value);
+				Assert.True(bindingResult.IsModelSet);
+				Assert.IsType<Maybe<long>>(bindingResult.Model, false).AssertSome(v.Value);
 			}
 		}
 	}

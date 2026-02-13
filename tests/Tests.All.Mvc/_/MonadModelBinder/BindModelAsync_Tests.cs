@@ -21,7 +21,6 @@ public class BindModelAsync_Tests
 
 			// Assert
 			Assert.Null(v.Context.Model);
-			Assert.Empty(v.Context.ModelState.Values);
 			Assert.Equal(expected, v.Context.Result);
 		}
 	}

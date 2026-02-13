@@ -21,7 +21,7 @@ public class GetValue_Tests
 
 			// Assert
 			Assert.Equal(ValueProviderResult.None, valueResult);
-			Assert.Null(bindingResult);
+			Assert.False(bindingResult.IsModelSet);
 		}
 	}
 
@@ -40,7 +40,7 @@ public class GetValue_Tests
 
 			// Assert
 			Assert.Equal(ValueProviderResult.None, valueResult);
-			Assert.Null(bindingResult);
+			Assert.False(bindingResult.IsModelSet);
 		}
 	}
 
@@ -59,7 +59,7 @@ public class GetValue_Tests
 
 			// Assert
 			Assert.Equal(ValueProviderResult.None, valueResult);
-			Assert.Null(bindingResult);
+			Assert.False(bindingResult.IsModelSet);
 		}
 	}
 
@@ -80,7 +80,7 @@ public class GetValue_Tests
 
 				// Assert
 				Assert.Equal(ValueProviderResult.None, valueResult);
-				Assert.Null(bindingResult);
+				Assert.False(bindingResult.IsModelSet);
 			}
 		}
 
@@ -97,9 +97,8 @@ public class GetValue_Tests
 
 				// Assert
 				Assert.Equal(v.Value.ToString(), valueResult.FirstValue);
-				Assert.True(bindingResult.HasValue);
-				Assert.True(bindingResult.Value.IsModelSet);
-				var m = Assert.IsType<TestMonad>(bindingResult.Value.Model);
+				Assert.True(bindingResult.IsModelSet);
+				var m = Assert.IsType<TestMonad>(bindingResult.Model);
 				Assert.Equal(v.Value, m.Value);
 			}
 		}
