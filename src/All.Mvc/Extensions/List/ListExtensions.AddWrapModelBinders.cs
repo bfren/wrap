@@ -12,6 +12,9 @@ public static partial class ListExtensions
 	/// Insert Wrap Model Binders.
 	/// </summary>
 	/// <param name="this">IModelBinderProvider list.</param>
-	public static void AddWrapModelBinders(this IList<IModelBinderProvider> @this) =>
-		@this.Insert(0, new MonadModelBinderProvider());
+	public static void AddWrapModelBinders(this IList<IModelBinderProvider> @this)
+	{
+		@this.Insert(0, new MaybeModelBinderProvider());
+		@this.Insert(1, new MonadModelBinderProvider());
+	}
 }
