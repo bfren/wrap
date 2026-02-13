@@ -165,7 +165,7 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 					(result, ModelBindingResult.Success(Wrap(x))),
 
 				_ =>
-					(ValueProviderResult.None, ModelBindingResult.Failed())
+					Nothing()
 			};
 		}
 		catch
