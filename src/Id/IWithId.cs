@@ -27,4 +27,7 @@ public interface IWithId<TId, TValue> : IWithId
 	/// Strongly-typed ID value.
 	/// </summary>
 	new TId Id { get; init; }
+
+	IMonad IWithId.Id =>
+		Id;
 }
