@@ -3,9 +3,6 @@
     <RootNamespace>Wrap</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Class1.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\src\Maybe\Maybe.csproj" />
   </ItemGroup>
 </Project>

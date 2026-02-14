@@ -480,6 +480,9 @@ dotnet_style_require_accessibility_modifiers = for_non_interface_members
 # 'using' directive preferences
 csharp_using_directive_placement = outside_namespace:warning
 
+# IDE0055: Formatting rule.
+dotnet_diagnostic.IDE0055.severity = none
+
 
 ##########################################
 # Disable various diagnostics
