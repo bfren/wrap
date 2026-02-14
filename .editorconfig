@@ -465,6 +465,9 @@ tab_size = 4
 # SA1636: File header copyright text should match.
 dotnet_diagnostic.SA1636.severity = none
 
+# IDE0005: Remove unnecessary using directives
+dotnet_diagnostic.IDE0005.severity = warning
+
 # "this." and "Me." qualifiers.
 dotnet_style_qualification_for_field = false:warning
 dotnet_style_qualification_for_property = false:warning
