@@ -1,3 +1,6 @@
 [*.{cs,csx,cake,vb,vbx}]
 
 file_header_template = Wrap: Test Apps.\nCopyright (c) bfren - licensed under https://mit.bfren.dev/2019
+
+# IDE0073: Require file header
+dotnet_diagnostic.IDE0073.severity = error

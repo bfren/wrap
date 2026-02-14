@@ -53,6 +53,12 @@ jobs:
           --no-restore \
           --no-build \
           --configuration Release
+
+    -
+      name: D - Style
+      run: |
+        dotnet format style Wrap.slnx \
+          --verify-no-changes
     -
       if: success()
       name: Finish - Success

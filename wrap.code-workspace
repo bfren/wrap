@@ -5,6 +5,10 @@
         }
     ],
     "settings": {
-        "dotnet.defaultSolution": "wraps.sln"
+        "dotnet.defaultSolution": "Wrap.slnx",
+        "editor.formatOnSave": true,
+        "[csharp]": {
+            "editor.defaultFormatter": "ms-dotnettools.csharp"
+        }
     }
 }
