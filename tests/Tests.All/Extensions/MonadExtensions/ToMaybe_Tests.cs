@@ -44,17 +44,19 @@ public class ToMaybe_Tests
 		public void Returns_Values_For_Each_Item()
 		{
 			// Arrange
-			var value0 = Rnd.Int;
-			var value1 = Rnd.Int;
-			var monads = new List<IMonad<int>> { Monad<int>.Wrap(value0), Monad<int>.Wrap(value1) };
+			var v0 = Rnd.Int;
+			var v1 = Rnd.Int;
+			var monads = new List<IMonad<int>> { Monad<int>.Wrap(v0), Monad<int>.Wrap(v1) };
 
 			// Act
 			var results = monads.ToMaybe().ToList();
 
 			// Assert
 			Assert.Equal(2, results.Count);
-			results[0].AssertSome(value0);
-			results[1].AssertSome(value1);
+			Assert.Collection(results,
+				x => x.AssertSome(v0),
+				x => x.AssertSome(v1)
+			);
 		}
 
 		[Fact]
@@ -69,17 +71,16 @@ public class ToMaybe_Tests
 			var results = monads.ToMaybe().ToList();
 
 			// Assert
-			Assert.Single(results);
-			results[0].AssertSome(value);
+			Assert.Single(results).AssertSome(value);
 		}
 
 		[Fact]
 		public async Task Async__Returns_Values_For_Each_Item()
 		{
 			// Arrange
-			var value0 = Rnd.Int;
-			var value1 = Rnd.Int;
-			var monads = new List<IMonad<int>> { Monad<int>.Wrap(value0), Monad<int>.Wrap(value1) };
+			var v0 = Rnd.Int;
+			var v1 = Rnd.Int;
+			var monads = new List<IMonad<int>> { Monad<int>.Wrap(v0), Monad<int>.Wrap(v1) };
 
 			// Act
 			var r0 = (await monads.ToMaybeAsync()).ToList();
@@ -87,12 +88,15 @@ public class ToMaybe_Tests
 
 			// Assert
 			Assert.Equal(2, r0.Count);
-			r0[0].AssertSome(value0);
-			r0[1].AssertSome(value1);
-
+			Assert.Collection(r0,
+				x => x.AssertSome(v0),
+				x => x.AssertSome(v1)
+			);
 			Assert.Equal(2, r1.Count);
-			r1[0].AssertSome(value0);
-			r1[1].AssertSome(value1);
+			Assert.Collection(r1,
+				x => x.AssertSome(v0),
+				x => x.AssertSome(v1)
+			);
 		}
 	}
 }

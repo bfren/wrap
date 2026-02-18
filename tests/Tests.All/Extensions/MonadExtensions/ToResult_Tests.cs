@@ -44,55 +44,59 @@ public class ToResult_Tests
 		public void Returns_Values_For_Each_Item()
 		{
 			// Arrange
-			var value0 = Rnd.Int;
-			var value1 = Rnd.Int;
-			var monads = new List<IMonad<int>> { Monad<int>.Wrap(value0), Monad<int>.Wrap(value1) };
+			var v0 = Rnd.Int;
+			var v1 = Rnd.Int;
+			var monads = new List<IMonad<int>> { Monad<int>.Wrap(v0), Monad<int>.Wrap(v1) };
 
 			// Act
 			var results = monads.ToResult().ToList();
 
 			// Assert
 			Assert.Equal(2, results.Count);
-			results[0].AssertOk(value0);
-			results[1].AssertOk(value1);
+			Assert.Collection(results,
+				x => x.AssertOk(v0),
+				x => x.AssertOk(v1)
+			);
 		}
+	}
 
-		[Fact]
-		public void Skips_Null_Items()
-		{
-			// Arrange
-			var value = Rnd.Int;
-			IMonad<int> nullItem = null!;
-			var monads = new List<IMonad<int>> { Monad<int>.Wrap(value), nullItem };
+	[Fact]
+	public void Skips_Null_Items()
+	{
+		// Arrange
+		var value = Rnd.Int;
+		IMonad<int> nullItem = null!;
+		var monads = new List<IMonad<int>> { Monad<int>.Wrap(value), nullItem };
 
-			// Act
-			var results = monads.ToResult().ToList();
+		// Act
+		var results = monads.ToResult().ToList();
 
-			// Assert
-			Assert.Single(results);
-			results[0].AssertOk(value);
-		}
+		// Assert
+		Assert.Single(results).AssertOk(value);
+	}
 
-		[Fact]
-		public async Task Async__Returns_Values_For_Each_Item()
-		{
-			// Arrange
-			var value0 = Rnd.Int;
-			var value1 = Rnd.Int;
-			var monads = new List<IMonad<int>> { Monad<int>.Wrap(value0), Monad<int>.Wrap(value1) };
+	[Fact]
+	public async Task Async__Returns_Values_For_Each_Item()
+	{
+		// Arrange
+		var v0 = Rnd.Int;
+		var v1 = Rnd.Int;
+		var monads = new List<IMonad<int>> { Monad<int>.Wrap(v0), Monad<int>.Wrap(v1) };
 
-			// Act
-			var r0 = (await monads.ToResultAsync()).ToList();
-			var r1 = (await Task.FromResult<IEnumerable<IMonad<int>>>(monads).ToResultAsync()).ToList();
+		// Act
+		var r0 = (await monads.ToResultAsync()).ToList();
+		var r1 = (await Task.FromResult<IEnumerable<IMonad<int>>>(monads).ToResultAsync()).ToList();
 
-			// Assert
-			Assert.Equal(2, r0.Count);
-			r0[0].AssertOk(value0);
-			r0[1].AssertOk(value1);
-
-			Assert.Equal(2, r1.Count);
-			r1[0].AssertOk(value0);
-			r1[1].AssertOk(value1);
-		}
+		// Assert
+		Assert.Equal(2, r0.Count);
+		Assert.Collection(r0,
+			x => x.AssertOk(v0),
+			x => x.AssertOk(v1)
+		);
+		Assert.Equal(2, r1.Count);
+		Assert.Collection(r1,
+			x => x.AssertOk(v0),
+			x => x.AssertOk(v1)
+		);
 	}
 }
