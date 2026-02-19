@@ -1,8 +1,6 @@
 // Wrap: Unit Tests.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System.Collections.Generic;
-
 namespace Wrap.Extensions.ResultExtensions_Tests;
 
 public class GetSingle_Tests
