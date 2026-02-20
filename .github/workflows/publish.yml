@@ -37,6 +37,11 @@ jobs:
       run: |
         dotnet restore ./Test.csproj
     -
+      name: Style
+      run: |
+        dotnet format style Wrap.slnx \
+          --no-restore
+    -
       name: Build
       run: |
         dotnet build ./Test.csproj \
@@ -69,6 +74,11 @@ jobs:
     needs: restore-build-test-pack
     if: success()
     steps:
+    - name: Retrieve
+      uses: actions/download-artifact@v7
+      with:
+        name: nupkgs
+        path: ${{ env.PACKAGES_DIR }}
     - name: Add Assets
       if: github.ref_type == 'tag'
       uses: softprops/action-gh-release@v2
