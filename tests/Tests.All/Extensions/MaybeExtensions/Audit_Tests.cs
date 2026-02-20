@@ -285,7 +285,7 @@ public class Audit_Tests
 				_ = input.Audit(either);
 
 				// Assert
-				either.Received().Invoke(Arg.Is<Maybe<string>>(x => x.IsNone));
+				either.Received().Invoke(input);
 			}
 
 			[Fact]
