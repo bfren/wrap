@@ -37,22 +37,22 @@ jobs:
           9.0.x
           10.0.x
     -
-      name: A - Restore
+      name: Restore
       run: |
         dotnet restore Test.csproj
     -
-      name: B - Format
+      name: Style
       run: |
         dotnet format style Wrap.slnx \
           --no-restore
     -
-      name: C - Build
+      name: Build
       run: |
         dotnet build Test.csproj \
           --no-restore \
           --configuration Debug
     -
-      name: D - Test
+      name: Test
       run: |
         dotnet test Test.csproj \
           --no-restore \
