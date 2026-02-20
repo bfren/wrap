@@ -5,57 +5,40 @@ namespace Wrap.Extensions.ResultExtensions_Tests;
 
 public class Unsafe_Tests
 {
-	[Fact]
-	public void Returns_Unsafe_Wrapping_Result()
+	public class With_Failure
 	{
-		// Arrange
-		var value = Rnd.Int;
-		var input = R.Wrap(value);
+		[Fact]
+		public async Task Returns_Failure_Value()
+		{
+			// Arrange
+			var input = FailGen.Create<int>();
 
-		// Act
-		var result = input.Unsafe();
+			// Act
+			var r0 = input.Unsafe();
+			var r1 = await input.AsTask().Unsafe();
 
-		// Assert
-		Assert.Equal(input, result.Value);
+			// Assert
+			Assert.Equal(input, r0.Value);
+			Assert.Equal(input, r1.Value);
+		}
 	}
 
-	[Fact]
-	public void With_Failure__Returns_Unsafe_Wrapping_Failure()
+	public class With_Ok
 	{
-		// Arrange
-		var input = FailGen.Create<int>();
+		[Fact]
+		public async Task Returns_Value()
+		{
+			// Arrange
+			var value = Rnd.Int;
+			var input = R.Wrap(value);
 
-		// Act
-		var result = input.Unsafe();
+			// Act
+			var r0 = input.Unsafe();
+			var r1 = await input.AsTask().Unsafe();
 
-		// Assert
-		Assert.Equal(input, result.Value);
-	}
-
-	[Fact]
-	public async Task Task_Returns_Unsafe_Wrapping_Result()
-	{
-		// Arrange
-		var value = Rnd.Int;
-		var input = R.Wrap(value);
-
-		// Act
-		var result = await input.AsTask().Unsafe();
-
-		// Assert
-		Assert.Equal(input, result.Value);
-	}
-
-	[Fact]
-	public async Task Task_With_Failure__Returns_Unsafe_Wrapping_Failure()
-	{
-		// Arrange
-		var input = FailGen.Create<int>();
-
-		// Act
-		var result = await input.AsTask().Unsafe();
-
-		// Assert
-		Assert.Equal(input, result.Value);
+			// Assert
+			Assert.Equal(input, r0.Value);
+			Assert.Equal(input, r1.Value);
+		}
 	}
 }
