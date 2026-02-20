@@ -1,8 +1,6 @@
 // Wrap: Unit Tests.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using Wrap.Extensions;
-
 namespace Wrap.Extensions.ObjectExtensions_Tests;
 
 public class Wrap_Tests
