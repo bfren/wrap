@@ -81,7 +81,7 @@ public class UnwrapAsync_Tests
 			var handlerCalled = false;
 			var input = FailGen.Create<int>();
 
-			// Act - returnThis sync
+			// Act
 			var r0 = await input.UnwrapAsync(
 				ifFailed: _ => { handlerCalled = true; return Task.CompletedTask; },
 				returnThis: () => defaultValue
@@ -100,7 +100,7 @@ public class UnwrapAsync_Tests
 			var handlerCalled = false;
 			var input = FailGen.Create<int>();
 
-			// Act - returnThis async
+			// Act
 			var r0 = await input.UnwrapAsync(
 				ifFailed: _ => { handlerCalled = true; return Task.CompletedTask; },
 				returnThis: () => Task.FromResult(defaultValue)

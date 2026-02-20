@@ -14,15 +14,13 @@ public class MatchIfAsync_Tests
 			var failReturn = Rnd.Str;
 			var input = FailGen.Create<int>();
 
-			// Act - fully async canonical overload
+			// Act
 			var r0 = await input.AsTask().MatchIfAsync(
 				fFail: _ => Task.FromResult(failReturn),
 				fTest: _ => Task.FromResult(true),
 				fFalse: _ => Task.FromResult(Rnd.Str),
 				fTrue: _ => Task.FromResult(Rnd.Str)
 			);
-
-			// Act - sync fTest overload (Result<T> extension)
 			var r1 = await Task.FromResult(input).MatchIfAsync(
 				fFail: _ => failReturn,
 				fTest: _ => true,
@@ -47,15 +45,13 @@ public class MatchIfAsync_Tests
 				var falseReturn = Rnd.Str;
 				var input = R.Wrap(Rnd.Int);
 
-				// Act - fully async canonical overload
+				// Act
 				var r0 = await input.AsTask().MatchIfAsync(
 					fFail: _ => Task.FromResult(Rnd.Str),
 					fTest: _ => Task.FromResult(false),
 					fFalse: _ => Task.FromResult(falseReturn),
 					fTrue: _ => Task.FromResult(Rnd.Str)
 				);
-
-				// Act - sync fTest overload (Result<T> extension)
 				var r1 = await Task.FromResult(input).MatchIfAsync(
 					fFail: _ => Rnd.Str,
 					fTest: _ => false,
@@ -78,15 +74,13 @@ public class MatchIfAsync_Tests
 				var trueReturn = Rnd.Str;
 				var input = R.Wrap(Rnd.Int);
 
-				// Act - fully async canonical overload
+				// Act
 				var r0 = await input.AsTask().MatchIfAsync(
 					fFail: _ => Task.FromResult(Rnd.Str),
 					fTest: _ => Task.FromResult(true),
 					fFalse: _ => Task.FromResult(Rnd.Str),
 					fTrue: _ => Task.FromResult(trueReturn)
 				);
-
-				// Act - sync fTest overload (Result<T> extension)
 				var r1 = await Task.FromResult(input).MatchIfAsync(
 					fFail: _ => Rnd.Str,
 					fTest: _ => true,

@@ -90,11 +90,9 @@ public class MatchAsync_Tests
 				var failReturn = Rnd.Str;
 				var input = FailGen.Create<int>();
 
-				// Act - sync fFail
+				// Act
 				var r0 = await input.MatchAsync(fFail: _ => failReturn, fOk: _ => Task.FromResult(Rnd.Str));
 				var r1 = await input.AsTask().MatchAsync(fFail: _ => failReturn, fOk: _ => Rnd.Str);
-
-				// Act - async fFail
 				var r2 = await input.MatchAsync(fFail: _ => Task.FromResult(failReturn), fOk: _ => Rnd.Str);
 				var r3 = await input.MatchAsync(fFail: _ => Task.FromResult(failReturn), fOk: _ => Task.FromResult(Rnd.Str));
 
@@ -115,11 +113,9 @@ public class MatchAsync_Tests
 				var okReturn = Rnd.Str;
 				var input = R.Wrap(Rnd.Int);
 
-				// Act - sync fOk
+				// Act
 				var r0 = await input.MatchAsync(fFail: _ => Task.FromResult(Rnd.Str), fOk: _ => okReturn);
 				var r1 = await input.AsTask().MatchAsync(fFail: _ => Rnd.Str, fOk: _ => okReturn);
-
-				// Act - async fOk
 				var r2 = await input.MatchAsync(fFail: _ => Rnd.Str, fOk: _ => Task.FromResult(okReturn));
 				var r3 = await input.MatchAsync(fFail: _ => Task.FromResult(Rnd.Str), fOk: _ => Task.FromResult(okReturn));
 
