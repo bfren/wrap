@@ -69,6 +69,10 @@ jobs:
           --skip-duplicate \
           --api-key ${{ secrets.GITHUB_TOKEN }} \
           --source https://nuget.pkg.github.com/bfren/index.json
+  notify:
+    runs-on: ubuntu-latest
+    needs: restore-build-test-pack-push
+    steps:
     -
       if: success()
       name: Finish - Success
