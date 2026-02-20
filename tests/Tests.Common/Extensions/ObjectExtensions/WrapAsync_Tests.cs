@@ -3,28 +3,30 @@
 
 namespace Wrap.Extensions.ObjectExtensions_Tests;
 
-public class Wrap_Tests
+public class WrapAsync_Tests
 {
 	public class Single_Value
 	{
 		[Fact]
-		public void Wraps_Value()
+		public async Task Wraps_Value()
 		{
 			// Arrange
 			var value = Rnd.Int;
 
 			// Act
-			var result = value.Wrap();
+			var r0 = await value.WrapAsync();
+			var r1 = await Task.FromResult(value).WrapAsync();
 
 			// Assert
-			Assert.Equal(value, result.Value);
+			Assert.Equal(value, r0.Value);
+			Assert.Equal(value, r1.Value);
 		}
 	}
 
 	public class Enumerable_Value
 	{
 		[Fact]
-		public void Wraps_Each_Value()
+		public async Task Wraps_Each_Value()
 		{
 			// Arrange
 			var v0 = Rnd.Int;
@@ -33,10 +35,16 @@ public class Wrap_Tests
 			IEnumerable<int> list = [v0, v1, v2];
 
 			// Act
-			var result = list.Wrap();
+			var r0 = await list.WrapAsync();
+			var r1 = await Task.FromResult(list).WrapAsync();
 
 			// Assert
-			Assert.Collection(result,
+			Assert.Collection(r0,
+				x => Assert.Equal(v0, x.Value),
+				x => Assert.Equal(v1, x.Value),
+				x => Assert.Equal(v2, x.Value)
+			);
+			Assert.Collection(r1,
 				x => Assert.Equal(v0, x.Value),
 				x => Assert.Equal(v1, x.Value),
 				x => Assert.Equal(v2, x.Value)
@@ -44,7 +52,7 @@ public class Wrap_Tests
 		}
 
 		[Fact]
-		public void Skips_Null_Items()
+		public async Task Skips_Null_Items()
 		{
 			// Arrange
 			var v0 = Rnd.Str;
@@ -52,10 +60,15 @@ public class Wrap_Tests
 			IEnumerable<string?> list = [v0, null, v1, null];
 
 			// Act
-			var result = list.Wrap();
+			var r0 = await list.WrapAsync();
+			var r1 = await Task.FromResult(list).WrapAsync();
 
 			// Assert
-			Assert.Collection(result,
+			Assert.Collection(r0,
+				x => Assert.Equal(v0, x.Value),
+				x => Assert.Equal(v1, x.Value)
+			);
+			Assert.Collection(r1,
 				x => Assert.Equal(v0, x.Value),
 				x => Assert.Equal(v1, x.Value)
 			);
