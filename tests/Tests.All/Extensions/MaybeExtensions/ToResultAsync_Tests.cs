@@ -102,7 +102,7 @@ public class ToResultAsync_Tests
 				// Arrange
 				var maybe = M.NoneAsTask<string>();
 				var handler = Substitute.For<Func<Result<string>>>();
-				var ex = new Exception("Test exception");
+				var ex = new Exception(Rnd.Str);
 				handler.Invoke().Returns(x => throw ex);
 
 				// Act

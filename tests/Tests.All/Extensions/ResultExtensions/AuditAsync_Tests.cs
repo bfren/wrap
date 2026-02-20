@@ -89,8 +89,8 @@ public class AuditAsync_Tests
 			var input = FailGen.Create<int>(new(value));
 
 			// Act
-			var r0 = await input.AuditAsync(fFail: _ => throw new Exception("boom"));
-			var r1 = await input.AsTask().AuditAsync(fFail: _ => throw new Exception("boom"));
+			var r0 = await input.AuditAsync(fFail: _ => throw new Exception(Rnd.Str));
+			var r1 = await input.AsTask().AuditAsync(fFail: _ => throw new Exception(Rnd.Str));
 
 			// Assert
 			r0.AssertFailure(value);
@@ -155,8 +155,8 @@ public class AuditAsync_Tests
 			var input = R.Wrap(value);
 
 			// Act
-			var r0 = await input.AuditAsync(fOk: _ => throw new Exception("boom"));
-			var r1 = await input.AsTask().AuditAsync(fOk: _ => throw new Exception("boom"));
+			var r0 = await input.AuditAsync(fOk: _ => throw new Exception(Rnd.Str));
+			var r1 = await input.AsTask().AuditAsync(fOk: _ => throw new Exception(Rnd.Str));
 
 			// Assert
 			r0.AssertOk(value);
@@ -249,8 +249,8 @@ public class AuditAsync_Tests
 			var input = R.Wrap(value);
 
 			// Act
-			var r0 = await input.AuditAsync(fFail: _ => throw new Exception("boom"));
-			var r1 = await input.AsTask().AuditAsync(fFail: _ => throw new Exception("boom"));
+			var r0 = await input.AuditAsync(fFail: _ => throw new Exception(Rnd.Str));
+			var r1 = await input.AsTask().AuditAsync(fFail: _ => throw new Exception(Rnd.Str));
 
 			// Assert
 			r0.AssertOk(value);

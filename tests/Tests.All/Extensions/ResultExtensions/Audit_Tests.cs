@@ -57,7 +57,7 @@ public class Audit_Tests
 			var input = FailGen.Create<int>(new(value));
 
 			// Act
-			var result = input.Audit(fFail: _ => throw new Exception("boom"));
+			var result = input.Audit(fFail: _ => throw new Exception(Rnd.Str));
 
 			// Assert
 			result.AssertFailure(value);
@@ -117,7 +117,7 @@ public class Audit_Tests
 			var input = R.Wrap(value);
 
 			// Act
-			var result = input.Audit(fFail: _ => throw new Exception("boom"));
+			var result = input.Audit(fFail: _ => throw new Exception(Rnd.Str));
 
 			// Assert
 			result.AssertOk(value);
@@ -176,7 +176,7 @@ public class Audit_Tests
 			var input = R.Wrap(value);
 
 			// Act
-			var result = input.Audit(fFail: _ => throw new Exception("boom"));
+			var result = input.Audit(fFail: _ => throw new Exception(Rnd.Str));
 
 			// Assert
 			result.AssertOk(value);

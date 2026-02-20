@@ -5,12 +5,6 @@ namespace Wrap.Extensions.ResultExtensions_Tests;
 
 public class Bind_Tests
 {
-	private static Func<string, Result<int>> Setup()
-	{
-		var f = Substitute.For<Func<string, Result<int>>>();
-		return f;
-	}
-
 	public class With_Failure
 	{
 		[Fact]
@@ -19,7 +13,7 @@ public class Bind_Tests
 			// Arrange
 			var value = Rnd.Str;
 			var input = FailGen.Create<string>(new(value));
-			var f = Setup();
+			var f = Substitute.For<Func<string, Result<int>>>();
 
 			// Act
 			var result = input.Bind(f);
@@ -33,7 +27,7 @@ public class Bind_Tests
 		{
 			// Arrange
 			var input = FailGen.Create<string>();
-			var f = Setup();
+			var f = Substitute.For<Func<string, Result<int>>>();
 
 			// Act
 			_ = input.Bind(f);
@@ -49,16 +43,16 @@ public class Bind_Tests
 		public void Returns_Result_Of_f()
 		{
 			// Arrange
-			var returnValue = Rnd.Int;
+			var value = Rnd.Int;
 			var input = R.Wrap(Rnd.Str);
-			var f = Setup();
-			f.Invoke(Arg.Any<string>()).Returns(returnValue);
+			var f = Substitute.For<Func<string, Result<int>>>();
+			f.Invoke(Arg.Any<string>()).Returns(value);
 
 			// Act
 			var result = input.Bind(f);
 
 			// Assert
-			result.AssertOk(returnValue);
+			result.AssertOk(value);
 		}
 
 		[Fact]
@@ -67,7 +61,7 @@ public class Bind_Tests
 			// Arrange
 			var value = Rnd.Str;
 			var input = R.Wrap(value);
-			var f = Setup();
+			var f = Substitute.For<Func<string, Result<int>>>();
 			f.Invoke(Arg.Any<string>()).Returns(Rnd.Int);
 
 			// Act
@@ -83,7 +77,7 @@ public class Bind_Tests
 			// Arrange
 			var failValue = Rnd.Str;
 			var input = R.Wrap(Rnd.Str);
-			var f = Setup();
+			var f = Substitute.For<Func<string, Result<int>>>();
 			f.Invoke(Arg.Any<string>()).Returns(FailGen.Create<int>(new(failValue)));
 
 			// Act

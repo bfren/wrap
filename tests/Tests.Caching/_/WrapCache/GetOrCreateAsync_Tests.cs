@@ -164,7 +164,7 @@ public class GetOrCreateAsync_Tests
 	{
 		// Arrange
 		var key = Rnd.Str;
-		var ex = new Exception();
+		var ex = new Exception(Rnd.Str);
 		Task<long> f0() => throw ex;
 		Task<Maybe<long>> f1() => throw ex;
 		var mc = Substitute.For<IMemoryCache>();

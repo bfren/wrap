@@ -5,12 +5,6 @@ namespace Wrap.Extensions.ResultExtensions_Tests;
 
 public class BindAsync_Tests
 {
-	private static Func<string, Result<int>> Setup()
-	{
-		var f = Substitute.For<Func<string, Result<int>>>();
-		return f;
-	}
-
 	public class With_Failure
 	{
 		[Fact]
@@ -19,7 +13,7 @@ public class BindAsync_Tests
 			// Arrange
 			var value = Rnd.Str;
 			var input = FailGen.Create<string>(new(value));
-			var f = Setup();
+			var f = Substitute.For<Func<string, Result<int>>>();
 
 			// Act
 			var r0 = await input.BindAsync(async x => f(x));
@@ -37,7 +31,7 @@ public class BindAsync_Tests
 		{
 			// Arrange
 			var input = FailGen.Create<string>();
-			var f = Setup();
+			var f = Substitute.For<Func<string, Result<int>>>();
 
 			// Act
 			_ = await input.BindAsync(async x => f(x));
@@ -55,10 +49,10 @@ public class BindAsync_Tests
 		public async Task Returns_Result_Of_f()
 		{
 			// Arrange
-			var returnValue = Rnd.Int;
+			var value = Rnd.Int;
 			var input = R.Wrap(Rnd.Str);
-			var f = Setup();
-			f.Invoke(Arg.Any<string>()).Returns(returnValue);
+			var f = Substitute.For<Func<string, Result<int>>>();
+			f.Invoke(Arg.Any<string>()).Returns(value);
 
 			// Act
 			var r0 = await input.BindAsync(async x => f(x));
@@ -66,9 +60,9 @@ public class BindAsync_Tests
 			var r2 = await input.AsTask().BindAsync(async x => f(x));
 
 			// Assert
-			r0.AssertOk(returnValue);
-			r1.AssertOk(returnValue);
-			r2.AssertOk(returnValue);
+			r0.AssertOk(value);
+			r1.AssertOk(value);
+			r2.AssertOk(value);
 		}
 
 		[Fact]
@@ -77,7 +71,7 @@ public class BindAsync_Tests
 			// Arrange
 			var value = Rnd.Str;
 			var input = R.Wrap(value);
-			var f = Setup();
+			var f = Substitute.For<Func<string, Result<int>>>();
 			f.Invoke(Arg.Any<string>()).Returns(Rnd.Int);
 
 			// Act
@@ -95,7 +89,7 @@ public class BindAsync_Tests
 			// Arrange
 			var failValue = Rnd.Str;
 			var input = R.Wrap(Rnd.Str);
-			var f = Setup();
+			var f = Substitute.For<Func<string, Result<int>>>();
 			f.Invoke(Arg.Any<string>()).Returns(FailGen.Create<int>(new(failValue)));
 
 			// Act
