@@ -36,7 +36,7 @@ public class GetSingle_Tests
 				var result = input.GetSingle<List<int>, int>();
 
 				// Assert
-				result.AssertFailure("Cannot get single value from an empty list.");
+				result.AssertFailure(C.GetSingle.EmptyList);
 			}
 		}
 
@@ -52,7 +52,7 @@ public class GetSingle_Tests
 				var result = input.GetSingle<List<int>, int>();
 
 				// Assert
-				result.AssertFailure("Cannot get single value from a list with multiple values.");
+				result.AssertFailure(C.GetSingle.MultipleValues);
 			}
 		}
 
@@ -186,7 +186,7 @@ public class GetSingle_Tests
 				var result = input.GetSingle(f => f.Value<int>());
 
 				// Assert
-				result.AssertFailure("Cannot get single value from an empty list.");
+				result.AssertFailure(C.GetSingle.EmptyList);
 			}
 		}
 	}

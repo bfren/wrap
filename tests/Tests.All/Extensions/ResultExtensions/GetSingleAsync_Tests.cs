@@ -39,8 +39,8 @@ public class GetSingleAsync_Tests
 				var r1 = await input.AsTask().GetSingleAsync(f => f.Value<int>(), null);
 
 				// Assert
-				r0.AssertFailure("Cannot get single value from an empty list.");
-				r1.AssertFailure("Cannot get single value from an empty list.");
+				r0.AssertFailure(C.GetSingle.EmptyList);
+				r1.AssertFailure(C.GetSingle.EmptyList);
 			}
 		}
 
@@ -57,8 +57,8 @@ public class GetSingleAsync_Tests
 				var r1 = await input.AsTask().GetSingleAsync(f => f.Value<int>(), null);
 
 				// Assert
-				r0.AssertFailure("Cannot get single value from a list with multiple values.");
-				r1.AssertFailure("Cannot get single value from a list with multiple values.");
+				r0.AssertFailure(C.GetSingle.MultipleValues);
+				r1.AssertFailure(C.GetSingle.MultipleValues);
 			}
 		}
 
