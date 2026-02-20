@@ -77,12 +77,12 @@ public class MatchAsync_Tests
 
 				// Act
 				await R.MatchAsync(failure, fail, Substitute.For<Func<int, Task>>());
-				await R.MatchAsync(failure, f => { fail(f); return Task.CompletedTask; }, Substitute.For<Action<int>>());
-				await R.MatchAsync(failure, f => { fail(f); return Task.CompletedTask; }, Substitute.For<Func<int, Task>>());
+				await R.MatchAsync(failure, async f => fail(f), Substitute.For<Action<int>>());
+				await R.MatchAsync(failure, async f => fail(f), Substitute.For<Func<int, Task>>());
 				await R.MatchAsync(failure.AsTask(), fail, Substitute.For<Action<int>>());
 				await R.MatchAsync(failure.AsTask(), fail, Substitute.For<Func<int, Task>>());
-				await R.MatchAsync(failure.AsTask(), f => { fail(f); return Task.CompletedTask; }, Substitute.For<Action<int>>());
-				await R.MatchAsync(failure.AsTask(), f => { fail(f); return Task.CompletedTask; }, Substitute.For<Func<int, Task>>());
+				await R.MatchAsync(failure.AsTask(), async f => fail(f), Substitute.For<Action<int>>());
+				await R.MatchAsync(failure.AsTask(), async f => fail(f), Substitute.For<Func<int, Task>>());
 
 				// Assert
 				fail.Received(7).Invoke(value);
@@ -100,13 +100,13 @@ public class MatchAsync_Tests
 				var ok = Substitute.For<Action<int>>();
 
 				// Act
-				await R.MatchAsync(failure, Substitute.For<Action<FailureValue>>(), x => { ok(x); return Task.CompletedTask; });
+				await R.MatchAsync(failure, Substitute.For<Action<FailureValue>>(), async x => ok(x));
 				await R.MatchAsync(failure, Substitute.For<Func<FailureValue, Task>>(), ok);
-				await R.MatchAsync(failure, Substitute.For<Func<FailureValue, Task>>(), x => { ok(x); return Task.CompletedTask; });
+				await R.MatchAsync(failure, Substitute.For<Func<FailureValue, Task>>(), async x => ok(x));
 				await R.MatchAsync(failure.AsTask(), Substitute.For<Action<FailureValue>>(), ok);
 				await R.MatchAsync(failure.AsTask(), Substitute.For<Func<FailureValue, Task>>(), ok);
-				await R.MatchAsync(failure.AsTask(), Substitute.For<Action<FailureValue>>(), x => { ok(x); return Task.CompletedTask; });
-				await R.MatchAsync(failure.AsTask(), Substitute.For<Func<FailureValue, Task>>(), x => { ok(x); return Task.CompletedTask; });
+				await R.MatchAsync(failure.AsTask(), Substitute.For<Action<FailureValue>>(), async x => ok(x));
+				await R.MatchAsync(failure.AsTask(), Substitute.For<Func<FailureValue, Task>>(), async x => ok(x));
 
 				// Assert
 				ok.Received(7).Invoke(value);

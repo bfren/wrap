@@ -16,9 +16,9 @@ public class IfOkAsync_Tests
 			var f = Substitute.For<Action<int>>();
 
 			// Act
-			var r0 = await input.IfOkAsync(x => { f(x); return Task.CompletedTask; });
+			var r0 = await input.IfOkAsync(async x => f(x));
 			var r1 = await input.AsTask().IfOkAsync(f);
-			var r2 = await input.AsTask().IfOkAsync(x => { f(x); return Task.CompletedTask; });
+			var r2 = await input.AsTask().IfOkAsync(async x => f(x));
 
 			// Assert
 			r0.AssertFailure(value);
@@ -34,9 +34,9 @@ public class IfOkAsync_Tests
 			var f = Substitute.For<Action<int>>();
 
 			// Act
-			_ = await input.IfOkAsync(x => { f(x); return Task.CompletedTask; });
+			_ = await input.IfOkAsync(async x => f(x));
 			_ = await input.AsTask().IfOkAsync(f);
-			_ = await input.AsTask().IfOkAsync(x => { f(x); return Task.CompletedTask; });
+			_ = await input.AsTask().IfOkAsync(async x => f(x));
 
 			// Assert
 			f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -54,9 +54,9 @@ public class IfOkAsync_Tests
 			var f = Substitute.For<Action<int>>();
 
 			// Act
-			_ = await input.IfOkAsync(x => { f(x); return Task.CompletedTask; });
+			_ = await input.IfOkAsync(async x => f(x));
 			_ = await input.AsTask().IfOkAsync(f);
-			_ = await input.AsTask().IfOkAsync(x => { f(x); return Task.CompletedTask; });
+			_ = await input.AsTask().IfOkAsync(async x => f(x));
 
 			// Assert
 			f.Received(3).Invoke(value);
@@ -71,9 +71,9 @@ public class IfOkAsync_Tests
 			var f = Substitute.For<Action<int>>();
 
 			// Act
-			var r0 = await input.IfOkAsync(x => { f(x); return Task.CompletedTask; });
+			var r0 = await input.IfOkAsync(async x => f(x));
 			var r1 = await input.AsTask().IfOkAsync(f);
-			var r2 = await input.AsTask().IfOkAsync(x => { f(x); return Task.CompletedTask; });
+			var r2 = await input.AsTask().IfOkAsync(async x => f(x));
 
 			// Assert
 			r0.AssertOk(value);

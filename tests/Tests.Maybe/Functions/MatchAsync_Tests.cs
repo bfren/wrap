@@ -76,12 +76,12 @@ public class MatchAsync_Tests
 
 				// Act
 				await M.MatchAsync(maybe, none, Substitute.For<Func<int, Task>>());
-				await M.MatchAsync(maybe, () => { none(); return Task.CompletedTask; }, Substitute.For<Action<int>>());
-				await M.MatchAsync(maybe, () => { none(); return Task.CompletedTask; }, Substitute.For<Func<int, Task>>());
+				await M.MatchAsync(maybe, async () => none(), Substitute.For<Action<int>>());
+				await M.MatchAsync(maybe, async () => none(), Substitute.For<Func<int, Task>>());
 				await M.MatchAsync(maybe.AsTask(), none, Substitute.For<Action<int>>());
 				await M.MatchAsync(maybe.AsTask(), none, Substitute.For<Func<int, Task>>());
-				await M.MatchAsync(maybe.AsTask(), () => { none(); return Task.CompletedTask; }, Substitute.For<Action<int>>());
-				await M.MatchAsync(maybe.AsTask(), () => { none(); return Task.CompletedTask; }, Substitute.For<Func<int, Task>>());
+				await M.MatchAsync(maybe.AsTask(), async () => none(), Substitute.For<Action<int>>());
+				await M.MatchAsync(maybe.AsTask(), async () => none(), Substitute.For<Func<int, Task>>());
 
 				// Assert
 				none.Received(7).Invoke();
@@ -99,13 +99,13 @@ public class MatchAsync_Tests
 				var some = Substitute.For<Action<int>>();
 
 				// Act
-				await M.MatchAsync(maybe, Substitute.For<Action>(), x => { some(x); return Task.CompletedTask; });
+				await M.MatchAsync(maybe, Substitute.For<Action>(), async x => some(x));
 				await M.MatchAsync(maybe, Substitute.For<Func<Task>>(), some);
-				await M.MatchAsync(maybe, Substitute.For<Func<Task>>(), x => { some(x); return Task.CompletedTask; });
+				await M.MatchAsync(maybe, Substitute.For<Func<Task>>(), async x => some(x));
 				await M.MatchAsync(maybe.AsTask(), Substitute.For<Action>(), some);
-				await M.MatchAsync(maybe.AsTask(), Substitute.For<Action>(), x => { some(x); return Task.CompletedTask; });
+				await M.MatchAsync(maybe.AsTask(), Substitute.For<Action>(), async x => some(x));
 				await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<Task>>(), some);
-				await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<Task>>(), x => { some(x); return Task.CompletedTask; });
+				await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<Task>>(), async x => some(x));
 
 				// Assert
 				some.Received(7).Invoke(value);

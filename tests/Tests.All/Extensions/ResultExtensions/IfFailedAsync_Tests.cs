@@ -16,9 +16,9 @@ public class IfFailedAsync_Tests
 			var f = Substitute.For<Action<FailureValue>>();
 
 			// Act
-			var r0 = await input.IfFailedAsync(x => { f(x); return Task.CompletedTask; });
+			var r0 = await input.IfFailedAsync(async x => f(x));
 			var r1 = await input.AsTask().IfFailedAsync(f);
-			var r2 = await input.AsTask().IfFailedAsync(x => { f(x); return Task.CompletedTask; });
+			var r2 = await input.AsTask().IfFailedAsync(async x => f(x));
 
 			// Assert
 			r0.AssertOk(value);
@@ -34,9 +34,9 @@ public class IfFailedAsync_Tests
 			var f = Substitute.For<Action<FailureValue>>();
 
 			// Act
-			_ = await input.IfFailedAsync(x => { f(x); return Task.CompletedTask; });
+			_ = await input.IfFailedAsync(async x => f(x));
 			_ = await input.AsTask().IfFailedAsync(f);
-			_ = await input.AsTask().IfFailedAsync(x => { f(x); return Task.CompletedTask; });
+			_ = await input.AsTask().IfFailedAsync(async x => f(x));
 
 			// Assert
 			f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
@@ -53,9 +53,9 @@ public class IfFailedAsync_Tests
 			var f = Substitute.For<Action<FailureValue>>();
 
 			// Act
-			_ = await input.IfFailedAsync(x => { f(x); return Task.CompletedTask; });
+			_ = await input.IfFailedAsync(async x => f(x));
 			_ = await input.AsTask().IfFailedAsync(f);
-			_ = await input.AsTask().IfFailedAsync(x => { f(x); return Task.CompletedTask; });
+			_ = await input.AsTask().IfFailedAsync(async x => f(x));
 
 			// Assert
 			f.Received(3).Invoke(Arg.Any<FailureValue>());
@@ -70,9 +70,9 @@ public class IfFailedAsync_Tests
 			var f = Substitute.For<Action<FailureValue>>();
 
 			// Act
-			var r0 = await input.IfFailedAsync(x => { f(x); return Task.CompletedTask; });
+			var r0 = await input.IfFailedAsync(async x => f(x));
 			var r1 = await input.AsTask().IfFailedAsync(f);
-			var r2 = await input.AsTask().IfFailedAsync(x => { f(x); return Task.CompletedTask; });
+			var r2 = await input.AsTask().IfFailedAsync(async x => f(x));
 
 			// Assert
 			r0.AssertFailure(value);
