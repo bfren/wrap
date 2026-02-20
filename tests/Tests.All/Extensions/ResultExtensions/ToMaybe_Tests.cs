@@ -8,17 +8,17 @@ public class ToMaybe_Tests
 	public class With_Failure
 	{
 		[Fact]
-		public void Calls_fFailureHandler()
+		public void Calls_Handler()
 		{
 			// Arrange
 			var input = FailGen.Create<int>();
-			var fFailureHandler = Substitute.For<Action<FailureValue>>();
+			var handler = Substitute.For<Action<FailureValue>>();
 
 			// Act
-			_ = input.ToMaybe(fFailureHandler);
+			_ = input.ToMaybe(handler);
 
 			// Assert
-			fFailureHandler.ReceivedWithAnyArgs(1).Invoke(Arg.Any<FailureValue>());
+			handler.ReceivedWithAnyArgs(1).Invoke(Arg.Any<FailureValue>());
 		}
 
 		[Fact]
@@ -31,24 +31,24 @@ public class ToMaybe_Tests
 			var result = input.ToMaybe(_ => { });
 
 			// Assert
-			Assert.True(result.IsNone);
+			result.AssertNone();
 		}
 	}
 
 	public class With_Ok
 	{
 		[Fact]
-		public void Does_Not_Call_fFailureHandler()
+		public void Does_Not_Call_Handler()
 		{
 			// Arrange
 			var input = R.Wrap(Rnd.Int);
-			var fFailureHandler = Substitute.For<Action<FailureValue>>();
+			var handler = Substitute.For<Action<FailureValue>>();
 
 			// Act
-			_ = input.ToMaybe(fFailureHandler);
+			_ = input.ToMaybe(handler);
 
 			// Assert
-			fFailureHandler.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
+			handler.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
 		}
 
 		[Fact]
@@ -62,8 +62,7 @@ public class ToMaybe_Tests
 			var result = input.ToMaybe(_ => { });
 
 			// Assert
-			Assert.True(result.IsSome);
-			Assert.Equal(value, result.Unwrap(() => default));
+			result.AssertSome(value);
 		}
 	}
 }

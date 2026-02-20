@@ -8,37 +8,39 @@ public class ToMaybeAsync_Tests
 	public class With_Failure
 	{
 		[Fact]
-		public async Task Calls_fFailureHandler()
+		public async Task Calls_Handler()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
-			var fFailureHandler = Substitute.For<Action<FailureValue>>();
+			var input = FailGen.Create<int>().AsTask();
+			var handler = Substitute.For<Action<FailureValue>>();
 
 			// Act
-			_ = await input.AsTask().ToMaybeAsync(fFailureHandler);
-			_ = await input.AsTask().ToMaybeAsync(f => { fFailureHandler(f); return M.None; });
+			_ = await input.ToMaybeAsync(handler);
+			_ = await input.ToMaybeAsync(f => { handler(f); return M.None; });
+			_ = await input.ToMaybeAsync(f => { handler(f); return Task.CompletedTask; });
+			_ = await input.ToMaybeAsync(async f => { handler(f); return (Maybe<int>)M.None; });
 
 			// Assert
-			fFailureHandler.ReceivedWithAnyArgs(2).Invoke(Arg.Any<FailureValue>());
+			handler.ReceivedWithAnyArgs(4).Invoke(Arg.Any<FailureValue>());
 		}
 
 		[Fact]
 		public async Task Returns_None()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = FailGen.Create<int>().AsTask();
 
 			// Act
-			var r0 = await input.AsTask().ToMaybeAsync(_ => { });
-			var r1 = await input.AsTask().ToMaybeAsync(_ => M.None);
-			var r2 = await input.AsTask().ToMaybeAsync(_ => Task.CompletedTask);
-			var r3 = await input.AsTask().ToMaybeAsync(async _ => (Maybe<int>)M.None);
+			var r0 = await input.ToMaybeAsync(_ => { });
+			var r1 = await input.ToMaybeAsync(_ => M.None);
+			var r2 = await input.ToMaybeAsync(_ => Task.CompletedTask);
+			var r3 = await input.ToMaybeAsync(async _ => (Maybe<int>)M.None);
 
 			// Assert
-			Assert.True(r0.IsNone);
-			Assert.True(r1.IsNone);
-			Assert.True(r2.IsNone);
-			Assert.True(r3.IsNone);
+			r0.AssertNone();
+			r1.AssertNone();
+			r2.AssertNone();
+			r3.AssertNone();
 		}
 	}
 
@@ -48,15 +50,15 @@ public class ToMaybeAsync_Tests
 		public async Task Does_Not_Call_fFailureHandler()
 		{
 			// Arrange
-			var input = R.Wrap(Rnd.Int);
-			var fFailureHandler = Substitute.For<Action<FailureValue>>();
+			var input = R.Wrap(Rnd.Int).AsTask();
+			var handler = Substitute.For<Action<FailureValue>>();
 
 			// Act
-			_ = await input.AsTask().ToMaybeAsync(fFailureHandler);
-			_ = await input.AsTask().ToMaybeAsync(f => { fFailureHandler(f); return M.None; });
+			_ = await input.ToMaybeAsync(handler);
+			_ = await input.ToMaybeAsync(f => { handler(f); return M.None; });
 
 			// Assert
-			fFailureHandler.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
+			handler.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
 		}
 
 		[Fact]
@@ -64,23 +66,19 @@ public class ToMaybeAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Int;
-			var input = R.Wrap(value);
+			var input = R.Wrap(value).AsTask();
 
 			// Act
-			var r0 = await input.AsTask().ToMaybeAsync(_ => { });
-			var r1 = await input.AsTask().ToMaybeAsync(_ => M.None);
-			var r2 = await input.AsTask().ToMaybeAsync(_ => Task.CompletedTask);
-			var r3 = await input.AsTask().ToMaybeAsync(async _ => (Maybe<int>)M.None);
+			var r0 = await input.ToMaybeAsync(_ => { });
+			var r1 = await input.ToMaybeAsync(_ => M.None);
+			var r2 = await input.ToMaybeAsync(_ => Task.CompletedTask);
+			var r3 = await input.ToMaybeAsync(async _ => (Maybe<int>)M.None);
 
 			// Assert
-			Assert.True(r0.IsSome);
-			Assert.Equal(value, r0.Unwrap(() => default));
-			Assert.True(r1.IsSome);
-			Assert.Equal(value, r1.Unwrap(() => default));
-			Assert.True(r2.IsSome);
-			Assert.Equal(value, r2.Unwrap(() => default));
-			Assert.True(r3.IsSome);
-			Assert.Equal(value, r3.Unwrap(() => default));
+			r0.AssertSome(value);
+			r1.AssertSome(value);
+			r2.AssertSome(value);
+			r3.AssertSome(value);
 		}
 	}
 }
