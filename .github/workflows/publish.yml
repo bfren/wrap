@@ -34,17 +34,17 @@ jobs:
     -
       name: A - Restore
       run: |
-        dotnet restore Test.csproj
+        dotnet restore ./Test.csproj
     -
       name: B - Build
       run: |
-        dotnet build Test.csproj \
+        dotnet build ./Test.csproj \
           --no-restore \
           --configuration Release
     -
       name: C - Test
       run: |
-        dotnet test Test.csproj \
+        dotnet test ./Test.csproj \
           --no-restore \
           --no-build \
           --configuration Release
@@ -52,36 +52,36 @@ jobs:
       if: success()
       name: D - Pack
       run: |
-        dotnet pack Pack.csproj \
+        dotnet pack ./Pack.csproj \
           --no-build \
           --configuration Release \
-          /p:PackageOutputPath=$HOME/.nupkgs \
+          /p:PackageOutputPath=./pack \
           -p:PackageVersion=${{ steps.version.outputs.contents }}
     -
-      name: E - Store Packages Artifact
+      name: E - Store
       uses: actions/upload-artifact@v6
       with:
         name: nupkgs
-        path: $HOME/.nupkgs
+        path: ./pack
   publish:
     runs-on: ubuntu-latest
     needs: restore-build-test-pack
     if: success()
     steps:
     - name: Retrieve Packages Artifact
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: nupkgs
-        path: $HOME/.nupkgs
+        path: ./pack
     -
       if: success()
       name: E - Push
       run: |
-        dotnet nuget push "$HOME/.nupkgs/*.nupkg" \
+        dotnet nuget push "./pack/*.nupkg" \
           --skip-duplicate \
           --api-key ${{ secrets.NUGET_API_KEY }} \
           --source https://api.nuget.org/v3/index.json
-        dotnet nuget push "$HOME/.nupkgs/*.nupkg" \
+        dotnet nuget push "./pack/*.nupkg" \
           --skip-duplicate \
           --api-key ${{ secrets.GITHUB_TOKEN }} \
           --source https://nuget.pkg.github.com/bfren/index.json
