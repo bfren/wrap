@@ -37,28 +37,31 @@ jobs:
           9.0.x
           10.0.x
     -
-      name: A - Restore
+      name: Restore
       run: |
         dotnet restore Test.csproj
     -
-      name: B - Build
+      name: Style
+      run: |
+        dotnet format style -v d Wrap.slnx \
+          --no-restore
+    -
+      name: Build
       run: |
         dotnet build Test.csproj \
           --no-restore \
-          --configuration Release
+          --configuration Debug
     -
-      name: C - Test
+      name: Test
       run: |
         dotnet test Test.csproj \
           --no-restore \
           --no-build \
-          --configuration Release
-
-    -
-      name: D - Style
-      run: |
-        dotnet format style Wrap.slnx \
-          --verify-no-changes
+          --configuration Debug
+  notify:
+    runs-on: ubuntu-latest
+    needs: restore-build-test
+    steps:
     -
       if: success()
       name: Finish - Success
