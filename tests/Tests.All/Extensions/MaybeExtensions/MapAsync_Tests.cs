@@ -5,17 +5,17 @@ namespace Wrap.Extensions.MaybeExtensions_Tests;
 
 public class MapAsync_Tests
 {
-	private static Func<string, Task<int>> SetupAsync(int returnValue)
+	private static Func<string, Task<int>> SetupAsync(int value)
 	{
 		var f = Substitute.For<Func<string, Task<int>>>();
-		f.Invoke(Arg.Any<string>()).Returns(Task.FromResult(returnValue));
+		f.Invoke(Arg.Any<string>()).Returns(Task.FromResult(value));
 		return f;
 	}
 
-	private static Func<string, int> SetupSync(int returnValue)
+	private static Func<string, int> SetupSync(int value)
 	{
 		var f = Substitute.For<Func<string, int>>();
-		f.Invoke(Arg.Any<string>()).Returns(returnValue);
+		f.Invoke(Arg.Any<string>()).Returns(value);
 		return f;
 	}
 

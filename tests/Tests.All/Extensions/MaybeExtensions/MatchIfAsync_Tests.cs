@@ -152,16 +152,15 @@ public class MatchIfAsync_Tests
 			public async Task Returns_FFalse_Value()
 			{
 				// Arrange
-				var value = Rnd.Int;
-				var input = M.Wrap(value);
-				var returnValue = Rnd.Str;
-				var (fNone, fTest, fFalse, fTrue) = Setup(Rnd.Str, false, returnValue, Rnd.Str);
+				var value = Rnd.Str;
+				var input = M.Wrap(Rnd.Int);
+				var (fNone, fTest, fFalse, fTrue) = Setup(Rnd.Str, false, value, Rnd.Str);
 
 				// Act
 				var results = await CallAll(input, fNone, fTest, fFalse, fTrue);
 
 				// Assert
-				Assert.All(results, r => Assert.Equal(returnValue, r));
+				Assert.All(results, r => Assert.Equal(value, r));
 			}
 		}
 
@@ -189,16 +188,15 @@ public class MatchIfAsync_Tests
 			public async Task Returns_FTrue_Value()
 			{
 				// Arrange
-				var value = Rnd.Int;
-				var input = M.Wrap(value);
-				var returnValue = Rnd.Str;
-				var (fNone, fTest, fFalse, fTrue) = Setup(Rnd.Str, true, Rnd.Str, returnValue);
+				var value = Rnd.Str;
+				var input = M.Wrap(Rnd.Int);
+				var (fNone, fTest, fFalse, fTrue) = Setup(Rnd.Str, true, Rnd.Str, value);
 
 				// Act
 				var results = await CallAll(input, fNone, fTest, fFalse, fTrue);
 
 				// Assert
-				Assert.All(results, r => Assert.Equal(returnValue, r));
+				Assert.All(results, r => Assert.Equal(value, r));
 			}
 		}
 	}

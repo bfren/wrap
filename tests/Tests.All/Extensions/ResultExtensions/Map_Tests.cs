@@ -49,16 +49,16 @@ public class Map_Tests
 		public void Returns_Ok_With_Mapped_Value()
 		{
 			// Arrange
-			var returnValue = Rnd.Int;
+			var value = Rnd.Int;
 			var input = R.Wrap(Rnd.Str);
 			var f = Setup();
-			f.Invoke(Arg.Any<string>()).Returns(returnValue);
+			f.Invoke(Arg.Any<string>()).Returns(value);
 
 			// Act
 			var result = input.Map(f);
 
 			// Assert
-			result.AssertOk(returnValue);
+			result.AssertOk(value);
 		}
 
 		[Fact]

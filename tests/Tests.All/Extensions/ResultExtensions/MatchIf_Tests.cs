@@ -20,15 +20,15 @@ public class MatchIf_Tests
 		public void Returns_fFail_Result()
 		{
 			// Arrange
-			var failReturn = Rnd.Str;
+			var value = Rnd.Str;
 			var input = FailGen.Create<int>();
 			var (fTest, fFalse, fTrue) = SetupOk(true);
 
 			// Act
-			var result = input.MatchIf(_ => failReturn, fTest, fFalse, fTrue);
+			var result = input.MatchIf(_ => value, fTest, fFalse, fTrue);
 
 			// Assert
-			Assert.Equal(failReturn, result);
+			Assert.Equal(value, result);
 		}
 
 		[Fact]
@@ -55,16 +55,16 @@ public class MatchIf_Tests
 			public void Returns_fFalse_Result()
 			{
 				// Arrange
-				var falseReturn = Rnd.Str;
+				var value = Rnd.Str;
 				var input = R.Wrap(Rnd.Int);
 				var (fTest, fFalse, fTrue) = SetupOk(false);
-				fFalse.Invoke(Arg.Any<int>()).Returns(falseReturn);
+				fFalse.Invoke(Arg.Any<int>()).Returns(value);
 
 				// Act
 				var result = input.MatchIf(_ => Rnd.Str, fTest, fFalse, fTrue);
 
 				// Assert
-				Assert.Equal(falseReturn, result);
+				Assert.Equal(value, result);
 			}
 
 			[Fact]
@@ -105,16 +105,16 @@ public class MatchIf_Tests
 			public void Returns_fTrue_Result()
 			{
 				// Arrange
-				var trueReturn = Rnd.Str;
+				var value = Rnd.Str;
 				var input = R.Wrap(Rnd.Int);
 				var (fTest, fFalse, fTrue) = SetupOk(true);
-				fTrue.Invoke(Arg.Any<int>()).Returns(trueReturn);
+				fTrue.Invoke(Arg.Any<int>()).Returns(value);
 
 				// Act
 				var result = input.MatchIf(_ => Rnd.Str, fTest, fFalse, fTrue);
 
 				// Assert
-				Assert.Equal(trueReturn, result);
+				Assert.Equal(value, result);
 			}
 
 			[Fact]

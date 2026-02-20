@@ -84,16 +84,15 @@ public class MatchIf_Tests
 			public void Returns_FFalse_Value()
 			{
 				// Arrange
-				var value = Rnd.Int;
-				var input = M.Wrap(value);
-				var returnValue = Rnd.Str;
-				var (fNone, fTest, fFalse, fTrue) = Setup(Rnd.Str, false, returnValue, Rnd.Str);
+				var value = Rnd.Str;
+				var input = M.Wrap(Rnd.Int);
+				var (fNone, fTest, fFalse, fTrue) = Setup(Rnd.Str, false, value, Rnd.Str);
 
 				// Act
 				var result = input.MatchIf(fNone, fTest, fFalse, fTrue);
 
 				// Assert
-				Assert.Equal(returnValue, result);
+				Assert.Equal(value, result);
 			}
 		}
 
@@ -121,16 +120,15 @@ public class MatchIf_Tests
 			public void Returns_FTrue_Value()
 			{
 				// Arrange
-				var value = Rnd.Int;
-				var input = M.Wrap(value);
-				var returnValue = Rnd.Str;
-				var (fNone, fTest, fFalse, fTrue) = Setup(Rnd.Str, true, Rnd.Str, returnValue);
+				var value = Rnd.Str;
+				var input = M.Wrap(Rnd.Int);
+				var (fNone, fTest, fFalse, fTrue) = Setup(Rnd.Str, true, Rnd.Str, value);
 
 				// Act
 				var result = input.MatchIf(fNone, fTest, fFalse, fTrue);
 
 				// Assert
-				Assert.Equal(returnValue, result);
+				Assert.Equal(value, result);
 			}
 		}
 	}

@@ -80,10 +80,10 @@ public class MapIfAsync_Tests
 			public async Task Returns_Ok_With_Mapped_Value()
 			{
 				// Arrange
-				var returnValue = Rnd.Int;
+				var value = Rnd.Int;
 				var input = R.Wrap(Rnd.Str);
 				var (fTest, f) = Setup(true);
-				f.Invoke(Arg.Any<string>()).Returns(returnValue);
+				f.Invoke(Arg.Any<string>()).Returns(value);
 
 				// Act
 				var r0 = await input.MapIfAsync(fTest, async x => f(x));
@@ -91,9 +91,9 @@ public class MapIfAsync_Tests
 				var r2 = await input.AsTask().MapIfAsync(fTest, async x => f(x));
 
 				// Assert
-				r0.AssertOk(returnValue);
-				r1.AssertOk(returnValue);
-				r2.AssertOk(returnValue);
+				r0.AssertOk(value);
+				r1.AssertOk(value);
+				r2.AssertOk(value);
 			}
 		}
 	}

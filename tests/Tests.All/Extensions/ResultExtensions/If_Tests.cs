@@ -55,16 +55,16 @@ public class If_Tests
 			public void Returns_fFalse_Result()
 			{
 				// Arrange
-				var returnValue = Rnd.Int;
+				var value = Rnd.Int;
 				var input = R.Wrap(Rnd.Str);
 				var (fTest, fTrue, fFalse) = Setup(false);
-				fFalse.Invoke(Arg.Any<string>()).Returns(returnValue);
+				fFalse.Invoke(Arg.Any<string>()).Returns(value);
 
 				// Act
 				var result = input.If(fTest, fTrue, fFalse);
 
 				// Assert
-				result.AssertOk(returnValue);
+				result.AssertOk(value);
 			}
 
 			[Fact]
@@ -89,16 +89,16 @@ public class If_Tests
 			public void Returns_fTrue_Result()
 			{
 				// Arrange
-				var returnValue = Rnd.Int;
+				var value = Rnd.Int;
 				var input = R.Wrap(Rnd.Str);
 				var (fTest, fTrue, fFalse) = Setup(true);
-				fTrue.Invoke(Arg.Any<string>()).Returns(returnValue);
+				fTrue.Invoke(Arg.Any<string>()).Returns(value);
 
 				// Act
 				var result = input.If(fTest, fTrue, fFalse);
 
 				// Assert
-				result.AssertOk(returnValue);
+				result.AssertOk(value);
 			}
 
 			[Fact]
@@ -198,18 +198,18 @@ public class If_Tests
 			public void Returns_fThen_Result()
 			{
 				// Arrange
-				var returnValue = Rnd.Int;
+				var value = Rnd.Int;
 				var input = R.Wrap(Rnd.Int);
 				var fTest = Substitute.For<Func<int, bool>>();
 				fTest.Invoke(Arg.Any<int>()).Returns(true);
 				var fThen = Substitute.For<Func<int, Result<int>>>();
-				fThen.Invoke(Arg.Any<int>()).Returns(returnValue);
+				fThen.Invoke(Arg.Any<int>()).Returns(value);
 
 				// Act
 				var result = input.If(fTest, fThen);
 
 				// Assert
-				result.AssertOk(returnValue);
+				result.AssertOk(value);
 			}
 		}
 	}

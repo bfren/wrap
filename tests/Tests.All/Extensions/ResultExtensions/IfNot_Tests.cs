@@ -85,18 +85,18 @@ public class IfNot_Tests
 			public void Returns_fThen_Result()
 			{
 				// Arrange
-				var returnValue = Rnd.Int;
+				var value = Rnd.Int;
 				var input = R.Wrap(Rnd.Int);
 				var fTest = Substitute.For<Func<int, bool>>();
 				fTest.Invoke(Arg.Any<int>()).Returns(false);
 				var fThen = Substitute.For<Func<int, Result<int>>>();
-				fThen.Invoke(Arg.Any<int>()).Returns(returnValue);
+				fThen.Invoke(Arg.Any<int>()).Returns(value);
 
 				// Act
 				var result = input.IfNot(fTest, fThen);
 
 				// Assert
-				result.AssertOk(returnValue);
+				result.AssertOk(value);
 			}
 		}
 	}

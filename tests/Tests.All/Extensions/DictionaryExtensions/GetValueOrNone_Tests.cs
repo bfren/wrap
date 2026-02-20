@@ -12,10 +12,10 @@ public class GetValueOrNone_Tests
 		{
 			// Arrange
 			var dict = new Dictionary<string, int> { [Rnd.Str] = Rnd.Int };
-			var missingKey = Rnd.Str;
+			var key = Rnd.Str;
 
 			// Act
-			var result = dict.GetValueOrNone(missingKey);
+			var result = dict.GetValueOrNone(key);
 
 			// Assert
 			result.AssertNone();

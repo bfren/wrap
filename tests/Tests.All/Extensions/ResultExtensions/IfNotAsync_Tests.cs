@@ -78,12 +78,12 @@ public class IfNotAsync_Tests
 			public async Task Returns_fThen_Result()
 			{
 				// Arrange
-				var returnValue = Rnd.Int;
+				var value = Rnd.Int;
 				var input = R.Wrap(Rnd.Int);
 				var fTest = Substitute.For<Func<int, bool>>();
 				fTest.Invoke(Arg.Any<int>()).Returns(false);
 				var fThen = Substitute.For<Func<int, Task<Result<int>>>>();
-				fThen.Invoke(Arg.Any<int>()).Returns(Task.FromResult<Result<int>>(returnValue));
+				fThen.Invoke(Arg.Any<int>()).Returns(Task.FromResult<Result<int>>(value));
 
 				// Act
 				var r0 = await input.IfNotAsync(fTest, fThen);
@@ -91,9 +91,9 @@ public class IfNotAsync_Tests
 				var r2 = await input.AsTask().IfNotAsync(fTest, fThen);
 
 				// Assert
-				r0.AssertOk(returnValue);
-				r1.AssertOk(returnValue);
-				r2.AssertOk(returnValue);
+				r0.AssertOk(value);
+				r1.AssertOk(value);
+				r2.AssertOk(value);
 			}
 		}
 	}
