@@ -70,7 +70,7 @@ jobs:
     if: success()
     steps:
     - name: Add Assets
-      if: github.ref_type == "tag"
+      if: github.ref_type == 'tag'
       uses: softprops/action-gh-release@v2
       with:
         files: "${{ env.PACKAGES_DIR }}/*.nupkg"
