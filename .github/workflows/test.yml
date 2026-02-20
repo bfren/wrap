@@ -43,7 +43,7 @@ jobs:
     -
       name: Style
       run: |
-        dotnet format style Wrap.slnx \
+        dotnet format style -v d Wrap.slnx \
           --no-restore
     -
       name: Build
