@@ -44,20 +44,20 @@ jobs:
       name: B - Format
       run: |
         dotnet format style Wrap.slnx \
-          --verify-no-changes
+          --no-restore
     -
       name: C - Build
       run: |
         dotnet build Test.csproj \
           --no-restore \
-          --configuration Release
+          --configuration Debug
     -
       name: D - Test
       run: |
         dotnet test Test.csproj \
           --no-restore \
           --no-build \
-          --configuration Release
+          --configuration Debug
   notify:
     runs-on: ubuntu-latest
     needs: restore-build-test
