@@ -7,12 +7,6 @@ namespace Wrap.Extensions.ResultExtensions_Tests;
 
 public class MapAsync_Tests
 {
-	private static Func<string, int> Setup()
-	{
-		var f = Substitute.For<Func<string, int>>();
-		return f;
-	}
-
 	public class With_Failure
 	{
 		[Fact]
@@ -21,7 +15,7 @@ public class MapAsync_Tests
 			// Arrange
 			var value = Rnd.Str;
 			var input = FailGen.Create<string>(new(value));
-			var f = Setup();
+			var f = Substitute.For<Func<string, int>>();
 
 			// Act
 			var r0 = await input.MapAsync(async x => f(x));
@@ -39,7 +33,7 @@ public class MapAsync_Tests
 		{
 			// Arrange
 			var input = FailGen.Create<string>();
-			var f = Setup();
+			var f = Substitute.For<Func<string, int>>();
 
 			// Act
 			_ = await input.MapAsync(async x => f(x));
@@ -59,7 +53,7 @@ public class MapAsync_Tests
 			// Arrange
 			var value = Rnd.Int;
 			var input = R.Wrap(Rnd.Str);
-			var f = Setup();
+			var f = Substitute.For<Func<string, int>>();
 			f.Invoke(Arg.Any<string>()).Returns(value);
 
 			// Act
@@ -78,7 +72,7 @@ public class MapAsync_Tests
 		{
 			// Arrange
 			var input = R.Wrap(Rnd.Str);
-			var ex = new Exception("boom");
+			var ex = new Exception(Rnd.Str);
 			var mapThrow = Substitute.For<Func<string, int>>();
 			mapThrow.Invoke(Arg.Any<string>()).ThrowsForAnyArgs(ex);
 			var mapThrowAsync = Substitute.For<Func<string, Task<int>>>();
@@ -104,8 +98,8 @@ public class MapAsync_Tests
 			R.ExceptionHandler handler = _ => { handlerCalled = true; return FailGen.Create(); };
 
 			// Act
-			Func<string, int> throwSync = _ => throw new Exception();
-			_ = await input.MapAsync<string, int>(_ => throw new Exception(), handler);
+			Func<string, int> throwSync = _ => throw new Exception(Rnd.Str);
+			_ = await input.MapAsync<string, int>(_ => throw new Exception(Rnd.Str), handler);
 			_ = await input.AsTask().MapAsync(throwSync, handler);
 
 			// Assert
@@ -121,10 +115,10 @@ public class MapAsync_Tests
 			R.ExceptionHandler handler = _ => FailGen.Create(new(customMessage));
 
 			// Act
-			Func<string, int> throwSync = _ => throw new Exception();
-			var r0 = await input.MapAsync<string, int>(_ => throw new Exception(), handler);
+			Func<string, int> throwSync = _ => throw new Exception(Rnd.Str);
+			var r0 = await input.MapAsync<string, int>(_ => throw new Exception(Rnd.Str), handler);
 			var r1 = await input.AsTask().MapAsync(throwSync, handler);
-			var r2 = await input.AsTask().MapAsync(_ => Task.FromException<int>(new Exception()), handler);
+			var r2 = await input.AsTask().MapAsync(_ => Task.FromException<int>(new Exception(Rnd.Str)), handler);
 
 			// Assert
 			r0.AssertFailure(customMessage);

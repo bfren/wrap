@@ -5,12 +5,6 @@ namespace Wrap.Extensions.ResultExtensions_Tests;
 
 public class Map_Tests
 {
-	private static Func<string, int> Setup()
-	{
-		var f = Substitute.For<Func<string, int>>();
-		return f;
-	}
-
 	public class With_Failure
 	{
 		[Fact]
@@ -19,7 +13,7 @@ public class Map_Tests
 			// Arrange
 			var value = Rnd.Str;
 			var input = FailGen.Create<string>(new(value));
-			var f = Setup();
+			var f = Substitute.For<Func<string, int>>();
 
 			// Act
 			var result = input.Map(f);
@@ -33,7 +27,7 @@ public class Map_Tests
 		{
 			// Arrange
 			var input = FailGen.Create<string>();
-			var f = Setup();
+			var f = Substitute.For<Func<string, int>>();
 
 			// Act
 			_ = input.Map(f);
@@ -51,7 +45,7 @@ public class Map_Tests
 			// Arrange
 			var value = Rnd.Int;
 			var input = R.Wrap(Rnd.Str);
-			var f = Setup();
+			var f = Substitute.For<Func<string, int>>();
 			f.Invoke(Arg.Any<string>()).Returns(value);
 
 			// Act
@@ -67,7 +61,7 @@ public class Map_Tests
 			// Arrange
 			var value = Rnd.Str;
 			var input = R.Wrap(value);
-			var f = Setup();
+			var f = Substitute.For<Func<string, int>>();
 			f.Invoke(Arg.Any<string>()).Returns(Rnd.Int);
 
 			// Act
@@ -82,7 +76,7 @@ public class Map_Tests
 		{
 			// Arrange
 			var input = R.Wrap(Rnd.Str);
-			var ex = new Exception("boom");
+			var ex = new Exception(Rnd.Str);
 
 			// Act
 			var result = input.Map<string, int>(_ => throw ex);
@@ -100,7 +94,7 @@ public class Map_Tests
 			R.ExceptionHandler handler = _ => { handlerCalled = true; return FailGen.Create(); };
 
 			// Act
-			_ = input.Map<string, int>(_ => throw new Exception(), handler);
+			_ = input.Map<string, int>(_ => throw new Exception(Rnd.Str), handler);
 
 			// Assert
 			Assert.True(handlerCalled);
@@ -115,7 +109,7 @@ public class Map_Tests
 			R.ExceptionHandler handler = _ => FailGen.Create(new(customMessage));
 
 			// Act
-			var result = input.Map<string, int>(_ => throw new Exception(), handler);
+			var result = input.Map<string, int>(_ => throw new Exception(Rnd.Str), handler);
 
 			// Assert
 			result.AssertFailure(customMessage);
