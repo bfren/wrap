@@ -15,11 +15,9 @@ public partial class IterateAsync_Tests
 			var f = Substitute.For<Func<Guid, Task>>();
 			f.Invoke(Arg.Any<Guid>()).Returns(Task.CompletedTask);
 
-			// Act - IEnumerable source overload
+			// Act
 			await list.IterateAsync(f);
-
-			// Act - Task source overload
-			await list.AsTask().IterateAsync(f);
+			await Task.FromResult(list).IterateAsync(f);
 
 			// Assert
 			await f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Guid>());
@@ -33,7 +31,7 @@ public partial class IterateAsync_Tests
 			var f = Substitute.For<Action<Guid>>();
 
 			// Act
-			await list.AsTask().IterateAsync(f);
+			await Task.FromResult(list).IterateAsync(f);
 
 			// Assert
 			f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Guid>());
@@ -53,8 +51,8 @@ public partial class IterateAsync_Tests
 			var f = Substitute.For<Func<Guid, Task>>();
 			f.Invoke(Arg.Any<Guid>()).Returns(Task.CompletedTask);
 
-			// Act - canonical async overload (Task source)
-			await list.AsTask().IterateAsync(f);
+			// Act
+			await Task.FromResult(list).IterateAsync(f);
 
 			// Assert
 			await f.Received().Invoke(v0);
@@ -93,7 +91,7 @@ public partial class IterateAsync_Tests
 			var f = Substitute.For<Action<Guid>>();
 
 			// Act
-			await list.AsTask().IterateAsync(f);
+			await Task.FromResult(list).IterateAsync(f);
 
 			// Assert
 			f.Received().Invoke(v0);

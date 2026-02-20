@@ -15,7 +15,7 @@ public partial class FilterAsync_Tests
 			var fTest = Substitute.For<Func<int, Task<bool>>>();
 
 			// Act
-			_ = await list.AsTask().FilterAsync(fTest);
+			_ = await Task.FromResult(list).FilterAsync(fTest);
 
 			// Assert
 			await fTest.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -28,10 +28,8 @@ public partial class FilterAsync_Tests
 			IEnumerable<Result<int>> list = [FailGen.Create(), FailGen.Create(), FailGen.Create()];
 			var fTest = Substitute.For<Func<int, Task<bool>>>();
 
-			// Act - canonical async overload
-			var r0 = await list.AsTask().FilterAsync(fTest);
-
-			// Act - sync fTest overload (IEnumerable source)
+			// Act
+			var r0 = await Task.FromResult(list).FilterAsync(fTest);
 			var r1 = await list.FilterAsync(fTest);
 
 			// Assert
@@ -52,11 +50,9 @@ public partial class FilterAsync_Tests
 				var fTest = Substitute.For<Func<int, Task<bool>>>();
 				fTest.Invoke(Arg.Any<int>()).Returns(Task.FromResult(false));
 
-				// Act - canonical async overload
-				var r0 = await list.AsTask().FilterAsync(fTest);
-
-				// Act - sync fTest overload (Task source)
-				var r1 = await list.AsTask().FilterAsync(x => false);
+				// Act
+				var r0 = await Task.FromResult(list).FilterAsync(fTest);
+				var r1 = await Task.FromResult(list).FilterAsync(x => false);
 
 				// Assert
 				Assert.Empty(r0);
@@ -77,10 +73,8 @@ public partial class FilterAsync_Tests
 				var fTest = Substitute.For<Func<int, Task<bool>>>();
 				fTest.Invoke(Arg.Any<int>()).Returns(Task.FromResult(true));
 
-				// Act - canonical async overload
-				var r0 = await list.AsTask().FilterAsync(fTest);
-
-				// Act - sync fTest overload (IEnumerable source)
+				// Act
+				var r0 = await Task.FromResult(list).FilterAsync(fTest);
 				var r1 = await list.FilterAsync(fTest);
 
 				// Assert
