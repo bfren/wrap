@@ -25,9 +25,9 @@ public class IfAsync_Tests
 			var (fTest, fTrue, fFalse) = Setup(true);
 
 			// Act
-			var r0 = await input.IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+			var r0 = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 			var r1 = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-			var r2 = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+			var r2 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 			// Assert
 			r0.AssertFailure(value);
@@ -50,9 +50,9 @@ public class IfAsync_Tests
 				fFalse.Invoke(Arg.Any<string>()).Returns(returnValue);
 
 				// Act
-				var r0 = await input.IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+				var r0 = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 				var r1 = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-				var r2 = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+				var r2 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 				// Assert
 				r0.AssertOk(returnValue);
@@ -73,9 +73,9 @@ public class IfAsync_Tests
 				fTrue.Invoke(Arg.Any<string>()).Returns(returnValue);
 
 				// Act
-				var r0 = await input.IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+				var r0 = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 				var r1 = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-				var r2 = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+				var r2 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 				// Assert
 				r0.AssertOk(returnValue);

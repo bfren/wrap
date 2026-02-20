@@ -24,9 +24,9 @@ public class MapIfAsync_Tests
 			var (fTest, f) = Setup(true);
 
 			// Act
-			var r0 = await input.MapIfAsync(fTest, x => Task.FromResult(f(x)));
+			var r0 = await input.MapIfAsync(fTest, async x => f(x));
 			var r1 = await input.AsTask().MapIfAsync(fTest, f);
-			var r2 = await input.AsTask().MapIfAsync(fTest, x => Task.FromResult(f(x)));
+			var r2 = await input.AsTask().MapIfAsync(fTest, async x => f(x));
 
 			// Assert
 			r0.AssertFailure(value);
@@ -42,9 +42,9 @@ public class MapIfAsync_Tests
 			var (fTest, f) = Setup(true);
 
 			// Act
-			_ = await input.MapIfAsync(fTest, x => Task.FromResult(f(x)));
+			_ = await input.MapIfAsync(fTest, async x => f(x));
 			_ = await input.AsTask().MapIfAsync(fTest, f);
-			_ = await input.AsTask().MapIfAsync(fTest, x => Task.FromResult(f(x)));
+			_ = await input.AsTask().MapIfAsync(fTest, async x => f(x));
 
 			// Assert
 			f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -63,9 +63,9 @@ public class MapIfAsync_Tests
 				var (fTest, f) = Setup(false);
 
 				// Act
-				var r0 = await input.MapIfAsync(fTest, x => Task.FromResult(f(x)));
+				var r0 = await input.MapIfAsync(fTest, async x => f(x));
 				var r1 = await input.AsTask().MapIfAsync(fTest, f);
-				var r2 = await input.AsTask().MapIfAsync(fTest, x => Task.FromResult(f(x)));
+				var r2 = await input.AsTask().MapIfAsync(fTest, async x => f(x));
 
 				// Assert
 				r0.AssertFailure(C.TestFalseMessage);
@@ -86,9 +86,9 @@ public class MapIfAsync_Tests
 				f.Invoke(Arg.Any<string>()).Returns(returnValue);
 
 				// Act
-				var r0 = await input.MapIfAsync(fTest, x => Task.FromResult(f(x)));
+				var r0 = await input.MapIfAsync(fTest, async x => f(x));
 				var r1 = await input.AsTask().MapIfAsync(fTest, f);
-				var r2 = await input.AsTask().MapIfAsync(fTest, x => Task.FromResult(f(x)));
+				var r2 = await input.AsTask().MapIfAsync(fTest, async x => f(x));
 
 				// Assert
 				r0.AssertOk(returnValue);

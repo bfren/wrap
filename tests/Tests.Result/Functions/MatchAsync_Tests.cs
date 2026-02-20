@@ -185,12 +185,12 @@ public class MatchAsync_Tests
 
 				// Act
 				await R.MatchAsync(failure, fail, Substitute.For<Func<int, Task<string>>>());
-				await R.MatchAsync(failure, f => Task.FromResult(fail(f)), Substitute.For<Func<int, string>>());
-				await R.MatchAsync(failure, f => Task.FromResult(fail(f)), Substitute.For<Func<int, Task<string>>>());
+				await R.MatchAsync(failure, async f => fail(f), Substitute.For<Func<int, string>>());
+				await R.MatchAsync(failure, async f => fail(f), Substitute.For<Func<int, Task<string>>>());
 				await R.MatchAsync(failure.AsTask(), fail, Substitute.For<Func<int, string>>());
 				await R.MatchAsync(failure.AsTask(), fail, Substitute.For<Func<int, Task<string>>>());
-				await R.MatchAsync(failure.AsTask(), f => Task.FromResult(fail(f)), Substitute.For<Func<int, string>>());
-				await R.MatchAsync(failure.AsTask(), f => Task.FromResult(fail(f)), Substitute.For<Func<int, Task<string>>>());
+				await R.MatchAsync(failure.AsTask(), async f => fail(f), Substitute.For<Func<int, string>>());
+				await R.MatchAsync(failure.AsTask(), async f => fail(f), Substitute.For<Func<int, Task<string>>>());
 
 				// Assert
 				fail.Received(7).Invoke(value);
@@ -207,12 +207,12 @@ public class MatchAsync_Tests
 
 				// Act
 				var v0 = await R.MatchAsync(failure, fail, Substitute.For<Func<int, Task<string>>>());
-				var v1 = await R.MatchAsync(failure, f => Task.FromResult(fail(f)), Substitute.For<Func<int, string>>());
-				var v2 = await R.MatchAsync(failure, f => Task.FromResult(fail(f)), Substitute.For<Func<int, Task<string>>>());
+				var v1 = await R.MatchAsync(failure, async f => fail(f), Substitute.For<Func<int, string>>());
+				var v2 = await R.MatchAsync(failure, async f => fail(f), Substitute.For<Func<int, Task<string>>>());
 				var v3 = await R.MatchAsync(failure.AsTask(), fail, Substitute.For<Func<int, string>>());
 				var v4 = await R.MatchAsync(failure.AsTask(), fail, Substitute.For<Func<int, Task<string>>>());
-				var v5 = await R.MatchAsync(failure.AsTask(), f => Task.FromResult(fail(f)), Substitute.For<Func<int, string>>());
-				var v6 = await R.MatchAsync(failure.AsTask(), f => Task.FromResult(fail(f)), Substitute.For<Func<int, Task<string>>>());
+				var v5 = await R.MatchAsync(failure.AsTask(), async f => fail(f), Substitute.For<Func<int, string>>());
+				var v6 = await R.MatchAsync(failure.AsTask(), async f => fail(f), Substitute.For<Func<int, Task<string>>>());
 
 				// Assert
 				Assert.Equal(value, v0);
@@ -236,13 +236,13 @@ public class MatchAsync_Tests
 				var ok = Substitute.For<Func<int, string>>();
 
 				// Act
-				_ = await R.MatchAsync(wrapped, Substitute.For<Func<FailureValue, string>>(), x => Task.FromResult(ok(x)));
+				_ = await R.MatchAsync(wrapped, Substitute.For<Func<FailureValue, string>>(), async x => ok(x));
 				_ = await R.MatchAsync(wrapped, Substitute.For<Func<FailureValue, Task<string>>>(), ok);
-				_ = await R.MatchAsync(wrapped, Substitute.For<Func<FailureValue, Task<string>>>(), x => Task.FromResult(ok(x)));
+				_ = await R.MatchAsync(wrapped, Substitute.For<Func<FailureValue, Task<string>>>(), async x => ok(x));
 				_ = await R.MatchAsync(wrapped.AsTask(), Substitute.For<Func<FailureValue, string>>(), ok);
-				_ = await R.MatchAsync(wrapped.AsTask(), Substitute.For<Func<FailureValue, string>>(), x => Task.FromResult(ok(x)));
+				_ = await R.MatchAsync(wrapped.AsTask(), Substitute.For<Func<FailureValue, string>>(), async x => ok(x));
 				_ = await R.MatchAsync(wrapped.AsTask(), Substitute.For<Func<FailureValue, Task<string>>>(), ok);
-				_ = await R.MatchAsync(wrapped.AsTask(), Substitute.For<Func<FailureValue, Task<string>>>(), x => Task.FromResult(ok(x)));
+				_ = await R.MatchAsync(wrapped.AsTask(), Substitute.For<Func<FailureValue, Task<string>>>(), async x => ok(x));
 
 				// Assert
 				ok.Received(7).Invoke(value);
@@ -258,13 +258,13 @@ public class MatchAsync_Tests
 				ok.Invoke(default).ReturnsForAnyArgs(value);
 
 				// Act
-				var v0 = await R.MatchAsync(wrapped, Substitute.For<Func<FailureValue, string>>(), x => Task.FromResult(ok(x)));
+				var v0 = await R.MatchAsync(wrapped, Substitute.For<Func<FailureValue, string>>(), async x => ok(x));
 				var v1 = await R.MatchAsync(wrapped, Substitute.For<Func<FailureValue, Task<string>>>(), ok);
-				var v2 = await R.MatchAsync(wrapped, Substitute.For<Func<FailureValue, Task<string>>>(), x => Task.FromResult(ok(x)));
+				var v2 = await R.MatchAsync(wrapped, Substitute.For<Func<FailureValue, Task<string>>>(), async x => ok(x));
 				var v3 = await R.MatchAsync(wrapped.AsTask(), Substitute.For<Func<FailureValue, string>>(), ok);
-				var v4 = await R.MatchAsync(wrapped.AsTask(), Substitute.For<Func<FailureValue, string>>(), x => Task.FromResult(ok(x)));
+				var v4 = await R.MatchAsync(wrapped.AsTask(), Substitute.For<Func<FailureValue, string>>(), async x => ok(x));
 				var v5 = await R.MatchAsync(wrapped.AsTask(), Substitute.For<Func<FailureValue, Task<string>>>(), ok);
-				var v6 = await R.MatchAsync(wrapped.AsTask(), Substitute.For<Func<FailureValue, Task<string>>>(), x => Task.FromResult(ok(x)));
+				var v6 = await R.MatchAsync(wrapped.AsTask(), Substitute.For<Func<FailureValue, Task<string>>>(), async x => ok(x));
 
 				// Assert
 				Assert.Equal(value, v0);

@@ -97,12 +97,12 @@ public class MatchAsync_Tests
 
 				// Act
 				_ = await input.MatchAsync(fNone, Substitute.For<Func<int, Task<string>>>());
-				_ = await input.MatchAsync(() => Task.FromResult(fNone()), Substitute.For<Func<int, string>>());
-				_ = await input.MatchAsync(() => Task.FromResult(fNone()), Substitute.For<Func<int, Task<string>>>());
+				_ = await input.MatchAsync(async () => fNone(), Substitute.For<Func<int, string>>());
+				_ = await input.MatchAsync(async () => fNone(), Substitute.For<Func<int, Task<string>>>());
 				_ = await input.AsTask().MatchAsync(fNone, Substitute.For<Func<int, string>>());
 				_ = await input.AsTask().MatchAsync(fNone, Substitute.For<Func<int, Task<string>>>());
-				_ = await input.AsTask().MatchAsync(() => Task.FromResult(fNone()), Substitute.For<Func<int, string>>());
-				_ = await input.AsTask().MatchAsync(() => Task.FromResult(fNone()), Substitute.For<Func<int, Task<string>>>());
+				_ = await input.AsTask().MatchAsync(async () => fNone(), Substitute.For<Func<int, string>>());
+				_ = await input.AsTask().MatchAsync(async () => fNone(), Substitute.For<Func<int, Task<string>>>());
 
 				// Assert
 				fNone.Received(7).Invoke();
@@ -119,12 +119,12 @@ public class MatchAsync_Tests
 
 				// Act
 				var r0 = await input.MatchAsync(fNone, Substitute.For<Func<int, Task<string>>>());
-				var r1 = await input.MatchAsync(() => Task.FromResult(fNone()), Substitute.For<Func<int, string>>());
-				var r2 = await input.MatchAsync(() => Task.FromResult(fNone()), Substitute.For<Func<int, Task<string>>>());
+				var r1 = await input.MatchAsync(async () => fNone(), Substitute.For<Func<int, string>>());
+				var r2 = await input.MatchAsync(async () => fNone(), Substitute.For<Func<int, Task<string>>>());
 				var r3 = await input.AsTask().MatchAsync(fNone, Substitute.For<Func<int, string>>());
 				var r4 = await input.AsTask().MatchAsync(fNone, Substitute.For<Func<int, Task<string>>>());
-				var r5 = await input.AsTask().MatchAsync(() => Task.FromResult(fNone()), Substitute.For<Func<int, string>>());
-				var r6 = await input.AsTask().MatchAsync(() => Task.FromResult(fNone()), Substitute.For<Func<int, Task<string>>>());
+				var r5 = await input.AsTask().MatchAsync(async () => fNone(), Substitute.For<Func<int, string>>());
+				var r6 = await input.AsTask().MatchAsync(async () => fNone(), Substitute.For<Func<int, Task<string>>>());
 
 				// Assert
 				Assert.Equal(value, r0);
@@ -147,12 +147,12 @@ public class MatchAsync_Tests
 
 				// Act
 				_ = await input.MatchAsync(fNone, Substitute.For<Func<int, Task<string>>>());
-				_ = await input.MatchAsync(() => Task.FromResult(fNone()), fSome);
-				_ = await input.MatchAsync(() => Task.FromResult(fNone()), x => Task.FromResult(fSome(x)));
+				_ = await input.MatchAsync(async () => fNone(), fSome);
+				_ = await input.MatchAsync(async () => fNone(), async x => fSome(x));
 				_ = await input.AsTask().MatchAsync(fNone, fSome);
-				_ = await input.AsTask().MatchAsync(fNone, x => Task.FromResult(fSome(x)));
-				_ = await input.AsTask().MatchAsync(() => Task.FromResult(fNone()), fSome);
-				_ = await input.AsTask().MatchAsync(() => Task.FromResult(fNone()), x => Task.FromResult(fSome(x)));
+				_ = await input.AsTask().MatchAsync(fNone, async x => fSome(x));
+				_ = await input.AsTask().MatchAsync(async () => fNone(), fSome);
+				_ = await input.AsTask().MatchAsync(async () => fNone(), async x => fSome(x));
 
 				// Assert
 				fSome.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -170,13 +170,13 @@ public class MatchAsync_Tests
 				var fSome = Substitute.For<Func<int, string>>();
 
 				// Act
-				_ = await input.MatchAsync(Substitute.For<Func<string>>(), x => Task.FromResult(fSome(x)));
+				_ = await input.MatchAsync(Substitute.For<Func<string>>(), async x => fSome(x));
 				_ = await input.MatchAsync(Substitute.For<Func<Task<string>>>(), fSome);
-				_ = await input.MatchAsync(Substitute.For<Func<Task<string>>>(), x => Task.FromResult(fSome(x)));
+				_ = await input.MatchAsync(Substitute.For<Func<Task<string>>>(), async x => fSome(x));
 				_ = await input.AsTask().MatchAsync(Substitute.For<Func<string>>(), fSome);
-				_ = await input.AsTask().MatchAsync(Substitute.For<Func<string>>(), x => Task.FromResult(fSome(x)));
+				_ = await input.AsTask().MatchAsync(Substitute.For<Func<string>>(), async x => fSome(x));
 				_ = await input.AsTask().MatchAsync(Substitute.For<Func<Task<string>>>(), fSome);
-				_ = await input.AsTask().MatchAsync(Substitute.For<Func<Task<string>>>(), x => Task.FromResult(fSome(x)));
+				_ = await input.AsTask().MatchAsync(Substitute.For<Func<Task<string>>>(), async x => fSome(x));
 
 				// Assert
 				fSome.Received(7).Invoke(value);
@@ -192,13 +192,13 @@ public class MatchAsync_Tests
 				fSome.Invoke(default).ReturnsForAnyArgs(value);
 
 				// Act
-				var r0 = await input.MatchAsync(Substitute.For<Func<string>>(), x => Task.FromResult(fSome(x)));
+				var r0 = await input.MatchAsync(Substitute.For<Func<string>>(), async x => fSome(x));
 				var r1 = await input.MatchAsync(Substitute.For<Func<Task<string>>>(), fSome);
-				var r2 = await input.MatchAsync(Substitute.For<Func<Task<string>>>(), x => Task.FromResult(fSome(x)));
+				var r2 = await input.MatchAsync(Substitute.For<Func<Task<string>>>(), async x => fSome(x));
 				var r3 = await input.AsTask().MatchAsync(Substitute.For<Func<string>>(), fSome);
-				var r4 = await input.AsTask().MatchAsync(Substitute.For<Func<string>>(), x => Task.FromResult(fSome(x)));
+				var r4 = await input.AsTask().MatchAsync(Substitute.For<Func<string>>(), async x => fSome(x));
 				var r5 = await input.AsTask().MatchAsync(Substitute.For<Func<Task<string>>>(), fSome);
-				var r6 = await input.AsTask().MatchAsync(Substitute.For<Func<Task<string>>>(), x => Task.FromResult(fSome(x)));
+				var r6 = await input.AsTask().MatchAsync(Substitute.For<Func<Task<string>>>(), async x => fSome(x));
 
 				// Assert
 				Assert.Equal(value, r0);
@@ -220,13 +220,13 @@ public class MatchAsync_Tests
 				fSome.Invoke(default).ReturnsForAnyArgs(Rnd.Str);
 
 				// Act
-				_ = await input.MatchAsync(fNone, x => Task.FromResult(fSome(x)));
-				_ = await input.MatchAsync(() => Task.FromResult(fNone()), fSome);
-				_ = await input.MatchAsync(() => Task.FromResult(fNone()), x => Task.FromResult(fSome(x)));
+				_ = await input.MatchAsync(fNone, async x => fSome(x));
+				_ = await input.MatchAsync(async () => fNone(), fSome);
+				_ = await input.MatchAsync(async () => fNone(), async x => fSome(x));
 				_ = await input.AsTask().MatchAsync(fNone, fSome);
-				_ = await input.AsTask().MatchAsync(fNone, x => Task.FromResult(fSome(x)));
-				_ = await input.AsTask().MatchAsync(() => Task.FromResult(fNone()), fSome);
-				_ = await input.AsTask().MatchAsync(() => Task.FromResult(fNone()), x => Task.FromResult(fSome(x)));
+				_ = await input.AsTask().MatchAsync(fNone, async x => fSome(x));
+				_ = await input.AsTask().MatchAsync(async () => fNone(), fSome);
+				_ = await input.AsTask().MatchAsync(async () => fNone(), async x => fSome(x));
 
 				// Assert
 				fNone.DidNotReceive().Invoke();

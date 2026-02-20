@@ -183,12 +183,12 @@ public class MatchAsync_Tests
 
 				// Act
 				await M.MatchAsync(maybe, none, Substitute.For<Func<int, Task<string>>>());
-				await M.MatchAsync(maybe, () => Task.FromResult(none()), Substitute.For<Func<int, string>>());
-				await M.MatchAsync(maybe, () => Task.FromResult(none()), Substitute.For<Func<int, Task<string>>>());
+				await M.MatchAsync(maybe, async () => none(), Substitute.For<Func<int, string>>());
+				await M.MatchAsync(maybe, async () => none(), Substitute.For<Func<int, Task<string>>>());
 				await M.MatchAsync(maybe.AsTask(), none, Substitute.For<Func<int, string>>());
 				await M.MatchAsync(maybe.AsTask(), none, Substitute.For<Func<int, Task<string>>>());
-				await M.MatchAsync(maybe.AsTask(), () => Task.FromResult(none()), Substitute.For<Func<int, string>>());
-				await M.MatchAsync(maybe.AsTask(), () => Task.FromResult(none()), Substitute.For<Func<int, Task<string>>>());
+				await M.MatchAsync(maybe.AsTask(), async () => none(), Substitute.For<Func<int, string>>());
+				await M.MatchAsync(maybe.AsTask(), async () => none(), Substitute.For<Func<int, Task<string>>>());
 
 				// Assert
 				none.Received(7).Invoke();
@@ -205,12 +205,12 @@ public class MatchAsync_Tests
 
 				// Act
 				var v0 = await M.MatchAsync(maybe, none, Substitute.For<Func<int, Task<string>>>());
-				var v1 = await M.MatchAsync(maybe, () => Task.FromResult(none()), Substitute.For<Func<int, string>>());
-				var v2 = await M.MatchAsync(maybe, () => Task.FromResult(none()), Substitute.For<Func<int, Task<string>>>());
+				var v1 = await M.MatchAsync(maybe, async () => none(), Substitute.For<Func<int, string>>());
+				var v2 = await M.MatchAsync(maybe, async () => none(), Substitute.For<Func<int, Task<string>>>());
 				var v3 = await M.MatchAsync(maybe.AsTask(), none, Substitute.For<Func<int, string>>());
 				var v4 = await M.MatchAsync(maybe.AsTask(), none, Substitute.For<Func<int, Task<string>>>());
-				var v5 = await M.MatchAsync(maybe.AsTask(), () => Task.FromResult(none()), Substitute.For<Func<int, string>>());
-				var v6 = await M.MatchAsync(maybe.AsTask(), () => Task.FromResult(none()), Substitute.For<Func<int, Task<string>>>());
+				var v5 = await M.MatchAsync(maybe.AsTask(), async () => none(), Substitute.For<Func<int, string>>());
+				var v6 = await M.MatchAsync(maybe.AsTask(), async () => none(), Substitute.For<Func<int, Task<string>>>());
 
 				// Assert
 				Assert.Equal(value, v0);
@@ -234,13 +234,13 @@ public class MatchAsync_Tests
 				var some = Substitute.For<Func<int, string>>();
 
 				// Act
-				_ = await M.MatchAsync(maybe, Substitute.For<Func<string>>(), x => Task.FromResult(some(x)));
+				_ = await M.MatchAsync(maybe, Substitute.For<Func<string>>(), async x => some(x));
 				_ = await M.MatchAsync(maybe, Substitute.For<Func<Task<string>>>(), some);
-				_ = await M.MatchAsync(maybe, Substitute.For<Func<Task<string>>>(), x => Task.FromResult(some(x)));
+				_ = await M.MatchAsync(maybe, Substitute.For<Func<Task<string>>>(), async x => some(x));
 				_ = await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<string>>(), some);
-				_ = await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<string>>(), x => Task.FromResult(some(x)));
+				_ = await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<string>>(), async x => some(x));
 				_ = await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<Task<string>>>(), some);
-				_ = await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<Task<string>>>(), x => Task.FromResult(some(x)));
+				_ = await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<Task<string>>>(), async x => some(x));
 
 				// Assert
 				some.Received(7).Invoke(value);
@@ -256,13 +256,13 @@ public class MatchAsync_Tests
 				some.Invoke(default).ReturnsForAnyArgs(value);
 
 				// Act
-				var v0 = await M.MatchAsync(maybe, Substitute.For<Func<string>>(), x => Task.FromResult(some(x)));
+				var v0 = await M.MatchAsync(maybe, Substitute.For<Func<string>>(), async x => some(x));
 				var v1 = await M.MatchAsync(maybe, Substitute.For<Func<Task<string>>>(), some);
-				var v2 = await M.MatchAsync(maybe, Substitute.For<Func<Task<string>>>(), x => Task.FromResult(some(x)));
+				var v2 = await M.MatchAsync(maybe, Substitute.For<Func<Task<string>>>(), async x => some(x));
 				var v3 = await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<string>>(), some);
-				var v4 = await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<string>>(), x => Task.FromResult(some(x)));
+				var v4 = await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<string>>(), async x => some(x));
 				var v5 = await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<Task<string>>>(), some);
-				var v6 = await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<Task<string>>>(), x => Task.FromResult(some(x)));
+				var v6 = await M.MatchAsync(maybe.AsTask(), Substitute.For<Func<Task<string>>>(), async x => some(x));
 
 				// Assert
 				Assert.Equal(value, v0);

@@ -22,9 +22,9 @@ public class BindAsync_Tests
 			var f = Setup();
 
 			// Act
-			var r0 = await input.BindAsync(x => Task.FromResult(f(x)));
+			var r0 = await input.BindAsync(async x => f(x));
 			var r1 = await input.AsTask().BindAsync(f);
-			var r2 = await input.AsTask().BindAsync(x => Task.FromResult(f(x)));
+			var r2 = await input.AsTask().BindAsync(async x => f(x));
 
 			// Assert
 			r0.AssertFailure(value);
@@ -40,9 +40,9 @@ public class BindAsync_Tests
 			var f = Setup();
 
 			// Act
-			_ = await input.BindAsync(x => Task.FromResult(f(x)));
+			_ = await input.BindAsync(async x => f(x));
 			_ = await input.AsTask().BindAsync(f);
-			_ = await input.AsTask().BindAsync(x => Task.FromResult(f(x)));
+			_ = await input.AsTask().BindAsync(async x => f(x));
 
 			// Assert
 			f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -61,9 +61,9 @@ public class BindAsync_Tests
 			f.Invoke(Arg.Any<string>()).Returns(returnValue);
 
 			// Act
-			var r0 = await input.BindAsync(x => Task.FromResult(f(x)));
+			var r0 = await input.BindAsync(async x => f(x));
 			var r1 = await input.AsTask().BindAsync(f);
-			var r2 = await input.AsTask().BindAsync(x => Task.FromResult(f(x)));
+			var r2 = await input.AsTask().BindAsync(async x => f(x));
 
 			// Assert
 			r0.AssertOk(returnValue);
@@ -81,9 +81,9 @@ public class BindAsync_Tests
 			f.Invoke(Arg.Any<string>()).Returns(Rnd.Int);
 
 			// Act
-			_ = await input.BindAsync(x => Task.FromResult(f(x)));
+			_ = await input.BindAsync(async x => f(x));
 			_ = await input.AsTask().BindAsync(f);
-			_ = await input.AsTask().BindAsync(x => Task.FromResult(f(x)));
+			_ = await input.AsTask().BindAsync(async x => f(x));
 
 			// Assert
 			f.Received(3).Invoke(value);
@@ -99,9 +99,9 @@ public class BindAsync_Tests
 			f.Invoke(Arg.Any<string>()).Returns(FailGen.Create<int>(new(failValue)));
 
 			// Act
-			var r0 = await input.BindAsync(x => Task.FromResult(f(x)));
+			var r0 = await input.BindAsync(async x => f(x));
 			var r1 = await input.AsTask().BindAsync(f);
-			var r2 = await input.AsTask().BindAsync(x => Task.FromResult(f(x)));
+			var r2 = await input.AsTask().BindAsync(async x => f(x));
 
 			// Assert
 			r0.AssertFailure(failValue);

@@ -32,7 +32,7 @@ public class ToMaybeAsync_Tests
 			var r0 = await input.AsTask().ToMaybeAsync(_ => { });
 			var r1 = await input.AsTask().ToMaybeAsync(_ => M.None);
 			var r2 = await input.AsTask().ToMaybeAsync(_ => Task.CompletedTask);
-			var r3 = await input.AsTask().ToMaybeAsync(_ => Task.FromResult<Maybe<int>>(M.None));
+			var r3 = await input.AsTask().ToMaybeAsync(async _ => (Maybe<int>)M.None);
 
 			// Assert
 			Assert.True(r0.IsNone);
@@ -70,7 +70,7 @@ public class ToMaybeAsync_Tests
 			var r0 = await input.AsTask().ToMaybeAsync(_ => { });
 			var r1 = await input.AsTask().ToMaybeAsync(_ => M.None);
 			var r2 = await input.AsTask().ToMaybeAsync(_ => Task.CompletedTask);
-			var r3 = await input.AsTask().ToMaybeAsync(_ => Task.FromResult<Maybe<int>>(M.None));
+			var r3 = await input.AsTask().ToMaybeAsync(async _ => (Maybe<int>)M.None);
 
 			// Assert
 			Assert.True(r0.IsSome);

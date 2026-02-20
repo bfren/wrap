@@ -22,7 +22,7 @@ public static partial class ResultExtensions
 	{
 		// use local functions to avoid function signature ambiguity
 		static Task<T> fail(FailureValue f) => R.ThrowFailure<Task<T>>(f);
-		static Task<T> ok(T x) => Task.FromResult(x);
+		static async Task<T> ok(T x) => x;
 		return R.MatchAsync(@this, fail, ok);
 	}
 

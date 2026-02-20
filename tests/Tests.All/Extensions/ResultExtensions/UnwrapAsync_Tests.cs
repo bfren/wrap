@@ -42,9 +42,9 @@ public class UnwrapAsync_Tests
 			var input = FailGen.Create<int>();
 
 			// Act
-			var r0 = await input.UnwrapAsync(_ => Task.FromResult(defaultValue));
+			var r0 = await input.UnwrapAsync(async _ => defaultValue);
 			var r1 = await input.AsTask().UnwrapAsync(_ => defaultValue);
-			var r2 = await input.AsTask().UnwrapAsync(_ => Task.FromResult(defaultValue));
+			var r2 = await input.AsTask().UnwrapAsync(async _ => defaultValue);
 
 			// Assert
 			Assert.Equal(defaultValue, r0);
@@ -60,9 +60,9 @@ public class UnwrapAsync_Tests
 			var input = R.Wrap(value);
 
 			// Act
-			var r0 = await input.UnwrapAsync(_ => Task.FromResult(Rnd.Int));
+			var r0 = await input.UnwrapAsync(async _ => Rnd.Int);
 			var r1 = await input.AsTask().UnwrapAsync(_ => Rnd.Int);
-			var r2 = await input.AsTask().UnwrapAsync(_ => Task.FromResult(Rnd.Int));
+			var r2 = await input.AsTask().UnwrapAsync(async _ => Rnd.Int);
 
 			// Assert
 			Assert.Equal(value, r0);
@@ -103,7 +103,7 @@ public class UnwrapAsync_Tests
 			// Act
 			var r0 = await input.UnwrapAsync(
 				ifFailed: _ => { handlerCalled = true; return Task.CompletedTask; },
-				returnThis: () => Task.FromResult(defaultValue)
+				returnThis: async () => defaultValue
 			);
 
 			// Assert

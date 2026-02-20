@@ -28,9 +28,9 @@ public class IfNotAsync_Tests
 				var (fTest, fThen) = Setup(false, Rnd.Str);
 
 				// Act
-				var r0 = await input.IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				var r0 = await input.IfNotAsync(fTest, async x => fThen(x));
 				var r1 = await input.AsTask().IfNotAsync(fTest, fThen);
-				var r2 = await input.AsTask().IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				var r2 = await input.AsTask().IfNotAsync(fTest, async x => fThen(x));
 
 				// Assert
 				r0.AssertNone();
@@ -46,9 +46,9 @@ public class IfNotAsync_Tests
 				var (fTest, fThen) = Setup(false, Rnd.Str);
 
 				// Act
-				_ = await input.IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				_ = await input.IfNotAsync(fTest, async x => fThen(x));
 				_ = await input.AsTask().IfNotAsync(fTest, fThen);
-				_ = await input.AsTask().IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				_ = await input.AsTask().IfNotAsync(fTest, async x => fThen(x));
 
 				// Assert
 				fTest.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -66,9 +66,9 @@ public class IfNotAsync_Tests
 				var (fTest, fThen) = Setup(true, Rnd.Str);
 
 				// Act
-				var r0 = await input.IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				var r0 = await input.IfNotAsync(fTest, async x => fThen(x));
 				var r1 = await input.AsTask().IfNotAsync(fTest, fThen);
-				var r2 = await input.AsTask().IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				var r2 = await input.AsTask().IfNotAsync(fTest, async x => fThen(x));
 
 				// Assert
 				r0.AssertNone();
@@ -84,9 +84,9 @@ public class IfNotAsync_Tests
 				var (fTest, fThen) = Setup(true, Rnd.Str);
 
 				// Act
-				_ = await input.IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				_ = await input.IfNotAsync(fTest, async x => fThen(x));
 				_ = await input.AsTask().IfNotAsync(fTest, fThen);
-				_ = await input.AsTask().IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				_ = await input.AsTask().IfNotAsync(fTest, async x => fThen(x));
 
 				// Assert
 				fTest.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -109,9 +109,9 @@ public class IfNotAsync_Tests
 				var (fTest, fThen) = Setup(false, thenValue);
 
 				// Act
-				var r0 = await input.IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				var r0 = await input.IfNotAsync(fTest, async x => fThen(x));
 				var r1 = await input.AsTask().IfNotAsync(fTest, fThen);
-				var r2 = await input.AsTask().IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				var r2 = await input.AsTask().IfNotAsync(fTest, async x => fThen(x));
 
 				// Assert
 				r0.AssertSome(thenValue);
@@ -128,9 +128,9 @@ public class IfNotAsync_Tests
 				var (fTest, fThen) = Setup(false, Rnd.Str);
 
 				// Act
-				_ = await input.IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				_ = await input.IfNotAsync(fTest, async x => fThen(x));
 				_ = await input.AsTask().IfNotAsync(fTest, fThen);
-				_ = await input.AsTask().IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				_ = await input.AsTask().IfNotAsync(fTest, async x => fThen(x));
 
 				// Assert
 				fTest.Received(3).Invoke(value);
@@ -149,9 +149,9 @@ public class IfNotAsync_Tests
 				var (fTest, fThen) = Setup(true, Rnd.Str);
 
 				// Act
-				var r0 = await input.IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				var r0 = await input.IfNotAsync(fTest, async x => fThen(x));
 				var r1 = await input.AsTask().IfNotAsync(fTest, fThen);
-				var r2 = await input.AsTask().IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				var r2 = await input.AsTask().IfNotAsync(fTest, async x => fThen(x));
 
 				// Assert
 				r0.AssertSome(value);
@@ -168,9 +168,9 @@ public class IfNotAsync_Tests
 				var (fTest, fThen) = Setup(true, Rnd.Str);
 
 				// Act
-				_ = await input.IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				_ = await input.IfNotAsync(fTest, async x => fThen(x));
 				_ = await input.AsTask().IfNotAsync(fTest, fThen);
-				_ = await input.AsTask().IfNotAsync(fTest, x => Task.FromResult(fThen(x)));
+				_ = await input.AsTask().IfNotAsync(fTest, async x => fThen(x));
 
 				// Assert
 				fTest.Received(3).Invoke(value);

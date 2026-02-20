@@ -24,9 +24,9 @@ public class MapAsync_Tests
 			var f = Setup();
 
 			// Act
-			var r0 = await input.MapAsync(x => Task.FromResult(f(x)));
+			var r0 = await input.MapAsync(async x => f(x));
 			var r1 = await input.AsTask().MapAsync(f);
-			var r2 = await input.AsTask().MapAsync(x => Task.FromResult(f(x)));
+			var r2 = await input.AsTask().MapAsync(async x => f(x));
 
 			// Assert
 			r0.AssertFailure(value);
@@ -42,9 +42,9 @@ public class MapAsync_Tests
 			var f = Setup();
 
 			// Act
-			_ = await input.MapAsync(x => Task.FromResult(f(x)));
+			_ = await input.MapAsync(async x => f(x));
 			_ = await input.AsTask().MapAsync(f);
-			_ = await input.AsTask().MapAsync(x => Task.FromResult(f(x)));
+			_ = await input.AsTask().MapAsync(async x => f(x));
 
 			// Assert
 			f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -63,9 +63,9 @@ public class MapAsync_Tests
 			f.Invoke(Arg.Any<string>()).Returns(returnValue);
 
 			// Act
-			var r0 = await input.MapAsync(x => Task.FromResult(f(x)));
+			var r0 = await input.MapAsync(async x => f(x));
 			var r1 = await input.AsTask().MapAsync(f);
-			var r2 = await input.AsTask().MapAsync(x => Task.FromResult(f(x)));
+			var r2 = await input.AsTask().MapAsync(async x => f(x));
 
 			// Assert
 			r0.AssertOk(returnValue);

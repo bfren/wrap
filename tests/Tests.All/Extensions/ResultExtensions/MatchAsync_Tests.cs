@@ -87,20 +87,20 @@ public class MatchAsync_Tests
 			public async Task Returns_fFail_Result()
 			{
 				// Arrange
-				var failReturn = Rnd.Str;
+				var value = Rnd.Str;
 				var input = FailGen.Create<int>();
 
 				// Act
-				var r0 = await input.MatchAsync(fFail: _ => failReturn, fOk: _ => Task.FromResult(Rnd.Str));
-				var r1 = await input.AsTask().MatchAsync(fFail: _ => failReturn, fOk: _ => Rnd.Str);
-				var r2 = await input.MatchAsync(fFail: _ => Task.FromResult(failReturn), fOk: _ => Rnd.Str);
-				var r3 = await input.MatchAsync(fFail: _ => Task.FromResult(failReturn), fOk: _ => Task.FromResult(Rnd.Str));
+				var r0 = await input.MatchAsync(fFail: _ => value, fOk: async _ => Rnd.Str);
+				var r1 = await input.AsTask().MatchAsync(fFail: _ => value, fOk: _ => Rnd.Str);
+				var r2 = await input.MatchAsync(fFail: async _ => value, fOk: _ => Rnd.Str);
+				var r3 = await input.MatchAsync(fFail: async _ => value, fOk: async _ => Rnd.Str);
 
 				// Assert
-				Assert.Equal(failReturn, r0);
-				Assert.Equal(failReturn, r1);
-				Assert.Equal(failReturn, r2);
-				Assert.Equal(failReturn, r3);
+				Assert.Equal(value, r0);
+				Assert.Equal(value, r1);
+				Assert.Equal(value, r2);
+				Assert.Equal(value, r3);
 			}
 		}
 
@@ -110,20 +110,20 @@ public class MatchAsync_Tests
 			public async Task Returns_fOk_Result()
 			{
 				// Arrange
-				var okReturn = Rnd.Str;
+				var value = Rnd.Str;
 				var input = R.Wrap(Rnd.Int);
 
 				// Act
-				var r0 = await input.MatchAsync(fFail: _ => Task.FromResult(Rnd.Str), fOk: _ => okReturn);
-				var r1 = await input.AsTask().MatchAsync(fFail: _ => Rnd.Str, fOk: _ => okReturn);
-				var r2 = await input.MatchAsync(fFail: _ => Rnd.Str, fOk: _ => Task.FromResult(okReturn));
-				var r3 = await input.MatchAsync(fFail: _ => Task.FromResult(Rnd.Str), fOk: _ => Task.FromResult(okReturn));
+				var r0 = await input.MatchAsync(fFail: async _ => Rnd.Str, fOk: _ => value);
+				var r1 = await input.AsTask().MatchAsync(fFail: _ => Rnd.Str, fOk: _ => value);
+				var r2 = await input.MatchAsync(fFail: _ => Rnd.Str, fOk: async _ => value);
+				var r3 = await input.MatchAsync(fFail: async _ => Rnd.Str, fOk: async _ => value);
 
 				// Assert
-				Assert.Equal(okReturn, r0);
-				Assert.Equal(okReturn, r1);
-				Assert.Equal(okReturn, r2);
-				Assert.Equal(okReturn, r3);
+				Assert.Equal(value, r0);
+				Assert.Equal(value, r1);
+				Assert.Equal(value, r2);
+				Assert.Equal(value, r3);
 			}
 		}
 	}

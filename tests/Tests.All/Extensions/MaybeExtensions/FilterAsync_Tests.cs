@@ -20,9 +20,9 @@ public class FilterAsync_Tests
 			var fTest = Substitute.For<Func<string, bool>>();
 
 			// Act
-			_ = await input.FilterAsync(x => Task.FromResult(fTest(x)));
+			_ = await input.FilterAsync(async x => fTest(x));
 			_ = await input.AsTask().FilterAsync(fTest);
-			_ = await input.AsTask().FilterAsync(x => Task.FromResult(fTest(x)));
+			_ = await input.AsTask().FilterAsync(async x => fTest(x));
 
 			// Assert
 			fTest.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -36,9 +36,9 @@ public class FilterAsync_Tests
 			var fTest = Substitute.For<Func<string, bool>>();
 
 			// Act
-			var r0 = await input.FilterAsync(x => Task.FromResult(fTest(x)));
+			var r0 = await input.FilterAsync(async x => fTest(x));
 			var r1 = await input.AsTask().FilterAsync(fTest);
-			var r2 = await input.AsTask().FilterAsync(x => Task.FromResult(fTest(x)));
+			var r2 = await input.AsTask().FilterAsync(async x => fTest(x));
 
 			// Assert
 			r0.AssertNone();
@@ -61,9 +61,9 @@ public class FilterAsync_Tests
 				fTest.Invoke(Arg.Any<string>()).Returns(false);
 
 				// Act
-				_ = await input.FilterAsync(x => Task.FromResult(fTest(x)));
+				_ = await input.FilterAsync(async x => fTest(x));
 				_ = await input.AsTask().FilterAsync(fTest);
-				_ = await input.AsTask().FilterAsync(x => Task.FromResult(fTest(x)));
+				_ = await input.AsTask().FilterAsync(async x => fTest(x));
 
 				// Assert
 				fTest.Received(3).Invoke(value);
@@ -78,9 +78,9 @@ public class FilterAsync_Tests
 				fTest.Invoke(Arg.Any<string>()).Returns(false);
 
 				// Act
-				var r0 = await input.FilterAsync(x => Task.FromResult(fTest(x)));
+				var r0 = await input.FilterAsync(async x => fTest(x));
 				var r1 = await input.AsTask().FilterAsync(fTest);
-				var r2 = await input.AsTask().FilterAsync(x => Task.FromResult(fTest(x)));
+				var r2 = await input.AsTask().FilterAsync(async x => fTest(x));
 
 				// Assert
 				r0.AssertNone();
@@ -101,9 +101,9 @@ public class FilterAsync_Tests
 				fTest.Invoke(Arg.Any<string>()).Returns(true);
 
 				// Act
-				_ = await input.FilterAsync(x => Task.FromResult(fTest(x)));
+				_ = await input.FilterAsync(async x => fTest(x));
 				_ = await input.AsTask().FilterAsync(fTest);
-				_ = await input.AsTask().FilterAsync(x => Task.FromResult(fTest(x)));
+				_ = await input.AsTask().FilterAsync(async x => fTest(x));
 
 				// Assert
 				fTest.Received(3).Invoke(value);
@@ -119,9 +119,9 @@ public class FilterAsync_Tests
 				fTest.Invoke(Arg.Any<string>()).Returns(true);
 
 				// Act
-				var r0 = await input.FilterAsync(x => Task.FromResult(fTest(x)));
+				var r0 = await input.FilterAsync(async x => fTest(x));
 				var r1 = await input.AsTask().FilterAsync(fTest);
-				var r2 = await input.AsTask().FilterAsync(x => Task.FromResult(fTest(x)));
+				var r2 = await input.AsTask().FilterAsync(async x => fTest(x));
 
 				// Assert
 				r0.AssertSome(value);

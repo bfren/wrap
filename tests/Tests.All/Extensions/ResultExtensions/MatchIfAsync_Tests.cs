@@ -28,58 +28,80 @@ public class MatchIfAsync_Tests
 		public async Task Returns_fFail_Result()
 		{
 			// Arrange
-			var failReturn = Rnd.Str;
+			var value = Rnd.Str;
 			var input = FailGen.Create<int>();
 
 			// Act
 
 			// Group A: Result<T> source, sync fFail
-			var a1 = await input.MatchIfAsync(fFail: _ => failReturn, fTest: _ => false, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Rnd.Str);
-			var a2 = await input.MatchIfAsync(fFail: _ => failReturn, fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(Rnd.Str));
-			var a3 = await input.MatchIfAsync(fFail: _ => failReturn, fTest: _ => false, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(Rnd.Str));
-			var a4 = await input.MatchIfAsync(fFail: _ => failReturn, fTest: _ => Task.FromResult(false), fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
-			var a5 = await input.MatchIfAsync(fFail: _ => failReturn, fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Rnd.Str);
-			var a6 = await input.MatchIfAsync(fFail: _ => failReturn, fTest: _ => Task.FromResult(false), fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(Rnd.Str));
-			var a7 = await input.MatchIfAsync(fFail: _ => failReturn, fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(Rnd.Str));
+			var a1 = await input.MatchIfAsync(fFail: _ => value, fTest: _ => false, fFalse: async _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var a2 = await input.MatchIfAsync(fFail: _ => value, fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: async _ => Rnd.Str);
+			var a3 = await input.MatchIfAsync(fFail: _ => value, fTest: _ => false, fFalse: async _ => Rnd.Str, fTrue: async _ => Rnd.Str);
+			var a4 = await input.MatchIfAsync(fFail: _ => value, fTest: async _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var a5 = await input.MatchIfAsync(fFail: _ => value, fTest: async _ => false, fFalse: async _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var a6 = await input.MatchIfAsync(fFail: _ => value, fTest: async _ => false, fFalse: _ => Rnd.Str, fTrue: async _ => Rnd.Str);
+			var a7 = await input.MatchIfAsync(fFail: _ => value, fTest: async _ => false, fFalse: async _ => Rnd.Str, fTrue: async _ => Rnd.Str);
 
 			// Group B: Task<Result<T>> source, sync fFail
-			var b1 = await input.AsTask().MatchIfAsync(fFail: _ => failReturn, fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
-			var b2 = await input.AsTask().MatchIfAsync(fFail: _ => failReturn, fTest: _ => false, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Rnd.Str);
-			var b3 = await input.AsTask().MatchIfAsync(fFail: _ => failReturn, fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(Rnd.Str));
-			var b4 = await input.AsTask().MatchIfAsync(fFail: _ => failReturn, fTest: _ => false, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(Rnd.Str));
-			var b5 = await input.AsTask().MatchIfAsync(fFail: _ => failReturn, fTest: _ => Task.FromResult(false), fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
-			var b6 = await input.AsTask().MatchIfAsync(fFail: _ => failReturn, fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Rnd.Str);
-			var b7 = await input.AsTask().MatchIfAsync(fFail: _ => failReturn, fTest: _ => Task.FromResult(false), fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(Rnd.Str));
+			var b1 = await input.AsTask().MatchIfAsync(fFail: _ => value, fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var b2 = await input.AsTask().MatchIfAsync(fFail: _ => value, fTest: _ => false, fFalse: async _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var b3 = await input.AsTask().MatchIfAsync(fFail: _ => value, fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: async _ => Rnd.Str);
+			var b4 = await input.AsTask().MatchIfAsync(fFail: _ => value, fTest: _ => false, fFalse: async _ => Rnd.Str, fTrue: async _ => Rnd.Str);
+			var b5 = await input.AsTask().MatchIfAsync(fFail: _ => value, fTest: async _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var b6 = await input.AsTask().MatchIfAsync(fFail: _ => value, fTest: async _ => false, fFalse: async _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var b7 = await input.AsTask().MatchIfAsync(fFail: _ => value, fTest: async _ => false, fFalse: _ => Rnd.Str, fTrue: async _ => Rnd.Str);
 
 			// Group C: Result<T> source, async fFail
-			var c1 = await input.MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
-			var c2 = await input.MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => false, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Rnd.Str);
-			var c3 = await input.MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(Rnd.Str));
-			var c4 = await input.MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => false, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(Rnd.Str));
-			var c5 = await input.MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => Task.FromResult(false), fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
-			var c6 = await input.MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Rnd.Str);
-			var c7 = await input.MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => Task.FromResult(false), fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(Rnd.Str));
-			var c8 = await input.MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(Rnd.Str));
+			var c1 = await input.MatchIfAsync(fFail: async _ => value, fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var c2 = await input.MatchIfAsync(fFail: async _ => value, fTest: _ => false, fFalse: async _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var c3 = await input.MatchIfAsync(fFail: async _ => value, fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: async _ => Rnd.Str);
+			var c4 = await input.MatchIfAsync(fFail: async _ => value, fTest: _ => false, fFalse: async _ => Rnd.Str, fTrue: async _ => Rnd.Str);
+			var c5 = await input.MatchIfAsync(fFail: async _ => value, fTest: async _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var c6 = await input.MatchIfAsync(fFail: async _ => value, fTest: async _ => false, fFalse: async _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var c7 = await input.MatchIfAsync(fFail: async _ => value, fTest: async _ => false, fFalse: _ => Rnd.Str, fTrue: async _ => Rnd.Str);
+			var c8 = await input.MatchIfAsync(fFail: async _ => value, fTest: async _ => false, fFalse: async _ => Rnd.Str, fTrue: async _ => Rnd.Str);
 
 			// Group D: Task<Result<T>> source, async fFail
-			var d1 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
-			var d2 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => false, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Rnd.Str);
-			var d3 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(Rnd.Str));
-			var d4 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => false, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(Rnd.Str));
-			var d5 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => Task.FromResult(false), fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
-			var d6 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Rnd.Str);
-			var d7 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => Task.FromResult(false), fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(Rnd.Str));
-			var d8 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(failReturn), fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(Rnd.Str));
+			var d1 = await input.AsTask().MatchIfAsync(fFail: async _ => value, fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var d2 = await input.AsTask().MatchIfAsync(fFail: async _ => value, fTest: _ => false, fFalse: async _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var d3 = await input.AsTask().MatchIfAsync(fFail: async _ => value, fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: async _ => Rnd.Str);
+			var d4 = await input.AsTask().MatchIfAsync(fFail: async _ => value, fTest: _ => false, fFalse: async _ => Rnd.Str, fTrue: async _ => Rnd.Str);
+			var d5 = await input.AsTask().MatchIfAsync(fFail: async _ => value, fTest: async _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var d6 = await input.AsTask().MatchIfAsync(fFail: async _ => value, fTest: async _ => false, fFalse: async _ => Rnd.Str, fTrue: _ => Rnd.Str);
+			var d7 = await input.AsTask().MatchIfAsync(fFail: async _ => value, fTest: async _ => false, fFalse: _ => Rnd.Str, fTrue: async _ => Rnd.Str);
+			var d8 = await input.AsTask().MatchIfAsync(fFail: async _ => value, fTest: async _ => false, fFalse: async _ => Rnd.Str, fTrue: async _ => Rnd.Str);
 
 			// Assert
-			Assert.Equal(failReturn, a1); Assert.Equal(failReturn, a2); Assert.Equal(failReturn, a3);
-			Assert.Equal(failReturn, a4); Assert.Equal(failReturn, a5); Assert.Equal(failReturn, a6); Assert.Equal(failReturn, a7);
-			Assert.Equal(failReturn, b1); Assert.Equal(failReturn, b2); Assert.Equal(failReturn, b3);
-			Assert.Equal(failReturn, b4); Assert.Equal(failReturn, b5); Assert.Equal(failReturn, b6); Assert.Equal(failReturn, b7);
-			Assert.Equal(failReturn, c1); Assert.Equal(failReturn, c2); Assert.Equal(failReturn, c3); Assert.Equal(failReturn, c4);
-			Assert.Equal(failReturn, c5); Assert.Equal(failReturn, c6); Assert.Equal(failReturn, c7); Assert.Equal(failReturn, c8);
-			Assert.Equal(failReturn, d1); Assert.Equal(failReturn, d2); Assert.Equal(failReturn, d3); Assert.Equal(failReturn, d4);
-			Assert.Equal(failReturn, d5); Assert.Equal(failReturn, d6); Assert.Equal(failReturn, d7); Assert.Equal(failReturn, d8);
+			Assert.Equal(value, a1);
+			Assert.Equal(value, a2);
+			Assert.Equal(value, a3);
+			Assert.Equal(value, a4);
+			Assert.Equal(value, a5);
+			Assert.Equal(value, a6);
+			Assert.Equal(value, a7);
+			Assert.Equal(value, b1);
+			Assert.Equal(value, b2);
+			Assert.Equal(value, b3);
+			Assert.Equal(value, b4);
+			Assert.Equal(value, b5);
+			Assert.Equal(value, b6);
+			Assert.Equal(value, b7);
+			Assert.Equal(value, c1);
+			Assert.Equal(value, c2);
+			Assert.Equal(value, c3);
+			Assert.Equal(value, c4);
+			Assert.Equal(value, c5);
+			Assert.Equal(value, c6);
+			Assert.Equal(value, c7);
+			Assert.Equal(value, c8);
+			Assert.Equal(value, d1);
+			Assert.Equal(value, d2);
+			Assert.Equal(value, d3);
+			Assert.Equal(value, d4);
+			Assert.Equal(value, d5);
+			Assert.Equal(value, d6);
+			Assert.Equal(value, d7);
+			Assert.Equal(value, d8);
 		}
 	}
 
@@ -91,58 +113,80 @@ public class MatchIfAsync_Tests
 			public async Task Returns_fFalse_Result()
 			{
 				// Arrange
-				var falseReturn = Rnd.Str;
+				var value = Rnd.Str;
 				var input = R.Wrap(Rnd.Int);
 
 				// Act
 
 				// Group A: Result<T> source, sync fFail
-				var a1 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Rnd.Str);
-				var a2 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: _ => falseReturn, fTrue: _ => Task.FromResult(Rnd.Str));
-				var a3 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Task.FromResult(Rnd.Str));
-				var a4 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(false), fFalse: _ => falseReturn, fTrue: _ => Rnd.Str);
-				var a5 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Rnd.Str);
-				var a6 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(false), fFalse: _ => falseReturn, fTrue: _ => Task.FromResult(Rnd.Str));
-				var a7 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Task.FromResult(Rnd.Str));
+				var a1 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: async _ => value, fTrue: _ => Rnd.Str);
+				var a2 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: _ => value, fTrue: async _ => Rnd.Str);
+				var a3 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: async _ => value, fTrue: async _ => Rnd.Str);
+				var a4 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => false, fFalse: _ => value, fTrue: _ => Rnd.Str);
+				var a5 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => false, fFalse: async _ => value, fTrue: _ => Rnd.Str);
+				var a6 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => false, fFalse: _ => value, fTrue: async _ => Rnd.Str);
+				var a7 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => false, fFalse: async _ => value, fTrue: async _ => Rnd.Str);
 
 				// Group B: Task<Result<T>> source, sync fFail
-				var b1 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: _ => falseReturn, fTrue: _ => Rnd.Str);
-				var b2 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Rnd.Str);
-				var b3 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: _ => falseReturn, fTrue: _ => Task.FromResult(Rnd.Str));
-				var b4 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Task.FromResult(Rnd.Str));
-				var b5 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(false), fFalse: _ => falseReturn, fTrue: _ => Rnd.Str);
-				var b6 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Rnd.Str);
-				var b7 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(false), fFalse: _ => falseReturn, fTrue: _ => Task.FromResult(Rnd.Str));
+				var b1 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: _ => value, fTrue: _ => Rnd.Str);
+				var b2 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: async _ => value, fTrue: _ => Rnd.Str);
+				var b3 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: _ => value, fTrue: async _ => Rnd.Str);
+				var b4 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => false, fFalse: async _ => value, fTrue: async _ => Rnd.Str);
+				var b5 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => false, fFalse: _ => value, fTrue: _ => Rnd.Str);
+				var b6 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => false, fFalse: async _ => value, fTrue: _ => Rnd.Str);
+				var b7 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => false, fFalse: _ => value, fTrue: async _ => Rnd.Str);
 
 				// Group C: Result<T> source, async fFail
-				var c1 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => false, fFalse: _ => falseReturn, fTrue: _ => Rnd.Str);
-				var c2 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => false, fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Rnd.Str);
-				var c3 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => false, fFalse: _ => falseReturn, fTrue: _ => Task.FromResult(Rnd.Str));
-				var c4 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => false, fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Task.FromResult(Rnd.Str));
-				var c5 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(false), fFalse: _ => falseReturn, fTrue: _ => Rnd.Str);
-				var c6 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Rnd.Str);
-				var c7 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(false), fFalse: _ => falseReturn, fTrue: _ => Task.FromResult(Rnd.Str));
-				var c8 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Task.FromResult(Rnd.Str));
+				var c1 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => false, fFalse: _ => value, fTrue: _ => Rnd.Str);
+				var c2 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => false, fFalse: async _ => value, fTrue: _ => Rnd.Str);
+				var c3 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => false, fFalse: _ => value, fTrue: async _ => Rnd.Str);
+				var c4 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => false, fFalse: async _ => value, fTrue: async _ => Rnd.Str);
+				var c5 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => false, fFalse: _ => value, fTrue: _ => Rnd.Str);
+				var c6 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => false, fFalse: async _ => value, fTrue: _ => Rnd.Str);
+				var c7 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => false, fFalse: _ => value, fTrue: async _ => Rnd.Str);
+				var c8 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => false, fFalse: async _ => value, fTrue: async _ => Rnd.Str);
 
 				// Group D: Task<Result<T>> source, async fFail
-				var d1 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => false, fFalse: _ => falseReturn, fTrue: _ => Rnd.Str);
-				var d2 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => false, fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Rnd.Str);
-				var d3 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => false, fFalse: _ => falseReturn, fTrue: _ => Task.FromResult(Rnd.Str));
-				var d4 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => false, fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Task.FromResult(Rnd.Str));
-				var d5 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(false), fFalse: _ => falseReturn, fTrue: _ => Rnd.Str);
-				var d6 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Rnd.Str);
-				var d7 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(false), fFalse: _ => falseReturn, fTrue: _ => Task.FromResult(Rnd.Str));
-				var d8 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(false), fFalse: _ => Task.FromResult(falseReturn), fTrue: _ => Task.FromResult(Rnd.Str));
+				var d1 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => false, fFalse: _ => value, fTrue: _ => Rnd.Str);
+				var d2 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => false, fFalse: async _ => value, fTrue: _ => Rnd.Str);
+				var d3 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => false, fFalse: _ => value, fTrue: async _ => Rnd.Str);
+				var d4 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => false, fFalse: async _ => value, fTrue: async _ => Rnd.Str);
+				var d5 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => false, fFalse: _ => value, fTrue: _ => Rnd.Str);
+				var d6 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => false, fFalse: async _ => value, fTrue: _ => Rnd.Str);
+				var d7 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => false, fFalse: _ => value, fTrue: async _ => Rnd.Str);
+				var d8 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => false, fFalse: async _ => value, fTrue: async _ => Rnd.Str);
 
 				// Assert
-				Assert.Equal(falseReturn, a1); Assert.Equal(falseReturn, a2); Assert.Equal(falseReturn, a3);
-				Assert.Equal(falseReturn, a4); Assert.Equal(falseReturn, a5); Assert.Equal(falseReturn, a6); Assert.Equal(falseReturn, a7);
-				Assert.Equal(falseReturn, b1); Assert.Equal(falseReturn, b2); Assert.Equal(falseReturn, b3);
-				Assert.Equal(falseReturn, b4); Assert.Equal(falseReturn, b5); Assert.Equal(falseReturn, b6); Assert.Equal(falseReturn, b7);
-				Assert.Equal(falseReturn, c1); Assert.Equal(falseReturn, c2); Assert.Equal(falseReturn, c3); Assert.Equal(falseReturn, c4);
-				Assert.Equal(falseReturn, c5); Assert.Equal(falseReturn, c6); Assert.Equal(falseReturn, c7); Assert.Equal(falseReturn, c8);
-				Assert.Equal(falseReturn, d1); Assert.Equal(falseReturn, d2); Assert.Equal(falseReturn, d3); Assert.Equal(falseReturn, d4);
-				Assert.Equal(falseReturn, d5); Assert.Equal(falseReturn, d6); Assert.Equal(falseReturn, d7); Assert.Equal(falseReturn, d8);
+				Assert.Equal(value, a1);
+				Assert.Equal(value, a2);
+				Assert.Equal(value, a3);
+				Assert.Equal(value, a4);
+				Assert.Equal(value, a5);
+				Assert.Equal(value, a6);
+				Assert.Equal(value, a7);
+				Assert.Equal(value, b1);
+				Assert.Equal(value, b2);
+				Assert.Equal(value, b3);
+				Assert.Equal(value, b4);
+				Assert.Equal(value, b5);
+				Assert.Equal(value, b6);
+				Assert.Equal(value, b7);
+				Assert.Equal(value, c1);
+				Assert.Equal(value, c2);
+				Assert.Equal(value, c3);
+				Assert.Equal(value, c4);
+				Assert.Equal(value, c5);
+				Assert.Equal(value, c6);
+				Assert.Equal(value, c7);
+				Assert.Equal(value, c8);
+				Assert.Equal(value, d1);
+				Assert.Equal(value, d2);
+				Assert.Equal(value, d3);
+				Assert.Equal(value, d4);
+				Assert.Equal(value, d5);
+				Assert.Equal(value, d6);
+				Assert.Equal(value, d7);
+				Assert.Equal(value, d8);
 			}
 		}
 
@@ -152,58 +196,80 @@ public class MatchIfAsync_Tests
 			public async Task Returns_fTrue_Result()
 			{
 				// Arrange
-				var trueReturn = Rnd.Str;
+				var value = Rnd.Str;
 				var input = R.Wrap(Rnd.Int);
 
 				// Act
 
 				// Group A: Result<T> source, sync fFail
-				var a1 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => trueReturn);
-				var a2 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(trueReturn));
-				var a3 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(trueReturn));
-				var a4 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(true), fFalse: _ => Rnd.Str, fTrue: _ => trueReturn);
-				var a5 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(true), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => trueReturn);
-				var a6 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(true), fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(trueReturn));
-				var a7 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(true), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(trueReturn));
+				var a1 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: async _ => Rnd.Str, fTrue: _ => value);
+				var a2 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: async _ => value);
+				var a3 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: async _ => Rnd.Str, fTrue: async _ => value);
+				var a4 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => true, fFalse: _ => Rnd.Str, fTrue: _ => value);
+				var a5 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => true, fFalse: async _ => Rnd.Str, fTrue: _ => value);
+				var a6 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => true, fFalse: _ => Rnd.Str, fTrue: async _ => value);
+				var a7 = await input.MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => true, fFalse: async _ => Rnd.Str, fTrue: async _ => value);
 
 				// Group B: Task<Result<T>> source, sync fFail
-				var b1 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: _ => trueReturn);
-				var b2 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => trueReturn);
-				var b3 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(trueReturn));
-				var b4 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(trueReturn));
-				var b5 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(true), fFalse: _ => Rnd.Str, fTrue: _ => trueReturn);
-				var b6 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(true), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => trueReturn);
-				var b7 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => Task.FromResult(true), fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(trueReturn));
+				var b1 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: _ => value);
+				var b2 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: async _ => Rnd.Str, fTrue: _ => value);
+				var b3 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: async _ => value);
+				var b4 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: _ => true, fFalse: async _ => Rnd.Str, fTrue: async _ => value);
+				var b5 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => true, fFalse: _ => Rnd.Str, fTrue: _ => value);
+				var b6 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => true, fFalse: async _ => Rnd.Str, fTrue: _ => value);
+				var b7 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => true, fFalse: _ => Rnd.Str, fTrue: async _ => value);
 
 				// Group C: Result<T> source, async fFail
-				var c1 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: _ => trueReturn);
-				var c2 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => true, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => trueReturn);
-				var c3 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(trueReturn));
-				var c4 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => true, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(trueReturn));
-				var c5 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(true), fFalse: _ => Rnd.Str, fTrue: _ => trueReturn);
-				var c6 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(true), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => trueReturn);
-				var c7 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(true), fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(trueReturn));
-				var c8 = await input.MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(true), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(trueReturn));
+				var c1 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: _ => value);
+				var c2 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => true, fFalse: async _ => Rnd.Str, fTrue: _ => value);
+				var c3 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: async _ => value);
+				var c4 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => true, fFalse: async _ => Rnd.Str, fTrue: async _ => value);
+				var c5 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => true, fFalse: _ => Rnd.Str, fTrue: _ => value);
+				var c6 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => true, fFalse: async _ => Rnd.Str, fTrue: _ => value);
+				var c7 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => true, fFalse: _ => Rnd.Str, fTrue: async _ => value);
+				var c8 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => true, fFalse: async _ => Rnd.Str, fTrue: async _ => value);
 
 				// Group D: Task<Result<T>> source, async fFail
-				var d1 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: _ => trueReturn);
-				var d2 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => true, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => trueReturn);
-				var d3 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(trueReturn));
-				var d4 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => true, fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(trueReturn));
-				var d5 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(true), fFalse: _ => Rnd.Str, fTrue: _ => trueReturn);
-				var d6 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(true), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => trueReturn);
-				var d7 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(true), fFalse: _ => Rnd.Str, fTrue: _ => Task.FromResult(trueReturn));
-				var d8 = await input.AsTask().MatchIfAsync(fFail: _ => Task.FromResult(Rnd.Str), fTest: _ => Task.FromResult(true), fFalse: _ => Task.FromResult(Rnd.Str), fTrue: _ => Task.FromResult(trueReturn));
+				var d1 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: _ => value);
+				var d2 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => true, fFalse: async _ => Rnd.Str, fTrue: _ => value);
+				var d3 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: async _ => value);
+				var d4 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => true, fFalse: async _ => Rnd.Str, fTrue: async _ => value);
+				var d5 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => true, fFalse: _ => Rnd.Str, fTrue: _ => value);
+				var d6 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => true, fFalse: async _ => Rnd.Str, fTrue: _ => value);
+				var d7 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => true, fFalse: _ => Rnd.Str, fTrue: async _ => value);
+				var d8 = await input.AsTask().MatchIfAsync(fFail: async _ => Rnd.Str, fTest: async _ => true, fFalse: async _ => Rnd.Str, fTrue: async _ => value);
 
 				// Assert
-				Assert.Equal(trueReturn, a1); Assert.Equal(trueReturn, a2); Assert.Equal(trueReturn, a3);
-				Assert.Equal(trueReturn, a4); Assert.Equal(trueReturn, a5); Assert.Equal(trueReturn, a6); Assert.Equal(trueReturn, a7);
-				Assert.Equal(trueReturn, b1); Assert.Equal(trueReturn, b2); Assert.Equal(trueReturn, b3);
-				Assert.Equal(trueReturn, b4); Assert.Equal(trueReturn, b5); Assert.Equal(trueReturn, b6); Assert.Equal(trueReturn, b7);
-				Assert.Equal(trueReturn, c1); Assert.Equal(trueReturn, c2); Assert.Equal(trueReturn, c3); Assert.Equal(trueReturn, c4);
-				Assert.Equal(trueReturn, c5); Assert.Equal(trueReturn, c6); Assert.Equal(trueReturn, c7); Assert.Equal(trueReturn, c8);
-				Assert.Equal(trueReturn, d1); Assert.Equal(trueReturn, d2); Assert.Equal(trueReturn, d3); Assert.Equal(trueReturn, d4);
-				Assert.Equal(trueReturn, d5); Assert.Equal(trueReturn, d6); Assert.Equal(trueReturn, d7); Assert.Equal(trueReturn, d8);
+				Assert.Equal(value, a1);
+				Assert.Equal(value, a2);
+				Assert.Equal(value, a3);
+				Assert.Equal(value, a4);
+				Assert.Equal(value, a5);
+				Assert.Equal(value, a6);
+				Assert.Equal(value, a7);
+				Assert.Equal(value, b1);
+				Assert.Equal(value, b2);
+				Assert.Equal(value, b3);
+				Assert.Equal(value, b4);
+				Assert.Equal(value, b5);
+				Assert.Equal(value, b6);
+				Assert.Equal(value, b7);
+				Assert.Equal(value, c1);
+				Assert.Equal(value, c2);
+				Assert.Equal(value, c3);
+				Assert.Equal(value, c4);
+				Assert.Equal(value, c5);
+				Assert.Equal(value, c6);
+				Assert.Equal(value, c7);
+				Assert.Equal(value, c8);
+				Assert.Equal(value, d1);
+				Assert.Equal(value, d2);
+				Assert.Equal(value, d3);
+				Assert.Equal(value, d4);
+				Assert.Equal(value, d5);
+				Assert.Equal(value, d6);
+				Assert.Equal(value, d7);
+				Assert.Equal(value, d8);
 			}
 		}
 	}

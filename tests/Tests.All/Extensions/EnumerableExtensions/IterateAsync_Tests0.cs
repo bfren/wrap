@@ -12,26 +12,12 @@ public partial class IterateAsync_Tests
 		{
 			// Arrange
 			IEnumerable<Maybe<Guid>> list = [M.None, M.None, M.None];
-			var f = Substitute.For<Func<Guid, Task>>();
-			f.Invoke(Arg.Any<Guid>()).Returns(Task.CompletedTask);
-
-			// Act
-			await list.IterateAsync(f);
-			await Task.FromResult(list).IterateAsync(f);
-
-			// Assert
-			await f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Guid>());
-		}
-
-		[Fact]
-		public async Task With_Action_Does_Not_Call_Function()
-		{
-			// Arrange
-			IEnumerable<Maybe<Guid>> list = [M.None, M.None, M.None];
 			var f = Substitute.For<Action<Guid>>();
 
 			// Act
+			await list.IterateAsync(async x => f(x));
 			await Task.FromResult(list).IterateAsync(f);
+			await Task.FromResult(list).IterateAsync(async x => f(x));
 
 			// Assert
 			f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Guid>());
@@ -48,50 +34,12 @@ public partial class IterateAsync_Tests
 			var v1 = Rnd.Guid;
 			var v2 = Rnd.Guid;
 			IEnumerable<Maybe<Guid>> list = [v0, v1, v2];
-			var f = Substitute.For<Func<Guid, Task>>();
-			f.Invoke(Arg.Any<Guid>()).Returns(Task.CompletedTask);
-
-			// Act
-			await Task.FromResult(list).IterateAsync(f);
-
-			// Assert
-			await f.Received().Invoke(v0);
-			await f.Received().Invoke(v1);
-			await f.Received().Invoke(v2);
-		}
-
-		[Fact]
-		public async Task With_IEnumerable_Source_Calls_Function_With_Value()
-		{
-			// Arrange
-			var v0 = Rnd.Guid;
-			var v1 = Rnd.Guid;
-			var v2 = Rnd.Guid;
-			IEnumerable<Maybe<Guid>> list = [v0, v1, v2];
-			var f = Substitute.For<Func<Guid, Task>>();
-			f.Invoke(Arg.Any<Guid>()).Returns(Task.CompletedTask);
-
-			// Act
-			await list.IterateAsync(f);
-
-			// Assert
-			await f.Received().Invoke(v0);
-			await f.Received().Invoke(v1);
-			await f.Received().Invoke(v2);
-		}
-
-		[Fact]
-		public async Task With_Action_Calls_Function_With_Value()
-		{
-			// Arrange
-			var v0 = Rnd.Guid;
-			var v1 = Rnd.Guid;
-			var v2 = Rnd.Guid;
-			IEnumerable<Maybe<Guid>> list = [v0, v1, v2];
 			var f = Substitute.For<Action<Guid>>();
 
 			// Act
+			await list.IterateAsync(async x => f(x));
 			await Task.FromResult(list).IterateAsync(f);
+			await Task.FromResult(list).IterateAsync(async x => f(x));
 
 			// Assert
 			f.Received().Invoke(v0);
