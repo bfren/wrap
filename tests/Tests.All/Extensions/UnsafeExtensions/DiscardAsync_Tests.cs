@@ -11,10 +11,10 @@ public class DiscardAsync_Tests
 		public async Task Returns_None()
 		{
 			// Arrange
-			var failure = FailGen.Create<int>();
+			var failure = FailGen.Create<int>().AsTask().Unsafe();
 
 			// Act
-			var result = await Task.FromResult(failure.Unsafe()).DiscardAsync();
+			var result = await failure.DiscardAsync();
 
 			// Assert
 			result.AssertNone();
@@ -28,10 +28,10 @@ public class DiscardAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Int;
-			var wrapped = R.Wrap(value);
+			var wrapped = R.Wrap(value).AsTask().Unsafe();
 
 			// Act
-			var result = await Task.FromResult(wrapped.Unsafe()).DiscardAsync();
+			var result = await wrapped.DiscardAsync();
 
 			// Assert
 			result.AssertSome(value);

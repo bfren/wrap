@@ -11,10 +11,10 @@ public class UnwrapAsync_Tests
 		public async Task Returns_Default()
 		{
 			// Arrange
-			var failure = FailGen.Create<int>();
+			var failure = FailGen.Create<int>().AsTask().Unsafe();
 
 			// Act
-			var result = await Task.FromResult(failure.Unsafe()).UnwrapAsync();
+			var result = await failure.UnwrapAsync();
 
 			// Assert
 			Assert.Equal(default, result);
@@ -28,10 +28,10 @@ public class UnwrapAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Int;
-			var wrapped = R.Wrap(value);
+			var wrapped = R.Wrap(value).AsTask().Unsafe();
 
 			// Act
-			var result = await Task.FromResult(wrapped.Unsafe()).UnwrapAsync();
+			var result = await wrapped.UnwrapAsync();
 
 			// Assert
 			Assert.Equal(value, result);

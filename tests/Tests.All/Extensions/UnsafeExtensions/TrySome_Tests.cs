@@ -12,10 +12,10 @@ public class TrySome_Tests
 		{
 			// Arrange
 			var value = Rnd.Guid;
-			var maybe = M.Wrap(value);
+			var maybe = M.Wrap(value).Unsafe();
 
 			// Act
-			_ = maybe.Unsafe().TrySome(out var result);
+			_ = maybe.TrySome(out var result);
 
 			// Assert
 			Assert.Equal(value, result);
@@ -26,10 +26,10 @@ public class TrySome_Tests
 		{
 			// Arrange
 			var value = Rnd.Guid;
-			var maybe = M.Wrap(value);
+			var maybe = M.Wrap(value).Unsafe();
 
 			// Act
-			var result = maybe.Unsafe().TrySome(out var _);
+			var result = maybe.TrySome(out var _);
 
 			// Assert
 			Assert.True(result);
@@ -42,10 +42,10 @@ public class TrySome_Tests
 		public void Our_Var_Is_Default()
 		{
 			// Arrange
-			var maybe = (Maybe<int>)M.None;
+			var maybe = ((Maybe<int>)M.None).Unsafe();
 
 			// Act
-			_ = maybe.Unsafe().TrySome(out var result);
+			_ = maybe.TrySome(out var result);
 
 			// Assert
 			Assert.Equal(default, result);
@@ -55,10 +55,10 @@ public class TrySome_Tests
 		public void Returns_False()
 		{
 			// Arrange
-			var maybe = (Maybe<int>)M.None;
+			var maybe = ((Maybe<int>)M.None).Unsafe();
 
 			// Act
-			var result = maybe.Unsafe().TrySome(out var _);
+			var result = maybe.TrySome(out var _);
 
 			// Assert
 			Assert.False(result);

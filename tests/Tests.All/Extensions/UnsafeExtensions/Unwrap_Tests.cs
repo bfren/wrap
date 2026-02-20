@@ -11,10 +11,10 @@ public class Unwrap_Tests
 		public void Returns_Default()
 		{
 			// Arrange
-			var failure = FailGen.Create<int>();
+			var failure = FailGen.Create<int>().Unsafe();
 
 			// Act
-			var result = failure.Unsafe().Unwrap();
+			var result = failure.Unwrap();
 
 			// Assert
 			Assert.Equal(default, result);
@@ -28,10 +28,10 @@ public class Unwrap_Tests
 		{
 			// Arrange
 			var value = Rnd.Int;
-			var wrapped = R.Wrap(value);
+			var wrapped = R.Wrap(value).Unsafe();
 
 			// Act
-			var result = wrapped.Unsafe().Unwrap();
+			var result = wrapped.Unwrap();
 
 			// Assert
 			Assert.Equal(value, result);

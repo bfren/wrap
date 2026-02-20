@@ -11,10 +11,10 @@ public class Discard_Tests
 		public void Returns_None()
 		{
 			// Arrange
-			var failure = FailGen.Create<int>();
+			var failure = FailGen.Create<int>().Unsafe();
 
 			// Act
-			var result = failure.Unsafe().Discard();
+			var result = failure.Discard();
 
 			// Assert
 			result.AssertNone();
@@ -28,10 +28,10 @@ public class Discard_Tests
 		{
 			// Arrange
 			var value = Rnd.Int;
-			var wrapped = R.Wrap(value);
+			var wrapped = R.Wrap(value).Unsafe();
 
 			// Act
-			var result = wrapped.Unsafe().Discard();
+			var result = wrapped.Discard();
 
 			// Assert
 			result.AssertSome(value);
