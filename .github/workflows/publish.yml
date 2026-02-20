@@ -55,7 +55,7 @@ jobs:
         dotnet pack ./Pack.csproj \
           --no-build \
           --configuration Release \
-          /p:PackageOutputPath=./pack \
+          /p:PackageOutputPath=./$HOME/pack \
           -p:PackageVersion=${{ steps.version.outputs.contents }}
     -
       name: E - Store
