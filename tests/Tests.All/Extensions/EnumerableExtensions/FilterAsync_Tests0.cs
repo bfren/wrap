@@ -77,13 +77,15 @@ public partial class FilterAsync_Tests
 			{
 				// Arrange
 				IEnumerable<Maybe<int>> list = [M.None, M.None, M.None];
-				var fTest = Substitute.For<Func<int, Task<bool>>>();
+				var fTest = Substitute.For<Func<int, bool>>();
 
 				// Act
+				_ = await list.FilterAsync(async x => fTest(x));
 				_ = await Task.FromResult(list).FilterAsync(fTest);
+				_ = await Task.FromResult(list).FilterAsync(async x => fTest(x));
 
 				// Assert
-				await fTest.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+				fTest.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
 			}
 
 			[Fact]
@@ -91,15 +93,17 @@ public partial class FilterAsync_Tests
 			{
 				// Arrange
 				IEnumerable<Maybe<int>> list = [M.None, M.None, M.None];
-				var fTest = Substitute.For<Func<int, Task<bool>>>();
+				var fTest = Substitute.For<Func<int, bool>>();
 
 				// Act
-				var r0 = await Task.FromResult(list).FilterAsync(fTest);
-				var r1 = await list.FilterAsync(fTest);
+				var r0 = await list.FilterAsync(async x => fTest(x));
+				var r1 = await Task.FromResult(list).FilterAsync(fTest);
+				var r2 = await Task.FromResult(list).FilterAsync(async x => fTest(x));
 
 				// Assert
 				Assert.Empty(r0);
 				Assert.Empty(r1);
+				Assert.Empty(r2);
 			}
 		}
 
@@ -112,16 +116,18 @@ public partial class FilterAsync_Tests
 				{
 					// Arrange
 					IEnumerable<Maybe<int>> list = [Rnd.Int, Rnd.Int, Rnd.Int];
-					var fTest = Substitute.For<Func<int, Task<bool>>>();
-					fTest.Invoke(Arg.Any<int>()).Returns(Task.FromResult(false));
+					var fTest = Substitute.For<Func<int, bool>>();
+					fTest.Invoke(Arg.Any<int>()).Returns(false);
 
 					// Act
-					var r0 = await Task.FromResult(list).FilterAsync(fTest);
-					var r1 = await Task.FromResult(list).FilterAsync(x => false);
+					var r0 = await list.FilterAsync(async x => fTest(x));
+					var r1 = await Task.FromResult(list).FilterAsync(fTest);
+					var r2 = await Task.FromResult(list).FilterAsync(async x => fTest(x));
 
 					// Assert
 					Assert.Empty(r0);
 					Assert.Empty(r1);
+					Assert.Empty(r2);
 				}
 			}
 
@@ -135,12 +141,13 @@ public partial class FilterAsync_Tests
 					var v1 = Rnd.Int;
 					var v2 = Rnd.Int;
 					IEnumerable<Maybe<int>> list = [v0, v1, v2];
-					var fTest = Substitute.For<Func<int, Task<bool>>>();
-					fTest.Invoke(Arg.Any<int>()).Returns(Task.FromResult(true));
+					var fTest = Substitute.For<Func<int, bool>>();
+					fTest.Invoke(Arg.Any<int>()).Returns(true);
 
 					// Act
-					var r0 = await Task.FromResult(list).FilterAsync(fTest);
-					var r1 = await list.FilterAsync(fTest);
+					var r0 = await list.FilterAsync(async x => fTest(x));
+					var r1 = await Task.FromResult(list).FilterAsync(fTest);
+					var r2 = await Task.FromResult(list).FilterAsync(async x => fTest(x));
 
 					// Assert
 					Assert.Collection(r0,
@@ -149,6 +156,11 @@ public partial class FilterAsync_Tests
 						x => x.AssertSome(v2)
 					);
 					Assert.Collection(r1,
+						x => x.AssertSome(v0),
+						x => x.AssertSome(v1),
+						x => x.AssertSome(v2)
+					);
+					Assert.Collection(r2,
 						x => x.AssertSome(v0),
 						x => x.AssertSome(v1),
 						x => x.AssertSome(v2)
