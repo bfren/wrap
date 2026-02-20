@@ -33,9 +33,9 @@ public class IfAsync_Tests
 					var (fTest, fTrue, fFalse) = Setup(false, Rnd.Int, Rnd.Int);
 
 					// Act
-					var r0 = await input.IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					var r0 = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 					var r1 = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-					var r2 = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					var r2 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 					// Assert
 					r0.AssertNone();
@@ -51,9 +51,9 @@ public class IfAsync_Tests
 					var (fTest, fTrue, fFalse) = Setup(false, Rnd.Int, Rnd.Int);
 
 					// Act
-					_ = await input.IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					_ = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 					_ = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-					_ = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					_ = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 					// Assert
 					fTest.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -72,9 +72,9 @@ public class IfAsync_Tests
 					var (fTest, fTrue, fFalse) = Setup(true, Rnd.Int, Rnd.Int);
 
 					// Act
-					var r0 = await input.IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					var r0 = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 					var r1 = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-					var r2 = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					var r2 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 					// Assert
 					r0.AssertNone();
@@ -90,9 +90,9 @@ public class IfAsync_Tests
 					var (fTest, fTrue, fFalse) = Setup(true, Rnd.Int, Rnd.Int);
 
 					// Act
-					_ = await input.IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					_ = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 					_ = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-					_ = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					_ = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 					// Assert
 					fTest.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -116,9 +116,9 @@ public class IfAsync_Tests
 					var (fTest, fTrue, fFalse) = Setup(false, Rnd.Int, falseValue);
 
 					// Act
-					var r0 = await input.IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					var r0 = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 					var r1 = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-					var r2 = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					var r2 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 					// Assert
 					r0.AssertSome(falseValue);
@@ -135,9 +135,9 @@ public class IfAsync_Tests
 					var (fTest, fTrue, fFalse) = Setup(false, Rnd.Int, Rnd.Int);
 
 					// Act
-					_ = await input.IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					_ = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 					_ = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-					_ = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					_ = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 					// Assert
 					fTest.Received(3).Invoke(value);
@@ -158,9 +158,9 @@ public class IfAsync_Tests
 					var (fTest, fTrue, fFalse) = Setup(true, trueValue, Rnd.Int);
 
 					// Act
-					var r0 = await input.IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					var r0 = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 					var r1 = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-					var r2 = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					var r2 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 					// Assert
 					r0.AssertSome(trueValue);
@@ -177,9 +177,9 @@ public class IfAsync_Tests
 					var (fTest, fTrue, fFalse) = Setup(true, Rnd.Int, Rnd.Int);
 
 					// Act
-					_ = await input.IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					_ = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 					_ = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-					_ = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fTrue(x)), x => Task.FromResult(fFalse(x)));
+					_ = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 					// Assert
 					fTest.Received(3).Invoke(value);
@@ -215,9 +215,9 @@ public class IfAsync_Tests
 					var (fTest, fThen) = SetupSameType(false, Rnd.Str);
 
 					// Act
-					var r0 = await input.IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					var r0 = await input.IfAsync(fTest, async x => fThen(x));
 					var r1 = await input.AsTask().IfAsync(fTest, fThen);
-					var r2 = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					var r2 = await input.AsTask().IfAsync(fTest, async x => fThen(x));
 
 					// Assert
 					r0.AssertNone();
@@ -233,9 +233,9 @@ public class IfAsync_Tests
 					var (fTest, fThen) = SetupSameType(false, Rnd.Str);
 
 					// Act
-					_ = await input.IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					_ = await input.IfAsync(fTest, async x => fThen(x));
 					_ = await input.AsTask().IfAsync(fTest, fThen);
-					_ = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					_ = await input.AsTask().IfAsync(fTest, async x => fThen(x));
 
 					// Assert
 					fTest.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -253,9 +253,9 @@ public class IfAsync_Tests
 					var (fTest, fThen) = SetupSameType(true, Rnd.Str);
 
 					// Act
-					var r0 = await input.IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					var r0 = await input.IfAsync(fTest, async x => fThen(x));
 					var r1 = await input.AsTask().IfAsync(fTest, fThen);
-					var r2 = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					var r2 = await input.AsTask().IfAsync(fTest, async x => fThen(x));
 
 					// Assert
 					r0.AssertNone();
@@ -271,9 +271,9 @@ public class IfAsync_Tests
 					var (fTest, fThen) = SetupSameType(true, Rnd.Str);
 
 					// Act
-					_ = await input.IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					_ = await input.IfAsync(fTest, async x => fThen(x));
 					_ = await input.AsTask().IfAsync(fTest, fThen);
-					_ = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					_ = await input.AsTask().IfAsync(fTest, async x => fThen(x));
 
 					// Assert
 					fTest.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -295,9 +295,9 @@ public class IfAsync_Tests
 					var (fTest, fThen) = SetupSameType(false, Rnd.Str);
 
 					// Act
-					var r0 = await input.IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					var r0 = await input.IfAsync(fTest, async x => fThen(x));
 					var r1 = await input.AsTask().IfAsync(fTest, fThen);
-					var r2 = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					var r2 = await input.AsTask().IfAsync(fTest, async x => fThen(x));
 
 					// Assert
 					r0.AssertSome(value);
@@ -314,9 +314,9 @@ public class IfAsync_Tests
 					var (fTest, fThen) = SetupSameType(false, Rnd.Str);
 
 					// Act
-					_ = await input.IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					_ = await input.IfAsync(fTest, async x => fThen(x));
 					_ = await input.AsTask().IfAsync(fTest, fThen);
-					_ = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					_ = await input.AsTask().IfAsync(fTest, async x => fThen(x));
 
 					// Assert
 					fTest.Received(3).Invoke(value);
@@ -336,9 +336,9 @@ public class IfAsync_Tests
 					var (fTest, fThen) = SetupSameType(true, thenValue);
 
 					// Act
-					var r0 = await input.IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					var r0 = await input.IfAsync(fTest, async x => fThen(x));
 					var r1 = await input.AsTask().IfAsync(fTest, fThen);
-					var r2 = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					var r2 = await input.AsTask().IfAsync(fTest, async x => fThen(x));
 
 					// Assert
 					r0.AssertSome(thenValue);
@@ -355,9 +355,9 @@ public class IfAsync_Tests
 					var (fTest, fThen) = SetupSameType(true, Rnd.Str);
 
 					// Act
-					_ = await input.IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					_ = await input.IfAsync(fTest, async x => fThen(x));
 					_ = await input.AsTask().IfAsync(fTest, fThen);
-					_ = await input.AsTask().IfAsync(fTest, x => Task.FromResult(fThen(x)));
+					_ = await input.AsTask().IfAsync(fTest, async x => fThen(x));
 
 					// Assert
 					fTest.Received(3).Invoke(value);

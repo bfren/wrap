@@ -15,8 +15,8 @@ public class SetValueAsync_Tests
 		var cache = new WrapCache<string>(mc);
 
 		// Act
-		var a0 = Task () => cache.SetValueAsync(null!, () => Task.FromResult(Rnd.Lng));
-		var a1 = Task () => cache.SetValueAsync(null!, () => Task.FromResult(Rnd.Lng), new());
+		var a0 = Task () => cache.SetValueAsync(null!, async () => Rnd.Lng);
+		var a1 = Task () => cache.SetValueAsync(null!, async () => Rnd.Lng, new());
 
 		// Assert
 		await Assert.ThrowsAsync<ArgumentNullException>(a0);
@@ -49,8 +49,8 @@ public class SetValueAsync_Tests
 		var cache = new WrapCache<string>(mc);
 
 		// Act
-		await cache.SetValueAsync(key, () => Task.FromResult(value));
-		await cache.SetValueAsync(key, () => Task.FromResult(value), new());
+		await cache.SetValueAsync(key, async () => value);
+		await cache.SetValueAsync(key, async () => value, new());
 
 		// Assert
 		var entry = mc.Received(2).CreateEntry(key);

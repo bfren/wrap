@@ -90,7 +90,7 @@ public class ToResultAsync_Tests
 
 				// Act
 				_ = await maybe.ToResultAsync(handler);
-				_ = await maybe.ToResultAsync(() => Task.FromResult(handler()));
+				_ = await maybe.ToResultAsync(async () => handler());
 
 				// Assert
 				handler.Received(2).Invoke();
@@ -102,12 +102,12 @@ public class ToResultAsync_Tests
 				// Arrange
 				var maybe = M.NoneAsTask<string>();
 				var handler = Substitute.For<Func<Result<string>>>();
-				var ex = new Exception("Test exception");
+				var ex = new Exception(Rnd.Str);
 				handler.Invoke().Returns(x => throw ex);
 
 				// Act
 				var r0 = await maybe.ToResultAsync(handler);
-				var r1 = await maybe.ToResultAsync(() => Task.FromResult(handler()));
+				var r1 = await maybe.ToResultAsync(async () => handler());
 
 				// Assert
 				var f0 = r0.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(String));
@@ -149,7 +149,7 @@ public class ToResultAsync_Tests
 
 				// Act
 				var r0 = await maybe.ToResultAsync(handler);
-				var r1 = await maybe.ToResultAsync(() => Task.FromResult(handler()));
+				var r1 = await maybe.ToResultAsync(async () => handler());
 
 				// Assert
 				r0.AssertOk(value);

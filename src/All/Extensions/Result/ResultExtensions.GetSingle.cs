@@ -11,18 +11,6 @@ namespace Wrap.Extensions;
 
 public static partial class ResultExtensions
 {
-	private const string EmptyList =
-		"Cannot get single value from an empty list.";
-
-	private const string MultipleValues =
-		"Cannot get single value from a list with multiple values.";
-
-	private const string IncorrectType =
-		"Cannot get single value of type '{ValueType}' from a list type '{ListType}'.";
-
-	private const string NotAList =
-		"Result value type is not a list.";
-
 	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, R.ErrorHandler?)"/>
 	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this)
 		where T : IEnumerable =>
@@ -51,19 +39,19 @@ public static partial class ResultExtensions
 				R.Wrap(list.Single()),
 
 			IEnumerable<TSingle> list when !list.Any() =>
-				onError?.Invoke(EmptyList) ?? R.Fail(EmptyList)
+				onError?.Invoke(C.GetSingle.EmptyList) ?? R.Fail(C.GetSingle.EmptyList)
 					.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
 
 			IEnumerable<TSingle> =>
-				onError?.Invoke(MultipleValues) ?? R.Fail(MultipleValues)
+				onError?.Invoke(C.GetSingle.MultipleValues) ?? R.Fail(C.GetSingle.MultipleValues)
 					.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
 
 			IEnumerable =>
-				onError?.Invoke(IncorrectType, typeof(TSingle).Name, typeof(T).Name) ?? R.Fail(IncorrectType, typeof(TSingle).Name, typeof(T).Name)
+				onError?.Invoke(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name) ?? R.Fail(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name)
 					.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
 
 			_ =>
-				onError?.Invoke(NotAList) ?? R.Fail(NotAList)
+				onError?.Invoke(C.GetSingle.NotAList) ?? R.Fail(C.GetSingle.NotAList)
 					.Ctx(nameof(ResultExtensions), nameof(GetSingle))
 		});
 

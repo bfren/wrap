@@ -11,10 +11,10 @@ public class TryFailure_Tests
 		public void Our_Var_Is_Default()
 		{
 			// Arrange
-			var wrapped = R.Wrap(Rnd.Guid);
+			var wrapped = R.Wrap(Rnd.Guid).Unsafe();
 
 			// Act
-			_ = wrapped.Unsafe().TryFailure(out var result);
+			_ = wrapped.TryFailure(out var result);
 
 			// Assert
 			Assert.Equal(default, result);
@@ -25,10 +25,10 @@ public class TryFailure_Tests
 		{
 			// Arrange
 			var value = Rnd.Guid;
-			var wrapped = R.Wrap(value);
+			var wrapped = R.Wrap(value).Unsafe();
 
 			// Act
-			var result = wrapped.Unsafe().TryFailure(out var _);
+			var result = wrapped.TryFailure(out var _);
 
 			// Assert
 			Assert.False(result);
@@ -42,10 +42,10 @@ public class TryFailure_Tests
 		{
 			// Arrange
 			var value = new FailureValue(Rnd.Str);
-			var failure = FailGen.Create<int>(value);
+			var failure = FailGen.Create<int>(value).Unsafe();
 
 			// Act
-			_ = failure.Unsafe().TryFailure(out var result);
+			_ = failure.TryFailure(out var result);
 
 			// Assert
 			Assert.Equal(value, result);
@@ -55,10 +55,10 @@ public class TryFailure_Tests
 		public void Returns_False()
 		{
 			// Arrange
-			var failure = FailGen.Create<int>();
+			var failure = FailGen.Create<int>().Unsafe();
 
 			// Act
-			var result = failure.Unsafe().TryFailure(out var _);
+			var result = failure.TryFailure(out var _);
 
 			// Assert
 			Assert.True(result);

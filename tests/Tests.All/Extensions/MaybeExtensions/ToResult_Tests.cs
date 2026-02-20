@@ -101,7 +101,7 @@ public class ToResult_Tests
 				// Arrange
 				Maybe<string> maybe = M.None;
 				var handler = Substitute.For<Func<Result<string>>>();
-				var ex = new Exception("Test exception");
+				var ex = new Exception(Rnd.Str);
 				handler.Invoke().Returns(x => throw ex);
 
 				// Act

@@ -168,7 +168,7 @@ public class GetOrCreate_Tests
 	{
 		// Arrange
 		var key = Rnd.Str;
-		var ex = new Exception();
+		var ex = new Exception(Rnd.Str);
 		long f0() => throw ex;
 		Maybe<long> f1() => throw ex;
 		var mc = Substitute.For<IMemoryCache>();

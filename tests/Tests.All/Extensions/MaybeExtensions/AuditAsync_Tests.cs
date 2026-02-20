@@ -498,7 +498,7 @@ public class AuditAsync_Tests
 				var r1 = await input.AsTask().AuditAsync(either);
 
 				// Assert
-				await either.Received(2).Invoke(Arg.Is<Maybe<string>>(x => x.IsNone));
+				await either.Received(2).Invoke(input);
 				r0.AssertNone();
 				r1.AssertNone();
 			}
@@ -514,7 +514,7 @@ public class AuditAsync_Tests
 				_ = await input.AsTask().AuditAsync(either);
 
 				// Assert
-				either.Received().Invoke(Arg.Is<Maybe<string>>(x => x.IsNone));
+				either.Received().Invoke(input);
 			}
 
 			[Fact]

@@ -3,7 +3,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Wrap.Exceptions;
 
 namespace Wrap.Extensions;
 
@@ -21,7 +20,7 @@ public static partial class ResultExtensions
 		@this.Bind(x => fTest(x) switch
 		{
 			false =>
-				R.Fail<TestFalseException>(),
+				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(Filter)),
 
 			true =>
 				R.Wrap(x)
@@ -32,7 +31,7 @@ public static partial class ResultExtensions
 		@this.BindAsync(async x => await fTest(x) switch
 		{
 			false =>
-				R.Fail<TestFalseException>(),
+				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(FilterAsync)),
 
 			true =>
 				R.Wrap(x)
@@ -43,7 +42,7 @@ public static partial class ResultExtensions
 		@this.BindAsync(x => fTest(x) switch
 		{
 			false =>
-				R.Fail<TestFalseException>(),
+				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(FilterAsync)),
 
 			true =>
 				R.Wrap(x)
@@ -54,7 +53,7 @@ public static partial class ResultExtensions
 		@this.BindAsync(async x => await fTest(x) switch
 		{
 			false =>
-				R.Fail<TestFalseException>(),
+				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(FilterAsync)),
 
 			true =>
 				R.Wrap(x)

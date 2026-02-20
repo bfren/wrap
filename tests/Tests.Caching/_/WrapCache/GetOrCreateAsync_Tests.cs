@@ -15,7 +15,7 @@ public class GetOrCreateAsync_Tests
 		var cache = new WrapCache<string>(mc);
 
 		// Act
-		var result = await cache.GetOrCreateAsync(null!, () => Task.FromResult(Rnd.DateTime));
+		var result = await cache.GetOrCreateAsync(null!, async () => Rnd.DateTime);
 
 		// Assert
 		result.AssertNone();
@@ -40,10 +40,10 @@ public class GetOrCreateAsync_Tests
 			});
 
 		// Act
-		var r0 = await c0.GetOrCreateAsync(key, () => Task.FromResult(Rnd.DateTime));
-		var r1 = await c1.GetOrCreateAsync(key, () => Task.FromResult(M.Wrap(Rnd.DateTime)));
-		var r2 = await c2.GetOrCreateAsync(key, () => Task.FromResult(Rnd.DateTime), new());
-		var r3 = await c3.GetOrCreateAsync(key, () => Task.FromResult(M.Wrap(Rnd.DateTime)), new());
+		var r0 = await c0.GetOrCreateAsync(key, async () => Rnd.DateTime);
+		var r1 = await c1.GetOrCreateAsync(key, async () => M.Wrap(Rnd.DateTime));
+		var r2 = await c2.GetOrCreateAsync(key, async () => Rnd.DateTime, new());
+		var r3 = await c3.GetOrCreateAsync(key, async () => M.Wrap(Rnd.DateTime), new());
 
 		// Assert
 		r0.AssertNone();
@@ -83,10 +83,10 @@ public class GetOrCreateAsync_Tests
 			});
 
 		// Act
-		var r0 = await cache.GetOrCreateAsync(key, () => Task.FromResult(Rnd.DateTime));
-		var r1 = await cache.GetOrCreateAsync(key, () => Task.FromResult(M.Wrap(Rnd.DateTime)));
-		var r2 = await cache.GetOrCreateAsync(key, () => Task.FromResult(Rnd.DateTime), new());
-		var r3 = await cache.GetOrCreateAsync(key, () => Task.FromResult(M.Wrap(Rnd.DateTime)), new());
+		var r0 = await cache.GetOrCreateAsync(key, async () => Rnd.DateTime);
+		var r1 = await cache.GetOrCreateAsync(key, async () => M.Wrap(Rnd.DateTime));
+		var r2 = await cache.GetOrCreateAsync(key, async () => Rnd.DateTime, new());
+		var r3 = await cache.GetOrCreateAsync(key, async () => M.Wrap(Rnd.DateTime), new());
 
 		// Assert
 		r0.AssertNone();
@@ -111,10 +111,10 @@ public class GetOrCreateAsync_Tests
 		var cache = new WrapCache<string>(mc);
 
 		// Act
-		var r0 = await cache.GetOrCreateAsync(key, () => Task.FromResult(Rnd.Lng));
-		var r1 = await cache.GetOrCreateAsync(key, () => Task.FromResult(M.Wrap(Rnd.Lng)));
-		var r2 = await cache.GetOrCreateAsync(key, () => Task.FromResult(Rnd.Lng), new());
-		var r3 = await cache.GetOrCreateAsync(key, () => Task.FromResult(M.Wrap(Rnd.Lng)), new());
+		var r0 = await cache.GetOrCreateAsync(key, async () => Rnd.Lng);
+		var r1 = await cache.GetOrCreateAsync(key, async () => M.Wrap(Rnd.Lng));
+		var r2 = await cache.GetOrCreateAsync(key, async () => Rnd.Lng, new());
+		var r3 = await cache.GetOrCreateAsync(key, async () => M.Wrap(Rnd.Lng), new());
 
 		// Assert
 		r0.AssertSome(value);
@@ -164,7 +164,7 @@ public class GetOrCreateAsync_Tests
 	{
 		// Arrange
 		var key = Rnd.Str;
-		var ex = new Exception();
+		var ex = new Exception(Rnd.Str);
 		Task<long> f0() => throw ex;
 		Task<Maybe<long>> f1() => throw ex;
 		var mc = Substitute.For<IMemoryCache>();
@@ -238,11 +238,11 @@ public class GetOrCreateAsync_Tests
 		var semaphore = new SemaphoreSlim(1, 1);
 
 		// Act
-		var r0 = await cache.GetOrCreateAsync(key, () => Task.FromResult(v0), new() { AbsoluteExpirationRelativeToNow = TimeSpan.FromMilliseconds(ms) });
-		var r1 = await cache.GetOrCreateAsync(key, () => Task.FromResult(v1));
+		var r0 = await cache.GetOrCreateAsync(key, async () => v0, new() { AbsoluteExpirationRelativeToNow = TimeSpan.FromMilliseconds(ms) });
+		var r1 = await cache.GetOrCreateAsync(key, async () => v1);
 		await semaphore.WaitAsync(TestContext.Current.CancellationToken);
 		Thread.Sleep(TimeSpan.FromMilliseconds(ms * 2));
-		var r2 = await cache.GetOrCreateAsync(key, () => Task.FromResult(v1));
+		var r2 = await cache.GetOrCreateAsync(key, async () => v1);
 		semaphore.Release();
 
 		// Assert

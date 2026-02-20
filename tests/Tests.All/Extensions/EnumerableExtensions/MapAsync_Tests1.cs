@@ -15,9 +15,9 @@ public partial class MapAsync_Tests
 			var map = Substitute.For<Func<string, int>>();
 
 			// Act
-			_ = await list.MapAsync(x => Task.FromResult(map(x)));
+			_ = await list.MapAsync(async x => map(x));
 			_ = await Task.FromResult(list).MapAsync(map);
-			_ = await Task.FromResult(list).MapAsync(x => Task.FromResult(map(x)));
+			_ = await Task.FromResult(list).MapAsync(async x => map(x));
 
 			// Assert
 			map.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -31,9 +31,9 @@ public partial class MapAsync_Tests
 			var map = Substitute.For<Func<string, int>>();
 
 			// Act
-			var r0 = await list.MapAsync(x => Task.FromResult(map(x)));
+			var r0 = await list.MapAsync(async x => map(x));
 			var r1 = await Task.FromResult(list).MapAsync(map);
-			var r2 = await Task.FromResult(list).MapAsync(x => Task.FromResult(map(x)));
+			var r2 = await Task.FromResult(list).MapAsync(async x => map(x));
 
 			// Assert
 			Map_Tests.AssertFailures([.. list], r0);
@@ -57,9 +57,9 @@ public partial class MapAsync_Tests
 				static string map(string x) => x.ToLower(F.DefaultCulture);
 
 				// Act
-				var r0 = await list.MapAsync(x => Task.FromResult(map(x)));
+				var r0 = await list.MapAsync(async x => map(x));
 				var r1 = await Task.FromResult(list).MapAsync(map);
-				var r2 = await Task.FromResult(list).MapAsync(x => Task.FromResult(map(x)));
+				var r2 = await Task.FromResult(list).MapAsync(async x => map(x));
 
 				// Assert
 				Assert.Collection(r0,

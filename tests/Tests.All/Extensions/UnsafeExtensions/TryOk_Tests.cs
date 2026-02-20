@@ -12,10 +12,10 @@ public class TryOk_Tests
 		{
 			// Arrange
 			var value = Rnd.Guid;
-			var wrapped = R.Wrap(value);
+			var wrapped = R.Wrap(value).Unsafe();
 
 			// Act
-			_ = wrapped.Unsafe().TryOk(out var result);
+			_ = wrapped.TryOk(out var result);
 
 			// Assert
 			Assert.Equal(value, result);
@@ -26,10 +26,10 @@ public class TryOk_Tests
 		{
 			// Arrange
 			var value = Rnd.Guid;
-			var wrapped = R.Wrap(value);
+			var wrapped = R.Wrap(value).Unsafe();
 
 			// Act
-			var result = wrapped.Unsafe().TryOk(out var _);
+			var result = wrapped.TryOk(out var _);
 
 			// Assert
 			Assert.True(result);
@@ -42,10 +42,10 @@ public class TryOk_Tests
 		public void Out_Var_Is_Default()
 		{
 			// Arrange
-			var failure = FailGen.Create<int>();
+			var failure = FailGen.Create<int>().Unsafe();
 
 			// Act
-			_ = failure.Unsafe().TryOk(out var result);
+			_ = failure.TryOk(out var result);
 
 			// Assert
 			Assert.Equal(default, result);
@@ -55,10 +55,10 @@ public class TryOk_Tests
 		public void Returns_False()
 		{
 			// Arrange
-			var failure = FailGen.Create<int>();
+			var failure = FailGen.Create<int>().Unsafe();
 
 			// Act
-			var result = failure.Unsafe().TryOk(out var _);
+			var result = failure.TryOk(out var _);
 
 			// Assert
 			Assert.False(result);

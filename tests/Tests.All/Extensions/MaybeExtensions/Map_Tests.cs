@@ -5,10 +5,10 @@ namespace Wrap.Extensions.MaybeExtensions_Tests;
 
 public class Map_Tests
 {
-	private static Func<string, int> Setup(int returnValue)
+	private static Func<string, int> Setup(int value)
 	{
 		var f = Substitute.For<Func<string, int>>();
-		f.Invoke(Arg.Any<string>()).Returns(returnValue);
+		f.Invoke(Arg.Any<string>()).Returns(value);
 		return f;
 	}
 
