@@ -1,4 +1,4 @@
-// Wrap: Test Apps.
+// Wrap: Test Apps
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Diagnostics;
