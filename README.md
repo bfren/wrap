@@ -1,11 +1,13 @@
-# Wrap Monads (C#)
+# Wrap: Functional Monads for .NET
 
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/bfren/wrap?include_prereleases&label=Release) [![Nuget](https://img.shields.io/nuget/dt/Wrap?label=Downloads)](https://www.nuget.org/packages/wrap/) [![GitHub](https://img.shields.io/github/license/bfren/wrap?label=Licence)](https://mit.bfren.dev/2019)<br/>[![Test](https://github.com/bfren/wrap/actions/workflows/test.yml/badge.svg)](https://github.com/bfren/wrap/actions/workflows/test.yml) [![Publish](https://github.com/bfren/wrap/actions/workflows/publish.yml/badge.svg)](https://github.com/bfren/wrap/actions/workflows/publish.yml) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/6194f797b6ff44d68d3ea6624d0a36aa)](https://app.codacy.com/gh/bfren/wrap/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-Various monads (including Maybe - see [here](https://en.wikipedia.org/wiki/Monad_(functional_programming)#An_example:_Maybe)) for C# - to handle null values and exceptions better - including Linq support, chaining, and asynchronous programming.  Includes:
+Functional monads for .NET (including Maybe - see [example](https://en.wikipedia.org/wiki/Monad_(functional_programming)#An_example:_Maybe)) for C# - to handle null values and exceptions better.  Railway-oriented programming support via Linq extensions, method chaining, and fuly asynchronous throughout.
 
-- `Either<TLeft, TRight>`
+Types include:
+
 - `Monad<T>`
+- `Either<TLeft, TRight>`
 - `Id<T>` (support for `int`, `uint`, `long`, `ulong` and `Guid` value types)
 - `Maybe<T>` (either: `Some<T>` or `None`)
 - `Result<T>` (either: `Ok<T>` or `Failure`)

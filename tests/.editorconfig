@@ -1,6 +1,6 @@
 [*.{cs,csx,cake,vb,vbx}]
 
-file_header_template = Wrap: Unit Tests.\nCopyright (c) bfren - licensed under https://mit.bfren.dev/2019
+file_header_template = Wrap: Unit Tests\nCopyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 # CA1000: Do not declare static members on generic types
 dotnet_diagnostic.CA1000.severity = none
