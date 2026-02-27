@@ -30,53 +30,23 @@ public static partial class F
 	/// <returns>Formatted string.</returns>
 	public static string Format<T>(string formatString, T source, string? replaceIfNullOrEmpty)
 	{
-		// Return if format string is null or empty
-		if (string.IsNullOrWhiteSpace(formatString))
+		// Check arguments before proceeding
+		if (Check(formatString, source, replaceIfNullOrEmpty) is string earlyReturn)
 		{
-			return replaceIfNullOrEmpty ?? string.Empty;
+			return earlyReturn;
 		}
 
-		// Return if source is null or an empty array
-		if (source is null)
-		{
-			return replaceIfNullOrEmpty ?? formatString;
-		}
-		else if (source is Array arr)
-		{
-			if (arr.Length == 0)
-			{
-				return replaceIfNullOrEmpty ?? formatString;
-			}
-
-			// Attempt to use string.Format
-			try
-			{
-				return string.Format(DefaultCulture, formatString, [.. arr]);
-			}
-			catch (Exception)
-			{
-				// do nothing
-			}
-		}
-
-		// Thanks James Newton-King!
+		// Initialise variables before regex replace loop
 		var regex = TemplateMatcherRegex();
-
 		var values = new List<object>();
 		var replaceIndex = 0; // keeps track of replace loop so we can match named template values with an array source
 		var numberedTemplates = true;
 		var flags = BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
 		var rewrittenFormat = regex.Replace(formatString, (m) =>
 		{
-			var startGroup = m.Groups["start"];
-			var templateGroup = m.Groups["template"];
-			var formatGroup = m.Groups["format"];
-			var endGroup = m.Groups["end"];
-
 			// This is the value inside the braces, e.g. "0" in "{0}" or "A" in "{A}"
-			// Remove any @ symbols from the start - used by Serilog to denote an object format
-			// but breaks the following
-			var template = templateGroup.Value.TrimStart('@');
+			// Remove any @ symbols from the start - used by Serilog to denote an object format but breaks the following
+			var template = m.Groups["template"].Value.TrimStart('@');
 			var templateIsNumber = int.TryParse(template, out var templateNumber);
 			numberedTemplates = numberedTemplates && templateIsNumber;
 
@@ -107,16 +77,61 @@ public static partial class F
 			values.Add(value);
 
 			// Recreate format using zero-based string
-			return new string('{', startGroup.Captures.Count)
+			return new string('{', m.Groups["start"].Captures.Count)
 				+ (values.Count - 1)
-				+ formatGroup.Value
-				+ new string('}', endGroup.Captures.Count);
+				+ m.Groups["format"].Value
+				+ new string('}', m.Groups["end"].Captures.Count);
 		});
 
 		// Format string with ordered values
 		return string.Format(DefaultCulture, rewrittenFormat, [.. values]);
 	}
 
+	/// <summary>
+	/// Check inputs before attempting to apply complex string format.
+	/// </summary>
+	/// <typeparam name="T">Source type.</typeparam>
+	/// <param name="formatString">String to format.</param>
+	/// <param name="source">Source object to use for template values.</param>
+	/// <param name="replaceIfNullOrEmpty">Returned if <paramref name="formatString"/> or <paramref name="source"/> are null / empty.</param>
+	/// <returns>Early return value if checks fail, or string.Format succeeds (much faster!).</returns>
+	internal static string? Check<T>(string formatString, T source, string? replaceIfNullOrEmpty)
+	{
+		// Return if format string is null or empty
+		if (string.IsNullOrWhiteSpace(formatString))
+		{
+			return replaceIfNullOrEmpty ?? string.Empty;
+		}
+
+		// Return if source is null or an empty array
+		if (source is null)
+		{
+			return replaceIfNullOrEmpty ?? formatString;
+		}
+		else if (source is Array arr)
+		{
+			if (arr.Length == 0)
+			{
+				return replaceIfNullOrEmpty ?? formatString;
+			}
+
+			// Attempt to use string.Format
+			try
+			{
+				return string.Format(DefaultCulture, formatString, [.. arr]);
+			}
+			catch (Exception)
+			{
+				// Do nothing - null return will cause Format function to continue
+			}
+		}
+
+		return null;
+	}
+
+	/// <summary>
+	/// Thanks James Newton-King!
+	/// </summary>
 	[GeneratedRegex("(?<start>\\{)+(?<template>[\\w\\.\\[\\]@]+)(?<format>:[^}]+)?(?<end>\\})+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
 	private static partial Regex TemplateMatcherRegex();
 }
