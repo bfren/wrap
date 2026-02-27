@@ -31,67 +31,169 @@ public static partial class R
 	/// <exception cref="NullResultException"></exception>
 	public static void Match<T>(Result<T> result, Action<FailureValue> fFail, Action<T> fOk)
 	{
-		Action f = result switch
+		switch (result)
 		{
-			Result<T>.FailureImpl x =>
-				() => fFail(x.Value),
+			case Result<T>.FailureImpl f:
+				fFail(f.Value);
+				return;
 
-			Ok<T> y =>
-				() => fOk(y.Value),
+			case Ok<T> x:
+				fOk(x.Value);
+				return;
 
-			{ } m =>
-				throw new InvalidResultTypeException(m.GetType()),
+			case { } m:
+				throw new InvalidResultTypeException(m.GetType());
 
-			_ =>
-				throw new NullResultException()
-		};
-
-		f();
+			default:
+				throw new NullResultException();
+		}
 	}
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
-	public static Task MatchAsync<T>(Result<T> result, Action<FailureValue> fFail, Func<T, Task> fOk) =>
-		MatchAsync(Task.FromResult(result), async x => fFail(x), fOk);
+	public static async Task MatchAsync<T>(Result<T> result, Action<FailureValue> fFail, Func<T, Task> fOk)
+	{
+		switch (result)
+		{
+			case Result<T>.FailureImpl f:
+				fFail(f.Value);
+				return;
+
+			case Ok<T> x:
+				await fOk(x.Value);
+				return;
+
+			case { } m:
+				throw new InvalidResultTypeException(m.GetType());
+
+			default:
+				throw new NullResultException();
+		}
+	}
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
-	public static Task MatchAsync<T>(Result<T> result, Func<FailureValue, Task> fFail, Action<T> fOk) =>
-		MatchAsync(Task.FromResult(result), fFail, async x => fOk(x));
+	public static async Task MatchAsync<T>(Result<T> result, Func<FailureValue, Task> fFail, Action<T> fOk)
+	{
+		switch (result)
+		{
+			case Result<T>.FailureImpl f:
+				await fFail(f.Value);
+				return;
+
+			case Ok<T> x:
+				fOk(x.Value);
+				return;
+
+			case { } m:
+				throw new InvalidResultTypeException(m.GetType());
+
+			default:
+				throw new NullResultException();
+		}
+	}
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
-	public static Task MatchAsync<T>(Result<T> result, Func<FailureValue, Task> fFail, Func<T, Task> fOk) =>
-		MatchAsync(Task.FromResult(result), fFail, fOk);
+	public static async Task MatchAsync<T>(Result<T> result, Func<FailureValue, Task> fFail, Func<T, Task> fOk)
+	{
+		switch (result)
+		{
+			case Result<T>.FailureImpl f:
+				await fFail(f.Value);
+				return;
+
+			case Ok<T> x:
+				await fOk(x.Value);
+				return;
+
+			case { } m:
+				throw new InvalidResultTypeException(m.GetType());
+
+			default:
+				throw new NullResultException();
+		}
+	}
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
-	public static Task MatchAsync<T>(Task<Result<T>> result, Action<FailureValue> fFail, Action<T> fOk) =>
-		MatchAsync(result, async f => fFail(f), async x => fOk(x));
+	public static async Task MatchAsync<T>(Task<Result<T>> result, Action<FailureValue> fFail, Action<T> fOk)
+	{
+		switch (await result)
+		{
+			case Result<T>.FailureImpl f:
+				fFail(f.Value);
+				return;
+
+			case Ok<T> x:
+				fOk(x.Value);
+				return;
+
+			case { } m:
+				throw new InvalidResultTypeException(m.GetType());
+
+			default:
+				throw new NullResultException();
+		}
+	}
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
-	public static Task MatchAsync<T>(Task<Result<T>> result, Func<FailureValue, Task> fFail, Action<T> fOk) =>
-		MatchAsync(result, fFail, async x => fOk(x));
+	public static async Task MatchAsync<T>(Task<Result<T>> result, Func<FailureValue, Task> fFail, Action<T> fOk)
+	{
+		switch (await result)
+		{
+			case Result<T>.FailureImpl f:
+				await fFail(f.Value);
+				return;
+
+			case Ok<T> x:
+				fOk(x.Value);
+				return;
+
+			case { } m:
+				throw new InvalidResultTypeException(m.GetType());
+
+			default:
+				throw new NullResultException();
+		}
+	}
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
-	public static Task MatchAsync<T>(Task<Result<T>> result, Action<FailureValue> fFail, Func<T, Task> fOk) =>
-		MatchAsync(result, async f => fFail(f), fOk);
+	public static async Task MatchAsync<T>(Task<Result<T>> result, Action<FailureValue> fFail, Func<T, Task> fOk)
+	{
+		switch (await result)
+		{
+			case Result<T>.FailureImpl f:
+				fFail(f.Value);
+				return;
+
+			case Ok<T> x:
+				await fOk(x.Value);
+				return;
+
+			case { } m:
+				throw new InvalidResultTypeException(m.GetType());
+
+			default:
+				throw new NullResultException();
+		}
+	}
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
 	public static async Task MatchAsync<T>(Task<Result<T>> result, Func<FailureValue, Task> fFail, Func<T, Task> fOk)
 	{
-		Func<Task> f = await result switch
+		switch (await result)
 		{
-			Result<T>.FailureImpl x =>
-				() => fFail(x.Value),
+			case Result<T>.FailureImpl f:
+				await fFail(f.Value);
+				return;
 
-			Ok<T> y =>
-				() => fOk(y.Value),
+			case Ok<T> x:
+				await fOk(x.Value);
+				return;
 
-			{ } r =>
-				throw new InvalidResultTypeException(r.GetType()),
+			case { } m:
+				throw new InvalidResultTypeException(m.GetType());
 
-			_ =>
-				throw new NullResultException()
-		};
-
-		await f();
+			default:
+				throw new NullResultException();
+		}
 	}
 
 	#endregion
@@ -135,32 +237,123 @@ public static partial class R
 		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<FailureValue, TReturn> fFail, Func<T, Task<TReturn>> fOk) =>
-		MatchAsync(Task.FromResult(result), async x => fFail(x), fOk);
+	public static async Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<FailureValue, TReturn> fFail, Func<T, Task<TReturn>> fOk) =>
+		result switch
+		{
+			Result<T>.FailureImpl x =>
+				fFail(x.Value),
+
+			Ok<T> y =>
+				await fOk(y.Value),
+
+			{ } r =>
+				throw new InvalidResultTypeException(r.GetType()),
+
+			_ =>
+				throw new NullResultException()
+		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<FailureValue, Task<TReturn>> fFail, Func<T, TReturn> fOk) =>
-		MatchAsync(Task.FromResult(result), fFail, async x => fOk(x));
+	public static async Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<FailureValue, Task<TReturn>> fFail, Func<T, TReturn> fOk) =>
+		result switch
+		{
+			Result<T>.FailureImpl x =>
+				await fFail(x.Value),
+
+			Ok<T> y =>
+				fOk(y.Value),
+
+			{ } r =>
+				throw new InvalidResultTypeException(r.GetType()),
+
+			_ =>
+				throw new NullResultException()
+		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<FailureValue, Task<TReturn>> fFail, Func<T, Task<TReturn>> fOk) =>
-		MatchAsync(Task.FromResult(result), fFail, fOk);
+	public static async Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<FailureValue, Task<TReturn>> fFail, Func<T, Task<TReturn>> fOk) =>
+		result switch
+		{
+			Result<T>.FailureImpl x =>
+				await fFail(x.Value),
+
+			Ok<T> y =>
+				await fOk(y.Value),
+
+			{ } r =>
+				throw new InvalidResultTypeException(r.GetType()),
+
+			_ =>
+				throw new NullResultException()
+		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<FailureValue, TReturn> fFail, Func<T, TReturn> fOk) =>
-		MatchAsync(result, async x => fFail(x), async x => fOk(x));
+	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<FailureValue, TReturn> fFail, Func<T, TReturn> fOk) =>
+		await result switch
+		{
+			Result<T>.FailureImpl x =>
+				fFail(x.Value),
+
+			Ok<T> y =>
+				fOk(y.Value),
+
+			{ } r =>
+				throw new InvalidResultTypeException(r.GetType()),
+
+			_ =>
+				throw new NullResultException()
+		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<FailureValue, TReturn> fFail, Func<T, Task<TReturn>> fOk) =>
-		MatchAsync(result, async x => fFail(x), fOk);
+	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<FailureValue, TReturn> fFail, Func<T, Task<TReturn>> fOk) =>
+		await result switch
+		{
+			Result<T>.FailureImpl x =>
+				fFail(x.Value),
+
+			Ok<T> y =>
+				await fOk(y.Value),
+
+			{ } r =>
+				throw new InvalidResultTypeException(r.GetType()),
+
+			_ =>
+				throw new NullResultException()
+		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<FailureValue, Task<TReturn>> fFail, Func<T, TReturn> fOk) =>
-		MatchAsync(result, fFail, async x => fOk(x));
+	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<FailureValue, Task<TReturn>> fFail, Func<T, TReturn> fOk) =>
+		await result switch
+		{
+			Result<T>.FailureImpl x =>
+				await fFail(x.Value),
+
+			Ok<T> y =>
+				fOk(y.Value),
+
+			{ } r =>
+				throw new InvalidResultTypeException(r.GetType()),
+
+			_ =>
+				throw new NullResultException()
+		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<FailureValue, Task<TReturn>> fFail, Func<T, Task<TReturn>> fOk) =>
-		await Match(await result, fFail, fOk);
+		await result switch
+		{
+			Result<T>.FailureImpl x =>
+				await fFail(x.Value),
+
+			Ok<T> y =>
+				await fOk(y.Value),
+
+			{ } r =>
+				throw new InvalidResultTypeException(r.GetType()),
+
+			_ =>
+				throw new NullResultException()
+		};
 
 	#endregion
 }

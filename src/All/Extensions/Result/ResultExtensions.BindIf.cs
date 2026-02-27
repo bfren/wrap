@@ -22,13 +22,13 @@ public static partial class ResultExtensions
 
 	/// <inheritdoc cref="BindIf{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
 	public static Task<Result<TReturn>> BindIfAsync<T, TReturn>(this Result<T> @this, Func<T, bool> fTest, Func<T, Task<Result<TReturn>>> f) =>
-		BindIfAsync(@this.AsTask(), fTest, f);
+		IfAsync(@this, fTest, f, _ => R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(BindIfAsync)));
 
 	/// <inheritdoc cref="BindIf{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
 	public static Task<Result<TReturn>> BindIfAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Result<TReturn>> f) =>
-		BindIfAsync(@this, fTest, async x => f(x));
+		IfAsync(@this, fTest, f, _ => R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(BindIfAsync)));
 
 	/// <inheritdoc cref="BindIf{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}})"/>
 	public static Task<Result<TReturn>> BindIfAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Task<Result<TReturn>>> f) =>
-		IfAsync(@this, fTest, f, async _ => R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(BindIfAsync)));
+		IfAsync(@this, fTest, f, _ => R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(BindIfAsync)));
 }

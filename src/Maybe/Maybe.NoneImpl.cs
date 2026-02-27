@@ -1,10 +1,24 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System.Threading.Tasks;
+
 namespace Wrap;
 
 public abstract partial record class Maybe<T>
 {
+	/// <summary>
+	/// Cache NoneImpl value.
+	/// </summary>
+	internal static readonly NoneImpl None =
+		new();
+
+	/// <summary>
+	/// Cache None task.
+	/// </summary>
+	internal static readonly Task<Maybe<T>> NoneAsTask =
+		None.AsTask();
+
 	/// <summary>
 	/// Generic None class (see <seealso cref="None"/>) that can be returned as a <see cref="Maybe{T}"/> object.
 	/// </summary>

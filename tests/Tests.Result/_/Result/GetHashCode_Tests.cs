@@ -1,8 +1,6 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using Wrap.Exceptions;
-
 namespace Wrap.Result_Tests;
 
 public class GetHashCode_Tests
@@ -91,16 +89,16 @@ public class GetHashCode_Tests
 	public class Invalid_Type
 	{
 		[Fact]
-		public void Throws_InvalidResultTypeException()
+		public void Returns_Zero()
 		{
 			// Arrange
 			var maybe = new InvalidResult<DateTime>();
 
 			// Act
-			var result = Record.Exception(() => maybe.GetHashCode());
+			var result = maybe.GetHashCode();
 
 			// Assert
-			_ = Assert.IsType<InvalidResultTypeException>(result);
+			Assert.Equal(0, result);
 		}
 	}
 }

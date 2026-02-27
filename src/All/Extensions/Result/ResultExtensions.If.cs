@@ -31,23 +31,93 @@ public static partial class ResultExtensions
 		);
 
 	/// <inheritdoc cref="If{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}}, Func{T, Result{TReturn}})"/>
+	public static Task<Result<TReturn>> IfAsync<T, TReturn>(this Result<T> @this, Func<T, bool> fTest, Func<T, Task<Result<TReturn>>> fTrue, Func<T, Result<TReturn>> fFalse) =>
+		BindAsync(@this,
+			async x => fTest(x) switch
+			{
+				false =>
+					fFalse(x),
+
+				true =>
+					await fTrue(x)
+			}
+		);
+
+	/// <inheritdoc cref="If{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}}, Func{T, Result{TReturn}})"/>
+	public static Task<Result<TReturn>> IfAsync<T, TReturn>(this Result<T> @this, Func<T, bool> fTest, Func<T, Result<TReturn>> fTrue, Func<T, Task<Result<TReturn>>> fFalse) =>
+		BindAsync(@this,
+			async x => fTest(x) switch
+			{
+				false =>
+					await fFalse(x),
+
+				true =>
+					fTrue(x)
+			}
+		);
+
+	/// <inheritdoc cref="If{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}}, Func{T, Result{TReturn}})"/>
 	public static Task<Result<TReturn>> IfAsync<T, TReturn>(this Result<T> @this, Func<T, bool> fTest, Func<T, Task<Result<TReturn>>> fTrue, Func<T, Task<Result<TReturn>>> fFalse) =>
-		IfAsync(@this.AsTask(), fTest, fTrue, fFalse);
+		BindAsync(@this,
+			async x => fTest(x) switch
+			{
+				false =>
+					await fFalse(x),
+
+				true =>
+					await fTrue(x)
+			}
+		);
 
 	/// <inheritdoc cref="If{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}}, Func{T, Result{TReturn}})"/>
 	public static Task<Result<TReturn>> IfAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Result<TReturn>> fTrue, Func<T, Result<TReturn>> fFalse) =>
-		IfAsync(@this, fTest, async x => fTrue(x), async x => fFalse(x));
-
-	/// <inheritdoc cref="If{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}}, Func{T, Result{TReturn}})"/>
-	public static Task<Result<TReturn>> IfAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Task<Result<TReturn>>> fTrue, Func<T, Task<Result<TReturn>>> fFalse) =>
 		BindAsync(@this,
-			x => fTest(x) switch
+			async x => fTest(x) switch
 			{
 				false =>
 					fFalse(x),
 
 				true =>
 					fTrue(x)
+			}
+		);
+
+	/// <inheritdoc cref="If{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}}, Func{T, Result{TReturn}})"/>
+	public static Task<Result<TReturn>> IfAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Task<Result<TReturn>>> fTrue, Func<T, Result<TReturn>> fFalse) =>
+		BindAsync(@this,
+			async x => fTest(x) switch
+			{
+				false =>
+					fFalse(x),
+
+				true =>
+					await fTrue(x)
+			}
+		);
+
+	/// <inheritdoc cref="If{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}}, Func{T, Result{TReturn}})"/>
+	public static Task<Result<TReturn>> IfAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Result<TReturn>> fTrue, Func<T, Task<Result<TReturn>>> fFalse) =>
+		BindAsync(@this,
+			async x => fTest(x) switch
+			{
+				false =>
+					await fFalse(x),
+
+				true =>
+					fTrue(x)
+			}
+		);
+
+	/// <inheritdoc cref="If{T, TReturn}(Result{T}, Func{T, bool}, Func{T, Result{TReturn}}, Func{T, Result{TReturn}})"/>
+	public static Task<Result<TReturn>> IfAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Task<Result<TReturn>>> fTrue, Func<T, Task<Result<TReturn>>> fFalse) =>
+		BindAsync(@this,
+			async x => fTest(x) switch
+			{
+				false =>
+					await fFalse(x),
+
+				true =>
+					await fTrue(x)
 			}
 		);
 
@@ -66,15 +136,15 @@ public static partial class ResultExtensions
 
 	/// <inheritdoc cref="If{T}(Result{T}, Func{T, bool}, Func{T, Result{T}})"/>
 	public static Task<Result<T>> IfAsync<T>(this Result<T> @this, Func<T, bool> fTest, Func<T, Task<Result<T>>> fThen) =>
-		IfAsync(@this.AsTask(), fTest, fThen, async x => x);
+		IfAsync(@this, fTest, fThen, x => x);
 
 	/// <inheritdoc cref="If{T}(Result{T}, Func{T, bool}, Func{T, Result{T}})"/>
 	public static Task<Result<T>> IfAsync<T>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Result<T>> fThen) =>
-		IfAsync(@this, fTest, async x => fThen(x), async x => x);
+		IfAsync(@this, fTest, fThen, x => x);
 
 	/// <inheritdoc cref="If{T}(Result{T}, Func{T, bool}, Func{T, Result{T}})"/>
 	public static Task<Result<T>> IfAsync<T>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Task<Result<T>>> fThen) =>
-		IfAsync(@this, fTest, fThen, async x => x);
+		IfAsync(@this, fTest, fThen, x => x);
 
 	#endregion
 
@@ -93,15 +163,15 @@ public static partial class ResultExtensions
 
 	/// <inheritdoc cref="IfNot{T}(Result{T}, Func{T, bool}, Func{T, Result{T}})"/>
 	public static Task<Result<T>> IfNotAsync<T>(this Result<T> @this, Func<T, bool> fTest, Func<T, Task<Result<T>>> fThen) =>
-		IfAsync(@this.AsTask(), fTest, async x => x, fThen);
+		IfAsync(@this, fTest, x => x, fThen);
 
 	/// <inheritdoc cref="IfNot{T}(Result{T}, Func{T, bool}, Func{T, Result{T}})"/>
 	public static Task<Result<T>> IfNotAsync<T>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Result<T>> fThen) =>
-		IfAsync(@this, fTest, async x => x, async x => fThen(x));
+		IfAsync(@this, fTest, x => x, fThen);
 
 	/// <inheritdoc cref="IfNot{T}(Result{T}, Func{T, bool}, Func{T, Result{T}})"/>
 	public static Task<Result<T>> IfNotAsync<T>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Task<Result<T>>> fThen) =>
-		IfAsync(@this, fTest, async x => x, fThen);
+		IfAsync(@this, fTest, x => x, fThen);
 
 	#endregion
 }

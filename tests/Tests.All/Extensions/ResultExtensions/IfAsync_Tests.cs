@@ -26,13 +26,21 @@ public class IfAsync_Tests
 
 			// Act
 			var r0 = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
-			var r1 = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-			var r2 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
+			var r1 = await input.IfAsync(fTest, async x => fTrue(x), fFalse);
+			var r2 = await input.IfAsync(fTest, fTrue, async x => fFalse(x));
+			var r3 = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
+			var r4 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), fFalse);
+			var r5 = await input.AsTask().IfAsync(fTest, fTrue, async x => fFalse(x));
+			var r6 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 			// Assert
 			r0.AssertFailure(value);
 			r1.AssertFailure(value);
 			r2.AssertFailure(value);
+			r3.AssertFailure(value);
+			r4.AssertFailure(value);
+			r5.AssertFailure(value);
+			r6.AssertFailure(value);
 		}
 	}
 
@@ -51,13 +59,21 @@ public class IfAsync_Tests
 
 				// Act
 				var r0 = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
-				var r1 = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-				var r2 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
+				var r1 = await input.IfAsync(fTest, async x => fTrue(x), fFalse);
+				var r2 = await input.IfAsync(fTest, fTrue, async x => fFalse(x));
+				var r3 = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
+				var r4 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), fFalse);
+				var r5 = await input.AsTask().IfAsync(fTest, fTrue, async x => fFalse(x));
+				var r6 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 				// Assert
 				r0.AssertOk(value);
 				r1.AssertOk(value);
 				r2.AssertOk(value);
+				r3.AssertOk(value);
+				r4.AssertOk(value);
+				r5.AssertOk(value);
+				r6.AssertOk(value);
 			}
 		}
 
@@ -74,13 +90,21 @@ public class IfAsync_Tests
 
 				// Act
 				var r0 = await input.IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
-				var r1 = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
-				var r2 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
+				var r1 = await input.IfAsync(fTest, async x => fTrue(x), fFalse);
+				var r2 = await input.IfAsync(fTest, fTrue, async x => fFalse(x));
+				var r3 = await input.AsTask().IfAsync(fTest, fTrue, fFalse);
+				var r4 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), fFalse);
+				var r5 = await input.AsTask().IfAsync(fTest, fTrue, async x => fFalse(x));
+				var r6 = await input.AsTask().IfAsync(fTest, async x => fTrue(x), async x => fFalse(x));
 
 				// Assert
 				r0.AssertOk(value);
 				r1.AssertOk(value);
 				r2.AssertOk(value);
+				r3.AssertOk(value);
+				r4.AssertOk(value);
+				r5.AssertOk(value);
+				r6.AssertOk(value);
 			}
 		}
 	}
@@ -98,12 +122,13 @@ public class IfAsync_Tests
 				var input = R.Wrap(value);
 				var fTest = Substitute.For<Func<int, bool>>();
 				fTest.Invoke(Arg.Any<int>()).Returns(false);
-				var fThen = Substitute.For<Func<int, Task<Result<int>>>>();
+				var fThen = Substitute.For<Func<int, Result<int>>>();
+				var fThenAsync = Substitute.For<Func<int, Task<Result<int>>>>();
 
 				// Act
-				var r0 = await input.IfAsync(fTest, fThen);
-				var r1 = await input.AsTask().IfAsync(fTest, x => fThen(x));
-				var r2 = await input.AsTask().IfAsync(fTest, fThen);
+				var r0 = await input.IfAsync(fTest, fThenAsync);
+				var r1 = await input.AsTask().IfAsync(fTest, fThen);
+				var r2 = await input.AsTask().IfAsync(fTest, fThenAsync);
 
 				// Assert
 				r0.AssertOk(value);
@@ -122,13 +147,15 @@ public class IfAsync_Tests
 				var input = R.Wrap(Rnd.Int);
 				var fTest = Substitute.For<Func<int, bool>>();
 				fTest.Invoke(Arg.Any<int>()).Returns(true);
-				var fThen = Substitute.For<Func<int, Task<Result<int>>>>();
-				fThen.Invoke(Arg.Any<int>()).Returns(Task.FromResult<Result<int>>(value));
+				var fThen = Substitute.For<Func<int, Result<int>>>();
+				fThen.Invoke(Arg.Any<int>()).Returns(value);
+				var fThenAsync = Substitute.For<Func<int, Task<Result<int>>>>();
+				fThenAsync.Invoke(Arg.Any<int>()).Returns(Task.FromResult<Result<int>>(value));
 
 				// Act
-				var r0 = await input.IfAsync(fTest, fThen);
-				var r1 = await input.AsTask().IfAsync(fTest, x => fThen(x));
-				var r2 = await input.AsTask().IfAsync(fTest, fThen);
+				var r0 = await input.IfAsync(fTest, fThenAsync);
+				var r1 = await input.AsTask().IfAsync(fTest, fThen);
+				var r2 = await input.AsTask().IfAsync(fTest, fThenAsync);
 
 				// Assert
 				r0.AssertOk(value);

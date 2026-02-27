@@ -21,10 +21,7 @@ public abstract partial record class Result<T>
 
 	/// <inheritdoc/>
 	public override int GetHashCode() =>
-		R.Match(this,
-			fFail: f => f.GetHashCode(),
-			fOk: x => x.GetHashCode()
-		);
+		this is Ok<T> s ? s.Value?.GetHashCode() ?? 0 : 0;
 
 	/// <summary>
 	/// Compare a Result type with a value type.
@@ -34,10 +31,7 @@ public abstract partial record class Result<T>
 	/// <param name="r">Value.</param>
 	/// <returns>True if <paramref name="l"/> is <see cref="Ok{T}"/> and its value equals <paramref name="r"/>.</returns>
 	public static bool operator ==(Result<T> l, T r) =>
-		R.Match(l,
-			fFail: _ => false,
-			fOk: x => Equals(x, r)
-		);
+		l is Ok<T> s && Equals(s.Value, r);
 
 	/// <summary>
 	/// Compare a Result type with a value type.
@@ -47,10 +41,7 @@ public abstract partial record class Result<T>
 	/// <param name="r">Value.</param>
 	/// <returns>True if <paramref name="l"/> is <see cref="Ok{T}"/> and its value does not equal <paramref name="r"/>.</returns>
 	public static bool operator !=(Result<T> l, T r) =>
-		R.Match(l,
-			fFail: _ => true,
-			fOk: x => !Equals(x, r)
-		);
+		!(l is Ok<T> s && Equals(s.Value, r));
 
 	/// <summary>
 	/// Compare a Result type with a value type.
@@ -60,10 +51,7 @@ public abstract partial record class Result<T>
 	/// <param name="r">Result.</param>
 	/// <returns>True if <paramref name="r"/> is <see cref="Ok{T}"/> and its value equals <paramref name="l"/>.</returns>
 	public static bool operator ==(T l, Result<T> r) =>
-		R.Match(r,
-			fFail: _ => false,
-			fOk: x => Equals(x, l)
-		);
+		r is Ok<T> s && Equals(s.Value, l);
 
 	/// <summary>
 	/// Compare a Result type with a value type.
@@ -73,8 +61,5 @@ public abstract partial record class Result<T>
 	/// <param name="r">Result.</param>
 	/// <returns>True if <paramref name="r"/> is <see cref="Ok{T}"/> and its value does not equal <paramref name="l"/>.</returns>
 	public static bool operator !=(T l, Result<T> r) =>
-		R.Match(r,
-			fFail: _ => true,
-			fOk: x => !Equals(x, l)
-		);
+		!(r is Ok<T> s && Equals(s.Value, l));
 }

@@ -35,16 +35,19 @@ public static partial class ResultExtensions
 		where T : IEnumerable =>
 		Bind(@this, x => x switch
 		{
-			IEnumerable<TSingle> list when list.Count() == 1 =>
-				R.Wrap(list.Single()),
+			IEnumerable<TSingle> y => y.ToArray() switch
+			{
+				{ Length: 1 } z =>
+					R.Wrap(z[0]),
 
-			IEnumerable<TSingle> list when !list.Any() =>
-				onError?.Invoke(C.GetSingle.EmptyList) ?? R.Fail(C.GetSingle.EmptyList)
-					.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
+				{ Length: 0 } =>
+					onError?.Invoke(C.GetSingle.EmptyList) ?? R.Fail(C.GetSingle.EmptyList)
+						.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
 
-			IEnumerable<TSingle> =>
-				onError?.Invoke(C.GetSingle.MultipleValues) ?? R.Fail(C.GetSingle.MultipleValues)
-					.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
+				_ =>
+					onError?.Invoke(C.GetSingle.MultipleValues) ?? R.Fail(C.GetSingle.MultipleValues)
+						.Ctx(nameof(ResultExtensions), nameof(GetSingle))
+			},
 
 			IEnumerable =>
 				onError?.Invoke(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name) ?? R.Fail(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name)

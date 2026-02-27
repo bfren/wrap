@@ -21,10 +21,7 @@ public abstract partial record class Maybe<T>
 
 	/// <inheritdoc/>
 	public override int GetHashCode() =>
-		M.Match(this,
-			fNone: M.None.GetHashCode,
-			fSome: x => x.GetHashCode()
-		);
+		this is Some<T> s ? s.Value?.GetHashCode() ?? 0 : 0;
 
 	/// <summary>
 	/// Compare a Maybe type with a value type.
@@ -34,10 +31,7 @@ public abstract partial record class Maybe<T>
 	/// <param name="r">Value.</param>
 	/// <returns>True if <paramref name="l"/> is <see cref="Some{T}"/> and its value equals <paramref name="r"/>.</returns>
 	public static bool operator ==(Maybe<T> l, T r) =>
-		M.Match(l,
-			fNone: () => false,
-			fSome: x => Equals(x, r)
-		);
+		l is Some<T> s && Equals(s.Value, r);
 
 	/// <summary>
 	/// Compare a Maybe type with a value type.
@@ -47,10 +41,7 @@ public abstract partial record class Maybe<T>
 	/// <param name="r">Value.</param>
 	/// <returns>True if <paramref name="l"/> is <see cref="Some{T}"/> and its value does not equal <paramref name="r"/>.</returns>
 	public static bool operator !=(Maybe<T> l, T r) =>
-		M.Match(l,
-			fNone: () => true,
-			fSome: x => !Equals(x, r)
-		);
+		!(l is Some<T> s && Equals(s.Value, r));
 
 	/// <summary>
 	/// Compare a Maybe type with a value type.
@@ -60,10 +51,7 @@ public abstract partial record class Maybe<T>
 	/// <param name="r">Maybe.</param>
 	/// <returns>True if <paramref name="r"/> is <see cref="Some{T}"/> and its value equals <paramref name="l"/>.</returns>
 	public static bool operator ==(T l, Maybe<T> r) =>
-		M.Match(r,
-			fNone: () => false,
-			fSome: x => Equals(x, l)
-		);
+		r is Some<T> s && Equals(s.Value, l);
 
 	/// <summary>
 	/// Compare a Maybe type with a value type.
@@ -73,8 +61,5 @@ public abstract partial record class Maybe<T>
 	/// <param name="r">Maybe.</param>
 	/// <returns>True if <paramref name="r"/> is <see cref="Some{T}"/> and its value does not equal <paramref name="l"/>.</returns>
 	public static bool operator !=(T l, Maybe<T> r) =>
-		M.Match(r,
-			fNone: () => true,
-			fSome: x => !Equals(x, l)
-		);
+		!(r is Some<T> s && Equals(s.Value, l));
 }

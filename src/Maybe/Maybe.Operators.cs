@@ -13,11 +13,11 @@ public abstract partial record class Maybe<T>
 		M.Wrap(value);
 
 	/// <summary>
-	/// Implicitly convert a <see cref="None"/> into a <see cref="Maybe{T}.NoneImpl"/> object.
+	/// Implicitly convert a <see cref="Wrap.None"/> into a <see cref="Maybe{T}.NoneImpl"/> object.
 	/// </summary>
 	/// <param name="_">None value (discarded).</param>
 	public static implicit operator Maybe<T>(None _) =>
-		new NoneImpl();
+		None;
 
 	/// <summary>
 	/// Implicitly convert a <see cref="Monad{T}"/> into a <see cref="Maybe{T}"/> object.
