@@ -30,12 +30,28 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Maybe{T}}, Action{T})"/>
-	public static Task IterateAsync<T>(this IEnumerable<Maybe<T>> @this, Func<T, Task> f) =>
-		IterateAsync(Task.FromResult(@this), f);
+	public static async Task IterateAsync<T>(this IEnumerable<Maybe<T>> @this, Func<T, Task> f)
+	{
+		foreach (var item in @this)
+		{
+			foreach (var value in item)
+			{
+				await f(value);
+			}
+		}
+	}
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Maybe{T}}, Action{T})"/>
-	public static Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Action<T> f) =>
-		IterateAsync(@this, async x => f(x));
+	public static async Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Action<T> f)
+	{
+		foreach (var item in await @this)
+		{
+			foreach (var value in item)
+			{
+				f(value);
+			}
+		}
+	}
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Maybe{T}}, Action{T})"/>
 	public static async Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task> f)
@@ -72,12 +88,28 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Result{T}}, Action{T})"/>
-	public static Task IterateAsync<T>(this IEnumerable<Result<T>> @this, Func<T, Task> f) =>
-		IterateAsync(Task.FromResult(@this), f);
+	public static async Task IterateAsync<T>(this IEnumerable<Result<T>> @this, Func<T, Task> f)
+	{
+		foreach (var item in @this)
+		{
+			foreach (var value in item.Unsafe())
+			{
+				await f(value);
+			}
+		}
+	}
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Result{T}}, Action{T})"/>
-	public static Task IterateAsync<T>(this Task<IEnumerable<Result<T>>> @this, Action<T> f) =>
-		IterateAsync(@this, async x => f(x));
+	public static async Task IterateAsync<T>(this Task<IEnumerable<Result<T>>> @this, Action<T> f)
+	{
+		foreach (var item in await @this)
+		{
+			foreach (var value in item.Unsafe())
+			{
+				f(value);
+			}
+		}
+	}
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Result{T}}, Action{T})"/>
 	public static async Task IterateAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task> f)
