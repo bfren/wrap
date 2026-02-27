@@ -1,8 +1,6 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using Wrap.Exceptions;
-
 namespace Wrap.Maybe_Tests;
 
 public class Equals_Tests
@@ -269,23 +267,23 @@ public class Equals_Tests
 		public class With_Value
 		{
 			[Fact]
-			public void Throws_InvalidMaybeTypeException()
+			public void Returns_False()
 			{
 				// Arrange
 				var value = Rnd.Str;
 				var wrapped = new InvalidMaybe<string>();
 
 				// Act
-				var r0 = Record.Exception(() => value == wrapped);
-				var r1 = Record.Exception(() => wrapped == value);
-				var r2 = Record.Exception(() => value != wrapped);
-				var r3 = Record.Exception(() => wrapped != value);
+				var r0 = value == wrapped;
+				var r1 = wrapped == value;
+				var r2 = value != wrapped;
+				var r3 = wrapped != value;
 
 				// Assert
-				_ = Assert.IsType<InvalidMaybeTypeException>(r0);
-				_ = Assert.IsType<InvalidMaybeTypeException>(r1);
-				_ = Assert.IsType<InvalidMaybeTypeException>(r2);
-				_ = Assert.IsType<InvalidMaybeTypeException>(r3);
+				Assert.False(r0);
+				Assert.False(r1);
+				Assert.True(r2);
+				Assert.True(r3);
 			}
 		}
 
