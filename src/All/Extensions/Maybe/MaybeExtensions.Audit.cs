@@ -75,8 +75,26 @@ public static partial class MaybeExtensions
 		AuditAsync(@this, null, fSome);
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static Task<Maybe<T>> AuditAsync<T>(this Maybe<T> @this, Func<Task>? fNone, Func<T, Task>? fSome) =>
-		AuditAsync(@this.AsTask(), fNone, fSome);
+	public static async Task<Maybe<T>> AuditAsync<T>(this Maybe<T> @this, Func<Task>? fNone, Func<T, Task>? fSome)
+	{
+		try
+		{
+			if (@this is Maybe<T>.NoneImpl && fNone is not null)
+			{
+				await fNone();
+			}
+			else if (@this is Some<T> x && fSome is not null)
+			{
+				await fSome(x.Value);
+			}
+		}
+		catch (Exception ex)
+		{
+			F.LogException?.Invoke(ex);
+		}
+
+		return @this;
+	}
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
 	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action fNone) =>
@@ -87,8 +105,28 @@ public static partial class MaybeExtensions
 		AuditAsync(@this, null, fSome);
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action? fNone, Action<T>? fSome) =>
-		AuditAsync(@this, async () => fNone?.Invoke(), async x => fSome?.Invoke(x));
+	public static async Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action? fNone, Action<T>? fSome)
+	{
+		var maybe = await @this;
+
+		try
+		{
+			if (maybe is Maybe<T>.NoneImpl && fNone is not null)
+			{
+				fNone();
+			}
+			else if (maybe is Some<T> x && fSome is not null)
+			{
+				fSome(x.Value);
+			}
+		}
+		catch (Exception ex)
+		{
+			F.LogException?.Invoke(ex);
+		}
+
+		return maybe;
+	}
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
 	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Task> fNone) =>
@@ -101,15 +139,15 @@ public static partial class MaybeExtensions
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
 	public static async Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Task>? fNone, Func<T, Task>? fSome)
 	{
-		var result = await @this;
+		var maybe = await @this;
 
 		try
 		{
-			if (result is Maybe<T>.NoneImpl && fNone is not null)
+			if (maybe is Maybe<T>.NoneImpl && fNone is not null)
 			{
 				await fNone();
 			}
-			else if (result is Some<T> x && fSome is not null)
+			else if (maybe is Some<T> x && fSome is not null)
 			{
 				await fSome(x.Value);
 			}
@@ -119,31 +157,55 @@ public static partial class MaybeExtensions
 			F.LogException?.Invoke(ex);
 		}
 
-		return result;
+		return maybe;
 	}
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action{Maybe{T}})"/>
-	public static Task<Maybe<T>> AuditAsync<T>(this Maybe<T> @this, Func<Maybe<T>, Task> either) =>
-		AuditAsync(@this.AsTask(), either);
-
-	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action{Maybe{T}})"/>
-	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action<Maybe<T>> either) =>
-		AuditAsync(@this, either: async x => either(x));
-
-	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action{Maybe{T}})"/>
-	public static async Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Maybe<T>, Task> either)
+	public static async Task<Maybe<T>> AuditAsync<T>(this Maybe<T> @this, Func<Maybe<T>, Task> either)
 	{
-		var result = await @this;
-
 		try
 		{
-			await either(result);
+			await either(@this);
 		}
 		catch (Exception ex)
 		{
 			F.LogException?.Invoke(ex);
 		}
 
-		return result;
+		return @this;
+	}
+
+	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action{Maybe{T}})"/>
+	public static async Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action<Maybe<T>> either)
+	{
+		var maybe = await @this;
+
+		try
+		{
+			either(maybe);
+		}
+		catch (Exception ex)
+		{
+			F.LogException?.Invoke(ex);
+		}
+
+		return maybe;
+	}
+
+	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action{Maybe{T}})"/>
+	public static async Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Maybe<T>, Task> either)
+	{
+		var maybe = await @this;
+
+		try
+		{
+			await either(maybe);
+		}
+		catch (Exception ex)
+		{
+			F.LogException?.Invoke(ex);
+		}
+
+		return maybe;
 	}
 }

@@ -20,11 +20,11 @@ public static partial class MaybeExtensions
 
 	/// <inheritdoc cref="IfNone{T}(Maybe{T}, Action)"/>
 	public static Task<Maybe<T>> IfNoneAsync<T>(this Maybe<T> @this, Func<Task> f) =>
-		IfNoneAsync(@this.AsTask(), f);
+		@this.AuditAsync(fNone: f);
 
 	/// <inheritdoc cref="IfNone{T}(Maybe{T}, Action)"/>
 	public static Task<Maybe<T>> IfNoneAsync<T>(this Task<Maybe<T>> @this, Action f) =>
-		IfNoneAsync(@this, async () => f());
+		@this.AuditAsync(fNone: f);
 
 	/// <inheritdoc cref="IfNone{T}(Maybe{T}, Action)"/>
 	public static Task<Maybe<T>> IfNoneAsync<T>(this Task<Maybe<T>> @this, Func<Task> f) =>
