@@ -38,7 +38,7 @@ public static partial class F
 
 		// Initialise variables before regex replace loop
 		var regex = TemplateMatcherRegex();
-		var values = new List<object>();
+		var values = new List<object>(regex.Count(formatString));
 		var replaceIndex = 0; // keeps track of replace loop so we can match named template values with an array source
 		var numberedTemplates = true;
 		var flags = BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
@@ -51,7 +51,7 @@ public static partial class F
 			numberedTemplates = numberedTemplates && templateIsNumber;
 
 			// Switch on the source type, using variety of methods to get this template's value
-			var value = source switch
+			values.Add(source switch
 			{
 				// Source array - get specific item in array for numbered template
 				Array arr when numberedTemplates && templateNumber < arr.Length && arr.GetValue(templateNumber) is object val =>
@@ -62,7 +62,7 @@ public static partial class F
 					val,
 
 				// Source array - get next item in array for named template
-				Array arr when !numberedTemplates && replaceIndex < arr.Length && arr.GetValue(replaceIndex++) is object val =>
+				Array arr when !numberedTemplates && replaceIndex < arr.Length && arr.GetValue(replaceIndex) is object val =>
 					val,
 
 				// Source object - get matching property value for named template
@@ -72,9 +72,7 @@ public static partial class F
 				// Nothing matches so put placeholder back
 				_ =>
 					$"{{{template}}}"
-			};
-
-			values.Add(value);
+			});
 
 			// Recreate format using zero-based string
 			return new string('{', m.Groups["start"].Captures.Count)
