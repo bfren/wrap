@@ -22,13 +22,13 @@ public static partial class ResultExtensions
 
 	/// <inheritdoc cref="MapIf{T, TReturn}(Result{T}, Func{T, bool}, Func{T, TReturn})"/>
 	public static Task<Result<TReturn>> MapIfAsync<T, TReturn>(this Result<T> @this, Func<T, bool> fTest, Func<T, Task<TReturn>> f) =>
-		MapIfAsync(@this.AsTask(), fTest, f);
+		IfAsync(@this, fTest, async x => R.Wrap(await f(x)), _ => R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(MapIfAsync)));
 
 	/// <inheritdoc cref="MapIf{T, TReturn}(Result{T}, Func{T, bool}, Func{T, TReturn})"/>
 	public static Task<Result<TReturn>> MapIfAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, TReturn> f) =>
-		MapIfAsync(@this, fTest, async x => f(x));
+		IfAsync(@this, fTest, x => R.Wrap(f(x)), _ => R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(MapIfAsync)));
 
 	/// <inheritdoc cref="MapIf{T, TReturn}(Result{T}, Func{T, bool}, Func{T, TReturn})"/>
 	public static Task<Result<TReturn>> MapIfAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, bool> fTest, Func<T, Task<TReturn>> f) =>
-		IfAsync(@this, fTest, x => R.TryAsync(async () => await f(x)), async _ => R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(MapIfAsync)));
+		IfAsync(@this, fTest, async x => R.Wrap(await f(x)), _ => R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(MapIfAsync)));
 }
