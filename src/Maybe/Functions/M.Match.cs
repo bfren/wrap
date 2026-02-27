@@ -31,22 +31,22 @@ public static partial class M
 	/// <exception cref="NullMaybeException"></exception>
 	public static void Match<T>(Maybe<T> maybe, Action fNone, Action<T> fSome)
 	{
-		var f = maybe switch
+		switch (maybe)
 		{
-			Maybe<T>.NoneImpl =>
-				fNone,
+			case Maybe<T>.NoneImpl:
+				fNone();
+				return;
 
-			Some<T> x =>
-				() => fSome(x.Value),
+			case Some<T> x:
+				fSome(x.Value);
+				return;
 
-			{ } m =>
-				throw new InvalidMaybeTypeException(m.GetType()),
+			case { } m:
+				throw new InvalidMaybeTypeException(m.GetType());
 
-			_ =>
-				throw new NullMaybeException()
-		};
-
-		f();
+			default:
+				throw new NullMaybeException();
+		}
 	}
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>

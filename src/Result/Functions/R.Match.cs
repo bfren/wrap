@@ -31,22 +31,22 @@ public static partial class R
 	/// <exception cref="NullResultException"></exception>
 	public static void Match<T>(Result<T> result, Action<FailureValue> fFail, Action<T> fOk)
 	{
-		Action f = result switch
+		switch (result)
 		{
-			Result<T>.FailureImpl x =>
-				() => fFail(x.Value),
+			case Result<T>.FailureImpl f:
+				fFail(f.Value);
+				return;
 
-			Ok<T> y =>
-				() => fOk(y.Value),
+			case Ok<T> x:
+				fOk(x.Value);
+				return;
 
-			{ } m =>
-				throw new InvalidResultTypeException(m.GetType()),
+			case { } m:
+				throw new InvalidResultTypeException(m.GetType());
 
-			_ =>
-				throw new NullResultException()
-		};
-
-		f();
+			default:
+				throw new NullResultException();
+		}
 	}
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
