@@ -22,13 +22,13 @@ public static partial class MaybeExtensions
 
 	/// <inheritdoc cref="BindIf{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
 	public static Task<Maybe<TReturn>> BindIfAsync<T, TReturn>(this Maybe<T> @this, Func<T, bool> fTest, Func<T, Task<Maybe<TReturn>>> f) =>
-		BindIfAsync(@this.AsTask(), fTest, f);
+		IfAsync(@this, fTest, f, _ => M.None);
 
 	/// <inheritdoc cref="BindIf{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
 	public static Task<Maybe<TReturn>> BindIfAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, bool> fTest, Func<T, Maybe<TReturn>> f) =>
-		BindIfAsync(@this, fTest, async x => f(x));
+		IfAsync(@this, fTest, f, _ => M.None);
 
 	/// <inheritdoc cref="BindIf{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
 	public static Task<Maybe<TReturn>> BindIfAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, bool> fTest, Func<T, Task<Maybe<TReturn>>> f) =>
-		IfAsync(@this, fTest, f, async _ => M.None);
+		IfAsync(@this, fTest, f, _ => M.None);
 }
