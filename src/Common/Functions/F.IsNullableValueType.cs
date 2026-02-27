@@ -14,12 +14,11 @@ public static partial class F
 	/// <param name="_">The object is unneeded.</param>
 	/// <returns>True if <typeparamref name="T"/> is a nullable value type.</returns>
 	public static bool IsNullableValueType<T>(T _) =>
-		typeof(T) switch
-		{
-			Type t when t.IsValueType && Nullable.GetUnderlyingType(t) is not null =>
-				true,
+		NullableHelper<T>.IsNullable;
 
-			_ =>
-				false
-		};
+	private static class NullableHelper<T>
+	{
+		public static readonly bool IsNullable =
+			typeof(T).IsValueType && Nullable.GetUnderlyingType(typeof(T)) is not null;
+	}
 }
