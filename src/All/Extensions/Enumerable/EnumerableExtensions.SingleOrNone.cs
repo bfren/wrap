@@ -1,7 +1,6 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,13 +17,16 @@ public static partial class EnumerableExtensions
 	/// Value of the single element of <paramref name="this"/>, or <see cref="None"/> if the list is empty
 	/// or contains more than one element.
 	/// </returns>
-	public static Maybe<T> SingleOrNone<T>(this IEnumerable<T> @this) =>
-		@this.Count() switch
+	public static Maybe<T> SingleOrNone<T>(this IEnumerable<T> @this)
+	{
+		var a = @this.ToArray();
+		return (a.Length == 1) switch
 		{
-			1 =>
-				@this.Single(),
+			true =>
+				a[0],
 
-			_ =>
+			false =>
 				M.None
 		};
+	}
 }

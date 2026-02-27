@@ -15,13 +15,16 @@ public static partial class EnumerableExtensions
 	/// <param name="this">IEnumerable object.</param>
 	/// <param name="index">Index of value to return.</param>
 	/// <returns>Value of the element at position <paramref name="index"/> of <paramref name="this"/>, or <see cref="None"/>.</returns>
-	public static Maybe<T> ElementAtOrNone<T>(this IEnumerable<T> @this, int index) =>
-		(@this.Count() > index) switch
+	public static Maybe<T> ElementAtOrNone<T>(this IEnumerable<T> @this, int index)
+	{
+		var a = @this.ToArray();
+		return (index < a.Length) switch
 		{
 			true =>
-				@this.ElementAt(index),
+				a[index],
 
 			false =>
 				M.None
 		};
+	}
 }
