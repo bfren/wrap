@@ -108,8 +108,47 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 		GetOrCreate(key, () => M.Wrap(valueFactory()), opt);
 
 	/// <inheritdoc/>
-	public Maybe<TValue> GetOrCreate<TValue>(TKey key, Func<Maybe<TValue>> valueFactory) =>
-		GetOrCreate(key, valueFactory, new());
+	public Maybe<TValue> GetOrCreate<TValue>(TKey key, Func<Maybe<TValue>> valueFactory)
+	{
+		// Check whether or not the value already exists
+		var value = GetValue<TValue>(key);
+		if (value.IsSome)
+		{
+			return value;
+		}
+
+		// If there was an error, return None
+		if (LastFailure.IsSome)
+		{
+			return M.None;
+		}
+
+		// Lock all threads
+		CacheLock.Wait();
+		try
+		{
+			return valueFactory()
+				.IfNone(
+					() => LastFailure = R.Fail("Value factory returned null or None.")
+						.Ctx(nameof(WrapCache), nameof(GetOrCreate))
+				)
+				.Map(
+					x => Cache.GetOrCreate(key, e => { _ = e.SetValue(x!); return x; })!
+				);
+		}
+		catch (Exception ex)
+		{
+			// Return none on failure
+			LastFailure = R.Fail(ex).Msg("Error creating cache value.")
+				.Ctx(nameof(WrapCache), nameof(GetOrCreate));
+			return M.None;
+		}
+		finally
+		{
+			// Release other threads
+			_ = CacheLock.Release();
+		}
+	}
 
 	/// <inheritdoc/>
 	public Maybe<TValue> GetOrCreate<TValue>(TKey key, Func<Maybe<TValue>> valueFactory, MemoryCacheEntryOptions opt) =>
