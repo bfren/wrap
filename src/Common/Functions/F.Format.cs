@@ -62,7 +62,7 @@ public static partial class F
 					val,
 
 				// Source array - get next item in array for named template
-				Array arr when !numberedTemplates && replaceIndex < arr.Length && arr.GetValue(replaceIndex) is object val =>
+				Array arr when !numberedTemplates && replaceIndex < arr.Length && arr.GetValue(replaceIndex++) is object val =>
 					val,
 
 				// Source object - get matching property value for named template
