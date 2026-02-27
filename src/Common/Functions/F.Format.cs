@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -10,6 +11,9 @@ namespace Wrap;
 
 public static partial class F
 {
+	internal static ConcurrentDictionary<Type, Dictionary<string, PropertyInfo>> TypeInfoCache =
+		new();
+
 	/// <inheritdoc cref="Format{T}(string, T, string?)"/>
 	public static string Format<T>(string formatString, T source) =>
 		Format(formatString, source, null);
@@ -41,7 +45,6 @@ public static partial class F
 		var values = new List<object>(regex.Count(formatString));
 		var replaceIndex = 0; // keeps track of replace loop so we can match named template values with an array source
 		var numberedTemplates = true;
-		var flags = BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
 		var rewrittenFormat = regex.Replace(formatString, (m) =>
 		{
 			// This is the value inside the braces, e.g. "0" in "{0}" or "A" in "{A}"
@@ -66,7 +69,7 @@ public static partial class F
 					val,
 
 				// Source object - get matching property value for named template
-				{ } obj when !numberedTemplates && typeof(T).GetProperty(template, flags)?.GetValue(obj) is object val =>
+				{ } obj when !numberedTemplates && PropertyCache<T>.GetProperty(template)?.GetValue(obj) is object val =>
 					val,
 
 				// Nothing matches so put placeholder back
@@ -132,4 +135,13 @@ public static partial class F
 	/// </summary>
 	[GeneratedRegex("(?<start>\\{)+(?<template>[\\w\\.\\[\\]@]+)(?<format>:[^}]+)?(?<end>\\})+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
 	private static partial Regex TemplateMatcherRegex();
+
+	private static class PropertyCache<T>
+	{
+		private static readonly ConcurrentDictionary<string, PropertyInfo?> Cache = new();
+		private static readonly BindingFlags Flags = BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
+
+		internal static PropertyInfo? GetProperty(string name) =>
+			Cache.GetOrAdd(name, static n => typeof(T).GetProperty(n, Flags));
+	}
 }

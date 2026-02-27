@@ -108,7 +108,12 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 		GetOrCreate(key, () => M.Wrap(valueFactory()), opt);
 
 	/// <inheritdoc/>
-	public Maybe<TValue> GetOrCreate<TValue>(TKey key, Func<Maybe<TValue>> valueFactory)
+	public Maybe<TValue> GetOrCreate<TValue>(TKey key, Func<Maybe<TValue>> valueFactory) =>
+		GetOrCreate(key, valueFactory, new());
+
+
+	/// <inheritdoc/>
+	public Maybe<TValue> GetOrCreate<TValue>(TKey key, Func<Maybe<TValue>> valueFactory, MemoryCacheEntryOptions opt)
 	{
 		// Check whether or not the value already exists
 		var value = GetValue<TValue>(key);
@@ -133,7 +138,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 						.Ctx(nameof(WrapCache), nameof(GetOrCreate))
 				)
 				.Map(
-					x => Cache.GetOrCreate(key, e => { _ = e.SetValue(x!); return x; })!
+					x => Cache.GetOrCreate(key, e => { _ = e.SetOptions(opt).SetValue(x!); return x; })!
 				);
 		}
 		catch (Exception ex)
@@ -149,10 +154,6 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 			_ = CacheLock.Release();
 		}
 	}
-
-	/// <inheritdoc/>
-	public Maybe<TValue> GetOrCreate<TValue>(TKey key, Func<Maybe<TValue>> valueFactory, MemoryCacheEntryOptions opt) =>
-		GetOrCreateAsync(key, async () => valueFactory(), opt).Result;
 
 	/// <inheritdoc/>
 	public Task<Maybe<TValue>> GetOrCreateAsync<TValue>(TKey key, Func<Task<TValue>> valueFactory) =>

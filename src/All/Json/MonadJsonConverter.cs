@@ -60,7 +60,6 @@ public sealed class MonadJsonConverter<TMonad, TValue> : JsonConverter<TMonad>
 			return;
 		}
 
-		var json = JsonSerializer.SerializeToUtf8Bytes(value.Value, options);
-		writer.WriteRawValue(json);
+		JsonSerializer.Serialize(writer, value.Value, options);
 	}
 }

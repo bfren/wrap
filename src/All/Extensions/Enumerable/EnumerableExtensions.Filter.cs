@@ -63,12 +63,36 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
-	public static Task<List<Maybe<T>>> FilterAsync<T>(this IEnumerable<Maybe<T>> @this, Func<T, Task<bool>> fTest) =>
-		FilterAsync(Task.FromResult(@this), fTest);
+	public static async Task<List<Maybe<T>>> FilterAsync<T>(this IEnumerable<Maybe<T>> @this, Func<T, Task<bool>> fTest)
+	{
+		var list = new List<Maybe<T>>();
+
+		foreach (var item in @this)
+		{
+			foreach (var value in await item.FilterAsync(fTest))
+			{
+				list.Add(value);
+			}
+		}
+
+		return list;
+	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
-	public static Task<List<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, bool> fTest) =>
-		FilterAsync(@this, async x => fTest(x));
+	public static async Task<List<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, bool> fTest)
+	{
+		var list = new List<Maybe<T>>();
+
+		foreach (var item in await @this)
+		{
+			foreach (var value in item.Filter(fTest))
+			{
+				list.Add(value);
+			}
+		}
+
+		return list;
+	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
 	public static async Task<List<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<bool>> fTest)
@@ -109,12 +133,36 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Result{T}}, Func{T, bool})"/>
-	public static Task<List<Result<T>>> FilterAsync<T>(this IEnumerable<Result<T>> @this, Func<T, Task<bool>> fTest) =>
-		FilterAsync(Task.FromResult(@this), fTest);
+	public static async Task<List<Result<T>>> FilterAsync<T>(this IEnumerable<Result<T>> @this, Func<T, Task<bool>> fTest)
+	{
+		var list = new List<Result<T>>();
+
+		foreach (var item in @this)
+		{
+			foreach (var value in await item.FilterAsync(fTest).Unsafe())
+			{
+				list.Add(value);
+			}
+		}
+
+		return list;
+	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Result{T}}, Func{T, bool})"/>
-	public static Task<List<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, bool> fTest) =>
-		FilterAsync(@this, async x => fTest(x));
+	public static async Task<List<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, bool> fTest)
+	{
+		var list = new List<Result<T>>();
+
+		foreach (var item in await @this)
+		{
+			foreach (var value in item.Filter(fTest).Unsafe())
+			{
+				list.Add(value);
+			}
+		}
+
+		return list;
+	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Result{T}}, Func{T, bool})"/>
 	public static async Task<List<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<bool>> fTest)
