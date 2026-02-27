@@ -32,14 +32,45 @@ public static partial class MaybeExtensions
 
 	/// <inheritdoc cref="If{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}}, Func{T, Maybe{TReturn}})"/>
 	public static Task<Maybe<TReturn>> IfAsync<T, TReturn>(this Maybe<T> @this, Func<T, bool> fTest, Func<T, Task<Maybe<TReturn>>> fTrue, Func<T, Task<Maybe<TReturn>>> fFalse) =>
-		IfAsync(@this.AsTask(), fTest, fTrue, fFalse);
+		BindAsync(@this,
+			async x => fTest(x) switch
+			{
+				false =>
+					await fFalse(x),
+
+				true =>
+					await fTrue(x)
+			}
+		);
+
+	/// <inheritdoc cref="If{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}}, Func{T, Maybe{TReturn}})"/>
+	public static Task<Maybe<TReturn>> IfAsync<T, TReturn>(this Maybe<T> @this, Func<T, bool> fTest, Func<T, Task<Maybe<TReturn>>> fTrue, Func<T, Maybe<TReturn>> fFalse) =>
+		BindAsync(@this,
+			async x => fTest(x) switch
+			{
+				false =>
+					fFalse(x),
+
+				true =>
+					await fTrue(x)
+			}
+		);
+
+	/// <inheritdoc cref="If{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}}, Func{T, Maybe{TReturn}})"/>
+	public static Task<Maybe<TReturn>> IfAsync<T, TReturn>(this Maybe<T> @this, Func<T, bool> fTest, Func<T, Maybe<TReturn>> fTrue, Func<T, Task<Maybe<TReturn>>> fFalse) =>
+		BindAsync(@this,
+			async x => fTest(x) switch
+			{
+				false =>
+					await fFalse(x),
+
+				true =>
+					fTrue(x)
+			}
+		);
 
 	/// <inheritdoc cref="If{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}}, Func{T, Maybe{TReturn}})"/>
 	public static Task<Maybe<TReturn>> IfAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, bool> fTest, Func<T, Maybe<TReturn>> fTrue, Func<T, Maybe<TReturn>> fFalse) =>
-		IfAsync(@this, fTest, async x => fTrue(x), async x => fFalse(x));
-
-	/// <inheritdoc cref="If{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}}, Func{T, Maybe{TReturn}})"/>
-	public static Task<Maybe<TReturn>> IfAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, bool> fTest, Func<T, Task<Maybe<TReturn>>> fTrue, Func<T, Task<Maybe<TReturn>>> fFalse) =>
 		BindAsync(@this,
 			x => fTest(x) switch
 			{
@@ -48,6 +79,45 @@ public static partial class MaybeExtensions
 
 				true =>
 					fTrue(x)
+			}
+		);
+
+	/// <inheritdoc cref="If{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}}, Func{T, Maybe{TReturn}})"/>
+	public static Task<Maybe<TReturn>> IfAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, bool> fTest, Func<T, Task<Maybe<TReturn>>> fTrue, Func<T, Maybe<TReturn>> fFalse) =>
+		BindAsync(@this,
+			async x => fTest(x) switch
+			{
+				false =>
+					fFalse(x),
+
+				true =>
+					await fTrue(x)
+			}
+		);
+
+	/// <inheritdoc cref="If{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}}, Func{T, Maybe{TReturn}})"/>
+	public static Task<Maybe<TReturn>> IfAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, bool> fTest, Func<T, Maybe<TReturn>> fTrue, Func<T, Task<Maybe<TReturn>>> fFalse) =>
+		BindAsync(@this,
+			async x => fTest(x) switch
+			{
+				false =>
+					await fFalse(x),
+
+				true =>
+					fTrue(x)
+			}
+		);
+
+	/// <inheritdoc cref="If{T, TReturn}(Maybe{T}, Func{T, bool}, Func{T, Maybe{TReturn}}, Func{T, Maybe{TReturn}})"/>
+	public static Task<Maybe<TReturn>> IfAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, bool> fTest, Func<T, Task<Maybe<TReturn>>> fTrue, Func<T, Task<Maybe<TReturn>>> fFalse) =>
+		BindAsync(@this,
+			async x => fTest(x) switch
+			{
+				false =>
+					await fFalse(x),
+
+				true =>
+					await fTrue(x)
 			}
 		);
 
@@ -66,15 +136,15 @@ public static partial class MaybeExtensions
 
 	/// <inheritdoc cref="If{T}(Maybe{T}, Func{T, bool}, Func{T, Maybe{T}})"/>
 	public static Task<Maybe<T>> IfAsync<T>(this Maybe<T> @this, Func<T, bool> fTest, Func<T, Task<Maybe<T>>> fThen) =>
-		IfAsync(@this.AsTask(), fTest, fThen, async x => x);
+		IfAsync(@this, fTest, fThen, x => x);
 
 	/// <inheritdoc cref="If{T}(Maybe{T}, Func{T, bool}, Func{T, Maybe{T}})"/>
 	public static Task<Maybe<T>> IfAsync<T>(this Task<Maybe<T>> @this, Func<T, bool> fTest, Func<T, Maybe<T>> fThen) =>
-		IfAsync(@this, fTest, async x => fThen(x), async x => x);
+		IfAsync(@this, fTest, fThen, x => x);
 
 	/// <inheritdoc cref="If{T}(Maybe{T}, Func{T, bool}, Func{T, Maybe{T}})"/>
 	public static Task<Maybe<T>> IfAsync<T>(this Task<Maybe<T>> @this, Func<T, bool> fTest, Func<T, Task<Maybe<T>>> fThen) =>
-		IfAsync(@this, fTest, fThen, async x => x);
+		IfAsync(@this, fTest, fThen, x => x);
 
 	#endregion
 
@@ -93,15 +163,15 @@ public static partial class MaybeExtensions
 
 	/// <inheritdoc cref="IfNot{T}(Maybe{T}, Func{T, bool}, Func{T, Maybe{T}})"/>
 	public static Task<Maybe<T>> IfNotAsync<T>(this Maybe<T> @this, Func<T, bool> fTest, Func<T, Task<Maybe<T>>> fThen) =>
-		IfAsync(@this.AsTask(), fTest, async x => x, fThen);
+		IfAsync(@this, fTest, x => x, fThen);
 
 	/// <inheritdoc cref="IfNot{T}(Maybe{T}, Func{T, bool}, Func{T, Maybe{T}})"/>
 	public static Task<Maybe<T>> IfNotAsync<T>(this Task<Maybe<T>> @this, Func<T, bool> fTest, Func<T, Maybe<T>> fThen) =>
-		IfAsync(@this, fTest, async x => x, async x => fThen(x));
+		IfAsync(@this, fTest, x => x, fThen);
 
 	/// <inheritdoc cref="IfNot{T}(Maybe{T}, Func{T, bool}, Func{T, Maybe{T}})"/>
 	public static Task<Maybe<T>> IfNotAsync<T>(this Task<Maybe<T>> @this, Func<T, bool> fTest, Func<T, Task<Maybe<T>>> fThen) =>
-		IfAsync(@this, fTest, async x => x, fThen);
+		IfAsync(@this, fTest, x => x, fThen);
 
 	#endregion
 }
