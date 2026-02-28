@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Wrap.Extensions;
 
+/// <summary>
+/// Extension methods for functional monad operations.
+/// </summary>
 public static partial class EitherExtensions
 {
 	/// <inheritdoc cref="E.Match{TEither, TLeft, TRight}(TEither, Action{TLeft}, Action{TRight})"/>

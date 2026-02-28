@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace Wrap;
 
+/// <summary>
+/// Common utility functions for the Wrap library.
+/// </summary>
 public static partial class F
 {
 	internal static readonly ConcurrentDictionary<(Type type, Type genericType), Type[]> GenericTypeCache =

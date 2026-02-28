@@ -5,6 +5,9 @@ using System;
 
 namespace Wrap;
 
+/// <summary>
+/// Maybe monad utility functions.
+/// </summary>
 public static partial class M
 {
 	/// <summary>

@@ -11,6 +11,9 @@ using Wrap.Json;
 
 namespace Wrap.Mvc;
 
+/// <summary>
+/// Model binder for monad types in ASP.NET Core MVC.
+/// </summary>
 internal static class WrapModelBinderHelpers
 {
 	internal static JsonSerializerOptions Options { get; private set; }

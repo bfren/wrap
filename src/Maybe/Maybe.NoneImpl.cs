@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Wrap;
 
+/// <summary>
+/// maybe.
+/// </summary>
 public abstract partial record class Maybe<T>
 {
 	/// <summary>

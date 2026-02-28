@@ -9,6 +9,9 @@ using System.Text.RegularExpressions;
 
 namespace Wrap;
 
+/// <summary>
+/// Common utility functions for the Wrap library.
+/// </summary>
 public static partial class F
 {
 	internal static ConcurrentDictionary<Type, Dictionary<string, PropertyInfo>> TypeInfoCache =

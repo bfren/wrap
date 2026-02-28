@@ -3,6 +3,9 @@
 
 namespace Wrap.Extensions;
 
+/// <summary>
+/// Extension methods for functional monad operations.
+/// </summary>
 public static partial class MonadExtensions
 {
 	/// <summary>

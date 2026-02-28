@@ -3,6 +3,9 @@
 
 namespace Wrap;
 
+/// <summary>
+/// Represents failure.
+/// </summary>
 public readonly partial struct Failure
 {
 	/// <inheritdoc/>

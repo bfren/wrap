@@ -5,6 +5,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Wrap;
 
+/// <summary>
+/// result.
+/// </summary>
 public abstract partial record class Result<T>
 {
 	/// <summary>

@@ -3,6 +3,9 @@
 
 namespace Wrap;
 
+/// <summary>
+/// maybe.
+/// </summary>
 public abstract partial record class Maybe<T>
 {
 	/// <inheritdoc/>

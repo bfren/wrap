@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Wrap;
 
+/// <summary>
+/// Result monad utility functions.
+/// </summary>
 public static partial class R
 {
 	/// <inheritdoc cref="Try{T}(Func{T}, ExceptionHandler)"/>

@@ -7,6 +7,9 @@ using Wrap.Extensions;
 
 namespace Wrap.Linq;
 
+/// <summary>
+/// Extension methods for functional monad operations.
+/// </summary>
 public static partial class MaybeToResultExtensions
 {
 	/// <summary>

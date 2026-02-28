@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Wrap.Mvc;
 
+/// <summary>
+/// Extension methods for functional monad operations.
+/// </summary>
 public static partial class ListExtensions
 {
 	/// <summary>
