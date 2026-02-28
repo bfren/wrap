@@ -6,12 +6,12 @@ using System.Diagnostics.CodeAnalysis;
 namespace Wrap;
 
 /// <summary>
-/// result.
+/// Result monad failure implementation.
 /// </summary>
 public abstract partial record class Result<T>
 {
 	/// <summary>
-	/// Internal implementation of <see cref="Result{T}"/> to 
+	/// Internal implementation of <see cref="Result{T}"/> representing a failure state.
 	/// </summary>
 	internal sealed record class FailureImpl : Result<T>, ILeft<FailureValue, T>
 	{
