@@ -7,10 +7,6 @@ using Wrap.Exceptions;
 
 namespace Wrap;
 
-/// <summary>
-/// Result monad.
-/// </summary>
-/// <typeparam name="T">Ok value type.</typeparam>
 public abstract partial record class Result<T> : IEither<Result<T>, FailureValue, T>, IEquatable<Result<T>>
 {
 	/// <summary>

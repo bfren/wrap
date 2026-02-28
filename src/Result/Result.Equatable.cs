@@ -3,9 +3,6 @@
 
 namespace Wrap;
 
-/// <summary>
-/// result.
-/// </summary>
 public abstract partial record class Result<T>
 {
 	/// <inheritdoc/>

@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace Wrap.Extensions;
 
-/// <summary>
-/// Extension methods for functional monad operations.
-/// </summary>
 public static partial class ResultExtensions
 {
 	/// <inheritdoc cref="Map{T, TReturn}(Result{T}, Func{T, TReturn}, R.ExceptionHandler)"/>

@@ -3,9 +3,6 @@
 
 namespace Wrap;
 
-/// <summary>
-/// Either monad utility functions.
-/// </summary>
 public static partial class E
 {
 	/// <summary>

@@ -3,7 +3,4 @@
 
 namespace Wrap.Extensions;
 
-/// <summary>
-/// Extension methods for all objects.
-/// </summary>
 public static partial class ObjectExtensions { }

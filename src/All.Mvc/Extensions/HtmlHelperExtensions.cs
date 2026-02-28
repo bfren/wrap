@@ -5,7 +5,4 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Wrap.Mvc;
 
-/// <summary>
-/// <see cref="IHtmlHelper"/> extension methods
-/// </summary>
 public static partial class HtmlHelperExtensions { }

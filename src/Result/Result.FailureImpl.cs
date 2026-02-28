@@ -5,9 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Wrap;
 
-/// <summary>
-/// Result monad failure implementation.
-/// </summary>
 public abstract partial record class Result<T>
 {
 	/// <summary>

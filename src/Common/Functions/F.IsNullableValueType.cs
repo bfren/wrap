@@ -5,9 +5,6 @@ using System;
 
 namespace Wrap;
 
-/// <summary>
-/// Common utility functions for the Wrap library.
-/// </summary>
 public static partial class F
 {
 	/// <summary>

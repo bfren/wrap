@@ -3,7 +3,4 @@
 
 namespace Wrap.Extensions;
 
-/// <summary>
-/// Extension methods for <see cref="uint"/> objects.
-/// </summary>
 public static partial class UInt32Extensions { }

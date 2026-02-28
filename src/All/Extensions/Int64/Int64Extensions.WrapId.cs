@@ -5,9 +5,6 @@ using Wrap.Ids;
 
 namespace Wrap.Extensions;
 
-/// <summary>
-/// Extension methods for functional monad operations.
-/// </summary>
 public static partial class Int64Extensions
 {
 	/// <inheritdoc cref="F.Wrap{TId, TValue}(TValue)"/>

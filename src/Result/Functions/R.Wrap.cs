@@ -3,9 +3,6 @@
 
 namespace Wrap;
 
-/// <summary>
-/// Result monad utility functions.
-/// </summary>
 public static partial class R
 {
 	/// <summary>

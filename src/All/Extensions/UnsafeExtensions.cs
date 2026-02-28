@@ -3,7 +3,4 @@
 
 namespace Wrap.Extensions;
 
-/// <summary>
-/// Extension methods for <see cref="Unsafe{TEither, TLeft, TRight}"/> objects.
-/// </summary>
 public static partial class UnsafeExtensions { }

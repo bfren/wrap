@@ -7,9 +7,6 @@ using Wrap.Exceptions;
 
 namespace Wrap;
 
-/// <summary>
-/// Maybe monad utility functions.
-/// </summary>
 public static partial class M
 {
 	#region Without Return Value

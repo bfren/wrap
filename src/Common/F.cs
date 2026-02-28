@@ -6,9 +6,6 @@ using System.Globalization;
 
 namespace Wrap;
 
-/// <summary>
-/// Pure functions for interacting with Monad types.
-/// </summary>
 public static partial class F
 {
 	/// <summary>

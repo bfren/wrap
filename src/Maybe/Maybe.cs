@@ -7,10 +7,6 @@ using System.Threading.Tasks;
 
 namespace Wrap;
 
-/// <summary>
-/// Maybe monad.
-/// </summary>
-/// <typeparam name="T">Some value type.</typeparam>
 public abstract partial record class Maybe<T> : IEither<Maybe<T>, None, T>, IEquatable<Maybe<T>>
 {
 	/// <summary>

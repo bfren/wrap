@@ -3,9 +3,6 @@
 
 namespace Wrap;
 
-/// <summary>
-/// Result monad operators for implicit conversions.
-/// </summary>
 public abstract partial record class Result<T>
 {
 	/// <summary>

@@ -8,9 +8,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Wrap.Mvc;
 
-/// <summary>
-/// Extension methods for functional monad operations.
-/// </summary>
 public static partial class HtmlHelperExtensions
 {
 	/// <summary>

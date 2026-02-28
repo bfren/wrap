@@ -6,9 +6,6 @@ using Wrap.Exceptions;
 
 namespace Wrap;
 
-/// <summary>
-/// Pure functions for interacting with <see cref="Result{TOk}"/> objects.
-/// </summary>
 public static partial class R
 {
 	/// <summary>

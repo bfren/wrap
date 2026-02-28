@@ -9,9 +9,6 @@ using System.Threading.Tasks;
 
 namespace Wrap.Extensions;
 
-/// <summary>
-/// Extension methods for functional monad operations.
-/// </summary>
 public static partial class ResultExtensions
 {
 	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, R.ErrorHandler?)"/>

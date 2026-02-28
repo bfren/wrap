@@ -7,9 +7,6 @@ using Wrap.Exceptions;
 
 namespace Wrap.Extensions;
 
-/// <summary>
-/// Extension methods for functional monad operations.
-/// </summary>
 public static partial class ResultExtensions
 {
 	#region Throw Exception on Failure

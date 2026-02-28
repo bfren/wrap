@@ -5,9 +5,6 @@ using System.Globalization;
 
 namespace Wrap;
 
-/// <summary>
-/// Pure functions for interacting with <see cref="Maybe{T}"/> types.
-/// </summary>
 public static partial class M
 {
 	/// <summary>

@@ -3,7 +3,4 @@
 
 namespace Wrap.Linq;
 
-/// <summary>
-/// Extension methods enabling LINQ syntax for <see cref="Maybe{T}"/> objects.
-/// </summary>
 public static partial class MaybeToMaybeExtensions { }

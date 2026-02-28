@@ -3,9 +3,6 @@
 
 namespace Wrap.Testing;
 
-/// <summary>
-/// Extension methods for functional monad operations.
-/// </summary>
 public static partial class MaybeExtensions
 {
 	/// <summary>

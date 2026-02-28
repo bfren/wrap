@@ -3,8 +3,4 @@
 
 namespace Wrap.Linq;
 
-/// <summary>
-/// Extension methods enabling LINQ syntax for converting <see cref="Maybe{T}"/>
-/// objects to <see cref="Result{T}"/> objects.
-/// </summary>
 public static partial class MaybeToResultExtensions { }

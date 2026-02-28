@@ -3,7 +3,4 @@
 
 namespace Wrap.Extensions;
 
-/// <summary>
-/// Extension methods for <see cref="Result{T}"/> objects.
-/// </summary>
 public static partial class ResultExtensions { }

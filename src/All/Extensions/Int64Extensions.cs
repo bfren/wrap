@@ -3,7 +3,4 @@
 
 namespace Wrap.Extensions;
 
-/// <summary>
-/// Extension methods for <see cref="long"/> objects.
-/// </summary>
 public static partial class Int64Extensions { }

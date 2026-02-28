@@ -6,9 +6,6 @@ using System.Text.Json.Serialization;
 
 namespace Wrap.Json;
 
-/// <summary>
-/// Extension methods for functional monad operations.
-/// </summary>
 public static partial class ListExtensions
 {
 	/// <summary>
