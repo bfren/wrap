@@ -11,6 +11,9 @@ using Wrap.Json;
 
 namespace Wrap.Mvc;
 
+/// <summary>
+/// Helpers for <see cref="WrapModelBinder{TValue}"/>.
+/// </summary>
 internal static class WrapModelBinderHelpers
 {
 	internal static JsonSerializerOptions Options { get; private set; }

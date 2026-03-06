@@ -3,6 +3,9 @@
 
 namespace Wrap;
 
+/// <summary>
+/// Internal constants used throughout the Wrap library for error messages and validation.
+/// </summary>
 internal static class C
 {
 	internal const string NoneFailureMessage = "Maybe<{Type}> was 'None'.";
@@ -11,6 +14,9 @@ internal static class C
 
 	internal const string TestFalseMessage = "Test returned false.";
 
+	/// <summary>
+	/// Contains error messages for single element retrieval operations.
+	/// </summary>
 	internal static class GetSingle
 	{
 		internal const string EmptyList =
