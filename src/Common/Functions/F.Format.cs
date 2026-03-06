@@ -11,9 +11,6 @@ namespace Wrap;
 
 public static partial class F
 {
-	internal static ConcurrentDictionary<Type, Dictionary<string, PropertyInfo>> TypeInfoCache =
-		new();
-
 	/// <inheritdoc cref="Format{T}(string, T, string?)"/>
 	public static string Format<T>(string formatString, T source) =>
 		Format(formatString, source, null);
