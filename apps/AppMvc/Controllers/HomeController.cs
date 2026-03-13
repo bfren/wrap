@@ -40,6 +40,10 @@ public class HomeController : Controller
 	public IActionResult Error() =>
 		View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 
+	[HttpGet("/test")]
+	public IActionResult Test() =>
+		View("Monad", AppMvc.Test.Failures.UserNotFound(42));
+
 	public sealed record class TestId : LongId<TestId>;
 
 	public sealed record class Postcode : Monad<Postcode, string>;
