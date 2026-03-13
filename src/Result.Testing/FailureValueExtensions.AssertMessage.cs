@@ -17,7 +17,7 @@ public static partial class FailureValueExtensions
 		Assert.Equal(message, @this.Message);
 
 		// Assert args if provided
-		if (args is not null)
+		if (args.Length > 0)
 		{
 			Assert.Equal(args, @this.Args);
 		}
