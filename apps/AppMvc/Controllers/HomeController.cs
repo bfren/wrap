@@ -42,7 +42,7 @@ public class HomeController : Controller
 
 	[HttpGet("/test")]
 	public IActionResult Test() =>
-		View("Monad", Wrap.Test.Failures.UserNotFound(42));
+		View("Monad", AppMvc.Test.Failures.UserNotFound(42));
 
 	public sealed record class TestId : LongId<TestId>;
 
