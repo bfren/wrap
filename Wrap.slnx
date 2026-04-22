@@ -31,6 +31,7 @@
     <Project Path="src/Caching/Caching.csproj" />
     <Project Path="src/Common/Common.csproj" />
     <Project Path="src/Either/Either.csproj" />
+    <Project Path="src/Generators/Generators.csproj" Id="083eeedc-0aec-46db-8cf7-b841f6baa775" />
     <Project Path="src/Id.Dapper/Id.Dapper.csproj" />
     <Project Path="src/Id.Testing/Id.Testing.csproj" />
     <Project Path="src/Id/Id.csproj" />

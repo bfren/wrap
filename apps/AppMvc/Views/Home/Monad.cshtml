@@ -1,1 +1,4 @@
-﻿<p>Value is @Model</p>
+@using Wrap
+@model FailureValue
+<p>Value is @Model</p>
+<p>Args are: [@string.Join(" | ", Model.Args)]</p>
