@@ -35,7 +35,7 @@ jobs:
     -
       name: Restore
       run: |
-        dotnet restore ./Test.csproj
+        dotnet restore Wrap.slnx
     -
       name: Style
       run: |
@@ -44,13 +44,14 @@ jobs:
     -
       name: Build
       run: |
-        dotnet build ./Test.csproj \
+        dotnet build Wrap.slnx \
           --no-restore \
           --configuration Release
     -
       name: Test
       run: |
-        dotnet test ./Test.csproj \
+        dotnet test \
+          --solution Wrap.slnx \
           --no-restore \
           --no-build \
           --configuration Release
