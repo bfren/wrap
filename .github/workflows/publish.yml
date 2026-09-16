@@ -51,14 +51,14 @@ jobs:
       if: success()
       name: Pack
       run: |
-        dotnet pack ./Pack.csproj \
+        dotnet pack Pack.csproj \
           --no-build \
           --configuration Release \
           /p:PackageOutputPath=${{ env.PACKAGES_DIR }} \
           -p:PackageVersion=${{ steps.version.outputs.contents }}
     -
       name: Store
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: nupkgs
         path: ${{ env.PACKAGES_DIR }}
@@ -68,13 +68,13 @@ jobs:
     if: success()
     steps:
     - name: Retrieve
-      uses: actions/download-artifact@v7
+      uses: actions/download-artifact@v8
       with:
         name: nupkgs
         path: ${{ env.PACKAGES_DIR }}
     - name: Add Assets
       if: github.ref_type == 'tag'
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
         files: "${{ env.PACKAGES_DIR }}/*.nupkg"
   publish:
@@ -83,7 +83,7 @@ jobs:
     if: success()
     steps:
     - name: Retrieve
-      uses: actions/download-artifact@v7
+      uses: actions/download-artifact@v8
       with:
         name: nupkgs
         path: ${{ env.PACKAGES_DIR }}
