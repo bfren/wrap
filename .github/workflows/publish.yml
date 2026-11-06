@@ -48,6 +48,14 @@ jobs:
           --no-restore \
           --configuration Release
     -
+      name: Test
+      run: |
+        dotnet test \
+          --solution Wrap.slnx \
+          --no-restore \
+          --no-build \
+          --configuration Release
+    -
       if: success()
       name: Pack
       run: |
