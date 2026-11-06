@@ -37,4 +37,20 @@ public class FirstOrNone_Tests
 			result.AssertSome(value);
 		}
 	}
+
+	public class With_Endless_Sequence
+	{
+		[Fact]
+		public void Stops_At_First_Value()
+		{
+			// Arrange
+			static IEnumerable<int> endless() { var i = 0; while (true) { yield return i++; } }
+
+			// Act
+			var result = endless().FirstOrNone();
+
+			// Assert
+			result.AssertSome(0);
+		}
+	}
 }

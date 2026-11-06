@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Wrap.Extensions;
 
@@ -19,14 +18,14 @@ public static partial class EnumerableExtensions
 	/// </returns>
 	public static Maybe<T> SingleOrNone<T>(this IEnumerable<T> @this)
 	{
-		var a = @this.ToArray();
-		return (a.Length == 1) switch
+		// stop after the second item - more than one means None
+		using var e = @this.GetEnumerator();
+		if (!e.MoveNext())
 		{
-			true =>
-				a[0],
+			return M.None;
+		}
 
-			false =>
-				M.None
-		};
+		var first = e.Current;
+		return e.MoveNext() ? M.None : M.Wrap(first);
 	}
 }

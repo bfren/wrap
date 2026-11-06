@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Wrap.Extensions;
 
@@ -16,14 +15,13 @@ public static partial class EnumerableExtensions
 	/// <returns>Value of the last element of <paramref name="this"/>, or <see cref="None"/>.</returns>
 	public static Maybe<T> LastOrNone<T>(this IEnumerable<T> @this)
 	{
-		var a = @this.ToArray();
-		return (a.Length > 0) switch
+		// keep only the last item rather than copying the whole sequence
+		Maybe<T> last = M.None;
+		foreach (var item in @this)
 		{
-			true =>
-				a[^1],
+			last = M.Wrap(item);
+		}
 
-			false =>
-				M.None
-		};
+		return last;
 	}
 }
