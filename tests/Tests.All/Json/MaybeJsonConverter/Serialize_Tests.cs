@@ -84,6 +84,22 @@ public class Serialize_Tests
 				Assert.Equal(expected, result);
 			}
 		}
+
+		public class With_Null_Maybe
+		{
+			[Fact]
+			public void Writes_Null()
+			{
+				// Arrange
+				var test = new RefWrapper(null!);
+
+				// Act
+				var result = JsonSerializer.Serialize(test, Helpers.Json.Options);
+
+				// Assert
+				Assert.Equal(JsonSerializer.Serialize(new { Test = (object?)null }), result);
+			}
+		}
 	}
 
 	public record class Test(string Foo, int Bar);
