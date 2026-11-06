@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Wrap.Extensions;
 
@@ -17,14 +16,20 @@ public static partial class EnumerableExtensions
 	/// <returns>Value of the element at position <paramref name="index"/> of <paramref name="this"/>, or <see cref="None"/>.</returns>
 	public static Maybe<T> ElementAtOrNone<T>(this IEnumerable<T> @this, int index)
 	{
-		var a = @this.ToArray();
-		return (index < a.Length) switch
+		if (index < 0)
 		{
-			true =>
-				a[index],
+			return M.None;
+		}
 
-			false =>
-				M.None
-		};
+		// stop at the requested item - ToArray() would read the whole sequence
+		foreach (var item in @this)
+		{
+			if (index-- == 0)
+			{
+				return M.Wrap(item);
+			}
+		}
+
+		return M.None;
 	}
 }
