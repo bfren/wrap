@@ -91,10 +91,8 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 				TValue x =>
 					(result, ModelBindingResult.Success(Wrap(x))),
 
-				_ when new MonadModelBinderProvider().GetBinder(typeof(TValue)) is IWrapModelBinder<TValue> x =>
-					x.GetValue(provider, model),
-
-				_ when JsonSerializer.Deserialize<TValue>($"\"{value}\"", WrapModelBinderHelpers.Options) is TValue x =>
+				// serialise the raw text so quotes and backslashes are escaped, not interpreted
+				_ when JsonSerializer.Deserialize<TValue>(JsonSerializer.Serialize(value), WrapModelBinderHelpers.Options) is TValue x =>
 					(result, ModelBindingResult.Success(Wrap(x))),
 
 				_ =>
