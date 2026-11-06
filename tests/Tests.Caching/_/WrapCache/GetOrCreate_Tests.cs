@@ -251,4 +251,36 @@ public class GetOrCreate_Tests
 		r1.AssertSome(v0);
 		r2.AssertSome(v1);
 	}
+
+	[Fact]
+	public void Other_Caller_Fails_Meanwhile__Still_Creates_Value()
+	{
+		// Arrange
+		var badKey = Rnd.Str;
+		var goodKey = Rnd.Str;
+		var value = Rnd.DateTime;
+		var mc = Substitute.For<IMemoryCache>();
+		WrapCache<string> cache = null!;
+		mc.TryGetValue(badKey, out Arg.Any<object>()!)
+			.Returns(x =>
+			{
+				x[1] = Rnd.Lng;
+				return true;
+			});
+		mc.TryGetValue(goodKey, out Arg.Any<object>()!)
+			.Returns(x =>
+			{
+				// simulate another request failing between this request's lookup and its failure check
+				_ = cache.GetValue<DateTime>(badKey);
+				return false;
+			});
+		mc.CreateEntry(goodKey).Returns(Substitute.For<ICacheEntry>());
+		cache = new WrapCache<string>(mc);
+
+		// Act
+		var result = cache.GetOrCreate(goodKey, () => value);
+
+		// Assert
+		result.AssertSome(value);
+	}
 }

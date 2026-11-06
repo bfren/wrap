@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
@@ -25,52 +26,55 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 {
 	internal IMemoryCache Cache { get; private init; } = cache;
 
-	internal SemaphoreSlim CacheLock { get; } = new(1, 1);
+	// shortcut: 64 striped locks so unrelated keys rarely wait on each other, raise the count if contention shows up
+	internal SemaphoreSlim[] CacheLocks { get; } = [.. Enumerable.Range(0, 64).Select(_ => new SemaphoreSlim(1, 1))];
 
 	/// <inheritdoc/>
 	public Maybe<Failure> LastFailure { get; private set; } = M.None;
 
+	private SemaphoreSlim GetLock(TKey key) =>
+		CacheLocks[(key.GetHashCode() & int.MaxValue) % CacheLocks.Length];
+
 	/// <inheritdoc/>
-	public Maybe<TValue> GetValue<TValue>(TKey key)
+	public Maybe<TValue> GetValue<TValue>(TKey key) =>
+		GetValue<TValue>(key, out _);
+
+	/// <summary>
+	/// Get a value, returning any failure via <paramref name="failure"/> so concurrent callers
+	/// never make decisions based on another caller's <see cref="LastFailure"/>.
+	/// </summary>
+	/// <typeparam name="TValue">Value type.</typeparam>
+	/// <param name="key">Cache key.</param>
+	/// <param name="failure">Set if the value could not be retrieved.</param>
+	private Maybe<TValue> Get<TValue>(TKey key, out Maybe<Failure> failure)
 	{
-		// Reset last failure
-		LastFailure = M.None;
+		failure = M.None;
 
 		// Key cannot be null
 		if (key is null)
 		{
-			return fail(nameof(GetValue),
-				"Key cannot be null."
-			);
+			failure = R.Fail("Key cannot be null.").Ctx(nameof(WrapCache), nameof(GetValue));
+			return M.None;
 		}
 
 		// Attempt to get the value
 		if (Cache.TryGetValue(key, out var value))
 		{
-			return value switch
+			if (value is TValue correctType)
 			{
-				TValue correctType =>
-					correctType,
+				return correctType;
+			}
 
-				{ } incorrectType =>
-					fail(nameof(GetValue),
-						"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
-						key, incorrectType.GetType().Name, typeof(TValue).Name
-					),
-
-				_ =>
-					M.None
-			};
+			if (value is not null)
+			{
+				failure = R.Fail(
+					"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
+					key, value.GetType().Name, typeof(TValue).Name
+				).Ctx(nameof(WrapCache), nameof(GetValue));
+			}
 		}
 
 		return M.None;
-
-		// Set LastFailure before returning None
-		Maybe<TValue> fail(string function, string message, params object?[] args)
-		{
-			LastFailure = R.Fail(message, [.. args]).Ctx(nameof(WrapCache), function);
-			return M.None;
-		}
 	}
 
 	/// <inheritdoc/>
@@ -111,27 +115,28 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 	public Maybe<TValue> GetOrCreate<TValue>(TKey key, Func<Maybe<TValue>> valueFactory) =>
 		GetOrCreate(key, valueFactory, new());
 
-
 	/// <inheritdoc/>
 	public Maybe<TValue> GetOrCreate<TValue>(TKey key, Func<Maybe<TValue>> valueFactory, MemoryCacheEntryOptions opt)
 	{
-		// Check whether or not the value already exists
-		var value = GetValue<TValue>(key);
-		if (value.IsSome)
+		// Check whether or not the value already exists, or there was an error
+		var value = GetValue<TValue>(key, out var failure);
+		if (value.IsSome || failure.IsSome)
 		{
 			return value;
 		}
 
-		// If there was an error, return None
-		if (LastFailure.IsSome)
-		{
-			return M.None;
-		}
-
-		// Lock all threads
-		CacheLock.Wait();
+		// Lock threads using this key
+		var keyLock = GetLock(key);
+		keyLock.Wait();
 		try
 		{
+			// Another thread may have created the value while this one was waiting
+			value = GetValue<TValue>(key, out failure);
+			if (value.IsSome || failure.IsSome)
+			{
+				return value;
+			}
+
 			return valueFactory()
 				.IfNone(
 					() => LastFailure = R.Fail("Value factory returned null or None.")
@@ -151,7 +156,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 		finally
 		{
 			// Release other threads
-			_ = CacheLock.Release();
+			_ = keyLock.Release();
 		}
 	}
 
@@ -170,23 +175,25 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 	/// <inheritdoc/>
 	public async Task<Maybe<TValue>> GetOrCreateAsync<TValue>(TKey key, Func<Task<Maybe<TValue>>> valueFactory, MemoryCacheEntryOptions opt)
 	{
-		// Check whether or not the value already exists
-		var value = GetValue<TValue>(key);
-		if (value.IsSome)
+		// Check whether or not the value already exists, or there was an error
+		var value = GetValue<TValue>(key, out var failure);
+		if (value.IsSome || failure.IsSome)
 		{
 			return value;
 		}
 
-		// If there was an error, return None
-		if (LastFailure.IsSome)
-		{
-			return M.None;
-		}
-
-		// Lock all threads
-		await CacheLock.WaitAsync();
+		// Lock threads using this key
+		var keyLock = GetLock(key);
+		await keyLock.WaitAsync();
 		try
 		{
+			// Another thread may have created the value while this one was waiting
+			value = GetValue<TValue>(key, out failure);
+			if (value.IsSome || failure.IsSome)
+			{
+				return value;
+			}
+
 			return await valueFactory()
 				.IfNoneAsync(
 					() => LastFailure = R.Fail("Value factory returned null or None.")
@@ -206,7 +213,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 		finally
 		{
 			// Release other threads
-			_ = CacheLock.Release();
+			_ = keyLock.Release();
 		}
 	}
 
@@ -216,5 +223,16 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 		ArgumentNullException.ThrowIfNull(key);
 
 		Cache.Remove(key);
+	}
+
+	/// <summary>
+	/// Wraps <see cref="Get{TValue}(TKey, out Maybe{Failure})"/> and also sets <see cref="LastFailure"/>
+	/// for callers who read it.
+	/// </summary>
+	private Maybe<TValue> GetValue<TValue>(TKey key, out Maybe<Failure> failure)
+	{
+		var value = Get<TValue>(key, out failure);
+		LastFailure = failure;
+		return value;
 	}
 }
