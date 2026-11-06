@@ -113,18 +113,34 @@ public static partial class F
 				return replaceIfNullOrEmpty ?? formatString;
 			}
 
-			// Attempt to use string.Format
-			try
+			// Attempt to use string.Format - named templates always make it throw, so skip it for them
+			if (HasOnlyNumberedTemplates(formatString))
 			{
-				return string.Format(DefaultCulture, formatString, [.. arr]);
-			}
-			catch (Exception)
-			{
-				// Do nothing - null return will cause Format function to continue
+				try
+				{
+					return string.Format(DefaultCulture, formatString, [.. arr]);
+				}
+				catch (Exception)
+				{
+					// Do nothing - null return will cause Format function to continue
+				}
 			}
 		}
 
 		return null;
+	}
+
+	private static bool HasOnlyNumberedTemplates(string formatString)
+	{
+		foreach (Match m in TemplateMatcherRegex().Matches(formatString))
+		{
+			if (!int.TryParse(m.Groups["template"].Value.TrimStart('@'), out _))
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/// <summary>
