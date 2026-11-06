@@ -166,6 +166,37 @@ public class Deserialize_Tests
 		}
 	}
 
+	public class Round_Trip
+	{
+		[Fact]
+		public void None_Value_Type__Stays_None()
+		{
+			// Arrange
+			var input = new ValWrapper(M.None);
+
+			// Act
+			var json = JsonSerializer.Serialize(input, Helpers.Json.Options);
+			var result = JsonSerializer.Deserialize<ValWrapper>(json, Helpers.Json.Options);
+
+			// Assert
+			result!.Test.AssertNone();
+		}
+
+		[Fact]
+		public void None_Ref_Type__Stays_None()
+		{
+			// Arrange
+			var input = new RefWrapper(M.None);
+
+			// Act
+			var json = JsonSerializer.Serialize(input, Helpers.Json.Options);
+			var result = JsonSerializer.Deserialize<RefWrapper>(json, Helpers.Json.Options);
+
+			// Assert
+			result!.Test.AssertNone();
+		}
+	}
+
 	public record class Test(string Foo, int Bar);
 
 	public record class RefWrapper(Maybe<Test> Test);
