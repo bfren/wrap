@@ -26,14 +26,24 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 {
 	internal IMemoryCache Cache { get; private init; } = cache;
 
-	// shortcut: 64 striped locks so unrelated keys rarely wait on each other, raise the count if contention shows up
+	// shortcut: 64 striped locks so unrelated keys rarely wait on each other - max 64 as held locks are tracked as bits in a ulong
 	internal SemaphoreSlim[] CacheLocks { get; } = [.. Enumerable.Range(0, 64).Select(_ => new SemaphoreSlim(1, 1))];
 
 	/// <inheritdoc/>
 	public Maybe<Failure> LastFailure { get; private set; } = M.None;
 
-	private SemaphoreSlim GetLock(TKey key) =>
-		CacheLocks[(key.GetHashCode() & int.MaxValue) % CacheLocks.Length];
+	// one bit per lock held by this call chain, so a value factory that calls GetOrCreate for a key
+	// sharing its lock runs without waiting on itself (SemaphoreSlim is not re-entrant)
+	private readonly AsyncLocal<ulong> heldLocks = new();
+
+	private int GetLockIndex(TKey key) =>
+		(key.GetHashCode() & int.MaxValue) % CacheLocks.Length;
+
+	private bool IsHeld(int index) =>
+		(heldLocks.Value & (1UL << index)) != 0;
+
+	private void SetHeld(int index, bool held) =>
+		heldLocks.Value = held ? heldLocks.Value | (1UL << index) : heldLocks.Value & ~(1UL << index);
 
 	/// <inheritdoc/>
 	public Maybe<TValue> GetValue<TValue>(TKey key) =>
@@ -126,8 +136,14 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 		}
 
 		// Lock threads using this key
-		var keyLock = GetLock(key);
-		keyLock.Wait();
+		var index = GetLockIndex(key);
+		var entered = !IsHeld(index);
+		if (entered)
+		{
+			CacheLocks[index].Wait();
+			SetHeld(index, true);
+		}
+
 		try
 		{
 			// Another thread may have created the value while this one was waiting
@@ -156,7 +172,11 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 		finally
 		{
 			// Release other threads
-			_ = keyLock.Release();
+			if (entered)
+			{
+				SetHeld(index, false);
+				_ = CacheLocks[index].Release();
+			}
 		}
 	}
 
@@ -183,8 +203,14 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 		}
 
 		// Lock threads using this key
-		var keyLock = GetLock(key);
-		await keyLock.WaitAsync();
+		var index = GetLockIndex(key);
+		var entered = !IsHeld(index);
+		if (entered)
+		{
+			await CacheLocks[index].WaitAsync();
+			SetHeld(index, true);
+		}
+
 		try
 		{
 			// Another thread may have created the value while this one was waiting
@@ -213,7 +239,11 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 		finally
 		{
 			// Release other threads
-			_ = keyLock.Release();
+			if (entered)
+			{
+				SetHeld(index, false);
+				_ = CacheLocks[index].Release();
+			}
 		}
 	}
 

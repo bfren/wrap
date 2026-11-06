@@ -283,4 +283,20 @@ public class GetOrCreate_Tests
 		// Assert
 		result.AssertSome(value);
 	}
+
+	[Fact]
+	public void Factory_Calls_GetOrCreate_For_Key_Sharing_Lock__Does_Not_Hang()
+	{
+		// Arrange - int keys hash to themselves, so 1 and 65 use the same one of the 64 locks
+		var cache = new WrapCache<int>(new MemoryCache(new MemoryCacheOptions()));
+		var inner = Rnd.Int;
+
+		// Act
+		var task = Task.Run(() => cache.GetOrCreate(1, () => cache.GetOrCreate(65, () => inner)));
+		var finished = task.Wait(TimeSpan.FromSeconds(5));
+
+		// Assert
+		Assert.True(finished);
+		task.Result.AssertSome(inner);
+	}
 }
