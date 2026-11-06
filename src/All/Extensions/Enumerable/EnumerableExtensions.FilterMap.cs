@@ -57,39 +57,15 @@ public static partial class EnumerableExtensions
 	public static async Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
 		Func<T, bool> fTest,
 		Func<T, TReturn> f
-	)
-	{
-		var list = new List<Maybe<TReturn>>();
-
-		foreach (var item in await @this)
-		{
-			foreach (var value in item.MapIf(fTest, f))
-			{
-				list.Add(value);
-			}
-		}
-
-		return list;
-	}
+	) =>
+		[.. (await @this).FilterMap(fTest, f)];
 
 	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, TReturn})"/>
 	public static async Task<List<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
 		Func<T, bool> fTest,
 		Func<T, Task<TReturn>> f
-	)
-	{
-		var list = new List<Maybe<TReturn>>();
-
-		foreach (var item in await @this)
-		{
-			foreach (var value in await item.MapIfAsync(fTest, f))
-			{
-				list.Add(value);
-			}
-		}
-
-		return list;
-	}
+	) =>
+		await (await @this).FilterMapAsync(fTest, f);
 
 	#endregion
 
@@ -141,39 +117,15 @@ public static partial class EnumerableExtensions
 	public static async Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
 		Func<T, bool> fTest,
 		Func<T, TReturn> f
-	)
-	{
-		var list = new List<Result<TReturn>>();
-
-		foreach (var item in await @this)
-		{
-			foreach (var value in item.MapIf(fTest, f).Unsafe())
-			{
-				list.Add(value);
-			}
-		}
-
-		return list;
-	}
+	) =>
+		[.. (await @this).FilterMap(fTest, f)];
 
 	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, TReturn})"/>
 	public static async Task<List<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
 		Func<T, bool> fTest,
 		Func<T, Task<TReturn>> f
-	)
-	{
-		var list = new List<Result<TReturn>>();
-
-		foreach (var item in await @this)
-		{
-			foreach (var value in await item.MapIfAsync(fTest, f).Unsafe())
-			{
-				list.Add(value);
-			}
-		}
-
-		return list;
-	}
+	) =>
+		await (await @this).FilterMapAsync(fTest, f);
 
 	#endregion
 }

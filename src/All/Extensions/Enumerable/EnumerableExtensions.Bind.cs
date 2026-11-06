@@ -41,30 +41,12 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, Maybe{TReturn}})"/>
-	public static async Task<List<Maybe<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Maybe<TReturn>> f)
-	{
-		var items = new List<Maybe<TReturn>>();
-
-		foreach (var item in await @this.FilterAsync())
-		{
-			items.Add(item.Bind(f));
-		}
-
-		return items;
-	}
+	public static async Task<List<Maybe<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Maybe<TReturn>> f) =>
+		[.. (await @this).Bind(f)];
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, Maybe{TReturn}})"/>
-	public static async Task<List<Maybe<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<Maybe<TReturn>>> f)
-	{
-		var items = new List<Maybe<TReturn>>();
-
-		foreach (var item in await @this.FilterAsync())
-		{
-			items.Add(await item.BindAsync(f));
-		}
-
-		return items;
-	}
+	public static async Task<List<Maybe<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<Maybe<TReturn>>> f) =>
+		await (await @this).BindAsync(f);
 
 	#endregion
 
@@ -100,30 +82,12 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Result{T}}, Func{T, Result{TReturn}})"/>
-	public static async Task<List<Result<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Result<TReturn>> f)
-	{
-		var items = new List<Result<TReturn>>();
-
-		foreach (var item in await @this)
-		{
-			items.Add(item.Bind(f));
-		}
-
-		return items;
-	}
+	public static async Task<List<Result<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Result<TReturn>> f) =>
+		[.. (await @this).Bind(f)];
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Result{T}}, Func{T, Result{TReturn}})"/>
-	public static async Task<List<Result<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<Result<TReturn>>> f)
-	{
-		var items = new List<Result<TReturn>>();
-
-		foreach (var item in await @this)
-		{
-			items.Add(await item.BindAsync(f));
-		}
-
-		return items;
-	}
+	public static async Task<List<Result<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<Result<TReturn>>> f) =>
+		await (await @this).BindAsync(f);
 
 	#endregion
 }
