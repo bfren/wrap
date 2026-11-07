@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
-using System.Globalization;
 using Dapper;
 
 namespace Wrap.Dapper;
@@ -24,12 +23,12 @@ public abstract class IdTypeHandler<TId, TIdValue> : SqlMapper.TypeHandler<TId>
 	/// <param name="value">Database value that could not be parsed.</param>
 	/// <exception cref="OverflowException"></exception>
 	protected static TIdValue DefaultOrThrow(object? value) =>
-		decimal.TryParse(value?.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture, out _) switch
+		value switch
 		{
-			true =>
-				throw new OverflowException($"Value '{value}' does not fit in {typeof(TIdValue).Name} for {typeof(TId).Name}."),
+			sbyte or byte or short or ushort or int or uint or long or ulong or float or double or decimal =>
+				throw new OverflowException($"Value '{value}' cannot be stored in {typeof(TIdValue).Name} for {typeof(TId).Name}."),
 
-			false =>
+			_ =>
 				default
 		};
 }

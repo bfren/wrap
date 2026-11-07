@@ -22,8 +22,9 @@ public class Parse_Tests : Abstracts.Parse_Tests<Parse_Tests.TestIntId, int, Int
 
 	[Theory]
 	[InlineData(3_000_000_000L)]
-	[InlineData("-3000000000")]
-	public void Number_Too_Big__Throws_OverflowException(object input)
+	[InlineData(-3_000_000_000L)]
+	[InlineData(42.5)]
+	public void Number_Does_Not_Fit__Throws_OverflowException(object input)
 	{
 		// Arrange
 		var handler = new IntIdTypeHandler<TestIntId>();
