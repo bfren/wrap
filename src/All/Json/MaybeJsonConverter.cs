@@ -49,10 +49,10 @@ public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 		catch (Exception e)
 		{
 			// When TValue is a value type we can create a blank object
-			if (typeof(T).IsValueType)
+			if (typeof(T).IsValueType && default(T) is T v)
 			{
 				reader.Skip(); // tell the reader we didn't read anything successfully
-				return M.Wrap(default(T)!);
+				return M.Wrap(v);
 			}
 
 			// Handle null input
@@ -73,14 +73,9 @@ public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 	/// <param name="writer">Utf8JsonWriter.</param>
 	/// <param name="value">Maybe object to be converted.</param>
 	/// <param name="options">JsonSerializerOptions.</param>
-	public override void Write(Utf8JsonWriter writer, Maybe<T> value, JsonSerializerOptions options)
-	{
-		if (value is Some<T> some)
-		{
-			JsonSerializer.Serialize(writer, some.Value, options);
-			return;
-		}
-
-		writer.WriteNullValue();
-	}
+	public override void Write(Utf8JsonWriter writer, Maybe<T> value, JsonSerializerOptions options) =>
+		M.Match(value,
+			fNone: writer.WriteNullValue,
+			fSome: x => JsonSerializer.Serialize(writer, x, options)
+		);
 }
