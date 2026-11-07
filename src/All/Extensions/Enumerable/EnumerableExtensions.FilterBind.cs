@@ -35,7 +35,7 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
-	public static async Task<List<Maybe<TReturn>>> FilterBindAsync<T, TReturn>(this IEnumerable<Maybe<T>> @this,
+	public static async Task<IEnumerable<Maybe<TReturn>>> FilterBindAsync<T, TReturn>(this IEnumerable<Maybe<T>> @this,
 		Func<T, bool> fTest,
 		Func<T, Task<Maybe<TReturn>>> f
 	)
@@ -54,14 +54,14 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
-	public static async Task<List<Maybe<TReturn>>> FilterBindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
+	public static async Task<IEnumerable<Maybe<TReturn>>> FilterBindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
 		Func<T, bool> fTest,
 		Func<T, Maybe<TReturn>> f
 	) =>
 		[.. (await @this).FilterBind(fTest, f)];
 
 	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, Maybe{TReturn}})"/>
-	public static async Task<List<Maybe<TReturn>>> FilterBindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
+	public static async Task<IEnumerable<Maybe<TReturn>>> FilterBindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
 		Func<T, bool> fTest,
 		Func<T, Task<Maybe<TReturn>>> f
 	) =>
@@ -95,7 +95,7 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, Result{TReturn}})"/>
-	public static async Task<List<Result<TReturn>>> FilterBindAsync<T, TReturn>(this IEnumerable<Result<T>> @this,
+	public static async Task<IEnumerable<Result<TReturn>>> FilterBindAsync<T, TReturn>(this IEnumerable<Result<T>> @this,
 		Func<T, bool> fTest,
 		Func<T, Task<Result<TReturn>>> f
 	)
@@ -114,14 +114,14 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, Result{TReturn}})"/>
-	public static async Task<List<Result<TReturn>>> FilterBindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
+	public static async Task<IEnumerable<Result<TReturn>>> FilterBindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
 		Func<T, bool> fTest,
 		Func<T, Result<TReturn>> f
 	) =>
 		[.. (await @this).FilterBind(fTest, f)];
 
 	/// <inheritdoc cref="FilterBind{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, Result{TReturn}})"/>
-	public static async Task<List<Result<TReturn>>> FilterBindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
+	public static async Task<IEnumerable<Result<TReturn>>> FilterBindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
 		Func<T, bool> fTest,
 		Func<T, Task<Result<TReturn>>> f
 	) =>

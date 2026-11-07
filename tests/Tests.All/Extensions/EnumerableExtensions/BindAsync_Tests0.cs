@@ -118,9 +118,9 @@ public partial class BindAsync_Tests
 			var r2 = await v.ListAsync.BindAsync(x => M.Wrap(x.ToString()).AsTask());
 
 			// Assert
-			Assert.Equal(3, r0.Count);
-			Assert.Equal(3, r1.Count);
-			Assert.Equal(3, r2.Count);
+			Assert.Equal(3, r0.Count());
+			Assert.Equal(3, r1.Count());
+			Assert.Equal(3, r2.Count());
 		}
 
 		[Fact]

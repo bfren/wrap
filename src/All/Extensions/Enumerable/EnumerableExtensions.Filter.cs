@@ -29,7 +29,7 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}})"/>
-	public static async Task<List<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this) =>
+	public static async Task<IEnumerable<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this) =>
 		[.. (await @this).Filter()];
 
 	/// <summary>
@@ -51,7 +51,7 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
-	public static async Task<List<Maybe<T>>> FilterAsync<T>(this IEnumerable<Maybe<T>> @this, Func<T, Task<bool>> fTest)
+	public static async Task<IEnumerable<Maybe<T>>> FilterAsync<T>(this IEnumerable<Maybe<T>> @this, Func<T, Task<bool>> fTest)
 	{
 		var list = new List<Maybe<T>>();
 
@@ -67,11 +67,11 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
-	public static async Task<List<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, bool> fTest) =>
+	public static async Task<IEnumerable<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, bool> fTest) =>
 		[.. (await @this).Filter(fTest)];
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
-	public static async Task<List<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<bool>> fTest) =>
+	public static async Task<IEnumerable<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<bool>> fTest) =>
 		await (await @this).FilterAsync(fTest);
 
 	#endregion
@@ -97,7 +97,7 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Result{T}}, Func{T, bool})"/>
-	public static async Task<List<Result<T>>> FilterAsync<T>(this IEnumerable<Result<T>> @this, Func<T, Task<bool>> fTest)
+	public static async Task<IEnumerable<Result<T>>> FilterAsync<T>(this IEnumerable<Result<T>> @this, Func<T, Task<bool>> fTest)
 	{
 		var list = new List<Result<T>>();
 
@@ -113,11 +113,11 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Result{T}}, Func{T, bool})"/>
-	public static async Task<List<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, bool> fTest) =>
+	public static async Task<IEnumerable<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, bool> fTest) =>
 		[.. (await @this).Filter(fTest)];
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Result{T}}, Func{T, bool})"/>
-	public static async Task<List<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<bool>> fTest) =>
+	public static async Task<IEnumerable<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<bool>> fTest) =>
 		await (await @this).FilterAsync(fTest);
 
 	#endregion
