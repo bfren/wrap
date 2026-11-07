@@ -34,10 +34,6 @@ internal static partial class TaskExtensions
 	internal static async Task<IEnumerable<TOut>> Then<TIn, TOut>(this Task<IEnumerable<TIn>> @this, Func<IEnumerable<TIn>, IEnumerable<TOut>> f) =>
 		[.. f(await @this)];
 
-	/// <inheritdoc cref="Then{TIn, TOut}(Task{IEnumerable{TIn}}, Func{IEnumerable{TIn}, IEnumerable{TOut}})"/>
-	internal static async Task<IEnumerable<TOut>> Then<TIn, TOut>(this Task<IEnumerable<TIn>> @this, Func<IEnumerable<TIn>, Task<IEnumerable<TOut>>> f) =>
-		await f(await @this);
-
 	/// <summary>
 	/// Await <paramref name="this"/> and pass the list to <paramref name="f"/>.
 	/// </summary>

@@ -22,4 +22,20 @@ public class ChainAsync_Tests
 			x => x.AssertSome(21)
 		);
 	}
+
+	[Fact]
+	public async Task Result_Read_Twice__Runs_f_Once_Per_Item()
+	{
+		// Arrange
+		var list = Task.FromResult<IEnumerable<Maybe<int>>>([M.Wrap(1), M.Wrap(2)]);
+		var f = Substitute.For<Func<int, int>>();
+
+		// Act
+		var result = await list.MapAsync(f);
+		_ = result.Count();
+		_ = result.Count();
+
+		// Assert
+		f.ReceivedWithAnyArgs(2).Invoke(default);
+	}
 }
