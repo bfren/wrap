@@ -44,7 +44,14 @@ public class FirstOrNone_Tests
 		public void Stops_At_First_Value()
 		{
 			// Arrange
-			static IEnumerable<int> endless() { var i = 0; while (true) { yield return i++; } }
+			static IEnumerable<int> endless()
+			{
+				var i = 0;
+				while (true)
+				{
+					yield return i++;
+				}
+			}
 
 			// Act
 			var result = endless().FirstOrNone();
