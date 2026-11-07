@@ -60,7 +60,14 @@ public class ElementAtOrNone_Tests
 		public void Stops_At_Index()
 		{
 			// Arrange
-			static IEnumerable<int> endless() { var i = 0; while (true) { yield return i++; } }
+			static IEnumerable<int> endless()
+			{
+				var i = 0;
+				while (true)
+				{
+					yield return i++;
+				}
+			}
 
 			// Act
 			var result = endless().ElementAtOrNone(3);
