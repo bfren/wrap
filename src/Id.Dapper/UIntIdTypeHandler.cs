@@ -1,6 +1,7 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System;
 using System.Data;
 using Wrap.Ids;
 
@@ -19,7 +20,7 @@ public sealed class UIntIdTypeHandler<T> : IdTypeHandler<T, uint>
 	/// <param name="value"><see cref="UIntId{TId}"/> Value.</param>
 	/// <returns><see cref="UIntId{TId}"/> with parsed value.</returns>
 	public override T Parse(object value) =>
-		new() { Value = M.ParseUInt32(value?.ToString()).Unwrap(() => 0U) };
+		new() { Value = M.ParseUInt32(value?.ToString()).Unwrap(() => DefaultOrThrow(value)) };
 
 	/// <summary>
 	/// Set ID value.
@@ -38,7 +39,7 @@ public sealed class UIntIdTypeHandler<T> : IdTypeHandler<T, uint>
 				id.Value,
 
 			_ =>
-				0
+				DBNull.Value
 		};
 	}
 }

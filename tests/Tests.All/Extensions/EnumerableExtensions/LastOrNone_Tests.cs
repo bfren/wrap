@@ -37,4 +37,23 @@ public class LastOrNone_Tests
 			result.AssertSome(value);
 		}
 	}
+
+	public class With_Large_Array
+	{
+		[Fact]
+		public void Reads_Only_Last_Value()
+		{
+			// Arrange
+			var f = Substitute.For<Func<int, int>>();
+			f.Invoke(Arg.Any<int>()).Returns(x => x.ArgAt<int>(0));
+			var list = Enumerable.Range(0, 1_000_000).ToArray().Select(f);
+
+			// Act
+			var result = list.LastOrNone();
+
+			// Assert
+			result.AssertSome(999_999);
+			f.Received(1).Invoke(Arg.Any<int>());
+		}
+	}
 }

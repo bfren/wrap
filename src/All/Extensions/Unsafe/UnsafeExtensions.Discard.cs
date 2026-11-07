@@ -29,11 +29,7 @@ public static partial class UnsafeExtensions
 		);
 
 	/// <inheritdoc cref="Discard{TEither, TLeft, TRight}(Unsafe{TEither, TLeft, TRight})"/>
-	public static async Task<Maybe<TRight>> DiscardAsync<TEither, TLeft, TRight>(this Task<Unsafe<TEither, TLeft, TRight>> @this)
+	public static Task<Maybe<TRight>> DiscardAsync<TEither, TLeft, TRight>(this Task<Unsafe<TEither, TLeft, TRight>> @this)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		await E.MatchAsync<TEither, TLeft, TRight, Maybe<TRight>>(
-			(await @this).Value,
-			fLeft: _ => M.None,
-			fRight: async x => x
-		);
+		@this.Then(x => x.Discard());
 }

@@ -31,7 +31,7 @@ public static partial class UnsafeExtensions
 		};
 
 	/// <inheritdoc cref="Unwrap{TEither, TLeft, TRight}(Unsafe{TEither, TLeft, TRight})"/>
-	public static async Task<TRight> UnwrapAsync<TEither, TLeft, TRight>(this Task<Unsafe<TEither, TLeft, TRight>> @this)
+	public static Task<TRight> UnwrapAsync<TEither, TLeft, TRight>(this Task<Unsafe<TEither, TLeft, TRight>> @this)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		Unwrap(await @this);
+		@this.Then(x => x.Unwrap());
 }

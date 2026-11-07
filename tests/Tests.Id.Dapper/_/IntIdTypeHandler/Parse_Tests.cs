@@ -20,5 +20,21 @@ public class Parse_Tests : Abstracts.Parse_Tests<Parse_Tests.TestIntId, int, Int
 	public override void Test01_Valid_Input__Returns_Id(object input, int? expected) =>
 		Test01(input, _ => (int)expected!);
 
+	[Theory]
+	[InlineData(3_000_000_000L)]
+	[InlineData(-3_000_000_000L)]
+	[InlineData(42.5)]
+	public void Number_Does_Not_Fit__Throws_OverflowException(object input)
+	{
+		// Arrange
+		var handler = new IntIdTypeHandler<TestIntId>();
+
+		// Act
+		var result = Record.Exception(() => handler.Parse(input));
+
+		// Assert
+		Assert.IsType<OverflowException>(result);
+	}
+
 	public sealed record class TestIntId : IntId<TestIntId>;
 }

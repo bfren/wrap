@@ -39,7 +39,7 @@ public sealed class GuidIdTypeHandler<T> : IdTypeHandler<T, Guid>
 				id.Value,
 
 			_ =>
-				0
+				DBNull.Value
 		};
 	}
 }

@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq.Expressions;
+using System.Reflection;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -27,7 +28,7 @@ public static partial class HtmlHelperExtensions
 		var value = @this.ViewData.Model switch
 		{
 			TModel model =>
-				expression.Compile().Invoke(model).Value.ToString(),
+				GetMonad(expression, model).Value.ToString(),
 
 			_ =>
 				null
@@ -36,4 +37,15 @@ public static partial class HtmlHelperExtensions
 		// Return hidden input
 		return @this.Hidden(name, value ?? string.Empty);
 	}
+
+	// read plain `x => x.Property` lambdas by reflection: compiling the expression on every render is slow
+	private static TMonad GetMonad<TModel, TMonad>(Expression<Func<TModel, TMonad>> expression, TModel model) =>
+		expression.Body switch
+		{
+			MemberExpression { Member: PropertyInfo property, Expression: ParameterExpression } when property.GetValue(model) is TMonad x =>
+				x,
+
+			_ =>
+				expression.Compile().Invoke(model)
+		};
 }

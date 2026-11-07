@@ -35,6 +35,32 @@ public class Bind_Tests
 			// Assert
 			f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
 		}
+
+		[Fact]
+		public void Failure_Passed_Through_Chain__Is_Logged_Once()
+		{
+			// Arrange
+			var message = Rnd.Str;
+			var logger = Substitute.For<F.FailureLogger>();
+			var original = F.LogFailure;
+			F.LogFailure = logger;
+
+			try
+			{
+				// Act
+				_ = R.Fail<string>(message)
+					.Bind(x => R.Wrap(x.Length))
+					.Map(x => x + 1)
+					.Bind(x => R.Wrap(x.ToString()));
+			}
+			finally
+			{
+				F.LogFailure = original;
+			}
+
+			// Assert
+			logger.Received(1).Invoke(message, Arg.Any<object?[]>());
+		}
 	}
 
 	public class With_Ok

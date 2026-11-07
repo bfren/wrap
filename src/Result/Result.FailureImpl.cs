@@ -53,5 +53,16 @@ public abstract partial record class Result<T>
 		[SetsRequiredMembers]
 		internal FailureImpl(F.ExceptionLogger? exceptionLogger, F.FailureLogger? failureLogger, FailureValue value) =>
 			(this.exceptionLogger, this.failureLogger, Value) = (exceptionLogger, failureLogger, value);
+
+		/// <summary>
+		/// Compare by <see cref="Value"/> only - the loggers are how a failure was created, not what it is.
+		/// </summary>
+		/// <param name="other">FailureImpl to compare with.</param>
+		public bool Equals(FailureImpl? other) =>
+			other is not null && Value.Equals(other.Value);
+
+		/// <inheritdoc/>
+		public override int GetHashCode() =>
+			Value.GetHashCode();
 	}
 }

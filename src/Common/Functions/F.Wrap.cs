@@ -28,9 +28,6 @@ public static partial class F
 			TValue =>
 				new() { Value = value },
 
-			_ when default(TValue) is not null =>
-				new() { Value = default! },
-
 			_ when IsNullableValueType(value) =>
 				new() { Value = value! },
 

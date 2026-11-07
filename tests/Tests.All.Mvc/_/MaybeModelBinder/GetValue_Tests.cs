@@ -105,5 +105,23 @@ public class GetValue_Tests
 				Assert.IsType<Maybe<long>>(bindingResult.Model, false).AssertSome(v.Value);
 			}
 		}
+
+		public class String_With_Json_Characters : MaybeModelBinder_Tests<string>
+		{
+			[Theory]
+			[InlineData(@"C:\new\table")]
+			[InlineData("5\" screen")]
+			public void Returns_Exact_Value(string input)
+			{
+				// Arrange
+				var (binder, v) = Setup(input);
+
+				// Act
+				var (_, bindingResult) = binder.GetValue(v.Provider, v.ModelName);
+
+				// Assert
+				Assert.IsType<Maybe<string>>(bindingResult.Model, false).AssertSome(input);
+			}
+		}
 	}
 }
