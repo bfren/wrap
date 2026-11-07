@@ -10,15 +10,53 @@ on:
         type: boolean
         default: true
 
+env:
+  DOTNET_NOLOGO: true                     # Disable the .NET logo in the console output
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience to skip caching NuGet packages and speed up the build
+  DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry to Microsoft
+  PACKAGES_DIR: /home/runner/packages
+
 jobs:
-  publish:
-    uses: bfren/dotnet/.github/workflows/publish-nuget.yml@main
-    permissions:
-      contents: read    # checkout - listing permissions here turns off any not listed
-      id-token: write   # lets NuGet/login exchange a GitHub token for a 1-hour NuGet key
-      packages: write   # GitHub Packages push
+  prepare:
+    uses: bfren/dotnet/.github/workflows/prepare.yml@main
     with:
       solution: "Wrap.slnx"
+  nuget:
+    needs: prepare
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write   # lets NuGet/login exchange a GitHub token for a 1-hour NuGet key
+      packages: write   # GitHub Packages push
+    steps:
+    -
+      name: Retrieve
+      uses: actions/download-artifact@v8
+      with:
+        name: nupkgs # uploaded by bfren/dotnet prepare.yml
+        path: ${{ env.PACKAGES_DIR }}
+    -
+      name: NuGet login # must run from this repo's own workflow file - NuGet rejects logins from shared workflows
+      uses: NuGet/login@v1
+      id: login
+      with:
+        user: ${{ secrets.NUGET_USER }}
+    -
+      if: ${{ !inputs.dry_run }} # inputs.dry_run is empty on release, so this pushes
+      name: Push
+      run: |
+        dotnet nuget push "${{ env.PACKAGES_DIR }}/*.nupkg" \
+          --skip-duplicate \
+          --api-key ${{ steps.login.outputs.NUGET_API_KEY }} \
+          --source https://api.nuget.org/v3/index.json
+        dotnet nuget push "${{ env.PACKAGES_DIR }}/*.nupkg" \
+          --skip-duplicate \
+          --api-key ${{ secrets.GITHUB_TOKEN }} \
+          --source https://nuget.pkg.github.com/bfren/index.json
+  notify:
+    needs: [prepare, nuget]
+    if: always() && !inputs.dry_run # always(): otherwise this job is skipped when an earlier job fails, and the failure message is never sent
+    uses: bfren/dotnet/.github/workflows/notify.yml@main
+    with:
       name: Wrap
-      dry_run: ${{ inputs.dry_run == true }} # inputs.dry_run is empty on release, so this is false
+      results: ${{ toJSON(needs.*.result) }}
     secrets: inherit
