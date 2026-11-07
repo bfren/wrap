@@ -81,6 +81,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: restore-build-test-pack
     if: success()
+    permissions:
+      id-token: write   # lets NuGet/login exchange a GitHub token for a 1-hour NuGet key
+      packages: write   # still needed for the GitHub Packages push
     steps:
     - name: Retrieve
       uses: actions/download-artifact@v8
@@ -88,12 +91,18 @@ jobs:
         name: nupkgs
         path: ${{ env.PACKAGES_DIR }}
     -
+      name: NuGet login
+      uses: NuGet/login@v1
+      id: login
+      with:
+        user: ${{ secrets.NUGET_USER }}
+    -
       if: success()
       name: Push
       run: |
         dotnet nuget push "${{ env.PACKAGES_DIR }}/*.nupkg" \
           --skip-duplicate \
-          --api-key ${{ secrets.NUGET_API_KEY }} \
+          --api-key ${{ steps.login.outputs.NUGET_API_KEY }} \
           --source https://api.nuget.org/v3/index.json
         dotnet nuget push "${{ env.PACKAGES_DIR }}/*.nupkg" \
           --skip-duplicate \
