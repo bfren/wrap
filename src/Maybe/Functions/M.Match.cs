@@ -31,52 +31,72 @@ public static partial class M
 	/// <exception cref="NullMaybeException"></exception>
 	public static void Match<T>(Maybe<T> maybe, Action fNone, Action<T> fSome)
 	{
-		if (IsNone(maybe, out var x))
+		switch (maybe)
 		{
-			fNone();
-		}
-		else
-		{
-			fSome(x);
+			case Maybe<T>.NoneImpl:
+				fNone();
+				return;
+
+			case Some<T> x:
+				fSome(x.Value);
+				return;
+
+			default:
+				throw Invalid(maybe);
 		}
 	}
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static async Task MatchAsync<T>(Maybe<T> maybe, Action fNone, Func<T, Task> fSome)
 	{
-		if (IsNone(maybe, out var x))
+		switch (maybe)
 		{
-			fNone();
-		}
-		else
-		{
-			await fSome(x);
+			case Maybe<T>.NoneImpl:
+				fNone();
+				return;
+
+			case Some<T> x:
+				await fSome(x.Value);
+				return;
+
+			default:
+				throw Invalid(maybe);
 		}
 	}
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static async Task MatchAsync<T>(Maybe<T> maybe, Func<Task> fNone, Action<T> fSome)
 	{
-		if (IsNone(maybe, out var x))
+		switch (maybe)
 		{
-			await fNone();
-		}
-		else
-		{
-			fSome(x);
+			case Maybe<T>.NoneImpl:
+				await fNone();
+				return;
+
+			case Some<T> x:
+				fSome(x.Value);
+				return;
+
+			default:
+				throw Invalid(maybe);
 		}
 	}
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static async Task MatchAsync<T>(Maybe<T> maybe, Func<Task> fNone, Func<T, Task> fSome)
 	{
-		if (IsNone(maybe, out var x))
+		switch (maybe)
 		{
-			await fNone();
-		}
-		else
-		{
-			await fSome(x);
+			case Maybe<T>.NoneImpl:
+				await fNone();
+				return;
+
+			case Some<T> x:
+				await fSome(x.Value);
+				return;
+
+			default:
+				throw Invalid(maybe);
 		}
 	}
 
@@ -121,27 +141,59 @@ public static partial class M
 	/// <exception cref="InvalidMaybeTypeException"></exception>
 	/// <exception cref="NullMaybeException"></exception>
 	public static TReturn Match<T, TReturn>(Maybe<T> maybe, Func<TReturn> fNone, Func<T, TReturn> fSome) =>
-		IsNone(maybe, out var x)
-			? fNone()
-			: fSome(x);
+		maybe switch
+		{
+			Maybe<T>.NoneImpl =>
+				fNone(),
+
+			Some<T> x =>
+				fSome(x.Value),
+
+			_ =>
+				throw Invalid(maybe)
+		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<T, TReturn>(Maybe<T> maybe, Func<TReturn> fNone, Func<T, Task<TReturn>> fSome) =>
-		IsNone(maybe, out var x)
-			? fNone()
-			: await fSome(x);
+		maybe switch
+		{
+			Maybe<T>.NoneImpl =>
+				fNone(),
+
+			Some<T> x =>
+				await fSome(x.Value),
+
+			_ =>
+				throw Invalid(maybe)
+		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<T, TReturn>(Maybe<T> maybe, Func<Task<TReturn>> fNone, Func<T, TReturn> fSome) =>
-		IsNone(maybe, out var x)
-			? await fNone()
-			: fSome(x);
+		maybe switch
+		{
+			Maybe<T>.NoneImpl =>
+				await fNone(),
+
+			Some<T> x =>
+				fSome(x.Value),
+
+			_ =>
+				throw Invalid(maybe)
+		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<T, TReturn>(Maybe<T> maybe, Func<Task<TReturn>> fNone, Func<T, Task<TReturn>> fSome) =>
-		IsNone(maybe, out var x)
-			? await fNone()
-			: await fSome(x);
+		maybe switch
+		{
+			Maybe<T>.NoneImpl =>
+				await fNone(),
+
+			Some<T> x =>
+				await fSome(x.Value),
+
+			_ =>
+				throw Invalid(maybe)
+		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Maybe<T>> maybe, Func<TReturn> fNone, Func<T, TReturn> fSome) =>
@@ -162,27 +214,15 @@ public static partial class M
 	#endregion
 
 	/// <summary>
-	/// Returns true if <paramref name="maybe"/> is <see cref="Wrap.None"/>, otherwise sets <paramref name="value"/>.
+	/// Exception for a <paramref name="maybe"/> that is neither <see cref="Some{T}"/> nor <see cref="Wrap.None"/>.
 	/// </summary>
-	/// <exception cref="InvalidMaybeTypeException"></exception>
-	/// <exception cref="NullMaybeException"></exception>
-	private static bool IsNone<T>(Maybe<T> maybe, out T value)
-	{
-		switch (maybe)
+	private static Exception Invalid<T>(Maybe<T>? maybe) =>
+		maybe switch
 		{
-			case Maybe<T>.NoneImpl:
-				value = default!;
-				return true;
+			null =>
+				new NullMaybeException(),
 
-			case Some<T> x:
-				value = x.Value;
-				return false;
-
-			case { } m:
-				throw new InvalidMaybeTypeException(m.GetType());
-
-			default:
-				throw new NullMaybeException();
-		}
-	}
+			_ =>
+				new InvalidMaybeTypeException(maybe.GetType())
+		};
 }

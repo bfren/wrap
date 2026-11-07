@@ -34,13 +34,18 @@ public static partial class E
 	public static void Match<TEither, TLeft, TRight>(TEither either, Action<TLeft> fLeft, Action<TRight> fRight)
 		where TEither : IEither<TEither, TLeft, TRight>
 	{
-		if (IsLeft<TEither, TLeft, TRight>(either, out var l, out var r))
+		switch (either)
 		{
-			fLeft(l);
-		}
-		else
-		{
-			fRight(r);
+			case ILeft<TLeft, TRight> l:
+				fLeft(l.Value);
+				return;
+
+			case IRight<TLeft, TRight> r:
+				fRight(r.Value);
+				return;
+
+			default:
+				throw Invalid(either);
 		}
 	}
 
@@ -48,13 +53,18 @@ public static partial class E
 	public static async Task MatchAsync<TEither, TLeft, TRight>(TEither either, Action<TLeft> fLeft, Func<TRight, Task> fRight)
 		where TEither : IEither<TEither, TLeft, TRight>
 	{
-		if (IsLeft<TEither, TLeft, TRight>(either, out var l, out var r))
+		switch (either)
 		{
-			fLeft(l);
-		}
-		else
-		{
-			await fRight(r);
+			case ILeft<TLeft, TRight> l:
+				fLeft(l.Value);
+				return;
+
+			case IRight<TLeft, TRight> r:
+				await fRight(r.Value);
+				return;
+
+			default:
+				throw Invalid(either);
 		}
 	}
 
@@ -62,13 +72,18 @@ public static partial class E
 	public static async Task MatchAsync<TEither, TLeft, TRight>(TEither either, Func<TLeft, Task> fLeft, Action<TRight> fRight)
 		where TEither : IEither<TEither, TLeft, TRight>
 	{
-		if (IsLeft<TEither, TLeft, TRight>(either, out var l, out var r))
+		switch (either)
 		{
-			await fLeft(l);
-		}
-		else
-		{
-			fRight(r);
+			case ILeft<TLeft, TRight> l:
+				await fLeft(l.Value);
+				return;
+
+			case IRight<TLeft, TRight> r:
+				fRight(r.Value);
+				return;
+
+			default:
+				throw Invalid(either);
 		}
 	}
 
@@ -76,13 +91,18 @@ public static partial class E
 	public static async Task MatchAsync<TEither, TLeft, TRight>(TEither either, Func<TLeft, Task> fLeft, Func<TRight, Task> fRight)
 		where TEither : IEither<TEither, TLeft, TRight>
 	{
-		if (IsLeft<TEither, TLeft, TRight>(either, out var l, out var r))
+		switch (either)
 		{
-			await fLeft(l);
-		}
-		else
-		{
-			await fRight(r);
+			case ILeft<TLeft, TRight> l:
+				await fLeft(l.Value);
+				return;
+
+			case IRight<TLeft, TRight> r:
+				await fRight(r.Value);
+				return;
+
+			default:
+				throw Invalid(either);
 		}
 	}
 
@@ -119,30 +139,62 @@ public static partial class E
 	/// <exception cref="NullEitherException"></exception>
 	public static TReturn Match<TEither, TLeft, TRight, TReturn>(TEither either, Func<TLeft, TReturn> fLeft, Func<TRight, TReturn> fRight)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		IsLeft<TEither, TLeft, TRight>(either, out var l, out var r)
-			? fLeft(l)
-			: fRight(r);
+		either switch
+		{
+			ILeft<TLeft, TRight> l =>
+				fLeft(l.Value),
+
+			IRight<TLeft, TRight> r =>
+				fRight(r.Value),
+
+			_ =>
+				throw Invalid(either)
+		};
 
 	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(TEither either, Func<TLeft, TReturn> fLeft, Func<TRight, Task<TReturn>> fRight)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		IsLeft<TEither, TLeft, TRight>(either, out var l, out var r)
-			? fLeft(l)
-			: await fRight(r);
+		either switch
+		{
+			ILeft<TLeft, TRight> l =>
+				fLeft(l.Value),
+
+			IRight<TLeft, TRight> r =>
+				await fRight(r.Value),
+
+			_ =>
+				throw Invalid(either)
+		};
 
 	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(TEither either, Func<TLeft, Task<TReturn>> fLeft, Func<TRight, TReturn> fRight)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		IsLeft<TEither, TLeft, TRight>(either, out var l, out var r)
-			? await fLeft(l)
-			: fRight(r);
+		either switch
+		{
+			ILeft<TLeft, TRight> l =>
+				await fLeft(l.Value),
+
+			IRight<TLeft, TRight> r =>
+				fRight(r.Value),
+
+			_ =>
+				throw Invalid(either)
+		};
 
 	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(TEither either, Func<TLeft, Task<TReturn>> fLeft, Func<TRight, Task<TReturn>> fRight)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		IsLeft<TEither, TLeft, TRight>(either, out var l, out var r)
-			? await fLeft(l)
-			: await fRight(r);
+		either switch
+		{
+			ILeft<TLeft, TRight> l =>
+				await fLeft(l.Value),
+
+			IRight<TLeft, TRight> r =>
+				await fRight(r.Value),
+
+			_ =>
+				throw Invalid(either)
+		};
 
 	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(Task<TEither> either, Func<TLeft, TReturn> fLeft, Func<TRight, TReturn> fRight)
@@ -167,29 +219,15 @@ public static partial class E
 	#endregion
 
 	/// <summary>
-	/// Returns true if <paramref name="either"/> is left and sets <paramref name="left"/>,
-	/// otherwise sets <paramref name="right"/>.
+	/// Exception for an <paramref name="either"/> that is neither left nor right.
 	/// </summary>
-	/// <exception cref="InvalidEitherTypeException"></exception>
-	/// <exception cref="NullEitherException"></exception>
-	private static bool IsLeft<TEither, TLeft, TRight>(TEither either, out TLeft left, out TRight right)
-		where TEither : IEither<TEither, TLeft, TRight>
-	{
-		switch (either)
+	private static Exception Invalid<TEither>(TEither either) =>
+		either switch
 		{
-			case ILeft<TLeft, TRight> x:
-				(left, right) = (x.Value, default!);
-				return true;
+			null =>
+				new NullEitherException(),
 
-			case IRight<TLeft, TRight> y:
-				(left, right) = (default!, y.Value);
-				return false;
-
-			case { } m:
-				throw new InvalidEitherTypeException(m.GetType());
-
-			default:
-				throw new NullEitherException();
-		}
-	}
+			_ =>
+				new InvalidEitherTypeException(either.GetType())
+		};
 }
