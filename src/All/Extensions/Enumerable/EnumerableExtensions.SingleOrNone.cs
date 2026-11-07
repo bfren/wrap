@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Wrap.Extensions;
 
@@ -16,16 +17,14 @@ public static partial class EnumerableExtensions
 	/// Value of the single element of <paramref name="this"/>, or <see cref="None"/> if the list is empty
 	/// or contains more than one element.
 	/// </returns>
-	public static Maybe<T> SingleOrNone<T>(this IEnumerable<T> @this)
-	{
-		// stop after the second item - more than one means None
-		using var e = @this.GetEnumerator();
-		if (!e.MoveNext())
+	public static Maybe<T> SingleOrNone<T>(this IEnumerable<T> @this) =>
+		// can't use SingleOrDefault() because it throws an exception if there is more than one element
+		@this.Select(M.Wrap).Take(2).ToArray() switch
 		{
-			return M.None;
-		}
+			[Maybe<T> x] =>
+				x,
 
-		var first = e.Current;
-		return e.MoveNext() ? M.None : M.Wrap(first);
-	}
+			_ =>
+				M.None
+		};
 }

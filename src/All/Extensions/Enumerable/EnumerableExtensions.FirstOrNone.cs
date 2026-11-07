@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Wrap.Extensions;
 
@@ -13,14 +14,13 @@ public static partial class EnumerableExtensions
 	/// <typeparam name="T">IEnumerable value type.</typeparam>
 	/// <param name="this">IEnumerable object</param>
 	/// <returns>Value of the first element of <paramref name="this"/>, or <see cref="None"/>.</returns>
-	public static Maybe<T> FirstOrNone<T>(this IEnumerable<T> @this)
-	{
-		// stop at the first item - ToArray() would read the whole sequence (e.g. a full database table)
-		foreach (var item in @this)
+	public static Maybe<T> FirstOrNone<T>(this IEnumerable<T> @this) =>
+		@this.Select(M.Wrap).FirstOrDefault() switch
 		{
-			return M.Wrap(item);
-		}
+			Maybe<T> x =>
+				x,
 
-		return M.None;
-	}
+			_ =>
+				M.None
+		};
 }
