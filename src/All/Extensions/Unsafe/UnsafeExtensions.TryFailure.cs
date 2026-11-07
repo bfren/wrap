@@ -25,7 +25,7 @@ public static partial class UnsafeExtensions
 			return true;
 		}
 
-		value = default!;
+		value = default;
 		return false;
 	}
 }

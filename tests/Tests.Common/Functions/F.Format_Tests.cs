@@ -8,7 +8,7 @@ public class Format_Tests
 	public class With_Invalid_Format_String
 	{
 		[Theory]
-		[InlineData(null!)]
+		[InlineData(null)]
 		[InlineData("")]
 		[InlineData(" ")]
 		public void Returns_Empty_String(string? input)
@@ -23,7 +23,7 @@ public class Format_Tests
 		}
 
 		[Theory]
-		[InlineData(null!)]
+		[InlineData(null)]
 		[InlineData("")]
 		[InlineData(" ")]
 		public void Returns_Replace(string? input)
