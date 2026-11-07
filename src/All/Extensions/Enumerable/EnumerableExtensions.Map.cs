@@ -41,12 +41,12 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, TReturn})"/>
-	public static async Task<IEnumerable<Maybe<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, TReturn> f) =>
-		[.. (await @this).Map(f)];
+	public static Task<IEnumerable<Maybe<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, TReturn> f) =>
+		@this.Then(x => x.Map(f));
 
 	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, TReturn})"/>
-	public static async Task<IEnumerable<Maybe<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<TReturn>> f) =>
-		await (await @this).MapAsync(f);
+	public static Task<IEnumerable<Maybe<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<TReturn>> f) =>
+		@this.Then(x => x.MapAsync(f));
 
 	#endregion
 
@@ -82,12 +82,12 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{Result{T}}, Func{T, TReturn})"/>
-	public static async Task<IEnumerable<Result<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, TReturn> f) =>
-		[.. (await @this).Map(f)];
+	public static Task<IEnumerable<Result<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, TReturn> f) =>
+		@this.Then(x => x.Map(f));
 
 	/// <inheritdoc cref="Map{T, TReturn}(IEnumerable{Result{T}}, Func{T, TReturn})"/>
-	public static async Task<IEnumerable<Result<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<TReturn>> f) =>
-		await (await @this).MapAsync(f);
+	public static Task<IEnumerable<Result<TReturn>>> MapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<TReturn>> f) =>
+		@this.Then(x => x.MapAsync(f));
 
 	#endregion
 }

@@ -42,12 +42,12 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Maybe{T}}, Action{T})"/>
-	public static async Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Action<T> f) =>
-		(await @this).Iterate(f);
+	public static Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Action<T> f) =>
+		@this.Then(x => x.Iterate(f));
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Maybe{T}}, Action{T})"/>
-	public static async Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task> f) =>
-		await (await @this).IterateAsync(f);
+	public static Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task> f) =>
+		@this.Then(x => x.IterateAsync(f));
 
 	#endregion
 
@@ -84,12 +84,12 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Result{T}}, Action{T})"/>
-	public static async Task IterateAsync<T>(this Task<IEnumerable<Result<T>>> @this, Action<T> f) =>
-		(await @this).Iterate(f);
+	public static Task IterateAsync<T>(this Task<IEnumerable<Result<T>>> @this, Action<T> f) =>
+		@this.Then(x => x.Iterate(f));
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Result{T}}, Action{T})"/>
-	public static async Task IterateAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task> f) =>
-		await (await @this).IterateAsync(f);
+	public static Task IterateAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task> f) =>
+		@this.Then(x => x.IterateAsync(f));
 
 	#endregion
 }

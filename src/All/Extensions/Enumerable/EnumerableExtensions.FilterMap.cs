@@ -54,18 +54,18 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static async Task<IEnumerable<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
+	public static Task<IEnumerable<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
 		Func<T, bool> fTest,
 		Func<T, TReturn> f
 	) =>
-		[.. (await @this).FilterMap(fTest, f)];
+		@this.Then(x => x.FilterMap(fTest, f));
 
 	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static async Task<IEnumerable<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
+	public static Task<IEnumerable<Maybe<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this,
 		Func<T, bool> fTest,
 		Func<T, Task<TReturn>> f
 	) =>
-		await (await @this).FilterMapAsync(fTest, f);
+		@this.Then(x => x.FilterMapAsync(fTest, f));
 
 	#endregion
 
@@ -114,18 +114,18 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static async Task<IEnumerable<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
+	public static Task<IEnumerable<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
 		Func<T, bool> fTest,
 		Func<T, TReturn> f
 	) =>
-		[.. (await @this).FilterMap(fTest, f)];
+		@this.Then(x => x.FilterMap(fTest, f));
 
 	/// <inheritdoc cref="FilterMap{T, TReturn}(IEnumerable{Result{T}}, Func{T, bool}, Func{T, TReturn})"/>
-	public static async Task<IEnumerable<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
+	public static Task<IEnumerable<Result<TReturn>>> FilterMapAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this,
 		Func<T, bool> fTest,
 		Func<T, Task<TReturn>> f
 	) =>
-		await (await @this).FilterMapAsync(fTest, f);
+		@this.Then(x => x.FilterMapAsync(fTest, f));
 
 	#endregion
 }

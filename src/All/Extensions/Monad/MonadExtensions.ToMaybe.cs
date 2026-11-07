@@ -22,8 +22,8 @@ public static partial class MonadExtensions
 		@this.Value;
 
 	/// <inheritdoc cref="ToMaybe{T}(IMonad{T})"/>
-	public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<IMonad<T>> @this) =>
-		(await @this).Value;
+	public static Task<Maybe<T>> ToMaybeAsync<T>(this Task<IMonad<T>> @this) =>
+		@this.Then(x => x.ToMaybe());
 
 	/// <inheritdoc cref="ToMaybe{T}(IMonad{T})"/>
 	public static IEnumerable<Maybe<T>> ToMaybe<T>(this IEnumerable<IMonad<T>> @this)
@@ -42,6 +42,6 @@ public static partial class MonadExtensions
 		ToMaybe(@this);
 
 	/// <inheritdoc cref="ToMaybe{T}(IMonad{T})"/>
-	public static async Task<IEnumerable<Maybe<T>>> ToMaybeAsync<T>(this Task<IEnumerable<IMonad<T>>> @this) =>
-		ToMaybe(await @this);
+	public static Task<IEnumerable<Maybe<T>>> ToMaybeAsync<T>(this Task<IEnumerable<IMonad<T>>> @this) =>
+		@this.Then(x => x.ToMaybe());
 }

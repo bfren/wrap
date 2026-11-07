@@ -92,10 +92,10 @@ public static partial class ResultExtensions
 		GetSingleAsync(@this, unwrap, null);
 
 	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, Func{FluentGetSingle{T}, Result{TSingle}}, R.ErrorHandler?)"/>
-	public static async Task<Result<TSingle>> GetSingleAsync<T, TSingle>(this Task<Result<T>> @this,
+	public static Task<Result<TSingle>> GetSingleAsync<T, TSingle>(this Task<Result<T>> @this,
 		Func<FluentGetSingle<T>, Result<TSingle>> unwrap, R.ErrorHandler? onError)
 		where T : IEnumerable<TSingle> =>
-		unwrap(new FluentGetSingle<T>(await @this, onError));
+		@this.Then(x => x.GetSingle(unwrap, onError));
 
 	/// <summary>
 	/// Provides a fluent interface for retrieving a single value from a result containing an enumerable type.

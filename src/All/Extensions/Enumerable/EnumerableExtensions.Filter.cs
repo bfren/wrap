@@ -29,8 +29,8 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}})"/>
-	public static async Task<IEnumerable<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this) =>
-		[.. (await @this).Filter()];
+	public static Task<IEnumerable<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this) =>
+		@this.Then(x => x.Filter());
 
 	/// <summary>
 	/// Run <paramref name="fTest"/> on each value in <paramref name="this"/> that is <see cref="Some{T}"/>.
@@ -67,12 +67,12 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
-	public static async Task<IEnumerable<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, bool> fTest) =>
-		[.. (await @this).Filter(fTest)];
+	public static Task<IEnumerable<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, bool> fTest) =>
+		@this.Then(x => x.Filter(fTest));
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Maybe{T}}, Func{T, bool})"/>
-	public static async Task<IEnumerable<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<bool>> fTest) =>
-		await (await @this).FilterAsync(fTest);
+	public static Task<IEnumerable<Maybe<T>>> FilterAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<bool>> fTest) =>
+		@this.Then(x => x.FilterAsync(fTest));
 
 	#endregion
 
@@ -113,12 +113,12 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Result{T}}, Func{T, bool})"/>
-	public static async Task<IEnumerable<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, bool> fTest) =>
-		[.. (await @this).Filter(fTest)];
+	public static Task<IEnumerable<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, bool> fTest) =>
+		@this.Then(x => x.Filter(fTest));
 
 	/// <inheritdoc cref="Filter{T}(IEnumerable{Result{T}}, Func{T, bool})"/>
-	public static async Task<IEnumerable<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<bool>> fTest) =>
-		await (await @this).FilterAsync(fTest);
+	public static Task<IEnumerable<Result<T>>> FilterAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<bool>> fTest) =>
+		@this.Then(x => x.FilterAsync(fTest));
 
 	#endregion
 }

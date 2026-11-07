@@ -41,12 +41,12 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, Maybe{TReturn}})"/>
-	public static async Task<IEnumerable<Maybe<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Maybe<TReturn>> f) =>
-		[.. (await @this).Bind(f)];
+	public static Task<IEnumerable<Maybe<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Maybe<TReturn>> f) =>
+		@this.Then(x => x.Bind(f));
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Maybe{T}}, Func{T, Maybe{TReturn}})"/>
-	public static async Task<IEnumerable<Maybe<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<Maybe<TReturn>>> f) =>
-		await (await @this).BindAsync(f);
+	public static Task<IEnumerable<Maybe<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task<Maybe<TReturn>>> f) =>
+		@this.Then(x => x.BindAsync(f));
 
 	#endregion
 
@@ -82,12 +82,12 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Result{T}}, Func{T, Result{TReturn}})"/>
-	public static async Task<IEnumerable<Result<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Result<TReturn>> f) =>
-		[.. (await @this).Bind(f)];
+	public static Task<IEnumerable<Result<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Result<TReturn>> f) =>
+		@this.Then(x => x.Bind(f));
 
 	/// <inheritdoc cref="Bind{T, TReturn}(IEnumerable{Result{T}}, Func{T, Result{TReturn}})"/>
-	public static async Task<IEnumerable<Result<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<Result<TReturn>>> f) =>
-		await (await @this).BindAsync(f);
+	public static Task<IEnumerable<Result<TReturn>>> BindAsync<T, TReturn>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task<Result<TReturn>>> f) =>
+		@this.Then(x => x.BindAsync(f));
 
 	#endregion
 }
