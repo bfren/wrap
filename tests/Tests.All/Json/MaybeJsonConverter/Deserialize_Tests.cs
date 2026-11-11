@@ -24,7 +24,7 @@ public class Deserialize_Tests
 					var result = JsonSerializer.Deserialize<Maybe<Guid>>(json, Helpers.Json.Options);
 
 					// Assert
-					result!.AssertSome(value);
+					result.AssertSome(value);
 				}
 			}
 
@@ -40,7 +40,7 @@ public class Deserialize_Tests
 					var result = JsonSerializer.Deserialize<Maybe<Guid>>(input, Helpers.Json.Options);
 
 					// Assert
-					result!.AssertSome(default);
+					result.AssertSome(default);
 				}
 			}
 		}
@@ -62,7 +62,7 @@ public class Deserialize_Tests
 					var result = JsonSerializer.Deserialize<Maybe<Test>>(json, Helpers.Json.Options);
 
 					// Assert
-					result!.AssertSome(expected);
+					result.AssertSome(expected);
 				}
 			}
 

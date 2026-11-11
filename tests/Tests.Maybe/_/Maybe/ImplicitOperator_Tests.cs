@@ -43,7 +43,7 @@ public class ImplicitOperator_Tests
 		public void Returns_None()
 		{
 			// Arrange
-			static Maybe<string> act() => (string)null!;
+			static Maybe<string> act() => null!;
 
 			// Act
 			var result = act();

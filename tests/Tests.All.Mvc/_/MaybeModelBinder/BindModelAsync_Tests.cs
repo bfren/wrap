@@ -14,7 +14,9 @@ public class BindModelAsync_Tests
 		{
 			// Arrange
 			var (binder, v) = Setup(null!);
+#pragma warning disable IDE0004 // false positive: Success takes object, so the cast decides what is boxed
 			var expected = ModelBindingResult.Success((Maybe<string>)M.None);
+#pragma warning restore IDE0004
 
 			// Act
 			await binder.BindModelAsync(v.Context);
