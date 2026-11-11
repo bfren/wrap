@@ -12,10 +12,9 @@ namespace Wrap.Mvc;
 public sealed class MaybeModelBinder<T> : WrapModelBinder<T>
 {
 	/// <inheritdoc/>
-#pragma warning disable IDE0004 // false positive: Success takes object, so without the cast a bare None is boxed instead of Maybe<T>
 	internal override (ValueProviderResult valueResult, ModelBindingResult bindingResult) Nothing() =>
-		(new(nameof(M.None)), ModelBindingResult.Success((Maybe<T>)M.None));
-#pragma warning restore IDE0004
+		// don't use 'M.None' here to avoid incorrect compiler warnings
+		(new(nameof(M.None)), ModelBindingResult.Success(default(Maybe<T>)));
 
 	/// <inheritdoc/>
 	public override object Wrap(T value) =>
