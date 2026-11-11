@@ -1,0 +1,209 @@
+# Wrap and C# 15 union types: analysis, recommendations, and plan
+
+*Written 11 November 2026, the day after .NET 11 / C# 15 went GA. I checked every claim marked ✅ against SDK 11.0.100 on this machine. The prototypes are listed in the appendix.*
+
+---
+
+## TL;DR
+
+- **Unions can replace how Wrap *stores* its types, not what Wrap *does* with them.** A union is a sum type: it holds one of a fixed set of cases and gives you exhaustive `switch`. It has no `Bind`, `Map`, LINQ, async chaining, `Audit`, `Filter`, logging or parsing. In this codebase that "monad" layer is the ~5,400 lines in `src/All`, plus the integrations, and all of it stays.
+- **What unions *can* replace** is the representation layer: `Maybe`/`Some`/`NoneImpl`, `Result`/`Ok`/`FailureImpl`, `Either`/`Left`/`Right`, the `IEither`/`ILeft`/`IRight` plumbing, the runtime `Invalid…TypeException`/`Null…Exception` fallbacks, and most of `Unsafe`. That is roughly 1,000–1,500 lines and about 51 internal pattern-match sites.
+- **It is still worth doing, as a v2.0.** You gain compile-time exhaustiveness for your consumers, public pattern-matchable cases (today `NoneImpl`/`FailureImpl` are internal), **zero allocations** for `Some`/`Ok` (today every one is a heap object), a `default` that safely means `None`, and a smaller core. The cost is a hard breaking change: `Maybe<T>` and `Result<T>` change from reference types to structs.
+- **Recommended shape:** hand-written, non-boxing `[Union] readonly struct`s whose cases are small record structs: `Some<T>`/`None`, `Ok<T>`/`Failure`, `Left<T>`/`Right<T>`. **Don't** use the one-line `union X(A, B)` shorthand for the core types: it boxes value-type cases, makes `default` a runtime crash, and `Either<int,int>` won't compile.
+- **You don't have to drop .NET 8–10 at runtime.** ✅ A union library compiles and runs on `net8.0` with a two-type internal polyfill (`UnionAttribute`, `IUnion`), including across assembly boundaries. The real requirement is the **compiler**: consumers need the .NET 11 SDK and `LangVersion` 15 (the C# version that ships with .NET 11). For net8–10 projects that is a manual, officially unsupported setting. Microsoft only supports net11+, so net11-only is the honest, supported choice. The polyfill exists if you want it.
+
+---
+
+## 1. Unions as shipped in C# 15 (verified)
+
+| Aspect | Behaviour |
+|---|---|
+| Shorthand | `public union Pet(Cat, Dog, Bird);` lowers to a plain `struct` with `object? Value`, one public constructor per case, and `IUnion`. Generic unions, a body with members, `partial` and interfaces are all allowed. Instance fields and auto-properties are not allowed in a shorthand union. |
+| Case types | Any type that converts to `object`, type parameters included. ✅ `union Either<L,R>(L, R)` compiles, but **using `Either<int,int>` fails with CS0457 (ambiguous conversion)**. |
+| Storage | Shorthand unions keep the value in one `object?` field. ✅ Value-type cases **box**: 24 bytes for every `Opt<int>` assignment. |
+| Custom ("non-boxing") unions | `[Union]` on your own struct, public single-parameter constructors (these define the cases), `object? Value`, plus optional `bool HasValue` and `bool TryGetValue(out Case)` per case. ✅ Type patterns call `TryGetValue` rather than `Value`, so you get **0 bytes per op**. |
+| Conversions | There is an implicit conversion from every case type. ✅ Your own `implicit operator` in the body wins over it (an `implicit operator Maybe<T>(T)` works). |
+| Exhaustiveness | Covering every case type is exhaustive with no `_` arm. ✅ This works in generic methods when the cases are non-null types (`Some<T>`, `None`). With a raw `T` case and unconstrained `T` you get **CS8655** (null not handled). |
+| `default` | In a shorthand union, `default` has `Value == null`. ✅ A switch with no `null` arm compiles **with no warning** and then **throws `SwitchExpressionException` at runtime**. A custom union can make `default` mean `None` (✅ verified). |
+| Equality / ToString | **Not generated.** ✅ `ToString()` returns `` Maybe`1[System.Int32] ``. Equality falls back to reflection-based `ValueType.Equals`. You write both yourself, as Wrap already does. |
+| Closed hierarchies | `public closed record Shape;` makes the class implicitly abstract (✅ adding `abstract` is an error, CS9384), and derived types are limited to the same assembly. ✅ A switch over the derived types is exhaustive. |
+| BCL types | **No `Option`, `Result` or `Either` in .NET 11.** The docs' examples hand-roll `None`/`Some<T>`. Wrap still has a reason to exist. |
+| System.Text.Json | Supported natively. ✅ It writes the case value: a shorthand `Maybe` gives `{"Value":5}` for Some and **`{}` for None**, and a custom union gives `5` / `{}`. ✅ **Deserialising fails** when cases share a JSON shape unless you configure a classifier. |
+| ASP.NET Core | Supports unions in JSON bodies (Minimal APIs, MVC) and emits OpenAPI `anyOf`. **Route, query, header and form binding are not covered**, so your MVC model binders stay. |
+| LINQ / async | Nothing built in. ✅ Your own `Select`/`SelectMany` extensions over a union work with query syntax. C# 14 `extension` blocks also work on unions. |
+
+---
+
+## 2. What Wrap is made of today
+
+| Layer | Projects | Lines | Do unions affect it? |
+|---|---|---:|---|
+| **Representation** | `Maybe` (950), `Result` (1,057), `Either` (390), `Common` (738) | ~3,100 | **Partly.** The case classes, `NoneImpl`/`FailureImpl`, `IEither`/`ILeft`/`IRight`, `Invalid…`/`Null…` exceptions and the switch-with-throw `Match` bodies go away. The parsers (`M.Parse*`), `F.Format`, logging hooks, `FailureValue` and the `Failure` builder (`Msg`/`Ctx`/`Lvl`/`Arg`) stay. |
+| **Combinators ("the monad")** | `All` | 5,439 | **No.** About 250 public overloads (`Bind`, `Map`, `Match`, `MatchIf`, `Audit`, `If`, `Filter`, `Unwrap`, `ToMaybe`/`ToResult`, LINQ, enumerable helpers, `…Async` variants) stay. Their bodies get simpler (`switch` on cases), and `Unsafe` is mostly replaced by native patterns. |
+| **Integrations** | `All.Mvc` (460), `Caching` (371), JSON in `All` | ~1,000 | **Light rework.** The converters and binders target the new struct types. The binders are still needed. The converters are still needed if you keep today's JSON format (None → `null`). |
+| **Strong IDs** | `Id`, `Id.Dapper` | ~510 | **No.** `Id<TId,TValue>` is a single-value wrapper, not a sum type. Unions have nothing to offer it. |
+| **Testing** | `*.Testing` | ~400 | Rewrite the internals and keep the API (`AssertSome`, `AssertOk`, `AssertFailure`…). |
+| Tests | 262 files | ~22,000 | Mostly mechanical changes. Only 4 files touch internals (`NoneImpl`/`FailureImpl`, 14 references). |
+
+---
+
+## 3. What you gain
+
+1. **Compile-time exhaustiveness for consumers.** `maybe switch { Some<int> s => …, None => … }` is checked by the compiler. Today the only safety net is the runtime `throw Invalid(...)` arm in every `Match`.
+2. **Public, pattern-matchable cases.** `NoneImpl` and `FailureImpl` are `internal` today, so consumers *can't* write `result is Failure f`. With unions, `if (result is Ok<User>(var user))` and `result switch { Failure f => … }` are just C#.
+3. **Zero-allocation `Some`/`Ok`.** ✅ Measured: a custom `[Union]` struct allocates 0 B/op. Today's `Some<T>`/`Ok<T>` are `sealed record class`es, so every wrap is a heap allocation, and so is every `Map`/`Bind` step in a chain. This is the biggest performance win available to the library.
+4. **`default` stops being dangerous.** `default(Maybe<T>)` can be defined as `None`. Today a `null` `Maybe<T>` reference is possible and is caught only at runtime (`NullMaybeException`).
+5. **A smaller, simpler core.** You can delete `NoneImpl`, `FailureImpl`, `IEither<,>`, `IEither<,,>`, `ILeft`, `IRight`, `InvalidTypeException` and its three subclasses, the three `Null…Exception`s, most of `Unsafe<,,>` with `TryOk`/`TrySome`/`TryFailure` (replaced by `if (r is Ok<T>(var v))`), and the reflection in `GetGenericTypeArguments` that exists only for the `IEither` family.
+6. **Platform alignment.** System.Text.Json, ASP.NET Core and OpenAPI recognise `IUnion` types, and the IDE understands them. You're building on the language's own vocabulary rather than a parallel one.
+
+## 4. What you lose or must actively preserve
+
+1. **Reference-type semantics (the main breaking change).** `Maybe<T>`/`Result<T>` become structs. Consumer code that does `maybe is null`, uses `Maybe<T>?` to mean "missing Maybe", relies on inheritance, or uses `Some<T>`/`Ok<T>` as reference types breaks. `Some<T>`/`Ok<T>` become record structs too.
+2. **Pre-.NET 11 consumers, unless you polyfill.** See section 6.
+3. **The polymorphic `IEither` abstraction.** `E.Match<TEither,TLeft,TRight>`, `EitherExtensions` and `Unsafe<TEither,…>` work across Maybe, Result and Either through interfaces. Unions don't need that, and a struct used through an interface boxes. You lose the ability to write one generic function over "any Wrap either". It looks like an internal convenience rather than something consumers use, but check your downstream projects.
+4. **Free record behaviour.** You get no generated equality, `ToString`, `with` or deconstruction on the union itself. Wrap already overrides `Equals`/`GetHashCode`/`ToString`/`==` by hand, so you mostly carry existing code across. Without it, `ToString()` returns the type name and equality goes through reflection.
+5. **Logging on failure creation needs care.** `FailureImpl`'s `init` accessor calls `F.LogFailure`/`F.LogException`, and `R.Pass` builds a non-logging copy. Move that into the `Result<T>(Failure)` constructor, with an internal non-logging constructor for pass-through. It is easy to lose this in a rewrite, so add a test first.
+6. **JSON wire format.** Native STJ writes None as `{}`. Today it is `null`. Keep `MaybeJsonConverter` if you want existing payloads and clients to keep working. Also confirm that a registered converter takes precedence over the built-in union handling (not yet verified; see the Phase 0 spike).
+7. **Some shorthand pitfalls stay real for anyone who uses `union X(...)` directly:** silent runtime throw on `default`, boxing, and type-parameter cases that collide. This is why I recommend the custom pattern for the core types.
+8. **Nullable analysis is not a guarantee.** The docs say plainly that it "doesn't guarantee that a generated union has non-null contents at runtime". Keep the null-guarding constructors (`M.Wrap`, `R.Wrap`).
+
+---
+
+## 5. Design options
+
+| | A. Shorthand `union Maybe<T>(None, Some<T>)` | **B. Custom `[Union]` struct with record-struct cases (recommended)** | C. Custom struct with raw `T` as a case (`maybe is int x`) |
+|---|---|---|---|
+| Code size | Smallest | Small (~40 lines per type) | Small |
+| Allocations | `Some<T>` record class: same as today. Struct cases box. | **0** ✅ | **0** ✅ |
+| `default` | `null`: runtime throw, no warning ✅ | **`None`** ✅ | **`None`** ✅ |
+| Generic exhaustiveness | ✅ | ✅ (no CS8655 for unconstrained `T`) | ⚠️ CS8655 unless `T : notnull`, which would ban `Maybe<string?>`-style use |
+| `Either<int,int>` | ❌ CS0457 | ✅ (`Left<int>` ≠ `Right<int>`) | ❌ ambiguous |
+| `Maybe<None>` / `Result<Failure>` | OK | OK | ❌ ambiguous |
+| Familiar to current users | Medium | **High** (`Some<T>`, `Ok<T>`, `Failure`, `None` keep their names) | Low |
+
+**Option B** keeps your vocabulary and is allocation-free. It gives consumers exhaustiveness in generic code and makes `default` safe. It costs about 40 lines of hand-written members per type, which replaces more than that. Sketch:
+
+```csharp
+public readonly record struct None;
+public readonly record struct Some<T>(T Value);
+
+[Union]
+public readonly partial struct Maybe<T> : IEquatable<Maybe<T>>
+{
+    private readonly T? value;
+    private readonly bool isSome;
+
+    public Maybe(Some<T> some) => (value, isSome) = (some.Value, !IsNull(some.Value));
+    public Maybe(None _) { }
+
+    public object? Value => isSome ? new Some<T>(value!) : new None(); // only reflection/STJ boxes
+    public bool HasValue => true;                                       // default == None, never null
+    public bool TryGetValue(out Some<T> some) { some = new(value!); return isSome; }
+    public bool TryGetValue(out None none)    { none = default;     return !isSome; }
+
+    public static implicit operator Maybe<T>(T? v) => IsNull(v) ? new None() : new Some<T>(v!);
+    // + Equals/GetHashCode/==/ToString/GetEnumerator carried over from today
+}
+```
+
+> ⚠️ ✅ Verified pitfall: `some.Value is not null` inside the constructor **boxed `T` (24 B/op)** because the JIT didn't elide it through the record-struct property. Read it into a local, or use a cached `typeof(T).IsValueType` style check (`F.IsNullableValueType` is already that pattern). Benchmark every core type.
+
+`Result<T>` follows the same pattern with `Ok<T>`/`Failure`: the `Failure` constructor logs, and an internal two-parameter constructor skips logging for `R.Pass`. `Either<TLeft,TRight>` uses `Left<T>`/`Right<T>`.
+
+---
+
+## 6. The ".NET < 11" question
+
+| Path | Runtime TFMs | Consumer requirement | Support status |
+|---|---|---|---|
+| **net11-only (recommended)** | `net11.0` (+ `net12.0` later) | .NET 11 SDK, default `LangVersion` | Supported |
+| Polyfill multi-target | `net8.0;net9.0;net10.0;net11.0` | .NET 11 SDK **and** `<LangVersion>15</LangVersion>` in the consumer's project. ✅ C# 12 consumers get CS9202 ("Feature 'unions' is not available") as soon as they touch a union conversion or pattern. | Works ✅, but a newer language version on an older TFM is officially unsupported |
+
+The polyfill is two `internal` types behind `#if !NET11_0_OR_GREATER`, and it worked across assemblies in testing. It doesn't buy much, though. Consumers on net8–10 still have to change their SDK and `LangVersion`, and anyone who doesn't gets a library they can't use idiomatically. If you want to keep older runtimes, a cleaner split is **1.x maintenance branch for net8–10, 2.x for net11+**. One thing to know: .NET 10 is LTS, while .NET 11 is STS (STS releases now get 24 months, so both are currently supported until about late 2028). Some of your consumers may stay on 10 for a while.
+
+---
+
+## 7. Recommendation
+
+**Do it, as Wrap 2.0, using Option B on net11+.** Keep the public vocabulary (`M`, `R`, `E`, `Some`, `None`, `Ok`, `Failure`, `Match`, `Bind`, `Map`, …) and every combinator in `All`. Treat unions as a new engine under the same API, not a replacement for the API. Before committing, decide the five questions in section 9. Keep `Id` exactly as it is.
+
+**Don't** try to make unions "replace the monad functionality". They don't provide it, and there is no BCL `Option`/`Result` to defer to.
+
+---
+
+## 8. Phased plan
+
+Each phase leaves `main` green and releasable.
+
+### Phase 0: Spike and decisions (small)
+- Branch, pin SDK 11 in `global.json`, and add BenchmarkDotNet baselines for wrap/`Map`/`Bind`/`Match` on today's code (allocations and time).
+- Port `Maybe<T>` alone to Option B in the branch. Check: the JSON converter takes precedence over STJ's built-in union handling, nullable-reference `T` (`Maybe<string?>`), the `Maybe<object>` edge case, `foreach` via `GetEnumerator`, equality and `==` with `T`, and async chains with `Task<Maybe<T>>`.
+- Answer the five decisions in section 9.
+
+### Phase 1: Groundwork, non-breaking (ship as 1.4)
+- **Funnel the representation.** Replace the ~51 direct `is Some<T>` / `is Ok<T>` / `FailureImpl` / `NoneImpl` / `ILeft`/`IRight` checks in `src/All` and the integrations with a few internal helpers (`M.Match`/`R.Match` already do most of this). After this, the type swap in Phase 2 touches only a handful of files.
+- Add tests that pin behaviour you must preserve: failure logging fires once and `R.Pass` doesn't re-log, None → `null` JSON, `ToString` formats, equality including `==` with `T`, and `M.Wrap(null)` → None.
+- Mark APIs that will go as `[Obsolete]`, with messages pointing to the replacement pattern: `IEither`/`ILeft`/`IRight`, `E.Match<TEither,…>`, `Unsafe()`/`TryOk`/`TrySome`/`TryFailure`, the `Invalid…`/`Null…` exceptions.
+- Optional and independent of unions: move the extension classes to C# 14 `extension` blocks. This works today on net8+.
+
+### Phase 2: Core types (2.0.0-preview.1, breaking)
+- `TargetFrameworks` → `net11.0` (or keep the polyfill if you decide that way). Update the shared CI workflow matrix, `CLAUDE.md` and the README.
+- Rewrite `Maybe<T>`, `Result<T>` and `Either<TLeft,TRight>` as `[Union] readonly partial struct`s. Rewrite `Some<T>`, `Ok<T>`, `Left<T>`, `Right<T>` as `readonly record struct`s. Keep `None` and `Failure` as they are (already structs).
+- Carry over equality, `ToString`, operators and `GetEnumerator`. Move failure logging into the `Failure` constructor.
+- Delete `NoneImpl`, `FailureImpl`, the `IEither` family, the `Invalid…`/`Null…` exceptions and the `_ => throw Invalid(...)` arms.
+- Decide what `Monad<T>` does. The `implicit operator … (Monad<T>)` conversions can stay as user-defined operators in the union bodies.
+
+### Phase 3: Combinators (`src/All`)
+- Re-implement the bodies on `switch` over the cases. Signatures don't change, so LINQ, async and `Audit` keep working for consumers.
+- Remove `Unsafe` (or keep a thin, obsolete shim for one release). Native `is Ok<T>(var v)` replaces it.
+- Re-run the benchmarks. Expect allocations to fall to the delegate and `Task` costs only.
+
+### Phase 4: Integrations
+- JSON: adapt `MaybeJsonConverter` and keep `null` for None (recommended). If you'd rather adopt STJ's native union handling, schedule that as its own breaking change with a classifier.
+- MVC: adapt `MaybeModelBinder`/`WrapModelBinder` (ASP.NET doesn't bind unions from route, query or form) and `HiddenForMonad`.
+- Caching: `IWrapCache` signatures don't change. `Maybe<Failure> LastFailure` still works.
+- Testing packages: re-implement `AssertSome`/`AssertNone`/`AssertOk`/`AssertFailure`/`AssertTrue`/`AssertFalse` and the generators. Their APIs don't change.
+- `apps/AppMvc`: update and smoke-test.
+
+### Phase 5: Tests, docs, release
+- Update the 262 test files. The changes are mostly mechanical, and only 4 files reference internals.
+- Add tests for: compile-time exhaustiveness (a consumer-style test project with `<WarningsAsErrors>CS8509;CS8655</WarningsAsErrors>`), `default(Maybe<T>) == None`, `default(Result<T>)` (decide what it means: probably a failure with a clear message), and zero-allocation benchmarks as regression guards.
+- Write a wiki migration guide (struct semantics, `is null` → `IsNone`, `Unsafe().TryOk(out x)` → `is Ok<T>(var x)`, removed interfaces), then release 2.0.0-preview → 2.0.0. If you go net11-only, keep a `1.x` branch for fixes.
+
+---
+
+## 9. Decisions for you
+
+1. **Runtime targets:** net11-only (recommended) or the polyfill multi-target?
+2. **Case shape:** `Some<T>`/`Ok<T>` record-struct cases (recommended) or raw `T` cases (`maybe is int x`)?
+3. **JSON:** keep `null` for None with the custom converters (recommended) or switch to STJ native (`{}` for None, which breaks the wire format)?
+4. **Either:** keep it as a `Left<T>`/`Right<T>` union, or drop it? Inside `src`, only `MonadExtensions.ToEither` uses `Either<,>` directly. What's shared across Maybe and Result is the `IEither` interfaces.
+5. **`default(Result<T>)`:** a failure ("uninitialised Result") or a thrown exception on access?
+
+---
+
+## Appendix: prototype evidence (SDK 11.0.100, Windows)
+
+| Check | Result |
+|---|---|
+| `union Maybe<T>(None, Some<T>)` + body `Map`/`Bind` + custom `implicit operator(T)` | ✅ compiles and runs |
+| Generic switch over that union with no `null` arm | ✅ no warning; **`default` throws `SwitchExpressionException`** |
+| `union Either<L,R>(L,R)` used as `Either<string,int>` / `Either<int,int>` | ✅ works / ❌ CS0457 |
+| LINQ query syntax via `Select`/`SelectMany` extensions on a union | ✅ |
+| C# 14 `extension<T>(Result<T> r)` block on a union | ✅ |
+| `a is IUnion` | ❌ CS8121: patterns test the *contents*. `((object)a) is IUnion` → true |
+| Allocation: shorthand `Opt<int>` vs custom `[Union]` with `TryGetValue` | 24 B/op vs **0 B/op** |
+| Custom `Maybe<T>` with `Some<T>`/`None` record-struct cases, unconstrained `T`, no null arm | ✅ no warning, `default` → None |
+| Same, with `s.Value is not null` in the constructor | ⚠️ 24 B/op (JIT doesn't elide the box); 0 B/op without it |
+| `closed record Shape` with two sealed derived records, switch without `_` | ✅ exhaustive |
+| STJ `Serialize`: shorthand Some / None / custom Some / custom None | `{"Value":5}` / `{}` / `5` / `{}` |
+| STJ `Deserialize<Maybe<int>>` | ❌ "ambiguous for union type… specify a custom type classifier" |
+| Union library on `net8.0` with internal `UnionAttribute`/`IUnion` polyfill, consumed by a net8 app on C# 15 / C# 12 | ✅ runs / ❌ CS9202 |
+
+## Sources
+
+- [Union types: C# language reference](https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/union)
+- [Unions: C# 15 feature specification](https://learn.microsoft.com/dotnet/csharp/language-reference/proposals/csharp-15.0/unions)
+- [Explore union types in C# 15 (.NET Blog)](https://devblogs.microsoft.com/dotnet/csharp-15-union-types/)
+- [Announcing .NET 11 (.NET Blog)](https://devblogs.microsoft.com/dotnet/announcing-dotnet-11/)
+- [.NET 11 ships with C# 15 unions (Visual Studio Magazine)](https://visualstudiomagazine.com/articles/2026/11/10/net-11-ships-with-csharp-15-unions-faster-tools-and-coreclr-for-maui.aspx)
