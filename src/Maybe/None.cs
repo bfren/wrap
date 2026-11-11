@@ -1,42 +1,18 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System;
-
 namespace Wrap;
 
 /// <summary>
-/// Simple 'None' value which can be returned in place of <c>null</c>.
+/// The 'None' case of <see cref="Maybe{T}"/>, used in place of <see langword="null"/>.
 /// </summary>
 /// <remarks>
 /// <para>
-/// See <see cref="M.None"/> which is where values should be created.
+/// <see cref="None"/> carries no type, so it converts to any <see cref="Maybe{T}"/> - you can
+/// <c>return M.None;</c> without specifying the value type. Use <see cref="M.None"/> to create one.
 /// </para>
 /// <para>
-/// See <see cref="Maybe{T}"/> implicit operators to see how <see cref="None"/> is converted
-/// to a <see cref="Maybe{T}"/>. We do this so we don't need to specify the value type when
-/// returning a 'None' value.
+/// Every <see cref="None"/> is equal to every other <see cref="None"/>.
 /// </para>
 /// </remarks>
-public readonly struct None : IEquatable<None>
-{
-	/// <inheritdoc/>
-	public bool Equals(None other) =>
-		true;
-
-	/// <inheritdoc/>
-	public override bool Equals(object? obj) =>
-		obj is None;
-
-	/// <inheritdoc/>
-	public override int GetHashCode() =>
-		0;
-
-	/// <inheritdoc/>
-	public static bool operator ==(None left, None right) =>
-		left.Equals(right);
-
-	/// <inheritdoc/>
-	public static bool operator !=(None left, None right) =>
-		!left.Equals(right);
-}
+public readonly record struct None;

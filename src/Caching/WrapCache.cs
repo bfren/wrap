@@ -130,7 +130,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 	{
 		// Check whether or not the value already exists, or there was an error
 		var value = GetValue<TValue>(key, out var failure);
-		if (value.IsSome || failure.IsSome)
+		if (value is Some<TValue> || failure is Some<Failure>)
 		{
 			return value;
 		}
@@ -148,7 +148,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 		{
 			// Another thread may have created the value while this one was waiting
 			value = GetValue<TValue>(key, out failure);
-			if (value.IsSome || failure.IsSome)
+			if (value is Some<TValue> || failure is Some<Failure>)
 			{
 				return value;
 			}
@@ -197,7 +197,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 	{
 		// Check whether or not the value already exists, or there was an error
 		var value = GetValue<TValue>(key, out var failure);
-		if (value.IsSome || failure.IsSome)
+		if (value is Some<TValue> || failure is Some<Failure>)
 		{
 			return value;
 		}
@@ -215,7 +215,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 		{
 			// Another thread may have created the value while this one was waiting
 			value = GetValue<TValue>(key, out failure);
-			if (value.IsSome || failure.IsSome)
+			if (value is Some<TValue> || failure is Some<Failure>)
 			{
 				return value;
 			}

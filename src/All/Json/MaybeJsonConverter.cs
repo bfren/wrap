@@ -15,7 +15,7 @@ namespace Wrap.Json;
 public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 {
 	/// <summary>
-	/// Pass JSON null to <see cref="Read"/> so it becomes <see cref="None"/> instead of a null reference.
+	/// Pass JSON null to <see cref="Read"/> so it becomes <see cref="None"/>.
 	/// </summary>
 	public override bool HandleNull =>
 		true;
@@ -26,7 +26,7 @@ public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 	/// <param name="reader">Utf8JsonReader.</param>
 	/// <param name="typeToConvert">Maybe with value type <typeparamref name="T"/>.</param>
 	/// <param name="options">JsonSerializerOptions.</param>
-	public override Maybe<T>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+	public override Maybe<T> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 	{
 		// JSON null is None
 		if (reader.TokenType == JsonTokenType.Null)
@@ -74,7 +74,7 @@ public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 	/// <param name="value">Maybe object to be converted.</param>
 	/// <param name="options">JsonSerializerOptions.</param>
 	public override void Write(Utf8JsonWriter writer, Maybe<T> value, JsonSerializerOptions options) =>
-		M.Match(value ?? M.None, // HandleNull is true, so a null Maybe property arrives here too
+		M.Match(value,
 			fNone: writer.WriteNullValue,
 			fSome: x => JsonSerializer.Serialize(writer, x, options)
 		);

@@ -14,5 +14,5 @@ public static class NoneGenerator
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <returns>A <see cref="None"/> object implicitly returned as <see cref="Maybe{T}"/>.</returns>
 	public static Maybe<T> Create<T>() =>
-		M.None;
+		new None();
 }

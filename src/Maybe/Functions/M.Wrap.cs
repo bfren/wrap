@@ -6,22 +6,16 @@ namespace Wrap;
 public static partial class M
 {
 	/// <summary>
-	/// One of the most important functions in the library: takes a value and returns
-	/// either <see cref="Some{T}"/> or <see cref="Wrap.None"/>.
+	/// One of the most important functions in the library: wrap a value as a <see cref="Maybe{T}"/>,
+	/// turning <see langword="null"/> into <see cref="Wrap.None"/>.
 	/// </summary>
 	/// <remarks>
-	/// <para>
-	/// If <paramref name="value"/> is not null, you will get a <see cref="Some{T}"/> object where
-	/// <see cref="Some{T}.Value"/> is <paramref name="value"/>.
-	/// </para>
-	/// <para>
-	/// If <paramref name="value"/> is null, you will get a <see cref="Wrap.None"/> object.
-	/// </para>
+	/// This includes nullable value types: wrapping an <c>int?</c> that has no value gives <see cref="Wrap.None"/>.
 	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="value">Value to wrap.</param>
 	/// <returns>
-	/// <see cref="Some{T}"/> if <paramref name="value"/> is not null - otherwise <see cref="Wrap.None"/>.
+	/// <see cref="Some{T}"/> holding <paramref name="value"/> if it is not <see langword="null"/>, otherwise <see cref="Wrap.None"/>.
 	/// </returns>
 	public static Maybe<T> Wrap<T>(T value) =>
 		value switch

@@ -21,7 +21,7 @@ public static partial class EnumerableExtensions
 		// can't use SingleOrDefault() because it throws an exception if there is more than one element
 		@this.Select(M.Wrap).Take(2).ToArray() switch
 		{
-			[Maybe<T> x] =>
+			[var x] =>
 				x,
 
 			_ =>
