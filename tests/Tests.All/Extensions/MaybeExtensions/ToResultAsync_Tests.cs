@@ -1,8 +1,6 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using Wrap.Exceptions;
-
 namespace Wrap.Extensions.MaybeExtensions_Tests;
 
 public class ToResultAsync_Tests
@@ -23,23 +21,6 @@ public class ToResultAsync_Tests
 				// Assert
 				var f = result.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Int32));
 				Assert.IsType<NullReferenceException>(f.Exception);
-			}
-		}
-
-		public class Unknown_Maybe
-		{
-			[Fact]
-			public async Task Returns_Failure_With_InvalidMaybeTypeException()
-			{
-				// Arrange
-				var maybe = new InvalidMaybe<Guid>().AsTask();
-
-				// Act
-				var result = await maybe.ToResultAsync(Rnd.Str, Rnd.Str);
-
-				// Assert
-				var f = result.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Guid));
-				Assert.IsType<InvalidMaybeTypeException>(f.Exception);
 			}
 		}
 	}

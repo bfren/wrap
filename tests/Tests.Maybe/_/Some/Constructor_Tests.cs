@@ -7,49 +7,43 @@ public class Constructor_Tests
 {
 	public class With_Null
 	{
-		public class Reference_Type
+		[Fact]
+		public void Reference_Type__Converts_To_None()
 		{
-			[Fact]
-			public void Throws_ArgumentNullException()
-			{
-				// Arrange
+			// Arrange
+			var some = new Some<string>(null!);
 
-				// Act
-				var result = Record.Exception(() => new Some<string>(null!));
+			// Act
+			Maybe<string> result = some;
 
-				// Assert
-				Assert.IsType<ArgumentNullException>(result);
-			}
+			// Assert
+			result.AssertNone();
 		}
 
-		public class Nullable_Reference_Type
+		[Fact]
+		public void Nullable_Reference_Type__Converts_To_None()
 		{
-			[Fact]
-			public void Throws_ArgumentNullException()
-			{
-				// Arrange
+			// Arrange
+			var some = new Some<string?>(null);
 
-				// Act
-				var result = Record.Exception(() => new Some<string?>(null!));
+			// Act
+			Maybe<string?> result = some;
 
-				// Assert
-				Assert.IsType<ArgumentNullException>(result);
-			}
+			// Assert
+			result.AssertNone();
 		}
 
-		public class Nullable_Value_Type
+		[Fact]
+		public void Nullable_Value_Type__Converts_To_None()
 		{
-			[Fact]
-			public void Throws_ArgumentNullException()
-			{
-				// Arrange
+			// Arrange
+			var some = new Some<int?>(null);
 
-				// Act
-				var result = Record.Exception(() => new Some<int?>(null!));
+			// Act
+			Maybe<int?> result = some;
 
-				// Assert
-				Assert.IsType<ArgumentNullException>(result);
-			}
+			// Assert
+			result.AssertNone();
 		}
 	}
 
@@ -66,6 +60,20 @@ public class Constructor_Tests
 
 			// Assert
 			Assert.Equal(value, result.Value);
+		}
+
+		[Fact]
+		public void Converts_To_Some()
+		{
+			// Arrange
+			var value = Rnd.UIntPtr;
+			var some = new Some<nuint>(value);
+
+			// Act
+			Maybe<nuint> result = some;
+
+			// Assert
+			result.AssertSome(value);
 		}
 	}
 }

@@ -54,8 +54,8 @@ public class BindModelAsync_Tests
 
 			// Assert
 			Assert.True(v.Context.Result.IsModelSet);
-			var m = Assert.IsType<Some<Guid>>(v.Context.Result.Model);
-			Assert.Equal(v.Value, m.Value);
+			var m = Assert.IsType<Maybe<Guid>>(v.Context.Result.Model);
+			m.AssertSome(v.Value);
 		}
 	}
 }

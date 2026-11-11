@@ -7,64 +7,6 @@ public class MatchAsync_Tests
 {
 	public class Without_Return_Value
 	{
-		public class Null_Maybe : Abstracts.Match_Tests.Null_Maybe_Async
-		{
-			[Fact]
-			public override async Task Test00_Throws_NullMaybeException()
-			{
-				await Test00_Async<int>(m =>
-					M.MatchAsync(m, Substitute.For<Action>(), Substitute.For<Func<int, Task>>())
-				);
-				await Test00_Async<int>(m =>
-					M.MatchAsync(m, Substitute.For<Func<Task>>(), Substitute.For<Action<int>>())
-				);
-				await Test00_Async<int>(m =>
-					M.MatchAsync(m, Substitute.For<Func<Task>>(), Substitute.For<Func<int, Task>>())
-				);
-				await Test00_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Action>(), Substitute.For<Action<int>>())
-				);
-				await Test00_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Action>(), Substitute.For<Func<int, Task>>())
-				);
-				await Test00_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Func<Task>>(), Substitute.For<Action<int>>())
-				);
-				await Test00_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Func<Task>>(), Substitute.For<Func<int, Task>>())
-				);
-			}
-		}
-
-		public class Invalid_Maybe : Abstracts.Match_Tests.Unknown_Maybe_Async
-		{
-			[Fact]
-			public override async Task Test01_Throws_InvalidMaybeTypeException()
-			{
-				await Test01_Async<int>(m =>
-					M.MatchAsync(m, Substitute.For<Action>(), Substitute.For<Func<int, Task>>())
-				);
-				await Test01_Async<int>(m =>
-					M.MatchAsync(m, Substitute.For<Func<Task>>(), Substitute.For<Action<int>>())
-				);
-				await Test01_Async<int>(m =>
-					M.MatchAsync(m, Substitute.For<Func<Task>>(), Substitute.For<Func<int, Task>>())
-				);
-				await Test01_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Action>(), Substitute.For<Action<int>>())
-				);
-				await Test01_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Action>(), Substitute.For<Func<int, Task>>())
-				);
-				await Test01_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Func<Task>>(), Substitute.For<Action<int>>())
-				);
-				await Test01_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Func<Task>>(), Substitute.For<Func<int, Task>>())
-				);
-			}
-		}
-
 		public class None
 		{
 			[Fact]
@@ -115,63 +57,6 @@ public class MatchAsync_Tests
 
 	public class With_Return_Value
 	{
-		public class Null_Maybe : Abstracts.Match_Tests.Null_Maybe_Async
-		{
-			[Fact]
-			public override async Task Test00_Throws_NullMaybeException()
-			{
-				await Test00_Async<int>(m =>
-					M.MatchAsync(m, Substitute.For<Func<int>>(), Substitute.For<Func<int, Task<int>>>())
-				);
-				await Test00_Async<int>(m =>
-					M.MatchAsync(m, Substitute.For<Func<Task<int>>>(), Substitute.For<Func<int, int>>())
-				);
-				await Test00_Async<int>(m =>
-					M.MatchAsync(m, Substitute.For<Func<Task<int>>>(), Substitute.For<Func<int, Task<int>>>())
-				);
-				await Test00_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Func<int>>(), Substitute.For<Func<int, int>>())
-				);
-				await Test00_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Func<int>>(), Substitute.For<Func<int, Task<int>>>())
-				);
-				await Test00_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Func<Task<int>>>(), Substitute.For<Func<int, int>>())
-				);
-				await Test00_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Func<Task<int>>>(), Substitute.For<Func<int, Task<int>>>())
-				);
-			}
-		}
-		public class Invalid_Maybe : Abstracts.Match_Tests.Unknown_Maybe_Async
-		{
-			[Fact]
-			public override async Task Test01_Throws_InvalidMaybeTypeException()
-			{
-				await Test01_Async<int>(m =>
-					M.MatchAsync(m, Substitute.For<Func<int>>(), Substitute.For<Func<int, Task<int>>>())
-				);
-				await Test01_Async<int>(m =>
-					M.MatchAsync(m, Substitute.For<Func<Task<int>>>(), Substitute.For<Func<int, int>>())
-				);
-				await Test01_Async<int>(m =>
-					M.MatchAsync(m, Substitute.For<Func<Task<int>>>(), Substitute.For<Func<int, Task<int>>>())
-				);
-				await Test01_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Func<int>>(), Substitute.For<Func<int, int>>())
-				);
-				await Test01_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Func<int>>(), Substitute.For<Func<int, Task<int>>>())
-				);
-				await Test01_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Func<Task<int>>>(), Substitute.For<Func<int, int>>())
-				);
-				await Test01_Async<int>(m =>
-					M.MatchAsync(Task.FromResult(m), Substitute.For<Func<Task<int>>>(), Substitute.For<Func<int, Task<int>>>())
-				);
-			}
-		}
-
 		public class None
 		{
 			[Fact]
