@@ -22,8 +22,8 @@ public static partial class MonadExtensions
 		@this.Value;
 
 	/// <inheritdoc cref="ToResult{T}(IMonad{T})"/>
-	public static async Task<Result<T>> ToResultAsync<T>(this Task<IMonad<T>> @this) =>
-		(await @this).Value;
+	public static Task<Result<T>> ToResultAsync<T>(this Task<IMonad<T>> @this) =>
+		@this.Then(x => x.ToResult());
 
 	/// <inheritdoc cref="ToResult{T}(IMonad{T})"/>
 	public static IEnumerable<Result<T>> ToResult<T>(this IEnumerable<IMonad<T>> @this)
@@ -42,6 +42,6 @@ public static partial class MonadExtensions
 		Task.FromResult(ToResult(@this));
 
 	/// <inheritdoc cref="ToResult{T}(IMonad{T})"/>
-	public static async Task<IEnumerable<Result<T>>> ToResultAsync<T>(this Task<IEnumerable<IMonad<T>>> @this) =>
-		ToResult(await @this);
+	public static Task<IEnumerable<Result<T>>> ToResultAsync<T>(this Task<IEnumerable<IMonad<T>>> @this) =>
+		@this.Then(x => x.ToResult());
 }

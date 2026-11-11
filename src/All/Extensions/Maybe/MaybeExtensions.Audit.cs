@@ -105,28 +105,8 @@ public static partial class MaybeExtensions
 		AuditAsync(@this, null, fSome);
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static async Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action? fNone, Action<T>? fSome)
-	{
-		var maybe = await @this;
-
-		try
-		{
-			if (maybe is Maybe<T>.NoneImpl && fNone is not null)
-			{
-				fNone();
-			}
-			else if (maybe is Some<T> x && fSome is not null)
-			{
-				fSome(x.Value);
-			}
-		}
-		catch (Exception ex)
-		{
-			F.LogException?.Invoke(ex);
-		}
-
-		return maybe;
-	}
+	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action? fNone, Action<T>? fSome) =>
+		@this.Then(x => x.Audit(fNone, fSome));
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
 	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Task> fNone) =>
@@ -137,28 +117,8 @@ public static partial class MaybeExtensions
 		AuditAsync(@this, null, fSome);
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>
-	public static async Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Task>? fNone, Func<T, Task>? fSome)
-	{
-		var maybe = await @this;
-
-		try
-		{
-			if (maybe is Maybe<T>.NoneImpl && fNone is not null)
-			{
-				await fNone();
-			}
-			else if (maybe is Some<T> x && fSome is not null)
-			{
-				await fSome(x.Value);
-			}
-		}
-		catch (Exception ex)
-		{
-			F.LogException?.Invoke(ex);
-		}
-
-		return maybe;
-	}
+	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Task>? fNone, Func<T, Task>? fSome) =>
+		@this.Then(x => x.AuditAsync(fNone, fSome));
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action{Maybe{T}})"/>
 	public static async Task<Maybe<T>> AuditAsync<T>(this Maybe<T> @this, Func<Maybe<T>, Task> either)
@@ -176,36 +136,10 @@ public static partial class MaybeExtensions
 	}
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action{Maybe{T}})"/>
-	public static async Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action<Maybe<T>> either)
-	{
-		var maybe = await @this;
-
-		try
-		{
-			either(maybe);
-		}
-		catch (Exception ex)
-		{
-			F.LogException?.Invoke(ex);
-		}
-
-		return maybe;
-	}
+	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Action<Maybe<T>> either) =>
+		@this.Then(x => x.Audit(either));
 
 	/// <inheritdoc cref="Audit{T}(Maybe{T}, Action{Maybe{T}})"/>
-	public static async Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Maybe<T>, Task> either)
-	{
-		var maybe = await @this;
-
-		try
-		{
-			await either(maybe);
-		}
-		catch (Exception ex)
-		{
-			F.LogException?.Invoke(ex);
-		}
-
-		return maybe;
-	}
+	public static Task<Maybe<T>> AuditAsync<T>(this Task<Maybe<T>> @this, Func<Maybe<T>, Task> either) =>
+		@this.Then(x => x.AuditAsync(either));
 }

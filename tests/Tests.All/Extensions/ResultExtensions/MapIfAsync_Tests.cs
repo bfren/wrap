@@ -95,6 +95,25 @@ public class MapIfAsync_Tests
 				r1.AssertOk(value);
 				r2.AssertOk(value);
 			}
+
+			[Fact]
+			public async Task f_Throws__Returns_Failure()
+			{
+				// Arrange
+				var input = R.Wrap(Rnd.Str);
+				var ex = new InvalidOperationException(Rnd.Str);
+				Func<string, int> f = _ => throw ex;
+
+				// Act
+				var r0 = await input.MapIfAsync(_ => true, async x => f(x));
+				var r1 = await input.AsTask().MapIfAsync(_ => true, f);
+				var r2 = await input.AsTask().MapIfAsync(_ => true, async x => f(x));
+
+				// Assert
+				r0.AssertFailure(ex);
+				r1.AssertFailure(ex);
+				r2.AssertFailure(ex);
+			}
 		}
 	}
 }

@@ -42,28 +42,12 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Maybe{T}}, Action{T})"/>
-	public static async Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Action<T> f)
-	{
-		foreach (var item in await @this)
-		{
-			foreach (var value in item)
-			{
-				f(value);
-			}
-		}
-	}
+	public static Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Action<T> f) =>
+		@this.Then(x => x.Iterate(f));
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Maybe{T}}, Action{T})"/>
-	public static async Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task> f)
-	{
-		foreach (var item in await @this)
-		{
-			foreach (var value in item)
-			{
-				await f(value);
-			}
-		}
-	}
+	public static Task IterateAsync<T>(this Task<IEnumerable<Maybe<T>>> @this, Func<T, Task> f) =>
+		@this.Then(x => x.IterateAsync(f));
 
 	#endregion
 
@@ -100,28 +84,12 @@ public static partial class EnumerableExtensions
 	}
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Result{T}}, Action{T})"/>
-	public static async Task IterateAsync<T>(this Task<IEnumerable<Result<T>>> @this, Action<T> f)
-	{
-		foreach (var item in await @this)
-		{
-			foreach (var value in item.Unsafe())
-			{
-				f(value);
-			}
-		}
-	}
+	public static Task IterateAsync<T>(this Task<IEnumerable<Result<T>>> @this, Action<T> f) =>
+		@this.Then(x => x.Iterate(f));
 
 	/// <inheritdoc cref="Iterate{T}(IEnumerable{Result{T}}, Action{T})"/>
-	public static async Task IterateAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task> f)
-	{
-		foreach (var item in await @this)
-		{
-			foreach (var value in item.Unsafe())
-			{
-				await f(value);
-			}
-		}
-	}
+	public static Task IterateAsync<T>(this Task<IEnumerable<Result<T>>> @this, Func<T, Task> f) =>
+		@this.Then(x => x.IterateAsync(f));
 
 	#endregion
 }

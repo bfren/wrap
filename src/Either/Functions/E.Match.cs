@@ -36,19 +36,16 @@ public static partial class E
 	{
 		switch (either)
 		{
-			case ILeft<TLeft, TRight> x:
-				fLeft(x.Value);
+			case ILeft<TLeft, TRight> l:
+				fLeft(l.Value);
 				return;
 
-			case IRight<TLeft, TRight> y:
-				fRight(y.Value);
+			case IRight<TLeft, TRight> r:
+				fRight(r.Value);
 				return;
-
-			case { } m:
-				throw new InvalidEitherTypeException(m.GetType());
 
 			default:
-				throw new NullEitherException();
+				throw Invalid(either);
 		}
 	}
 
@@ -58,19 +55,16 @@ public static partial class E
 	{
 		switch (either)
 		{
-			case ILeft<TLeft, TRight> x:
-				fLeft(x.Value);
+			case ILeft<TLeft, TRight> l:
+				fLeft(l.Value);
 				return;
 
-			case IRight<TLeft, TRight> y:
-				await fRight(y.Value);
+			case IRight<TLeft, TRight> r:
+				await fRight(r.Value);
 				return;
-
-			case { } m:
-				throw new InvalidEitherTypeException(m.GetType());
 
 			default:
-				throw new NullEitherException();
+				throw Invalid(either);
 		}
 	}
 
@@ -80,19 +74,16 @@ public static partial class E
 	{
 		switch (either)
 		{
-			case ILeft<TLeft, TRight> x:
-				await fLeft(x.Value);
+			case ILeft<TLeft, TRight> l:
+				await fLeft(l.Value);
 				return;
 
-			case IRight<TLeft, TRight> y:
-				fRight(y.Value);
+			case IRight<TLeft, TRight> r:
+				fRight(r.Value);
 				return;
-
-			case { } m:
-				throw new InvalidEitherTypeException(m.GetType());
 
 			default:
-				throw new NullEitherException();
+				throw Invalid(either);
 		}
 	}
 
@@ -102,43 +93,23 @@ public static partial class E
 	{
 		switch (either)
 		{
-			case ILeft<TLeft, TRight> x:
-				await fLeft(x.Value);
+			case ILeft<TLeft, TRight> l:
+				await fLeft(l.Value);
 				return;
 
-			case IRight<TLeft, TRight> y:
-				await fRight(y.Value);
+			case IRight<TLeft, TRight> r:
+				await fRight(r.Value);
 				return;
-
-			case { } m:
-				throw new InvalidEitherTypeException(m.GetType());
 
 			default:
-				throw new NullEitherException();
+				throw Invalid(either);
 		}
 	}
 
 	/// <inheritdoc cref="Match{TEither, TLeft, TRight}(TEither, Action{TLeft}, Action{TRight})"/>
 	public static async Task MatchAsync<TEither, TLeft, TRight>(Task<TEither> either, Func<TLeft, Task> fLeft, Func<TRight, Task> fRight)
-		where TEither : IEither<TEither, TLeft, TRight>
-	{
-		switch (await either)
-		{
-			case ILeft<TLeft, TRight> x:
-				await fLeft(x.Value);
-				return;
-
-			case IRight<TLeft, TRight> y:
-				await fRight(y.Value);
-				return;
-
-			case { } m:
-				throw new InvalidEitherTypeException(m.GetType());
-
-			default:
-				throw new NullEitherException();
-		}
-	}
+		where TEither : IEither<TEither, TLeft, TRight> =>
+		await MatchAsync(await either, fLeft, fRight);
 
 	#endregion
 
@@ -170,17 +141,14 @@ public static partial class E
 		where TEither : IEither<TEither, TLeft, TRight> =>
 		either switch
 		{
-			ILeft<TLeft, TRight> x =>
-				fLeft(x.Value),
+			ILeft<TLeft, TRight> l =>
+				fLeft(l.Value),
 
-			IRight<TLeft, TRight> y =>
-				fRight(y.Value),
-
-			{ } r =>
-				throw new InvalidEitherTypeException(r.GetType()),
+			IRight<TLeft, TRight> r =>
+				fRight(r.Value),
 
 			_ =>
-				throw new NullEitherException()
+				throw Invalid(either)
 		};
 
 	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
@@ -188,17 +156,14 @@ public static partial class E
 		where TEither : IEither<TEither, TLeft, TRight> =>
 		either switch
 		{
-			ILeft<TLeft, TRight> x =>
-				fLeft(x.Value),
+			ILeft<TLeft, TRight> l =>
+				fLeft(l.Value),
 
-			IRight<TLeft, TRight> y =>
-				await fRight(y.Value),
-
-			{ } r =>
-				throw new InvalidEitherTypeException(r.GetType()),
+			IRight<TLeft, TRight> r =>
+				await fRight(r.Value),
 
 			_ =>
-				throw new NullEitherException()
+				throw Invalid(either)
 		};
 
 	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
@@ -206,17 +171,14 @@ public static partial class E
 		where TEither : IEither<TEither, TLeft, TRight> =>
 		either switch
 		{
-			ILeft<TLeft, TRight> x =>
-				await fLeft(x.Value),
+			ILeft<TLeft, TRight> l =>
+				await fLeft(l.Value),
 
-			IRight<TLeft, TRight> y =>
-				fRight(y.Value),
-
-			{ } r =>
-				throw new InvalidEitherTypeException(r.GetType()),
+			IRight<TLeft, TRight> r =>
+				fRight(r.Value),
 
 			_ =>
-				throw new NullEitherException()
+				throw Invalid(either)
 		};
 
 	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
@@ -224,90 +186,48 @@ public static partial class E
 		where TEither : IEither<TEither, TLeft, TRight> =>
 		either switch
 		{
-			ILeft<TLeft, TRight> x =>
-				await fLeft(x.Value),
+			ILeft<TLeft, TRight> l =>
+				await fLeft(l.Value),
 
-			IRight<TLeft, TRight> y =>
-				await fRight(y.Value),
-
-			{ } r =>
-				throw new InvalidEitherTypeException(r.GetType()),
+			IRight<TLeft, TRight> r =>
+				await fRight(r.Value),
 
 			_ =>
-				throw new NullEitherException()
+				throw Invalid(either)
 		};
 
 	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(Task<TEither> either, Func<TLeft, TReturn> fLeft, Func<TRight, TReturn> fRight)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		await either switch
-		{
-			ILeft<TLeft, TRight> x =>
-				fLeft(x.Value),
-
-			IRight<TLeft, TRight> y =>
-				fRight(y.Value),
-
-			{ } r =>
-				throw new InvalidEitherTypeException(r.GetType()),
-
-			_ =>
-				throw new NullEitherException()
-		};
+		Match(await either, fLeft, fRight);
 
 	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(Task<TEither> either, Func<TLeft, TReturn> fLeft, Func<TRight, Task<TReturn>> fRight)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		await either switch
-		{
-			ILeft<TLeft, TRight> x =>
-				fLeft(x.Value),
-
-			IRight<TLeft, TRight> y =>
-				await fRight(y.Value),
-
-			{ } r =>
-				throw new InvalidEitherTypeException(r.GetType()),
-
-			_ =>
-				throw new NullEitherException()
-		};
+		await MatchAsync(await either, fLeft, fRight);
 
 	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(Task<TEither> either, Func<TLeft, Task<TReturn>> fLeft, Func<TRight, TReturn> fRight)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		await either switch
-		{
-			ILeft<TLeft, TRight> x =>
-				await fLeft(x.Value),
-
-			IRight<TLeft, TRight> y =>
-				fRight(y.Value),
-
-			{ } r =>
-				throw new InvalidEitherTypeException(r.GetType()),
-
-			_ =>
-				throw new NullEitherException()
-		};
+		await MatchAsync(await either, fLeft, fRight);
 
 	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(Task<TEither> either, Func<TLeft, Task<TReturn>> fLeft, Func<TRight, Task<TReturn>> fRight)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		await either switch
-		{
-			ILeft<TLeft, TRight> x =>
-				await fLeft(x.Value),
-
-			IRight<TLeft, TRight> y =>
-				await fRight(y.Value),
-
-			{ } r =>
-				throw new InvalidEitherTypeException(r.GetType()),
-
-			_ =>
-				throw new NullEitherException()
-		};
+		await MatchAsync(await either, fLeft, fRight);
 
 	#endregion
+
+	/// <summary>
+	/// Exception for an <paramref name="either"/> that is neither left nor right.
+	/// </summary>
+	private static Exception Invalid<TEither>(TEither either) =>
+		either switch
+		{
+			null =>
+				new NullEitherException(),
+
+			_ =>
+				new InvalidEitherTypeException(either.GetType())
+		};
 }

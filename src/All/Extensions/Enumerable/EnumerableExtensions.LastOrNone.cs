@@ -14,16 +14,13 @@ public static partial class EnumerableExtensions
 	/// <typeparam name="T">IEnumerable value type.</typeparam>
 	/// <param name="this">IEnumerable object</param>
 	/// <returns>Value of the last element of <paramref name="this"/>, or <see cref="None"/>.</returns>
-	public static Maybe<T> LastOrNone<T>(this IEnumerable<T> @this)
-	{
-		var a = @this.ToArray();
-		return (a.Length > 0) switch
+	public static Maybe<T> LastOrNone<T>(this IEnumerable<T> @this) =>
+		@this.Select(M.Wrap).LastOrDefault() switch
 		{
-			true =>
-				a[^1],
+			Maybe<T> x =>
+				x,
 
-			false =>
+			_ =>
 				M.None
 		};
-	}
 }

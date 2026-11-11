@@ -37,4 +37,43 @@ public class ElementAtOrNone_Tests
 			result.AssertSome(value);
 		}
 	}
+
+	public class With_Negative_Index
+	{
+		[Fact]
+		public void Returns_None()
+		{
+			// Arrange
+			var list = new[] { Rnd.Guid, Rnd.Guid };
+
+			// Act
+			var result = list.ElementAtOrNone(-1);
+
+			// Assert
+			result.AssertNone();
+		}
+	}
+
+	public class With_Endless_Sequence
+	{
+		[Fact]
+		public void Stops_At_Index()
+		{
+			// Arrange
+			static IEnumerable<int> endless()
+			{
+				var i = 0;
+				while (true)
+				{
+					yield return i++;
+				}
+			}
+
+			// Act
+			var result = endless().ElementAtOrNone(3);
+
+			// Assert
+			result.AssertSome(3);
+		}
+	}
 }

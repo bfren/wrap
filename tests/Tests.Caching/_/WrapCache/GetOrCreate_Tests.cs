@@ -251,4 +251,52 @@ public class GetOrCreate_Tests
 		r1.AssertSome(v0);
 		r2.AssertSome(v1);
 	}
+
+	[Fact]
+	public void Other_Caller_Fails_Meanwhile__Still_Creates_Value()
+	{
+		// Arrange
+		var badKey = Rnd.Str;
+		var goodKey = Rnd.Str;
+		var value = Rnd.DateTime;
+		var mc = Substitute.For<IMemoryCache>();
+		WrapCache<string> cache = null!;
+		mc.TryGetValue(badKey, out Arg.Any<object>()!)
+			.Returns(x =>
+			{
+				x[1] = Rnd.Lng;
+				return true;
+			});
+		mc.TryGetValue(goodKey, out Arg.Any<object>()!)
+			.Returns(x =>
+			{
+				// simulate another request failing between this request's lookup and its failure check
+				_ = cache.GetValue<DateTime>(badKey);
+				return false;
+			});
+		mc.CreateEntry(goodKey).Returns(Substitute.For<ICacheEntry>());
+		cache = new WrapCache<string>(mc);
+
+		// Act
+		var result = cache.GetOrCreate(goodKey, () => value);
+
+		// Assert
+		result.AssertSome(value);
+	}
+
+	[Fact]
+	public async Task Factory_Calls_GetOrCreate_For_Key_Sharing_Lock__Does_Not_Hang()
+	{
+		// Arrange - int keys hash to themselves, so 1 and 65 use the same one of the 64 locks
+		var cache = new WrapCache<int>(new MemoryCache(new MemoryCacheOptions()));
+		var inner = Rnd.Int;
+		var ct = TestContext.Current.CancellationToken;
+
+		// Act - WaitAsync throws TimeoutException if the call hangs
+		var result = await Task.Run(() => cache.GetOrCreate(1, () => cache.GetOrCreate(65, () => inner)), ct)
+			.WaitAsync(TimeSpan.FromSeconds(5), ct);
+
+		// Assert
+		result.AssertSome(inner);
+	}
 }

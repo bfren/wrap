@@ -250,4 +250,19 @@ public class GetOrCreateAsync_Tests
 		r1.AssertSome(v0);
 		r2.AssertSome(v1);
 	}
+
+	[Fact]
+	public async Task Factory_Calls_GetOrCreateAsync_For_Key_Sharing_Lock__Does_Not_Hang()
+	{
+		// Arrange - int keys hash to themselves, so 1 and 65 use the same one of the 64 locks
+		var cache = new WrapCache<int>(new MemoryCache(new MemoryCacheOptions()));
+		var inner = Rnd.Int;
+
+		// Act - WaitAsync throws TimeoutException if the call hangs
+		var result = await cache.GetOrCreateAsync(1, async () => await cache.GetOrCreateAsync(65, () => Task.FromResult(inner)))
+			.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
+
+		// Assert
+		result.AssertSome(inner);
+	}
 }

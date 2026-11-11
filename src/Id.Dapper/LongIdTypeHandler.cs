@@ -1,6 +1,7 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System;
 using System.Data;
 using Wrap.Ids;
 
@@ -19,7 +20,7 @@ public sealed class LongIdTypeHandler<T> : IdTypeHandler<T, long>
 	/// <param name="value"><see cref="LongId{TId}"/> Value.</param>
 	/// <returns><see cref="LongId{TId}"/> with parsed value.</returns>
 	public override T Parse(object value) =>
-		new() { Value = M.ParseInt64(value?.ToString()).Unwrap(() => 0L) };
+		new() { Value = M.ParseInt64(value?.ToString()).Unwrap(() => DefaultOrThrow(value)) };
 
 	/// <summary>
 	/// Set ID value.
@@ -38,7 +39,7 @@ public sealed class LongIdTypeHandler<T> : IdTypeHandler<T, long>
 				id.Value,
 
 			_ =>
-				0
+				DBNull.Value
 		};
 	}
 }

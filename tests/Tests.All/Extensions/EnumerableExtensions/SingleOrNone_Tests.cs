@@ -53,4 +53,27 @@ public class SingleOrNone_Tests
 			result.AssertSome(value);
 		}
 	}
+
+	public class With_Endless_Sequence
+	{
+		[Fact]
+		public void Stops_After_Second_Value__Returns_None()
+		{
+			// Arrange
+			static IEnumerable<int> endless()
+			{
+				var i = 0;
+				while (true)
+				{
+					yield return i++;
+				}
+			}
+
+			// Act
+			var result = endless().SingleOrNone();
+
+			// Assert
+			result.AssertNone();
+		}
+	}
 }

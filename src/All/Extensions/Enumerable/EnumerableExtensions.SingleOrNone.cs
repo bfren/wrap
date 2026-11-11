@@ -17,16 +17,14 @@ public static partial class EnumerableExtensions
 	/// Value of the single element of <paramref name="this"/>, or <see cref="None"/> if the list is empty
 	/// or contains more than one element.
 	/// </returns>
-	public static Maybe<T> SingleOrNone<T>(this IEnumerable<T> @this)
-	{
-		var a = @this.ToArray();
-		return (a.Length == 1) switch
+	public static Maybe<T> SingleOrNone<T>(this IEnumerable<T> @this) =>
+		// can't use SingleOrDefault() because it throws an exception if there is more than one element
+		@this.Select(M.Wrap).Take(2).ToArray() switch
 		{
-			true =>
-				a[0],
+			[Maybe<T> x] =>
+				x,
 
-			false =>
+			_ =>
 				M.None
 		};
-	}
 }
