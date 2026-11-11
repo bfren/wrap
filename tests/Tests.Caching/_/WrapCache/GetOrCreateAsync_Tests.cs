@@ -258,12 +258,11 @@ public class GetOrCreateAsync_Tests
 		var cache = new WrapCache<int>(new MemoryCache(new MemoryCacheOptions()));
 		var inner = Rnd.Int;
 
-		// Act
-		var task = cache.GetOrCreateAsync(1, async () => await cache.GetOrCreateAsync(65, () => Task.FromResult(inner)));
-		var finished = await Task.WhenAny(task, Task.Delay(TimeSpan.FromSeconds(5))) == task;
+		// Act - WaitAsync throws TimeoutException if the call hangs
+		var result = await cache.GetOrCreateAsync(1, async () => await cache.GetOrCreateAsync(65, () => Task.FromResult(inner)))
+			.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
 
 		// Assert
-		Assert.True(finished);
-		(await task).AssertSome(inner);
+		result.AssertSome(inner);
 	}
 }
