@@ -11,6 +11,7 @@
 - **It is still worth doing, as a v2.0.** You gain compile-time exhaustiveness for your consumers, public pattern-matchable cases (today `NoneImpl`/`FailureImpl` are internal), **zero allocations** for `Some`/`Ok` (today every one is a heap object), a `default` that safely means `None`, and a smaller core. The cost is a hard breaking change: `Maybe<T>` and `Result<T>` change from reference types to structs.
 - **Recommended shape:** hand-written, non-boxing `[Union] readonly struct`s whose cases are small record structs: `Some<T>`/`None`, `Ok<T>`/`Failure`, `Left<T>`/`Right<T>`. **Don't** use the one-line `union X(A, B)` shorthand for the core types: it boxes value-type cases, makes `default` a runtime crash, and `Either<int,int>` won't compile.
 - **You don't have to drop .NET 8–10 at runtime.** ✅ A union library compiles and runs on `net8.0` with a two-type internal polyfill (`UnionAttribute`, `IUnion`), including across assembly boundaries. The real requirement is the **compiler**: consumers need the .NET 11 SDK and `LangVersion` 15 (the C# version that ships with .NET 11). For net8–10 projects that is a manual, officially unsupported setting. Microsoft only supports net11+, so net11-only is the honest, supported choice. The polyfill exists if you want it.
+- **Decided (11 November 2026): Wrap 2.0.0 targets .NET 11+ only and goes all-in on union types.** The rest of this document assumes that decision. The polyfill route is recorded in section 6 as considered and rejected.
 
 ---
 
@@ -114,10 +115,12 @@ public readonly partial struct Maybe<T> : IEquatable<Maybe<T>>
 
 ## 6. The ".NET < 11" question
 
+> **Decision: net11-only, released as v2.0.0.**
+
 | Path | Runtime TFMs | Consumer requirement | Support status |
 |---|---|---|---|
-| **net11-only (recommended)** | `net11.0` (+ `net12.0` later) | .NET 11 SDK, default `LangVersion` | Supported |
-| Polyfill multi-target | `net8.0;net9.0;net10.0;net11.0` | .NET 11 SDK **and** `<LangVersion>15</LangVersion>` in the consumer's project. ✅ C# 12 consumers get CS9202 ("Feature 'unions' is not available") as soon as they touch a union conversion or pattern. | Works ✅, but a newer language version on an older TFM is officially unsupported |
+| **net11-only (chosen)** | `net11.0` (+ `net12.0` later) | .NET 11 SDK, default `LangVersion` | Supported |
+| Polyfill multi-target (rejected) | `net8.0;net9.0;net10.0;net11.0` | .NET 11 SDK **and** `<LangVersion>15</LangVersion>` in the consumer's project. ✅ C# 12 consumers get CS9202 ("Feature 'unions' is not available") as soon as they touch a union conversion or pattern. | Works ✅, but a newer language version on an older TFM is officially unsupported |
 
 The polyfill is two `internal` types behind `#if !NET11_0_OR_GREATER`, and it worked across assemblies in testing. It doesn't buy much, though. Consumers on net8–10 still have to change their SDK and `LangVersion`, and anyone who doesn't gets a library they can't use idiomatically. If you want to keep older runtimes, a cleaner split is **1.x maintenance branch for net8–10, 2.x for net11+**. One thing to know: .NET 10 is LTS, while .NET 11 is STS (STS releases now get 24 months, so both are currently supported until about late 2028). Some of your consumers may stay on 10 for a while.
 
@@ -125,7 +128,7 @@ The polyfill is two `internal` types behind `#if !NET11_0_OR_GREATER`, and it wo
 
 ## 7. Recommendation
 
-**Do it, as Wrap 2.0, using Option B on net11+.** Keep the public vocabulary (`M`, `R`, `E`, `Some`, `None`, `Ok`, `Failure`, `Match`, `Bind`, `Map`, …) and every combinator in `All`. Treat unions as a new engine under the same API, not a replacement for the API. Before committing, decide the five questions in section 9. Keep `Id` exactly as it is.
+**Do it, as Wrap 2.0.0, using Option B on net11+ only (decided).** Keep the public vocabulary (`M`, `R`, `E`, `Some`, `None`, `Ok`, `Failure`, `Match`, `Bind`, `Map`, …) and every combinator in `All`. Treat unions as a new engine under the same API, not a replacement for the API. Before committing, decide the five questions in section 9. Keep `Id` exactly as it is.
 
 **Don't** try to make unions "replace the monad functionality". They don't provide it, and there is no BCL `Option`/`Result` to defer to.
 
@@ -140,14 +143,16 @@ Each phase leaves `main` green and releasable.
 - Port `Maybe<T>` alone to Option B in the branch. Check: the JSON converter takes precedence over STJ's built-in union handling, nullable-reference `T` (`Maybe<string?>`), the `Maybe<object>` edge case, `foreach` via `GetEnumerator`, equality and `==` with `T`, and async chains with `Task<Maybe<T>>`.
 - Answer the five decisions in section 9.
 
-### Phase 1: Groundwork, non-breaking (ship as 1.4)
+### Phase 1: Groundwork, non-breaking (on the 2.0 branch; optionally also a final 1.x release)
+
+To warn 1.x users before 2.0.0, ship the `[Obsolete]` markings below in one last 1.x release (1.5, since 1.4.0 has shipped). Otherwise this phase is just preparation inside the 2.0 work.
 - **Funnel the representation.** Replace the ~51 direct `is Some<T>` / `is Ok<T>` / `FailureImpl` / `NoneImpl` / `ILeft`/`IRight` checks in `src/All` and the integrations with a few internal helpers (`M.Match`/`R.Match` already do most of this). After this, the type swap in Phase 2 touches only a handful of files.
 - Add tests that pin behaviour you must preserve: failure logging fires once and `R.Pass` doesn't re-log, None → `null` JSON, `ToString` formats, equality including `==` with `T`, and `M.Wrap(null)` → None.
 - Mark APIs that will go as `[Obsolete]`, with messages pointing to the replacement pattern: `IEither`/`ILeft`/`IRight`, `E.Match<TEither,…>`, `Unsafe()`/`TryOk`/`TrySome`/`TryFailure`, the `Invalid…`/`Null…` exceptions.
 - Optional and independent of unions: move the extension classes to C# 14 `extension` blocks. This works today on net8+.
 
 ### Phase 2: Core types (2.0.0-preview.1, breaking)
-- `TargetFrameworks` → `net11.0` (or keep the polyfill if you decide that way). Update the shared CI workflow matrix, `CLAUDE.md` and the README.
+- `TargetFrameworks` → `net11.0` only in `src/Directory.Build.props` and `tests/Directory.Build.props`. Set `Version` to `2.0.0-preview.1`. Pin SDK 11 in `global.json`. Update the shared CI workflow matrix (drop 8/9/10), the "Supported .NET Versions" section in `CLAUDE.md`, and the README. Review `PackageValidationBaselineVersion` (1.2.1): validating against a 1.x baseline will flag every intended break, so move it to 2.0.0 once that ships.
 - Rewrite `Maybe<T>`, `Result<T>` and `Either<TLeft,TRight>` as `[Union] readonly partial struct`s. Rewrite `Some<T>`, `Ok<T>`, `Left<T>`, `Right<T>` as `readonly record struct`s. Keep `None` and `Failure` as they are (already structs).
 - Carry over equality, `ToString`, operators and `GetEnumerator`. Move failure logging into the `Failure` constructor.
 - Delete `NoneImpl`, `FailureImpl`, the `IEither` family, the `Invalid…`/`Null…` exceptions and the `_ => throw Invalid(...)` arms.
@@ -168,13 +173,13 @@ Each phase leaves `main` green and releasable.
 ### Phase 5: Tests, docs, release
 - Update the 262 test files. The changes are mostly mechanical, and only 4 files reference internals.
 - Add tests for: compile-time exhaustiveness (a consumer-style test project with `<WarningsAsErrors>CS8509;CS8655</WarningsAsErrors>`), `default(Maybe<T>) == None`, `default(Result<T>)` (decide what it means: probably a failure with a clear message), and zero-allocation benchmarks as regression guards.
-- Write a wiki migration guide (struct semantics, `is null` → `IsNone`, `Unsafe().TryOk(out x)` → `is Ok<T>(var x)`, removed interfaces), then release 2.0.0-preview → 2.0.0. If you go net11-only, keep a `1.x` branch for fixes.
+- Write a wiki migration guide (.NET 11 requirement, struct semantics, `is null` → `IsNone`, `Unsafe().TryOk(out x)` → `is Ok<T>(var x)`, removed interfaces), then release 2.0.0-preview → 2.0.0. Optionally keep a `1.x` branch for fixes while consumers on .NET 10 LTS migrate.
 
 ---
 
 ## 9. Decisions for you
 
-1. **Runtime targets:** net11-only (recommended) or the polyfill multi-target?
+1. ~~**Runtime targets:** net11-only or the polyfill multi-target?~~ **Decided: net11-only, released as v2.0.0.**
 2. **Case shape:** `Some<T>`/`Ok<T>` record-struct cases (recommended) or raw `T` cases (`maybe is int x`)?
 3. **JSON:** keep `null` for None with the custom converters (recommended) or switch to STJ native (`{}` for None, which breaks the wire format)?
 4. **Either:** keep it as a `Left<T>`/`Right<T>` union, or drop it? Inside `src`, only `MonadExtensions.ToEither` uses `Either<,>` directly. What's shared across Maybe and Result is the `IEither` interfaces.
