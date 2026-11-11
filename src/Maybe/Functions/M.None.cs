@@ -19,5 +19,11 @@ public static partial class M
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <returns>Completed task with a <see cref="Wrap.None"/> result.</returns>
 	public static Task<Maybe<T>> NoneAsTask<T>() =>
-		Task.FromResult((Maybe<T>)None);
+		NoneTask<T>.Value;
+
+	private static class NoneTask<T>
+	{
+		public static readonly Task<Maybe<T>> Value =
+			Task.FromResult(default(Maybe<T>));
+	}
 }
