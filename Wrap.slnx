@@ -55,6 +55,9 @@
     <Project Path="tests/Tests.Common/Tests.Common.csproj">
       <Build Solution="Release|*" Project="false" />
     </Project>
+    <Project Path="tests/Tests.Generators/Tests.Generators.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
     <Project Path="tests/Tests.Id.Dapper/Tests.Id.Dapper.csproj">
       <Build Solution="Release|*" Project="false" />
     </Project>

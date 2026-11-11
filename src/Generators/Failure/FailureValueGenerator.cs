@@ -1,6 +1,7 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,13 +50,14 @@ public sealed class FailureValueGenerator : IIncrementalGenerator
 			_ =>
 				string.Empty
 		};
+		// Null when not set, so the FailureValue constructor's default level applies
 		var logLevel = (attr.ConstructorArguments.Length > 1) switch
 		{
 			true when attr.ConstructorArguments[1].Value is int x =>
 				x,
 
 			_ =>
-				0
+				(int?)null
 		};
 
 		// Walk up ContainingType chain, collecting outermost → innermost
@@ -70,12 +72,15 @@ public sealed class FailureValueGenerator : IIncrementalGenerator
 				.Any(s => s.IsKind(SyntaxKind.RecordDeclaration) || s.IsKind(SyntaxKind.RecordStructDeclaration));
 
 			// Get the current type
-			var kind = current.TypeKind switch
+			var kind = (current.TypeKind, isRecord) switch
 			{
-				TypeKind.Struct =>
+				(TypeKind.Struct, true) =>
+					"record struct",
+
+				(TypeKind.Struct, false) =>
 					"struct",
 
-				_ when isRecord =>
+				(_, true) =>
 					"record",
 
 				_ =>
@@ -92,6 +97,7 @@ public sealed class FailureValueGenerator : IIncrementalGenerator
 			Namespace = method.ContainingType.ContainingNamespace.ToDisplayString(),
 			ClassName = method.ContainingType.Name,
 			ContainingTypes = [.. containingTypes],
+			Accessibility = SyntaxFacts.GetText(method.DeclaredAccessibility),
 			MethodName = method.Name,
 			Message = message,
 			LogLevel = logLevel,
@@ -139,13 +145,24 @@ public sealed class FailureValueGenerator : IIncrementalGenerator
 		// Indent the method body one level per nesting depth
 		var indent = new string(' ', model.ContainingTypes.Length * 4);
 
-		_ = sb.AppendLine($"{indent}public static partial {model.ReturnType} {model.MethodName}({paramList})")
+		// Keep the message as a template (escaped literal, not interpolated) so args are formatted later
+		var message = SymbolDisplay.FormatLiteral(model.Message.TrimEnd('.') + ".", quote: true);
+		var level = model.LogLevel switch
+		{
+			int x =>
+				$"{indent}        Level = (Wrap.Logging.LogLevel){x},{Environment.NewLine}",
+
+			_ =>
+				string.Empty
+		};
+
+		_ = sb.AppendLine($"{indent}{model.Accessibility} static partial {model.ReturnType} {model.MethodName}({paramList})")
 			.AppendLine($"{indent}{{")
-			.AppendLine($"{indent}    var message = $\"{model.Message.TrimEnd('.')}.\";")
+			.AppendLine($"{indent}    var message = {message};")
 			.AppendLine($"{indent}    var context = \"{model.ClassName}.{model.MethodName}()\";")
 			.AppendLine($"{indent}    return new {model.ReturnType}(message{argList})")
 			.AppendLine($"{indent}    {{")
-			.AppendLine($"{indent}        Level = (Wrap.Logging.LogLevel){model.LogLevel},")
+			.Append(level)
 			.AppendLine($"{indent}        Context = context")
 			.AppendLine($"{indent}    }};")
 			.AppendLine($"{indent}}}");

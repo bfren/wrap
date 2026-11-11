@@ -27,6 +27,12 @@ internal record MethodModel()
 		[];
 
 	/// <summary>
+	/// Method accessibility modifiers.
+	/// </summary>
+	internal string Accessibility { get; set; } =
+		string.Empty;
+
+	/// <summary>
 	/// Method name.
 	/// </summary>
 	internal string MethodName { get; set; } =
@@ -41,7 +47,7 @@ internal record MethodModel()
 	/// <summary>
 	/// Failure log level.
 	/// </summary>
-	internal int LogLevel { get; set; }
+	internal int? LogLevel { get; set; }
 
 	/// <summary>
 	/// Method parameters.
