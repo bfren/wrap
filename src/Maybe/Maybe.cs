@@ -104,11 +104,9 @@ public readonly partial struct Maybe<T> : IEither<Maybe<T>, None, T>, IEquatable
 	/// </code>
 	/// </remarks>
 	/// <returns>An enumerator with one value if this is a <see cref="Some{T}"/>, otherwise an empty enumerator.</returns>
-	public IEnumerator<T> GetEnumerator()
-	{
-		if (this is Some<T> some)
-		{
-			yield return some.Value;
-		}
-	}
+	public IEnumerator<T> GetEnumerator() =>
+		M.Match<T, IEnumerable<T>>(this,
+			fNone: static () => [],
+			fSome: static x => [x]
+		).GetEnumerator();
 }
