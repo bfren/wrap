@@ -8,6 +8,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Wrap</RootNamespace>
     <AssemblyName>Wrap.$(MSBuildProjectName)</AssemblyName>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <!-- Enable Internal Testing -->

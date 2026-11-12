@@ -43,7 +43,7 @@ public class ImplicitOperator_Tests
 		public void Returns_Failure()
 		{
 			// Arrange
-			static Result<string> act() => (string)null!;
+			static Result<string> act() => null!;
 
 			// Act
 			var result = act();
