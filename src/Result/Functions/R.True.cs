@@ -6,7 +6,7 @@ namespace Wrap;
 public static partial class R
 {
 	/// <summary>
-	/// Gets a result that represents a successful operation with a value of <see langword="true"/>.
+	/// Gets an <see cref="Ok{T}"/> result holding <see langword="true"/>.
 	/// </summary>
 	public static Result<bool> True =>
 		Wrap(true);

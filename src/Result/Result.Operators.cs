@@ -3,28 +3,15 @@
 
 namespace Wrap;
 
-public abstract partial record class Result<T>
+public readonly partial struct Result<T>
 {
 	/// <summary>
-	/// Implicitly wrap <paramref name="value"/> as an <see cref="Ok{T}"/> object.
+	/// Implicitly wrap <paramref name="value"/> as a <see cref="Result{T}"/> - see <see cref="R.Wrap{T}(T)"/>.
 	/// </summary>
 	/// <param name="value">Input value.</param>
-	/// <returns>Wrapped value.</returns>
+	/// <returns>
+	/// An <see cref="Ok{T}"/> holding <paramref name="value"/>, or a <see cref="Failure"/> if <paramref name="value"/> is <see langword="null"/>.
+	/// </returns>
 	public static implicit operator Result<T>(T value) =>
 		R.Wrap(value);
-
-	/// <summary>
-	/// Implicitly convert a <see cref="Failure"/> to a <see cref="Result{T}"/> failure.
-	/// </summary>
-	/// <param name="fail">Failure object.</param>
-	/// <returns>Failure value.</returns>
-	public static implicit operator Result<T>(Failure fail) =>
-		new FailureImpl(fail.Value);
-
-	/// <summary>
-	/// Implicitly convert a <see cref="Monad{T}"/> into a <see cref="Result{T}"/> object.
-	/// </summary>
-	/// <param name="obj">Wrapped object.</param>
-	public static implicit operator Result<T>(Monad<T> obj) =>
-		R.Wrap(obj.Value);
 }

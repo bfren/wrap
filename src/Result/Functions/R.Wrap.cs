@@ -6,40 +6,25 @@ namespace Wrap;
 public static partial class R
 {
 	/// <summary>
-	/// Return a 'true' <see cref="Ok{T}"/> result.
+	/// Return an <see cref="Ok{T}"/> result holding <see langword="true"/>.
 	/// </summary>
-	/// <returns><see cref="Ok{T}"/> result containing the value <c>true</c>.</returns>
+	/// <returns>An <see cref="Ok{T}"/> result holding <see langword="true"/>.</returns>
 	public static Result<bool> Ok() =>
 		Wrap(true);
 
 	/// <summary>
-	/// One of the most important functions in the library: takes a value and returns
-	/// either <see cref="Ok{T}"/> or <see cref="Failure"/>.
+	/// Wrap a value as a <see cref="Result{T}"/>.
 	/// </summary>
 	/// <remarks>
-	/// <para>
-	/// If <paramref name="value"/> is not null, you will get an <see cref="Ok{T}"/> object where
-	/// <see cref="Ok{T}.Value"/> is <paramref name="value"/>.
-	/// </para>
-	/// <para>
-	/// If <paramref name="value"/> is null, you will get a <see cref="Failure"/> object.
-	/// </para>
+	/// A <see langword="null"/> value (including an empty <see cref="System.Nullable{T}"/>) gives a <see cref="Failure"/>,
+	/// because the <see cref="Result{T}(Ok{T})"/> constructor turns a <see langword="null"/> <see cref="Ok{T}"/> into one.
+	/// Use <c>Maybe&lt;T&gt;</c> for values that can be <see langword="null"/>.
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="value">Value to wrap.</param>
 	/// <returns>
-	/// <see cref="Ok{T}"/> if <paramref name="value"/> is not null - otherwise <see cref="Failure"/>.
+	/// An <see cref="Ok{T}"/> holding <paramref name="value"/>, or a <see cref="Failure"/> if <paramref name="value"/> is <see langword="null"/>.
 	/// </returns>
 	public static Result<T> Wrap<T>(T value) =>
-		value switch
-		{
-			T =>
-				new Ok<T>(value),
-
-			_ =>
-				Fail(
-					"Null value of type '{Type}' - try using Maybe<T> to wrap null values safely.",
-					typeof(T).Name
-				),
-		};
+		new Ok<T>(value);
 }

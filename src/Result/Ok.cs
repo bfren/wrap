@@ -1,34 +1,16 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Wrap;
 
 /// <summary>
-/// 'OK' Result - wraps value to enable safe non-null returns (see <seealso cref="Failure"/>).
+/// The 'Ok' case of <see cref="Result{T}"/>, which holds the value of a successful operation (see <seealso cref="Failure"/>).
 /// </summary>
+/// <remarks>
+/// An <see cref="Ok{T}"/> holding <see langword="null"/> becomes a <see cref="Failure"/> when it is
+/// converted to <see cref="Result{T}"/>, so <see cref="Value"/> is never <see langword="null"/> when you
+/// match it from a <see cref="Result{T}"/>.
+/// </remarks>
 /// <typeparam name="T">Ok value type.</typeparam>
-public sealed record class Ok<T> : Result<T>, IRight<FailureValue, T>
-{
-	/// <summary>
-	/// OK value - Value is never null.
-	/// </summary>
-	[MemberNotNull]
-	public T Value { get; init; }
-
-	/// <summary>
-	/// Internal creation only.
-	/// </summary>
-	/// <param name="value">OK value.</param>
-	internal Ok([DisallowNull] T value) =>
-		Value = value switch
-		{
-			T =>
-				value,
-
-			_ =>
-				throw new ArgumentNullException(nameof(value))
-		};
-}
+/// <param name="Value">Ok value.</param>
+public readonly record struct Ok<T>(T Value);

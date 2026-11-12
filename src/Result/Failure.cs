@@ -3,144 +3,94 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 using System.Threading.Tasks;
 using Wrap.Logging;
 
 namespace Wrap;
 
 /// <summary>
-/// 'Failure' Result - holds information why an operation failed -
-/// enables implicit operators to handle returning it as <see cref="Result{T}"/>
-/// without knowing the generic type.
+/// The 'Failure' case of <see cref="Result{T}"/>, which holds information about why an operation failed (see <seealso cref="Ok{T}"/>).
 /// </summary>
-public readonly partial struct Failure : IEquatable<Failure>, IMonad<Failure, FailureValue>
+/// <remarks>
+/// <see cref="Failure"/> carries no type, so it converts to any <see cref="Result{T}"/> - you can
+/// <c>return R.Fail("…");</c> without specifying the value type. Use <see cref="R.Fail(string, object[])"/> to create one,
+/// and <see cref="Msg"/>, <see cref="Arg"/>, <see cref="Ctx(string, string)"/> and <see cref="Lvl"/> to change it.
+/// </remarks>
+public readonly partial record struct Failure : IWithException
 {
-	private static readonly CompositeFormat ContextFormat = CompositeFormat.Parse("{0}.{1}()");
-
 	/// <summary>
-	/// Returns information about the failure.
+	/// Gets the failure held by <c>default(Result&lt;T&gt;)</c>.
 	/// </summary>
-	public readonly required FailureValue Value { get; init; }
+	internal static Failure Default =>
+		new("Uninitialised Failure", [])
+		{
+			Level = DefaultFailureLevel
+		};
 
 	/// <summary>
-	/// Use a pre-existing FailureValue.
+	/// Gets the failure used when an <see cref="Ok{T}"/> holding <see langword="null"/> is converted to <see cref="Result{T}"/>.
 	/// </summary>
-	/// <param name="value">FailureValue.</param>
-	[SetsRequiredMembers]
-	internal Failure(FailureValue value) =>
-		Value = value;
+	internal static Failure NullValue =>
+		new("Null Result value - try using Maybe<T> to wrap null values safely.", [])
+		{
+			Level = DefaultFailureLevel
+		};
+
+	internal const LogLevel DefaultFailureLevel = LogLevel.Warning;
+
+	internal const LogLevel DefaultExceptionLevel = LogLevel.Error;
 
 	/// <summary>
-	/// Fluently create a <see cref="FailureValue"/> from a simple failure message.
+	/// Gets the arguments used to fill the placeholders in <see cref="Message"/> (empty if there are none).
+	/// </summary>
+	public readonly object?[] Args { get; init; } = [];
+
+	/// <summary>
+	/// Gets the context of the failure, usually the calling type or method, or <see langword="null"/> if none was set.
+	/// </summary>
+	public string? Context { get; init; }
+
+	/// <summary>
+	/// Gets the exception that caused the failure, or <see langword="null"/> if there was none.
+	/// </summary>
+	public readonly Exception? Exception { get; init; }
+
+	/// <summary>
+	/// Gets the log level of the failure: <see cref="LogLevel.Warning"/> by default, or <see cref="LogLevel.Error"/>
+	/// when it was created from an exception.
+	/// </summary>
+	public readonly required LogLevel Level { get; init; }
+
+	/// <summary>
+	/// Gets the failure message, which may contain placeholders filled from <see cref="Args"/>.
+	/// </summary>
+	public readonly required string Message { get; init; }
+
+	/// <summary>
+	/// Create a <see cref="Failure"/> from a message, with the <see cref="LogLevel.Warning"/> log level.
 	/// </summary>
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
 	[SetsRequiredMembers]
-	internal Failure(string message, params object?[] args) =>
-		Value = new(message, args);
+	public Failure(string message, params object?[] args) =>
+		(Message, Args, Level) = (message, args, DefaultFailureLevel);
 
 	/// <summary>
-	/// Fluently create a <see cref="Failure"/> object from an exception.
+	/// Create a <see cref="Failure"/> from an exception, using its message and the <see cref="LogLevel.Error"/> log level.
 	/// </summary>
 	/// <param name="ex">Exception object.</param>
 	[SetsRequiredMembers]
-	internal Failure(Exception ex) =>
-		Value = new(ex);
+	public Failure(Exception ex) =>
+		(Message, Exception, Level) = (ex.Message, ex, DefaultExceptionLevel);
 
 	/// <summary>
-	/// Add arguments to the failure value.
-	/// </summary>
-	/// <param name="args">Arguments.</param>
-	/// <returns>FluentFail.</returns>
-	public Failure Arg(params object?[] args) =>
-		args switch
-		{
-			{ } =>
-				this with
-				{
-					Value = Value with
-					{
-						Args = args ?? []
-					}
-				},
-
-			_ =>
-				this
-		};
-
-	/// <summary>
-	/// Add context to the failure value.
-	/// </summary>
-	/// <param name="class">Calling class.</param>
-	/// <param name="function">Calling function.</param>
-	/// <returns>FluentFail.</returns>
-	public Failure Ctx(string @class, string function) =>
-		this with
-		{
-			Value = Value with
-			{
-				Context = string.Format(F.DefaultCulture, ContextFormat, @class, function)
-			}
-		};
-
-	/// <summary>
-	/// Add context to the failure value.
-	/// </summary>
-	/// <typeparam name="T">Calling type.</typeparam>
-	/// <returns>FluentFail.</returns>
-	public Failure Ctx<T>() =>
-		this with
-		{
-			Value = Value with
-			{
-				Context = typeof(T).FullName
-			}
-		};
-
-	/// <summary>
-	/// Alter the log level of the failure value.
-	/// </summary>
-	/// <param name="level">LogLevel.</param>
-	/// <returns>FluentFail.</returns>
-	public Failure Lvl(LogLevel level) =>
-		this with
-		{
-			Value = Value with
-			{
-				Level = level
-			}
-		};
-
-	/// <summary>
-	/// Add a message to the failure value.
-	/// </summary>
-	/// <param name="message">Failure message.</param>
-	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
-	/// <returns>FluentFail.</returns>
-	public Failure Msg(string? message, params object?[] args) =>
-		message switch
-		{
-			string =>
-				this with
-				{
-					Value = Value with
-					{
-						Message = message,
-						Args = args
-					}
-				},
-
-			_ =>
-				this
-		};
-
-	/// <summary>
-	/// Create Failure object from <see cref="Value"/> and wrap as a completed Task
-	/// for simple async returns.
+	/// Wrap this failure as a <see cref="Result{T}"/> in a completed task, for simple async returns.
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
-	/// <returns>Failure task.</returns>
+	/// <returns>A completed task holding this failure as a <see cref="Result{T}"/>.</returns>
 	public Task<Result<T>> AsTask<T>() =>
-		new Result<T>.FailureImpl(Value).AsTask();
+		Task.FromResult((Result<T>)this);
+
+	public override string ToString() =>
+		F.Format(Message, Args);
 }

@@ -3,7 +3,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Wrap.Exceptions;
 
 namespace Wrap;
 
@@ -16,25 +15,21 @@ public static partial class R
 	/// </summary>
 	/// <remarks>
 	/// <para>
-	/// It would be possible to achieve the same thing using switch statements, but doing that would add the
-	/// potential for not handling both cases (<see cref="Ok{T}"/> and <see cref="Failure"/>).
-	/// </para>
-	/// <para>
-	/// This way there has to be a function to handle both cases.
+	/// This is shorthand for a <c>switch</c> over the <see cref="Ok{T}"/> and <see cref="Failure"/> cases
+	/// that passes the unwrapped value to <paramref name="fOk"/>. Both approaches make you handle both cases:
+	/// here through the required arguments, and in a <c>switch</c> through the compiler's exhaustiveness check.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="result">Result object.</param>
-	/// <param name="fFail">Function to run when <paramref name="result"/> is <see cref="Failure"/>.</param>
-	/// <param name="fOk">Function to run when <paramref name="result"/> is <see cref="Ok{T}"/>.</param>
-	/// <exception cref="InvalidResultTypeException"></exception>
-	/// <exception cref="NullResultException"></exception>
-	public static void Match<T>(Result<T> result, Action<FailureValue> fFail, Action<T> fOk)
+	/// <param name="fFail">Action to run with the failure when <paramref name="result"/> is a <see cref="Failure"/>.</param>
+	/// <param name="fOk">Action to run with the value when <paramref name="result"/> is an <see cref="Ok{T}"/>.</param>
+	public static void Match<T>(Result<T> result, Action<Failure> fFail, Action<T> fOk)
 	{
 		switch (result)
 		{
-			case Result<T>.FailureImpl f:
-				fFail(f.Value);
+			case Failure f:
+				fFail(f);
 				return;
 
 			case Ok<T> x:
@@ -42,17 +37,17 @@ public static partial class R
 				return;
 
 			default:
-				throw Invalid(result);
+				break;
 		}
 	}
 
-	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
-	public static async Task MatchAsync<T>(Result<T> result, Action<FailureValue> fFail, Func<T, Task> fOk)
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
+	public static async Task MatchAsync<T>(Result<T> result, Action<Failure> fFail, Func<T, Task> fOk)
 	{
 		switch (result)
 		{
-			case Result<T>.FailureImpl f:
-				fFail(f.Value);
+			case Failure f:
+				fFail(f);
 				return;
 
 			case Ok<T> x:
@@ -60,17 +55,17 @@ public static partial class R
 				return;
 
 			default:
-				throw Invalid(result);
+				break;
 		}
 	}
 
-	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
-	public static async Task MatchAsync<T>(Result<T> result, Func<FailureValue, Task> fFail, Action<T> fOk)
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
+	public static async Task MatchAsync<T>(Result<T> result, Func<Failure, Task> fFail, Action<T> fOk)
 	{
 		switch (result)
 		{
-			case Result<T>.FailureImpl f:
-				await fFail(f.Value);
+			case Failure f:
+				await fFail(f);
 				return;
 
 			case Ok<T> x:
@@ -78,17 +73,17 @@ public static partial class R
 				return;
 
 			default:
-				throw Invalid(result);
+				break;
 		}
 	}
 
-	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
-	public static async Task MatchAsync<T>(Result<T> result, Func<FailureValue, Task> fFail, Func<T, Task> fOk)
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
+	public static async Task MatchAsync<T>(Result<T> result, Func<Failure, Task> fFail, Func<T, Task> fOk)
 	{
 		switch (result)
 		{
-			case Result<T>.FailureImpl f:
-				await fFail(f.Value);
+			case Failure f:
+				await fFail(f);
 				return;
 
 			case Ok<T> x:
@@ -96,24 +91,24 @@ public static partial class R
 				return;
 
 			default:
-				throw Invalid(result);
+				break;
 		}
 	}
 
-	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
-	public static async Task MatchAsync<T>(Task<Result<T>> result, Action<FailureValue> fFail, Action<T> fOk) =>
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
+	public static async Task MatchAsync<T>(Task<Result<T>> result, Action<Failure> fFail, Action<T> fOk) =>
 		Match(await result, fFail, fOk);
 
-	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
-	public static async Task MatchAsync<T>(Task<Result<T>> result, Func<FailureValue, Task> fFail, Action<T> fOk) =>
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
+	public static async Task MatchAsync<T>(Task<Result<T>> result, Func<Failure, Task> fFail, Action<T> fOk) =>
 		await MatchAsync(await result, fFail, fOk);
 
-	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
-	public static async Task MatchAsync<T>(Task<Result<T>> result, Action<FailureValue> fFail, Func<T, Task> fOk) =>
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
+	public static async Task MatchAsync<T>(Task<Result<T>> result, Action<Failure> fFail, Func<T, Task> fOk) =>
 		await MatchAsync(await result, fFail, fOk);
 
-	/// <inheritdoc cref="Match{T}(Result{T}, Action{FailureValue}, Action{T})"/>
-	public static async Task MatchAsync<T>(Task<Result<T>> result, Func<FailureValue, Task> fFail, Func<T, Task> fOk) =>
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
+	public static async Task MatchAsync<T>(Task<Result<T>> result, Func<Failure, Task> fFail, Func<T, Task> fOk) =>
 		await MatchAsync(await result, fFail, fOk);
 
 	#endregion
@@ -125,104 +120,75 @@ public static partial class R
 	/// </summary>
 	/// <remarks>
 	/// <para>
-	/// It would be possible to achieve the same thing using switch statements, but doing that would add the
-	/// potential for not handling both cases (<see cref="Ok{T}"/> and <see cref="Failure"/>).
-	/// </para>
-	/// <para>
-	/// This way there has to be a function to handle both cases.
+	/// This is shorthand for a <c>switch</c> over the <see cref="Ok{T}"/> and <see cref="Failure"/> cases
+	/// that passes the unwrapped value to <paramref name="fOk"/>. Both approaches make you handle both cases:
+	/// here through the required arguments, and in a <c>switch</c> through the compiler's exhaustiveness check.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="result">Result object.</param>
-	/// <param name="fFail">Function to run when <paramref name="result"/> is <see cref="Failure"/>.</param>
-	/// <param name="fOk">Function to run when <paramref name="result"/> is <see cref="Ok{T}"/>.</param>
+	/// <param name="fFail">Function to run with the failure when <paramref name="result"/> is a <see cref="Failure"/>.</param>
+	/// <param name="fOk">Function to run with the value when <paramref name="result"/> is an <see cref="Ok{T}"/>.</param>
 	/// <returns>Value generated by either <paramref name="fFail"/> or <paramref name="fOk"/>.</returns>
-	/// <exception cref="InvalidResultTypeException"></exception>
-	/// <exception cref="NullResultException"></exception>
-	public static TReturn Match<T, TReturn>(Result<T> result, Func<FailureValue, TReturn> fFail, Func<T, TReturn> fOk) =>
+	public static TReturn Match<T, TReturn>(Result<T> result, Func<Failure, TReturn> fFail, Func<T, TReturn> fOk) =>
 		result switch
 		{
-			Result<T>.FailureImpl f =>
-				fFail(f.Value),
+			Failure f =>
+				fFail(f),
 
 			Ok<T> x =>
-				fOk(x.Value),
-
-			_ =>
-				throw Invalid(result)
+				fOk(x.Value)
 		};
 
-	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<FailureValue, TReturn> fFail, Func<T, Task<TReturn>> fOk) =>
+	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<Failure, TReturn> fFail, Func<T, Task<TReturn>> fOk) =>
 		result switch
 		{
-			Result<T>.FailureImpl f =>
-				fFail(f.Value),
+			Failure f =>
+				fFail(f),
 
 			Ok<T> x =>
-				await fOk(x.Value),
-
-			_ =>
-				throw Invalid(result)
+				await fOk(x.Value)
 		};
 
-	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<FailureValue, Task<TReturn>> fFail, Func<T, TReturn> fOk) =>
+	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<Failure, Task<TReturn>> fFail, Func<T, TReturn> fOk) =>
 		result switch
 		{
-			Result<T>.FailureImpl f =>
-				await fFail(f.Value),
+			Failure f =>
+				await fFail(f),
 
 			Ok<T> x =>
-				fOk(x.Value),
-
-			_ =>
-				throw Invalid(result)
+				fOk(x.Value)
 		};
 
-	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<FailureValue, Task<TReturn>> fFail, Func<T, Task<TReturn>> fOk) =>
+	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<Failure, Task<TReturn>> fFail, Func<T, Task<TReturn>> fOk) =>
 		result switch
 		{
-			Result<T>.FailureImpl f =>
-				await fFail(f.Value),
+			Failure f =>
+				await fFail(f),
 
 			Ok<T> x =>
-				await fOk(x.Value),
-
-			_ =>
-				throw Invalid(result)
+				await fOk(x.Value)
 		};
 
-	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<FailureValue, TReturn> fFail, Func<T, TReturn> fOk) =>
+	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<Failure, TReturn> fFail, Func<T, TReturn> fOk) =>
 		Match(await result, fFail, fOk);
 
-	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<FailureValue, TReturn> fFail, Func<T, Task<TReturn>> fOk) =>
+	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<Failure, TReturn> fFail, Func<T, Task<TReturn>> fOk) =>
 		await MatchAsync(await result, fFail, fOk);
 
-	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<FailureValue, Task<TReturn>> fFail, Func<T, TReturn> fOk) =>
+	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<Failure, Task<TReturn>> fFail, Func<T, TReturn> fOk) =>
 		await MatchAsync(await result, fFail, fOk);
 
-	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{FailureValue, TReturn}, Func{T, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<FailureValue, Task<TReturn>> fFail, Func<T, Task<TReturn>> fOk) =>
+	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<T, TReturn>(Task<Result<T>> result, Func<Failure, Task<TReturn>> fFail, Func<T, Task<TReturn>> fOk) =>
 		await MatchAsync(await result, fFail, fOk);
 
 	#endregion
-
-	/// <summary>
-	/// Exception for a <paramref name="result"/> that is neither <see cref="Ok{T}"/> nor a failure.
-	/// </summary>
-	private static Exception Invalid<T>(Result<T>? result) =>
-		result switch
-		{
-			null =>
-				new NullResultException(),
-
-			_ =>
-				new InvalidResultTypeException(result.GetType())
-		};
 }
