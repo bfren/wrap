@@ -3,6 +3,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Wrap.Exceptions;
 
 namespace Wrap;
 
@@ -12,6 +13,19 @@ public abstract record class Either<TLeft, TRight> : IEither<Either<TLeft, TRigh
 	/// <inheritdoc/>
 	public Task<Either<TLeft, TRight>> AsTask() =>
 		Task.FromResult(this);
+
+	TReturn IEither<TLeft, TRight>.Match<TReturn>(Func<TLeft, TReturn> fLeft, Func<TRight, TReturn> fRight) =>
+		this switch
+		{
+			Left<TLeft, TRight> l =>
+				fLeft(l.Value),
+
+			Right<TLeft, TRight> r =>
+				fRight(r.Value),
+
+			_ =>
+				throw new InvalidEitherTypeException(GetType())
+		};
 
 	/// <inheritdoc/>
 	public TRight Unwrap(Func<TLeft, TRight> getValue) =>

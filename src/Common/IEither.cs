@@ -22,6 +22,20 @@ public interface IEither<TLeft, TRight>
 	/// the object is <typeparamref name="TLeft"/>.</param>
 	/// <returns>Value of object or provided by <paramref name="getValue"/>.</returns>
 	TRight Unwrap(Func<TLeft, TRight> getValue);
+
+	/// <summary>
+	/// Run <paramref name="fLeft"/> or <paramref name="fRight"/>, depending on which case this object holds, and return its value.
+	/// </summary>
+	/// <remarks>
+	/// Lets generic code (for example <see cref="Unsafe{TEither, TLeft, TRight}"/>) work with any either type,
+	/// including union structs that do not implement <see cref="ILeft{TLeft, TRight}"/> or <see cref="IRight{TLeft, TRight}"/>.
+	/// Called through a type parameter constrained to this interface, it does not box a struct.
+	/// </remarks>
+	/// <typeparam name="TReturn">Return value type.</typeparam>
+	/// <param name="fLeft">Function to run with the left (error / invalid) value.</param>
+	/// <param name="fRight">Function to run with the right (correct / valid) value.</param>
+	/// <returns>Value returned by <paramref name="fLeft"/> or <paramref name="fRight"/>.</returns>
+	TReturn Match<TReturn>(Func<TLeft, TReturn> fLeft, Func<TRight, TReturn> fRight);
 }
 
 /// <summary>
