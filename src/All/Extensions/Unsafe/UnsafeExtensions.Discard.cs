@@ -22,9 +22,8 @@ public static partial class UnsafeExtensions
 	/// <returns>Maybe object.</returns>
 	public static Maybe<TRight> Discard<TEither, TLeft, TRight>(this Unsafe<TEither, TLeft, TRight> @this)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		E.Match<TEither, TLeft, TRight, Maybe<TRight>>(
-			@this.Value,
-			fLeft: _ => M.None,
+		@this.Value.Match(
+			fLeft: _ => default,
 			fRight: M.Wrap
 		);
 

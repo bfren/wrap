@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Threading.Tasks;
+using Wrap.Exceptions;
 
 namespace Wrap.Extensions;
 
@@ -21,14 +22,10 @@ public static partial class UnsafeExtensions
 	/// <returns>Value of <see cref="Unsafe{TEither, TLeft, TRight}.Value"/>.</returns>
 	public static TRight Unwrap<TEither, TLeft, TRight>(this Unsafe<TEither, TLeft, TRight> @this)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		@this.Value switch
-		{
-			IRight<TLeft, TRight> left =>
-				left.Value,
-
-			_ =>
-				default!
-		};
+		@this.Value.Match(
+			fLeft: x => throw new UnsafeUnwrapException(x, (x as IWithException)?.Exception),
+			fRight: x => x
+		);
 
 	/// <inheritdoc cref="Unwrap{TEither, TLeft, TRight}(Unsafe{TEither, TLeft, TRight})"/>
 	public static Task<TRight> UnwrapAsync<TEither, TLeft, TRight>(this Task<Unsafe<TEither, TLeft, TRight>> @this)
