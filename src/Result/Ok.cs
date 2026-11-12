@@ -13,4 +13,4 @@ namespace Wrap;
 /// </remarks>
 /// <typeparam name="T">Ok value type.</typeparam>
 /// <param name="Value">Ok value.</param>
-public readonly record struct Ok<T>(T Value);
+public readonly record struct Ok<T>(T Value) : IMonad<T>;

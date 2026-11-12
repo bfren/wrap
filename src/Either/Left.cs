@@ -12,4 +12,4 @@ namespace Wrap;
 /// </remarks>
 /// <typeparam name="T">Left value type.</typeparam>
 /// <param name="Value">Left value.</param>
-public readonly record struct Left<T>(T Value);
+public readonly record struct Left<T>(T Value) : IMonad<T>;
