@@ -17,24 +17,24 @@ public static partial class ResultExtensions
 	/// </remarks>
 	/// <typeparam name="T">Value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="fFailureHandler">Do something with the FailureValue before discarding it.</param>
+	/// <param name="fFailureHandler">Do something with the Failure before discarding it.</param>
 	/// <returns>Maybe object.</returns>
-	public static Maybe<T> ToMaybe<T>(this Result<T> @this, Action<FailureValue> fFailureHandler) =>
+	public static Maybe<T> ToMaybe<T>(this Result<T> @this, Action<Failure> fFailureHandler) =>
 		@this.Match(fFail: f => { fFailureHandler(f); return M.None; }, fOk: M.Wrap);
 
-	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{FailureValue})"/>
-	public static Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Action<FailureValue> fFailureHandler) =>
+	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{Failure})"/>
+	public static Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Action<Failure> fFailureHandler) =>
 		ToMaybeAsync(@this, async f => { fFailureHandler(f); return M.None; });
 
-	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{FailureValue})"/>
-	public static Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<FailureValue, Maybe<T>> fFailureHandler) =>
+	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{Failure})"/>
+	public static Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<Failure, Maybe<T>> fFailureHandler) =>
 		ToMaybeAsync(@this, async f => fFailureHandler(f));
 
-	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{FailureValue})"/>
-	public static Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<FailureValue, Task> fFailureHandler) =>
+	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{Failure})"/>
+	public static Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<Failure, Task> fFailureHandler) =>
 		ToMaybeAsync(@this, async f => { await fFailureHandler(f); return M.None; });
 
-	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{FailureValue})"/>
-	public static Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<FailureValue, Task<Maybe<T>>> fFailureHandler) =>
+	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{Failure})"/>
+	public static Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<Failure, Task<Maybe<T>>> fFailureHandler) =>
 		@this.MatchAsync(fFail: f => fFailureHandler(f), fOk: M.Wrap);
 }

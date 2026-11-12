@@ -8,11 +8,11 @@ namespace Wrap.Extensions;
 
 public static partial class ResultExtensions
 {
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
-	public static Result<T> Audit<T>(this Result<T> @this, Action<FailureValue> fFail) =>
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Failure}?, Action{T}?)"/>
+	public static Result<T> Audit<T>(this Result<T> @this, Action<Failure> fFail) =>
 		Audit(@this, fFail, null);
 
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Failure}?, Action{T}?)"/>
 	public static Result<T> Audit<T>(this Result<T> @this, Action<T> fOk) =>
 		Audit(@this, null, fOk);
 
@@ -24,22 +24,22 @@ public static partial class ResultExtensions
 	/// <param name="fFail">Audit function to run when <paramref name="this"/> is <see cref="Failure"/>.</param>
 	/// <param name="fOk">Audit function to run when <paramref name="this"/> is <see cref="Ok{T}"/>.</param>
 	/// <returns>The original value of <paramref name="this"/>.</returns>
-	public static Result<T> Audit<T>(this Result<T> @this, Action<FailureValue>? fFail, Action<T>? fOk)
+	public static Result<T> Audit<T>(this Result<T> @this, Action<Failure>? fFail, Action<T>? fOk)
 	{
 		try
 		{
-			if (@this is Result<T>.FailureImpl y && fFail is not null)
+			if (@this is Failure y && fFail is not null)
 			{
-				fFail(y.Value);
+				fFail(y);
 			}
 			else if (@this is Ok<T> x && fOk is not null)
 			{
 				fOk(x.Value);
 			}
 		}
-		catch (Exception ex)
+		catch
 		{
-			F.LogException?.Invoke(ex);
+			// Audit functions must not change the result, so their exceptions are ignored
 		}
 
 		return @this;
@@ -58,66 +58,66 @@ public static partial class ResultExtensions
 		{
 			either(@this);
 		}
-		catch (Exception ex)
+		catch
 		{
-			F.LogException?.Invoke(ex);
+			// Audit functions must not change the result, so their exceptions are ignored
 		}
 
 		return @this;
 	}
 
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
-	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<FailureValue, Task> fFail) =>
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Failure}?, Action{T}?)"/>
+	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<Failure, Task> fFail) =>
 		AuditAsync(@this, fFail, null);
 
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Failure}?, Action{T}?)"/>
 	public static Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<T, Task> fOk) =>
 		AuditAsync(@this, null, fOk);
 
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
-	public static async Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<FailureValue, Task>? fFail, Func<T, Task>? fOk)
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Failure}?, Action{T}?)"/>
+	public static async Task<Result<T>> AuditAsync<T>(this Result<T> @this, Func<Failure, Task>? fFail, Func<T, Task>? fOk)
 	{
 		try
 		{
-			if (@this is Result<T>.FailureImpl y && fFail is not null)
+			if (@this is Failure y && fFail is not null)
 			{
-				await fFail(y.Value);
+				await fFail(y);
 			}
 			else if (@this is Ok<T> x && fOk is not null)
 			{
 				await fOk(x.Value);
 			}
 		}
-		catch (Exception ex)
+		catch
 		{
-			F.LogException?.Invoke(ex);
+			// Audit functions must not change the result, so their exceptions are ignored
 		}
 
 		return @this;
 	}
 
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
-	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<FailureValue> fFail) =>
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Failure}?, Action{T}?)"/>
+	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<Failure> fFail) =>
 		AuditAsync(@this, fFail, null);
 
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Failure}?, Action{T}?)"/>
 	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<T> fOk) =>
 		AuditAsync(@this, null, fOk);
 
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
-	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<FailureValue>? fFail, Action<T>? fOk) =>
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Failure}?, Action{T}?)"/>
+	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Action<Failure>? fFail, Action<T>? fOk) =>
 		@this.Then(x => x.Audit(fFail, fOk));
 
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
-	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<FailureValue, Task> fFail) =>
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Failure}?, Action{T}?)"/>
+	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<Failure, Task> fFail) =>
 		AuditAsync(@this, fFail, null);
 
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Failure}?, Action{T}?)"/>
 	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<T, Task> fOk) =>
 		AuditAsync(@this, null, fOk);
 
-	/// <inheritdoc cref="Audit{T}(Result{T}, Action{FailureValue}?, Action{T}?)"/>
-	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<FailureValue, Task>? fFail, Func<T, Task>? fOk) =>
+	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Failure}?, Action{T}?)"/>
+	public static Task<Result<T>> AuditAsync<T>(this Task<Result<T>> @this, Func<Failure, Task>? fFail, Func<T, Task>? fOk) =>
 		@this.Then(x => x.AuditAsync(fFail, fOk));
 
 	/// <inheritdoc cref="Audit{T}(Result{T}, Action{Result{T}})"/>
@@ -127,9 +127,9 @@ public static partial class ResultExtensions
 		{
 			await either(@this);
 		}
-		catch (Exception ex)
+		catch
 		{
-			F.LogException?.Invoke(ex);
+			// Audit functions must not change the result, so their exceptions are ignored
 		}
 
 		return @this;

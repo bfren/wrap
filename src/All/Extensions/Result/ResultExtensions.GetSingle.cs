@@ -25,7 +25,7 @@ public static partial class ResultExtensions
 	/// you will get an <see cref="InvalidOperationException"/>.
 	/// </para>
 	/// </remarks>
-	/// <seealso cref="Result{T}.Unwrap(Func{FailureValue, T})"/>
+	/// <seealso cref="Result{T}.Unwrap(Func{Failure, T})"/>
 	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
 	/// <typeparam name="TSingle">IEnumerable value type.</typeparam>
 	/// <param name="this">Result object.</param>
@@ -72,7 +72,7 @@ public static partial class ResultExtensions
 	/// you will get an <see cref="InvalidOperationException"/>.
 	/// </para>
 	/// </remarks>
-	/// <seealso cref="Result{T}.Unwrap(Func{FailureValue, T})"/>
+	/// <seealso cref="Result{T}.Unwrap(Func{Failure, T})"/>
 	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
 	/// <typeparam name="TSingle">IEnumerable value type.</typeparam>
 	/// <param name="this">Result object.</param>
