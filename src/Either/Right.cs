@@ -3,17 +3,13 @@
 
 namespace Wrap;
 
-/// <inheritdoc cref="IRight{TLeft, TRight}"/>
-public sealed record class Right<TLeft, TRight> : Either<TLeft, TRight>, IRight<TLeft, TRight>
-{
-	/// <inheritdoc/>
-	public TRight Value { get; init; }
-
-	/// <summary>
-	/// Internal creation only.
-	/// </summary>
-	/// <seealso cref="E.WrapRight{TLeft, TRight}(TRight)"/>
-	/// <param name="value">Right (correct / valid) value</param>
-	internal Right(TRight value) =>
-		Value = value;
-}
+/// <summary>
+/// The 'Right' case of <see cref="Either{TLeft, TRight}"/>, which holds a correct / valid value (see <seealso cref="Left{T}"/>).
+/// </summary>
+/// <remarks>
+/// <see cref="Right{T}"/> does not carry the left value type, so it converts to any <see cref="Either{TLeft, TRight}"/>
+/// with a matching right type - you can <c>return new Right&lt;int&gt;(42);</c> without specifying the left type.
+/// </remarks>
+/// <typeparam name="T">Right value type.</typeparam>
+/// <param name="Value">Right value.</param>
+public readonly record struct Right<T>(T Value);

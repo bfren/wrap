@@ -11,7 +11,7 @@ public static partial class E
 	/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 	/// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
 	/// <param name="value">Left (error / invalid) value.</param>
-	/// <returns><see cref="Left{TLeft, TRight}"/> with value <paramref name="value"/>.</returns>
+	/// <returns><see cref="Left{T}"/> with value <paramref name="value"/>.</returns>
 	public static Either<TLeft, TRight> WrapLeft<TLeft, TRight>(TLeft value) =>
-		new Left<TLeft, TRight>(value);
+		new Left<TLeft>(value);
 }

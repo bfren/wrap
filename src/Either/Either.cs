@@ -2,63 +2,103 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Wrap.Exceptions;
 
 namespace Wrap;
 
-/// <inheritdoc cref="IEither{TLeft, TRight}"/>
-public abstract record class Either<TLeft, TRight> : IEither<Either<TLeft, TRight>, TLeft, TRight>
+/// <summary>
+/// Either monad: a union that holds either a <see cref="Left{T}"/> (error / invalid) value or a
+/// <see cref="Right{T}"/> (correct / valid) value.
+/// </summary>
+/// <remarks>
+/// <para>
+/// Use pattern matching to read the value - the compiler checks that both cases are handled:
+/// </para>
+/// <code>
+/// var text = either switch
+/// {
+///     Left&lt;string&gt; l => $"Error: {l.Value}",
+///     Right&lt;int&gt; r => $"Value: {r.Value}"
+/// };
+/// </code>
+/// <para>
+/// This is a value type: <c>default(Either&lt;TLeft, TRight&gt;)</c> is a <see cref="Left{T}"/> holding
+/// <c>default(TLeft)</c>, and an <see cref="Either{TLeft, TRight}"/> can never be <see langword="null"/>.
+/// </para>
+/// <para>
+/// Unlike <c>Some&lt;T&gt;</c> or <c>Ok&lt;T&gt;</c>, either case may hold <see langword="null"/>.
+/// </para>
+/// </remarks>
+/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
+/// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
+[Union]
+public readonly partial struct Either<TLeft, TRight> : IEither<Either<TLeft, TRight>, TLeft, TRight>, IEquatable<Either<TLeft, TRight>>
 {
+	/// <summary>
+	/// The left value - only meaningful when <see cref="isRight"/> is <see langword="false"/>.
+	/// </summary>
+	private readonly TLeft? left;
+
+	/// <summary>
+	/// The right value - only meaningful when <see cref="isRight"/> is <see langword="true"/>.
+	/// </summary>
+	private readonly TRight? right;
+
+	/// <summary>
+	/// Whether this object is a <see cref="Right{T}"/> (<see langword="true"/>) or a <see cref="Left{T}"/> (<see langword="false"/>).
+	/// </summary>
+	private readonly bool isRight;
+
+	/// <summary>
+	/// Gets <see langword="true"/> always: the union always holds a case, because <c>default</c> is a <see cref="Left{T}"/>.
+	/// </summary>
+	/// <remarks>
+	/// Called by the compiler for <c>is</c> patterns and <c>switch</c>, so it knows an <see cref="Either{TLeft, TRight}"/>
+	/// is never <see langword="null"/> and no <see langword="null"/> case is needed.
+	/// </remarks>
+	public bool HasValue =>
+		true;
+
+	/// <summary>
+	/// Gets the current case, boxed as <see cref="Left{T}"/> or <see cref="Right{T}"/>.
+	/// </summary>
+	/// <remarks>
+	/// Required by the union pattern and used by reflection and serialisers. The compiler calls it for
+	/// patterns that neither <see cref="TryGetValue(out Left{TLeft})"/> nor <see cref="TryGetValue(out Right{TRight})"/> covers.
+	/// It allocates on every call - use pattern matching instead.
+	/// </remarks>
+	public object? Value =>
+		isRight switch
+		{
+			true =>
+				new Right<TRight>(right!),
+
+			false =>
+				new Left<TLeft>(left!)
+		};
+
+	/// <summary>
+	/// Create an <see cref="Either{TLeft, TRight}"/> from a <see cref="Left{T}"/> value.
+	/// </summary>
+	/// <remarks>
+	/// The compiler also uses this constructor for the implicit conversion from <see cref="Left{T}"/>.
+	/// </remarks>
+	/// <param name="left">Left value.</param>
+	public Either(Left<TLeft> left) =>
+		(this.left, isRight) = (left.Value, false);
+
+	/// <summary>
+	/// Create an <see cref="Either{TLeft, TRight}"/> from a <see cref="Right{T}"/> value.
+	/// </summary>
+	/// <remarks>
+	/// The compiler also uses this constructor for the implicit conversion from <see cref="Right{T}"/>.
+	/// </remarks>
+	/// <param name="right">Right value.</param>
+	public Either(Right<TRight> right) =>
+		(this.right, isRight) = (right.Value, true);
+
 	/// <inheritdoc/>
 	public Task<Either<TLeft, TRight>> AsTask() =>
 		Task.FromResult(this);
-
-	TReturn IEither<TLeft, TRight>.Match<TReturn>(Func<TLeft, TReturn> fLeft, Func<TRight, TReturn> fRight) =>
-		this switch
-		{
-			Left<TLeft, TRight> l =>
-				fLeft(l.Value),
-
-			Right<TLeft, TRight> r =>
-				fRight(r.Value),
-
-			_ =>
-				throw new InvalidEitherTypeException(GetType())
-		};
-
-	/// <inheritdoc/>
-	public TRight Unwrap(Func<TLeft, TRight> getValue) =>
-		E.Match<Either<TLeft, TRight>, TLeft, TRight, TRight>(this,
-			fLeft: l => getValue(l),
-			fRight: x => x
-		);
-
-	/// <summary>
-	/// Implicitly convert a <typeparamref name="TLeft"/> into a <see cref="Either{TLeft, TRight}"/> object.
-	/// </summary>
-	/// <param name="value">Value to wrap.</param>
-	public static implicit operator Either<TLeft, TRight>(TLeft value) =>
-		E.WrapLeft<TLeft, TRight>(value);
-
-	/// <summary>
-	/// Implicitly convert a <see cref="Monad{T}"/> into a <see cref="Either{TLeft, TRight}"/> object.
-	/// </summary>
-	/// <param name="obj">Wrapped object.</param>
-	public static implicit operator Either<TLeft, TRight>(Monad<TLeft> obj) =>
-		E.WrapLeft<TLeft, TRight>(obj.Value);
-
-	/// <summary>
-	/// Implicitly convert a <typeparamref name="TRight"/> into a <see cref="Either{TLeft, TRight}"/> object.
-	/// </summary>
-	/// <param name="value">Value to wrap.</param>
-	public static implicit operator Either<TLeft, TRight>(TRight value) =>
-		E.WrapRight<TLeft, TRight>(value);
-
-	/// <summary>
-	/// Implicitly convert a <see cref="Monad{T}"/> into a <see cref="Either{TLeft, TRight}"/> object.
-	/// </summary>
-	/// <param name="obj">Wrapped object.</param>
-	public static implicit operator Either<TLeft, TRight>(Monad<TRight> obj) =>
-		E.WrapRight<TLeft, TRight>(obj.Value);
 }
