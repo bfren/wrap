@@ -18,24 +18,25 @@ Published on [NuGet](https://www.nuget.org/packages/wrap/).
 
 ```bash
 # Restore dependencies
-dotnet restore Test.csproj
+dotnet restore Wrap.slnx
 
 # Check code style (using EditorConfig rules)
 dotnet format style -v d Wrap.slnx --no-restore
 
 # Build solution
-dotnet build Test.csproj --no-restore --configuration Debug
+dotnet build Wrap.slnx --no-restore --configuration Debug
 
-# Run all tests
-dotnet test Test.csproj --no-restore --no-build --configuration Debug
+# Run all tests (Microsoft.Testing.Platform, set in global.json, needs --solution)
+dotnet test --solution Wrap.slnx --no-restore --no-build --configuration Debug
 ```
+
+These match the shared CI workflow. `Test.csproj` no longer works with `dotnet test` under Microsoft.Testing.Platform.
 
 ### Supported .NET Versions
 
-The library is tested against:
-- .NET 8.0.x
-- .NET 9.0.x
-- .NET 10.0.x
+Wrap 2.x targets **.NET 11 only** (`net11.0`), because it is built on C# 15 union types. `global.json` pins the .NET 11 SDK.
+
+Wrap 1.x (.NET 8, 9 and 10) lives on a maintenance branch and gets fixes only.
 
 ## Code Style & Quality
 
@@ -131,7 +132,7 @@ Files use CRLF line endings (`.editorconfig`). If you edit with a tool that writ
 ### Testing
 - Each sub-project has corresponding test project
 - Use of Testing utilities (Either.Testing, Maybe.Testing, Result.Testing, Id.Testing) for creating test values
-- Tests run on multiple .NET versions via GitHub Actions
+- Tests run on .NET 11 via GitHub Actions
 
 ## Guidelines for Changes
 
@@ -139,7 +140,7 @@ Files use CRLF line endings (`.editorconfig`). If you edit with a tool that writ
 1. Add to appropriate sub-project (Maybe, Result, Either, Id, Caching, Common)
 2. Add corresponding test project updates
 3. Run `dotnet format style` to ensure consistent formatting
-4. Ensure tests pass on all supported .NET versions
+4. Ensure all tests pass
 5. Update related Testing projects if public APIs change
 
 ### When Fixing Bugs
@@ -150,7 +151,7 @@ Files use CRLF line endings (`.editorconfig`). If you edit with a tool that writ
 
 ### When Updating Dependencies
 - Changes to Directory.Packages.props affect all projects
-- Verify tests pass on all .NET versions after dependency updates
+- Verify all tests pass after dependency updates
 
 ## License
 
