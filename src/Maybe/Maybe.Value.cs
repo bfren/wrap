@@ -11,7 +11,14 @@ public readonly partial struct Maybe<T>
 
 	/// <inheritdoc/>
 	TReturn IEither<None, T>.Match<TReturn>(Func<None, TReturn> fLeft, Func<T, TReturn> fRight) =>
-		M.Match(this, fNone: () => fLeft(default), fSome: fRight);
+		this switch
+		{
+			None n =>
+				fLeft(n),
+
+			Some<T> x =>
+				fRight(x.Value)
+		};
 
 	#endregion
 
