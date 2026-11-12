@@ -29,16 +29,23 @@ Branch `108-switch-to-use-union-types`, version `2.0.0-beta.1`. The solution bui
 | 4. Integrations | **Done** except the app. The JSON converters, MVC binders, Caching and the Testing packages are adapted, and their tests pass. `apps/AppMvc` has not been smoke-tested. |
 | 5. Tests, docs, release | **In progress.** Tests are updated and XML docs rewritten. The rest is listed below. |
 
+**Decided (12 November 2026)**
+- **Keep a 1.x maintenance branch** for .NET 8, 9 and 10 consumers. It gets fixes only. This replaces the optional final 1.x release with `[Obsolete]` markings from Phase 1, which won't happen.
+- **Downstream use of `IEither` and `Unsafe` is minimal**, so the migration guide only needs to mention them briefly.
+- **CI keeps installing SDKs 8, 9, 10 and 11.** The shared workflow (`bfren/dotnet`) installs all four by default, but it builds and tests `Wrap.slnx`, which targets `net11.0` only, and `global.json` pins SDK 11. The extra SDKs only add setup time. To skip them, pass `dotnet-versions: 11.0.x` from `.github/workflows/test.yml`.
+- **Hold the docs and migration guide until release.**
+
+**Done since the first status update**
+- `Maybe<T>.GetEnumerator` uses the `[]`/`[x]` pattern instead of `yield`.
+- `Either` has an `.Unsafe()` extension, with tests.
+- `global.json` pins SDK `11.0.100` (`rollForward: latestFeature`).
+- `CLAUDE.md` and the README describe .NET 11 only, and `CLAUDE.md` uses `dotnet test --solution Wrap.slnx`.
+
 **Still to do**
 - BenchmarkDotNet baselines and allocation regression tests (Phase 0 and 5).
 - A consumer-style test project with `<WarningsAsErrors>CS8509;CS8655</WarningsAsErrors>` to pin exhaustiveness.
-- Pin SDK 11 in `global.json` (it only sets the test runner today).
-- `CLAUDE.md` still lists .NET 8, 9 and 10 as supported, and `dotnet test Test.csproj` now reports "No test projects were found". Use `dotnet test --solution Wrap.slnx`. The README says nothing about .NET 11.
-- Check the shared CI workflow (`bfren/dotnet`) no longer runs 8, 9 and 10.
-- Move `PackageValidationBaselineVersion` from `1.2.1` to `2.0.0` once 2.0.0 ships.
 - Smoke-test `apps/AppMvc`.
-- Write the wiki migration guide (section 8, Phase 5).
-- `Maybe<T>.GetEnumerator` uses `yield`, so a plain `foreach` over a Maybe allocates about 40 B, None included. Optional: switch it to the `[]`/`[x]` pattern `Unsafe` uses.
+- At release: move `PackageValidationBaselineVersion` from `1.2.1` to `2.0.0` once 2.0.0 ships, create the 1.x branch, and write the wiki docs and migration guide (section 8, Phase 5).
 
 ---
 
