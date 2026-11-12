@@ -12,13 +12,13 @@ public class Audit_Tests
 		{
 			// Arrange
 			var input = FailGen.Create<int>();
-			var fFail = Substitute.For<Action<FailureValue>>();
+			var fFail = Substitute.For<Action<Failure>>();
 
 			// Act
 			_ = input.Audit(fFail);
 
 			// Assert
-			fFail.ReceivedWithAnyArgs(1).Invoke(Arg.Any<FailureValue>());
+			fFail.ReceivedWithAnyArgs(1).Invoke(Arg.Any<Failure>());
 		}
 
 		[Fact]
@@ -40,7 +40,7 @@ public class Audit_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(new(value));
+			var input = FailGen.Create<int>(R.Fail(value));
 
 			// Act
 			var result = input.Audit(fFail: null, fOk: null);
@@ -54,7 +54,7 @@ public class Audit_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(new(value));
+			var input = FailGen.Create<int>(R.Fail(value));
 
 			// Act
 			var result = input.Audit(fFail: _ => throw new Exception(Rnd.Str));
@@ -71,13 +71,13 @@ public class Audit_Tests
 		{
 			// Arrange
 			var input = R.Wrap(Rnd.Int);
-			var fFail = Substitute.For<Action<FailureValue>>();
+			var fFail = Substitute.For<Action<Failure>>();
 
 			// Act
 			_ = input.Audit(fFail: fFail, fOk: null);
 
 			// Assert
-			fFail.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
+			fFail.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Failure>());
 		}
 
 		[Fact]

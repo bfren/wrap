@@ -7,9 +7,9 @@ public static class Helpers
 {
 	public static void AssertFailure<T>(this IWrapCache<T> @this, string message, params object?[] args)
 		where T : notnull =>
-		@this.LastFailure.AssertSome().Value.AssertMessage(message, [.. args]);
+		@this.LastFailure.AssertSome().AssertMessage(message, [.. args]);
 
 	public static void AssertFailure<T>(this IWrapCache<T> @this, Exception ex, string message, params object?[] args)
 		where T : notnull =>
-		@this.LastFailure.AssertSome().Value.AssertException(ex).AssertMessage(message, [.. args]);
+		@this.LastFailure.AssertSome().AssertException(ex).AssertMessage(message, [.. args]);
 }

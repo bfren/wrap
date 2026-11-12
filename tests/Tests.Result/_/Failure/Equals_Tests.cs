@@ -43,6 +43,65 @@ public class Equals_Tests
 			Assert.False(r1);
 			Assert.True(r2);
 		}
+
+		[Fact]
+		public void Same_Message_And_Equal_Args_Returns_True()
+		{
+			// Arrange
+			var message = Rnd.Str;
+			var (a0, a1) = (Rnd.Int, Rnd.Str);
+			var f0 = new Failure(message, a0, a1);
+			var f1 = new Failure(message, a0, a1);
+
+			// Act
+			var r0 = f0.Equals(f1);
+			var r1 = f0 == f1;
+
+			// Assert
+			Assert.True(r0);
+			Assert.True(r1);
+		}
+
+		[Fact]
+		public void Different_Args_Returns_False()
+		{
+			// Arrange
+			var message = Rnd.Str;
+			var f0 = new Failure(message, Rnd.Int);
+			var f1 = new Failure(message, Rnd.Str);
+
+			// Act
+			var result = f0 == f1;
+
+			// Assert
+			Assert.False(result);
+		}
+
+		[Fact]
+		public void Different_Level_Returns_False()
+		{
+			// Arrange
+			var f0 = new Failure(Rnd.Str);
+			var f1 = f0.Lvl(Logging.LogLevel.Fatal);
+
+			// Act
+			var result = f0 == f1;
+
+			// Assert
+			Assert.False(result);
+		}
+
+		[Fact]
+		public void Default_Equals_Default()
+		{
+			// Arrange
+
+			// Act
+			var result = default == default(Failure);
+
+			// Assert
+			Assert.True(result);
+		}
 	}
 
 	public class With_Object

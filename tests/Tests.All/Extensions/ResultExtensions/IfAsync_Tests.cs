@@ -21,7 +21,7 @@ public class IfAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<string>(new(value));
+			var input = FailGen.Create<string>(R.Fail(value));
 			var (fTest, fTrue, fFalse) = Setup(true);
 
 			// Act

@@ -14,14 +14,14 @@ public class Match_Tests
 			{
 				// Arrange
 				var input = FailGen.Create<int>();
-				var fFail = Substitute.For<Action<FailureValue>>();
+				var fFail = Substitute.For<Action<Failure>>();
 				var fOk = Substitute.For<Action<int>>();
 
 				// Act
 				input.Match(fFail, fOk);
 
 				// Assert
-				fFail.ReceivedWithAnyArgs(1).Invoke(Arg.Any<FailureValue>());
+				fFail.ReceivedWithAnyArgs(1).Invoke(Arg.Any<Failure>());
 			}
 
 			[Fact]
@@ -29,7 +29,7 @@ public class Match_Tests
 			{
 				// Arrange
 				var input = FailGen.Create<int>();
-				var fFail = Substitute.For<Action<FailureValue>>();
+				var fFail = Substitute.For<Action<Failure>>();
 				var fOk = Substitute.For<Action<int>>();
 
 				// Act
@@ -48,7 +48,7 @@ public class Match_Tests
 				// Arrange
 				var value = Rnd.Int;
 				var input = R.Wrap(value);
-				var fFail = Substitute.For<Action<FailureValue>>();
+				var fFail = Substitute.For<Action<Failure>>();
 				var fOk = Substitute.For<Action<int>>();
 
 				// Act
@@ -63,14 +63,14 @@ public class Match_Tests
 			{
 				// Arrange
 				var input = R.Wrap(Rnd.Int);
-				var fFail = Substitute.For<Action<FailureValue>>();
+				var fFail = Substitute.For<Action<Failure>>();
 				var fOk = Substitute.For<Action<int>>();
 
 				// Act
 				input.Match(fFail, fOk);
 
 				// Assert
-				fFail.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
+				fFail.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Failure>());
 			}
 		}
 	}
@@ -85,7 +85,7 @@ public class Match_Tests
 				// Arrange
 				var failReturn = Rnd.Str;
 				var input = FailGen.Create<int>();
-				Func<FailureValue, string> fFail = _ => failReturn;
+				Func<Failure, string> fFail = _ => failReturn;
 				Func<int, string> fOk = _ => Rnd.Str;
 
 				// Act
@@ -104,7 +104,7 @@ public class Match_Tests
 				// Arrange
 				var okReturn = Rnd.Str;
 				var input = R.Wrap(Rnd.Int);
-				Func<FailureValue, string> fFail = _ => Rnd.Str;
+				Func<Failure, string> fFail = _ => Rnd.Str;
 				Func<int, string> fOk = _ => okReturn;
 
 				// Act

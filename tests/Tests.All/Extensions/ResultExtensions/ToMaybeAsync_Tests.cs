@@ -12,7 +12,7 @@ public class ToMaybeAsync_Tests
 		{
 			// Arrange
 			var input = FailGen.Create<int>().AsTask();
-			var handler = Substitute.For<Action<FailureValue>>();
+			var handler = Substitute.For<Action<Failure>>();
 
 			// Act
 			_ = await input.ToMaybeAsync(handler);
@@ -21,7 +21,7 @@ public class ToMaybeAsync_Tests
 			_ = await input.ToMaybeAsync(async f => { handler(f); return M.None; });
 
 			// Assert
-			handler.ReceivedWithAnyArgs(4).Invoke(Arg.Any<FailureValue>());
+			handler.ReceivedWithAnyArgs(4).Invoke(Arg.Any<Failure>());
 		}
 
 		[Fact]
@@ -51,14 +51,14 @@ public class ToMaybeAsync_Tests
 		{
 			// Arrange
 			var input = R.Wrap(Rnd.Int).AsTask();
-			var handler = Substitute.For<Action<FailureValue>>();
+			var handler = Substitute.For<Action<Failure>>();
 
 			// Act
 			_ = await input.ToMaybeAsync(handler);
 			_ = await input.ToMaybeAsync(f => { handler(f); return M.None; });
 
 			// Assert
-			handler.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
+			handler.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Failure>());
 		}
 
 		[Fact]

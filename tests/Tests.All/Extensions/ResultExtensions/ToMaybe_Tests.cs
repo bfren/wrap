@@ -12,13 +12,13 @@ public class ToMaybe_Tests
 		{
 			// Arrange
 			var input = FailGen.Create<int>();
-			var handler = Substitute.For<Action<FailureValue>>();
+			var handler = Substitute.For<Action<Failure>>();
 
 			// Act
 			_ = input.ToMaybe(handler);
 
 			// Assert
-			handler.ReceivedWithAnyArgs(1).Invoke(Arg.Any<FailureValue>());
+			handler.ReceivedWithAnyArgs(1).Invoke(Arg.Any<Failure>());
 		}
 
 		[Fact]
@@ -42,13 +42,13 @@ public class ToMaybe_Tests
 		{
 			// Arrange
 			var input = R.Wrap(Rnd.Int);
-			var handler = Substitute.For<Action<FailureValue>>();
+			var handler = Substitute.For<Action<Failure>>();
 
 			// Act
 			_ = input.ToMaybe(handler);
 
 			// Assert
-			handler.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
+			handler.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Failure>());
 		}
 
 		[Fact]

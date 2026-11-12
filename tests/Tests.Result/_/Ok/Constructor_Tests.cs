@@ -5,51 +5,47 @@ namespace Wrap.Ok_Tests;
 
 public class Constructor_Tests
 {
+	private const string NullMessage = "Null Result value - try using Maybe<T> to wrap null values safely.";
+
 	public class With_Null
 	{
-		public class Reference_Type
+		[Fact]
+		public void Reference_Type__Converts_To_Failure()
 		{
-			[Fact]
-			public void Throws_ArgumentNullException()
-			{
-				// Arrange
+			// Arrange
+			var ok = new Ok<string>(null!);
 
-				// Act
-				var result = Record.Exception(() => new Ok<string>(null!));
+			// Act
+			Result<string> result = ok;
 
-				// Assert
-				Assert.IsType<ArgumentNullException>(result);
-			}
+			// Assert
+			_ = result.AssertFailure(NullMessage);
 		}
 
-		public class Nullable_Reference_Type
+		[Fact]
+		public void Nullable_Reference_Type__Converts_To_Failure()
 		{
-			[Fact]
-			public void Throws_ArgumentNullException()
-			{
-				// Arrange
+			// Arrange
+			var ok = new Ok<string?>(null);
 
-				// Act
-				var result = Record.Exception(() => new Ok<string?>(null!));
+			// Act
+			Result<string?> result = ok;
 
-				// Assert
-				Assert.IsType<ArgumentNullException>(result);
-			}
+			// Assert
+			_ = result.AssertFailure(NullMessage);
 		}
 
-		public class Nullable_Value_Type
+		[Fact]
+		public void Nullable_Value_Type__Converts_To_Failure()
 		{
-			[Fact]
-			public void Throws_ArgumentNullException()
-			{
-				// Arrange
+			// Arrange
+			var ok = new Ok<int?>(null);
 
-				// Act
-				var result = Record.Exception(() => new Ok<int?>(null!));
+			// Act
+			Result<int?> result = ok;
 
-				// Assert
-				Assert.IsType<ArgumentNullException>(result);
-			}
+			// Assert
+			_ = result.AssertFailure(NullMessage);
 		}
 	}
 
@@ -66,6 +62,20 @@ public class Constructor_Tests
 
 			// Assert
 			Assert.Equal(value, result.Value);
+		}
+
+		[Fact]
+		public void Converts_To_Ok()
+		{
+			// Arrange
+			var value = Rnd.UIntPtr;
+			var ok = new Ok<nuint>(value);
+
+			// Act
+			Result<nuint> result = ok;
+
+			// Assert
+			result.AssertOk(value);
 		}
 	}
 }

@@ -8,7 +8,7 @@ public class Msg_Tests
 	public class With_Null
 	{
 		[Fact]
-		public void Does_Not_Set_Message_Or_Args_In_FailureValue()
+		public void Does_Not_Set_Message_Or_Args()
 		{
 			// Arrange
 			var failure = FailGen.Create();
@@ -17,15 +17,15 @@ public class Msg_Tests
 			var result = failure.Msg(null);
 
 			// Assert
-			Assert.Equal(failure.Value.Message, result.Value.Message);
-			Assert.Equal(failure.Value.Args, result.Value.Args);
+			Assert.Equal(failure.Message, result.Message);
+			Assert.Equal(failure.Args, result.Args);
 		}
 	}
 
 	public class With_Message
 	{
 		[Fact]
-		public void Sets_Message_In_FailureValue()
+		public void Sets_Message()
 		{
 			// Arrange
 			var failure = FailGen.Create();
@@ -35,15 +35,15 @@ public class Msg_Tests
 			var result = failure.Msg(message);
 
 			// Assert
-			Assert.Equal(message, result.Value.Message);
-			Assert.Empty(result.Value.Args);
+			Assert.Equal(message, result.Message);
+			Assert.Empty(result.Args);
 		}
 	}
 
 	public class With_Message_And_Args
 	{
 		[Fact]
-		public void Sets_Message_And_Args_In_FailureValue()
+		public void Sets_Message_And_Args()
 		{
 			// Arrange
 			var failure = FailGen.Create();
@@ -54,8 +54,8 @@ public class Msg_Tests
 			var result = failure.Msg(message, args);
 
 			// Assert
-			Assert.Equal(message, result.Value.Message);
-			Assert.Equal(args, result.Value.Args);
+			Assert.Equal(message, result.Message);
+			Assert.Equal(args, result.Args);
 		}
 	}
 }

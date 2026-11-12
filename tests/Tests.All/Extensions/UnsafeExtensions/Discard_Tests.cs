@@ -37,4 +37,37 @@ public class Discard_Tests
 			result.AssertSome(value);
 		}
 	}
+
+	public class With_None
+	{
+		[Fact]
+		public void Returns_None()
+		{
+			// Arrange
+			var none = M.Wrap<int?>(null).Unsafe();
+
+			// Act
+			var result = none.Discard();
+
+			// Assert
+			result.AssertNone();
+		}
+	}
+
+	public class With_Some
+	{
+		[Fact]
+		public void Returns_Some_With_Value()
+		{
+			// Arrange
+			var value = Rnd.Int;
+			var some = M.Wrap(value).Unsafe();
+
+			// Act
+			var result = some.Discard();
+
+			// Assert
+			result.AssertSome(value);
+		}
+	}
 }

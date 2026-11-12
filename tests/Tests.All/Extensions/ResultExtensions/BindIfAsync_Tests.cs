@@ -24,7 +24,7 @@ public class BindIfAsync_Tests
 			{
 				// Arrange
 				var value = Rnd.Str;
-				var input = FailGen.Create<string>(new(value));
+				var input = FailGen.Create<string>(R.Fail(value));
 				var (fTest, bind) = Setup(false);
 
 				// Act
@@ -62,7 +62,7 @@ public class BindIfAsync_Tests
 			{
 				// Arrange
 				var value = Rnd.Str;
-				var input = FailGen.Create<string>(new(value));
+				var input = FailGen.Create<string>(R.Fail(value));
 				var (fTest, bind) = Setup(true);
 
 				// Act

@@ -1,6 +1,8 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using Wrap.Exceptions;
+
 namespace Wrap.Extensions.UnsafeExtensions_Tests;
 
 public class UnwrapAsync_Tests
@@ -8,16 +10,16 @@ public class UnwrapAsync_Tests
 	public class With_Left
 	{
 		[Fact]
-		public async Task Returns_Default()
+		public async Task Throws_UnsafeUnwrapException()
 		{
 			// Arrange
 			var failure = FailGen.Create<int>().AsTask().Unsafe();
 
 			// Act
-			var result = await failure.UnwrapAsync();
+			var result = await Record.ExceptionAsync(() => failure.UnwrapAsync());
 
 			// Assert
-			Assert.Equal(default, result);
+			_ = Assert.IsType<UnsafeUnwrapException>(result);
 		}
 	}
 

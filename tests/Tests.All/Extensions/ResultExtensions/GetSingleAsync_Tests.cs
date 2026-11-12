@@ -12,7 +12,7 @@ public class GetSingleAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<List<int>>(new(value));
+			var input = FailGen.Create<List<int>>(R.Fail(value));
 
 			// Act
 			var r0 = await input.AsTask().GetSingleAsync(f => f.Value<int>());

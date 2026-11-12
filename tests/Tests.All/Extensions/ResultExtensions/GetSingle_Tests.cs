@@ -12,7 +12,7 @@ public class GetSingle_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<List<int>>(new(value));
+			var input = FailGen.Create<List<int>>(R.Fail(value));
 
 			// Act
 			var result = input.GetSingle<List<int>, int>();
