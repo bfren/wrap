@@ -5,7 +5,5 @@ using System;
 
 namespace Wrap.Exceptions;
 
-public sealed class UnsafeUnwrapException : Exception
-{
-	public UnsafeUnwrapException(object? left, Exception? inner) : base($"Unsafe Unwrap threw an execption: {left}", inner) { }
-}
+public sealed class UnsafeUnwrapException(object? left, Exception? inner) :
+	Exception($"Unsafe Unwrap threw an exception: {left}", inner);
