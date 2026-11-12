@@ -9,6 +9,7 @@ public readonly partial struct Result<T>
 {
 	#region Match
 
+	/// <inheritdoc/>
 	TReturn IEither<Failure, T>.Match<TReturn>(Func<Failure, TReturn> fLeft, Func<T, TReturn> fRight) =>
 		R.Match(this, fLeft, fRight);
 

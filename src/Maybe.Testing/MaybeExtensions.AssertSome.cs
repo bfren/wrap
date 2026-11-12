@@ -10,7 +10,7 @@ public static partial class MaybeExtensions
 	/// </summary>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
-	/// <returns>Some Value.</returns>
+	/// <returns>The <see cref="Some{T}"/> value.</returns>
 	public static T AssertSome<T>(this Maybe<T> @this) =>
 		Assert.IsType<Some<T>>(@this.Value).Value; // the union's boxed case: @this itself boxes as Maybe<T>
 

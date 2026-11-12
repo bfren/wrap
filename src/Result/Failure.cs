@@ -91,6 +91,10 @@ public readonly partial record struct Failure : IWithException
 	public Task<Result<T>> AsTask<T>() =>
 		Task.FromResult((Result<T>)this);
 
+	/// <summary>
+	/// Convert this failure to a string.
+	/// </summary>
+	/// <returns><see cref="Message"/> with its placeholders filled from <see cref="Args"/>.</returns>
 	public override string ToString() =>
 		F.Format(Message, Args);
 }

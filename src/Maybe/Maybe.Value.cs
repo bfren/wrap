@@ -9,6 +9,7 @@ public readonly partial struct Maybe<T>
 {
 	#region Match
 
+	/// <inheritdoc/>
 	TReturn IEither<None, T>.Match<TReturn>(Func<None, TReturn> fLeft, Func<T, TReturn> fRight) =>
 		M.Match(this, fNone: () => fLeft(default), fSome: fRight);
 
