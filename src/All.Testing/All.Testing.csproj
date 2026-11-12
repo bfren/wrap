@@ -5,6 +5,7 @@
     <AssemblyName>Wrap.Testing</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Either.Testing\Either.Testing.csproj" />
     <ProjectReference Include="..\Id.Testing\Id.Testing.csproj" />
     <ProjectReference Include="..\Maybe.Testing\Maybe.Testing.csproj" />
     <ProjectReference Include="..\Result.Testing\Result.Testing.csproj" />

@@ -17,8 +17,7 @@ public class Constructor_Tests
 			Either<string, int> result = new Left<string>(value);
 
 			// Assert
-			var left = Assert.IsType<Left<string>>(result.Value);
-			Assert.Equal(value, left.Value);
+			result.AssertLeft(value);
 		}
 
 		[Fact]
@@ -30,8 +29,7 @@ public class Constructor_Tests
 			Either<string?, int> result = new Left<string?>(null);
 
 			// Assert
-			var left = Assert.IsType<Left<string?>>(result.Value);
-			Assert.Null(left.Value);
+			Assert.Null(result.AssertLeft());
 		}
 	}
 
@@ -47,8 +45,7 @@ public class Constructor_Tests
 			Either<string, int> result = new Right<int>(value);
 
 			// Assert
-			var right = Assert.IsType<Right<int>>(result.Value);
-			Assert.Equal(value, right.Value);
+			result.AssertRight(value);
 		}
 
 		[Fact]
@@ -60,8 +57,7 @@ public class Constructor_Tests
 			Either<int, string?> result = new Right<string?>(null);
 
 			// Assert
-			var right = Assert.IsType<Right<string?>>(result.Value);
-			Assert.Null(right.Value);
+			Assert.Null(result.AssertRight());
 		}
 	}
 

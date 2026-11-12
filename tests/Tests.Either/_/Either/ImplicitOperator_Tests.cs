@@ -17,8 +17,7 @@ public class ImplicitOperator_Tests
 			Either<string, int> result = value;
 
 			// Assert
-			var left = Assert.IsType<Left<string>>(result.Value);
-			Assert.Equal(value, left.Value);
+			result.AssertLeft(value);
 		}
 	}
 
@@ -34,8 +33,7 @@ public class ImplicitOperator_Tests
 			Either<string, int> result = value;
 
 			// Assert
-			var right = Assert.IsType<Right<int>>(result.Value);
-			Assert.Equal(value, right.Value);
+			result.AssertRight(value);
 		}
 	}
 }

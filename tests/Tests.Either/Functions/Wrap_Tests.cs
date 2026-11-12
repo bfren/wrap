@@ -15,8 +15,7 @@ public class Wrap_Tests
 		var result = E.WrapLeft<string, int>(value);
 
 		// Assert
-		var left = Assert.IsType<Left<string>>(result.Value);
-		Assert.Equal(value, left.Value);
+		result.AssertLeft(value);
 	}
 
 	[Fact]
@@ -29,7 +28,6 @@ public class Wrap_Tests
 		var result = E.WrapRight<string, int>(value);
 
 		// Assert
-		var right = Assert.IsType<Right<int>>(result.Value);
-		Assert.Equal(value, right.Value);
+		result.AssertRight(value);
 	}
 }

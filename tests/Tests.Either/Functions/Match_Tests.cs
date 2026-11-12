@@ -15,7 +15,7 @@ public class Match_Tests
 			Either<string, int> either = new Left<string>(value);
 
 			// Act
-			var result = E.Match<Either<string, int>, string, int, string>(either,
+			var result = E.Match(either,
 				fLeft: x => $"left {x}",
 				fRight: x => $"right {x}"
 			);
@@ -32,7 +32,7 @@ public class Match_Tests
 			Either<string, int> either = new Right<int>(value);
 
 			// Act
-			var result = E.Match<Either<string, int>, string, int, string>(either,
+			var result = E.Match(either,
 				fLeft: x => $"left {x}",
 				fRight: x => $"right {x}"
 			);
@@ -89,7 +89,7 @@ public class Match_Tests
 			Either<string, int> either = new Right<int>(value);
 
 			// Act
-			var result = await E.MatchAsync<Either<string, int>, string, int, int>(either.AsTask(),
+			var result = await E.MatchAsync(either.AsTask(),
 				fLeft: _ => -1,
 				fRight: x => Task.FromResult(x)
 			);

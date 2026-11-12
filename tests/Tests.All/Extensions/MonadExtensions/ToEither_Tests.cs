@@ -18,8 +18,7 @@ public class ToEither_Tests
 			var result = monad.ToEither<string, int>();
 
 			// Assert
-			var left = Assert.IsType<Left<string>>(result.Value);
-			Assert.Equal(value, left.Value);
+			result.AssertLeft(value);
 		}
 	}
 
@@ -36,8 +35,7 @@ public class ToEither_Tests
 			var result = monad.ToEither<string, int>();
 
 			// Assert
-			var right = Assert.IsType<Right<int>>(result.Value);
-			Assert.Equal(value, right.Value);
+			result.AssertRight(value);
 		}
 	}
 }
