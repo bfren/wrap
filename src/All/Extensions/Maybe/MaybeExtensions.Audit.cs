@@ -37,9 +37,9 @@ public static partial class MaybeExtensions
 				fSome(x.Value);
 			}
 		}
-		catch (Exception ex)
+		catch
 		{
-			F.LogException?.Invoke(ex);
+			// Audit functions must not change the result, so their exceptions are ignored
 		}
 
 		return @this;
@@ -58,9 +58,9 @@ public static partial class MaybeExtensions
 		{
 			either(@this);
 		}
-		catch (Exception ex)
+		catch
 		{
-			F.LogException?.Invoke(ex);
+			// Audit functions must not change the result, so their exceptions are ignored
 		}
 
 		return @this;
@@ -88,9 +88,9 @@ public static partial class MaybeExtensions
 				await fSome(x.Value);
 			}
 		}
-		catch (Exception ex)
+		catch
 		{
-			F.LogException?.Invoke(ex);
+			// Audit functions must not change the result, so their exceptions are ignored
 		}
 
 		return @this;
@@ -127,9 +127,9 @@ public static partial class MaybeExtensions
 		{
 			await either(@this);
 		}
-		catch (Exception ex)
+		catch
 		{
-			F.LogException?.Invoke(ex);
+			// Audit functions must not change the result, so their exceptions are ignored
 		}
 
 		return @this;
