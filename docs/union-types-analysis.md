@@ -12,6 +12,33 @@
 - **Recommended shape:** hand-written, non-boxing `[Union] readonly struct`s whose cases are small record structs: `Some<T>`/`None`, `Ok<T>`/`Failure`, `Left<T>`/`Right<T>`. **Don't** use the one-line `union X(A, B)` shorthand for the core types: it boxes value-type cases, makes `default` a runtime crash, and `Either<int,int>` won't compile.
 - **You don't have to drop .NET 8–10 at runtime.** ✅ A union library compiles and runs on `net8.0` with a two-type internal polyfill (`UnionAttribute`, `IUnion`), including across assembly boundaries. The real requirement is the **compiler**: consumers need the .NET 11 SDK and `LangVersion` 15 (the C# version that ships with .NET 11). For net8–10 projects that is a manual, officially unsupported setting. Microsoft only supports net11+, so net11-only is the honest, supported choice. The polyfill exists if you want it.
 - **Decided (11 November 2026): Wrap 2.0.0 targets .NET 11+ only and goes all-in on union types.** The rest of this document assumes that decision. The polyfill route is recorded in section 6 as considered and rejected.
+- **Implemented (12 November 2026):** the core types are unions on branch `108-switch-to-use-union-types` (`2.0.0-beta.1`). See section 0 for where things stand and section 10 for decisions made during the work.
+
+---
+
+## 0. Status (12 November 2026)
+
+Branch `108-switch-to-use-union-types`, version `2.0.0-beta.1`. The solution builds with no warnings and all 1,490 tests pass on `net11.0`.
+
+| Phase | Status |
+|---|---|
+| 0. Spike and decisions | Section 9 decisions made. **No BenchmarkDotNet baselines yet.** The allocation figures in section 10 come from ad-hoc `GC.GetAllocatedBytesForCurrentThread` measurements on `int`. |
+| 1. Groundwork | Not done as a separate step. The representation was funnelled during the rewrite. No `[Obsolete]` markings were added and there is no final 1.x release (the latest tag is `v1.4.0`). |
+| 2. Core types | **Done.** `Maybe<T>`, `Result<T>` and `Either<TLeft,TRight>` are `[Union] readonly partial struct`s. `Some<T>`, `Ok<T>`, `Left<T>`, `Right<T>`, `None` and `Failure` are `readonly record struct`s. `NoneImpl`, `FailureImpl` and the `Invalid…`/`Null…` exceptions are gone. `src` and `tests` target `net11.0` only. |
+| 3. Combinators | **Done.** The bodies in `src/All` use the union cases. `IEither` and `Unsafe` were kept (section 10). |
+| 4. Integrations | **Done** except the app. The JSON converters, MVC binders, Caching and the Testing packages are adapted, and their tests pass. `apps/AppMvc` has not been smoke-tested. |
+| 5. Tests, docs, release | **In progress.** Tests are updated and XML docs rewritten. The rest is listed below. |
+
+**Still to do**
+- BenchmarkDotNet baselines and allocation regression tests (Phase 0 and 5).
+- A consumer-style test project with `<WarningsAsErrors>CS8509;CS8655</WarningsAsErrors>` to pin exhaustiveness.
+- Pin SDK 11 in `global.json` (it only sets the test runner today).
+- `CLAUDE.md` still lists .NET 8, 9 and 10 as supported, and `dotnet test Test.csproj` now reports "No test projects were found". Use `dotnet test --solution Wrap.slnx`. The README says nothing about .NET 11.
+- Check the shared CI workflow (`bfren/dotnet`) no longer runs 8, 9 and 10.
+- Move `PackageValidationBaselineVersion` from `1.2.1` to `2.0.0` once 2.0.0 ships.
+- Smoke-test `apps/AppMvc`.
+- Write the wiki migration guide (section 8, Phase 5).
+- `Maybe<T>.GetEnumerator` uses `yield`, so a plain `foreach` over a Maybe allocates about 40 B, None included. Optional: switch it to the `[]`/`[x]` pattern `Unsafe` uses.
 
 ---
 
@@ -94,7 +121,7 @@ public readonly partial struct Maybe<T> : IEquatable<Maybe<T>>
     private readonly T? value;
     private readonly bool isSome;
 
-    public Maybe(Some<T> some) => (value, isSome) = (some.Value, !IsNull(some.Value));
+    public Maybe(Some<T> some) => (value, isSome) = (some.Value, some.Value is not null);
     public Maybe(None _) { }
 
     public object? Value => isSome ? new Some<T>(value!) : new None(); // only reflection/STJ boxes
@@ -107,7 +134,7 @@ public readonly partial struct Maybe<T> : IEquatable<Maybe<T>>
 }
 ```
 
-> ⚠️ ✅ Verified pitfall: `some.Value is not null` inside the constructor **boxed `T` (24 B/op)** because the JIT didn't elide it through the record-struct property. Read it into a local, or use a cached `typeof(T).IsValueType` style check (`F.IsNullableValueType` is already that pattern). Benchmark every core type.
+> ✅ `some.Value is not null` inside the constructor is allocation-free once the JIT optimises the method (0 B/op for `int`, `int?` and `string`). Unoptimised tier-0 code boxes value-type `T` (24 B/op for `int`), and reading the value into a local doesn't change that. Earlier drafts of this document mistook the tier-0 result for a real pitfall. Benchmark every core type with warm-up (BenchmarkDotNet's default) so tier-0 code isn't measured.
 
 `Result<T>` follows the same pattern with `Ok<T>`/`Failure`: the `Failure` constructor logs, and an internal two-parameter constructor skips logging for `R.Pass`. `Either<TLeft,TRight>` uses `Left<T>`/`Right<T>`.
 
@@ -180,10 +207,46 @@ To warn 1.x users before 2.0.0, ship the `[Obsolete]` markings below in one last
 ## 9. Decisions for you
 
 1. ~~**Runtime targets:** net11-only or the polyfill multi-target?~~ **Decided: net11-only, released as v2.0.0.**
-2. **Case shape:** `Some<T>`/`Ok<T>` record-struct cases (recommended) or raw `T` cases (`maybe is int x`)?
-3. **JSON:** keep `null` for None with the custom converters (recommended) or switch to STJ native (`{}` for None, which breaks the wire format)?
-4. **Either:** keep it as a `Left<T>`/`Right<T>` union, or drop it? Inside `src`, only `MonadExtensions.ToEither` uses `Either<,>` directly. What's shared across Maybe and Result is the `IEither` interfaces.
-5. **`default(Result<T>)`:** a failure ("uninitialised Result") or a thrown exception on access?
+2. ~~**Case shape:** `Some<T>`/`Ok<T>` record-struct cases (recommended) or raw `T` cases (`maybe is int x`)?~~ **Decided: record-struct cases (Option B).** `Some<T>`, `Ok<T>`, `Left<T>` and `Right<T>` are `readonly record struct`s.
+3. ~~**JSON:** keep `null` for None with the custom converters (recommended) or switch to STJ native (`{}` for None, which breaks the wire format)?~~ **Decided: keep the custom converters.** `MaybeJsonConverter` reads and writes None as JSON `null`.
+4. ~~**Either:** keep it as a `Left<T>`/`Right<T>` union, or drop it?~~ **Decided: keep it** as a `Left<T>`/`Right<T>` union. `default(Either<TLeft,TRight>)` is a `Left<T>` holding `default(TLeft)`.
+5. ~~**`default(Result<T>)`:** a failure ("uninitialised Result") or a thrown exception on access?~~ **Decided: a failure.** `default(Result<T>)` is a `Failure` with the message `Uninitialised Failure`.
+
+---
+
+## 10. Decisions made during implementation (12 November 2026)
+
+These change or override parts of sections 4, 7 and 8.
+
+### Keep `IEither` and `Unsafe`
+
+Sections 3, 4 and 8 planned to delete or obsolete both. **They stay.**
+
+- **`Unsafe` is a deliberate speed bump.** Every way of reading a value through it drops the Left (failure) path: `Unwrap` throws `UnsafeUnwrapException`, `Discard` returns None, and `foreach` doesn't run. Calling `.Unsafe()` first makes that choice visible at the call site. `.Unsafe()` now exists for `Maybe`, `Result` and `Either` (the Either extension is new).
+- **`IEither` exists only to support `Unsafe`.** In `src`, the only users are `Unsafe<TEither,TLeft,TRight>` itself (`GetEnumerator`) and four extensions: `Unwrap`, `UnwrapAsync`, `Discard` and `DiscardAsync`. It lets one `Unsafe` type serve all three unions instead of three copies.
+- **It doesn't box.** Section 4.3 says a struct used through an interface boxes. That is true only when the struct is stored *as* the interface. `Unsafe` and its extensions use generic constraints (`where TEither : IEither<…>`), which call through without boxing.
+- `TryOk`, `TrySome` and `TryFailure` are gone, as planned. `is Ok<T>(var x)` replaces them.
+
+### Maybe's `IEither.Match` uses a direct `switch`, not `M.Match`
+
+`M.Match` takes `fNone` as `Func<TReturn>`, but `IEither.Match` supplies `Func<None, TReturn>`. Bridging them with `() => fLeft(default)` captured `fLeft`, so every call allocated a closure plus a delegate: **80 B per call** on both Some and None. That hit every `Unwrap`, `Discard` and `foreach` over `maybe.Unsafe()`, including once per item in the enumerable helpers (`Filter`, `FilterBind`, `FilterMap`, `Iterate`).
+
+The adapter now matches on `this` directly, as Either's already did. Result passes its delegates straight to `R.Match`, because the signatures line up, so it never allocated. A `Func<None, TReturn>` overload of `M.Match` would also remove the allocation. It was rejected because it grows the public API (plus its `MatchAsync` family) to serve one internal adapter.
+
+### `Unsafe.GetEnumerator` keeps the `[]` / `[x]` pattern
+
+Bytes per `foreach` over `.Unsafe()`, measured after the `Match` fix:
+
+| | Current (`[]`/`[x]`) | `yield` iterator | Struct enumerator |
+|---|---:|---:|---:|
+| Maybe Some / Result Ok | **48** | 152–192 | 112 |
+| Maybe None / Result Failure | **0** | 152–192 | 112 |
+
+`yield` always allocates its iterator object, even when there's nothing to return. A struct enumerator is the only way to reach 0 B on the success path too. It needs a mutable "already returned" flag in `MoveNext`, and Wrap avoids mutable state, so it was not adopted. The 112 B shown for it is an artefact of the prototype's delegates and would be 0 B in a real implementation.
+
+### Failure logging removed
+
+Sections 4.5 and 8 (Phase 2) planned to move failure logging into the `Failure` constructor, with a non-logging path for `R.Pass`. Instead, logging was removed: `F.Log`, the logging hooks in `F`, and the logging in `Audit`. `R.Pass` no longer exists. `LogLevel` remains, so a `Failure` can still carry a level (`Lvl`) for callers to log themselves.
 
 ---
 
@@ -199,7 +262,7 @@ To warn 1.x users before 2.0.0, ship the `[Obsolete]` markings below in one last
 | `a is IUnion` | ❌ CS8121: patterns test the *contents*. `((object)a) is IUnion` → true |
 | Allocation: shorthand `Opt<int>` vs custom `[Union]` with `TryGetValue` | 24 B/op vs **0 B/op** |
 | Custom `Maybe<T>` with `Some<T>`/`None` record-struct cases, unconstrained `T`, no null arm | ✅ no warning, `default` → None |
-| Same, with `s.Value is not null` in the constructor | ⚠️ 24 B/op (JIT doesn't elide the box); 0 B/op without it |
+| Same, with `s.Value is not null` in the constructor | 0 B/op once optimised (`int`, `int?`, `string`); 24 B/op for `int` in tier-0 code only, with or without a local |
 | `closed record Shape` with two sealed derived records, switch without `_` | ✅ exhaustive |
 | STJ `Serialize`: shorthand Some / None / custom Some / custom None | `{"Value":5}` / `{}` / `5` / `{}` |
 | STJ `Deserialize<Maybe<int>>` | ❌ "ambiguous for union type… specify a custom type classifier" |
