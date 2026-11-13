@@ -43,10 +43,40 @@ public class ImplicitOperator_Tests
 		public void Returns_None()
 		{
 			// Arrange
-			static Maybe<string> act() => null!;
+			static Maybe<string> act() => (string)null!;
 
 			// Act
 			var result = act();
+
+			// Assert
+			result.AssertNone();
+		}
+	}
+
+	public class With_Monad
+	{
+		[Fact]
+		public void Returns_Some_With_Value()
+		{
+			// Arrange
+			var value = Rnd.Int;
+			var monad = Monad<int>.Wrap(value);
+
+			// Act
+			Maybe<int> result = monad;
+
+			// Assert
+			result.AssertSome(value);
+		}
+
+		[Fact]
+		public void Null_Returns_None()
+		{
+			// Arrange
+			var monad = (Monad<int>)null!;
+
+			// Act
+			Maybe<int> result = monad;
 
 			// Assert
 			result.AssertNone();

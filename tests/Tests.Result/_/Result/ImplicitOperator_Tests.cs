@@ -43,10 +43,40 @@ public class ImplicitOperator_Tests
 		public void Returns_Failure()
 		{
 			// Arrange
-			static Result<string> act() => null!;
+			static Result<string> act() => (string)null!;
 
 			// Act
 			var result = act();
+
+			// Assert
+			result.AssertFailure();
+		}
+	}
+
+	public class With_Monad
+	{
+		[Fact]
+		public void Returns_Ok_With_Value()
+		{
+			// Arrange
+			var value = Rnd.Int;
+			var monad = Monad<int>.Wrap(value);
+
+			// Act
+			Result<int> result = monad;
+
+			// Assert
+			result.AssertOk(value);
+		}
+
+		[Fact]
+		public void Null_Returns_Failure()
+		{
+			// Arrange
+			var monad = (Monad<int>)null!;
+
+			// Act
+			Result<int> result = monad;
 
 			// Assert
 			result.AssertFailure();
