@@ -10,6 +10,8 @@
     <!-- needed for IDE0005 (unnecessary usings) to run on build; tests don't need doc comments -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <!-- a non-exhaustive switch over a union must fail the build, not throw at runtime -->
+    <WarningsAsErrors>$(WarningsAsErrors);CS8509;CS8655</WarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="NSubstitute" />

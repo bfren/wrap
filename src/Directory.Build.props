@@ -9,6 +9,8 @@
     <RootNamespace>Wrap</RootNamespace>
     <AssemblyName>Wrap.$(MSBuildProjectName)</AssemblyName>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <!-- a non-exhaustive switch over a union must fail the build, not throw at runtime -->
+    <WarningsAsErrors>$(WarningsAsErrors);CS8509;CS8655</WarningsAsErrors>
   </PropertyGroup>
 
   <!-- Enable Internal Testing -->
