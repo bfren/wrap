@@ -17,45 +17,57 @@ public static partial class ResultExtensions
 	/// <param name="fTest">Function to detemine whether or not the value of <paramref name="this"/> should be returned.</param>
 	/// <returns>Value of <paramref name="this"/> if <paramref name="fTest"/> returns true, or <see cref="Failure"/>.</returns>
 	public static Result<T> Filter<T>(this Result<T> @this, Func<T, bool> fTest) =>
-		@this.Bind(x => fTest(x) switch
+		@this switch
 		{
-			false =>
+			Ok<T> x when fTest(x.Value) =>
+				x,
+
+			Ok<T> =>
 				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(Filter)),
 
-			true =>
-				R.Wrap(x)
-		});
+			{ } x =>
+				x
+		};
 
 	/// <inheritdoc cref="Filter{T}(Result{T}, Func{T, bool})"/>
-	public static Task<Result<T>> FilterAsync<T>(this Result<T> @this, Func<T, Task<bool>> fTest) =>
-		@this.BindAsync(async x => await fTest(x) switch
+	public static async Task<Result<T>> FilterAsync<T>(this Result<T> @this, Func<T, Task<bool>> fTest) =>
+		@this switch
 		{
-			false =>
+			Ok<T> x when await fTest(x.Value) =>
+				x,
+
+			Ok<T> =>
 				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(FilterAsync)),
 
-			true =>
-				R.Wrap(x)
-		});
+			{ } x =>
+				x
+		};
 
 	/// <inheritdoc cref="Filter{T}(Result{T}, Func{T, bool})"/>
-	public static Task<Result<T>> FilterAsync<T>(this Task<Result<T>> @this, Func<T, bool> fTest) =>
-		@this.BindAsync(x => fTest(x) switch
+	public static async Task<Result<T>> FilterAsync<T>(this Task<Result<T>> @this, Func<T, bool> fTest) =>
+		await @this switch
 		{
-			false =>
+			Ok<T> x when fTest(x.Value) =>
+				x,
+
+			Ok<T> =>
 				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(FilterAsync)),
 
-			true =>
-				R.Wrap(x)
-		});
+			{ } x =>
+				x
+		};
 
 	/// <inheritdoc cref="Filter{T}(Result{T}, Func{T, bool})"/>
-	public static Task<Result<T>> FilterAsync<T>(this Task<Result<T>> @this, Func<T, Task<bool>> fTest) =>
-		@this.BindAsync(async x => await fTest(x) switch
+	public static async Task<Result<T>> FilterAsync<T>(this Task<Result<T>> @this, Func<T, Task<bool>> fTest) =>
+		await @this switch
 		{
-			false =>
+			Ok<T> x when await fTest(x.Value) =>
+				x,
+
+			Ok<T> =>
 				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(FilterAsync)),
 
-			true =>
-				R.Wrap(x)
-		});
+			{ } x =>
+				x
+		};
 }

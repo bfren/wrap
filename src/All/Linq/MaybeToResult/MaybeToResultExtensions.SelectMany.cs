@@ -3,7 +3,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Wrap.Extensions;
 
 namespace Wrap.Linq;
 
@@ -34,29 +33,73 @@ public static partial class MaybeToResultExtensions
 	/// <param name="g">Return map function.</param>
 	/// <returns>Result object.</returns>
 	public static Result<TReturn> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Result<TInner>> f, Func<T, TInner, TReturn> g) =>
-		M.Match(@this,
-			fNone: ConvertNoneToFail<T, TReturn>,
-			fSome: x => f(x).Map(y => g(x, y))
-		);
+		@this switch
+		{
+			Some<T> x =>
+				f(x.Value) switch
+				{
+					Ok<TInner> y =>
+						R.Try(g, x.Value, y.Value, R.DefaultExceptionHandler),
+
+					{ } y =>
+						y.PassFailure<TReturn>()
+				},
+
+			None =>
+				ConvertNoneToFail<T, TReturn>()
+		};
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Result{TInner}}, Func{T, TInner, TReturn})"/>
-	public static Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Task<Result<TInner>>> f, Func<T, TInner, TReturn> g) =>
-		M.MatchAsync(@this,
-			fNone: ConvertNoneToFail<T, TReturn>,
-			fSome: x => f(x).MapAsync(y => g(x, y))
-		);
+	public static async Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Task<Result<TInner>>> f, Func<T, TInner, TReturn> g) =>
+		@this switch
+		{
+			Some<T> x =>
+				await f(x.Value) switch
+				{
+					Ok<TInner> y =>
+						R.Try(g, x.Value, y.Value, R.DefaultExceptionHandler),
+
+					{ } y =>
+						y.PassFailure<TReturn>()
+				},
+
+			None =>
+				ConvertNoneToFail<T, TReturn>()
+		};
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Result{TInner}}, Func{T, TInner, TReturn})"/>
-	public static Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Result<TInner>> f, Func<T, TInner, TReturn> g) =>
-		M.MatchAsync(@this,
-			fNone: ConvertNoneToFail<T, TReturn>,
-			fSome: x => f(x).Map(y => g(x, y))
-		);
+	public static async Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Result<TInner>> f, Func<T, TInner, TReturn> g) =>
+		await @this switch
+		{
+			Some<T> x =>
+				f(x.Value) switch
+				{
+					Ok<TInner> y =>
+						R.Try(g, x.Value, y.Value, R.DefaultExceptionHandler),
+
+					{ } y =>
+						y.PassFailure<TReturn>()
+				},
+
+			None =>
+				ConvertNoneToFail<T, TReturn>()
+		};
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Result{TInner}}, Func{T, TInner, TReturn})"/>
-	public static Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<Result<TInner>>> f, Func<T, TInner, TReturn> g) =>
-		M.MatchAsync(@this,
-			fNone: ConvertNoneToFail<T, TReturn>,
-			fSome: x => f(x).MapAsync(y => g(x, y))
-		);
+	public static async Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<Result<TInner>>> f, Func<T, TInner, TReturn> g) =>
+		await @this switch
+		{
+			Some<T> x =>
+				await f(x.Value) switch
+				{
+					Ok<TInner> y =>
+						R.Try(g, x.Value, y.Value, R.DefaultExceptionHandler),
+
+					{ } y =>
+						y.PassFailure<TReturn>()
+				},
+
+			None =>
+				ConvertNoneToFail<T, TReturn>()
+		};
 }

@@ -3,7 +3,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Wrap.Extensions;
 
 namespace Wrap.Linq;
 
@@ -33,29 +32,45 @@ public static partial class MaybeToMaybeExtensions
 	/// <param name="f">Interim bind function.</param>
 	/// <param name="g">Return map function.</param>
 	public static Maybe<TReturn> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Maybe<TInner>> f, Func<T, TInner, TReturn> g) =>
-		M.Match(@this,
-			fNone: () => M.None,
-			fSome: x => f(x).Map(y => g(x, y))
-		);
+		@this switch
+		{
+			Some<T> x when f(x.Value) is Some<TInner> y =>
+				g(x.Value, y.Value),
+
+			_ =>
+				M.None
+		};
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Maybe{TInner}}, Func{T, TInner, TReturn})"/>
-	public static Task<Maybe<TReturn>> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Task<Maybe<TInner>>> f, Func<T, TInner, TReturn> g) =>
-		M.MatchAsync(@this,
-			fNone: () => M.None,
-			fSome: x => f(x).MapAsync(y => g(x, y))
-		);
+	public static async Task<Maybe<TReturn>> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Task<Maybe<TInner>>> f, Func<T, TInner, TReturn> g) =>
+		@this switch
+		{
+			Some<T> x when await f(x.Value) is Some<TInner> y =>
+				g(x.Value, y.Value),
+
+			_ =>
+				M.None
+		};
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Maybe{TInner}}, Func{T, TInner, TReturn})"/>
-	public static Task<Maybe<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Maybe<TInner>> f, Func<T, TInner, TReturn> g) =>
-		M.MatchAsync(@this,
-			fNone: () => M.None,
-			fSome: x => f(x).Map(y => g(x, y))
-		);
+	public static async Task<Maybe<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Maybe<TInner>> f, Func<T, TInner, TReturn> g) =>
+		await @this switch
+		{
+			Some<T> x when f(x.Value) is Some<TInner> y =>
+				g(x.Value, y.Value),
+
+			_ =>
+				M.None
+		};
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Maybe{T}, Func{T, Maybe{TInner}}, Func{T, TInner, TReturn})"/>
-	public static Task<Maybe<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<Maybe<TInner>>> f, Func<T, TInner, TReturn> g) =>
-		M.MatchAsync(@this,
-			fNone: () => M.None,
-			fSome: x => f(x).MapAsync(y => g(x, y))
-		);
+	public static async Task<Maybe<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<Maybe<TInner>>> f, Func<T, TInner, TReturn> g) =>
+		await @this switch
+		{
+			Some<T> x when await f(x.Value) is Some<TInner> y =>
+				g(x.Value, y.Value),
+
+			_ =>
+				M.None
+		};
 }
