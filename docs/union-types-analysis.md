@@ -16,13 +16,13 @@
 
 ---
 
-## 0. Status (12 November 2026)
+## 0. Status (13 November 2026)
 
-Branch `108-switch-to-use-union-types`, version `2.0.0-beta.1`. The solution builds with no warnings and all 1,490 tests pass on `net11.0`.
+Branch `108-switch-to-use-union-types`, version `2.0.0-beta.1`. The solution builds with no warnings and all 1,508 tests pass on `net11.0`.
 
 | Phase | Status |
 |---|---|
-| 0. Spike and decisions | Section 9 decisions made. **No BenchmarkDotNet baselines yet.** The allocation figures in section 10 come from ad-hoc `GC.GetAllocatedBytesForCurrentThread` measurements on `int`. |
+| 0. Spike and decisions | **Done.** Section 9 decisions made. BenchmarkDotNet compares v1 and v2 in `apps/AppBenchmarkv1` and `apps/AppBenchmarkv2`, and the results are in `apps/Benchmarks/README.md`. |
 | 1. Groundwork | Not done as a separate step. The representation was funnelled during the rewrite. No `[Obsolete]` markings were added and there is no final 1.x release (the latest tag is `v1.4.0`). |
 | 2. Core types | **Done.** `Maybe<T>`, `Result<T>` and `Either<TLeft,TRight>` are `[Union] readonly partial struct`s. `Some<T>`, `Ok<T>`, `Left<T>`, `Right<T>`, `None` and `Failure` are `readonly record struct`s. `NoneImpl`, `FailureImpl` and the `Invalid…`/`Null…` exceptions are gone. `src` and `tests` target `net11.0` only. |
 | 3. Combinators | **Done.** The bodies in `src/All` use the union cases. `IEither` and `Unsafe` were kept (section 10). |
@@ -40,10 +40,13 @@ Branch `108-switch-to-use-union-types`, version `2.0.0-beta.1`. The solution bui
 - `Either` has an `.Unsafe()` extension, with tests.
 - `global.json` pins SDK `11.0.100` (`rollForward: latestFeature`).
 - `CLAUDE.md` and the README describe .NET 11 only, and `CLAUDE.md` uses `dotnet test --solution Wrap.slnx`.
+- BenchmarkDotNet baselines for v1 and v2 (`apps/Benchmarks/README.md`).
+- Exhaustiveness is pinned: `src` and `tests` treat CS8509 and CS8655 as errors, so a union change that breaks a `switch` with no `_` arm fails the build. A separate consumer-style project wasn't needed.
+- `IEither<TEither,TLeft,TRight>` and `IEither.Unwrap` are gone (section 10).
 
 **Still to do**
-- BenchmarkDotNet baselines and allocation regression tests (Phase 0 and 5).
-- A consumer-style test project with `<WarningsAsErrors>CS8509;CS8655</WarningsAsErrors>` to pin exhaustiveness.
+- Allocation regression tests (Phase 5). A unit test using `GC.GetAllocatedBytesForCurrentThread` would be flaky, because unoptimised tier-0 code boxes (section 5), so this probably means checking the benchmark results.
+- Replace the remaining capturing lambdas in `src/All` with direct `switch` bodies: `ToMaybe`, `Maybe.Unwrap(Func<None,T>)` and `MaybeJsonConverter.Write`.
 - Smoke-test `apps/AppMvc`.
 - At release: move `PackageValidationBaselineVersion` from `1.2.1` to `2.0.0` once 2.0.0 ships, create the 1.x branch, and write the wiki docs and migration guide (section 8, Phase 5).
 
@@ -230,7 +233,7 @@ These change or override parts of sections 4, 7 and 8.
 Sections 3, 4 and 8 planned to delete or obsolete both. **They stay.**
 
 - **`Unsafe` is a deliberate speed bump.** Every way of reading a value through it drops the Left (failure) path: `Unwrap` throws `UnsafeUnwrapException`, `Discard` returns None, and `foreach` doesn't run. Calling `.Unsafe()` first makes that choice visible at the call site. `.Unsafe()` now exists for `Maybe`, `Result` and `Either` (the Either extension is new).
-- **`IEither` exists only to support `Unsafe`.** In `src`, the only users are `Unsafe<TEither,TLeft,TRight>` itself (`GetEnumerator`) and four extensions: `Unwrap`, `UnwrapAsync`, `Discard` and `DiscardAsync`. It lets one `Unsafe` type serve all three unions instead of three copies. Its `Match` member has since been replaced (see below).
+- **`IEither` exists only to support `Unsafe`.** In `src`, the only users are `Unsafe<TEither,TLeft,TRight>` itself (`GetEnumerator`) and four extensions: `Unwrap`, `UnwrapAsync`, `Discard` and `DiscardAsync`. It lets one `Unsafe` type serve all three unions instead of three copies. Its `Match` member has since been replaced (see below). The `Unwrap` and `AsTask` members, and with them the three-parameter `IEither<TEither,TLeft,TRight>`, were removed because nothing called them through the interface. Each union keeps its own public `Unwrap` and `AsTask`.
 - **It doesn't box.** Section 4.3 says a struct used through an interface boxes. That is true only when the struct is stored *as* the interface. `Unsafe` and its extensions use generic constraints (`where TEither : IEither<…>`), which call through without boxing.
 - `TryOk`, `TrySome` and `TryFailure` are gone, as planned. `is Ok<T>(var x)` replaces them.
 
@@ -267,7 +270,7 @@ Holding the 40-byte `Failure` inline made `Result<int>` 48 bytes, and copying it
 
 Both use a discard (`_ =>`) for the failure arm, with a code comment saying why. An explicit `Failure =>` arm makes the JIT set up a 40-byte `Failure` local on every call, including the Ok path. That costs about 0.5–1 ns per call, but it compounds across a chain: Result `Chain` (`Map`, then `Bind`, then `Match`) measured 28.8 ns with the explicit arm and 17.7 ns with the discard. Elsewhere, explicit case arms remain the default for readability.
 
-All of the combinators now use direct `switch` bodies instead of `M.Match` / `R.Match` with lambdas. Closures made Maybe `Map` allocate on every call and Maybe `Bind` take 5–8 ns. The full v1 vs v2 results are in `apps/Benchmarks/README.md`.
+`Map`, `Bind`, `Match`, `Filter` and LINQ `SelectMany` now use direct `switch` bodies instead of `M.Match` / `R.Match` with lambdas. The other combinators that still capture a lambda are listed under "Still to do" in section 0. Closures made Maybe `Map` allocate on every call and Maybe `Bind` take 5–8 ns. The full v1 vs v2 results are in `apps/Benchmarks/README.md`.
 
 ### Failure logging removed
 

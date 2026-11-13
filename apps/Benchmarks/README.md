@@ -36,7 +36,7 @@ Run v1 and v2 back to back on the same machine, with nothing heavy running, and 
 
 ## Results
 
-Measured on 13 November 2026 on branch `108-switch-to-use-union-types`, each benchmark in its own process. The Result rows were re-measured after Result `Bind` and `Map` switched to a discard arm.
+Measured on 13 November 2026 on branch `108-switch-to-use-union-types`, each benchmark in its own process. The Result rows were re-measured after Result `Bind` and `Map` switched to a discard arm. The `Linq` rows were re-measured after `SelectMany` switched to direct `switch` bodies.
 
 ```
 BenchmarkDotNet v0.15.8, Windows 11 (10.0.26300.9974)
@@ -72,7 +72,7 @@ Time is the mean per operation. Allocated is per operation. The enumerable bench
 | MatchSome | 1.505 ns | 0 B | 1.275 ns | 0 B | **1.2× faster** |
 | MatchNone | 1.072 ns | 0 B | 1.268 ns | 0 B | 1.2× slower |
 | Chain | 17.79 ns | 72 B | 3.806 ns | 0 B | **4.7× faster** |
-| Linq | 38.56 ns | 248 B | 23.24 ns | 64 B | **1.7× faster** |
+| Linq | 38.56 ns | 248 B | 2.294 ns | 0 B | **16.8× faster** |
 | AsyncMap | 39.43 ns | 248 B | 28.22 ns | 144 B | **1.4× faster** |
 | UnsafeUnwrap | 0.4766 ns | 0 B | 0.0101 ns | 0 B | **free** (inlined away) |
 | UnsafeForeach | 0.4789 ns | 0 B | 0.0072 ns | 0 B | **free** (inlined away) |
@@ -90,7 +90,7 @@ Time is the mean per operation. Allocated is per operation. The enumerable bench
 | MatchOk | 1.936 ns | 0 B | 2.757 ns | 0 B | 1.4× slower |
 | MatchFailure | 1.673 ns | 0 B | 2.164 ns | 0 B | 1.3× slower |
 | Chain | 35.50 ns | 168 B | 17.27 ns | 0 B | **2.1× faster** |
-| Linq | 49.27 ns | 344 B | 28.10 ns | 120 B | **1.8× faster** |
+| Linq | 49.27 ns | 344 B | 9.015 ns | 0 B | **5.5× faster** |
 | AsyncMap | 50.48 ns | 344 B | 35.09 ns | 160 B | **1.4× faster** |
 | UnsafeUnwrap | 0.4630 ns | 0 B | 0.1846 ns | 0 B | **2.5× faster** |
 
