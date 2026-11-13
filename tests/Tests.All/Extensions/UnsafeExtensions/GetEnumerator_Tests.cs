@@ -6,7 +6,7 @@ namespace Wrap.Extensions.UnsafeExtensions_Tests;
 public class GetEnumerator_Tests
 {
 	private static IEnumerable<T> Enumerate<TEither, TLeft, T>(Unsafe<TEither, TLeft, T> @unsafe)
-		where TEither : IEither<TEither, TLeft, T>
+		where TEither : IEither<TLeft, T>
 	{
 		foreach (var item in @unsafe)
 		{
