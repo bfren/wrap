@@ -27,7 +27,7 @@ public static partial class EnumerableExtensions
 	{
 		foreach (var item in @this)
 		{
-			foreach (var value in item.BindIf(fTest, f))
+			if (item.BindIf(fTest, f) is Some<TReturn>(var value))
 			{
 				yield return value;
 			}
@@ -44,7 +44,7 @@ public static partial class EnumerableExtensions
 
 		foreach (var item in @this)
 		{
-			foreach (var value in await item.BindIfAsync(fTest, f))
+			if ((await item.BindIfAsync(fTest, f)) is Some<TReturn>(var value))
 			{
 				items.Add(value);
 			}
@@ -87,7 +87,7 @@ public static partial class EnumerableExtensions
 	{
 		foreach (var item in @this)
 		{
-			foreach (var value in item.BindIf(fTest, f).Unsafe())
+			if (item.BindIf(fTest, f) is Ok<TReturn>(var value))
 			{
 				yield return value;
 			}
@@ -104,7 +104,7 @@ public static partial class EnumerableExtensions
 
 		foreach (var item in @this)
 		{
-			foreach (var value in await item.BindIfAsync(fTest, f).Unsafe())
+			if ((await item.BindIfAsync(fTest, f)) is Ok<TReturn>(var value))
 			{
 				items.Add(value);
 			}

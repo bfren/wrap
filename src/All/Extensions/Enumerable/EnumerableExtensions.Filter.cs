@@ -21,7 +21,7 @@ public static partial class EnumerableExtensions
 	{
 		foreach (var item in @this)
 		{
-			foreach (var some in item)
+			if (item is Some<T>(var some))
 			{
 				yield return some;
 			}
@@ -43,7 +43,7 @@ public static partial class EnumerableExtensions
 	{
 		foreach (var item in @this)
 		{
-			foreach (var value in item.Filter(fTest))
+			if (item.Filter(fTest) is Some<T>(var value))
 			{
 				yield return value;
 			}
@@ -57,7 +57,7 @@ public static partial class EnumerableExtensions
 
 		foreach (var item in @this)
 		{
-			foreach (var value in await item.FilterAsync(fTest))
+			if ((await item.FilterAsync(fTest)) is Some<T>(var value))
 			{
 				list.Add(value);
 			}
@@ -89,7 +89,7 @@ public static partial class EnumerableExtensions
 	{
 		foreach (var item in @this)
 		{
-			foreach (var value in item.Filter(fTest).Unsafe())
+			if (item.Filter(fTest) is Ok<T>(var value))
 			{
 				yield return value;
 			}
@@ -103,7 +103,7 @@ public static partial class EnumerableExtensions
 
 		foreach (var item in @this)
 		{
-			foreach (var value in await item.FilterAsync(fTest).Unsafe())
+			if ((await item.FilterAsync(fTest)) is Ok<T>(var value))
 			{
 				list.Add(value);
 			}
