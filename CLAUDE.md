@@ -36,7 +36,7 @@ These match the shared CI workflow. `Test.csproj` no longer works with `dotnet t
 
 Wrap 2.x targets **.NET 11 only** (`net11.0`), because it is built on C# 15 union types. `global.json` pins the .NET 11 SDK.
 
-Wrap 1.x (.NET 8, 9 and 10) lives on a maintenance branch and gets fixes only.
+Wrap 1.x (.NET 8, 9, 10 and 11) lives on a maintenance branch and gets fixes only.
 
 ## Code Style & Quality
 

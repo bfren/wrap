@@ -30,7 +30,7 @@ Branch `108-switch-to-use-union-types`, version `2.0.0-beta.1`. The solution bui
 | 5. Tests, docs, release | **In progress.** Tests are updated and XML docs rewritten. The rest is listed below. |
 
 **Decided (12 November 2026)**
-- **Keep a 1.x maintenance branch** for .NET 8, 9 and 10 consumers. It gets fixes only. This replaces the optional final 1.x release with `[Obsolete]` markings from Phase 1, which won't happen.
+- **Keep a 1.x maintenance branch** (targets .NET 8, 9, 10 and 11) for consumers not ready for 2.x. It gets fixes only. This replaces the optional final 1.x release with `[Obsolete]` markings from Phase 1, which won't happen.
 - **Downstream use of `IEither` and `Unsafe` is minimal**, so the migration guide only needs to mention them briefly.
 - **CI keeps installing SDKs 8, 9, 10 and 11.** The shared workflow (`bfren/dotnet`) installs all four by default, but it builds and tests `Wrap.slnx`, which targets `net11.0` only, and `global.json` pins SDK 11. The extra SDKs only add setup time. To skip them, pass `dotnet-versions: 11.0.x` from `.github/workflows/test.yml`.
 - **Hold the docs and migration guide until release.**
@@ -265,7 +265,7 @@ Holding the 40-byte `Failure` inline made `Result<int>` 48 bytes, and copying it
 
 `Bind` and `Map` pass a failure along with the internal `PassFailure<TReturn>()`, which reuses the incoming box. Without it, each step would box the failure again: measured at 7.3 ns on the Ok path, and 15 ns plus 56 B per step on the failure path. `PassFailure` is marked `AggressiveInlining`, because without the hint the JIT won't optimise `Bind`'s Ok path (6.9 ns instead of 2.1 ns).
 
-Both use an explicit `Failure =>` arm rather than a discard, for readability. A discard measured about 0.5–1 ns faster, because a `Failure` arm makes the JIT zero a `Failure`-sized local on every call.
+Both use a discard (`_ =>`) for the failure arm, with a code comment saying why. An explicit `Failure =>` arm makes the JIT set up a 40-byte `Failure` local on every call, including the Ok path. That costs about 0.5–1 ns per call, but it compounds across a chain: Result `Chain` (`Map`, then `Bind`, then `Match`) measured 28.8 ns with the explicit arm and 17.7 ns with the discard. Elsewhere, explicit case arms remain the default for readability.
 
 All of the combinators now use direct `switch` bodies instead of `M.Match` / `R.Match` with lambdas. Closures made Maybe `Map` allocate on every call and Maybe `Bind` take 5–8 ns. The full v1 vs v2 results are in `apps/Benchmarks/README.md`.
 
