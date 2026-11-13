@@ -24,10 +24,26 @@ public static partial class UnsafeExtensions
 	/// <exception cref="UnsafeUnwrapException">Thrown when <see cref="Unsafe{TEither, TLeft, TRight}.Value"/> holds a Left value.</exception>
 	public static TRight Unwrap<TEither, TLeft, TRight>(this Unsafe<TEither, TLeft, TRight> @this)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		@this.Value.Match(
-			fLeft: x => throw new UnsafeUnwrapException(x, (x as IWithException)?.Exception),
-			fRight: x => x
-		);
+		@this.Value.TryGetRight(out var right) ? right : ThrowUnwrapException<TEither, TLeft, TRight>(@this.Value);
+
+	/// <summary>
+	/// Throw an <see cref="UnsafeUnwrapException"/> for the Left value held by <paramref name="either"/>.
+	/// </summary>
+	/// <remarks>
+	/// Kept out of <see cref="Unwrap{TEither, TLeft, TRight}(Unsafe{TEither, TLeft, TRight})"/> so the JIT can inline the success path.
+	/// </remarks>
+	/// <typeparam name="TEither">Either implementation type.</typeparam>
+	/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
+	/// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
+	/// <param name="either">Either object holding a Left value.</param>
+	/// <returns>Never returns.</returns>
+	/// <exception cref="UnsafeUnwrapException">Always thrown.</exception>
+	private static TRight ThrowUnwrapException<TEither, TLeft, TRight>(TEither either)
+		where TEither : IEither<TEither, TLeft, TRight>
+	{
+		_ = either.TryGetLeft(out var left);
+		throw new UnsafeUnwrapException(left, (left as IWithException)?.Exception);
+	}
 
 	/// <inheritdoc cref="Unwrap{TEither, TLeft, TRight}(Unsafe{TEither, TLeft, TRight})"/>
 	public static Task<TRight> UnwrapAsync<TEither, TLeft, TRight>(this Task<Unsafe<TEither, TLeft, TRight>> @this)

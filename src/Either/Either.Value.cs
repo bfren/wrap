@@ -7,18 +7,21 @@ namespace Wrap;
 
 public readonly partial struct Either<TLeft, TRight>
 {
-	#region Match
+	#region IEither
 
 	/// <inheritdoc/>
-	TReturn IEither<TLeft, TRight>.Match<TReturn>(Func<TLeft, TReturn> fLeft, Func<TRight, TReturn> fRight) =>
-		this switch
-		{
-			Left<TLeft> l =>
-				fLeft(l.Value),
+	bool IEither<TLeft, TRight>.TryGetLeft(out TLeft left)
+	{
+		left = this.left!;
+		return !isRight;
+	}
 
-			Right<TRight> r =>
-				fRight(r.Value)
-		};
+	/// <inheritdoc/>
+	bool IEither<TLeft, TRight>.TryGetRight(out TRight right)
+	{
+		right = this.right!;
+		return isRight;
+	}
 
 	#endregion
 

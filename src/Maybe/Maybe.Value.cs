@@ -7,18 +7,21 @@ namespace Wrap;
 
 public readonly partial struct Maybe<T>
 {
-	#region Match
+	#region IEither
 
 	/// <inheritdoc/>
-	TReturn IEither<None, T>.Match<TReturn>(Func<None, TReturn> fLeft, Func<T, TReturn> fRight) =>
-		this switch
-		{
-			None n =>
-				fLeft(n),
+	bool IEither<None, T>.TryGetLeft(out None left)
+	{
+		left = default;
+		return !isSome;
+	}
 
-			Some<T> x =>
-				fRight(x.Value)
-		};
+	/// <inheritdoc/>
+	bool IEither<None, T>.TryGetRight(out T right)
+	{
+		right = value!;
+		return isSome;
+	}
 
 	#endregion
 

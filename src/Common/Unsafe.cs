@@ -41,9 +41,12 @@ public readonly record struct Unsafe<TEither, TLeft, TRight> : IMonad<TEither>
 	/// </code>
 	/// </remarks>
 	/// <returns>Enumerator containing one value if this is <typeparamref name="TRight"/>.</returns>
-	public IEnumerator<TRight> GetEnumerator() =>
-		Value.Match<IEnumerable<TRight>>(
-			fLeft: _ => [],
-			fRight: x => [x]
-		).GetEnumerator();
+	public IEnumerator<TRight> GetEnumerator()
+	{
+		// keep this a yield iterator: the JIT can then stack-allocate it in an inlined foreach (0 B), which a collection prevents
+		if (Value.TryGetRight(out var value))
+		{
+			yield return value;
+		}
+	}
 }

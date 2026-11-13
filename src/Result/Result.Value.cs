@@ -7,11 +7,22 @@ namespace Wrap;
 
 public readonly partial struct Result<T>
 {
-	#region Match
+	#region IEither
 
 	/// <inheritdoc/>
-	TReturn IEither<Failure, T>.Match<TReturn>(Func<Failure, TReturn> fLeft, Func<T, TReturn> fRight) =>
-		R.Match(this, fLeft, fRight);
+	/// <remarks>
+	/// For an <see cref="Ok{T}"/>, and for <c>default(Result&lt;T&gt;)</c>, <paramref name="left"/> is a <see cref="Failure"/>
+	/// with the message <c>Uninitialised Failure</c>, as with <see cref="TryGetValue(out Failure)"/>.
+	/// </remarks>
+	bool IEither<Failure, T>.TryGetLeft(out Failure left) =>
+		TryGetValue(out left);
+
+	/// <inheritdoc/>
+	bool IEither<Failure, T>.TryGetRight(out T right)
+	{
+		right = value!;
+		return isOk;
+	}
 
 	#endregion
 

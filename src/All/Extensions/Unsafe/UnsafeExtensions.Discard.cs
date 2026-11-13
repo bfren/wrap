@@ -22,10 +22,7 @@ public static partial class UnsafeExtensions
 	/// <returns>Maybe object.</returns>
 	public static Maybe<TRight> Discard<TEither, TLeft, TRight>(this Unsafe<TEither, TLeft, TRight> @this)
 		where TEither : IEither<TEither, TLeft, TRight> =>
-		@this.Value.Match(
-			fLeft: _ => default,
-			fRight: M.Wrap
-		);
+		@this.Value.TryGetRight(out var right) ? M.Wrap(right) : default;
 
 	/// <inheritdoc cref="Discard{TEither, TLeft, TRight}(Unsafe{TEither, TLeft, TRight})"/>
 	public static Task<Maybe<TRight>> DiscardAsync<TEither, TLeft, TRight>(this Task<Unsafe<TEither, TLeft, TRight>> @this)
