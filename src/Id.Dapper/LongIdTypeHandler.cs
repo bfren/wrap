@@ -20,7 +20,17 @@ public sealed class LongIdTypeHandler<T> : IdTypeHandler<T, long>
 	/// <param name="value"><see cref="LongId{TId}"/> Value.</param>
 	/// <returns><see cref="LongId{TId}"/> with parsed value.</returns>
 	public override T Parse(object value) =>
-		new() { Value = M.ParseInt64(value?.ToString()).Unwrap(() => DefaultOrThrow(value)) };
+		new()
+		{
+			Value = M.ParseInt64(value?.ToString()) switch
+			{
+				Some<long> x =>
+					x.Value,
+
+				None =>
+					DefaultOrThrow(value)
+			}
+		};
 
 	/// <summary>
 	/// Set ID value.

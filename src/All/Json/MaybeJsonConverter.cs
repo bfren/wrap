@@ -81,8 +81,12 @@ public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 				JsonSerializer.Serialize(writer, x.Value, options);
 				break;
 
-			default:
+			case None:
 				writer.WriteNullValue();
+				break;
+
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
+			default:
 				break;
 		}
 	}

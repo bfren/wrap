@@ -20,7 +20,17 @@ public sealed class ULongIdTypeHandler<T> : IdTypeHandler<T, ulong>
 	/// <param name="value"><see cref="ULongId{TId}"/> Value.</param>
 	/// <returns><see cref="ULongId{TId}"/> with parsed value.</returns>
 	public override T Parse(object value) =>
-		new() { Value = M.ParseUInt64(value?.ToString()).Unwrap(() => DefaultOrThrow(value)) };
+		new()
+		{
+			Value = M.ParseUInt64(value?.ToString()) switch
+			{
+				Some<ulong> x =>
+					x.Value,
+
+				None =>
+					DefaultOrThrow(value)
+			}
+		};
 
 	/// <summary>
 	/// Set ID value.

@@ -18,11 +18,27 @@ public static partial class MaybeExtensions
 	/// <param name="function">Context function.</param>
 	/// <returns>Result object.</returns>
 	public static Result<T> ToResult<T>(this Maybe<T> @this, string @class, string function) =>
-		ToResult(@this, () => R.Fail(C.NoneFailureMessage, typeof(T).Name).Ctx(@class, function));
+		@this switch
+		{
+			Some<T> x =>
+				x.Value,
+
+			None =>
+				R.Fail(C.NoneFailureMessage, typeof(T).Name).Ctx(@class, function)
+		};
 
 	/// <inheritdoc cref="ToResult{T}(Maybe{T}, string, string)"/>
-	public static Task<Result<T>> ToResultAsync<T>(this Task<Maybe<T>> @this, string @class, string function) =>
-		ToResultAsync(@this, async () => R.Fail(C.NoneFailureMessage, typeof(T).Name).Ctx(@class, function));
+	public static async Task<Result<T>> ToResultAsync<T>(this Task<Maybe<T>> @this, string @class, string function)
+	{
+		try
+		{
+			return ToResult(await @this, @class, function);
+		}
+		catch (Exception ex)
+		{
+			return R.Fail(ex).Msg("Error converting Maybe<{Type}> to Result.", typeof(T).Name);
+		}
+	}
 
 	/// <summary>
 	/// Convert a <see cref="Maybe{T}"/> to a <see cref="Result{T}"/>.
@@ -47,8 +63,17 @@ public static partial class MaybeExtensions
 	}
 
 	/// <inheritdoc cref="ToResult{T}(Maybe{T}, Func{Result{T}})"/>
-	public static Task<Result<T>> ToResultAsync<T>(this Task<Maybe<T>> @this, Func<Result<T>> noneHandler) =>
-		ToResultAsync(@this, async () => noneHandler());
+	public static async Task<Result<T>> ToResultAsync<T>(this Task<Maybe<T>> @this, Func<Result<T>> noneHandler)
+	{
+		try
+		{
+			return ToResult(await @this, noneHandler);
+		}
+		catch (Exception ex)
+		{
+			return R.Fail(ex).Msg("Error converting Maybe<{Type}> to Result.", typeof(T).Name);
+		}
+	}
 
 	/// <inheritdoc cref="ToResult{T}(Maybe{T}, Func{Result{T}})"/>
 	public static async Task<Result<T>> ToResultAsync<T>(this Task<Maybe<T>> @this, Func<Task<Result<T>>> noneHandler)

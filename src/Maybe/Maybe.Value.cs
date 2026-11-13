@@ -65,7 +65,14 @@ public readonly partial struct Maybe<T>
 	/// <param name="getValue">Returns the value to use if this is <see cref="None"/>.</param>
 	/// <returns>The <see cref="Some{T}"/> value, or the value returned by <paramref name="getValue"/>.</returns>
 	public T Unwrap(Func<T> getValue) =>
-		Unwrap(_ => getValue());
+		this switch
+		{
+			Some<T> x =>
+				x.Value,
+
+			None =>
+				getValue()
+		};
 
 	/// <inheritdoc cref="Unwrap(Func{T})"/>
 	public T Unwrap(Func<None, T> getValue) =>

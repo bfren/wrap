@@ -70,10 +70,14 @@ public readonly partial struct Result<T>
 	/// <param name="getValue">Returns the value to use, given the <see cref="Failure"/>.</param>
 	/// <returns>The <see cref="Ok{T}"/> value, or the value returned by <paramref name="getValue"/>.</returns>
 	public T Unwrap(Func<Failure, T> getValue) =>
-		R.Match(this,
-			fFail: f => getValue(f),
-			fOk: x => x
-		);
+		this switch
+		{
+			Ok<T> x =>
+				x.Value,
+
+			Failure f =>
+				getValue(f)
+		};
 
 	/// <summary>
 	/// Return the value if this is an <see cref="Ok{T}"/>, otherwise run <paramref name="ifFailed"/>
@@ -82,8 +86,22 @@ public readonly partial struct Result<T>
 	/// <param name="ifFailed">Action to run with the <see cref="Failure"/>, for example to log it.</param>
 	/// <param name="getValue">Returns the value to use if this is a <see cref="Failure"/>.</param>
 	/// <returns>The <see cref="Ok{T}"/> value, or the value returned by <paramref name="getValue"/>.</returns>
-	public T Unwrap(Action<Failure> ifFailed, Func<T> getValue) =>
-		Unwrap(f => { ifFailed(f); return getValue(); });
+	public T Unwrap(Action<Failure> ifFailed, Func<T> getValue)
+	{
+		switch (this)
+		{
+			case Ok<T> x:
+				return x.Value;
+
+			case Failure f:
+				ifFailed(f);
+				return getValue();
+
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
+			default:
+				return getValue();
+		}
+	}
 
 	#endregion
 

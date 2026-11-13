@@ -25,585 +25,709 @@ public static partial class ResultExtensions
 		Func<T, TReturn> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		Match(@this,
-			fFail: fFail,
-			fOk: x => fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, bool> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, bool> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, bool> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, bool> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: x => fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, bool> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, bool> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, bool> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, TReturn> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, bool> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: x => fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, bool> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, bool> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, bool> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		@this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, bool> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: x => fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, bool> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, bool> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, bool> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, TReturn> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					fTrue(x)
-			}
-		);
+					true =>
+						fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, TReturn> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
-	public static Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, Task<bool>> fTest,
 		Func<T, Task<TReturn>> fFalse,
 		Func<T, Task<TReturn>> fTrue
 	) =>
-		MatchAsync(@this,
-			fFail: fFail,
-			fOk: async x => await fTest(x) switch
-			{
-				false =>
-					await fFalse(x),
+		await @this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
 
-				true =>
-					await fTrue(x)
-			}
-		);
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				await fFail(f)
+		};
 }

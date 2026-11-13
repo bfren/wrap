@@ -22,6 +22,25 @@ public class ToResultAsync_Tests
 				var f = result.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Int32));
 				Assert.IsType<NullReferenceException>(f.Exception);
 			}
+
+			[Fact]
+			public async Task With_Handler_Returns_Failure_With_NullReferenceException()
+			{
+				// Arrange
+				Task<Maybe<int>> maybe = null!;
+				var handler = Substitute.For<Func<Result<int>>>();
+
+				// Act
+				var r0 = await maybe.ToResultAsync(handler);
+				var r1 = await maybe.ToResultAsync(async () => handler());
+
+				// Assert
+				var f0 = r0.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Int32));
+				Assert.IsType<NullReferenceException>(f0.Exception);
+				var f1 = r1.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Int32));
+				Assert.IsType<NullReferenceException>(f1.Exception);
+				handler.DidNotReceive().Invoke();
+			}
 		}
 	}
 

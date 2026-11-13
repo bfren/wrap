@@ -20,7 +20,17 @@ public sealed class GuidIdTypeHandler<T> : IdTypeHandler<T, Guid>
 	/// <param name="value"><see cref="GuidId{TId}"/> Value.</param>
 	/// <returns><see cref="GuidId{TId}"/> with parsed value.</returns>
 	public override T Parse(object value) =>
-		new() { Value = M.ParseGuid(value?.ToString()).Unwrap(() => Guid.Empty) };
+		new()
+		{
+			Value = M.ParseGuid(value?.ToString()) switch
+			{
+				Some<Guid> x =>
+					x.Value,
+
+				None =>
+					DefaultOrThrow(value)
+			}
+		};
 
 	/// <summary>
 	/// Set ID value.
