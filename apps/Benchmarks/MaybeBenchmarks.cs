@@ -72,4 +72,15 @@ public class MaybeBenchmarks
 
 		return 0;
 	}
+
+	[Benchmark]
+	public int Foreach()
+	{
+		foreach (var x in some)
+		{
+			return x;
+		}
+
+		return 0;
+	}
 }
