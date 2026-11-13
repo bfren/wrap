@@ -83,6 +83,33 @@ public static partial class R
 		}
 	}
 
+	/// <summary>
+	/// Run <paramref name="f"/> with <paramref name="value1"/> and <paramref name="value2"/>, returning its value and
+	/// catching any exceptions with <paramref name="e"/>.
+	/// </summary>
+	/// <remarks>
+	/// Takes the values as arguments so callers such as <c>SelectMany</c> don't need a closure.
+	/// </remarks>
+	/// <typeparam name="T1">First input value type.</typeparam>
+	/// <typeparam name="T2">Second input value type.</typeparam>
+	/// <typeparam name="TReturn">Return value type.</typeparam>
+	/// <param name="f">Function to run.</param>
+	/// <param name="value1">First value to pass to <paramref name="f"/>.</param>
+	/// <param name="value2">Second value to pass to <paramref name="f"/>.</param>
+	/// <param name="e">Exception handler.</param>
+	/// <returns>The value returned by <paramref name="f"/>, or the <see cref="Failure"/> returned by <paramref name="e"/>.</returns>
+	internal static Result<TReturn> Try<T1, T2, TReturn>(Func<T1, T2, TReturn> f, T1 value1, T2 value2, ExceptionHandler e)
+	{
+		try
+		{
+			return f(value1, value2);
+		}
+		catch (Exception ex)
+		{
+			return e(ex);
+		}
+	}
+
 	/// <inheritdoc cref="Try{T, TReturn}(Func{T, TReturn}, T, ExceptionHandler)"/>
 	internal static async Task<Result<TReturn>> TryAsync<T, TReturn>(Func<T, Task<TReturn>> f, T value, ExceptionHandler e)
 	{
