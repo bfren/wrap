@@ -30,10 +30,7 @@ public readonly partial struct Maybe<T>
 				this is Some<T> s2 && EqualityComparer<T>.Default.Equals(s.Value, s2.Value),
 
 			None =>
-				this is None,
-
-			_ =>
-				false
+				this is None
 		};
 
 	/// <summary>
