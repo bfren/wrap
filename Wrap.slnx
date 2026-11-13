@@ -13,6 +13,13 @@
       <Build Solution="Release|Any CPU" Project="false" />
     </Project>
   </Folder>
+  <Folder Name="/apps/Benchmarks/">
+    <File Path="apps/Benchmarks/EnumerableBenchmarks.cs" />
+    <File Path="apps/Benchmarks/MaybeBenchmarks.cs" />
+    <File Path="apps/Benchmarks/Program.cs" />
+    <File Path="apps/Benchmarks/README.md" />
+    <File Path="apps/Benchmarks/ResultBenchmarks.cs" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path=".github/FUNDING.yml" />
