@@ -45,7 +45,7 @@ public readonly partial struct Result<T>
 	/// <returns><see langword="true"/> if this is a <see cref="Failure"/>.</returns>
 	public bool TryGetValue(out Failure failure)
 	{
-		failure = this.failure.Message is null ? Failure.Default : this.failure;
+		failure = this.failure?.Value ?? Failure.Default;
 		return !isOk;
 	}
 

@@ -36,10 +36,10 @@ public readonly partial struct Result<T> : IEither<Result<T>, Failure, T>, IEqua
 	private readonly T? value;
 
 	/// <summary>
-	/// The failure - only meaningful when <see cref="isOk"/> is <see langword="false"/>.
-	/// Its <see cref="Failure.Message"/> is <see langword="null"/> only when this object is <c>default</c>.
+	/// The failure, boxed on the heap so <see cref="Result{T}"/> stays small and cheap to copy.
+	/// <see langword="null"/> when this is an <see cref="Ok{T}"/>, and when this object is <c>default</c>.
 	/// </summary>
-	private readonly Failure failure;
+	private readonly StrongBox<Failure>? failure;
 
 	/// <summary>
 	/// Whether this object is an <see cref="Ok{T}"/> (<see langword="true"/>) or a <see cref="Failure"/> (<see langword="false"/>).
@@ -76,7 +76,7 @@ public readonly partial struct Result<T> : IEither<Result<T>, Failure, T>, IEqua
 				new Ok<T>(value!),
 
 			false =>
-				failure.Message is null ? Failure.Default : failure
+				failure?.Value ?? Failure.Default
 		};
 
 	/// <summary>
@@ -96,7 +96,7 @@ public readonly partial struct Result<T> : IEither<Result<T>, Failure, T>, IEqua
 	{
 		if (ok.Value is null)
 		{
-			(failure, isOk) = (Failure.NullValue, false);
+			(failure, isOk) = (new(Failure.NullValue), false);
 		}
 		else
 		{
@@ -108,11 +108,17 @@ public readonly partial struct Result<T> : IEither<Result<T>, Failure, T>, IEqua
 	/// Create a <see cref="Result{T}"/> from a <see cref="Failure"/> value.
 	/// </summary>
 	/// <remarks>
+	/// <para>
+	/// The failure is stored on the heap (one small allocation), so a <see cref="Result{T}"/> stays small
+	/// and the <see cref="Ok{T}"/> path stays fast and allocation-free.
+	/// </para>
+	/// <para>
 	/// The compiler also uses this constructor for the implicit conversion from <see cref="Failure"/>.
+	/// </para>
 	/// </remarks>
 	/// <param name="failure">Failure value.</param>
 	public Result(Failure failure) =>
-		(this.failure, isOk) = (failure, false);
+		(this.failure, isOk) = (new(failure), false);
 
 	/// <inheritdoc/>
 	public Task<Result<T>> AsTask() =>
