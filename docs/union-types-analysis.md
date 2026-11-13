@@ -36,7 +36,7 @@ Branch `108-switch-to-use-union-types`, version `2.0.0-beta.1`. The solution bui
 - **Hold the docs and migration guide until release.**
 
 **Done since the first status update**
-- `Maybe<T>.GetEnumerator` uses the `[]`/`[x]` pattern instead of `yield`.
+- `Maybe<T>.GetEnumerator` and `Unsafe.GetEnumerator` use `yield` (see section 10 for why `[]`/`[x]` was reverted).
 - `Either` has an `.Unsafe()` extension, with tests.
 - `global.json` pins SDK `11.0.100` (`rollForward: latestFeature`).
 - `CLAUDE.md` and the README describe .NET 11 only, and `CLAUDE.md` uses `dotnet test --solution Wrap.slnx`.
@@ -230,26 +230,44 @@ These change or override parts of sections 4, 7 and 8.
 Sections 3, 4 and 8 planned to delete or obsolete both. **They stay.**
 
 - **`Unsafe` is a deliberate speed bump.** Every way of reading a value through it drops the Left (failure) path: `Unwrap` throws `UnsafeUnwrapException`, `Discard` returns None, and `foreach` doesn't run. Calling `.Unsafe()` first makes that choice visible at the call site. `.Unsafe()` now exists for `Maybe`, `Result` and `Either` (the Either extension is new).
-- **`IEither` exists only to support `Unsafe`.** In `src`, the only users are `Unsafe<TEither,TLeft,TRight>` itself (`GetEnumerator`) and four extensions: `Unwrap`, `UnwrapAsync`, `Discard` and `DiscardAsync`. It lets one `Unsafe` type serve all three unions instead of three copies.
+- **`IEither` exists only to support `Unsafe`.** In `src`, the only users are `Unsafe<TEither,TLeft,TRight>` itself (`GetEnumerator`) and four extensions: `Unwrap`, `UnwrapAsync`, `Discard` and `DiscardAsync`. It lets one `Unsafe` type serve all three unions instead of three copies. Its `Match` member has since been replaced (see below).
 - **It doesn't box.** Section 4.3 says a struct used through an interface boxes. That is true only when the struct is stored *as* the interface. `Unsafe` and its extensions use generic constraints (`where TEither : IEither<…>`), which call through without boxing.
 - `TryOk`, `TrySome` and `TryFailure` are gone, as planned. `is Ok<T>(var x)` replaces them.
 
-### Maybe's `IEither.Match` uses a direct `switch`, not `M.Match`
+### `IEither.Match` replaced by `TryGetLeft` / `TryGetRight` (13 November 2026)
 
-`M.Match` takes `fNone` as `Func<TReturn>`, but `IEither.Match` supplies `Func<None, TReturn>`. Bridging them with `() => fLeft(default)` captured `fLeft`, so every call allocated a closure plus a delegate: **80 B per call** on both Some and None. That hit every `Unwrap`, `Discard` and `foreach` over `maybe.Unsafe()`, including once per item in the enumerable helpers (`Filter`, `FilterBind`, `FilterMap`, `Iterate`).
+`IEither<TLeft,TRight>.Match` made every `Unsafe` operation call two delegates. Maybe's first adapter was worse still: it bridged `M.Match`'s `Func<TReturn>` with `() => fLeft(default)`, which allocated a closure and a delegate (80 B) on every call.
 
-The adapter now matches on `this` directly, as Either's already did. Result passes its delegates straight to `R.Match`, because the signatures line up, so it never allocated. A `Func<None, TReturn>` overload of `M.Match` would also remove the allocation. It was rejected because it grows the public API (plus its `MatchAsync` family) to serve one internal adapter.
+`Match` is now gone from the interface. It is replaced by `bool TryGetLeft(out TLeft)` and `bool TryGetRight(out TRight)`, which read the private fields directly. Maybe, Result and Either implement them explicitly, so their own public surface doesn't change. This breaks any downstream code that called `IEither.Match`, which is believed to be minimal. `Unsafe.GetEnumerator`, `Unwrap` and `Discard` use them, and `Unwrap` keeps its throw in a separate helper so the success path can be inlined. BenchmarkDotNet, each benchmark run on its own:
 
-### `Unsafe.GetEnumerator` keeps the `[]` / `[x]` pattern
-
-Bytes per `foreach` over `.Unsafe()`, measured after the `Match` fix:
-
-| | Current (`[]`/`[x]`) | `yield` iterator | Struct enumerator |
+| | Through `Match` | **`TryGetRight`** | v1 |
 |---|---:|---:|---:|
-| Maybe Some / Result Ok | **48** | 152–192 | 112 |
-| Maybe None / Result Failure | **0** | 152–192 | 112 |
+| `maybe.Unsafe().Unwrap()` | 1.3 ns | **~0 ns** | 0.49 ns |
+| `foreach` over `maybe.Unsafe()` | 2.6 ns | **~0 ns** | 0.48 ns |
+| `result.Unsafe().Unwrap()` | 2.2 ns | **0.18 ns** | 0.49 ns |
 
-`yield` always allocates its iterator object, even when there's nothing to return. A struct enumerator is the only way to reach 0 B on the success path too. It needs a mutable "already returned" flag in `MoveNext`, and Wrap avoids mutable state, so it was not adopted. The 112 B shown for it is an artefact of the prototype's delegates and would be 0 B in a real implementation.
+None of them allocate.
+
+### `GetEnumerator` uses `yield` (corrected 13 November 2026)
+
+An earlier version of this section recommended returning `[]` / `[x]` instead of a `yield` iterator. That came from ad-hoc measurements whose wrapper methods stopped the JIT inlining the loop. In a real, inlined `foreach`, the .NET 11 JIT stack-allocates a `yield` iterator, while a collection returned through a delegate escapes to the heap. BenchmarkDotNet, each benchmark run on its own:
+
+| `foreach` over… | `[]` / `[x]` | **`yield`** | v1 |
+|---|---:|---:|---:|
+| `maybe` (`Maybe<T>.GetEnumerator`) | 5.5 ns / 24 B | **0.29 ns / 0 B** | 0.57 ns / 0 B |
+| `maybe.Unsafe()` (`Unsafe.GetEnumerator`) | 5.5 ns / 24 B | **2.6 ns / 0 B**, then ~0 ns after the `TryGetRight` change | 0.48 ns / 0 B |
+
+Both enumerators use `yield`, with a code comment saying why. The enumerable helpers don't enumerate at all: they match each item with `is Some<T>(var x)` / `is Ok<T>(var x)`.
+
+### `Result<T>` stores its failure in a box, and `Bind` / `Map` share it (13 November 2026)
+
+Holding the 40-byte `Failure` inline made `Result<int>` 48 bytes, and copying it on every call made most Result operations slower than v1. `Result<T>` now holds a private `StrongBox<Failure>`, which brings it to about 16 bytes. The Ok path doesn't allocate, and a failure costs one 56 B box. Making `Failure` a record class was considered and rejected, because it would change the public type.
+
+`Bind` and `Map` pass a failure along with the internal `PassFailure<TReturn>()`, which reuses the incoming box. Without it, each step would box the failure again: measured at 7.3 ns on the Ok path, and 15 ns plus 56 B per step on the failure path. `PassFailure` is marked `AggressiveInlining`, because without the hint the JIT won't optimise `Bind`'s Ok path (6.9 ns instead of 2.1 ns).
+
+Both use an explicit `Failure =>` arm rather than a discard, for readability. A discard measured about 0.5–1 ns faster, because a `Failure` arm makes the JIT zero a `Failure`-sized local on every call.
+
+All of the combinators now use direct `switch` bodies instead of `M.Match` / `R.Match` with lambdas. Closures made Maybe `Map` allocate on every call and Maybe `Bind` take 5–8 ns. The full v1 vs v2 results are in `apps/Benchmarks/README.md`.
 
 ### Failure logging removed
 
