@@ -69,10 +69,14 @@ public readonly partial struct Maybe<T>
 
 	/// <inheritdoc cref="Unwrap(Func{T})"/>
 	public T Unwrap(Func<None, T> getValue) =>
-		M.Match(this,
-			fNone: () => getValue(default),
-			fSome: x => x
-		);
+		this switch
+		{
+			Some<T> x =>
+				x.Value,
+
+			None =>
+				getValue(default)
+		};
 
 	#endregion
 

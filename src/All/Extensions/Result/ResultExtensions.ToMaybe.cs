@@ -19,22 +19,78 @@ public static partial class ResultExtensions
 	/// <param name="this">Result object.</param>
 	/// <param name="fFailureHandler">Do something with the Failure before discarding it.</param>
 	/// <returns>Maybe object.</returns>
-	public static Maybe<T> ToMaybe<T>(this Result<T> @this, Action<Failure> fFailureHandler) =>
-		@this.Match(fFail: f => { fFailureHandler(f); return M.None; }, fOk: M.Wrap);
+	public static Maybe<T> ToMaybe<T>(this Result<T> @this, Action<Failure> fFailureHandler)
+	{
+		switch (@this)
+		{
+			case Ok<T> x:
+				return x.Value;
+
+			case Failure x:
+				fFailureHandler(x);
+				return M.None;
+
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
+			default:
+				return M.None;
+		}
+	}
 
 	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{Failure})"/>
-	public static Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Action<Failure> fFailureHandler) =>
-		ToMaybeAsync(@this, async f => { fFailureHandler(f); return M.None; });
+	public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Action<Failure> fFailureHandler)
+	{
+		switch (await @this)
+		{
+			case Ok<T> x:
+				return x.Value;
+
+			case Failure x:
+				fFailureHandler(x);
+				return M.None;
+
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
+			default:
+				return M.None;
+		}
+	}
 
 	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{Failure})"/>
-	public static Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<Failure, Maybe<T>> fFailureHandler) =>
-		ToMaybeAsync(@this, async f => fFailureHandler(f));
+	public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<Failure, Maybe<T>> fFailureHandler) =>
+		await @this switch
+		{
+			Ok<T> x =>
+				x.Value,
+
+			Failure x =>
+				fFailureHandler(x)
+		};
 
 	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{Failure})"/>
-	public static Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<Failure, Task> fFailureHandler) =>
-		ToMaybeAsync(@this, async f => { await fFailureHandler(f); return M.None; });
+	public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<Failure, Task> fFailureHandler)
+	{
+		switch (await @this)
+		{
+			case Ok<T> x:
+				return x.Value;
+
+			case Failure x:
+				await fFailureHandler(x);
+				return M.None;
+
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
+			default:
+				return M.None;
+		}
+	}
 
 	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{Failure})"/>
-	public static Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<Failure, Task<Maybe<T>>> fFailureHandler) =>
-		@this.MatchAsync(fFail: f => fFailureHandler(f), fOk: M.Wrap);
+	public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<Failure, Task<Maybe<T>>> fFailureHandler) =>
+		await @this switch
+		{
+			Ok<T> x =>
+				x.Value,
+
+			Failure x =>
+				await fFailureHandler(x)
+		};
 }

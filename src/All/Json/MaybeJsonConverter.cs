@@ -73,9 +73,17 @@ public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 	/// <param name="writer">Utf8JsonWriter.</param>
 	/// <param name="value">Maybe object to be converted.</param>
 	/// <param name="options">JsonSerializerOptions.</param>
-	public override void Write(Utf8JsonWriter writer, Maybe<T> value, JsonSerializerOptions options) =>
-		M.Match(value,
-			fNone: writer.WriteNullValue,
-			fSome: x => JsonSerializer.Serialize(writer, x, options)
-		);
+	public override void Write(Utf8JsonWriter writer, Maybe<T> value, JsonSerializerOptions options)
+	{
+		switch (value)
+		{
+			case Some<T> x:
+				JsonSerializer.Serialize(writer, x.Value, options);
+				break;
+
+			default:
+				writer.WriteNullValue();
+				break;
+		}
+	}
 }
