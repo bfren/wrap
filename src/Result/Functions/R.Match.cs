@@ -28,12 +28,12 @@ public static partial class R
 	{
 		switch (result)
 		{
-			case Failure f:
-				fFail(f);
-				return;
-
 			case Ok<T> x:
 				fOk(x.Value);
+				return;
+
+			case Failure f:
+				fFail(f);
 				return;
 
 			default:
@@ -46,12 +46,12 @@ public static partial class R
 	{
 		switch (result)
 		{
-			case Failure f:
-				fFail(f);
-				return;
-
 			case Ok<T> x:
 				await fOk(x.Value);
+				return;
+
+			case Failure f:
+				fFail(f);
 				return;
 
 			default:
@@ -64,12 +64,12 @@ public static partial class R
 	{
 		switch (result)
 		{
-			case Failure f:
-				await fFail(f);
-				return;
-
 			case Ok<T> x:
 				fOk(x.Value);
+				return;
+
+			case Failure f:
+				await fFail(f);
 				return;
 
 			default:
@@ -82,12 +82,12 @@ public static partial class R
 	{
 		switch (result)
 		{
-			case Failure f:
-				await fFail(f);
-				return;
-
 			case Ok<T> x:
 				await fOk(x.Value);
+				return;
+
+			case Failure f:
+				await fFail(f);
 				return;
 
 			default:
@@ -134,44 +134,44 @@ public static partial class R
 	public static TReturn Match<T, TReturn>(Result<T> result, Func<Failure, TReturn> fFail, Func<T, TReturn> fOk) =>
 		result switch
 		{
-			Failure f =>
-				fFail(f),
-
 			Ok<T> x =>
-				fOk(x.Value)
+				fOk(x.Value),
+
+			Failure f =>
+				fFail(f)
 		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<Failure, TReturn> fFail, Func<T, Task<TReturn>> fOk) =>
 		result switch
 		{
-			Failure f =>
-				fFail(f),
-
 			Ok<T> x =>
-				await fOk(x.Value)
+				await fOk(x.Value),
+
+			Failure f =>
+				fFail(f)
 		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<Failure, Task<TReturn>> fFail, Func<T, TReturn> fOk) =>
 		result switch
 		{
-			Failure f =>
-				await fFail(f),
-
 			Ok<T> x =>
-				fOk(x.Value)
+				fOk(x.Value),
+
+			Failure f =>
+				await fFail(f)
 		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>
 	public static async Task<TReturn> MatchAsync<T, TReturn>(Result<T> result, Func<Failure, Task<TReturn>> fFail, Func<T, Task<TReturn>> fOk) =>
 		result switch
 		{
-			Failure f =>
-				await fFail(f),
-
 			Ok<T> x =>
-				await fOk(x.Value)
+				await fOk(x.Value),
+
+			Failure f =>
+				await fFail(f)
 		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>
