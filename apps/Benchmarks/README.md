@@ -36,7 +36,7 @@ Run v1 and v2 back to back on the same machine, with nothing heavy running, and 
 
 ## Results
 
-Measured on 13 November 2026 on branch `108-switch-to-use-union-types`, each benchmark in its own process. The Result rows were re-measured after Result `Bind` and `Map` switched to a discard arm. The `Linq` rows were re-measured after `SelectMany` switched to direct `switch` bodies.
+Measured on 13 November 2026 on branch `108-switch-to-use-union-types`, each benchmark in its own process. The Result rows were re-measured after Result `Bind` and `Map` switched to a discard arm. The `Linq` rows were re-measured after `SelectMany` switched to direct `switch` bodies. The `Filter` and `FilterMap` rows were re-measured, and the `If`, `MapIf`, `MatchIf`, `ToResult`, `ToMaybe` and `Unwrap` rows added, after the remaining capturing lambdas in `src/All` were replaced with direct `switch` bodies. The other v2 rows were re-run then too and stayed within noise.
 
 ```
 BenchmarkDotNet v0.15.8, Windows 11 (10.0.26300.9974)
@@ -51,13 +51,13 @@ Time is the mean per operation. Allocated is per operation. The enumerable bench
 
 | Benchmark | v1 time | v1 allocated | v2 time | v2 allocated | v2 vs v1 |
 |---|---:|---:|---:|---:|---|
-| MaybeFilter | 25.53 µs | 130.54 KB | 17.49 µs | 99.28 KB | **1.5× faster** |
+| MaybeFilter | 25.53 µs | 130.54 KB | 7.435 µs | 21.16 KB | **3.4× faster** |
 | MaybeMap | 16.27 µs | 89.95 KB | 5.793 µs | 11.83 KB | **2.8× faster** |
-| MaybeFilterMap | 36.41 µs | 224.3 KB | 26.58 µs | 193.05 KB | **1.4× faster** |
+| MaybeFilterMap | 36.41 µs | 224.3 KB | 8.084 µs | 21.17 KB | **4.5× faster** |
 | MaybeIterate | 7.031 µs | 31.25 KB | 1.083 µs | 0 B | **6.5× faster** |
-| ResultFilter | 40.02 µs | 172.87 KB | 19.47 µs | 84.63 KB | **2.1× faster** |
+| ResultFilter | 40.02 µs | 172.87 KB | 15.24 µs | 6.5 KB | **2.6× faster** |
 | ResultMap | 34.52 µs | 175.89 KB | 18.04 µs | 128 B | **1.9× faster** |
-| ResultFilterMap | 59.63 µs | 305.22 KB | 40.61 µs | 216.98 KB | **1.5× faster** |
+| ResultFilterMap | 59.63 µs | 305.22 KB | 14.99 µs | 6.52 KB | **4.0× faster** |
 | ResultIterate | 9.317 µs | 31.25 KB | 1.134 µs | 0 B | **8.2× faster** |
 
 ### MaybeBenchmarks
@@ -77,6 +77,11 @@ Time is the mean per operation. Allocated is per operation. The enumerable bench
 | UnsafeUnwrap | 0.4766 ns | 0 B | 0.0101 ns | 0 B | **free** (inlined away) |
 | UnsafeForeach | 0.4789 ns | 0 B | 0.0072 ns | 0 B | **free** (inlined away) |
 | Foreach | 0.5604 ns | 0 B | 0.2878 ns | 0 B | **1.9× faster** |
+| If | 12.62 ns | 64 B | 3.635 ns | 0 B | **3.5× faster** |
+| MapIf | 22.80 ns | 144 B | 2.031 ns | 0 B | **11.2× faster** |
+| MatchIf | 8.572 ns | 40 B | 2.642 ns | 0 B | **3.2× faster** |
+| ToResult | 88.62 ns | 272 B | 67.84 ns | 168 B | **1.3× faster** |
+| UnwrapNone | 14.63 ns | 104 B | 0.9714 ns | 0 B | **15.1× faster** |
 
 ### ResultBenchmarks
 
@@ -93,10 +98,17 @@ Time is the mean per operation. Allocated is per operation. The enumerable bench
 | Linq | 49.27 ns | 344 B | 9.015 ns | 0 B | **5.5× faster** |
 | AsyncMap | 50.48 ns | 344 B | 35.09 ns | 160 B | **1.4× faster** |
 | UnsafeUnwrap | 0.4630 ns | 0 B | 0.1846 ns | 0 B | **2.5× faster** |
+| If | 14.79 ns | 64 B | 3.364 ns | 0 B | **4.4× faster** |
+| MapIf | 34.21 ns | 232 B | 8.039 ns | 0 B | **4.3× faster** |
+| MatchIf | 10.18 ns | 40 B | 3.412 ns | 0 B | **3.0× faster** |
+| ToMaybe | 13.09 ns | 48 B | 2.827 ns | 0 B | **4.6× faster** |
+| UnwrapFailure | 5.728 ns | 24 B | 1.942 ns | 0 B | **2.9× faster** |
 
 ### Notes
 
-- **v2 is faster in 29 of 32 benchmarks**, and it never allocates more than v1. Most single operations allocate nothing.
+- **v2 is faster in 39 of 42 benchmarks**, and it never allocates more than v1. Most single operations allocate nothing.
+- **`If`, `MapIf`, `MatchIf`, `ToMaybe` and `Unwrap` allocate nothing in v2.** In v1 each call allocated 24–232 B, mostly for the closures that captured the caller's functions. `ToResult` on `None` still allocates 168 B, because it builds a `Failure` with a message and context.
+- The `Filter` and `FilterMap` gains most likely come from the earlier rewrite of the single-value `Filter` as a `switch` (commit `f0616c3`). These rows had not been re-measured since.
 - **`Match` is a few tenths of a nanosecond slower** (`MatchNone`, `MatchOk`, `MatchFailure`). That is close to the noise level: `MatchOk` measured 2.2 ns and 2.8 ns in two runs of the same code.
 - **Result `Bind` and `Map` use a discard (`_ =>`) for the failure arm**, with a code comment saying why. An explicit `Failure =>` arm made the JIT set up a 40-byte `Failure` local on every call: Result `Chain` took 28.9 ns with it and 17.3 ns without.
 - The reasons behind these numbers (`StrongBox<Failure>`, `PassFailure`, `TryGetLeft`/`TryGetRight`, `yield`) are recorded in section 10 of `docs/union-types-analysis.md`.
