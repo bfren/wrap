@@ -7,8 +7,12 @@
   <Folder Name="/apps/">
     <File Path="apps/.editorconfig" />
     <File Path="apps/Directory.Build.props" />
-    <Project Path="apps/AppBenchmarkv1/AppBenchmarkv1.csproj" Id="f9a5531c-f4b6-4987-96c0-fd4a1a7f0fa2" />
-    <Project Path="apps/AppBenchmarkv2/AppBenchmarkv2.csproj" Id="a5e6ad72-3276-4074-9be1-171feebb58f4" />
+    <Project Path="apps/AppBenchmarkv1/AppBenchmarkv1.csproj" Id="f9a5531c-f4b6-4987-96c0-fd4a1a7f0fa2">
+      <Build Solution="Release|Any CPU" Project="false" />
+    </Project>
+    <Project Path="apps/AppBenchmarkv2/AppBenchmarkv2.csproj" Id="a5e6ad72-3276-4074-9be1-171feebb58f4">
+      <Build Solution="Release|Any CPU" Project="false" />
+    </Project>
     <Project Path="apps/AppMvc/AppMvc.csproj" Id="c6311ce6-256f-4930-abc1-f5065b03d288">
       <Build Solution="Release|Any CPU" Project="false" />
     </Project>
