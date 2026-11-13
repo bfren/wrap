@@ -83,4 +83,24 @@ public class MaybeBenchmarks
 
 		return 0;
 	}
+
+	[Benchmark]
+	public Maybe<int> If() =>
+		some.If(x => x > 0, x => M.Wrap(x + 1));
+
+	[Benchmark]
+	public Maybe<int> MapIf() =>
+		some.MapIf(x => x > 0, x => x + 1);
+
+	[Benchmark]
+	public int MatchIf() =>
+		some.MatchIf(() => 0, x => x > 0, x => x, x => x + 1);
+
+	[Benchmark]
+	public Result<int> ToResult() =>
+		none.ToResult("MaybeBenchmarks", "ToResult");
+
+	[Benchmark]
+	public int UnwrapNone() =>
+		none.Unwrap(() => 0);
 }

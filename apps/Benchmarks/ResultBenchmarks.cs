@@ -61,4 +61,24 @@ public class ResultBenchmarks
 	[Benchmark]
 	public int UnsafeUnwrap() =>
 		ok.Unsafe().Unwrap();
+
+	[Benchmark]
+	public Result<int> If() =>
+		ok.If(x => x > 0, x => R.Wrap(x + 1));
+
+	[Benchmark]
+	public Result<int> MapIf() =>
+		ok.MapIf(x => x > 0, x => x + 1);
+
+	[Benchmark]
+	public int MatchIf() =>
+		ok.MatchIf(_ => 0, x => x > 0, x => x, x => x + 1);
+
+	[Benchmark]
+	public Maybe<int> ToMaybe() =>
+		ok.ToMaybe(_ => { });
+
+	[Benchmark]
+	public int UnwrapFailure() =>
+		failure.Unwrap(_ => 0);
 }
