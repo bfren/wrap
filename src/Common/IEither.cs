@@ -1,22 +1,15 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System;
-using System.Threading.Tasks;
-
 namespace Wrap;
 
-/// <inheritdoc cref="IEither{TEither, TLeft, TRight}"/>
+/// <summary>
+/// Either Monad: holds a left (error / invalid) or a right (correct / valid) value.
+/// </summary>
+/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
+/// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
 public interface IEither<TLeft, TRight>
 {
-	/// <summary>
-	/// Return the right (correct / valid) value, or the value returned by <paramref name="getValue"/> if this object
-	/// holds a left (error / invalid) value.
-	/// </summary>
-	/// <param name="getValue">Returns the value to use, given the left value.</param>
-	/// <returns>The right value, or the value returned by <paramref name="getValue"/>.</returns>
-	TRight Unwrap(Func<TLeft, TRight> getValue);
-
 	/// <summary>
 	/// Get the left (error / invalid) value, if this object holds one.
 	/// </summary>
@@ -38,20 +31,4 @@ public interface IEither<TLeft, TRight>
 	/// <param name="right">The right value, or <c>default</c> if this object holds a left value.</param>
 	/// <returns><see langword="true"/> if this object holds a right value.</returns>
 	bool TryGetRight(out TRight right);
-}
-
-/// <summary>
-/// Either Monad.
-/// </summary>
-/// <typeparam name="TEither">Either implementation type.</typeparam>
-/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
-/// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
-public interface IEither<TEither, TLeft, TRight> : IEither<TLeft, TRight>
-	where TEither : IEither<TLeft, TRight>
-{
-	/// <summary>
-	/// Shorthand for returning the current object as a task.
-	/// </summary>
-	/// <returns>Task result.</returns>
-	Task<TEither> AsTask();
 }

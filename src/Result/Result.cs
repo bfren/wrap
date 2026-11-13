@@ -28,7 +28,7 @@ namespace Wrap;
 /// </remarks>
 /// <typeparam name="T">Ok value type.</typeparam>
 [Union]
-public readonly partial struct Result<T> : IEither<Result<T>, Failure, T>, IEquatable<Result<T>>
+public readonly partial struct Result<T> : IEither<Failure, T>, IEquatable<Result<T>>
 {
 	/// <summary>
 	/// The wrapped value - only meaningful when <see cref="isOk"/> is <see langword="true"/>.
@@ -144,7 +144,10 @@ public readonly partial struct Result<T> : IEither<Result<T>, Failure, T>, IEqua
 	internal Result<TReturn> PassFailure<TReturn>() =>
 		new(failure);
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Wrap this object in a completed task.
+	/// </summary>
+	/// <returns>A completed task holding this object.</returns>
 	public Task<Result<T>> AsTask() =>
 		Task.FromResult(this);
 }

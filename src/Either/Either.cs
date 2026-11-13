@@ -33,7 +33,7 @@ namespace Wrap;
 /// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 /// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
 [Union]
-public readonly partial struct Either<TLeft, TRight> : IEither<Either<TLeft, TRight>, TLeft, TRight>, IEquatable<Either<TLeft, TRight>>
+public readonly partial struct Either<TLeft, TRight> : IEither<TLeft, TRight>, IEquatable<Either<TLeft, TRight>>
 {
 	/// <summary>
 	/// The left value - only meaningful when <see cref="isRight"/> is <see langword="false"/>.
@@ -98,7 +98,10 @@ public readonly partial struct Either<TLeft, TRight> : IEither<Either<TLeft, TRi
 	public Either(Right<TRight> right) =>
 		(this.right, isRight) = (right.Value, true);
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Wrap this object in a completed task.
+	/// </summary>
+	/// <returns>A completed task holding this object.</returns>
 	public Task<Either<TLeft, TRight>> AsTask() =>
 		Task.FromResult(this);
 }

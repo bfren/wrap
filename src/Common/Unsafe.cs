@@ -12,7 +12,7 @@ namespace Wrap;
 /// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 /// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
 public readonly record struct Unsafe<TEither, TLeft, TRight> : IMonad<TEither>
-	where TEither : IEither<TEither, TLeft, TRight>
+	where TEither : IEither<TLeft, TRight>
 {
 	/// <summary>
 	/// Wrapped <typeparamref name="TEither"/> object.

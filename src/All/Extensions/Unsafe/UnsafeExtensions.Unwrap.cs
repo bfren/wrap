@@ -23,7 +23,7 @@ public static partial class UnsafeExtensions
 	/// <returns>The Right value held by <see cref="Unsafe{TEither, TLeft, TRight}.Value"/>.</returns>
 	/// <exception cref="UnsafeUnwrapException">Thrown when <see cref="Unsafe{TEither, TLeft, TRight}.Value"/> holds a Left value.</exception>
 	public static TRight Unwrap<TEither, TLeft, TRight>(this Unsafe<TEither, TLeft, TRight> @this)
-		where TEither : IEither<TEither, TLeft, TRight> =>
+		where TEither : IEither<TLeft, TRight> =>
 		@this.Value.TryGetRight(out var right) ? right : ThrowUnwrapException<TEither, TLeft, TRight>(@this.Value);
 
 	/// <summary>
@@ -39,7 +39,7 @@ public static partial class UnsafeExtensions
 	/// <returns>Never returns.</returns>
 	/// <exception cref="UnsafeUnwrapException">Always thrown.</exception>
 	private static TRight ThrowUnwrapException<TEither, TLeft, TRight>(TEither either)
-		where TEither : IEither<TEither, TLeft, TRight>
+		where TEither : IEither<TLeft, TRight>
 	{
 		_ = either.TryGetLeft(out var left);
 		throw new UnsafeUnwrapException(left, (left as IWithException)?.Exception);
@@ -47,6 +47,6 @@ public static partial class UnsafeExtensions
 
 	/// <inheritdoc cref="Unwrap{TEither, TLeft, TRight}(Unsafe{TEither, TLeft, TRight})"/>
 	public static Task<TRight> UnwrapAsync<TEither, TLeft, TRight>(this Task<Unsafe<TEither, TLeft, TRight>> @this)
-		where TEither : IEither<TEither, TLeft, TRight> =>
+		where TEither : IEither<TLeft, TRight> =>
 		@this.Then(x => x.Unwrap());
 }

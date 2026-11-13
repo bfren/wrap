@@ -29,7 +29,7 @@ namespace Wrap;
 /// </remarks>
 /// <typeparam name="T">Some value type.</typeparam>
 [Union]
-public readonly partial struct Maybe<T> : IEither<Maybe<T>, None, T>, IEquatable<Maybe<T>>
+public readonly partial struct Maybe<T> : IEither<None, T>, IEquatable<Maybe<T>>
 {
 	/// <summary>
 	/// Always <see langword="true"/>: the union always holds a case, because <c>default</c> is <see cref="None"/>.
@@ -84,7 +84,10 @@ public readonly partial struct Maybe<T> : IEither<Maybe<T>, None, T>, IEquatable
 	/// <param name="_">None value (discarded).</param>
 	public Maybe(None _) { }
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Wrap this object in a completed task.
+	/// </summary>
+	/// <returns>A completed task holding this object.</returns>
 	public Task<Maybe<T>> AsTask() =>
 		Task.FromResult(this);
 
