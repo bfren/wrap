@@ -36,6 +36,7 @@ public static partial class R
 				fFail(f);
 				return;
 
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
 			default:
 				break;
 		}
@@ -54,6 +55,7 @@ public static partial class R
 				fFail(f);
 				return;
 
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
 			default:
 				break;
 		}
@@ -72,6 +74,7 @@ public static partial class R
 				await fFail(f);
 				return;
 
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
 			default:
 				break;
 		}
@@ -90,6 +93,7 @@ public static partial class R
 				await fFail(f);
 				return;
 
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
 			default:
 				break;
 		}
