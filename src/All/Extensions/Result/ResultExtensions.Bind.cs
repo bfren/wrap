@@ -17,29 +17,31 @@ public static partial class ResultExtensions
 	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
 	/// <returns><see cref="Result{T}"/> object returned by <paramref name="f"/> or <see cref="Failure"/>.</returns>
 	public static Result<TReturn> Bind<T, TReturn>(this Result<T> @this, Func<T, Result<TReturn>> f) =>
-		R.Match(@this,
-			fFail: R.Fail<TReturn>,
-			fOk: f
-		);
+		@this switch
+		{
+			Ok<T> x =>
+				f(x.Value),
+
+			Failure =>
+				@this.PassFailure<TReturn>()
+		};
 
 	/// <inheritdoc cref="Bind{T, TReturn}(Result{T}, Func{T, Result{TReturn}})"/>
-	public static Task<Result<TReturn>> BindAsync<T, TReturn>(this Result<T> @this, Func<T, Task<Result<TReturn>>> f) =>
-		R.MatchAsync(@this,
-			fFail: R.Fail<TReturn>,
-			fOk: f
-		);
+	public static async Task<Result<TReturn>> BindAsync<T, TReturn>(this Result<T> @this, Func<T, Task<Result<TReturn>>> f) =>
+		@this switch
+		{
+			Ok<T> x =>
+				await f(x.Value),
+
+			Failure =>
+				@this.PassFailure<TReturn>()
+		};
 
 	/// <inheritdoc cref="Bind{T, TReturn}(Result{T}, Func{T, Result{TReturn}})"/>
-	public static Task<Result<TReturn>> BindAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, Result<TReturn>> f) =>
-		R.MatchAsync(@this,
-			fFail: R.Fail<TReturn>,
-			fOk: f
-		);
+	public static async Task<Result<TReturn>> BindAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, Result<TReturn>> f) =>
+		(await @this).Bind(f);
 
 	/// <inheritdoc cref="Bind{T, TReturn}(Result{T}, Func{T, Result{TReturn}})"/>
-	public static Task<Result<TReturn>> BindAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, Task<Result<TReturn>>> f) =>
-		R.MatchAsync(@this,
-			fFail: R.Fail<TReturn>,
-			fOk: f
-		);
+	public static async Task<Result<TReturn>> BindAsync<T, TReturn>(this Task<Result<T>> @this, Func<T, Task<Result<TReturn>>> f) =>
+		await (await @this).BindAsync(f);
 }

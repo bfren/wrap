@@ -51,6 +51,21 @@ public class Bind_Tests
 			// Assert
 			Assert.Equal(failure, result.AssertFailure());
 		}
+
+		[Fact]
+		public void Default_Result__Passes_Uninitialised_Failure()
+		{
+			// Arrange
+			var input = default(Result<string>);
+
+			// Act
+			var r0 = input.Bind(x => R.Wrap(x.Length));
+			var r1 = input.Map(x => x.Length);
+
+			// Assert
+			r0.AssertFailure("Uninitialised Failure");
+			r1.AssertFailure("Uninitialised Failure");
+		}
 	}
 
 	public class With_Ok

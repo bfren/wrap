@@ -58,4 +58,41 @@ public static partial class R
 			return e(ex);
 		}
 	}
+
+	/// <summary>
+	/// Run <paramref name="f"/> with <paramref name="value"/>, returning its value and catching any exceptions with <paramref name="e"/>.
+	/// </summary>
+	/// <remarks>
+	/// Takes the value as an argument so callers such as <c>Map</c> don't need a closure.
+	/// </remarks>
+	/// <typeparam name="T">Input value type.</typeparam>
+	/// <typeparam name="TReturn">Return value type.</typeparam>
+	/// <param name="f">Function to run.</param>
+	/// <param name="value">Value to pass to <paramref name="f"/>.</param>
+	/// <param name="e">Exception handler.</param>
+	/// <returns>The value returned by <paramref name="f"/>, or the <see cref="Failure"/> returned by <paramref name="e"/>.</returns>
+	internal static Result<TReturn> Try<T, TReturn>(Func<T, TReturn> f, T value, ExceptionHandler e)
+	{
+		try
+		{
+			return f(value);
+		}
+		catch (Exception ex)
+		{
+			return e(ex);
+		}
+	}
+
+	/// <inheritdoc cref="Try{T, TReturn}(Func{T, TReturn}, T, ExceptionHandler)"/>
+	internal static async Task<Result<TReturn>> TryAsync<T, TReturn>(Func<T, Task<TReturn>> f, T value, ExceptionHandler e)
+	{
+		try
+		{
+			return await f(value);
+		}
+		catch (Exception ex)
+		{
+			return e(ex);
+		}
+	}
 }
