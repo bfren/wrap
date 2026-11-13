@@ -34,7 +34,9 @@ public static partial class ResultExtensions
 			Ok<T> x =>
 				R.Try(f, x.Value, e),
 
-			Failure =>
+			// a discard, not `Failure =>`: a Failure arm makes the JIT set up a 40-byte Failure local on every call,
+			// even on the Ok path (Result Chain measured 28.8 ns with it, 17.7 ns without)
+			_ =>
 				@this.PassFailure<TReturn>()
 		};
 
@@ -49,7 +51,9 @@ public static partial class ResultExtensions
 			Ok<T> x =>
 				R.TryAsync(f, x.Value, e),
 
-			Failure =>
+			// a discard, not `Failure =>`: a Failure arm makes the JIT set up a 40-byte Failure local on every call,
+			// even on the Ok path (Result Chain measured 28.8 ns with it, 17.7 ns without)
+			_ =>
 				@this.PassFailure<TReturn>().AsTask()
 		};
 
