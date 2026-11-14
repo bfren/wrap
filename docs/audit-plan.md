@@ -36,7 +36,7 @@ Repo audit of branch `108-switch-to-use-union-types`, 12 November 2026.
 
 ### 3. `F.Format` crashes on literal braces, which also breaks `Failure.ToString()`
 
-- [ ] Done
+- [x] Done
 
 **Where:** `src/Common/Functions/F.Format.cs:85`
 
@@ -49,7 +49,7 @@ Repo audit of branch `108-switch-to-use-union-types`, 12 November 2026.
 
 ### 4. `M.ParseDateTime` turns UTC times into server local time
 
-- [ ] Done
+- [x] Done
 
 **Where:** `src/Maybe/Functions/M.ParseDateTime.cs:21`, `:25`
 
@@ -93,7 +93,7 @@ Repo audit of branch `108-switch-to-use-union-types`, 12 November 2026.
 
 ### 8. `UnwrapSingle` throws without going through `Unsafe()`
 
-- [ ] Done
+- [x] Done
 
 **Where:** `src/All/Extensions/Maybe/MaybeExtensions.UnwrapSingle.cs`
 
