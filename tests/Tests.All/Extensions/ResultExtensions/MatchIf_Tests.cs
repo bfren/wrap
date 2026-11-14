@@ -21,7 +21,7 @@ public class MatchIf_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 			var (fTest, fFalse, fTrue) = SetupOk(true);
 
 			// Act
@@ -35,7 +35,7 @@ public class MatchIf_Tests
 		public void Neither_fFalse_Nor_fTrue_Is_Invoked()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 			var (fTest, fFalse, fTrue) = SetupOk(true);
 
 			// Act

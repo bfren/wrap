@@ -24,7 +24,7 @@ public class IfNotAsync_Tests
 			public async Task Returns_None()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var (fTest, fThen) = Setup(false, Rnd.Str);
 
 				// Act
@@ -42,7 +42,7 @@ public class IfNotAsync_Tests
 			public async Task Functions_Are_Not_Invoked()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var (fTest, fThen) = Setup(false, Rnd.Str);
 
 				// Act
@@ -62,7 +62,7 @@ public class IfNotAsync_Tests
 			public async Task Returns_None()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var (fTest, fThen) = Setup(true, Rnd.Str);
 
 				// Act
@@ -80,7 +80,7 @@ public class IfNotAsync_Tests
 			public async Task Functions_Are_Not_Invoked()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var (fTest, fThen) = Setup(true, Rnd.Str);
 
 				// Act

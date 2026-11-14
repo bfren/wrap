@@ -11,7 +11,7 @@ public partial class IterateAsync_Tests
 		public async Task Does_Not_Call_Function()
 		{
 			// Arrange
-			IEnumerable<Result<Guid>> list = [FailGen.Create(), FailGen.Create(), FailGen.Create()];
+			IEnumerable<Result<Guid>> list = [R.Fail(Rnd.Str), R.Fail(Rnd.Str), R.Fail(Rnd.Str)];
 			var f = Substitute.For<Action<Guid>>();
 
 			// Act

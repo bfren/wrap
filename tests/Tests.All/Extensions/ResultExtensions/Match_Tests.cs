@@ -13,7 +13,7 @@ public class Match_Tests
 			public void Calls_fFail()
 			{
 				// Arrange
-				var input = FailGen.Create<int>();
+				var input = R.Fail<int>(Rnd.Str);
 				var fFail = Substitute.For<Action<Failure>>();
 				var fOk = Substitute.For<Action<int>>();
 
@@ -28,7 +28,7 @@ public class Match_Tests
 			public void Does_Not_Call_fOk()
 			{
 				// Arrange
-				var input = FailGen.Create<int>();
+				var input = R.Fail<int>(Rnd.Str);
 				var fFail = Substitute.For<Action<Failure>>();
 				var fOk = Substitute.For<Action<int>>();
 
@@ -84,7 +84,7 @@ public class Match_Tests
 			{
 				// Arrange
 				var failReturn = Rnd.Str;
-				var input = FailGen.Create<int>();
+				var input = R.Fail<int>(Rnd.Str);
 				Func<Failure, string> fFail = _ => failReturn;
 				Func<int, string> fOk = _ => Rnd.Str;
 

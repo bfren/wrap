@@ -16,7 +16,7 @@ public class FilterAsync_Tests
 		public async Task Does_Not_Call_FTest()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var fTest = Substitute.For<Func<string, bool>>();
 
 			// Act
@@ -32,7 +32,7 @@ public class FilterAsync_Tests
 		public async Task Returns_None()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var fTest = Substitute.For<Func<string, bool>>();
 
 			// Act

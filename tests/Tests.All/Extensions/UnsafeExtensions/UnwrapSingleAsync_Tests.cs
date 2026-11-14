@@ -20,7 +20,7 @@ public class UnwrapSingleAsync_Tests
 		public async Task Returns_Value_From_FLeft()
 		{
 			// Arrange
-			var input = NoneGen.Create<List<int>>().AsTask().Unsafe();
+			var input = default(Maybe<List<int>>).AsTask().Unsafe();
 			var defaultValue = Rnd.Int;
 			var fLeft = Setup(defaultValue);
 

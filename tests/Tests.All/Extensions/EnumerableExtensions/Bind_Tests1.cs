@@ -18,7 +18,7 @@ public partial class Bind_Tests
 		public void Does_Not_Call_Bind_Function()
 		{
 			// Arrange
-			var list = new[] { FailGen.Create<int>(), FailGen.Create<int>(), FailGen.Create<int>() };
+			var list = new[] { R.Fail<int>(Rnd.Str), R.Fail<int>(Rnd.Str), R.Fail<int>(Rnd.Str) };
 			var bind = Substitute.For<Func<int, Result<string>>>();
 
 			// Act
@@ -32,7 +32,7 @@ public partial class Bind_Tests
 		public void Returns_Original_Failures()
 		{
 			// Arrange
-			var list = new[] { FailGen.Create<int>(), FailGen.Create<int>(), FailGen.Create<int>() };
+			var list = new[] { R.Fail<int>(Rnd.Str), R.Fail<int>(Rnd.Str), R.Fail<int>(Rnd.Str) };
 			var bind = Substitute.For<Func<int, Result<string>>>();
 
 			// Act
@@ -75,7 +75,7 @@ public partial class Bind_Tests
 			var v0 = Rnd.Int;
 			var v1 = Rnd.Int;
 			var v2 = Rnd.Int;
-			var list = new[] { R.Wrap(v0), FailGen.Create(), R.Wrap(v1), FailGen.Create(), R.Wrap(v2) };
+			var list = new[] { R.Wrap(v0), R.Fail(Rnd.Str), R.Wrap(v1), R.Fail(Rnd.Str), R.Wrap(v2) };
 
 			// Act
 			var result = list.Bind(x => R.Wrap(x.ToString()));

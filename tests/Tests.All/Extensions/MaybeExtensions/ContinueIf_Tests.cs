@@ -21,7 +21,7 @@ public class ContinueIf_Tests
 			public void Returns_None()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var fTest = Setup(false);
 
 				// Act
@@ -35,7 +35,7 @@ public class ContinueIf_Tests
 			public void Function_Is_Not_Invoked()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var fTest = Setup(false);
 
 				// Act
@@ -52,7 +52,7 @@ public class ContinueIf_Tests
 			public void Returns_None()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var fTest = Setup(true);
 
 				// Act
@@ -66,7 +66,7 @@ public class ContinueIf_Tests
 			public void Function_Is_Not_Invoked()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var fTest = Setup(true);
 
 				// Act

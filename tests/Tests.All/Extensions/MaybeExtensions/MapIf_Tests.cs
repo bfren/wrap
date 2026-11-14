@@ -22,7 +22,7 @@ public class MapIf_Tests
 		public void Predicate_Returns_False__Returns_None()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var (fTest, f) = Setup(false, Rnd.Int);
 
 			// Act
@@ -36,7 +36,7 @@ public class MapIf_Tests
 		public void Predicate_Returns_True__Returns_None()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var (fTest, f) = Setup(true, Rnd.Int);
 
 			// Act
@@ -50,7 +50,7 @@ public class MapIf_Tests
 		public void Functions_Are_Not_Invoked()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var (fTest, f) = Setup(false, Rnd.Int);
 
 			// Act

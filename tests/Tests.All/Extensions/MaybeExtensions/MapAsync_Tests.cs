@@ -25,7 +25,7 @@ public class MapAsync_Tests
 		public async Task Does_Not_Call_F()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var fAsync = SetupAsync(Rnd.Int);
 			var fSync = SetupSync(Rnd.Int);
 
@@ -43,7 +43,7 @@ public class MapAsync_Tests
 		public async Task Returns_None()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var fAsync = SetupAsync(Rnd.Int);
 			var fSync = SetupSync(Rnd.Int);
 

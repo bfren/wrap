@@ -21,7 +21,7 @@ public class If_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<string>(R.Fail(value));
+			var input = R.Fail<string>(value);
 			var (fTest, fTrue, fFalse) = Setup(true);
 
 			// Act
@@ -35,7 +35,7 @@ public class If_Tests
 		public void Neither_fTrue_Nor_fFalse_Is_Invoked()
 		{
 			// Arrange
-			var input = FailGen.Create<string>();
+			var input = R.Fail<string>(Rnd.Str);
 			var (fTest, fTrue, fFalse) = Setup(true);
 
 			// Act
@@ -128,7 +128,7 @@ public class If_Tests
 			{
 				// Arrange
 				var value = Rnd.Str;
-				var input = FailGen.Create<int>(R.Fail(value));
+				var input = R.Fail<int>(value);
 				var fTest = Substitute.For<Func<int, bool>>();
 				var fThen = Substitute.For<Func<int, Result<int>>>();
 
@@ -143,7 +143,7 @@ public class If_Tests
 			public void Neither_fTest_Nor_fThen_Is_Invoked()
 			{
 				// Arrange
-				var input = FailGen.Create<int>();
+				var input = R.Fail<int>(Rnd.Str);
 				var fTest = Substitute.For<Func<int, bool>>();
 				var fThen = Substitute.For<Func<int, Result<int>>>();
 

@@ -13,7 +13,7 @@ public class Match_Tests
 			public void Executes_Failure_Action()
 			{
 				// Arrange
-				var failure = FailGen.Create();
+				var failure = R.Fail(Rnd.Str);
 				var fail = Substitute.For<Action<Wrap.Failure>>();
 				var ok = Substitute.For<Action<int>>();
 

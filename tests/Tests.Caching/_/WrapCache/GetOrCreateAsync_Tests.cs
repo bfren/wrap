@@ -119,12 +119,12 @@ public class GetOrCreateAsync_Tests
 	{
 		// Arrange
 		var key = Rnd.Str;
-		var failure = FailGen.Create();
+		var failure = R.Fail(Rnd.Str);
 		var mc = Miss();
 		var cache = new WrapCache<string>(mc);
 
 		// Act
-		var result = await cache.GetOrCreateAsync(key, () => Task.FromResult(FailGen.Create<long>(failure)));
+		var result = await cache.GetOrCreateAsync(key, () => Task.FromResult(R.Fail<long>(failure)));
 
 		// Assert
 		Assert.Equal(failure, result.AssertFailure());
@@ -159,7 +159,7 @@ public class GetOrCreateAsync_Tests
 		var cache = new WrapCache<string>(new MemoryCache(new MemoryCacheOptions()));
 
 		// Act
-		var r0 = await cache.GetOrCreateAsync(key, () => Task.FromResult(FailGen.Create<long>()));
+		var r0 = await cache.GetOrCreateAsync(key, () => Task.FromResult(R.Fail<long>(Rnd.Str)));
 		var r1 = await cache.GetOrCreateAsync(key, () => Task.FromResult(R.Wrap(value)));
 
 		// Assert

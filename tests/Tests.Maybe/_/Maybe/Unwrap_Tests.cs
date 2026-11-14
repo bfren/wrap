@@ -11,7 +11,7 @@ public class Unwrap_Tests
 		public void Returns_Value_From_GetValue()
 		{
 			// Arrange
-			var failure = NoneGen.Create<Guid>();
+			var failure = default(Maybe<Guid>);
 			var value = Rnd.Guid;
 			var getValue = Substitute.For<Func<Guid>>();
 			getValue.Invoke().Returns(value);

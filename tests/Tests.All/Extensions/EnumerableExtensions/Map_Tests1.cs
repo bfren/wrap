@@ -18,7 +18,7 @@ public partial class Map_Tests
 		public void Does_Not_Call_Map_Function()
 		{
 			// Arrange
-			var list = new[] { FailGen.Create<string>(), FailGen.Create<string>(), FailGen.Create<string>() };
+			var list = new[] { R.Fail<string>(Rnd.Str), R.Fail<string>(Rnd.Str), R.Fail<string>(Rnd.Str) };
 			var map = Substitute.For<Func<string, int>>();
 
 			// Act
@@ -32,7 +32,7 @@ public partial class Map_Tests
 		public void Returns_Original_Failures()
 		{
 			// Arrange
-			var list = new[] { FailGen.Create<string>(), FailGen.Create<string>(), FailGen.Create<string>() };
+			var list = new[] { R.Fail<string>(Rnd.Str), R.Fail<string>(Rnd.Str), R.Fail<string>(Rnd.Str) };
 			var map = Substitute.For<Func<string, int>>();
 
 			// Act

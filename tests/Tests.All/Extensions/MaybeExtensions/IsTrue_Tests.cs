@@ -11,7 +11,7 @@ public class IsTrue_Tests
 		public void Returns_False()
 		{
 			// Arrange
-			var input = NoneGen.Create<bool>();
+			var input = default(Maybe<bool>);
 
 			// Act
 			var result = input.IsTrue();

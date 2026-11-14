@@ -13,8 +13,8 @@ public class Unwrap_Tests
 			public void Calls_Failure_Handler()
 			{
 				// Arrange
-				var value = FailGen.Create();
-				var failure = FailGen.Create<int>(value);
+				var value = R.Fail(Rnd.Str);
+				var failure = R.Fail<int>(value);
 				var handler = Substitute.For<Action<Failure>>();
 
 				// Act
@@ -29,7 +29,7 @@ public class Unwrap_Tests
 			public void Returns_Value_From_GetValue()
 			{
 				// Arrange
-				var failure = FailGen.Create<Guid>();
+				var failure = R.Fail<Guid>(Rnd.Str);
 				var value = Rnd.Guid;
 				var getValue = Substitute.For<Func<Guid>>();
 				getValue.Invoke().Returns(value);

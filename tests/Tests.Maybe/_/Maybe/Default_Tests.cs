@@ -24,7 +24,7 @@ public class Default_Tests
 		// Assert
 		Assert.True(result);
 		maybe.AssertNone();
-		Assert.Equal(NoneGen.Create<int>(), maybe);
+		Assert.Equal(M.None, maybe);
 	}
 
 	[Fact]

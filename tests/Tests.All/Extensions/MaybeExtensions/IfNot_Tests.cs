@@ -24,7 +24,7 @@ public class IfNot_Tests
 			public void Returns_None()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var (fTest, fThen) = Setup(false, Rnd.Str);
 
 				// Act
@@ -38,7 +38,7 @@ public class IfNot_Tests
 			public void Functions_Are_Not_Invoked()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var (fTest, fThen) = Setup(false, Rnd.Str);
 
 				// Act
@@ -56,7 +56,7 @@ public class IfNot_Tests
 			public void Returns_None()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var (fTest, fThen) = Setup(true, Rnd.Str);
 
 				// Act
@@ -70,7 +70,7 @@ public class IfNot_Tests
 			public void Functions_Are_Not_Invoked()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var (fTest, fThen) = Setup(true, Rnd.Str);
 
 				// Act

@@ -11,7 +11,7 @@ public class UnsafeAsync_Tests
 		public async Task Returns_Unsafe_With_None()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 
 			// Act
 			var result = await input.AsTask().Unsafe();

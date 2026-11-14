@@ -13,7 +13,7 @@ public class Audit_Tests
 			public void Calls_FNone()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var fNone = Substitute.For<Action>();
 
 				// Act
@@ -27,7 +27,7 @@ public class Audit_Tests
 			public void Returns_Original_None()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var fNone = Substitute.For<Action>();
 
 				// Act
@@ -79,7 +79,7 @@ public class Audit_Tests
 			public void Does_Not_Call_FSome()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var fSome = Substitute.For<Action<string>>();
 
 				// Act
@@ -93,7 +93,7 @@ public class Audit_Tests
 			public void Returns_Original_None()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var fSome = Substitute.For<Action<string>>();
 
 				// Act
@@ -146,7 +146,7 @@ public class Audit_Tests
 			public void Calls_FNone()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var fNone = Substitute.For<Action>();
 				var fSome = Substitute.For<Action<string>>();
 
@@ -161,7 +161,7 @@ public class Audit_Tests
 			public void Does_Not_Call_FSome()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var fNone = Substitute.For<Action>();
 				var fSome = Substitute.For<Action<string>>();
 
@@ -176,7 +176,7 @@ public class Audit_Tests
 			public void Returns_Original_None()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var fNone = Substitute.For<Action>();
 				var fSome = Substitute.For<Action<string>>();
 
@@ -191,7 +191,7 @@ public class Audit_Tests
 			public void FNone_Null_Does_Not_Throw()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var fSome = Substitute.For<Action<string>>();
 
 				// Act
@@ -278,7 +278,7 @@ public class Audit_Tests
 			public void Calls_Either_With_None()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var either = Substitute.For<Action<Maybe<string>>>();
 
 				// Act
@@ -292,7 +292,7 @@ public class Audit_Tests
 			public void Returns_Original_None()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var either = Substitute.For<Action<Maybe<string>>>();
 
 				// Act

@@ -11,7 +11,7 @@ public class ToString_Tests
 		public void Returns_None_With_Type()
 		{
 			// Arrange
-			var none = NoneGen.Create<DateTime>();
+			var none = default(Maybe<DateTime>);
 			var expected = $"None: {nameof(DateTime)}";
 
 			// Act

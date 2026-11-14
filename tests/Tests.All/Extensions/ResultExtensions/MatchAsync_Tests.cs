@@ -13,7 +13,7 @@ public class MatchAsync_Tests
 			public async Task Calls_fFail()
 			{
 				// Arrange
-				var input = FailGen.Create<int>();
+				var input = R.Fail<int>(Rnd.Str);
 				var fFail = Substitute.For<Func<Failure, Task>>();
 				var fOk = Substitute.For<Func<int, Task>>();
 
@@ -29,7 +29,7 @@ public class MatchAsync_Tests
 			public async Task Does_Not_Call_fOk()
 			{
 				// Arrange
-				var input = FailGen.Create<int>();
+				var input = R.Fail<int>(Rnd.Str);
 				var fFail = Substitute.For<Func<Failure, Task>>();
 				var fOk = Substitute.For<Func<int, Task>>();
 
@@ -88,7 +88,7 @@ public class MatchAsync_Tests
 			{
 				// Arrange
 				var value = Rnd.Str;
-				var input = FailGen.Create<int>();
+				var input = R.Fail<int>(Rnd.Str);
 
 				// Act
 				var r0 = await input.MatchAsync(fFail: _ => value, fOk: async _ => Rnd.Str);

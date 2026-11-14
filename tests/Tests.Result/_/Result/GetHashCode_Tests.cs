@@ -55,9 +55,9 @@ public class GetHashCode_Tests
 			public void Returns_Same_HashCode()
 			{
 				// Arrange
-				var value = FailGen.Create();
-				var v0 = FailGen.Create<string>(value);
-				var v1 = FailGen.Create<string>(value);
+				var value = R.Fail(Rnd.Str);
+				var v0 = R.Fail<string>(value);
+				var v1 = R.Fail<string>(value);
 
 				// Act
 				var r0 = v0.GetHashCode();
@@ -73,8 +73,8 @@ public class GetHashCode_Tests
 			public void Returns_Different_HashCode()
 			{
 				// Arrange
-				var v0 = FailGen.Create<string>();
-				var v1 = FailGen.Create<string>();
+				var v0 = R.Fail<string>(Rnd.Str);
+				var v1 = R.Fail<string>(Rnd.Str);
 
 				// Act
 				var r0 = v0.GetHashCode();
