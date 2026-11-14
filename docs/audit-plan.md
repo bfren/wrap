@@ -6,7 +6,7 @@ Repo audit of branch `108-switch-to-use-union-types`, 12 November 2026. Updated 
 
 **Load assumed:** web apps that use it under real traffic. The cache is registered as one shared instance (a singleton) for the whole app. The JSON converters and model binders read data sent by users.
 
-**Verdict:** fix 5 next. Everything else is done, or decided (7).
+**Verdict:** all done, or decided (7).
 
 **Lean:** nothing left to remove, and no dependencies.
 
@@ -21,7 +21,7 @@ Repo audit of branch `108-switch-to-use-union-types`, 12 November 2026. Updated 
 - **What this is:** When `GetOrCreate` fails, it returns `None` and stores the reason in the `LastFailure` property for you to read.
 - **Problem:** `AddWrapCache` registers one cache for the whole app, so all requests share this one property. If request A's value factory throws and request B then reads any key, B overwrites `LastFailure` with `None` before A reads it. `Maybe<Failure>` is also a multi-field struct, so two threads writing it at once can leave half of one value mixed with half of the other.
 - **Fix:** Return the failure with the call: make `GetOrCreate`/`GetOrCreateAsync` return `Result<TValue>`, and remove `LastFailure`. An `AsyncLocal` won't work, because changes made inside an `async` method don't flow back to the caller.
-- **Done:** `GetValue`, `GetOrCreate` and `GetOrCreateAsync` all return `Result<TValue>`, and `LastFailure` is removed. A missing key is now a `Failure` with the message "Cache entry '{Key}' not found." The locking code is unchanged.
+- **Done:** `GetValue`, `GetOrCreate` and `GetOrCreateAsync` all return `Result<TValue>`, and `LastFailure` is removed. A missing key is now a `Failure` with the message "Cache entry '{Key}' not found." The locking was later removed too (see 5).
 - **If we skip it:** Under load, error details go missing or belong to another request.
 
 ### 2. JSON turns bad numbers from users into `0`
@@ -69,13 +69,15 @@ Repo audit of branch `108-switch-to-use-union-types`, 12 November 2026. Updated 
 
 ### 5. The cache lock is skipped for parallel work inside a value factory
 
-- [ ] Done
+- [x] Done (locking removed)
 
-**Where:** `src/Caching/WrapCache.cs:35`, `:163`, `:219`
+**Where:** `src/Caching/WrapCache.cs`
 
 - **What this is:** An `AsyncLocal` bit records which of the 64 locks this call chain already holds, so a factory can call the cache again without blocking on its own lock.
 - **Problem:** Child tasks inherit that bit. If a factory runs `Task.WhenAll(GetOrCreateAsync(B), GetOrCreateAsync(B))`, and B shares a lock with the outer key, both children skip the lock and B's factory runs twice at once. Preventing exactly that is the lock's job. Verified: with keys 1 and 65, which share a lock, B's factory ran twice on `main`, at `086993a` and at HEAD. Two parallel calls made outside a factory ran it once.
 - **Fix:** Add a `shortcut:` comment that names this limit. Or, for real "one creator per key", hold one `Lazy<Task<…>>` per key in a `ConcurrentDictionary`, which also removes the bit tracking.
+- **Decision:** remove locking altogether. The same five scenarios were run against v1.2.10, the striped locks and a `ConcurrentDictionary` prototype. v1.2.10's single lock made callers take turns but never stopped duplicate work: 20 callers meant 20 factory runs. It also made every key wait for a slow factory, and it hung on nested calls. Mileage, the main user, only caches reads (database queries filtered by user), so a factory running twice under contention costs one extra query.
+- **Done:** `WrapCache` was rebuilt from v1.2.10's layout with no lock, dictionary or `AsyncLocal`. A `shortcut:` comment says a factory can run more than once when calls arrive together. `GetOrCreate`/`GetOrCreateAsync` now take factories returning `T` or `Result<T>`, replacing `Maybe<T>`: a `Failure` from the factory reaches the caller unchanged and is not cached. Tests cover that a slow factory doesn't block other keys, and that nested calls for another key complete.
 - **If we skip it:** It's rare, but an expensive factory runs more than once and the last write wins.
 
 ### 6. The Guid ID handler silently reads unreadable values as `Guid.Empty`
@@ -129,7 +131,7 @@ Found and fixed after the audit, without their own entry above:
 Three smaller findings were not listed above:
 
 - `M.ParseChar` converts its span to a string, which allocates. The one-line fix is `input is [var c] ? c : None`.
-- The sync and async `GetOrCreate` bodies in `WrapCache` are near-copies. Merging them would mean blocking on async code.
+- The sync and async `GetOrCreate` bodies in `WrapCache` are near-copies, now about 12 lines each. Merging them would mean blocking on async code.
 - The JSON converters detect empty input by matching English exception text. No clean fix was found: checking `reader.TokenType == None` doesn't work, because a reader passed in directly starts at `None` even when it holds valid JSON.
 
 ## Not checked

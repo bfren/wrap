@@ -43,11 +43,11 @@ Branch `108-switch-to-use-union-types`, version `2.0.0-beta.1`. The solution bui
 - BenchmarkDotNet baselines for v1 and v2 (`apps/Benchmarks/README.md`).
 - Exhaustiveness is pinned: `src` and `tests` treat CS8509 and CS8655 as errors, so a union change that breaks a `switch` with no `_` arm fails the build. A separate consumer-style project wasn't needed.
 - `IEither<TEither,TLeft,TRight>` and `IEither.Unwrap` are gone (section 10).
+- `ToMaybe`, `Maybe.Unwrap(Func<None,T>)` and `MaybeJsonConverter.Write` use direct `switch` bodies, so no capturing lambdas are left in them.
+- `apps/AppMvc` smoke-tested (14 November 2026): IDs, `Monad` values, `Maybe<bool>` and `Maybe<Postcode>` bind from route values, missing or invalid optional values bind as `None`, and the server logged no errors. An invalid ID fails to bind and leaves the parameter `null`, the same as on `main`.
 
 **Still to do**
 - Allocation regression tests (Phase 5). A unit test using `GC.GetAllocatedBytesForCurrentThread` would be flaky, because unoptimised tier-0 code boxes (section 5), so this probably means checking the benchmark results.
-- Replace the remaining capturing lambdas in `src/All` with direct `switch` bodies: `ToMaybe`, `Maybe.Unwrap(Func<None,T>)` and `MaybeJsonConverter.Write`.
-- Smoke-test `apps/AppMvc`.
 - At release: move `PackageValidationBaselineVersion` from `1.2.1` to `2.0.0` once 2.0.0 ships, create the 1.x branch, and write the wiki docs and migration guide (section 8, Phase 5).
 
 ---
@@ -203,7 +203,7 @@ To warn 1.x users before 2.0.0, ship the `[Obsolete]` markings below in one last
 ### Phase 4: Integrations
 - JSON: adapt `MaybeJsonConverter` and keep `null` for None (recommended). If you'd rather adopt STJ's native union handling, schedule that as its own breaking change with a classifier.
 - MVC: adapt `MaybeModelBinder`/`WrapModelBinder` (ASP.NET doesn't bind unions from route, query or form) and `HiddenForMonad`.
-- Caching: `GetValue`, `GetOrCreate` and `GetOrCreateAsync` return `Result<TValue>`, so each call carries its own failure. The shared `LastFailure` property is removed (it was overwritten by concurrent callers).
+- Caching: `GetValue`, `GetOrCreate` and `GetOrCreateAsync` return `Result<TValue>`, so each call carries its own failure. The shared `LastFailure` property is removed (it was overwritten by concurrent callers). Value factories return `T` or `Result<T>` (not `Maybe<T>`), so a factory's `Failure` reaches the caller and is not cached. There is no locking: a factory can run more than once when calls for a missing key arrive together.
 - Testing packages: re-implement `AssertSome`/`AssertNone`/`AssertOk`/`AssertFailure`/`AssertTrue`/`AssertFalse` and the generators. Their APIs don't change.
 - `apps/AppMvc`: update and smoke-test.
 
