@@ -1,48 +1,10 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using Wrap.Exceptions;
-
 namespace Wrap.Result_Tests;
 
 public class Unwrap_Tests
 {
-	public class Without_Handlers
-	{
-		public class When_Failure
-		{
-			[Fact]
-			public void Throws_FailureException()
-			{
-				// Arrange
-				var value = FailGen.Create<int>();
-
-				// Act
-				var result = Record.Exception(() => value.Unwrap());
-
-				// Assert
-				Assert.IsType<FailureException>(result);
-			}
-		}
-
-		public class When_Ok
-		{
-			[Fact]
-			public void Returns_Value()
-			{
-				// Arrange
-				var expected = Rnd.Int;
-				var value = R.Wrap(expected);
-
-				// Act
-				var result = value.Unwrap();
-
-				// Assert
-				Assert.Equal(expected, result);
-			}
-		}
-	}
-
 	public class With_Handlers
 	{
 		public class When_Failure
@@ -51,9 +13,9 @@ public class Unwrap_Tests
 			public void Calls_Failure_Handler()
 			{
 				// Arrange
-				var value = FailGen.Value;
+				var value = FailGen.Create();
 				var failure = FailGen.Create<int>(value);
-				var handler = Substitute.For<Action<FailureValue>>();
+				var handler = Substitute.For<Action<Failure>>();
 
 				// Act
 				_ = failure.Unwrap(f => { handler(f); return Rnd.Int; });
@@ -74,7 +36,7 @@ public class Unwrap_Tests
 
 				// Act
 				var r0 = failure.Unwrap(_ => getValue());
-				var r1 = failure.Unwrap(Substitute.For<Action<FailureValue>>(), getValue);
+				var r1 = failure.Unwrap(Substitute.For<Action<Failure>>(), getValue);
 
 				// Assert
 				Assert.Equal(value, r0);
@@ -92,7 +54,7 @@ public class Unwrap_Tests
 				var value = R.Wrap(expected);
 
 				// Act
-				var result = value.Unwrap(Substitute.For<Action<FailureValue>>(), Substitute.For<Func<string>>());
+				var result = value.Unwrap(Substitute.For<Action<Failure>>(), Substitute.For<Func<string>>());
 
 				// Assert
 				Assert.Equal(expected, result);

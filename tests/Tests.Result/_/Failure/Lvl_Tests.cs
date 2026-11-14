@@ -10,7 +10,7 @@ public class Lvl_Tests
 	public class With_Level
 	{
 		[Fact]
-		public void Adds_Level_To_FailureValue()
+		public void Adds_Level_To_Failure()
 		{
 			// Arrange
 			var failure = FailGen.Create().Lvl(LogLevel.Verbose);
@@ -20,7 +20,7 @@ public class Lvl_Tests
 			var result = failure.Lvl(value);
 
 			// Assert
-			Assert.Equal(value, result.Value.Level);
+			Assert.Equal(value, result.Level);
 		}
 	}
 }

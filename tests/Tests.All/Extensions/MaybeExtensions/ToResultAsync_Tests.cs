@@ -1,8 +1,6 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using Wrap.Exceptions;
-
 namespace Wrap.Extensions.MaybeExtensions_Tests;
 
 public class ToResultAsync_Tests
@@ -24,22 +22,24 @@ public class ToResultAsync_Tests
 				var f = result.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Int32));
 				Assert.IsType<NullReferenceException>(f.Exception);
 			}
-		}
 
-		public class Unknown_Maybe
-		{
 			[Fact]
-			public async Task Returns_Failure_With_InvalidMaybeTypeException()
+			public async Task With_Handler_Returns_Failure_With_NullReferenceException()
 			{
 				// Arrange
-				var maybe = new InvalidMaybe<Guid>().AsTask();
+				Task<Maybe<int>> maybe = null!;
+				var handler = Substitute.For<Func<Result<int>>>();
 
 				// Act
-				var result = await maybe.ToResultAsync(Rnd.Str, Rnd.Str);
+				var r0 = await maybe.ToResultAsync(handler);
+				var r1 = await maybe.ToResultAsync(async () => handler());
 
 				// Assert
-				var f = result.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Guid));
-				Assert.IsType<InvalidMaybeTypeException>(f.Exception);
+				var f0 = r0.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Int32));
+				Assert.IsType<NullReferenceException>(f0.Exception);
+				var f1 = r1.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Int32));
+				Assert.IsType<NullReferenceException>(f1.Exception);
+				handler.DidNotReceive().Invoke();
 			}
 		}
 	}

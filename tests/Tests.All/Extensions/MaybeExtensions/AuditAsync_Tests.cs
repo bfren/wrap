@@ -551,7 +551,7 @@ public class AuditAsync_Tests
 				var r1 = await input.AsTask().AuditAsync(either);
 
 				// Assert
-				await either.Received(2).Invoke(Arg.Is<Maybe<string>>(x => x.IsSome));
+				await either.Received(2).Invoke(Arg.Is<Maybe<string>>(x => x == value));
 				r0.AssertSome(value);
 				r1.AssertSome(value);
 			}
@@ -568,7 +568,7 @@ public class AuditAsync_Tests
 				_ = await input.AsTask().AuditAsync(either);
 
 				// Assert
-				either.Received().Invoke(Arg.Is<Maybe<string>>(x => x.IsSome));
+				either.Received().Invoke(Arg.Is<Maybe<string>>(x => x == value));
 			}
 
 			[Fact]

@@ -3,26 +3,34 @@
 
 namespace Wrap;
 
-public abstract partial record class Maybe<T>
+public readonly partial struct Maybe<T>
 {
 	/// <summary>
-	/// Wrap <paramref name="value"/> as a <see cref="Maybe{T}"/> object.
+	/// Wrap <paramref name="value"/> as a <see cref="Maybe{T}"/> - see <see cref="M.Wrap{T}(T)"/>.
 	/// </summary>
-	/// <param name="value">Input value.</param>
+	/// <remarks>
+	/// <see cref="Some{T}"/> and <see cref="None"/> convert to <see cref="Maybe{T}"/> through the union constructors,
+	/// so they need no operator here.
+	/// </remarks>
+	/// <param name="value">Value to wrap.</param>
+	/// <returns><see cref="Some{T}"/> if <paramref name="value"/> is not <see langword="null"/>, otherwise <see cref="None"/>.</returns>
 	public static implicit operator Maybe<T>(T value) =>
 		M.Wrap(value);
 
 	/// <summary>
-	/// Implicitly convert a <see cref="Wrap.None"/> into a <see cref="Maybe{T}.NoneImpl"/> object.
+	/// Unwrap <paramref name="obj"/> and wrap its value as a <see cref="Maybe{T}"/> - see <see cref="M.Wrap{T}(T)"/>.
 	/// </summary>
-	/// <param name="_">None value (discarded).</param>
-	public static implicit operator Maybe<T>(None _) =>
-		None;
-
-	/// <summary>
-	/// Implicitly convert a <see cref="Monad{T}"/> into a <see cref="Maybe{T}"/> object.
-	/// </summary>
-	/// <param name="obj">Wrapped object.</param>
+	/// <param name="obj">Monad to convert.</param>
+	/// <returns>
+	/// <see cref="Some{T}"/> holding the value of <paramref name="obj"/>, or <see cref="None"/> if <paramref name="obj"/> is <see langword="null"/>.
+	/// </returns>
 	public static implicit operator Maybe<T>(Monad<T> obj) =>
-		M.Wrap(obj.Value);
+		obj switch
+		{
+			Monad<T> =>
+				M.Wrap(obj.Value),
+
+			_ =>
+				M.None
+		};
 }

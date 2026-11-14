@@ -22,7 +22,7 @@ public static partial class EnumerableExtensions
 	{
 		foreach (var item in @this)
 		{
-			foreach (var value in item)
+			if (item is Some<T>(var value))
 			{
 				f(value);
 			}
@@ -34,7 +34,7 @@ public static partial class EnumerableExtensions
 	{
 		foreach (var item in @this)
 		{
-			foreach (var value in item)
+			if (item is Some<T>(var value))
 			{
 				await f(value);
 			}
@@ -64,7 +64,7 @@ public static partial class EnumerableExtensions
 	{
 		foreach (var item in @this)
 		{
-			foreach (var value in item.Unsafe())
+			if (item is Ok<T>(var value))
 			{
 				f(value);
 			}
@@ -76,7 +76,7 @@ public static partial class EnumerableExtensions
 	{
 		foreach (var item in @this)
 		{
-			foreach (var value in item.Unsafe())
+			if (item is Ok<T>(var value))
 			{
 				await f(value);
 			}

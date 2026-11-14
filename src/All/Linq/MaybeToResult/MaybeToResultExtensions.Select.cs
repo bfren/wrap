@@ -3,7 +3,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Wrap.Extensions;
 
 namespace Wrap.Linq;
 
@@ -34,29 +33,45 @@ public static partial class MaybeToResultExtensions
 	/// <param name="f">Return map function.</param>
 	/// <returns>Result object.</returns>
 	public static Result<TReturn> Select<T, TReturn>(this Maybe<T> @this, Func<T, TReturn> f) =>
-		M.Match(@this,
-			fNone: ConvertNoneToFail<T, TReturn>,
-			fSome: x => f(x)
-		);
+		@this switch
+		{
+			Some<T> x =>
+				f(x.Value),
+
+			None =>
+				ConvertNoneToFail<T, TReturn>()
+		};
 
 	/// <inheritdoc cref="Select{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>
-	public static Task<Result<TReturn>> Select<T, TReturn>(this Maybe<T> @this, Func<T, Task<TReturn>> f) =>
-		M.MatchAsync<T, Result<TReturn>>(@this,
-			fNone: ConvertNoneToFail<T, TReturn>,
-			fSome: async x => (await f(x)).Wrap()
-		);
+	public static async Task<Result<TReturn>> Select<T, TReturn>(this Maybe<T> @this, Func<T, Task<TReturn>> f) =>
+		@this switch
+		{
+			Some<T> x =>
+				await f(x.Value),
+
+			None =>
+				ConvertNoneToFail<T, TReturn>()
+		};
 
 	/// <inheritdoc cref="Select{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>
-	public static Task<Result<TReturn>> Select<T, TReturn>(this Task<Maybe<T>> @this, Func<T, TReturn> f) =>
-		M.MatchAsync<T, Result<TReturn>>(@this,
-			fNone: ConvertNoneToFail<T, TReturn>,
-			fSome: async x => f(x).Wrap()
-		);
+	public static async Task<Result<TReturn>> Select<T, TReturn>(this Task<Maybe<T>> @this, Func<T, TReturn> f) =>
+		await @this switch
+		{
+			Some<T> x =>
+				f(x.Value),
+
+			None =>
+				ConvertNoneToFail<T, TReturn>()
+		};
 
 	/// <inheritdoc cref="Select{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>
-	public static Task<Result<TReturn>> Select<T, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<TReturn>> f) =>
-		M.MatchAsync<T, Result<TReturn>>(@this,
-			fNone: ConvertNoneToFail<T, TReturn>,
-			fSome: async x => (await f(x)).Wrap()
-		);
+	public static async Task<Result<TReturn>> Select<T, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<TReturn>> f) =>
+		await @this switch
+		{
+			Some<T> x =>
+				await f(x.Value),
+
+			None =>
+				ConvertNoneToFail<T, TReturn>()
+		};
 }

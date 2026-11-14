@@ -7,100 +7,63 @@ namespace Wrap.Caching.WrapCache_Tests;
 
 public class GetOrCreate_Tests
 {
-	[Fact]
-	public void Key_Null__Returns_None_With_KeyIsNullMsg()
+	private static IMemoryCache Miss()
 	{
-		// Arrange
 		var mc = Substitute.For<IMemoryCache>();
-		var c0 = new WrapCache<string>(mc);
-		var c1 = new WrapCache<string>(mc);
-
-		// Act
-		var r0 = c0.GetOrCreate(null!, () => Rnd.DateTime);
-		var r1 = c1.GetOrCreate(null!, () => M.Wrap(Rnd.DateTime));
-
-		// Assert
-		r0.AssertNone();
-		c0.AssertFailure("Key cannot be null.");
-		r1.AssertNone();
-		c1.AssertFailure("Key cannot be null.");
+		mc.TryGetValue(Arg.Any<string>(), out Arg.Any<object>()!)
+			.Returns(x =>
+			{
+				x[1] = null;
+				return false;
+			});
+		return mc;
 	}
 
 	[Fact]
-	public void Value_Exists__Incorrect_Type__Returns_None_With_CacheEntryIsIncorrectTypeMsg()
+	public void Key_Null__Returns_Failure_With_KeyIsNullMsg()
+	{
+		// Arrange
+		var cache = new WrapCache<string>(Substitute.For<IMemoryCache>());
+
+		// Act
+		var r0 = cache.GetOrCreate(null!, () => Rnd.DateTime);
+		var r1 = cache.GetOrCreate(null!, () => R.Wrap(Rnd.DateTime));
+
+		// Assert
+		r0.AssertFailure("Key cannot be null.");
+		r1.AssertFailure("Key cannot be null.");
+	}
+
+	[Fact]
+	public void Value_Exists__Incorrect_Type__Returns_Failure_With_IncorrectTypeMsg()
 	{
 		// Arrange
 		var key = Rnd.Str;
 		var mc = Substitute.For<IMemoryCache>();
-		var c0 = new WrapCache<string>(mc);
-		var c1 = new WrapCache<string>(mc);
-		var c2 = new WrapCache<string>(mc);
-		var c3 = new WrapCache<string>(mc);
 		mc.TryGetValue(key, out Arg.Any<object>()!)
 			.Returns(x =>
 			{
 				x[1] = Rnd.Lng;
 				return true;
 			});
-
-		// Act
-		var r0 = c0.GetOrCreate(key, () => Rnd.DateTime);
-		var r1 = c1.GetOrCreate(key, () => M.Wrap(Rnd.DateTime));
-		var r2 = c2.GetOrCreate(key, () => Rnd.DateTime, new());
-		var r3 = c3.GetOrCreate(key, () => M.Wrap(Rnd.DateTime), new());
-
-		// Assert
-		r0.AssertNone();
-		c0.AssertFailure(
-			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
-			key, nameof(Int64), nameof(DateTime)
-		);
-		r1.AssertNone();
-		c1.AssertFailure(
-			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
-			key, nameof(Int64), nameof(DateTime)
-		);
-		r2.AssertNone();
-		c2.AssertFailure(
-			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
-			key, nameof(Int64), nameof(DateTime)
-		);
-		r3.AssertNone();
-		c3.AssertFailure(
-			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
-			key, nameof(Int64), nameof(DateTime)
-		);
-	}
-
-	[Fact]
-	public void Value_Exists__Is_Null__Returns_None()
-	{
-		// Arrange
-		var key = Rnd.Str;
-		var mc = Substitute.For<IMemoryCache>();
 		var cache = new WrapCache<string>(mc);
-		mc.TryGetValue(key, out Arg.Any<object>()!)
-			.Returns(x =>
-			{
-				x[1] = null;
-				return true;
-			});
+		const string message = "Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.";
 
 		// Act
 		var r0 = cache.GetOrCreate(key, () => Rnd.DateTime);
-		var r1 = cache.GetOrCreate(key, () => M.Wrap(Rnd.DateTime));
+		var r1 = cache.GetOrCreate(key, () => R.Wrap(Rnd.DateTime));
 		var r2 = cache.GetOrCreate(key, () => Rnd.DateTime, new());
-		var r3 = cache.GetOrCreate(key, () => M.Wrap(Rnd.DateTime), new());
+		var r3 = cache.GetOrCreate(key, () => R.Wrap(Rnd.DateTime), new());
 
 		// Assert
-		r0.AssertNone();
-		r1.AssertNone();
-		r2.AssertNone();
-		r3.AssertNone();
+		r0.AssertFailure(message, key, nameof(Int64), nameof(DateTime));
+		r1.AssertFailure(message, key, nameof(Int64), nameof(DateTime));
+		r2.AssertFailure(message, key, nameof(Int64), nameof(DateTime));
+		r3.AssertFailure(message, key, nameof(Int64), nameof(DateTime));
 	}
 
 	[Fact]
-	public void Value_Exists__Correct_Type__Returns_Value()
+	public void Value_Exists__Correct_Type__Returns_Value__Does_Not_Call_Factory()
 	{
 		// Arrange
 		var key = Rnd.Str;
@@ -113,18 +76,40 @@ public class GetOrCreate_Tests
 				return true;
 			});
 		var cache = new WrapCache<string>(mc);
+		var f0 = Substitute.For<Func<long>>();
+		var f1 = Substitute.For<Func<Result<long>>>();
 
 		// Act
-		var r0 = cache.GetOrCreate(key, () => Rnd.Lng);
-		var r1 = cache.GetOrCreate(key, () => M.Wrap(Rnd.Lng));
-		var r2 = cache.GetOrCreate(key, () => Rnd.Lng, new());
-		var r3 = cache.GetOrCreate(key, () => M.Wrap(Rnd.Lng), new());
+		var r0 = cache.GetOrCreate(key, f0);
+		var r1 = cache.GetOrCreate(key, f1);
 
 		// Assert
-		r0.AssertSome(value);
-		r1.AssertSome(value);
-		r2.AssertSome(value);
-		r3.AssertSome(value);
+		r0.AssertOk(value);
+		r1.AssertOk(value);
+		_ = f0.DidNotReceive().Invoke();
+		_ = f1.DidNotReceive().Invoke();
+	}
+
+	[Fact]
+	public void Value_Exists__Is_Null__Calls_Factory__Returns_Value()
+	{
+		// Arrange
+		var key = Rnd.Str;
+		var value = Rnd.Lng;
+		var mc = Substitute.For<IMemoryCache>();
+		mc.TryGetValue(key, out Arg.Any<object>()!)
+			.Returns(x =>
+			{
+				x[1] = null;
+				return true;
+			});
+		var cache = new WrapCache<string>(mc);
+
+		// Act
+		var result = cache.GetOrCreate(key, () => value);
+
+		// Assert
+		result.AssertOk(value);
 	}
 
 	[Fact]
@@ -133,100 +118,73 @@ public class GetOrCreate_Tests
 		// Arrange
 		var key = Rnd.Str;
 		var value = Rnd.Lng;
-		var f0 = Substitute.For<Func<long>>();
-		f0.Invoke()
-			.Returns(value);
-		var f1 = Substitute.For<Func<Maybe<long>>>();
-		f1.Invoke()
-			.Returns(value);
-		var mc = Substitute.For<IMemoryCache>();
-		mc.TryGetValue(Arg.Any<string>(), out Arg.Any<object>()!)
-			.Returns(x =>
-			{
-				x[1] = null;
-				return false;
-			});
+		var mc = Miss();
 		var cache = new WrapCache<string>(mc);
 
 		// Act
-		var r0 = cache.GetOrCreate(key, f0);
-		var r1 = cache.GetOrCreate(key, f1);
-		var r2 = cache.GetOrCreate(key, f0, new());
-		var r3 = cache.GetOrCreate(key, f1, new());
+		var r0 = cache.GetOrCreate(key, () => value);
+		var r1 = cache.GetOrCreate(key, () => R.Wrap(value));
+		var r2 = cache.GetOrCreate(key, () => value, new());
+		var r3 = cache.GetOrCreate(key, () => R.Wrap(value), new());
 
 		// Assert
-		r0.AssertSome(value);
-		r1.AssertSome(value);
-		r2.AssertSome(value);
-		r3.AssertSome(value);
+		r0.AssertOk(value);
+		r1.AssertOk(value);
+		r2.AssertOk(value);
+		r3.AssertOk(value);
 		var entry = mc.Received(4).CreateEntry(key);
 		Assert.Equal(value, entry.Value);
 	}
 
 	[Fact]
-	public void Caches_Exception_In_ValueFactory__Returns_None_With_ErrorCreatingCacheValueMsg()
+	public void Factory_Returns_Failure__Returns_That_Failure__Does_Not_Store()
+	{
+		// Arrange
+		var key = Rnd.Str;
+		var failure = FailGen.Create();
+		var mc = Miss();
+		var cache = new WrapCache<string>(mc);
+
+		// Act
+		var result = cache.GetOrCreate(key, () => FailGen.Create<long>(failure));
+
+		// Assert
+		Assert.Equal(failure, result.AssertFailure());
+		_ = mc.DidNotReceive().CreateEntry(Arg.Any<object>());
+	}
+
+	[Fact]
+	public void Factory_Returns_Null__Returns_Failure__Does_Not_Store()
+	{
+		// Arrange
+		var mc = Miss();
+		var cache = new WrapCache<string>(mc);
+
+		// Act
+		var result = cache.GetOrCreate(Rnd.Str, () => (string?)null);
+
+		// Assert
+		_ = result.AssertFailure();
+		_ = mc.DidNotReceive().CreateEntry(Arg.Any<object>());
+	}
+
+	[Fact]
+	public void Factory_Throws__Returns_Failure_With_ErrorCreatingCacheValueMsg()
 	{
 		// Arrange
 		var key = Rnd.Str;
 		var ex = new Exception(Rnd.Str);
 		long f0() => throw ex;
-		Maybe<long> f1() => throw ex;
-		var mc = Substitute.For<IMemoryCache>();
-		mc.TryGetValue(Arg.Any<string>(), out Arg.Any<object>()!)
-			.Returns(x =>
-			{
-				x[1] = null;
-				return false;
-			});
-		var c0 = new WrapCache<string>(mc);
-		var c1 = new WrapCache<string>(mc);
-		var c2 = new WrapCache<string>(mc);
-		var c3 = new WrapCache<string>(mc);
+		Result<long> f1() => throw ex;
+		var cache = new WrapCache<string>(Miss());
 
 		// Act
-		var r0 = c0.GetOrCreate(key, f0);
-		var r1 = c1.GetOrCreate(key, f1);
-		var r2 = c2.GetOrCreate(key, f0, new());
-		var r3 = c3.GetOrCreate(key, f1, new());
+		var r0 = cache.GetOrCreate(key, f0);
+		var r1 = cache.GetOrCreate(key, f1);
 
 		// Assert
-		r0.AssertNone();
-		c0.AssertFailure(ex, "Error creating cache value.");
-		r1.AssertNone();
-		c1.AssertFailure(ex, "Error creating cache value.");
-		r2.AssertNone();
-		c2.AssertFailure(ex, "Error creating cache value.");
-		r3.AssertNone();
-		c3.AssertFailure(ex, "Error creating cache value.");
-	}
-
-	[Fact]
-	public void Multiple_Threads__Calls_CreateEntry__Once()
-	{
-		// Arrange
-		var key = Rnd.Str;
-		var created = false;
-		var f = Substitute.For<Func<Task<long>>>();
-		var mc = Substitute.For<IMemoryCache>();
-		mc.TryGetValue(key, out Arg.Any<object>()!)
-			.Returns(x =>
-			{
-				x[1] = Rnd.Lng;
-				return created;
-			});
-		mc.When(x => x.CreateEntry(key))
-			.Do(Callback.First(_ => created = true));
-		var cache = new WrapCache<string>(mc);
-
-		// Act
-		Parallel.ForEach(
-			source: Enumerable.Range(0, 30),
-			parallelOptions: new() { MaxDegreeOfParallelism = 10 },
-			body: _ => cache.GetOrCreate(key, f)
-		);
-
-		// Assert
-		mc.Received(1).CreateEntry(key);
+		r0.AssertFailure(ex, "Error creating cache value.");
+		r1.AssertFailure(ex, "Error creating cache value.");
 	}
 
 	[Fact]
@@ -236,9 +194,8 @@ public class GetOrCreate_Tests
 		var key = Rnd.Str;
 		var v0 = Rnd.Lng;
 		var v1 = Rnd.Lng;
-		var mc = new MemoryCache(new MemoryCacheOptions());
+		var cache = new WrapCache<string>(new MemoryCache(new MemoryCacheOptions()));
 		var ms = 200;
-		var cache = new WrapCache<string>(mc);
 
 		// Act
 		var r0 = cache.GetOrCreate(key, () => v0, new() { AbsoluteExpirationRelativeToNow = TimeSpan.FromMilliseconds(ms) });
@@ -247,56 +204,23 @@ public class GetOrCreate_Tests
 		var r2 = cache.GetOrCreate(key, () => v1);
 
 		// Assert
-		r0.AssertSome(v0);
-		r1.AssertSome(v0);
-		r2.AssertSome(v1);
+		r0.AssertOk(v0);
+		r1.AssertOk(v0);
+		r2.AssertOk(v1);
 	}
 
 	[Fact]
-	public void Other_Caller_Fails_Meanwhile__Still_Creates_Value()
+	public void Factory_Calls_GetOrCreate_For_Another_Key__Returns_Value()
 	{
 		// Arrange
-		var badKey = Rnd.Str;
-		var goodKey = Rnd.Str;
-		var value = Rnd.DateTime;
-		var mc = Substitute.For<IMemoryCache>();
-		WrapCache<string> cache = null!;
-		mc.TryGetValue(badKey, out Arg.Any<object>()!)
-			.Returns(x =>
-			{
-				x[1] = Rnd.Lng;
-				return true;
-			});
-		mc.TryGetValue(goodKey, out Arg.Any<object>()!)
-			.Returns(x =>
-			{
-				// simulate another request failing between this request's lookup and its failure check
-				_ = cache.GetValue<DateTime>(badKey);
-				return false;
-			});
-		mc.CreateEntry(goodKey).Returns(Substitute.For<ICacheEntry>());
-		cache = new WrapCache<string>(mc);
-
-		// Act
-		var result = cache.GetOrCreate(goodKey, () => value);
-
-		// Assert
-		result.AssertSome(value);
-	}
-
-	[Fact]
-	public async Task Factory_Calls_GetOrCreate_For_Key_Sharing_Lock__Does_Not_Hang()
-	{
-		// Arrange - int keys hash to themselves, so 1 and 65 use the same one of the 64 locks
 		var cache = new WrapCache<int>(new MemoryCache(new MemoryCacheOptions()));
 		var inner = Rnd.Int;
-		var ct = TestContext.Current.CancellationToken;
 
-		// Act - WaitAsync throws TimeoutException if the call hangs
-		var result = await Task.Run(() => cache.GetOrCreate(1, () => cache.GetOrCreate(65, () => inner)), ct)
-			.WaitAsync(TimeSpan.FromSeconds(5), ct);
+		// Act
+		var result = cache.GetOrCreate(1, () => cache.GetOrCreate(2, () => inner));
 
 		// Assert
-		result.AssertSome(inner);
+		result.AssertOk(inner);
+		cache.GetValue<int>(2).AssertOk(inner);
 	}
 }

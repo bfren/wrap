@@ -8,15 +8,13 @@ namespace Wrap;
 public static partial class M
 {
 	/// <summary>
-	/// Attempt to parse the specified <paramref name="input"/>.
+	/// Attempt to parse <paramref name="input"/>.
 	/// </summary>
 	/// <remarks>
-	/// <para>
-	/// If the parse succeeds, the value is returned - otherwise <see cref="Wrap.None"/>.
-	/// </para>
+	/// Culture-sensitive values (numbers, dates and times) are parsed using <see cref="F.DefaultCulture"/>.
 	/// </remarks>
 	/// <param name="input">Input value.</param>
-	/// <returns>The parsed value on success - otherwise <see cref="Wrap.None"/>.</returns>
+	/// <returns>The parsed value on success, otherwise <see cref="Wrap.None"/>.</returns>
 	public static Maybe<bool> ParseBool(string? input) =>
 		Parse<bool>(input, bool.TryParse);
 

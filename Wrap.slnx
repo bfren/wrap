@@ -1,10 +1,28 @@
 <Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
   <Folder Name="/apps/">
     <File Path="apps/.editorconfig" />
     <File Path="apps/Directory.Build.props" />
-    <Project Path="apps/AppMvc/AppMvc.csproj" Id="c6311ce6-256f-4930-abc1-f5065b03d288">
-      <Build Solution="Release|*" Project="false" />
+    <Project Path="apps/AppBenchmarkv1/AppBenchmarkv1.csproj" Id="f9a5531c-f4b6-4987-96c0-fd4a1a7f0fa2">
+      <Build Solution="Release|Any CPU" Project="false" />
     </Project>
+    <Project Path="apps/AppBenchmarkv2/AppBenchmarkv2.csproj" Id="a5e6ad72-3276-4074-9be1-171feebb58f4">
+      <Build Solution="Release|Any CPU" Project="false" />
+    </Project>
+    <Project Path="apps/AppMvc/AppMvc.csproj" Id="c6311ce6-256f-4930-abc1-f5065b03d288">
+      <Build Solution="Release|Any CPU" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/apps/Benchmarks/">
+    <File Path="apps/Benchmarks/EnumerableBenchmarks.cs" />
+    <File Path="apps/Benchmarks/MaybeBenchmarks.cs" />
+    <File Path="apps/Benchmarks/Program.cs" />
+    <File Path="apps/Benchmarks/README.md" />
+    <File Path="apps/Benchmarks/ResultBenchmarks.cs" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
@@ -30,6 +48,7 @@
     <Project Path="src/All/All.csproj" />
     <Project Path="src/Caching/Caching.csproj" />
     <Project Path="src/Common/Common.csproj" />
+    <Project Path="src/Either.Testing/Either.Testing.csproj" />
     <Project Path="src/Either/Either.csproj" />
     <Project Path="src/Id.Dapper/Id.Dapper.csproj" />
     <Project Path="src/Id.Testing/Id.Testing.csproj" />
@@ -43,28 +62,31 @@
     <File Path="tests/.editorconfig" />
     <File Path="tests/Directory.Build.props" />
     <Project Path="tests/Tests.All.Mvc/Tests.All.Mvc.csproj">
-      <Build Solution="Release|*" Project="false" />
+      <Build Solution="Release|Any CPU" Project="false" />
     </Project>
     <Project Path="tests/Tests.All/Tests.All.csproj">
-      <Build Solution="Release|*" Project="false" />
+      <Build Solution="Release|Any CPU" Project="false" />
     </Project>
     <Project Path="tests/Tests.Caching/Tests.Caching.csproj">
-      <Build Solution="Release|*" Project="false" />
+      <Build Solution="Release|Any CPU" Project="false" />
     </Project>
     <Project Path="tests/Tests.Common/Tests.Common.csproj">
-      <Build Solution="Release|*" Project="false" />
+      <Build Solution="Release|Any CPU" Project="false" />
+    </Project>
+    <Project Path="tests/Tests.Either/Tests.Either.csproj">
+      <Build Solution="Release|Any CPU" Project="false" />
     </Project>
     <Project Path="tests/Tests.Id.Dapper/Tests.Id.Dapper.csproj">
-      <Build Solution="Release|*" Project="false" />
+      <Build Solution="Release|Any CPU" Project="false" />
     </Project>
     <Project Path="tests/Tests.Id/Tests.Id.csproj">
-      <Build Solution="Release|*" Project="false" />
+      <Build Solution="Release|Any CPU" Project="false" />
     </Project>
     <Project Path="tests/Tests.Maybe/Tests.Maybe.csproj">
-      <Build Solution="Release|*" Project="false" />
+      <Build Solution="Release|Any CPU" Project="false" />
     </Project>
     <Project Path="tests/Tests.Result/Tests.Result.csproj">
-      <Build Solution="Release|*" Project="false" />
+      <Build Solution="Release|Any CPU" Project="false" />
     </Project>
   </Folder>
 </Solution>

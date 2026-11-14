@@ -12,7 +12,7 @@ public class BindAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<string>(new(value));
+			var input = FailGen.Create<string>(R.Fail(value));
 			var f = Substitute.For<Func<string, Result<int>>>();
 
 			// Act
@@ -90,7 +90,7 @@ public class BindAsync_Tests
 			var failValue = Rnd.Str;
 			var input = R.Wrap(Rnd.Str);
 			var f = Substitute.For<Func<string, Result<int>>>();
-			f.Invoke(Arg.Any<string>()).Returns(FailGen.Create<int>(new(failValue)));
+			f.Invoke(Arg.Any<string>()).Returns(FailGen.Create<int>(R.Fail(failValue)));
 
 			// Act
 			var r0 = await input.BindAsync(async x => f(x));

@@ -8,16 +8,22 @@ namespace Wrap;
 public static partial class M
 {
 	/// <summary>
-	/// Create a new <see cref="Wrap.None"/> value.
+	/// Gets a <see cref="Wrap.None"/> value, which converts to any <see cref="Maybe{T}"/>.
 	/// </summary>
-	/// <returns>None value.</returns>
-	public static None None { get; }
+	public static None None =>
+		new();
 
 	/// <summary>
-	/// Create a new <see cref="Wrap.None"/> value wrapped as a Task.
+	/// Create a completed task whose result is <see cref="Wrap.None"/>.
 	/// </summary>
 	/// <typeparam name="T">Some value type.</typeparam>
-	/// <returns>None value wrapped as a Task.</returns>
+	/// <returns>Completed task with a <see cref="Wrap.None"/> result.</returns>
 	public static Task<Maybe<T>> NoneAsTask<T>() =>
-		Maybe<T>.NoneAsTask;
+		NoneTask<T>.Value;
+
+	private static class NoneTask<T>
+	{
+		public static readonly Task<Maybe<T>> Value =
+			Task.FromResult(default(Maybe<T>));
+	}
 }

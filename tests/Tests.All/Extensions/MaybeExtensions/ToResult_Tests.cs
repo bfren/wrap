@@ -1,49 +1,10 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using Wrap.Exceptions;
-
 namespace Wrap.Extensions.MaybeExtensions_Tests;
 
 public class ToResult_Tests
 {
-	public class Invalid
-	{
-		public class Null_Maybe
-		{
-			[Fact]
-			public void Returns_Failure_With_NullMaybeException()
-			{
-				// Arrange
-				Maybe<int> maybe = null!;
-
-				// Act
-				var result = maybe.ToResult(Rnd.Str, Rnd.Str);
-
-				// Assert
-				var f = result.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Int32));
-				_ = Assert.IsType<NullMaybeException>(f.Exception);
-			}
-		}
-
-		public class Unknown_Maybe
-		{
-			[Fact]
-			public void Returns_Failure_With_InvalidMaybeTypeException()
-			{
-				// Arrange
-				var maybe = new InvalidMaybe<Guid>();
-
-				// Act
-				var result = maybe.ToResult(Rnd.Str, Rnd.Str);
-
-				// Assert
-				var f = result.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Guid));
-				_ = Assert.IsType<InvalidMaybeTypeException>(f.Exception);
-			}
-		}
-	}
-
 	public class None
 	{
 		public class With_Class_And_Function

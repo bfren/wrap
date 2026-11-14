@@ -14,7 +14,7 @@ public class MatchAsync_Tests
 			{
 				// Arrange
 				var input = FailGen.Create<int>();
-				var fFail = Substitute.For<Func<FailureValue, Task>>();
+				var fFail = Substitute.For<Func<Failure, Task>>();
 				var fOk = Substitute.For<Func<int, Task>>();
 
 				// Act
@@ -22,7 +22,7 @@ public class MatchAsync_Tests
 				await input.AsTask().MatchAsync(fFail, fOk);
 
 				// Assert
-				await fFail.ReceivedWithAnyArgs(2).Invoke(Arg.Any<FailureValue>());
+				await fFail.ReceivedWithAnyArgs(2).Invoke(Arg.Any<Failure>());
 			}
 
 			[Fact]
@@ -30,7 +30,7 @@ public class MatchAsync_Tests
 			{
 				// Arrange
 				var input = FailGen.Create<int>();
-				var fFail = Substitute.For<Func<FailureValue, Task>>();
+				var fFail = Substitute.For<Func<Failure, Task>>();
 				var fOk = Substitute.For<Func<int, Task>>();
 
 				// Act
@@ -50,7 +50,7 @@ public class MatchAsync_Tests
 				// Arrange
 				var value = Rnd.Int;
 				var input = R.Wrap(value);
-				var fFail = Substitute.For<Func<FailureValue, Task>>();
+				var fFail = Substitute.For<Func<Failure, Task>>();
 				var fOk = Substitute.For<Func<int, Task>>();
 
 				// Act
@@ -66,7 +66,7 @@ public class MatchAsync_Tests
 			{
 				// Arrange
 				var input = R.Wrap(Rnd.Int);
-				var fFail = Substitute.For<Func<FailureValue, Task>>();
+				var fFail = Substitute.For<Func<Failure, Task>>();
 				var fOk = Substitute.For<Func<int, Task>>();
 
 				// Act
@@ -74,7 +74,7 @@ public class MatchAsync_Tests
 				await input.AsTask().MatchAsync(fFail, fOk);
 
 				// Assert
-				await fFail.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
+				await fFail.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Failure>());
 			}
 		}
 	}

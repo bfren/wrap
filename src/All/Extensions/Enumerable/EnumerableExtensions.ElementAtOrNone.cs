@@ -16,12 +16,5 @@ public static partial class EnumerableExtensions
 	/// <param name="index">Index of value to return.</param>
 	/// <returns>Value of the element at position <paramref name="index"/> of <paramref name="this"/>, or <see cref="None"/>.</returns>
 	public static Maybe<T> ElementAtOrNone<T>(this IEnumerable<T> @this, int index) =>
-		@this.Select(M.Wrap).ElementAtOrDefault(index) switch
-		{
-			Maybe<T> x =>
-				x,
-
-			_ =>
-				M.None
-		};
+		@this.Select(M.Wrap).ElementAtOrDefault(index);
 }

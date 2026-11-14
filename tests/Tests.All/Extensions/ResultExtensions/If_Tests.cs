@@ -21,7 +21,7 @@ public class If_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<string>(new(value));
+			var input = FailGen.Create<string>(R.Fail(value));
 			var (fTest, fTrue, fFalse) = Setup(true);
 
 			// Act
@@ -128,7 +128,7 @@ public class If_Tests
 			{
 				// Arrange
 				var value = Rnd.Str;
-				var input = FailGen.Create<int>(new(value));
+				var input = FailGen.Create<int>(R.Fail(value));
 				var fTest = Substitute.For<Func<int, bool>>();
 				var fThen = Substitute.For<Func<int, Result<int>>>();
 

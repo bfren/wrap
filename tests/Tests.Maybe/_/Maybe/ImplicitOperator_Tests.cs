@@ -52,4 +52,34 @@ public class ImplicitOperator_Tests
 			result.AssertNone();
 		}
 	}
+
+	public class With_Monad
+	{
+		[Fact]
+		public void Returns_Some_With_Value()
+		{
+			// Arrange
+			var value = Rnd.Int;
+			var monad = Monad<int>.Wrap(value);
+
+			// Act
+			Maybe<int> result = monad;
+
+			// Assert
+			result.AssertSome(value);
+		}
+
+		[Fact]
+		public void Null_Returns_None()
+		{
+			// Arrange
+			var monad = (Monad<int>)null!;
+
+			// Act
+			Maybe<int> result = monad;
+
+			// Assert
+			result.AssertNone();
+		}
+	}
 }

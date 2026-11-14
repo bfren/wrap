@@ -20,7 +20,7 @@ public static partial class MaybeExtensions
 	/// <paramref name="this"/> is <see cref="None"/>.
 	/// </para>
 	/// </remarks>
-	/// <seealso cref="UnwrapSingle{T, TSingle}(Maybe{T}, Func{TSingle})"/>
+	/// <seealso cref="UnsafeExtensions.UnwrapSingle{TEither, TLeft, TRight, TSingle}(Unsafe{TEither, TLeft, TRight}, Func{TLeft, TSingle})"/>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="fNone">Function to generate a value if <paramref name="this"/> is <see cref="None"/>.</param>

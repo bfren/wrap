@@ -10,18 +10,18 @@ public static partial class R
 	#region Explicit Result<T>
 
 	/// <summary>
-	/// Create a failure result from a pre-existing <see cref="FailureValue"/>.
+	/// Return an existing <see cref="Failure"/> as a failure result.
 	/// </summary>
-	/// <typeparam name="T">Ok result type.</typeparam>
-	/// <param name="value">FailureValue.</param>
+	/// <typeparam name="T">Ok value type.</typeparam>
+	/// <param name="value">Failure.</param>
 	/// <returns>Failure result.</returns>
-	public static Result<T> Fail<T>(FailureValue value) =>
-		new Failure(value);
+	public static Result<T> Fail<T>(Failure value) =>
+		value;
 
 	/// <summary>
-	/// Create a failure result from a simple failure message.
+	/// Create a failure result from a message, with the <see cref="Logging.LogLevel.Warning"/> log level.
 	/// </summary>
-	/// <typeparam name="T">Ok result type.</typeparam>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
 	/// <returns>Failure result.</returns>
@@ -29,9 +29,9 @@ public static partial class R
 		new Failure(message, args);
 
 	/// <summary>
-	/// Create a failure result from an exception type.
+	/// Create a failure result from a new exception of type <typeparamref name="TException"/>, with the <see cref="Logging.LogLevel.Error"/> log level.
 	/// </summary>
-	/// <typeparam name="T">Ok result type.</typeparam>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <typeparam name="TException">Exception type.</typeparam>
 	/// <returns>Failure result.</returns>
 	public static Result<T> Fail<T, TException>()
@@ -39,9 +39,9 @@ public static partial class R
 		Fail<T>(new TException());
 
 	/// <summary>
-	/// Create a failure result from an exception.
+	/// Create a failure result from an exception, using its message and the <see cref="Logging.LogLevel.Error"/> log level.
 	/// </summary>
-	/// <typeparam name="T">Ok result type.</typeparam>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="ex">Exception.</param>
 	/// <returns>Failure result.</returns>
 	public static Result<T> Fail<T>(Exception ex) =>
@@ -52,36 +52,37 @@ public static partial class R
 	#region Implicit Result<T>
 
 	/// <summary>
-	/// Start fluently creating a <see cref="Failure"/> from a pre-existing failure message.
+	/// Return an existing <see cref="Failure"/> unchanged.
 	/// </summary>
-	/// <param name="value">FailureValue.</param>
-	/// <returns>FluentFail.</returns>
-	public static Failure Fail(FailureValue value) =>
-		new(value);
+	/// <param name="value">Failure.</param>
+	/// <returns><paramref name="value"/>, which converts to any <see cref="Result{T}"/>.</returns>
+	public static Failure Fail(Failure value) =>
+		value;
 
 	/// <summary>
-	/// Start fluently creating a <see cref="Failure"/> from a simple failure message.
+	/// Create a <see cref="Failure"/> from a message, with the <see cref="Logging.LogLevel.Warning"/> log level.
 	/// </summary>
 	/// <param name="message">Failure message.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
-	/// <returns>FluentFail.</returns>
+	/// <returns>Failure, which converts to any <see cref="Result{T}"/>.</returns>
 	public static Failure Fail(string message, params object?[] args) =>
 		new(message, args);
 
 	/// <summary>
-	/// Start fluently creating a <see cref="Failure"/> from an exception type.
+	/// Create a <see cref="Failure"/> from a new exception of type <typeparamref name="TException"/>, with the <see cref="Logging.LogLevel.Error"/> log level.
 	/// </summary>
 	/// <typeparam name="TException">Exception type.</typeparam>
-	/// <returns>FluentFail.</returns>
+	/// <returns>Failure, which converts to any <see cref="Result{T}"/>.</returns>
 	public static Failure Fail<TException>()
 		where TException : Exception, new() =>
 		Fail(new TException());
 
 	/// <summary>
-	/// Start fluently creating a <see cref="Failure"/> from an exception.
+	/// Create a <see cref="Failure"/> from an exception, using its message and the <see cref="Logging.LogLevel.Error"/> log level.
 	/// </summary>
+	/// <typeparam name="TException">Exception type.</typeparam>
 	/// <param name="ex">Exception.</param>
-	/// <returns>FluentFail.</returns>
+	/// <returns>Failure, which converts to any <see cref="Result{T}"/>.</returns>
 	public static Failure Fail<TException>(TException ex)
 		where TException : Exception =>
 		new(ex);

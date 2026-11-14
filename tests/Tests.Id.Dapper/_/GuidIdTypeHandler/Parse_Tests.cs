@@ -21,5 +21,19 @@ public class Parse_Tests : Abstracts.Parse_Tests<Parse_Tests.TestGuidId, Guid, G
 		Test01(input, Guid.Parse);
 #pragma warning restore xUnit1026 // Theory methods should use all of their parameters
 
+	[Fact]
+	public void Test02_Sixteen_Bytes__Returns_Id()
+	{
+		// Arrange
+		var handler = new GuidIdTypeHandler<TestGuidId>();
+		var value = Rnd.Guid;
+
+		// Act
+		var result = handler.Parse(value.ToByteArray());
+
+		// Assert
+		Assert.Equal(value, result.Value);
+	}
+
 	public sealed record class TestGuidId : GuidId<TestGuidId>;
 }

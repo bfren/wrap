@@ -4,15 +4,15 @@
 namespace Wrap.Testing;
 
 /// <summary>
-/// Generate strongly-type None values.
+/// Generate <see cref="None"/> values typed as <see cref="Maybe{T}"/>.
 /// </summary>
 public static class NoneGenerator
 {
 	/// <summary>
-	/// Returns a <see cref="None"/> value .
+	/// Create a <see cref="None"/> value as a <see cref="Maybe{T}"/>.
 	/// </summary>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <returns>A <see cref="None"/> object implicitly returned as <see cref="Maybe{T}"/>.</returns>
 	public static Maybe<T> Create<T>() =>
-		M.None;
+		new None();
 }

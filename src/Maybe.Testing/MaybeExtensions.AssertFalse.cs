@@ -6,7 +6,7 @@ namespace Wrap.Testing;
 public static partial class MaybeExtensions
 {
 	/// <summary>
-	/// Assert that <paramref name="this"/> is <see cref="Some{T}"/> and the value is false.
+	/// Assert that <paramref name="this"/> is <see cref="Some{T}"/> and the value is <see langword="false"/>.
 	/// </summary>
 	/// <param name="this">Maybe object.</param>
 	public static void AssertFalse(this Maybe<bool> @this) =>

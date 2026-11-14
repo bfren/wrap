@@ -12,7 +12,7 @@ namespace Wrap;
 /// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 /// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
 public readonly record struct Unsafe<TEither, TLeft, TRight> : IMonad<TEither>
-	where TEither : IEither<TEither, TLeft, TRight>
+	where TEither : IEither<TLeft, TRight>
 {
 	/// <summary>
 	/// Wrapped <typeparamref name="TEither"/> object.
@@ -43,9 +43,10 @@ public readonly record struct Unsafe<TEither, TLeft, TRight> : IMonad<TEither>
 	/// <returns>Enumerator containing one value if this is <typeparamref name="TRight"/>.</returns>
 	public IEnumerator<TRight> GetEnumerator()
 	{
-		if (Value is IRight<TLeft, TRight> right)
+		// keep this a yield iterator: the JIT can then stack-allocate it in an inlined foreach (0 B), which a collection prevents
+		if (Value.TryGetRight(out var value))
 		{
-			yield return right.Value;
+			yield return value;
 		}
 	}
 }

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Benchmarks the local 2.x code (referenced by apps/Directory.Build.props). The code is shared with AppBenchmarkv1 so results compare like for like. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" />
+    <Compile Include="..\Benchmarks\**\*.cs" />
+  </ItemGroup>
+</Project>

@@ -15,7 +15,7 @@ namespace Wrap.Json;
 public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 {
 	/// <summary>
-	/// Pass JSON null to <see cref="Read"/> so it becomes <see cref="None"/> instead of a null reference.
+	/// Pass JSON null to <see cref="Read"/> so it becomes <see cref="None"/>.
 	/// </summary>
 	public override bool HandleNull =>
 		true;
@@ -26,7 +26,8 @@ public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 	/// <param name="reader">Utf8JsonReader.</param>
 	/// <param name="typeToConvert">Maybe with value type <typeparamref name="T"/>.</param>
 	/// <param name="options">JsonSerializerOptions.</param>
-	public override Maybe<T>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+	/// <exception cref="JsonException">The JSON is not a valid <typeparamref name="T"/>.</exception>
+	public override Maybe<T> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 	{
 		// JSON null is None
 		if (reader.TokenType == JsonTokenType.Null)
@@ -48,13 +49,6 @@ public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 		}
 		catch (Exception e)
 		{
-			// When TValue is a value type we can create a blank object
-			if (typeof(T).IsValueType && default(T) is T v)
-			{
-				reader.Skip(); // tell the reader we didn't read anything successfully
-				return M.Wrap(v);
-			}
-
 			// Handle null input
 			if (e.Message.StartsWith("The input does not contain any JSON tokens.", StringComparison.OrdinalIgnoreCase))
 			{
@@ -73,9 +67,21 @@ public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 	/// <param name="writer">Utf8JsonWriter.</param>
 	/// <param name="value">Maybe object to be converted.</param>
 	/// <param name="options">JsonSerializerOptions.</param>
-	public override void Write(Utf8JsonWriter writer, Maybe<T> value, JsonSerializerOptions options) =>
-		M.Match(value ?? M.None, // HandleNull is true, so a null Maybe property arrives here too
-			fNone: writer.WriteNullValue,
-			fSome: x => JsonSerializer.Serialize(writer, x, options)
-		);
+	public override void Write(Utf8JsonWriter writer, Maybe<T> value, JsonSerializerOptions options)
+	{
+		switch (value)
+		{
+			case Some<T> x:
+				JsonSerializer.Serialize(writer, x.Value, options);
+				break;
+
+			case None:
+				writer.WriteNullValue();
+				break;
+
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
+			default:
+				break;
+		}
+	}
 }

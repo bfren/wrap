@@ -3,7 +3,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Wrap.Exceptions;
 
 namespace Wrap;
 
@@ -15,100 +14,93 @@ public static partial class E
 	/// Run an action based on the value of <paramref name="either"/>.
 	/// </summary>
 	/// <remarks>
-	/// <para>
-	/// It would be possible to achieve the same thing using switch statements, but doing that would add the
-	/// potential for not handling both cases (<see cref="Right{TLeft, TRight}"/> and <see cref="Left{TLeft, TRight}"/>).
-	/// </para>
-	/// <para>
-	/// This way there has to be a function to handle both cases.
-	/// </para>
+	/// This is shorthand for a <c>switch</c> over the <see cref="Left{T}"/> and <see cref="Right{T}"/> cases
+	/// that passes the unwrapped value to <paramref name="fLeft"/> or <paramref name="fRight"/>. Both approaches
+	/// make you handle both cases: here through the required arguments, and in a <c>switch</c> through the
+	/// compiler's exhaustiveness check.
 	/// </remarks>
-	/// <typeparam name="TEither">Either implementation type.</typeparam>
 	/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 	/// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
-	/// <param name="either">Result object.</param>
-	/// <param name="fLeft">Function to run when <paramref name="either"/> is <see cref="Left{TLeft, TRight}"/>.</param>
-	/// <param name="fRight">Function to run when <paramref name="either"/> is <see cref="Right{TLeft, TRight}"/>.</param>
-	/// <exception cref="InvalidEitherTypeException"></exception>
-	/// <exception cref="NullEitherException"></exception>
-	public static void Match<TEither, TLeft, TRight>(TEither either, Action<TLeft> fLeft, Action<TRight> fRight)
-		where TEither : IEither<TEither, TLeft, TRight>
+	/// <param name="either">Either object.</param>
+	/// <param name="fLeft">Action to run with the value when <paramref name="either"/> is a <see cref="Left{T}"/>.</param>
+	/// <param name="fRight">Action to run with the value when <paramref name="either"/> is a <see cref="Right{T}"/>.</param>
+	public static void Match<TLeft, TRight>(Either<TLeft, TRight> either, Action<TLeft> fLeft, Action<TRight> fRight)
 	{
 		switch (either)
 		{
-			case ILeft<TLeft, TRight> l:
+			case Left<TLeft> l:
 				fLeft(l.Value);
 				return;
 
-			case IRight<TLeft, TRight> r:
+			case Right<TRight> r:
 				fRight(r.Value);
 				return;
 
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
 			default:
-				throw Invalid(either);
+				break;
 		}
 	}
 
-	/// <inheritdoc cref="Match{TEither, TLeft, TRight}(TEither, Action{TLeft}, Action{TRight})"/>
-	public static async Task MatchAsync<TEither, TLeft, TRight>(TEither either, Action<TLeft> fLeft, Func<TRight, Task> fRight)
-		where TEither : IEither<TEither, TLeft, TRight>
+	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
+	public static async Task MatchAsync<TLeft, TRight>(Either<TLeft, TRight> either, Action<TLeft> fLeft, Func<TRight, Task> fRight)
 	{
 		switch (either)
 		{
-			case ILeft<TLeft, TRight> l:
+			case Left<TLeft> l:
 				fLeft(l.Value);
 				return;
 
-			case IRight<TLeft, TRight> r:
+			case Right<TRight> r:
 				await fRight(r.Value);
 				return;
 
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
 			default:
-				throw Invalid(either);
+				break;
 		}
 	}
 
-	/// <inheritdoc cref="Match{TEither, TLeft, TRight}(TEither, Action{TLeft}, Action{TRight})"/>
-	public static async Task MatchAsync<TEither, TLeft, TRight>(TEither either, Func<TLeft, Task> fLeft, Action<TRight> fRight)
-		where TEither : IEither<TEither, TLeft, TRight>
+	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
+	public static async Task MatchAsync<TLeft, TRight>(Either<TLeft, TRight> either, Func<TLeft, Task> fLeft, Action<TRight> fRight)
 	{
 		switch (either)
 		{
-			case ILeft<TLeft, TRight> l:
+			case Left<TLeft> l:
 				await fLeft(l.Value);
 				return;
 
-			case IRight<TLeft, TRight> r:
+			case Right<TRight> r:
 				fRight(r.Value);
 				return;
 
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
 			default:
-				throw Invalid(either);
+				break;
 		}
 	}
 
-	/// <inheritdoc cref="Match{TEither, TLeft, TRight}(TEither, Action{TLeft}, Action{TRight})"/>
-	public static async Task MatchAsync<TEither, TLeft, TRight>(TEither either, Func<TLeft, Task> fLeft, Func<TRight, Task> fRight)
-		where TEither : IEither<TEither, TLeft, TRight>
+	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
+	public static async Task MatchAsync<TLeft, TRight>(Either<TLeft, TRight> either, Func<TLeft, Task> fLeft, Func<TRight, Task> fRight)
 	{
 		switch (either)
 		{
-			case ILeft<TLeft, TRight> l:
+			case Left<TLeft> l:
 				await fLeft(l.Value);
 				return;
 
-			case IRight<TLeft, TRight> r:
+			case Right<TRight> r:
 				await fRight(r.Value);
 				return;
 
+			// IDE0010 does not treat the union cases as complete, so it needs this arm
 			default:
-				throw Invalid(either);
+				break;
 		}
 	}
 
-	/// <inheritdoc cref="Match{TEither, TLeft, TRight}(TEither, Action{TLeft}, Action{TRight})"/>
-	public static async Task MatchAsync<TEither, TLeft, TRight>(Task<TEither> either, Func<TLeft, Task> fLeft, Func<TRight, Task> fRight)
-		where TEither : IEither<TEither, TLeft, TRight> =>
+	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
+	public static async Task MatchAsync<TLeft, TRight>(Task<Either<TLeft, TRight>> either, Func<TLeft, Task> fLeft, Func<TRight, Task> fRight) =>
 		await MatchAsync(await either, fLeft, fRight);
 
 	#endregion
@@ -119,115 +111,76 @@ public static partial class E
 	/// Run a function based on the value of <paramref name="either"/> and return its value.
 	/// </summary>
 	/// <remarks>
-	/// <para>
-	/// It would be possible to achieve the same thing using switch statements, but doing that would add the
-	/// potential for not handling both cases (<see cref="Right{TLeft, TRight}"/> and <see cref="Left{TLeft, TRight}"/>).
-	/// </para>
-	/// <para>
-	/// This way there has to be a function to handle both cases.
-	/// </para>
+	/// This is shorthand for a <c>switch</c> over the <see cref="Left{T}"/> and <see cref="Right{T}"/> cases
+	/// that passes the unwrapped value to <paramref name="fLeft"/> or <paramref name="fRight"/>. Both approaches
+	/// make you handle both cases: here through the required arguments, and in a <c>switch</c> through the
+	/// compiler's exhaustiveness check.
 	/// </remarks>
-	/// <typeparam name="TEither">Either implementation type.</typeparam>
 	/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 	/// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
-	/// <param name="either">Result object.</param>
-	/// <param name="fLeft">Function to run when <paramref name="either"/> is <see cref="Left{TLeft, TRight}"/>.</param>
-	/// <param name="fRight">Function to run when <paramref name="either"/> is <see cref="Right{TLeft, TRight}"/>.</param>
-	/// <returns>Value generated by either <paramref name="fLeft"/> or <paramref name="fRight"/>.</returns>
-	/// <exception cref="InvalidEitherTypeException"></exception>
-	/// <exception cref="NullEitherException"></exception>
-	public static TReturn Match<TEither, TLeft, TRight, TReturn>(TEither either, Func<TLeft, TReturn> fLeft, Func<TRight, TReturn> fRight)
-		where TEither : IEither<TEither, TLeft, TRight> =>
+	/// <param name="either">Either object.</param>
+	/// <param name="fLeft">Function to run with the value when <paramref name="either"/> is a <see cref="Left{T}"/>.</param>
+	/// <param name="fRight">Function to run with the value when <paramref name="either"/> is a <see cref="Right{T}"/>.</param>
+	/// <returns>Value returned by <paramref name="fLeft"/> or <paramref name="fRight"/>.</returns>
+	public static TReturn Match<TLeft, TRight, TReturn>(Either<TLeft, TRight> either, Func<TLeft, TReturn> fLeft, Func<TRight, TReturn> fRight) =>
 		either switch
 		{
-			ILeft<TLeft, TRight> l =>
+			Left<TLeft> l =>
 				fLeft(l.Value),
 
-			IRight<TLeft, TRight> r =>
-				fRight(r.Value),
-
-			_ =>
-				throw Invalid(either)
+			Right<TRight> r =>
+				fRight(r.Value)
 		};
 
-	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(TEither either, Func<TLeft, TReturn> fLeft, Func<TRight, Task<TReturn>> fRight)
-		where TEither : IEither<TEither, TLeft, TRight> =>
+	/// <inheritdoc cref="Match{TLeft, TRight, TReturn}(Either{TLeft, TRight}, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<TLeft, TRight, TReturn>(Either<TLeft, TRight> either, Func<TLeft, TReturn> fLeft, Func<TRight, Task<TReturn>> fRight) =>
 		either switch
 		{
-			ILeft<TLeft, TRight> l =>
+			Left<TLeft> l =>
 				fLeft(l.Value),
 
-			IRight<TLeft, TRight> r =>
-				await fRight(r.Value),
-
-			_ =>
-				throw Invalid(either)
+			Right<TRight> r =>
+				await fRight(r.Value)
 		};
 
-	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(TEither either, Func<TLeft, Task<TReturn>> fLeft, Func<TRight, TReturn> fRight)
-		where TEither : IEither<TEither, TLeft, TRight> =>
+	/// <inheritdoc cref="Match{TLeft, TRight, TReturn}(Either{TLeft, TRight}, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<TLeft, TRight, TReturn>(Either<TLeft, TRight> either, Func<TLeft, Task<TReturn>> fLeft, Func<TRight, TReturn> fRight) =>
 		either switch
 		{
-			ILeft<TLeft, TRight> l =>
+			Left<TLeft> l =>
 				await fLeft(l.Value),
 
-			IRight<TLeft, TRight> r =>
-				fRight(r.Value),
-
-			_ =>
-				throw Invalid(either)
+			Right<TRight> r =>
+				fRight(r.Value)
 		};
 
-	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(TEither either, Func<TLeft, Task<TReturn>> fLeft, Func<TRight, Task<TReturn>> fRight)
-		where TEither : IEither<TEither, TLeft, TRight> =>
+	/// <inheritdoc cref="Match{TLeft, TRight, TReturn}(Either{TLeft, TRight}, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<TLeft, TRight, TReturn>(Either<TLeft, TRight> either, Func<TLeft, Task<TReturn>> fLeft, Func<TRight, Task<TReturn>> fRight) =>
 		either switch
 		{
-			ILeft<TLeft, TRight> l =>
+			Left<TLeft> l =>
 				await fLeft(l.Value),
 
-			IRight<TLeft, TRight> r =>
-				await fRight(r.Value),
-
-			_ =>
-				throw Invalid(either)
+			Right<TRight> r =>
+				await fRight(r.Value)
 		};
 
-	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(Task<TEither> either, Func<TLeft, TReturn> fLeft, Func<TRight, TReturn> fRight)
-		where TEither : IEither<TEither, TLeft, TRight> =>
+	/// <inheritdoc cref="Match{TLeft, TRight, TReturn}(Either{TLeft, TRight}, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<TLeft, TRight, TReturn>(Task<Either<TLeft, TRight>> either, Func<TLeft, TReturn> fLeft, Func<TRight, TReturn> fRight) =>
 		Match(await either, fLeft, fRight);
 
-	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(Task<TEither> either, Func<TLeft, TReturn> fLeft, Func<TRight, Task<TReturn>> fRight)
-		where TEither : IEither<TEither, TLeft, TRight> =>
+	/// <inheritdoc cref="Match{TLeft, TRight, TReturn}(Either{TLeft, TRight}, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<TLeft, TRight, TReturn>(Task<Either<TLeft, TRight>> either, Func<TLeft, TReturn> fLeft, Func<TRight, Task<TReturn>> fRight) =>
 		await MatchAsync(await either, fLeft, fRight);
 
-	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(Task<TEither> either, Func<TLeft, Task<TReturn>> fLeft, Func<TRight, TReturn> fRight)
-		where TEither : IEither<TEither, TLeft, TRight> =>
+	/// <inheritdoc cref="Match{TLeft, TRight, TReturn}(Either{TLeft, TRight}, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<TLeft, TRight, TReturn>(Task<Either<TLeft, TRight>> either, Func<TLeft, Task<TReturn>> fLeft, Func<TRight, TReturn> fRight) =>
 		await MatchAsync(await either, fLeft, fRight);
 
-	/// <inheritdoc cref="Match{TEither, TLeft, TRight, TReturn}(TEither, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
-	public static async Task<TReturn> MatchAsync<TEither, TLeft, TRight, TReturn>(Task<TEither> either, Func<TLeft, Task<TReturn>> fLeft, Func<TRight, Task<TReturn>> fRight)
-		where TEither : IEither<TEither, TLeft, TRight> =>
+	/// <inheritdoc cref="Match{TLeft, TRight, TReturn}(Either{TLeft, TRight}, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
+	public static async Task<TReturn> MatchAsync<TLeft, TRight, TReturn>(Task<Either<TLeft, TRight>> either, Func<TLeft, Task<TReturn>> fLeft, Func<TRight, Task<TReturn>> fRight) =>
 		await MatchAsync(await either, fLeft, fRight);
 
 	#endregion
-
-	/// <summary>
-	/// Exception for an <paramref name="either"/> that is neither left nor right.
-	/// </summary>
-	private static Exception Invalid<TEither>(TEither either) =>
-		either switch
-		{
-			null =>
-				new NullEitherException(),
-
-			_ =>
-				new InvalidEitherTypeException(either.GetType())
-		};
 }

@@ -33,13 +33,6 @@ public sealed class MonadJsonConverter<TMonad, TValue> : JsonConverter<TMonad>
 		}
 		catch (Exception e)
 		{
-			// When TValue is a value type we can create a blank object
-			if (typeof(TValue).IsValueType)
-			{
-				reader.Skip(); // tell the reader we didn't read anything successfully
-				return new();
-			}
-
 			// Handle null input
 			if (e.Message.StartsWith("The input does not contain any JSON tokens.", StringComparison.OrdinalIgnoreCase))
 			{

@@ -11,44 +11,34 @@ namespace Wrap.Testing;
 public static class FailureGenerator
 {
 	/// <summary>
-	/// Create a randomly generated failure value.
+	/// Create a <see cref="Failure"/> with a random message and two random arguments.
 	/// </summary>
-	public static FailureValue Value =>
+	/// <returns>A <see cref="Failure"/> with the <see cref="Logging.LogLevel.Warning"/> log level.</returns>
+	public static Failure Create() =>
 		new(Rnd.Str, Rnd.Int, Rnd.Guid);
 
 	/// <summary>
-	/// Creates a new instance of the <see cref="Failure"/> class with a randomly generated failure value.
-	/// </summary>
-	/// <remarks>Use this method to generate a failure result for testing or simulation purposes. The returned
-	/// instance will have its value set to a randomly generated string.</remarks>
-	/// <returns>A <see cref="Failure"/> object initialized with a random failure value.</returns>
-	public static Failure Create() =>
-		new(Value);
-
-	/// <summary>
-	/// Creates a new instance of the <see cref="Failure"/> class with a randomly generated failure value.
+	/// Create a <see cref="Failure"/> with a random message and two random arguments, as a <see cref="Result{T}"/>.
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
-	/// <returns>A <see cref="Failure"/> object implicitly returned as <see cref="Result{T}"/>.</returns>
+	/// <returns>A <see cref="Failure"/> result.</returns>
 	public static Result<T> Create<T>() =>
-		new Failure(Value);
+		Create();
 
 	/// <summary>
-	/// Creates a new instance of the <see cref="Failure"/> class with a provided Exception.
+	/// Create a <see cref="Failure"/> from <paramref name="ex"/>.
 	/// </summary>
-	/// <remarks>Use this method to generate a failure result for testing or simulation purposes. The returned
-	/// instance will have its value set to a randomly generated string.</remarks>
 	/// <param name="ex">Exception.</param>
-	/// <returns>A <see cref="Failure"/> object initialized with a random failure value.</returns>
+	/// <returns>A <see cref="Failure"/> with the exception's message and the <see cref="Logging.LogLevel.Error"/> log level.</returns>
 	public static Failure Create(Exception ex) =>
 		new(ex);
 
 	/// <summary>
-	/// Creates a new instance of the <see cref="Failure"/> class with the specified failure value.
+	/// Return <paramref name="value"/> as a <see cref="Result{T}"/>.
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
-	/// <param name="value">Provided FailureValue.</param>
-	/// <returns>A <see cref="Failure"/> object implicitly returned as <see cref="Result{T}"/>.</returns>
-	public static Result<T> Create<T>(FailureValue value) =>
-		new Failure(value);
+	/// <param name="value">Failure.</param>
+	/// <returns>A <see cref="Failure"/> result.</returns>
+	public static Result<T> Create<T>(Failure value) =>
+		value;
 }

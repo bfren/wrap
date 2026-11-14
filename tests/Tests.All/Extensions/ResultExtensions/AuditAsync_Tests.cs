@@ -12,14 +12,14 @@ public class AuditAsync_Tests
 		{
 			// Arrange
 			var input = FailGen.Create<int>();
-			var fFail = Substitute.For<Func<FailureValue, Task>>();
+			var fFail = Substitute.For<Func<Failure, Task>>();
 
 			// Act
 			_ = await input.AuditAsync(fFail);
 			_ = await input.AsTask().AuditAsync(fFail);
 
 			// Assert
-			await fFail.ReceivedWithAnyArgs(2).Invoke(Arg.Any<FailureValue>());
+			await fFail.ReceivedWithAnyArgs(2).Invoke(Arg.Any<Failure>());
 		}
 
 		[Fact]
@@ -27,13 +27,13 @@ public class AuditAsync_Tests
 		{
 			// Arrange
 			var input = FailGen.Create<int>();
-			var fFail = Substitute.For<Action<FailureValue>>();
+			var fFail = Substitute.For<Action<Failure>>();
 
 			// Act
 			_ = await input.AsTask().AuditAsync(fFail);
 
 			// Assert
-			fFail.ReceivedWithAnyArgs(1).Invoke(Arg.Any<FailureValue>());
+			fFail.ReceivedWithAnyArgs(1).Invoke(Arg.Any<Failure>());
 		}
 
 		[Fact]
@@ -41,7 +41,7 @@ public class AuditAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(new(value));
+			var input = FailGen.Create<int>(R.Fail(value));
 
 			// Act
 			var result = await input.AsTask().AuditAsync(fFail: null, fOk: (Action<int>?)null);
@@ -70,7 +70,7 @@ public class AuditAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(new(value));
+			var input = FailGen.Create<int>(R.Fail(value));
 
 			// Act
 			var r0 = await input.AuditAsync(fFail: null, fOk: null);
@@ -86,7 +86,7 @@ public class AuditAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(new(value));
+			var input = FailGen.Create<int>(R.Fail(value));
 
 			// Act
 			var r0 = await input.AuditAsync(fFail: _ => throw new Exception(Rnd.Str));
@@ -105,14 +105,14 @@ public class AuditAsync_Tests
 		{
 			// Arrange
 			var input = R.Wrap(Rnd.Int);
-			var fFail = Substitute.For<Func<FailureValue, Task>>();
+			var fFail = Substitute.For<Func<Failure, Task>>();
 
 			// Act
 			_ = await input.AuditAsync(fFail: fFail, fOk: null);
 			_ = await input.AsTask().AuditAsync(fFail: fFail, fOk: null);
 
 			// Assert
-			await fFail.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
+			await fFail.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Failure>());
 		}
 
 		[Fact]

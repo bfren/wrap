@@ -55,7 +55,7 @@ public class GetHashCode_Tests
 			public void Returns_Same_HashCode()
 			{
 				// Arrange
-				var value = FailGen.Value;
+				var value = FailGen.Create();
 				var v0 = FailGen.Create<string>(value);
 				var v1 = FailGen.Create<string>(value);
 
@@ -83,22 +83,6 @@ public class GetHashCode_Tests
 				// Assert
 				Assert.NotEqual(r0, r1);
 			}
-		}
-	}
-
-	public class Invalid_Type
-	{
-		[Fact]
-		public void Returns_Zero()
-		{
-			// Arrange
-			var maybe = new InvalidResult<DateTime>();
-
-			// Act
-			var result = maybe.GetHashCode();
-
-			// Assert
-			Assert.Equal(0, result);
 		}
 	}
 }

@@ -13,7 +13,7 @@ public class IfFailedAsync_Tests
 			// Arrange
 			var value = Rnd.Int;
 			var input = R.Wrap(value);
-			var f = Substitute.For<Action<FailureValue>>();
+			var f = Substitute.For<Action<Failure>>();
 
 			// Act
 			var r0 = await input.IfFailedAsync(async x => f(x));
@@ -31,7 +31,7 @@ public class IfFailedAsync_Tests
 		{
 			// Arrange
 			var input = R.Wrap(Rnd.Int);
-			var f = Substitute.For<Action<FailureValue>>();
+			var f = Substitute.For<Action<Failure>>();
 
 			// Act
 			_ = await input.IfFailedAsync(async x => f(x));
@@ -39,7 +39,7 @@ public class IfFailedAsync_Tests
 			_ = await input.AsTask().IfFailedAsync(async x => f(x));
 
 			// Assert
-			f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
+			f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Failure>());
 		}
 	}
 
@@ -50,7 +50,7 @@ public class IfFailedAsync_Tests
 		{
 			// Arrange
 			var input = FailGen.Create<int>();
-			var f = Substitute.For<Action<FailureValue>>();
+			var f = Substitute.For<Action<Failure>>();
 
 			// Act
 			_ = await input.IfFailedAsync(async x => f(x));
@@ -58,7 +58,7 @@ public class IfFailedAsync_Tests
 			_ = await input.AsTask().IfFailedAsync(async x => f(x));
 
 			// Assert
-			f.Received(3).Invoke(Arg.Any<FailureValue>());
+			f.Received(3).Invoke(Arg.Any<Failure>());
 		}
 
 		[Fact]
@@ -66,8 +66,8 @@ public class IfFailedAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(new(value));
-			var f = Substitute.For<Action<FailureValue>>();
+			var input = FailGen.Create<int>(R.Fail(value));
+			var f = Substitute.For<Action<Failure>>();
 
 			// Act
 			var r0 = await input.IfFailedAsync(async x => f(x));

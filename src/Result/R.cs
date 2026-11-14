@@ -2,43 +2,33 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
-using Wrap.Exceptions;
 
 namespace Wrap;
 
 /// <summary>
-/// Pure functions for interacting with <see cref="Result{TOk}"/> objects.
+/// Pure functions for creating and matching <see cref="Result{T}"/> objects.
 /// </summary>
 public static partial class R
 {
 	/// <summary>
-	/// Allows custom error handling when an operation fails.
+	/// Create a <see cref="Failure"/> from a message, for custom error handling when an operation fails.
 	/// </summary>
-	/// <param name="message">Error message to bubble up.</param>
-	/// <param name="args">[Optional] message arguments.</param>
-	/// <returns>Failure object</returns>
+	/// <param name="message">Failure message.</param>
+	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
+	/// <returns>Failure.</returns>
 	public delegate Failure ErrorHandler(string message, params object?[] args);
 
 	/// <summary>
-	/// Handles exceptions when an operation fails - see <see cref="Try{T}(Func{T})"/>.
+	/// Create a <see cref="Failure"/> from an exception thrown by an operation - see <see cref="Try{T}(Func{T}, ExceptionHandler)"/>.
 	/// </summary>
 	/// <param name="e">Exception object.</param>
-	/// <returns>Failure object.</returns>
+	/// <returns>Failure.</returns>
 	public delegate Failure ExceptionHandler(Exception e);
 
 	/// <summary>
-	/// Default exception handler.
+	/// Gets the default exception handler, which creates a <see cref="Failure"/> from the exception's message
+	/// with the <see cref="Logging.LogLevel.Error"/> log level.
 	/// </summary>
 	public static ExceptionHandler DefaultExceptionHandler =>
 		Fail;
-
-	/// <summary>
-	/// Throw a <see cref="FailureException"/> using <paramref name="failure"/>.
-	/// </summary>
-	/// <typeparam name="T">Return type.</typeparam>
-	/// <param name="failure">Failure value.</param>
-	/// <returns>Nothing - return type is specified so this can be used as a delegate.</returns>
-	/// <exception cref="FailureException"></exception>
-	public static T ThrowFailure<T>(FailureValue failure) =>
-		throw new FailureException(failure);
 }

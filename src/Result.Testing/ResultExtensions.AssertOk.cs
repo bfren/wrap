@@ -12,7 +12,7 @@ public static partial class ResultExtensions
 	/// <param name="this">Result object.</param>
 	/// <returns>The value of <paramref name="this"/>.</returns>
 	public static T AssertOk<T>(this Result<T> @this) =>
-		Assert.IsType<Ok<T>>(@this).Value;
+		Assert.IsType<Ok<T>>(@this.Value).Value; // the union's boxed case: @this itself boxes as Result<T>
 
 	/// <summary>
 	/// Assert that <paramref name="this"/> is <see cref="Ok{T}"/> and the wrapped value matches <paramref name="expected"/>.
@@ -20,10 +20,6 @@ public static partial class ResultExtensions
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <param name="expected">Expected value.</param>
-	/// <returns>The value of <paramref name="this"/>.</returns>
-	public static void AssertOk<T>(this Result<T> @this, T expected)
-	{
-		var value = Assert.IsType<Ok<T>>(@this).Value;
-		Assert.Equal(expected, value);
-	}
+	public static void AssertOk<T>(this Result<T> @this, T expected) =>
+		Assert.Equal(expected, AssertOk(@this));
 }

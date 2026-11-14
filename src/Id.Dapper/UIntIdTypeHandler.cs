@@ -20,7 +20,17 @@ public sealed class UIntIdTypeHandler<T> : IdTypeHandler<T, uint>
 	/// <param name="value"><see cref="UIntId{TId}"/> Value.</param>
 	/// <returns><see cref="UIntId{TId}"/> with parsed value.</returns>
 	public override T Parse(object value) =>
-		new() { Value = M.ParseUInt32(value?.ToString()).Unwrap(() => DefaultOrThrow(value)) };
+		new()
+		{
+			Value = M.ParseUInt32(value?.ToString()) switch
+			{
+				Some<uint> x =>
+					x.Value,
+
+				None =>
+					DefaultOrThrow(value)
+			}
+		};
 
 	/// <summary>
 	/// Set ID value.

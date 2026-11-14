@@ -15,12 +15,5 @@ public static partial class EnumerableExtensions
 	/// <param name="this">IEnumerable object</param>
 	/// <returns>Value of the first element of <paramref name="this"/>, or <see cref="None"/>.</returns>
 	public static Maybe<T> FirstOrNone<T>(this IEnumerable<T> @this) =>
-		@this.Select(M.Wrap).FirstOrDefault() switch
-		{
-			Maybe<T> x =>
-				x,
-
-			_ =>
-				M.None
-		};
+		@this.Select(M.Wrap).FirstOrDefault();
 }
