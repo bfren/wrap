@@ -46,8 +46,9 @@ Branch `108-switch-to-use-union-types`, version `2.0.0-beta.1`. The solution bui
 - `ToMaybe`, `Maybe.Unwrap(Func<None,T>)` and `MaybeJsonConverter.Write` use direct `switch` bodies, so no capturing lambdas are left in them.
 - `apps/AppMvc` smoke-tested (14 November 2026): IDs, `Monad` values, `Maybe<bool>` and `Maybe<Postcode>` bind from route values, missing or invalid optional values bind as `None`, and the server logged no errors. An invalid ID fails to bind and leaves the parameter `null`, the same as on `main`.
 
+- Allocation regression checks (Phase 5): the `Allocations` workflow runs `apps/Benchmarks/Check-Allocations.ps1`, which runs each v2 benchmark in its own process and fails if one allocates more than `apps/Benchmarks/allocations.json`. Unit tests weren't used, because CI tests a Debug build, where the JIT doesn't optimise and boxes values a Release build doesn't (section 5).
+
 **Still to do**
-- Allocation regression tests (Phase 5). A unit test using `GC.GetAllocatedBytesForCurrentThread` would be flaky, because unoptimised tier-0 code boxes (section 5), so this probably means checking the benchmark results.
 - At release: move `PackageValidationBaselineVersion` from `1.2.1` to `2.0.0` once 2.0.0 ships, create the 1.x branch, and write the wiki docs and migration guide (section 8, Phase 5).
 
 ---

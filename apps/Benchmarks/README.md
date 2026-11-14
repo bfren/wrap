@@ -26,11 +26,23 @@ dotnet run -c Release -- --filter "Benchmarks.ResultBenchmarks.Bind"
 
 Run v1 and v2 back to back on the same machine, with nothing heavy running, and compare the two outputs. BenchmarkDotNet can't join results across the two apps.
 
+## Allocation check
+
+The `Allocations` workflow runs `Check-Allocations.ps1` on every push to a branch that changes `src/`. It runs each v2 benchmark in its own process with `--job short`, about 12 minutes for all of them, and fails if any benchmark allocates more than `allocations.json` allows, plus 8 B for measurement noise. Allocations are checked because, unlike timings, they repeat exactly from run to run. Timings on shared runners are too noisy to compare.
+
+```bash
+pwsh apps/Benchmarks/Check-Allocations.ps1          # check against allocations.json
+pwsh apps/Benchmarks/Check-Allocations.ps1 -Update  # rewrite allocations.json after an intended change
+```
+
+A new or renamed benchmark fails the check until `allocations.json` is updated.
+
 ## Things that skew the results
 
-- **Several benchmarks in one run.** BenchmarkDotNet 0.15.8 can't start a separate process for `net11.0`, so `Program.cs` always adds `--inProcess`. Benchmarks in the same run then share JIT state and profile data. A method such as `R.Match<int,int>` ends up compiled for whichever benchmark ran first. `MatchFailure` measured 13–17 ns in a combined run but 2.5 ns on its own. That's why the loop above starts a new process for each benchmark. Drop `--inProcess` once a BenchmarkDotNet release supports .NET 11.
+- **Several benchmarks in one run.** BenchmarkDotNet 0.15.8 can't start a separate process for `net11.0`, so `Program.cs` always adds `--inProcess`. Benchmarks in the same run then share JIT state and profile data. A method such as `R.Match<int,int>` ends up compiled for whichever benchmark ran first. `MatchFailure` measured 13–17 ns in a combined run but 2.5 ns on its own. Allocations change too: `MaybeMap` allocated 112 B in a combined run but 11.83 KB on its own. That's why the loop above starts a new process for each benchmark. Drop `--inProcess` once a BenchmarkDotNet release supports .NET 11.
+- **`DOTNET_TieredCompilation=0`** changes what gets allocated, not only the timings. `MaybeFilter` allocated 112 B with it and 21.16 KB without it, so don't use it to speed up a run.
 - **Ad-hoc timing loops and wrapper methods.** A helper that wraps the code under test can stop the JIT inlining it, which hides optimisations such as stack-allocating a `yield` iterator. An early test like that favoured returning `[x]` from `GetEnumerator`. In a real benchmark it was 20× slower than `yield`. Measure with BenchmarkDotNet, as here.
-- **`--job dry`** runs a single cold iteration. It's useful for checking that everything runs, but its timings mean nothing.
+- **`--job dry`** runs a single cold iteration. It's useful for checking that everything runs, but its timings and allocations mean nothing.
 - **About 0 ns** means the JIT optimised the call away entirely. Read it as "free", not as an exact figure.
 - Repeated runs of the same benchmark differ by up to about 0.5 ns, so treat smaller differences as noise.
 
