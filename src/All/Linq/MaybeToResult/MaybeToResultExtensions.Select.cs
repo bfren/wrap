@@ -23,7 +23,7 @@ public static partial class MaybeToResultExtensions
 	///                    select x * 2;
 	/// </code>
 	/// <para>
-	/// Exceptions thrown by <paramref name="f"/> are not caught.
+	/// <paramref name="f"/> runs through <see cref="R.Try{T}(Func{T}, R.ExceptionHandler)"/>, so an exception it throws becomes a <see cref="Failure"/>.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
@@ -33,13 +33,13 @@ public static partial class MaybeToResultExtensions
 	/// <returns>
 	/// <see cref="Ok{T}"/> holding the value returned by <paramref name="f"/>; a <see cref="Failure"/> with the message
 	/// <c>Maybe&lt;{Type}&gt; was 'None'.</c> if <paramref name="this"/> is <see cref="None"/>; or a <see cref="Failure"/>
-	/// if <paramref name="f"/> returns <see langword="null"/>.
+	/// if <paramref name="f"/> throws or returns <see langword="null"/>.
 	/// </returns>
 	public static Result<TReturn> Select<T, TReturn>(this Maybe<T> @this, Func<T, TReturn> f) =>
 		@this switch
 		{
 			Some<T> x =>
-				f(x.Value),
+				R.Try(f, x.Value, R.DefaultExceptionHandler),
 
 			None =>
 				ConvertNoneToFail<T, TReturn>()
@@ -50,7 +50,7 @@ public static partial class MaybeToResultExtensions
 		@this switch
 		{
 			Some<T> x =>
-				await f(x.Value),
+				await R.TryAsync(f, x.Value, R.DefaultExceptionHandler),
 
 			None =>
 				ConvertNoneToFail<T, TReturn>()
@@ -61,7 +61,7 @@ public static partial class MaybeToResultExtensions
 		await @this switch
 		{
 			Some<T> x =>
-				f(x.Value),
+				R.Try(f, x.Value, R.DefaultExceptionHandler),
 
 			None =>
 				ConvertNoneToFail<T, TReturn>()
@@ -72,7 +72,7 @@ public static partial class MaybeToResultExtensions
 		await @this switch
 		{
 			Some<T> x =>
-				await f(x.Value),
+				await R.TryAsync(f, x.Value, R.DefaultExceptionHandler),
 
 			None =>
 				ConvertNoneToFail<T, TReturn>()
