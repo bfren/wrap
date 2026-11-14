@@ -48,7 +48,7 @@ A new or renamed benchmark fails the check until `allocations.json` is updated.
 
 ## Results
 
-Measured on 13 November 2026 on branch `108-switch-to-use-union-types`, each benchmark in its own process. The Result rows were re-measured after Result `Bind` and `Map` switched to a discard arm. The `Linq` rows were re-measured after `SelectMany` switched to direct `switch` bodies. The `Filter` and `FilterMap` rows were re-measured, and the `If`, `MapIf`, `MatchIf`, `ToResult`, `ToMaybe` and `Unwrap` rows added, after the remaining capturing lambdas in `src/All` were replaced with direct `switch` bodies. The other v2 rows were re-run then too and stayed within noise. On 14 November 2026 the Result `MatchOk`, `Chain` and `ToMaybe` rows were re-measured after `R.Match`, `Result.Unwrap` and `ToMaybe` switched to a discard failure arm. `MatchFailure` is still slower than v1, because the 40-byte `Failure` is copied to pass it to `fFail` (see section 10 of `docs/union-types-analysis.md`).
+Measured on 14 November 2026 on branch `108-switch-to-use-union-types` (commit `a312d6f`, plus `GetFailure()` returning a `ref readonly`). Each benchmark ran in its own process, v1 and then v2 back to back, so each pair saw the same machine state. Earlier runs on 13 November came out 5–10% faster for both versions on some rows, so compare the two versions within one run, not across runs.
 
 ```
 BenchmarkDotNet v0.15.8, Windows 11 (10.0.26300.9974)
@@ -63,64 +63,64 @@ Time is the mean per operation. Allocated is per operation. The enumerable bench
 
 | Benchmark | v1 time | v1 allocated | v2 time | v2 allocated | v2 vs v1 |
 |---|---:|---:|---:|---:|---|
-| MaybeFilter | 25.53 µs | 130.54 KB | 7.435 µs | 21.16 KB | **3.4× faster** |
-| MaybeMap | 16.27 µs | 89.95 KB | 5.793 µs | 11.83 KB | **2.8× faster** |
-| MaybeFilterMap | 36.41 µs | 224.3 KB | 8.084 µs | 21.17 KB | **4.5× faster** |
-| MaybeIterate | 7.031 µs | 31.25 KB | 1.083 µs | 0 B | **6.5× faster** |
-| ResultFilter | 40.02 µs | 172.87 KB | 15.24 µs | 6.5 KB | **2.6× faster** |
-| ResultMap | 34.52 µs | 175.89 KB | 18.04 µs | 128 B | **1.9× faster** |
-| ResultFilterMap | 59.63 µs | 305.22 KB | 14.99 µs | 6.52 KB | **4.0× faster** |
-| ResultIterate | 9.317 µs | 31.25 KB | 1.134 µs | 0 B | **8.2× faster** |
+| MaybeFilter | 28.51 µs | 130.54 KB | 7.637 µs | 21.16 KB | **3.7× faster** |
+| MaybeMap | 17.42 µs | 89.95 KB | 6.213 µs | 11.83 KB | **2.8× faster** |
+| MaybeFilterMap | 42.35 µs | 224.3 KB | 7.932 µs | 21.17 KB | **5.3× faster** |
+| MaybeIterate | 7.927 µs | 31.25 KB | 1.118 µs | 0 B | **7.1× faster** |
+| ResultFilter | 43.92 µs | 172.87 KB | 15.25 µs | 6.5 KB | **2.9× faster** |
+| ResultMap | 36.45 µs | 175.89 KB | 18.15 µs | 128 B | **2.0× faster** |
+| ResultFilterMap | 65.51 µs | 305.22 KB | 14.80 µs | 6.52 KB | **4.4× faster** |
+| ResultIterate | 9.843 µs | 31.25 KB | 1.113 µs | 0 B | **8.8× faster** |
 
 ### MaybeBenchmarks
 
 | Benchmark | v1 time | v1 allocated | v2 time | v2 allocated | v2 vs v1 |
 |---|---:|---:|---:|---:|---|
-| WrapInt | 4.385 ns | 24 B | 0.0 ns | 0 B | **free** (inlined away) |
-| WrapString | 5.414 ns | 24 B | 1.723 ns | 0 B | **3.1× faster** |
-| WrapNull | 0.8261 ns | 0 B | 0.0167 ns | 0 B | **free** (inlined away) |
-| Map | 10.37 ns | 48 B | 1.494 ns | 0 B | **6.9× faster** |
-| Bind | 6.435 ns | 24 B | 1.804 ns | 0 B | **3.6× faster** |
-| MatchSome | 1.505 ns | 0 B | 1.275 ns | 0 B | **1.2× faster** |
-| MatchNone | 1.072 ns | 0 B | 1.268 ns | 0 B | 1.2× slower |
-| Chain | 17.79 ns | 72 B | 3.806 ns | 0 B | **4.7× faster** |
-| Linq | 38.56 ns | 248 B | 2.294 ns | 0 B | **16.8× faster** |
-| AsyncMap | 39.43 ns | 248 B | 28.22 ns | 144 B | **1.4× faster** |
-| UnsafeUnwrap | 0.4766 ns | 0 B | 0.0101 ns | 0 B | **free** (inlined away) |
-| UnsafeForeach | 0.4789 ns | 0 B | 0.0072 ns | 0 B | **free** (inlined away) |
-| Foreach | 0.5604 ns | 0 B | 0.2878 ns | 0 B | **1.9× faster** |
-| If | 12.62 ns | 64 B | 3.635 ns | 0 B | **3.5× faster** |
-| MapIf | 22.80 ns | 144 B | 2.031 ns | 0 B | **11.2× faster** |
-| MatchIf | 8.572 ns | 40 B | 2.642 ns | 0 B | **3.2× faster** |
-| ToResult | 88.62 ns | 272 B | 67.84 ns | 168 B | **1.3× faster** |
-| UnwrapNone | 14.63 ns | 104 B | 0.9714 ns | 0 B | **15.1× faster** |
+| WrapInt | 4.789 ns | 24 B | 0.0 ns | 0 B | **free** (inlined away) |
+| WrapString | 5.914 ns | 24 B | 1.737 ns | 0 B | **3.4× faster** |
+| WrapNull | 0.8299 ns | 0 B | 0.0459 ns | 0 B | **free** (inlined away) |
+| Map | 11.53 ns | 48 B | 1.516 ns | 0 B | **7.6× faster** |
+| Bind | 6.684 ns | 24 B | 1.831 ns | 0 B | **3.7× faster** |
+| MatchSome | 2.051 ns | 0 B | 1.318 ns | 0 B | **1.6× faster** |
+| MatchNone | 1.480 ns | 0 B | 1.285 ns | 0 B | **1.2× faster** |
+| Chain | 20.54 ns | 72 B | 3.747 ns | 0 B | **5.5× faster** |
+| Linq | 43.06 ns | 248 B | 2.297 ns | 0 B | **18.7× faster** |
+| AsyncMap | 42.71 ns | 248 B | 29.49 ns | 144 B | **1.4× faster** |
+| UnsafeUnwrap | 0.8041 ns | 0 B | 0.0 ns | 0 B | **free** (inlined away) |
+| UnsafeForeach | 0.4775 ns | 0 B | 0.0059 ns | 0 B | **free** (inlined away) |
+| Foreach | 0.7033 ns | 0 B | 0.0044 ns | 0 B | **free** (inlined away) |
+| If | 15.13 ns | 64 B | 3.629 ns | 0 B | **4.2× faster** |
+| MapIf | 29.41 ns | 144 B | 2.154 ns | 0 B | **13.7× faster** |
+| MatchIf | 11.20 ns | 40 B | 3.327 ns | 0 B | **3.4× faster** |
+| ToResult | 84.74 ns | 272 B | 65.71 ns | 168 B | **1.3× faster** |
+| UnwrapNone | 16.03 ns | 104 B | 0.9661 ns | 0 B | **16.6× faster** |
 
 ### ResultBenchmarks
 
 | Benchmark | v1 time | v1 allocated | v2 time | v2 allocated | v2 vs v1 |
 |---|---:|---:|---:|---:|---|
-| WrapInt | 4.643 ns | 24 B | 0.3075 ns | 0 B | **15.1× faster** |
-| WrapString | 5.982 ns | 24 B | 3.170 ns | 0 B | **1.9× faster** |
-| Fail | 10.55 ns | 72 B | 6.258 ns | 56 B | **1.7× faster** |
-| Map | 26.11 ns | 144 B | 12.44 ns | 0 B | **2.1× faster** |
-| Bind | 6.340 ns | 24 B | 2.398 ns | 0 B | **2.6× faster** |
-| MatchOk | 1.936 ns | 0 B | 1.751 ns | 0 B | **1.1× faster** |
-| MatchFailure | 1.673 ns | 0 B | 2.164 ns | 0 B | 1.3× slower |
-| Chain | 35.50 ns | 168 B | 8.384 ns | 0 B | **4.2× faster** |
-| Linq | 49.27 ns | 344 B | 9.015 ns | 0 B | **5.5× faster** |
-| AsyncMap | 50.48 ns | 344 B | 35.09 ns | 160 B | **1.4× faster** |
-| UnsafeUnwrap | 0.4630 ns | 0 B | 0.1846 ns | 0 B | **2.5× faster** |
-| If | 14.79 ns | 64 B | 3.364 ns | 0 B | **4.4× faster** |
-| MapIf | 34.21 ns | 232 B | 8.039 ns | 0 B | **4.3× faster** |
-| MatchIf | 10.18 ns | 40 B | 3.412 ns | 0 B | **3.0× faster** |
-| ToMaybe | 13.09 ns | 48 B | 1.214 ns | 0 B | **10.8× faster** |
-| UnwrapFailure | 5.728 ns | 24 B | 1.942 ns | 0 B | **2.9× faster** |
+| WrapInt | 4.616 ns | 24 B | 0.0240 ns | 0 B | **free** (inlined away) |
+| WrapString | 6.244 ns | 24 B | 3.194 ns | 0 B | **2.0× faster** |
+| Fail | 13.13 ns | 72 B | 6.689 ns | 56 B | **2.0× faster** |
+| Map | 26.59 ns | 144 B | 11.94 ns | 0 B | **2.2× faster** |
+| Bind | 6.528 ns | 24 B | 2.599 ns | 0 B | **2.5× faster** |
+| MatchOk | 2.091 ns | 0 B | 1.866 ns | 0 B | **1.1× faster** |
+| MatchFailure | 1.673 ns | 0 B | 2.156 ns | 0 B | 1.3× slower |
+| Chain | 32.56 ns | 168 B | 8.336 ns | 0 B | **3.9× faster** |
+| Linq | 56.41 ns | 344 B | 9.164 ns | 0 B | **6.2× faster** |
+| AsyncMap | 58.16 ns | 344 B | 35.65 ns | 160 B | **1.6× faster** |
+| UnsafeUnwrap | 0.4720 ns | 0 B | 0.1828 ns | 0 B | **2.6× faster** |
+| If | 13.89 ns | 64 B | 3.323 ns | 0 B | **4.2× faster** |
+| MapIf | 39.78 ns | 232 B | 8.337 ns | 0 B | **4.8× faster** |
+| MatchIf | 10.78 ns | 40 B | 3.712 ns | 0 B | **2.9× faster** |
+| ToMaybe | 14.51 ns | 48 B | 1.159 ns | 0 B | **12.5× faster** |
+| UnwrapFailure | 6.323 ns | 24 B | 2.114 ns | 0 B | **3.0× faster** |
 
 ### Notes
 
-- **v2 is faster in 39 of 42 benchmarks**, and it never allocates more than v1. Most single operations allocate nothing.
+- **v2 is faster in 41 of 42 benchmarks**, and it never allocates more than v1. Most single operations allocate nothing.
 - **`If`, `MapIf`, `MatchIf`, `ToMaybe` and `Unwrap` allocate nothing in v2.** In v1 each call allocated 24–232 B, mostly for the closures that captured the caller's functions. `ToResult` on `None` still allocates 168 B, because it builds a `Failure` with a message and context.
-- The `Filter` and `FilterMap` gains most likely come from the earlier rewrite of the single-value `Filter` as a `switch` (commit `f0616c3`). These rows had not been re-measured since.
-- **`MatchFailure` is about 0.5 ns slower**, because `Failure` is a 40-byte struct copied out of its box to pass it to `fFail`, where v1 passed a reference. `MatchOk` is now faster than v1, and `MatchNone` is within noise.
+- The `Filter` and `FilterMap` gains most likely come from the earlier rewrite of the single-value `Filter` as a `switch` (commit `f0616c3`).
+- **`MatchFailure` is about 0.5 ns slower**, because `Result<T>` is a struct: the method reads three fields into registers, where v1 read one reference. Both versions copy the 40-byte failure once to pass it to `fFail`. `MatchOk` and `MatchNone` are faster than v1.
 - **Result `Bind`, `Map`, `Match`, `Unwrap` and `ToMaybe` use a discard (`_ =>`) for the failure arm**, with a code comment saying why. An explicit `Failure =>` arm made the JIT set up a 40-byte `Failure` local on every call: Result `Chain` took 28.9 ns with it, 17.3 ns once `Bind` and `Map` used a discard, and 8.4 ns once `Match` did too.
 - The reasons behind these numbers (`StrongBox<Failure>`, `PassFailure`, `TryGetLeft`/`TryGetRight`, `yield`) are recorded in section 10 of `docs/union-types-analysis.md`.

@@ -280,7 +280,7 @@ Both use a discard (`_ =>`) for the failure arm, with a code comment saying why.
 In `apps/Benchmarks/README.md`, `MatchOk` (2.76 ns vs 1.94 ns) and `MatchFailure` (2.16 ns vs 1.67 ns) are the only Result rows that are slower than v1. Read from the JIT's Tier1 assembly for both benchmarks (`DOTNET_JitDisasm`), there are two separate causes.
 
 1. **`R.Match` still has an explicit `Failure f` arm.** The previous section found that this arm sets up a 40-byte `Failure` local on every call, and moved `Bind` and `Map` to a discard, but `Match` kept the explicit arm. In the assembly, both benchmarks zero 96–128 bytes of stack in the prologue before testing `isOk`, and `MatchOk` copies the whole `Result` to the stack to call `TryGetValue(out Failure)`, which is not inlined. That is the whole of the Ok-path gap.
-2. **The failure path copies the `Failure` out of its box.** `Func<Failure, TReturn>` takes `Failure` by value, so `MatchFailure` copies all 40 bytes out of the `StrongBox` before the call, even when the lambda ignores its argument (`_ => 0`). v1 passed a reference. This gap stays as long as `Failure` is a 40-byte struct.
+2. **The failure path set up two copies of the `Failure` where v1 set up one.** `Func<Failure, TReturn>` takes `Failure` by value, so `MatchFailure` copies all 40 bytes out of the `StrongBox` before the call, even when the lambda ignores its argument (`_ => 0`). v1 made the same copy: its `R.Match` took `Func<FailureValue, TReturn>`, and `FailureValue` was also a 40-byte record struct, copied out of the `FailureImpl` object. The difference is that `GetFailure()` returned `failure?.Value ?? Failure.Default` by value. That merges two sources into one temporary, which is then copied again into the argument slot. So v2 reserved and zeroed a second 40-byte stack slot (96 B of prologue zeroing against v1's 40 B), and copied twice whenever the delegate wasn't devirtualised.
 
 Tried as a temporary change: a discard arm calling an `AggressiveInlining` `internal Failure GetFailure() => failure?.Value ?? Failure.Default;`. Each benchmark ran in its own process, twice:
 
@@ -290,7 +290,7 @@ Tried as a temporary change: a discard arm calling an `AggressiveInlining` `inte
 | `MatchFailure` | 2.37 ns | 2.13–2.48 ns | 1.67 ns |
 | Result `Chain` (`Map`, `Bind`, `Match`) | 18.9–19.8 ns | **8.1–8.9 ns** | 35.50 ns |
 
-The discard arm makes the Ok path faster than v1 and halves `Chain`, because every chain ends in `Match`. It doesn't help the failure path, which is cause 2.
+The discard arm makes the Ok path faster than v1 and halves `Chain`, because every chain ends in `Match`. It doesn't help the failure path, which is cause 2. Fixed separately, below.
 
 **Done (14 November 2026)**
 
@@ -310,7 +310,16 @@ Kept with the explicit `Failure f` arm, because the discard showed no gain:
 
 `Result.Equatable` and `WrapCache` weren't changed, as they aren't hot paths. None of the changed benchmarks allocate, before or after. The README's `MatchOk`, `Chain` and `ToMaybe` rows are updated.
 
-**Not changed: the failure path.** `MatchFailure` stays about 0.5 ns slower than v1 (cause 2). Closing the gap would mean turning `Failure` into an 8-byte struct that wraps an internal class. That keeps the public type, but every `Ctx`/`Msg`/`Lvl`/`Arg` call would allocate a new object where it now copies a struct, and failures are the cold path in real code. Making `Failure` a record class was already rejected above, because it changes the public type.
+**The failure path (cause 2).** `GetFailure()` now returns `ref readonly Failure`, pointing at the boxed failure, or at a cached static `DefaultFailure` for `default(Result<T>)`. Its callers didn't change, because a `ref readonly` return reads as a value. The JIT now copies straight from the box into the one argument slot, as v1 did, and zeroes 40 B in the prologue, as v1 did:
+
+| Benchmark | `GetFailure()` by value | **by `ref readonly`** | v1 |
+|---|---:|---:|---:|
+| `MatchFailure` | 2.1–3.0 ns | **2.18–2.22 ns** | 1.70 ns |
+| `UnwrapFailure` | 1.90–2.36 ns | **1.58–1.63 ns** | 5.73 ns |
+
+`MatchOk` and `Chain` didn't change. `MatchFailure` is still about 0.5 ns slower than v1, because `Result<T>` is a struct: the method reads its three fields (box, value and `isOk`) into registers and saves 5 callee-saved registers, where v1 read one reference and saved 3. That comes with `Result` being a struct, so it stays.
+
+**Kept: `Failure` as a struct (decided 14 November 2026).** A record class would remove the remaining 40-byte copy, which v1 also made, but not the register cost above. Each `Ctx`/`Msg`/`Lvl`/`Arg` call would then allocate a new 56 B object, where it now copies a struct, so `R.Fail(…).Ctx(…)` would go from 56 B to 112 B. It would also make `default(Failure)` `null` and need new null checks. Failures are the cold path in real code, so this doesn't pay for itself.
 
 Maybe's `MatchNone` (1.27 ns vs 1.07 ns) is within the 0.5 ns run-to-run noise, and `None` is an empty struct, so nothing similar needs fixing there.
 
