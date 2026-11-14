@@ -50,6 +50,7 @@
     <Project Path="src/Common/Common.csproj" />
     <Project Path="src/Either.Testing/Either.Testing.csproj" />
     <Project Path="src/Either/Either.csproj" />
+    <Project Path="src/Generators/Generators.csproj" Id="083eeedc-0aec-46db-8cf7-b841f6baa775" />
     <Project Path="src/Id.Dapper/Id.Dapper.csproj" />
     <Project Path="src/Id.Testing/Id.Testing.csproj" />
     <Project Path="src/Id/Id.csproj" />
@@ -75,6 +76,9 @@
     </Project>
     <Project Path="tests/Tests.Either/Tests.Either.csproj">
       <Build Solution="Release|Any CPU" Project="false" />
+    </Project>
+    <Project Path="tests/Tests.Generators/Tests.Generators.csproj">
+      <Build Solution="Release|*" Project="false" />
     </Project>
     <Project Path="tests/Tests.Id.Dapper/Tests.Id.Dapper.csproj">
       <Build Solution="Release|Any CPU" Project="false" />
