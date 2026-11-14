@@ -55,7 +55,7 @@ public partial class BindAsync_Tests
 		}
 
 		[Fact]
-		public async Task Returns_Empty_List()
+		public async Task Returns_None_For_Each_Item()
 		{
 			// Arrange
 			var v = SetupMaybe(false);
@@ -66,9 +66,11 @@ public partial class BindAsync_Tests
 			var r2 = await v.ListAsync.BindAsync(v.BindAsync);
 
 			// Assert
-			Assert.Empty(r0);
-			Assert.Empty(r1);
-			Assert.Empty(r2);
+			Assert.All([r0, r1, r2], r => Assert.Collection(r,
+				x => x.AssertNone(),
+				x => x.AssertNone(),
+				x => x.AssertNone()
+			));
 		}
 	}
 
@@ -107,7 +109,7 @@ public partial class BindAsync_Tests
 	public partial class With_Mixed
 	{
 		[Fact]
-		public async Task Removes_None()
+		public async Task Keeps_None()
 		{
 			// Arrange
 			var v = SetupMaybe(true, true);
@@ -118,13 +120,13 @@ public partial class BindAsync_Tests
 			var r2 = await v.ListAsync.BindAsync(x => M.Wrap(x.ToString()).AsTask());
 
 			// Assert
-			Assert.Equal(3, r0.Count());
-			Assert.Equal(3, r1.Count());
-			Assert.Equal(3, r2.Count());
+			Assert.Equal(6, r0.Count());
+			Assert.Equal(6, r1.Count());
+			Assert.Equal(6, r2.Count());
 		}
 
 		[Fact]
-		public async Task Returns_Some()
+		public async Task Returns_Some_And_None_In_Order()
 		{
 			// Arrange
 			var v = SetupMaybe(true, true);
@@ -135,21 +137,14 @@ public partial class BindAsync_Tests
 			var r2 = await v.ListAsync.BindAsync(x => M.Wrap(x.ToString()).AsTask());
 
 			// Assert
-			Assert.Collection(r0,
+			Assert.All([r0, r1, r2], r => Assert.Collection(r,
 				x => Assert.Equal(v.Values[0].ToString(), x),
+				x => x.AssertNone(),
 				x => Assert.Equal(v.Values[1].ToString(), x),
-				x => Assert.Equal(v.Values[2].ToString(), x)
-			);
-			Assert.Collection(r1,
-				x => Assert.Equal(v.Values[0].ToString(), x),
-				x => Assert.Equal(v.Values[1].ToString(), x),
-				x => Assert.Equal(v.Values[2].ToString(), x)
-			);
-			Assert.Collection(r2,
-				x => Assert.Equal(v.Values[0].ToString(), x),
-				x => Assert.Equal(v.Values[1].ToString(), x),
-				x => Assert.Equal(v.Values[2].ToString(), x)
-			);
+				x => x.AssertNone(),
+				x => Assert.Equal(v.Values[2].ToString(), x),
+				x => x.AssertNone()
+			));
 		}
 	}
 
