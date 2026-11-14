@@ -277,6 +277,21 @@ public class Format_Tests
 				// Assert
 				Assert.Equal($"{zero} , {{0}} , {{1}}", result);
 			}
+
+			[Fact]
+			public void Number_First__Returns_Formatted_String_With_Unmatched_Placeholders()
+			{
+				// Arrange
+				const string format = "{0} , {zero}";
+				var zero = Rnd.Int;
+				var values = new { zero };
+
+				// Act
+				var result = F.Format(format, values);
+
+				// Assert
+				Assert.Equal($"{{0}} , {zero}", result);
+			}
 		}
 
 		public class With_Array_Source
@@ -296,6 +311,23 @@ public class Format_Tests
 
 				// Assert
 				Assert.Equal($"{zero} , {v0} , {v1}", result);
+			}
+
+			[Fact]
+			public void Number_First__Replaces_With_Values_In_Order()
+			{
+				// Arrange
+				const string format = "{0} , {one} , {1}";
+				var v0 = Rnd.Int;
+				var v1 = Rnd.Int;
+				var v2 = Rnd.Int;
+				var values = new[] { v0, v1, v2 };
+
+				// Act
+				var result = F.Format(format, values);
+
+				// Assert
+				Assert.Equal($"{v0} , {v1} , {v2}", result);
 			}
 		}
 	}
