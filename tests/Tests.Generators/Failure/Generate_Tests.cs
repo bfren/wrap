@@ -3,7 +3,7 @@
 
 using Wrap.Logging;
 
-namespace Wrap.Generators.FailureValueGenerator_Tests;
+namespace Wrap.Generators.FailureGenerator_Tests;
 
 public class Generate_Tests
 {

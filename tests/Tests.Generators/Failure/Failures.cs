@@ -3,19 +3,19 @@
 
 using Wrap.Logging;
 
-namespace Wrap.Generators.FailureValueGenerator_Tests;
+namespace Wrap.Generators.FailureGenerator_Tests;
 
 public static partial class Failures
 {
 	[Failure("User {UserId} was not found")]
-	public static partial FailureValue NoLevel(int userId);
+	public static partial Failure NoLevel(int userId);
 
 	[Failure("Value \"{Value}\" is not a C:\\ path", LogLevel.Error)]
-	internal static partial FailureValue Escaped(string value);
+	internal static partial Failure Escaped(string value);
 
 	public partial record struct InRecordStruct
 	{
 		[Failure("Nested")]
-		public static partial FailureValue Nested();
+		public static partial Failure Nested();
 	}
 }

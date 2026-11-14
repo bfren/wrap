@@ -1,7 +1,6 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,10 +12,10 @@ using Microsoft.CodeAnalysis.Text;
 namespace Wrap;
 
 /// <summary>
-/// Source generator for FailureValue objects.
+/// Source generator for Failure objects.
 /// </summary>
 [Generator]
-public sealed class FailureValueGenerator : IIncrementalGenerator
+public sealed class FailureGenerator : IIncrementalGenerator
 {
 	/// <inheritdoc/>
 	public void Initialize(IncrementalGeneratorInitializationContext context)
@@ -50,7 +49,7 @@ public sealed class FailureValueGenerator : IIncrementalGenerator
 			_ =>
 				string.Empty
 		};
-		// Null when not set, so the FailureValue constructor's default level applies
+		// Null when not set, so the Failure constructor's default level applies
 		var logLevel = (attr.ConstructorArguments.Length > 1) switch
 		{
 			true when attr.ConstructorArguments[1].Value is int x =>
@@ -150,7 +149,7 @@ public sealed class FailureValueGenerator : IIncrementalGenerator
 		var level = model.LogLevel switch
 		{
 			int x =>
-				$"{indent}        Level = (Wrap.Logging.LogLevel){x},{Environment.NewLine}",
+				$"{indent}        Level = (Wrap.Logging.LogLevel){x},\n",
 
 			_ =>
 				string.Empty

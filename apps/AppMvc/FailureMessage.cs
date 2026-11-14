@@ -9,6 +9,6 @@ public partial class Test
 	{
 
 		[Failure("User {userId} was not found", Wrap.Logging.LogLevel.Error)]
-		public static partial FailureValue UserNotFound(int userId);
+		public static partial Failure UserNotFound(int userId);
 	}
 }

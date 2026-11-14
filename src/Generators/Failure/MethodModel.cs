@@ -4,7 +4,7 @@
 namespace Wrap;
 
 /// <summary>
-/// Holds information about a FailureValue method.
+/// Holds information about a Failure method.
 /// </summary>
 internal record MethodModel()
 {
