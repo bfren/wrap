@@ -7,91 +7,63 @@ namespace Wrap.Caching.WrapCache_Tests;
 
 public class GetOrCreateAsync_Tests
 {
+	private static IMemoryCache Miss()
+	{
+		var mc = Substitute.For<IMemoryCache>();
+		mc.TryGetValue(Arg.Any<string>(), out Arg.Any<object>()!)
+			.Returns(x =>
+			{
+				x[1] = null;
+				return false;
+			});
+		return mc;
+	}
+
 	[Fact]
 	public async Task Key_Null__Returns_Failure_With_KeyIsNullMsg()
 	{
 		// Arrange
-		var mc = Substitute.For<IMemoryCache>();
-		var cache = new WrapCache<string>(mc);
+		var cache = new WrapCache<string>(Substitute.For<IMemoryCache>());
 
 		// Act
-		var result = await cache.GetOrCreateAsync(null!, async () => Rnd.DateTime);
+		var r0 = await cache.GetOrCreateAsync(null!, () => Task.FromResult(Rnd.DateTime));
+		var r1 = await cache.GetOrCreateAsync(null!, () => Task.FromResult(R.Wrap(Rnd.DateTime)));
 
 		// Assert
-		result.AssertFailure("Key cannot be null.");
+		r0.AssertFailure("Key cannot be null.");
+		r1.AssertFailure("Key cannot be null.");
 	}
 
 	[Fact]
-	public async Task Value_Exists__Incorrect_Type__Returns_Failure_With_CacheEntryIsIncorrectTypeMsg()
+	public async Task Value_Exists__Incorrect_Type__Returns_Failure_With_IncorrectTypeMsg()
 	{
 		// Arrange
 		var key = Rnd.Str;
 		var mc = Substitute.For<IMemoryCache>();
-		var c0 = new WrapCache<string>(mc);
-		var c1 = new WrapCache<string>(mc);
-		var c2 = new WrapCache<string>(mc);
-		var c3 = new WrapCache<string>(mc);
 		mc.TryGetValue(key, out Arg.Any<object>()!)
 			.Returns(x =>
 			{
 				x[1] = Rnd.Lng;
 				return true;
 			});
-
-		// Act
-		var r0 = await c0.GetOrCreateAsync(key, async () => Rnd.DateTime);
-		var r1 = await c1.GetOrCreateAsync(key, async () => M.Wrap(Rnd.DateTime));
-		var r2 = await c2.GetOrCreateAsync(key, async () => Rnd.DateTime, new());
-		var r3 = await c3.GetOrCreateAsync(key, async () => M.Wrap(Rnd.DateTime), new());
-
-		// Assert
-		r0.AssertFailure(
-			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
-			key, nameof(Int64), nameof(DateTime)
-		);
-		r1.AssertFailure(
-			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
-			key, nameof(Int64), nameof(DateTime)
-		);
-		r2.AssertFailure(
-			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
-			key, nameof(Int64), nameof(DateTime)
-		);
-		r3.AssertFailure(
-			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
-			key, nameof(Int64), nameof(DateTime)
-		);
-	}
-
-	[Fact]
-	public async Task Value_Exists__Is_Null__Returns_Failure()
-	{
-		// Arrange
-		var key = Rnd.Str;
-		var mc = Substitute.For<IMemoryCache>();
 		var cache = new WrapCache<string>(mc);
-		mc.TryGetValue(key, out Arg.Any<object>()!)
-			.Returns(x =>
-			{
-				x[1] = null;
-				return true;
-			});
+		const string message = "Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.";
 
 		// Act
-		var r0 = await cache.GetOrCreateAsync(key, async () => Rnd.DateTime);
-		var r1 = await cache.GetOrCreateAsync(key, async () => M.Wrap(Rnd.DateTime));
-		var r2 = await cache.GetOrCreateAsync(key, async () => Rnd.DateTime, new());
-		var r3 = await cache.GetOrCreateAsync(key, async () => M.Wrap(Rnd.DateTime), new());
+		var r0 = await cache.GetOrCreateAsync(key, () => Task.FromResult(Rnd.DateTime));
+		var r1 = await cache.GetOrCreateAsync(key, () => Task.FromResult(R.Wrap(Rnd.DateTime)));
+		var r2 = await cache.GetOrCreateAsync(key, () => Task.FromResult(Rnd.DateTime), new());
+		var r3 = await cache.GetOrCreateAsync(key, () => Task.FromResult(R.Wrap(Rnd.DateTime)), new());
 
 		// Assert
-		r0.AssertFailure();
-		r1.AssertFailure();
-		r2.AssertFailure();
-		r3.AssertFailure();
+		r0.AssertFailure(message, key, nameof(Int64), nameof(DateTime));
+		r1.AssertFailure(message, key, nameof(Int64), nameof(DateTime));
+		r2.AssertFailure(message, key, nameof(Int64), nameof(DateTime));
+		r3.AssertFailure(message, key, nameof(Int64), nameof(DateTime));
 	}
 
 	[Fact]
-	public async Task Value_Exists__Correct_Type__Returns_Value()
+	public async Task Value_Exists__Correct_Type__Returns_Value__Does_Not_Call_Factory()
 	{
 		// Arrange
 		var key = Rnd.Str;
@@ -104,18 +76,18 @@ public class GetOrCreateAsync_Tests
 				return true;
 			});
 		var cache = new WrapCache<string>(mc);
+		var f0 = Substitute.For<Func<Task<long>>>();
+		var f1 = Substitute.For<Func<Task<Result<long>>>>();
 
 		// Act
-		var r0 = await cache.GetOrCreateAsync(key, async () => Rnd.Lng);
-		var r1 = await cache.GetOrCreateAsync(key, async () => M.Wrap(Rnd.Lng));
-		var r2 = await cache.GetOrCreateAsync(key, async () => Rnd.Lng, new());
-		var r3 = await cache.GetOrCreateAsync(key, async () => M.Wrap(Rnd.Lng), new());
+		var r0 = await cache.GetOrCreateAsync(key, f0);
+		var r1 = await cache.GetOrCreateAsync(key, f1);
 
 		// Assert
 		r0.AssertOk(value);
 		r1.AssertOk(value);
-		r2.AssertOk(value);
-		r3.AssertOk(value);
+		_ = f0.DidNotReceive().Invoke();
+		_ = f1.DidNotReceive().Invoke();
 	}
 
 	[Fact]
@@ -124,26 +96,14 @@ public class GetOrCreateAsync_Tests
 		// Arrange
 		var key = Rnd.Str;
 		var value = Rnd.Lng;
-		var f0 = Substitute.For<Func<Task<long>>>();
-		f0.Invoke()
-			.Returns(Task.FromResult(value));
-		var f1 = Substitute.For<Func<Task<Maybe<long>>>>();
-		f1.Invoke()
-			.Returns(Task.FromResult(M.Wrap(value)));
-		var mc = Substitute.For<IMemoryCache>();
-		mc.TryGetValue(Arg.Any<string>(), out Arg.Any<object>()!)
-			.Returns(x =>
-			{
-				x[1] = null;
-				return false;
-			});
+		var mc = Miss();
 		var cache = new WrapCache<string>(mc);
 
 		// Act
-		var r0 = await cache.GetOrCreateAsync(key, f0);
-		var r1 = await cache.GetOrCreateAsync(key, f1);
-		var r2 = await cache.GetOrCreateAsync(key, f0, new());
-		var r3 = await cache.GetOrCreateAsync(key, f1, new());
+		var r0 = await cache.GetOrCreateAsync(key, () => Task.FromResult(value));
+		var r1 = await cache.GetOrCreateAsync(key, () => Task.FromResult(R.Wrap(value)));
+		var r2 = await cache.GetOrCreateAsync(key, () => Task.FromResult(value), new());
+		var r3 = await cache.GetOrCreateAsync(key, () => Task.FromResult(R.Wrap(value)), new());
 
 		// Assert
 		r0.AssertOk(value);
@@ -155,65 +115,56 @@ public class GetOrCreateAsync_Tests
 	}
 
 	[Fact]
-	public async Task Caches_Exception_In_ValueFactory__Returns_Failure_With_ErrorCreatingCacheValueMsg()
+	public async Task Factory_Returns_Failure__Returns_That_Failure__Does_Not_Store()
+	{
+		// Arrange
+		var key = Rnd.Str;
+		var failure = FailGen.Create();
+		var mc = Miss();
+		var cache = new WrapCache<string>(mc);
+
+		// Act
+		var result = await cache.GetOrCreateAsync(key, () => Task.FromResult(FailGen.Create<long>(failure)));
+
+		// Assert
+		Assert.Equal(failure, result.AssertFailure());
+		_ = mc.DidNotReceive().CreateEntry(Arg.Any<object>());
+	}
+
+	[Fact]
+	public async Task Factory_Throws__Returns_Failure_With_ErrorCreatingCacheValueMsg()
 	{
 		// Arrange
 		var key = Rnd.Str;
 		var ex = new Exception(Rnd.Str);
 		Task<long> f0() => throw ex;
-		Task<Maybe<long>> f1() => throw ex;
-		var mc = Substitute.For<IMemoryCache>();
-		mc.TryGetValue(Arg.Any<string>(), out Arg.Any<object>()!)
-			.Returns(x =>
-			{
-				x[1] = null;
-				return false;
-			});
-		var c0 = new WrapCache<string>(mc);
-		var c1 = new WrapCache<string>(mc);
-		var c2 = new WrapCache<string>(mc);
-		var c3 = new WrapCache<string>(mc);
+		Task<Result<long>> f1() => throw ex;
+		var cache = new WrapCache<string>(Miss());
 
 		// Act
-		var r0 = await c0.GetOrCreateAsync(key, f0);
-		var r1 = await c1.GetOrCreateAsync(key, f1);
-		var r2 = await c2.GetOrCreateAsync(key, f0, new());
-		var r3 = await c3.GetOrCreateAsync(key, f1, new());
+		var r0 = await cache.GetOrCreateAsync(key, f0);
+		var r1 = await cache.GetOrCreateAsync(key, f1);
 
 		// Assert
 		r0.AssertFailure(ex, "Error creating cache value.");
 		r1.AssertFailure(ex, "Error creating cache value.");
-		r2.AssertFailure(ex, "Error creating cache value.");
-		r3.AssertFailure(ex, "Error creating cache value.");
 	}
 
 	[Fact]
-	public void Multiple_Threads__Calls_CreateEntry__Once()
+	public async Task Factory_Fails__Next_Call_Runs_Factory_Again()
 	{
 		// Arrange
 		var key = Rnd.Str;
-		var created = false;
-		var f = Substitute.For<Func<Task<long>>>();
-		var mc = Substitute.For<IMemoryCache>();
-		mc.TryGetValue(key, out Arg.Any<object>()!)
-			.Returns(x =>
-			{
-				x[1] = Rnd.Lng;
-				return created;
-			});
-		mc.When(x => x.CreateEntry(key))
-			.Do(Callback.First(_ => created = true));
-		var cache = new WrapCache<string>(mc);
+		var value = Rnd.Lng;
+		var cache = new WrapCache<string>(new MemoryCache(new MemoryCacheOptions()));
 
 		// Act
-		Parallel.ForEach(
-			source: Enumerable.Range(0, 30),
-			parallelOptions: new() { MaxDegreeOfParallelism = 10 },
-			body: async _ => await cache.GetOrCreateAsync(key, f)
-		);
+		var r0 = await cache.GetOrCreateAsync(key, () => Task.FromResult(FailGen.Create<long>()));
+		var r1 = await cache.GetOrCreateAsync(key, () => Task.FromResult(R.Wrap(value)));
 
 		// Assert
-		mc.Received(1).CreateEntry(key);
+		_ = r0.AssertFailure();
+		r1.AssertOk(value);
 	}
 
 	[Fact]
@@ -223,18 +174,14 @@ public class GetOrCreateAsync_Tests
 		var key = Rnd.Str;
 		var v0 = Rnd.Lng;
 		var v1 = Rnd.Lng;
-		var mc = new MemoryCache(new MemoryCacheOptions());
+		var cache = new WrapCache<string>(new MemoryCache(new MemoryCacheOptions()));
 		var ms = 200;
-		var cache = new WrapCache<string>(mc);
-		var semaphore = new SemaphoreSlim(1, 1);
 
 		// Act
-		var r0 = await cache.GetOrCreateAsync(key, async () => v0, new() { AbsoluteExpirationRelativeToNow = TimeSpan.FromMilliseconds(ms) });
-		var r1 = await cache.GetOrCreateAsync(key, async () => v1);
-		await semaphore.WaitAsync(TestContext.Current.CancellationToken);
-		Thread.Sleep(TimeSpan.FromMilliseconds(ms * 2));
-		var r2 = await cache.GetOrCreateAsync(key, async () => v1);
-		semaphore.Release();
+		var r0 = await cache.GetOrCreateAsync(key, () => Task.FromResult(v0), new() { AbsoluteExpirationRelativeToNow = TimeSpan.FromMilliseconds(ms) });
+		var r1 = await cache.GetOrCreateAsync(key, () => Task.FromResult(v1));
+		await Task.Delay(TimeSpan.FromMilliseconds(ms * 2), TestContext.Current.CancellationToken);
+		var r2 = await cache.GetOrCreateAsync(key, () => Task.FromResult(v1));
 
 		// Assert
 		r0.AssertOk(v0);
@@ -243,15 +190,34 @@ public class GetOrCreateAsync_Tests
 	}
 
 	[Fact]
-	public async Task Factory_Calls_GetOrCreateAsync_For_Key_Sharing_Lock__Does_Not_Hang()
+	public async Task Slow_Factory__Does_Not_Block_Other_Keys()
 	{
-		// Arrange - int keys hash to themselves, so 1 and 65 use the same one of the 64 locks
+		// Arrange - key 1's factory cannot finish until the test releases it
+		var cache = new WrapCache<int>(new MemoryCache(new MemoryCacheOptions()));
+		var gate = new TaskCompletionSource<Result<int>>();
+		var ct = TestContext.Current.CancellationToken;
+
+		// Act - WaitAsync throws TimeoutException if key 2 waits for key 1
+		var slow = cache.GetOrCreateAsync(1, () => gate.Task);
+		var other = await cache.GetOrCreateAsync(2, () => Task.FromResult(2)).WaitAsync(TimeSpan.FromSeconds(5), ct);
+		gate.SetResult(1);
+
+		// Assert
+		other.AssertOk(2);
+		(await slow).AssertOk(1);
+	}
+
+	[Fact]
+	public async Task Factory_Calls_GetOrCreateAsync_For_Another_Key__Returns_Value()
+	{
+		// Arrange
 		var cache = new WrapCache<int>(new MemoryCache(new MemoryCacheOptions()));
 		var inner = Rnd.Int;
+		var ct = TestContext.Current.CancellationToken;
 
 		// Act - WaitAsync throws TimeoutException if the call hangs
-		var result = await cache.GetOrCreateAsync(1, async () => await cache.GetOrCreateAsync(65, () => Task.FromResult(inner)))
-			.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
+		var result = await cache.GetOrCreateAsync(1, () => cache.GetOrCreateAsync(2, () => Task.FromResult(inner)))
+			.WaitAsync(TimeSpan.FromSeconds(5), ct);
 
 		// Assert
 		result.AssertOk(inner);
