@@ -18,11 +18,11 @@ public static partial class M
 
 	/// <inheritdoc cref="ParseBool(string?)"/>
 	public static Maybe<DateTime> ParseDateTime(string? input) =>
-		Parse(input, (string? s, out DateTime result) => DateTime.TryParse(s, F.DefaultCulture, DateTimeStyles.None, out result));
+		Parse(input, (string? s, out DateTime result) => DateTime.TryParse(s, F.DefaultCulture, DateTimeStyles.RoundtripKind, out result));
 
 	/// <inheritdoc cref="ParseBool(string?)"/>
 	public static Maybe<DateTime> ParseDateTime(ReadOnlySpan<char> input) =>
-		Parse(input, (ReadOnlySpan<char> s, out DateTime result) => DateTime.TryParse(s, F.DefaultCulture, DateTimeStyles.None, out result));
+		Parse(input, (ReadOnlySpan<char> s, out DateTime result) => DateTime.TryParse(s, F.DefaultCulture, DateTimeStyles.RoundtripKind, out result));
 
 	/// <inheritdoc cref="ParseBool(string?)"/>
 	public static Maybe<DateTimeOffset> ParseDateTimeOffset(string? input) =>
