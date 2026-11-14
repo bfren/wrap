@@ -59,6 +59,17 @@ public sealed class FailureGenerator : IIncrementalGenerator
 				(int?)null
 		};
 
+		// Check the method and message, and stop if the method cannot be implemented
+		var location = attr.ApplicationSyntaxReference?.GetSyntax().GetLocation() ?? method.Locations.FirstOrDefault();
+		var diagnostics = FailureDiagnostics.Check(method, message, location, out var canGenerate);
+		if (!canGenerate)
+		{
+			return new MethodModel
+			{
+				Diagnostics = diagnostics
+			};
+		}
+
 		// Walk up ContainingType chain, collecting outermost → innermost
 		var containingTypes = new Stack<ContainingType>();
 		var current = method.ContainingType;
@@ -101,7 +112,9 @@ public sealed class FailureGenerator : IIncrementalGenerator
 			Message = message,
 			LogLevel = logLevel,
 			Parameters = [.. method.Parameters.Select(ParameterModel.Create)],
-			ReturnType = method.ReturnType.ToDisplayString()
+			ReturnType = method.ReturnType.ToDisplayString(),
+			Diagnostics = diagnostics,
+			CanGenerate = true
 		};
 	}
 
@@ -109,6 +122,17 @@ public sealed class FailureGenerator : IIncrementalGenerator
 	{
 		// Handle null
 		if (model == null)
+		{
+			return;
+		}
+
+		// Report problems, and skip generation when the method cannot be implemented
+		foreach (var diagnostic in model.Diagnostics)
+		{
+			ctx.ReportDiagnostic(diagnostic);
+		}
+
+		if (!model.CanGenerate)
 		{
 			return;
 		}

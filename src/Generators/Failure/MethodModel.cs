@@ -1,6 +1,8 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using Microsoft.CodeAnalysis;
+
 namespace Wrap;
 
 /// <summary>
@@ -60,5 +62,16 @@ internal record MethodModel()
 	/// </summary>
 	internal string ReturnType { get; set; } =
 		string.Empty;
+
+	/// <summary>
+	/// Problems found with the method or its message.
+	/// </summary>
+	internal Diagnostic[] Diagnostics { get; set; } =
+		[];
+
+	/// <summary>
+	/// False if the method cannot be implemented, so no source is generated.
+	/// </summary>
+	internal bool CanGenerate { get; set; }
 
 }
