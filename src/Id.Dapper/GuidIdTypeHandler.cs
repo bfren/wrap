@@ -25,6 +25,7 @@ public sealed class GuidIdTypeHandler<T> : IdTypeHandler<T, Guid>
 			Value = value switch
 			{
 				// some providers (e.g. Microsoft.Data.Sqlite) return Guid columns as raw bytes, which have no string form to parse
+				// shortcut: assumes Guid.ToByteArray() byte order - RFC 4122-ordered bytes (MySQL UUID_TO_BIN, Oracle SYS_GUID) read as a different Guid
 				byte[] { Length: 16 } bytes =>
 					new Guid(bytes),
 
