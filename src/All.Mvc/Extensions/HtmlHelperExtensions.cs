@@ -6,6 +6,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Wrap.Mvc;
 
 /// <summary>
-/// <see cref="IHtmlHelper"/> extension methods
+/// Extension methods for <see cref="IHtmlHelper"/> objects.
 /// </summary>
 public static partial class HtmlHelperExtensions { }

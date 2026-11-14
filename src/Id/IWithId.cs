@@ -4,27 +4,27 @@
 namespace Wrap;
 
 /// <summary>
-/// Represents an object (Entity or Model) with a strongly-typed ID.
+/// Object (entity or model) with a strongly typed ID.
 /// </summary>
 public interface IWithId
 {
 	/// <summary>
-	/// Monad ID value.
+	/// Gets the ID as an untyped monad.
 	/// </summary>
 	IMonad Id { get; }
 }
 
 /// <summary>
-/// Represents an object (Entity or Model) with a strongly-typed ID.
+/// Object (entity or model) with a strongly typed ID of type <typeparamref name="TId"/>.
 /// </summary>
 /// <typeparam name="TId">ID type.</typeparam>
-/// <typeparam name="TValue">ID Value type.</typeparam>
+/// <typeparam name="TValue">ID value type.</typeparam>
 public interface IWithId<TId, TValue> : IWithId
 	where TId : class, IId<TId, TValue>, new()
 	where TValue : struct
 {
 	/// <summary>
-	/// Strongly-typed ID value.
+	/// Gets or initialises the strongly typed ID.
 	/// </summary>
 	new TId Id { get; init; }
 

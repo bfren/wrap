@@ -6,23 +6,23 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace Wrap.Mvc;
 
 /// <summary>
-/// Generic model binder for Wrap classes.
+/// MVC model binder that reads a <typeparamref name="TValue"/> from the request and wraps it in a Wrap type.
 /// </summary>
-/// <typeparam name="TValue">Value type.</typeparam>
+/// <typeparam name="TValue">Wrapped value type.</typeparam>
 public interface IWrapModelBinder<TValue> : IModelBinder
 {
 	/// <summary>
-	/// Abstraction for getting value from binding value provider.
+	/// Read, parse and wrap the value named <paramref name="model"/> from <paramref name="provider"/>.
 	/// </summary>
-	/// <param name="provider">IValueProvider.</param>
-	/// <param name="model">Model Name.</param>
-	/// <returns>ValueProviderResult and ModelBindingResult.</returns>
+	/// <param name="provider">Value provider to read from.</param>
+	/// <param name="model">Model name.</param>
+	/// <returns>The raw value provider result, and the model binding result holding the wrapped value.</returns>
 	(ValueProviderResult valueResult, ModelBindingResult bindingResult) GetValue(IValueProvider provider, string model);
 
 	/// <summary>
-	/// Wrap a value to insert correctly into the binding context.
+	/// Wrap a parsed value in the type being bound.
 	/// </summary>
 	/// <param name="value">Value to wrap.</param>
-	/// <returns>Wrapped value</returns>
+	/// <returns>The wrapped value, boxed.</returns>
 	object Wrap(TValue value);
 }

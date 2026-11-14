@@ -4,7 +4,7 @@
 namespace Wrap.Ids;
 
 /// <summary>
-/// Implementation using <see cref="uint"/> as the Value type.
+/// Base record for strongly typed IDs with a <see cref="uint"/> value; a new ID holds the default value.
 /// </summary>
 /// <typeparam name="TId">ID implementation type.</typeparam>
 public abstract record class UIntId<TId>() : Id<TId, uint>(0u), IUintId<TId>

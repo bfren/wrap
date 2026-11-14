@@ -31,10 +31,10 @@ public readonly partial struct Maybe<T>
 	/// Get the <see cref="Some{T}"/> case, if this object holds one.
 	/// </summary>
 	/// <remarks>
-	/// Called by the compiler for <c>maybe is Some&lt;T&gt;</c> patterns, so matching does not allocate.
+	/// Called by the compiler for <c>maybe is Some&lt;T&gt;</c> patterns and <see langword="switch"/>, so matching does not allocate.
 	/// </remarks>
-	/// <param name="some">The <see cref="Some{T}"/> case, or a <see cref="Some{T}"/> holding <c>default</c> if this is <see cref="None"/>.</param>
-	/// <returns><see langword="true"/> if this is a <see cref="Some{T}"/>.</returns>
+	/// <param name="some">The <see cref="Some{T}"/> case, or a <see cref="Some{T}"/> holding <see langword="default"/> if this is <see cref="None"/>.</param>
+	/// <returns><see langword="true"/> if this is a <see cref="Some{T}"/>, otherwise <see langword="false"/>.</returns>
 	public bool TryGetValue(out Some<T> some)
 	{
 		some = new(value!);
@@ -45,10 +45,10 @@ public readonly partial struct Maybe<T>
 	/// Get the <see cref="None"/> case, if this object holds it.
 	/// </summary>
 	/// <remarks>
-	/// Called by the compiler for <c>maybe is None</c> patterns, so matching does not allocate.
+	/// Called by the compiler for <c>maybe is None</c> patterns and <see langword="switch"/>, so matching does not allocate.
 	/// </remarks>
 	/// <param name="none">Always the default <see cref="None"/> value.</param>
-	/// <returns><see langword="true"/> if this is <see cref="None"/>.</returns>
+	/// <returns><see langword="true"/> if this is <see cref="None"/>, otherwise <see langword="false"/>.</returns>
 	public bool TryGetValue(out None none)
 	{
 		none = default;

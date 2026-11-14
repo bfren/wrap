@@ -4,7 +4,7 @@
 namespace Wrap;
 
 /// <summary>
-/// ID monad.
+/// Strongly typed ID that wraps a value of type <typeparamref name="TValue"/>.
 /// </summary>
 /// <typeparam name="TValue">ID value type.</typeparam>
 public interface IId<TValue> : IMonad<TValue>
@@ -12,7 +12,7 @@ public interface IId<TValue> : IMonad<TValue>
 { }
 
 /// <summary>
-/// ID monad.
+/// Strongly typed ID implemented by <typeparamref name="TId"/>, so IDs for different entities cannot be mixed up.
 /// </summary>
 /// <typeparam name="TId">ID implementation type.</typeparam>
 /// <typeparam name="TValue">ID value type.</typeparam>

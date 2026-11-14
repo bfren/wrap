@@ -8,11 +8,17 @@ using Wrap.Exceptions;
 namespace Wrap.Mvc;
 
 /// <summary>
-/// <see cref="IMonad{TId, TValue}"/> MVC model binder provider.
+/// MVC model binder provider that creates a <see cref="MonadModelBinder{TMonad, TValue}"/> for
+/// <see cref="IMonad{TMonad, TValue}"/> properties, such as strongly typed IDs.
 /// </summary>
 public sealed class MonadModelBinderProvider : IModelBinderProvider
 {
-	/// <inheritdoc/>
+	/// <summary>
+	/// Create a model binder if the model type implements <see cref="IMonad{TMonad, TValue}"/> once.
+	/// </summary>
+	/// <param name="context">Model binder provider context.</param>
+	/// <returns>A <see cref="MonadModelBinder{TMonad, TValue}"/>, or <see langword="null"/> if the model type is not a single-case monad, so MVC tries the next provider.</returns>
+	/// <exception cref="ModelBinderException">The binder could not be created.</exception>
 	public IModelBinder? GetBinder(ModelBinderProviderContext context) =>
 		GetBinder(context.Metadata.ModelType);
 

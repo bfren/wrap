@@ -12,7 +12,7 @@ public static partial class ListExtensions
 	/// Add <see cref="MaybeJsonConverterFactory"/> and
 	/// <see cref="MonadJsonConverterFactory"/> to the list of JSON converters.
 	/// </summary>
-	/// <param name="this">List of JsonConverters.</param>
+	/// <param name="this">JSON converters, usually <c>JsonSerializerOptions.Converters</c>.</param>
 	public static void AddWrapConverters(this IList<JsonConverter> @this)
 	{
 		@this.Add(new MaybeJsonConverterFactory());

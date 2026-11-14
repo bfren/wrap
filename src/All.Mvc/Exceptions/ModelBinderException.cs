@@ -8,26 +8,27 @@ using Wrap.Mvc;
 namespace Wrap.Exceptions;
 
 /// <summary>
-/// Thrown when creating a StrongId MVC model binder fails -
-/// see <see cref="MonadModelBinderProvider.GetBinder(ModelBinderProviderContext)"/>.
+/// Thrown when a Wrap MVC model binder cannot be created - see
+/// <see cref="MaybeModelBinderProvider.GetBinder(ModelBinderProviderContext)"/> and
+/// <see cref="MonadModelBinderProvider.GetBinder(ModelBinderProviderContext)"/>.
 /// </summary>
 public sealed class ModelBinderException : Exception
 {
 	/// <summary>
-	/// Create object.
+	/// Create the exception with the default message.
 	/// </summary>
 	public ModelBinderException() { }
 
 	/// <summary>
-	/// Create object with message.
+	/// Create the exception with a message.
 	/// </summary>
 	/// <param name="message">Exception message.</param>
 	public ModelBinderException(string message) : base(message) { }
 
 	/// <summary>
-	/// Create object with message and inner exception.
+	/// Create the exception with a message and the exception that caused it.
 	/// </summary>
 	/// <param name="message">Exception message.</param>
-	/// <param name="inner">Inner Exception.</param>
+	/// <param name="inner">Exception that caused this one.</param>
 	public ModelBinderException(string message, Exception inner) : base(message, inner) { }
 }

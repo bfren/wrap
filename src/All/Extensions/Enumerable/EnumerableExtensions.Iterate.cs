@@ -12,12 +12,11 @@ public static partial class EnumerableExtensions
 	#region Maybe
 
 	/// <summary>
-	/// Loop through list <paramref name="this"/> and apply function <paramref name="f"/> to each element
-	/// that is a <see cref="Some{T}"/>.
+	/// Run <paramref name="f"/> with the value of each item in <paramref name="this"/> that is <see cref="Some{T}"/>.
 	/// </summary>
 	/// <typeparam name="T">Some value type.</typeparam>
-	/// <param name="this">List of <see cref="Maybe{T}"/> objects.</param>
-	/// <param name="f">Function to apply to each <see cref="Some{T}"/> element of <paramref name="this"/>.</param>
+	/// <param name="this">List of Maybe objects.</param>
+	/// <param name="f">Action to run with each value; <see cref="None"/> items are skipped.</param>
 	public static void Iterate<T>(this IEnumerable<Maybe<T>> @this, Action<T> f)
 	{
 		foreach (var item in @this)
@@ -54,12 +53,11 @@ public static partial class EnumerableExtensions
 	#region Result
 
 	/// <summary>
-	/// Loop through list <paramref name="this"/> and apply function <paramref name="f"/> to each element
-	/// that is a <see cref="Ok{T}"/>.
+	/// Run <paramref name="f"/> with the value of each item in <paramref name="this"/> that is <see cref="Ok{T}"/>.
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
-	/// <param name="this">List of <see cref="Result{T}"/> objects.</param>
-	/// <param name="f">Function to apply to each <see cref="Ok{T}"/> element of <paramref name="this"/>.</param>
+	/// <param name="this">List of Result objects.</param>
+	/// <param name="f">Action to run with each value; <see cref="Failure"/> items are skipped.</param>
 	public static void Iterate<T>(this IEnumerable<Result<T>> @this, Action<T> f)
 	{
 		foreach (var item in @this)

@@ -6,12 +6,12 @@ using System.Globalization;
 namespace Wrap;
 
 /// <summary>
-/// Pure functions for interacting with Monad types.
+/// Pure functions for working with monad types.
 /// </summary>
 public static partial class F
 {
 	/// <summary>
-	/// Default culture (en-GB) - used when working with strings.
+	/// Gets or sets the culture used to format and parse strings (en-GB by default).
 	/// </summary>
 	public static CultureInfo DefaultCulture { get; set; } = CultureInfo.GetCultureInfo("en-GB");
 }

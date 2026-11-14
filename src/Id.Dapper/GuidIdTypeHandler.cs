@@ -8,17 +8,22 @@ using Wrap.Ids;
 namespace Wrap.Dapper;
 
 /// <summary>
-/// <see cref="GuidId{TId}"/> TypeHandler.
+/// Dapper type handler that reads and writes <see cref="GuidId{TId}"/> values.
 /// </summary>
-/// <typeparam name="T"><see cref="GuidId{TId}"/> type.</typeparam>
+/// <typeparam name="T"><see cref="GuidId{TId}"/> implementation type.</typeparam>
 public sealed class GuidIdTypeHandler<T> : IdTypeHandler<T, Guid>
 	where T : GuidId<T>, new()
 {
 	/// <summary>
-	/// Parse value and create new <see cref="GuidId{TId}"/>.
+	/// Parse a database value and create a new <typeparamref name="T"/>.
 	/// </summary>
-	/// <param name="value"><see cref="GuidId{TId}"/> Value.</param>
-	/// <returns><see cref="GuidId{TId}"/> with parsed value.</returns>
+	/// <remarks>
+	/// A 16-byte array (returned by some providers, for example Microsoft.Data.Sqlite) is read in
+	/// <see cref="Guid.ToByteArray()"/> order; anything else is parsed from its string form.
+	/// </remarks>
+	/// <param name="value">Database value.</param>
+	/// <returns>A new <typeparamref name="T"/> holding the parsed value, or the default value if <paramref name="value"/> is <see langword="null"/> or cannot be parsed.</returns>
+	/// <exception cref="OverflowException"><paramref name="value"/> is a number that cannot be stored in the ID value type.</exception>
 	public override T Parse(object value) =>
 		new()
 		{
@@ -42,10 +47,10 @@ public sealed class GuidIdTypeHandler<T> : IdTypeHandler<T, Guid>
 		};
 
 	/// <summary>
-	/// Set ID value.
+	/// Set a parameter to the ID value, with the matching <see cref="DbType"/>.
 	/// </summary>
-	/// <param name="parameter"></param>
-	/// <param name="value"><see cref="GuidId{TId}"/> value.</param>
+	/// <param name="parameter">Parameter to set.</param>
+	/// <param name="value">ID to write, or <see langword="null"/> to write <see cref="DBNull.Value"/>.</param>
 	public override void SetValue(IDbDataParameter parameter, T? value)
 	{
 		// Set DbType according to the ID value type rather than the StrongId type

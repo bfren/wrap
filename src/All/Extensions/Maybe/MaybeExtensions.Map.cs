@@ -9,20 +9,17 @@ namespace Wrap.Extensions;
 public static partial class MaybeExtensions
 {
 	/// <summary>
-	/// Run <paramref name="f"/> when <paramref name="this"/> is <see cref="Some{T}"/>.
+	/// Convert the value with <paramref name="f"/> when <paramref name="this"/> is <see cref="Some{T}"/>, and wrap the result.
 	/// </summary>
 	/// <remarks>
-	/// <para>
-	/// This function maps a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object,
-	/// and wraps the result in <see cref="Some{T}"/>.
-	/// </para>
+	/// The result is wrapped with <see cref="M.Wrap{T}(T)"/>, so a <see langword="null"/> result becomes <see cref="None"/>.
 	/// </remarks>
 	/// <seealso cref="Bind{T, TReturn}(Maybe{T}, Func{T, Maybe{TReturn}})"/>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
-	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns><see cref="Some{T}"/> object or <see cref="None"/>.</returns>
+	/// <param name="f">Function that converts the value.</param>
+	/// <returns><see cref="Some{T}"/> holding the value returned by <paramref name="f"/>, or <see cref="None"/> if <paramref name="this"/> is <see cref="None"/> or <paramref name="f"/> returns <see langword="null"/>.</returns>
 	public static Maybe<TReturn> Map<T, TReturn>(this Maybe<T> @this, Func<T, TReturn> f) =>
 		@this switch
 		{

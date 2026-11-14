@@ -32,10 +32,11 @@ namespace Wrap;
 public readonly partial struct Maybe<T> : IEither<None, T>, IEquatable<Maybe<T>>
 {
 	/// <summary>
-	/// Always <see langword="true"/>: the union always holds a case, because <c>default</c> is <see cref="None"/>.
+	/// Gets <see langword="true"/> always: the union always holds a case, because <see langword="default"/> is <see cref="None"/>.
 	/// </summary>
 	/// <remarks>
-	/// Required by the union pattern so the compiler knows a <see cref="Maybe{T}"/> is never <see langword="null"/>.
+	/// Called by the compiler for <see langword="is"/> patterns and <see langword="switch"/>, so it knows a
+	/// <see cref="Maybe{T}"/> is never <see langword="null"/>.
 	/// </remarks>
 	public bool HasValue =>
 		true;
@@ -46,10 +47,10 @@ public readonly partial struct Maybe<T> : IEither<None, T>, IEquatable<Maybe<T>>
 	private readonly T? value;
 
 	/// <summary>
-	/// The current case, boxed as <see cref="Some{T}"/> or <see cref="None"/>.
+	/// Gets the current case, boxed as <see cref="Some{T}"/> or <see cref="None"/>.
 	/// </summary>
 	/// <remarks>
-	/// Required by the union pattern and used by reflection and serialisers.
+	/// Called by the compiler for <see langword="is"/> patterns and <see langword="switch"/>, and used by reflection and serialisers.
 	/// It allocates on every call - use pattern matching instead.
 	/// </remarks>
 	public object? Value =>

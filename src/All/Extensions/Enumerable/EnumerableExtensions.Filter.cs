@@ -12,11 +12,14 @@ public static partial class EnumerableExtensions
 	#region Maybe
 
 	/// <summary>
-	/// Filter out <see cref="None"/> objects from a list.
+	/// Remove the <see cref="None"/> items from a list.
 	/// </summary>
+	/// <remarks>
+	/// The result is lazy.
+	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">List of Maybe objects.</param>
-	/// <returns>List with all <see cref="None"/> objects removed.</returns>
+	/// <returns>The <see cref="Some{T}"/> items of <paramref name="this"/>, in order.</returns>
 	public static IEnumerable<Maybe<T>> Filter<T>(this IEnumerable<Maybe<T>> @this)
 	{
 		foreach (var item in @this)
@@ -33,12 +36,15 @@ public static partial class EnumerableExtensions
 		@this.Then(x => x.Filter());
 
 	/// <summary>
-	/// Run <paramref name="fTest"/> on each value in <paramref name="this"/> that is <see cref="Some{T}"/>.
+	/// Keep the <see cref="Some{T}"/> items whose value passes <paramref name="fTest"/>.
 	/// </summary>
+	/// <remarks>
+	/// The result is lazy; the async overloads build the whole list.
+	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">List of Maybe objects.</param>
-	/// <param name="fTest">Function to detemine whether or not the value of <paramref name="this"/> should be returned.</param>
-	/// <returns>Value of <paramref name="this"/> if <paramref name="fTest"/> returns true, or <see cref="None"/>.</returns>
+	/// <param name="fTest">Test to run on each value.</param>
+	/// <returns>The <see cref="Some{T}"/> items for which <paramref name="fTest"/> returns <see langword="true"/>; <see cref="None"/> items are dropped.</returns>
 	public static IEnumerable<Maybe<T>> Filter<T>(this IEnumerable<Maybe<T>> @this, Func<T, bool> fTest)
 	{
 		foreach (var item in @this)
@@ -79,12 +85,15 @@ public static partial class EnumerableExtensions
 	#region Result
 
 	/// <summary>
-	/// Run <paramref name="fTest"/> on each value in <paramref name="this"/> that is <see cref="Some{T}"/>.
+	/// Keep the <see cref="Ok{T}"/> items whose value passes <paramref name="fTest"/>.
 	/// </summary>
-	/// <typeparam name="T">Some value type.</typeparam>
+	/// <remarks>
+	/// The result is lazy; the async overloads build the whole list.
+	/// </remarks>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">List of Result objects.</param>
-	/// <param name="fTest">Function to detemine whether or not the value of <paramref name="this"/> should be returned.</param>
-	/// <returns>Value of <paramref name="this"/> if <paramref name="fTest"/> returns true, or <see cref="None"/>.</returns>
+	/// <param name="fTest">Test to run on each value.</param>
+	/// <returns>The <see cref="Ok{T}"/> items for which <paramref name="fTest"/> returns <see langword="true"/>; <see cref="Failure"/> items are dropped.</returns>
 	public static IEnumerable<Result<T>> Filter<T>(this IEnumerable<Result<T>> @this, Func<T, bool> fTest)
 	{
 		foreach (var item in @this)

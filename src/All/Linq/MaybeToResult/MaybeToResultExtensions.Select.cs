@@ -12,26 +12,29 @@ public static partial class MaybeToResultExtensions
 		R.Fail(C.NoneFailureMessage, typeof(T).Name);
 
 	/// <summary>
-	/// Enables LINQ Select() to convert <see cref="Maybe{T}"/> objects to <see cref="Result{T}"/>.
+	/// Convert the value of a <see cref="Maybe{T}"/> in a LINQ query, producing a <see cref="Result{T}"/>.
 	/// </summary>
 	/// <remarks>
 	/// <para>
 	/// For example:
 	/// </para>
 	/// <code>
-	/// from x in Maybe
-	/// select x
+	/// Result&lt;int&gt; r = from x in maybe
+	///                    select x * 2;
 	/// </code>
 	/// <para>
-	/// Returns value of x if <see cref="Maybe{T}"/> object is <see cref="Some{T}"/>,
-	/// and <see cref="None"/> if not.
+	/// Exceptions thrown by <paramref name="f"/> are not caught.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Maybe type.</typeparam>
-	/// <typeparam name="TReturn">Return type.</typeparam>
-	/// <param name="this">Maybe.</param>
-	/// <param name="f">Return map function.</param>
-	/// <returns>Result object.</returns>
+	/// <typeparam name="T">Some value type.</typeparam>
+	/// <typeparam name="TReturn">Return value type.</typeparam>
+	/// <param name="this">Maybe object.</param>
+	/// <param name="f">Function that converts the value.</param>
+	/// <returns>
+	/// <see cref="Ok{T}"/> holding the value returned by <paramref name="f"/>; a <see cref="Failure"/> with the message
+	/// <c>Maybe&lt;{Type}&gt; was 'None'.</c> if <paramref name="this"/> is <see cref="None"/>; or a <see cref="Failure"/>
+	/// if <paramref name="f"/> returns <see langword="null"/>.
+	/// </returns>
 	public static Result<TReturn> Select<T, TReturn>(this Maybe<T> @this, Func<T, TReturn> f) =>
 		@this switch
 		{

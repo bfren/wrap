@@ -9,13 +9,16 @@ namespace Wrap.Extensions;
 public static partial class EnumerableExtensions
 {
 	/// <summary>
-	/// Safely get the single value of a list.
+	/// Get the only item, without throwing if there are none or more than one.
 	/// </summary>
-	/// <typeparam name="T">IEnumerable value type.</typeparam>
-	/// <param name="this">IEnumerable object</param>
+	/// <remarks>
+	/// At most two items are read.
+	/// </remarks>
+	/// <typeparam name="T">List item type.</typeparam>
+	/// <param name="this">List of values.</param>
 	/// <returns>
-	/// Value of the single element of <paramref name="this"/>, or <see cref="None"/> if the list is empty
-	/// or contains more than one element.
+	/// <see cref="Some{T}"/> holding the only item, or <see cref="None"/> if the list is empty, has more than one item,
+	/// or its only item is <see langword="null"/>.
 	/// </returns>
 	public static Maybe<T> SingleOrNone<T>(this IEnumerable<T> @this) =>
 		// can't use SingleOrDefault() because it throws an exception if there is more than one element

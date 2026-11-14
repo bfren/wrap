@@ -10,25 +10,22 @@ namespace Wrap.Linq;
 public static partial class MaybeToMaybeExtensions
 {
 	/// <summary>
-	/// Enables LINQ Where() on <see cref="Maybe{T}"/> objects.
+	/// Filter a <see cref="Maybe{T}"/> in a LINQ query - see <see cref="MaybeExtensions.Filter{T}(Maybe{T}, Func{T, bool})"/>.
 	/// </summary>
 	/// <remarks>
 	/// <para>
 	/// For example:
 	/// </para>
 	/// <code>
-	/// from x in Maybe
-	/// where x == y
+	/// from x in maybe
+	/// where x > 0
 	/// select x
 	/// </code>
-	/// <para>
-	/// Returns value of x if <see cref="Maybe{T}"/> object is <see cref="Some{T}"/> and x is equal to y,
-	/// and <see cref="None"/> if not.
-	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Maybe type.</typeparam>
-	/// <param name="this">Maybe.</param>
-	/// <param name="fTest">Select where fTest.</param>
+	/// <typeparam name="T">Some value type.</typeparam>
+	/// <param name="this">Maybe object.</param>
+	/// <param name="fTest">Test to run on the value.</param>
+	/// <returns><paramref name="this"/> if it is <see cref="Some{T}"/> and <paramref name="fTest"/> returns <see langword="true"/>, otherwise <see cref="None"/>.</returns>
 	public static Maybe<T> Where<T>(this Maybe<T> @this, Func<T, bool> fTest) =>
 		@this.Filter(fTest);
 

@@ -8,12 +8,11 @@ namespace Wrap.Extensions;
 public static partial class MaybeExtensions
 {
 	/// <summary>
-	/// Create a new <see cref="Unsafe{TEither, TLeft, TRight}"/> object,
-	/// wrapping round <paramref name="this"/>.
+	/// Wrap <paramref name="this"/> in an <see cref="Unsafe{TEither, TLeft, TRight}"/> object, to use the unsafe functions.
 	/// </summary>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
-	/// <returns><see cref="Unsafe{TEither, TLeft, TRight}"/> object wrapping <paramref name="this"/>.</returns>
+	/// <returns>An <see cref="Unsafe{TEither, TLeft, TRight}"/> object wrapping <paramref name="this"/>.</returns>
 	public static Unsafe<Maybe<T>, None, T> Unsafe<T>(this Maybe<T> @this) =>
 		new(@this);
 

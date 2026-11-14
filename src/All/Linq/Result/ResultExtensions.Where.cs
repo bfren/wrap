@@ -10,25 +10,25 @@ namespace Wrap.Linq;
 public static partial class ResultExtensions
 {
 	/// <summary>
-	/// Enables LINQ Where() on <see cref="Result{T}"/> objects.
+	/// Filter a <see cref="Result{T}"/> in a LINQ query - see <see cref="Extensions.ResultExtensions.Filter{T}(Result{T}, Func{T, bool})"/>.
 	/// </summary>
 	/// <remarks>
 	/// <para>
 	/// For example:
 	/// </para>
 	/// <code>
-	/// from x in Result
-	/// where x == y
+	/// from x in result
+	/// where x > 0
 	/// select x
 	/// </code>
-	/// <para>
-	/// Returns value of x if <see cref="Result{T}"/> object is <see cref="Ok{T}"/> and x is equal to y,
-	/// and <see cref="Failure"/> if not.
-	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="fTest">Select where fTest.</param>
+	/// <param name="fTest">Test to run on the value.</param>
+	/// <returns>
+	/// <paramref name="this"/> if it is a <see cref="Failure"/> or <paramref name="fTest"/> returns <see langword="true"/>,
+	/// otherwise a <see cref="Failure"/> with the message <c>Test returned false.</c>.
+	/// </returns>
 	public static Result<T> Where<T>(this Result<T> @this, Func<T, bool> fTest) =>
 		@this.Filter(fTest);
 

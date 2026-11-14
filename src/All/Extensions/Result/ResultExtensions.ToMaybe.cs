@@ -9,16 +9,16 @@ namespace Wrap.Extensions;
 public static partial class ResultExtensions
 {
 	/// <summary>
-	/// Discard the failure value of a <see cref="Result{T}"/> and return a <see cref="Maybe{T}"/>.
+	/// Convert a <see cref="Result{T}"/> to a <see cref="Maybe{T}"/>, passing any <see cref="Failure"/> to <paramref name="fFailureHandler"/>.
 	/// </summary>
 	/// <remarks>
-	/// WARNING: this will discard the <see cref="Failure"/> value that explains why an operation failed.
-	/// You should only use this method if you have logged the failure value, or *really* don't care.
+	/// WARNING: this discards the <see cref="Failure"/> that explains why an operation failed.
+	/// Only use it if <paramref name="fFailureHandler"/> logs the failure, or you *really* don't care.
 	/// </remarks>
-	/// <typeparam name="T">Value type.</typeparam>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="fFailureHandler">Do something with the Failure before discarding it.</param>
-	/// <returns>Maybe object.</returns>
+	/// <param name="fFailureHandler">Run with the <see cref="Failure"/> before it is discarded, for example to log it.</param>
+	/// <returns><see cref="Some{T}"/> holding the value, or <see cref="None"/> if <paramref name="this"/> is a <see cref="Failure"/>.</returns>
 	public static Maybe<T> ToMaybe<T>(this Result<T> @this, Action<Failure> fFailureHandler)
 	{
 		switch (@this)
@@ -52,7 +52,13 @@ public static partial class ResultExtensions
 		}
 	}
 
-	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{Failure})"/>
+	/// <summary>
+	/// Convert a <see cref="Result{T}"/> to a <see cref="Maybe{T}"/>, using <paramref name="fFailureHandler"/> when it is a <see cref="Failure"/>.
+	/// </summary>
+	/// <typeparam name="T">Ok value type.</typeparam>
+	/// <param name="this">Result object.</param>
+	/// <param name="fFailureHandler">Returns the <see cref="Maybe{T}"/> to use when <paramref name="this"/> is a <see cref="Failure"/>.</param>
+	/// <returns><see cref="Some{T}"/> holding the value, or the <see cref="Maybe{T}"/> returned by <paramref name="fFailureHandler"/>.</returns>
 	public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<Failure, Maybe<T>> fFailureHandler) =>
 		await @this switch
 		{
@@ -81,7 +87,7 @@ public static partial class ResultExtensions
 		}
 	}
 
-	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Action{Failure})"/>
+	/// <inheritdoc cref="ToMaybeAsync{T}(Task{Result{T}}, Func{Failure, Maybe{T}})"/>
 	public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<Failure, Task<Maybe<T>>> fFailureHandler) =>
 		await @this switch
 		{

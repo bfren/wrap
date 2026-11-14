@@ -13,21 +13,26 @@ public static partial class ResultExtensions
 		Map(@this, f, R.DefaultExceptionHandler);
 
 	/// <summary>
-	/// Run <paramref name="f"/> when <paramref name="this"/> is <see cref="Ok{T}"/>.
+	/// Convert the value with <paramref name="f"/> when <paramref name="this"/> is <see cref="Ok{T}"/>, and wrap the result.
 	/// </summary>
 	/// <remarks>
 	/// <para>
-	/// This function maps a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object,
-	/// and wraps the result in <see cref="Ok{T}"/>.
+	/// <paramref name="f"/> returns a plain value, so it runs through <see cref="R.Try{T}(Func{T}, R.ExceptionHandler)"/>:
+	/// an exception it throws becomes the <see cref="Failure"/> returned by the exception handler
+	/// (<see cref="R.DefaultExceptionHandler"/> for the overloads without <c>e</c>).
+	/// A <see langword="null"/> result also becomes a <see cref="Failure"/>.
 	/// </para>
 	/// </remarks>
 	/// <seealso cref="Bind{T, TReturn}(Result{T}, Func{T, Result{TReturn}})"/>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <param name="e">Exception handler.</param>
-	/// <returns><see cref="Ok{T}"/> object or <see cref="Failure"/>.</returns>
+	/// <param name="f">Function that converts the value.</param>
+	/// <param name="e">Exception handler, run if <paramref name="f"/> throws.</param>
+	/// <returns>
+	/// <see cref="Ok{T}"/> holding the value returned by <paramref name="f"/>; the <see cref="Failure"/> held by
+	/// <paramref name="this"/>; or a <see cref="Failure"/> if <paramref name="f"/> throws or returns <see langword="null"/>.
+	/// </returns>
 	public static Result<TReturn> Map<T, TReturn>(this Result<T> @this, Func<T, TReturn> f, R.ExceptionHandler e) =>
 		@this switch
 		{

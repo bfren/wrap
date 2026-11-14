@@ -4,6 +4,6 @@
 namespace Wrap.Exceptions;
 
 /// <summary>
-/// Thrown when an attempt is made to Wrap null in a <see cref="Maybe{T}"/>.
+/// Thrown by <see cref="Json.MaybeJsonConverter{T}"/> when the input has no JSON tokens, or its value reads as <see langword="null"/>.
 /// </summary>
 public sealed class NullMaybeValueException() : WrapException("Maybe value cannot be null.");

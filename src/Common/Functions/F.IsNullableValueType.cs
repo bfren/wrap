@@ -11,8 +11,8 @@ public static partial class F
 	/// Check whether or not <typeparamref name="T"/> is a nullable value type.
 	/// </summary>
 	/// <typeparam name="T">Type to check.</typeparam>
-	/// <param name="_">The object is unneeded.</param>
-	/// <returns>True if <typeparamref name="T"/> is a nullable value type.</returns>
+	/// <param name="_">Value used only to infer <typeparamref name="T"/>; it is not read.</param>
+	/// <returns><see langword="true"/> if <typeparamref name="T"/> is a nullable value type (<see cref="Nullable{T}"/>), otherwise <see langword="false"/>.</returns>
 	public static bool IsNullableValueType<T>(T _) =>
 		NullableHelper<T>.IsNullable;
 

@@ -9,11 +9,11 @@ namespace Wrap.Extensions;
 public static partial class MonadExtensions
 {
 	/// <summary>
-	/// Convert a <see cref="IMonad{T}"/> to <see cref="Result{T}"/>.
+	/// Convert an <see cref="IMonad{T}"/> to a <see cref="Result{T}"/> holding its value.
 	/// </summary>
 	/// <typeparam name="T">Value type.</typeparam>
 	/// <param name="this">Monad object.</param>
-	/// <returns>Result object.</returns>
+	/// <returns><see cref="Ok{T}"/> holding the value of <paramref name="this"/>, or a <see cref="Failure"/> if the value is <see langword="null"/>.</returns>
 	public static Result<T> ToResult<T>(this IMonad<T> @this) =>
 		@this.Value;
 
@@ -26,6 +26,7 @@ public static partial class MonadExtensions
 		@this.Then(x => x.ToResult());
 
 	/// <inheritdoc cref="ToResult{T}(IMonad{T})"/>
+	/// <returns>One <see cref="Result{T}"/> for each monad in <paramref name="this"/> that is not <see langword="null"/>.</returns>
 	public static IEnumerable<Result<T>> ToResult<T>(this IEnumerable<IMonad<T>> @this)
 	{
 		foreach (var item in @this)

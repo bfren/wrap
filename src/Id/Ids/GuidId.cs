@@ -6,7 +6,7 @@ using System;
 namespace Wrap.Ids;
 
 /// <summary>
-/// Implementation using <see cref="Guid"/> as the Value type.
+/// Base record for strongly typed IDs with a <see cref="Guid"/> value; a new ID holds the default value.
 /// </summary>
 /// <typeparam name="TId">ID implementation type.</typeparam>
 public abstract record class GuidId<TId>() : Id<TId, Guid>(Guid.Empty), IGuidId<TId>

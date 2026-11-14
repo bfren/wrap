@@ -15,9 +15,9 @@ public static partial class R
 	/// </summary>
 	/// <remarks>
 	/// <para>
-	/// This is shorthand for a <c>switch</c> over the <see cref="Ok{T}"/> and <see cref="Failure"/> cases
+	/// This is shorthand for a <see langword="switch"/> over the <see cref="Ok{T}"/> and <see cref="Failure"/> cases
 	/// that passes the unwrapped value to <paramref name="fOk"/>. Both approaches make you handle both cases:
-	/// here through the required arguments, and in a <c>switch</c> through the compiler's exhaustiveness check.
+	/// here through the required arguments, and in a <see langword="switch"/> through the compiler's exhaustiveness check.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
@@ -122,9 +122,9 @@ public static partial class R
 	/// </summary>
 	/// <remarks>
 	/// <para>
-	/// This is shorthand for a <c>switch</c> over the <see cref="Ok{T}"/> and <see cref="Failure"/> cases
+	/// This is shorthand for a <see langword="switch"/> over the <see cref="Ok{T}"/> and <see cref="Failure"/> cases
 	/// that passes the unwrapped value to <paramref name="fOk"/>. Both approaches make you handle both cases:
-	/// here through the required arguments, and in a <c>switch</c> through the compiler's exhaustiveness check.
+	/// here through the required arguments, and in a <see langword="switch"/> through the compiler's exhaustiveness check.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>

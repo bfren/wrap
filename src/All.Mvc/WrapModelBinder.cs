@@ -25,7 +25,10 @@ internal static class WrapModelBinderHelpers
 	}
 }
 
-/// <inheritdoc/>
+/// <summary>
+/// Base class for MVC model binders that read a <typeparamref name="TValue"/> from the request and wrap it in a Wrap type.
+/// </summary>
+/// <typeparam name="TValue">Wrapped value type.</typeparam>
 public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 {
 	private static object? FNone() =>
@@ -34,17 +37,14 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 	private static object? FSome<TParse>(TParse value) =>
 		value;
 
-	/// <summary>
-	/// Wrap a value to insert correctly into the binding context.
-	/// </summary>
-	/// <param name="value">Value to wrap.</param>
-	/// <returns>Wrapped value</returns>
+	/// <inheritdoc/>
 	public abstract object Wrap(TValue value);
 
 	/// <summary>
-	/// Parse Monad value from the binding context.
+	/// Bind the model from the request, using <see cref="GetValue(IValueProvider, string)"/>.
 	/// </summary>
-	/// <param name="bindingContext">ModelBindingContext.</param>
+	/// <param name="bindingContext">Model binding context, updated with the model state value and binding result.</param>
+	/// <returns>A completed task: binding does no asynchronous work.</returns>
 	public virtual Task BindModelAsync(ModelBindingContext bindingContext)
 	{
 		// Perform bind
@@ -59,11 +59,18 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 	}
 
 	/// <summary>
-	/// Binding abstraction to enable testing.
+	/// Read, parse and wrap the value named <paramref name="model"/> from <paramref name="provider"/>.
 	/// </summary>
-	/// <param name="provider">IValueProvider.</param>
-	/// <param name="model">Model Name.</param>
-	/// <returns>ValueProviderResult and ModelBindingResult.</returns>
+	/// <remarks>
+	/// Supported primitive types are parsed with the <c>M.Parse*</c> functions; any other type is read from the value
+	/// as a JSON string, so its converter must accept one.
+	/// </remarks>
+	/// <param name="provider">Value provider to read from.</param>
+	/// <param name="model">Model name.</param>
+	/// <returns>
+	/// The raw value provider result and a successful binding result holding the wrapped value; or, if the value is
+	/// missing, empty or cannot be parsed, the result returned by <see cref="Nothing"/>.
+	/// </returns>
 	public (ValueProviderResult valueResult, ModelBindingResult bindingResult) GetValue(
 		IValueProvider provider,
 		string model
@@ -106,10 +113,10 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 	}
 
 	/// <summary>
-	/// Attempt to parse <paramref name="value"/>, returning null on failure.
+	/// Parse <paramref name="value"/> as a <typeparamref name="TValue"/>, if it is a supported primitive type.
 	/// </summary>
 	/// <param name="value">String value.</param>
-	/// <returns>Parsed value or null.</returns>
+	/// <returns>The parsed value, boxed, or <see langword="null"/> if parsing fails or <typeparamref name="TValue"/> is not supported.</returns>
 	internal object? Parse(string? value) =>
 		default(TValue) switch
 		{
@@ -181,8 +188,9 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 		};
 
 	/// <summary>
-	/// Return a 'None' or null value.
+	/// Return the result used when there is no valid value: binding fails.
 	/// </summary>
+	/// <returns><see cref="ValueProviderResult.None"/> and a failed binding result.</returns>
 	internal virtual (ValueProviderResult valueResult, ModelBindingResult bindingResult) Nothing() =>
 		(ValueProviderResult.None, ModelBindingResult.Failed());
 }

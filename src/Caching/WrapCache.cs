@@ -7,17 +7,19 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Wrap.Caching;
 
-/// <inheritdoc cref="IWrapCache{TKey}"/>
+/// <summary>
+/// Non-generic base of <see cref="WrapCache{TKey}"/>, whose name is used as the context of cache failures.
+/// </summary>
 public abstract class WrapCache
 {
 	/// <summary>
-	/// Internal creation only.
+	/// Create the cache; only <see cref="WrapCache{TKey}"/> derives from this class.
 	/// </summary>
 	private protected WrapCache() { }
 }
 
 /// <inheritdoc cref="IWrapCache{TKey}"/>
-/// <param name="cache">IMemoryCache for storing data.</param>
+/// <param name="cache">Memory cache that stores the entries.</param>
 // shortcut: no locking - calls for a missing key that arrive together each run their value factory and the last
 // value stored wins; fine for factories that only read (e.g. database queries), add per-key de-duplication if one must run once
 public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<TKey>

@@ -51,10 +51,10 @@ public readonly partial struct Either<TLeft, TRight> : IEither<TLeft, TRight>, I
 	private readonly bool isRight;
 
 	/// <summary>
-	/// Gets <see langword="true"/> always: the union always holds a case, because <c>default</c> is a <see cref="Left{T}"/>.
+	/// Gets <see langword="true"/> always: the union always holds a case, because <see langword="default"/> is a <see cref="Left{T}"/>.
 	/// </summary>
 	/// <remarks>
-	/// Called by the compiler for <c>is</c> patterns and <c>switch</c>, so it knows an <see cref="Either{TLeft, TRight}"/>
+	/// Called by the compiler for <see langword="is"/> patterns and <see langword="switch"/>, so it knows an <see cref="Either{TLeft, TRight}"/>
 	/// is never <see langword="null"/> and no <see langword="null"/> case is needed.
 	/// </remarks>
 	public bool HasValue =>

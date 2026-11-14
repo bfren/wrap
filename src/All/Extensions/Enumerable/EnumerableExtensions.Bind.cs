@@ -12,13 +12,17 @@ public static partial class EnumerableExtensions
 	#region Maybe
 
 	/// <summary>
-	/// Run <paramref name="f"/> on each value in <paramref name="this"/> that is <see cref="Some{T}"/>.
+	/// Run <paramref name="f"/> on the value of each item in <paramref name="this"/> that is <see cref="Some{T}"/>.
 	/// </summary>
+	/// <remarks>
+	/// <see cref="None"/> items are dropped before <paramref name="f"/> runs. The result is lazy; the async overloads
+	/// build the whole list.
+	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">List of Maybe objects.</param>
-	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns>List of <see cref="Maybe{T}"/> objects returned by <paramref name="f"/>.</returns>
+	/// <param name="f">Function that converts each value to a <see cref="Maybe{T}"/>.</param>
+	/// <returns>The <see cref="Maybe{T}"/> returned by <paramref name="f"/> for each <see cref="Some{T}"/> item, including any <see cref="None"/> it returns.</returns>
 	public static IEnumerable<Maybe<TReturn>> Bind<T, TReturn>(this IEnumerable<Maybe<T>> @this, Func<T, Maybe<TReturn>> f)
 	{
 		foreach (var item in @this.Filter())
@@ -53,13 +57,16 @@ public static partial class EnumerableExtensions
 	#region Result
 
 	/// <summary>
-	/// Run <paramref name="f"/> on each value in <paramref name="this"/> that is <see cref="Ok{T}"/>.
+	/// Run <paramref name="f"/> on the value of each item in <paramref name="this"/> that is <see cref="Ok{T}"/>.
 	/// </summary>
+	/// <remarks>
+	/// <see cref="Failure"/> items are kept in place. The result is lazy; the async overloads build the whole list.
+	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
-	/// <param name="this">List of Resultobjects.</param>
-	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns>List of <see cref="Result{T}"/> objects returned by <paramref name="f"/>.</returns>
+	/// <param name="this">List of Result objects.</param>
+	/// <param name="f">Function that converts each value to a <see cref="Result{T}"/>.</param>
+	/// <returns>One item for each item in <paramref name="this"/>: the <see cref="Result{T}"/> returned by <paramref name="f"/>, or the original <see cref="Failure"/>.</returns>
 	public static IEnumerable<Result<TReturn>> Bind<T, TReturn>(this IEnumerable<Result<T>> @this, Func<T, Result<TReturn>> f)
 	{
 		foreach (var item in @this)

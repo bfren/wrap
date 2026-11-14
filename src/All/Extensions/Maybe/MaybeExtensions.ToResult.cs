@@ -9,14 +9,19 @@ namespace Wrap.Extensions;
 public static partial class MaybeExtensions
 {
 	/// <summary>
-	/// Convert a <see cref="Maybe{T}"/> to a <see cref="Result{T}"/>, converting <see cref="None"/>
-	/// values to a <see cref="Failure"/>.
+	/// Convert a <see cref="Maybe{T}"/> to a <see cref="Result{T}"/>, turning <see cref="None"/> into a <see cref="Failure"/>.
 	/// </summary>
-	/// <typeparam name="T">Value type.</typeparam>
+	/// <remarks>
+	/// The async overload also returns a <see cref="Failure"/> holding the exception if awaiting <paramref name="this"/> throws.
+	/// </remarks>
+	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
-	/// <param name="class">Context class.</param>
-	/// <param name="function">Context function.</param>
-	/// <returns>Result object.</returns>
+	/// <param name="class">Failure context class.</param>
+	/// <param name="function">Failure context function.</param>
+	/// <returns>
+	/// <see cref="Ok{T}"/> holding the value, or a <see cref="Failure"/> with the message <c>Maybe&lt;{Type}&gt; was 'None'.</c>
+	/// and the context <c>{class}.{function}()</c> if <paramref name="this"/> is <see cref="None"/>.
+	/// </returns>
 	public static Result<T> ToResult<T>(this Maybe<T> @this, string @class, string function) =>
 		@this switch
 		{
@@ -41,12 +46,15 @@ public static partial class MaybeExtensions
 	}
 
 	/// <summary>
-	/// Convert a <see cref="Maybe{T}"/> to a <see cref="Result{T}"/>.
+	/// Convert a <see cref="Maybe{T}"/> to a <see cref="Result{T}"/>, using <paramref name="noneHandler"/> when it is <see cref="None"/>.
 	/// </summary>
-	/// <typeparam name="T">Value type.</typeparam>
+	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
-	/// <param name="noneHandler">What to do when <paramref name="this"/> is <see cref="None"/>.</param>
-	/// <returns>Result object.</returns>
+	/// <param name="noneHandler">Returns the result to use when <paramref name="this"/> is <see cref="None"/>.</param>
+	/// <returns>
+	/// <see cref="Ok{T}"/> holding the value, the result returned by <paramref name="noneHandler"/>, or a <see cref="Failure"/>
+	/// holding the exception if <paramref name="noneHandler"/> (or awaiting <paramref name="this"/>) throws.
+	/// </returns>
 	public static Result<T> ToResult<T>(this Maybe<T> @this, Func<Result<T>> noneHandler)
 	{
 		try

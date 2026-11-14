@@ -9,13 +9,14 @@ namespace Wrap.Extensions;
 public static partial class MaybeExtensions
 {
 	/// <summary>
-	/// Run <paramref name="f"/> when <paramref name="this"/> is <see cref="Some{T}"/>.
+	/// Run <paramref name="f"/> with the value when <paramref name="this"/> is <see cref="Some{T}"/>.
 	/// </summary>
+	/// <seealso cref="Map{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
-	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns><see cref="Maybe{T}"/> object returned by <paramref name="f"/> or <see cref="None"/>.</returns>
+	/// <param name="f">Function that converts the value to a <see cref="Maybe{T}"/>.</param>
+	/// <returns>The <see cref="Maybe{T}"/> returned by <paramref name="f"/>, or <see cref="None"/> if <paramref name="this"/> is <see cref="None"/>.</returns>
 	public static Maybe<TReturn> Bind<T, TReturn>(this Maybe<T> @this, Func<T, Maybe<TReturn>> f) =>
 		@this switch
 		{

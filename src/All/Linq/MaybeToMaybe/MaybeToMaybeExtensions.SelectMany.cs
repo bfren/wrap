@@ -9,28 +9,25 @@ namespace Wrap.Linq;
 public static partial class MaybeToMaybeExtensions
 {
 	/// <summary>
-	/// Enables LINQ SelectMany() on <see cref="Maybe{T}"/> objects.
+	/// Combine two <see cref="Maybe{T}"/> objects in a LINQ query.
 	/// </summary>
 	/// <remarks>
 	/// <para>
 	/// For example:
 	/// </para>
 	/// <code>
-	/// from x in Maybe
-	/// from y in Maybe
+	/// from x in maybe
+	/// from y in otherMaybe
 	/// select x + y
 	/// </code>
-	/// <para>
-	/// Returns value of x + y if both <see cref="Maybe{T}"/> objects are <see cref="Some{T}"/>,
-	/// and <see cref="None"/> if either is <see cref="None"/>.
-	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Maybe type.</typeparam>
-	/// <typeparam name="TInner">Interim type.</typeparam>
-	/// <typeparam name="TReturn">Return type.</typeparam>
-	/// <param name="this">Maybe.</param>
-	/// <param name="f">Interim bind function.</param>
-	/// <param name="g">Return map function.</param>
+	/// <typeparam name="T">Some value type.</typeparam>
+	/// <typeparam name="TInner">Interim value type.</typeparam>
+	/// <typeparam name="TReturn">Return value type.</typeparam>
+	/// <param name="this">Maybe object.</param>
+	/// <param name="f">Function that returns the interim <see cref="Maybe{T}"/>, given the value.</param>
+	/// <param name="g">Function that combines the value and the interim value.</param>
+	/// <returns><see cref="Some{T}"/> holding the value returned by <paramref name="g"/>, or <see cref="None"/> if <paramref name="this"/> or the interim value is <see cref="None"/>, or <paramref name="g"/> returns <see langword="null"/>.</returns>
 	public static Maybe<TReturn> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Maybe<TInner>> f, Func<T, TInner, TReturn> g) =>
 		@this switch
 		{

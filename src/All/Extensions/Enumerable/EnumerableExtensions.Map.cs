@@ -11,14 +11,19 @@ public static partial class EnumerableExtensions
 {
 	#region Maybe
 
-	/// <summary>1
-	/// Run <paramref name="f"/> on each value in <paramref name="this"/>.
+	/// <summary>
+	/// Convert the value of each <see cref="Some{T}"/> item in <paramref name="this"/> with <paramref name="f"/>.
 	/// </summary>
-	/// <typeparam name="T">Value type.</typeparam>
+	/// <remarks>
+	/// <see cref="None"/> items are kept in place. The result is lazy; the async overloads build the whole list.
+	/// </remarks>
+	/// <typeparam name="T">Some value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
-	/// <param name="this">List of values.</param>
-	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns>List of <typeparamref name="TReturn"/> objects returned by <paramref name="f"/> and wrapped as <see cref="Maybe{T}"/>.</returns>
+	/// <param name="this">List of Maybe objects.</param>
+	/// <param name="f">Function that converts each value.</param>
+	/// <returns>
+	/// One item for each item in <paramref name="this"/> - see <see cref="MaybeExtensions.Map{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>.
+	/// </returns>
 	public static IEnumerable<Maybe<TReturn>> Map<T, TReturn>(this IEnumerable<Maybe<T>> @this, Func<T, TReturn> f)
 	{
 		foreach (var item in @this)
@@ -52,14 +57,19 @@ public static partial class EnumerableExtensions
 
 	#region Result
 
-	/// <summary>1
-	/// Run <paramref name="f"/> on each value in <paramref name="this"/>.
+	/// <summary>
+	/// Convert the value of each <see cref="Ok{T}"/> item in <paramref name="this"/> with <paramref name="f"/>.
 	/// </summary>
-	/// <typeparam name="T">Value type.</typeparam>
+	/// <remarks>
+	/// <see cref="Failure"/> items are kept in place. The result is lazy; the async overloads build the whole list.
+	/// </remarks>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
-	/// <param name="this">List of values.</param>
-	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns>List of <typeparamref name="TReturn"/> objects returned by <paramref name="f"/> and wrapped as <see cref="Result{T}"/>.</returns>
+	/// <param name="this">List of Result objects.</param>
+	/// <param name="f">Function that converts each value.</param>
+	/// <returns>
+	/// One item for each item in <paramref name="this"/> - see <see cref="ResultExtensions.Map{T, TReturn}(Result{T}, Func{T, TReturn})"/>.
+	/// </returns>
 	public static IEnumerable<Result<TReturn>> Map<T, TReturn>(this IEnumerable<Result<T>> @this, Func<T, TReturn> f)
 	{
 		foreach (var item in @this)

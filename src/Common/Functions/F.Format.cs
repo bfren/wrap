@@ -15,19 +15,34 @@ public static partial class F
 		Format(formatString, source, null);
 
 	/// <summary>
-	/// Works like string.Format() but with named as well as numbered placeholders.
-	/// <para>Source is Array: values will be inserted in order (regardless of placeholder values).</para>
-	/// <para>Source is Object: property names must match placeholders or they will be left in place.</para>
+	/// Format a string like <see cref="string.Format(IFormatProvider, string, object?[])"/>, with named as well as numbered placeholders.
 	/// </summary>
 	/// <remarks>
+	/// <para>
+	/// When <paramref name="source"/> is an array and the placeholders are named, the values are inserted in order,
+	/// whatever the names. When it is any other object, each named placeholder takes the value of the public property
+	/// with that name (ignoring case). A placeholder with no matching value is left in place.
+	/// </para>
+	/// <para>
+	/// Format specifiers (<c>{A:0.00}</c>) use <see cref="DefaultCulture"/>. Braces outside placeholders are kept as written,
+	/// and <c>{{name}}</c> is literal text. Alignment (<c>{A,3}</c>) and mixed numbered and named placeholders are not supported.
+	/// This method never throws: unsupported or invalid input returns <paramref name="formatString"/> unchanged.
+	/// </para>
+	/// <para>
 	/// Inspired by https://james.newtonking.com/archive/2008/03/28/formatwith-2-0-string-formatting-with-named-variables/,
 	/// (significantly) altered to work without requiring DataBinder.
+	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Source type.</typeparam>
 	/// <param name="formatString">String to format.</param>
-	/// <param name="source">Source object to use for template values.</param>
-	/// <param name="replaceIfNullOrEmpty">Returned if <paramref name="formatString"/> or <paramref name="source"/> are null / empty.</param>
-	/// <returns>Formatted string.</returns>
+	/// <param name="source">Array of values, or object whose properties hold the values.</param>
+	/// <param name="replaceIfNullOrEmpty">Value to return if <paramref name="formatString"/> is <see langword="null"/> or white space,
+	/// or <paramref name="source"/> is <see langword="null"/> or an empty array.</param>
+	/// <returns>
+	/// The formatted string; <paramref name="replaceIfNullOrEmpty"/> if the inputs are empty (or, when it is <see langword="null"/>,
+	/// <see cref="string.Empty"/> for an empty <paramref name="formatString"/> and <paramref name="formatString"/> for an empty
+	/// <paramref name="source"/>); or <paramref name="formatString"/> unchanged if it cannot be formatted.
+	/// </returns>
 	public static string Format<T>(string formatString, T source, string? replaceIfNullOrEmpty)
 	{
 		// Check arguments before proceeding
@@ -117,13 +132,17 @@ public static partial class F
 	}
 
 	/// <summary>
-	/// Check inputs before attempting to apply complex string format.
+	/// Check the inputs, and try <see cref="string.Format(IFormatProvider, string, object?[])"/> first when it can do the job (much faster).
 	/// </summary>
 	/// <typeparam name="T">Source type.</typeparam>
 	/// <param name="formatString">String to format.</param>
-	/// <param name="source">Source object to use for template values.</param>
-	/// <param name="replaceIfNullOrEmpty">Returned if <paramref name="formatString"/> or <paramref name="source"/> are null / empty.</param>
-	/// <returns>Early return value if checks fail, or string.Format succeeds (much faster!).</returns>
+	/// <param name="source">Array of values, or object whose properties hold the values.</param>
+	/// <param name="replaceIfNullOrEmpty">Value to return if <paramref name="formatString"/> is <see langword="null"/> or white space,
+	/// or <paramref name="source"/> is <see langword="null"/> or an empty array.</param>
+	/// <returns>
+	/// The value to return early if the inputs are empty or <see cref="string.Format(IFormatProvider, string, object?[])"/> succeeds,
+	/// or <see langword="null"/> if <see cref="Format{T}(string, T, string?)"/> should carry on.
+	/// </returns>
 	internal static string? Check<T>(string formatString, T source, string? replaceIfNullOrEmpty)
 	{
 		// Return if format string is null or empty
@@ -176,11 +195,12 @@ public static partial class F
 	}
 
 	/// <summary>
-	/// Thanks James Newton-King!
+	/// Match a placeholder with its surrounding braces, or failing that a doubled (escaped) brace.
 	/// </summary>
 	/// <remarks>
-	/// Matches a placeholder with its surrounding braces, or failing that a doubled (escaped) brace.
+	/// Thanks James Newton-King!
 	/// </remarks>
+	/// <returns>The placeholder regex.</returns>
 	[GeneratedRegex("(?<start>\\{)+(?<template>[\\w\\.\\[\\]@]+)(?<format>:[^}]+)?(?<end>\\})+|\\{\\{|\\}\\}", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
 	private static partial Regex TemplateMatcherRegex();
 

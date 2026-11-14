@@ -9,11 +9,11 @@ namespace Wrap.Extensions;
 public static partial class EnumerableExtensions
 {
 	/// <summary>
-	/// Safely get the first value from a list.
+	/// Get the first item, without throwing if the list is empty.
 	/// </summary>
-	/// <typeparam name="T">IEnumerable value type.</typeparam>
-	/// <param name="this">IEnumerable object</param>
-	/// <returns>Value of the first element of <paramref name="this"/>, or <see cref="None"/>.</returns>
+	/// <typeparam name="T">List item type.</typeparam>
+	/// <param name="this">List of values.</param>
+	/// <returns><see cref="Some{T}"/> holding the first item, or <see cref="None"/> if the list is empty or the first item is <see langword="null"/>.</returns>
 	public static Maybe<T> FirstOrNone<T>(this IEnumerable<T> @this) =>
 		@this.Select(M.Wrap).FirstOrDefault();
 }

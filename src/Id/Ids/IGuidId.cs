@@ -6,12 +6,12 @@ using System;
 namespace Wrap.Ids;
 
 /// <summary>
-/// Generic ID using <see cref="Guid"/> as the Value type.
+/// Strongly typed ID with a <see cref="Guid"/> value.
 /// </summary>
 public interface IGuidId : IId<Guid>;
 
 /// <summary>
-/// Generic ID using <see cref="Guid"/> as the Value type.
+/// Strongly typed ID with a <see cref="Guid"/> value.
 /// </summary>
 /// <typeparam name="TId">ID implementation type.</typeparam>
 public interface IGuidId<TId> : IGuidId, IId<TId, Guid>

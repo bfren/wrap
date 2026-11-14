@@ -10,25 +10,29 @@ namespace Wrap.Linq;
 public static partial class ResultExtensions
 {
 	/// <summary>
-	/// Enables LINQ Select() on <see cref="Result{T}"/> objects.
+	/// Convert the value of a <see cref="Result{T}"/> in a LINQ query.
 	/// </summary>
 	/// <remarks>
 	/// <para>
 	/// For example:
 	/// </para>
 	/// <code>
-	/// from x in Result
+	/// from x in result
 	/// select x
 	/// </code>
 	/// <para>
-	/// Returns value of x if <see cref="Result{T}"/> object is <see cref="Ok{T}"/>,
-	/// and <see cref="Failure"/> if not.
+	/// This calls <see cref="Extensions.ResultExtensions.Map{T, TReturn}(Result{T}, Func{T, TReturn})"/>, so an exception
+	/// thrown by <paramref name="f"/> becomes a <see cref="Failure"/>.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="f">Return map function.</param>
+	/// <param name="f">Function that converts the value.</param>
+	/// <returns>
+	/// <see cref="Ok{T}"/> holding the value returned by <paramref name="f"/>; the <see cref="Failure"/> held by
+	/// <paramref name="this"/>; or a <see cref="Failure"/> if <paramref name="f"/> throws or returns <see langword="null"/>.
+	/// </returns>
 	public static Result<TReturn> Select<T, TReturn>(this Result<T> @this, Func<T, TReturn> f) =>
 		@this.Map(f);
 

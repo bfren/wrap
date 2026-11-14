@@ -4,12 +4,12 @@
 namespace Wrap.Ids;
 
 /// <summary>
-/// Generic ID using <see cref="uint"/> as the Value type.
+/// Strongly typed ID with a <see cref="uint"/> value.
 /// </summary>
 public interface IUintId : IId<uint>;
 
 /// <summary>
-/// Generid ID using <see cref="uint"/> as the Value type.
+/// Strongly typed ID with a <see cref="uint"/> value.
 /// </summary>
 /// <typeparam name="TId">ID implementation type.</typeparam>
 public interface IUintId<TId> : IUintId, IId<TId, uint>

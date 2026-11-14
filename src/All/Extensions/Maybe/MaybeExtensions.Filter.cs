@@ -9,13 +9,13 @@ namespace Wrap.Extensions;
 public static partial class MaybeExtensions
 {
 	/// <summary>
-	/// Run <paramref name="fTest"/> when <paramref name="this"/> is <see cref="Some{T}"/>
+	/// Keep the value of <paramref name="this"/> only if <paramref name="fTest"/> returns <see langword="true"/>.
 	/// </summary>
 	/// <seealso cref="Linq.MaybeToMaybeExtensions.Where{T}(Maybe{T}, Func{T, bool})"/>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
-	/// <param name="fTest">Function to detemine whether or not the value of <paramref name="this"/> should be returned.</param>
-	/// <returns>Value of <paramref name="this"/> if <paramref name="fTest"/> returns true, or <see cref="None"/>.</returns>
+	/// <param name="fTest">Test to run on the value.</param>
+	/// <returns><paramref name="this"/> if it is <see cref="Some{T}"/> and <paramref name="fTest"/> returns <see langword="true"/>, otherwise <see cref="None"/>.</returns>
 	public static Maybe<T> Filter<T>(this Maybe<T> @this, Func<T, bool> fTest) =>
 		@this switch
 		{

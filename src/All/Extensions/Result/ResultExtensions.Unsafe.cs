@@ -8,12 +8,11 @@ namespace Wrap.Extensions;
 public static partial class ResultExtensions
 {
 	/// <summary>
-	/// Create a new <see cref="Unsafe{TEither, TLeft, TRight}"/> object,
-	/// wrapping round <paramref name="this"/>.
+	/// Wrap <paramref name="this"/> in an <see cref="Unsafe{TEither, TLeft, TRight}"/> object, to use the unsafe functions.
 	/// </summary>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <returns><see cref="Unsafe{TEither, TLeft, TRight}"/> object wrapping <paramref name="this"/>.</returns>
+	/// <returns>An <see cref="Unsafe{TEither, TLeft, TRight}"/> object wrapping <paramref name="this"/>.</returns>
 	public static Unsafe<Result<T>, Failure, T> Unsafe<T>(this Result<T> @this) =>
 		new(@this);
 

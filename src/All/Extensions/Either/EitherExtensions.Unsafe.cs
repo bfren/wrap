@@ -12,7 +12,7 @@ public static partial class EitherExtensions
 	/// </summary>
 	/// <remarks>
 	/// Each way of reading the value from <see cref="Unsafe{TEither, TLeft, TRight}"/> drops the Left value:
-	/// <c>Unwrap</c> throws, <c>Discard</c> returns <see cref="None"/> and <c>foreach</c> does not run.
+	/// <c>Unwrap</c> throws, <c>Discard</c> returns <see cref="None"/> and <see langword="foreach"/> does not run.
 	/// </remarks>
 	/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 	/// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>

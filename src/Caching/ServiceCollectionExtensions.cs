@@ -6,15 +6,20 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Wrap.Caching;
 
 /// <summary>
-/// <see cref="ServiceCollection"/> extension methods
+/// Extension methods to register Wrap caching services with an <see cref="IServiceCollection"/>.
 /// </summary>
 public static class ServiceCollectionExtensions
 {
 	/// <summary>
-	/// Add a <see cref="IWrapCache{TKey}"/> to <paramref name="this"/> with a Singleton lifetime.
+	/// Register <see cref="WrapCache{TKey}"/> as the <see cref="IWrapCache{TKey}"/> service, with a singleton lifetime.
 	/// </summary>
-	/// <typeparam name="TKey">Cache Key type.</typeparam>
-	/// <param name="this">IServiceCollection.</param>
+	/// <remarks>
+	/// The cache stores its entries in <see cref="Microsoft.Extensions.Caching.Memory.IMemoryCache"/>, which this method
+	/// does not register: call <c>AddMemoryCache()</c> as well.
+	/// </remarks>
+	/// <typeparam name="TKey">Cache key type.</typeparam>
+	/// <param name="this">Service collection.</param>
+	/// <returns><paramref name="this"/>, so calls can be chained.</returns>
 	public static IServiceCollection AddWrapCache<TKey>(this IServiceCollection @this)
 		where TKey : notnull =>
 		@this.AddSingleton<IWrapCache<TKey>, WrapCache<TKey>>();

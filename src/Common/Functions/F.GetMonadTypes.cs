@@ -8,11 +8,14 @@ namespace Wrap;
 public static partial class F
 {
 	/// <summary>
-	/// Get the implentation and value types if <paramref name="type"/> implements <see cref="IMonad{TMonad, TValue}"/>.
+	/// Get the implementation and value types if <paramref name="type"/> implements <paramref name="genericType"/> once.
 	/// </summary>
 	/// <param name="type">Type to check.</param>
-	/// <param name="genericType">Generic type definition (e.g. <see cref="IMonad{TMonad, TValue}"/>).</param>
-	/// <returns>Monad implementation and value types.</returns>
+	/// <param name="genericType">Generic interface type definition with two type arguments, for example <see cref="IMonad{TMonad, TValue}"/>.</param>
+	/// <returns>
+	/// The monad implementation and value types, or two <see langword="null"/> values if <paramref name="type"/>
+	/// does not implement <paramref name="genericType"/> or implements it more than once.
+	/// </returns>
 	public static (Type? monadType, Type? valueType) GetMonadTypes(Type type, Type genericType)
 	{
 		// Get generic type arguments

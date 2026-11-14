@@ -10,8 +10,8 @@ public static partial class FailureExtensions
 	/// </summary>
 	/// <param name="this">Failure object.</param>
 	/// <param name="message">Expected failure message.</param>
-	/// <param name="args">Optional arguments to fill in failure message values - not checked when empty.</param>
-	/// <returns>Original Failure.</returns>
+	/// <param name="args">[Optional] Expected arguments - not checked when empty.</param>
+	/// <returns><paramref name="this"/>, so assertions can be chained.</returns>
 	public static Failure AssertMessage(this Failure @this, string message, params object?[] args)
 	{
 		// Assert correct message
