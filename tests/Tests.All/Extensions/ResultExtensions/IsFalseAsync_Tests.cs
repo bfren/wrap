@@ -11,7 +11,7 @@ public class IsFalseAsync_Tests
 		public async Task Returns_False()
 		{
 			// Arrange
-			var input = FailGen.Create<bool>().AsTask();
+			var input = R.Fail<bool>(Rnd.Str).AsTask();
 
 			// Act
 			var result = await input.IsFalseAsync();

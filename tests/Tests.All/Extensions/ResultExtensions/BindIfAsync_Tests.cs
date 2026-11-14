@@ -24,7 +24,7 @@ public class BindIfAsync_Tests
 			{
 				// Arrange
 				var value = Rnd.Str;
-				var input = FailGen.Create<string>(R.Fail(value));
+				var input = R.Fail<string>(value);
 				var (fTest, bind) = Setup(false);
 
 				// Act
@@ -42,7 +42,7 @@ public class BindIfAsync_Tests
 			public async Task Function_Is_Not_Invoked()
 			{
 				// Arrange
-				var input = FailGen.Create<string>();
+				var input = R.Fail<string>(Rnd.Str);
 				var (fTest, bind) = Setup(false);
 
 				// Act
@@ -62,7 +62,7 @@ public class BindIfAsync_Tests
 			{
 				// Arrange
 				var value = Rnd.Str;
-				var input = FailGen.Create<string>(R.Fail(value));
+				var input = R.Fail<string>(value);
 				var (fTest, bind) = Setup(true);
 
 				// Act
@@ -80,7 +80,7 @@ public class BindIfAsync_Tests
 			public async Task Function_Is_Not_Invoked()
 			{
 				// Arrange
-				var input = FailGen.Create<string>();
+				var input = R.Fail<string>(Rnd.Str);
 				var (fTest, bind) = Setup(true);
 
 				// Act

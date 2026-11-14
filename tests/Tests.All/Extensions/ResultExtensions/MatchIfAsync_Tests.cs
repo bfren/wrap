@@ -29,7 +29,7 @@ public class MatchIfAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 
 			// Act
 

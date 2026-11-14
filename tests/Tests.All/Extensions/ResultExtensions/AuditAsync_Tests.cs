@@ -11,7 +11,7 @@ public class AuditAsync_Tests
 		public async Task Runs_fFail()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 			var fFail = Substitute.For<Func<Failure, Task>>();
 
 			// Act
@@ -26,7 +26,7 @@ public class AuditAsync_Tests
 		public async Task Action_Overload__Runs_fFail()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 			var fFail = Substitute.For<Action<Failure>>();
 
 			// Act
@@ -41,7 +41,7 @@ public class AuditAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(R.Fail(value));
+			var input = R.Fail<int>(value);
 
 			// Act
 			var result = await input.AsTask().AuditAsync(fFail: null, fOk: (Action<int>?)null);
@@ -54,7 +54,7 @@ public class AuditAsync_Tests
 		public async Task Does_Not_Run_fOk()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 			var fOk = Substitute.For<Func<int, Task>>();
 
 			// Act
@@ -70,7 +70,7 @@ public class AuditAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(R.Fail(value));
+			var input = R.Fail<int>(value);
 
 			// Act
 			var r0 = await input.AuditAsync(fFail: null, fOk: null);
@@ -86,7 +86,7 @@ public class AuditAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(R.Fail(value));
+			var input = R.Fail<int>(value);
 
 			// Act
 			var r0 = await input.AuditAsync(fFail: _ => throw new Exception(Rnd.Str));
@@ -199,7 +199,7 @@ public class AuditAsync_Tests
 		public async Task With_Failure__Runs_Either()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 			var either = Substitute.For<Func<Result<int>, Task>>();
 
 			// Act

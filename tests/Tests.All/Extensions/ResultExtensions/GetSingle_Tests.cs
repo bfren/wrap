@@ -12,7 +12,7 @@ public class GetSingle_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<List<int>>(R.Fail(value));
+			var input = R.Fail<List<int>>(value);
 
 			// Act
 			var result = input.GetSingle<List<int>, int>();
@@ -98,7 +98,7 @@ public class GetSingle_Tests
 			// Arrange
 			var input = R.Wrap(new List<int>());
 			var handlerCalled = false;
-			R.ErrorHandler handler = (_, __) => { handlerCalled = true; return FailGen.Create(); };
+			R.ErrorHandler handler = (_, __) => { handlerCalled = true; return R.Fail(Rnd.Str); };
 
 			// Act
 			_ = input.GetSingle<List<int>, int>(handler);
@@ -113,7 +113,7 @@ public class GetSingle_Tests
 			// Arrange
 			var customMessage = Rnd.Str;
 			var input = R.Wrap(new List<int>());
-			R.ErrorHandler handler = (_, __) => FailGen.Create(new(customMessage));
+			R.ErrorHandler handler = (_, __) => R.Fail(new Exception(customMessage));
 
 			// Act
 			var result = input.GetSingle<List<int>, int>(handler);
@@ -128,7 +128,7 @@ public class GetSingle_Tests
 			// Arrange
 			var input = R.Wrap(new List<int> { Rnd.Int, Rnd.Int });
 			var handlerCalled = false;
-			R.ErrorHandler handler = (_, __) => { handlerCalled = true; return FailGen.Create(); };
+			R.ErrorHandler handler = (_, __) => { handlerCalled = true; return R.Fail(Rnd.Str); };
 
 			// Act
 			_ = input.GetSingle<List<int>, int>(handler);
@@ -144,7 +144,7 @@ public class GetSingle_Tests
 			var value = Rnd.Int;
 			var input = R.Wrap(new List<int> { value });
 			var handlerCalled = false;
-			R.ErrorHandler handler = (_, __) => { handlerCalled = true; return FailGen.Create(); };
+			R.ErrorHandler handler = (_, __) => { handlerCalled = true; return R.Fail(Rnd.Str); };
 
 			// Act
 			var result = input.GetSingle<List<int>, int>(handler);

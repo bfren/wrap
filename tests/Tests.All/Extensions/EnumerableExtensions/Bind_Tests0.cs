@@ -11,7 +11,7 @@ public partial class Bind_Tests
 		public void Does_Not_Call_Bind_Function()
 		{
 			// Arrange
-			var list = new[] { NoneGen.Create<int>(), NoneGen.Create<int>(), NoneGen.Create<int>() };
+			var list = new Maybe<int>[] { M.None, M.None, M.None };
 			var bind = Substitute.For<Func<int, Maybe<string>>>();
 
 			// Act
@@ -25,7 +25,7 @@ public partial class Bind_Tests
 		public void Returns_Empty_List()
 		{
 			// Arrange
-			var list = new[] { NoneGen.Create<int>(), NoneGen.Create<int>(), NoneGen.Create<int>() };
+			var list = new Maybe<int>[] { M.None, M.None, M.None };
 
 			// Act
 			var result = list.Bind(Substitute.For<Func<int, Maybe<string>>>());

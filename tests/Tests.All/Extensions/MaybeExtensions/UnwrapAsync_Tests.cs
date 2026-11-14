@@ -22,7 +22,7 @@ public class UnwrapAsync_Tests
 		public async Task Calls_FNone()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var (fNoneAsync, fNoneSync) = Setup(Rnd.Str);
 
 			// Act
@@ -39,7 +39,7 @@ public class UnwrapAsync_Tests
 		public async Task Returns_Default_Value()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var defaultValue = Rnd.Str;
 			var (fNoneAsync, fNoneSync) = Setup(defaultValue);
 

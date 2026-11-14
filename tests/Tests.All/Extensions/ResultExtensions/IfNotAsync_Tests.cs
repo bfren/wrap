@@ -12,7 +12,7 @@ public class IfNotAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(R.Fail(value));
+			var input = R.Fail<int>(value);
 			var fTest = Substitute.For<Func<int, bool>>();
 			fTest.Invoke(Arg.Any<int>()).Returns(false);
 			var fThen = Substitute.For<Func<int, Task<Result<int>>>>();

@@ -12,7 +12,7 @@ public class IfOk_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(R.Fail(value));
+			var input = R.Fail<int>(value);
 			var f = Substitute.For<Action<int>>();
 
 			// Act
@@ -26,7 +26,7 @@ public class IfOk_Tests
 		public void Function_Is_Not_Invoked()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 			var f = Substitute.For<Action<int>>();
 
 			// Act

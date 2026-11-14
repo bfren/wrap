@@ -11,7 +11,7 @@ public class Discard_Tests
 		public void Returns_None()
 		{
 			// Arrange
-			var failure = FailGen.Create<int>().Unsafe();
+			var failure = R.Fail<int>(Rnd.Str).Unsafe();
 
 			// Act
 			var result = failure.Discard();

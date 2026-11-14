@@ -11,7 +11,7 @@ public partial class Filter_Tests
 		public void Does_Not_Call_Predicate()
 		{
 			// Arrange
-			IEnumerable<Result<int>> list = [FailGen.Create(), FailGen.Create(), FailGen.Create()];
+			IEnumerable<Result<int>> list = [R.Fail(Rnd.Str), R.Fail(Rnd.Str), R.Fail(Rnd.Str)];
 			var fTest = Substitute.For<Func<int, bool>>();
 
 			// Act
@@ -25,7 +25,7 @@ public partial class Filter_Tests
 		public void Returns_Empty()
 		{
 			// Arrange
-			IEnumerable<Result<int>> list = [FailGen.Create(), FailGen.Create(), FailGen.Create()];
+			IEnumerable<Result<int>> list = [R.Fail(Rnd.Str), R.Fail(Rnd.Str), R.Fail(Rnd.Str)];
 			var fTest = Substitute.For<Func<int, bool>>();
 
 			// Act

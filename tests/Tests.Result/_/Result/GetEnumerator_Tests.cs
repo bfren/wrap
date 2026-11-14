@@ -13,7 +13,7 @@ public class GetEnumerator_Tests
 		public void Does_Not_Enumerate()
 		{
 			// Arrange
-			var value = FailGen.Create<int>();
+			var value = R.Fail<int>(Rnd.Str);
 
 			// Act
 			var result = 0;

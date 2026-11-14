@@ -9,7 +9,7 @@ public class AsTask_Tests
 	public async Task Returns_Task_With_Failure()
 	{
 		// Arrange
-		var failure = FailGen.Create();
+		var failure = R.Fail(Rnd.Str);
 
 		// Act
 		var result = await failure.AsTask<int>();

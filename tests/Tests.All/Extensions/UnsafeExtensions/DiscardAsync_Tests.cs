@@ -11,7 +11,7 @@ public class DiscardAsync_Tests
 		public async Task Returns_None()
 		{
 			// Arrange
-			var failure = FailGen.Create<int>().AsTask().Unsafe();
+			var failure = R.Fail<int>(Rnd.Str).AsTask().Unsafe();
 
 			// Act
 			var result = await failure.DiscardAsync();

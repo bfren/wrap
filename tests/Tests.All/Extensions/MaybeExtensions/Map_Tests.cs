@@ -18,7 +18,7 @@ public class Map_Tests
 		public void Does_Not_Call_F()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var f = Setup(Rnd.Int);
 
 			// Act
@@ -32,7 +32,7 @@ public class Map_Tests
 		public void Returns_None()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var f = Setup(Rnd.Int);
 
 			// Act

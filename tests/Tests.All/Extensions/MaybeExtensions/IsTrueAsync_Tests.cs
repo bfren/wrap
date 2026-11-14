@@ -11,7 +11,7 @@ public class IsTrueAsync_Tests
 		public async Task Returns_False()
 		{
 			// Arrange
-			var input = NoneGen.Create<bool>();
+			var input = default(Maybe<bool>);
 
 			// Act
 			var result = await input.AsTask().IsTrueAsync();

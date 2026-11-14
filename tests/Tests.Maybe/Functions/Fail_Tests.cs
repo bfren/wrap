@@ -11,7 +11,7 @@ public class Fail_Tests
 		public void Returns_Failure_With_Correct_Value()
 		{
 			// Arrange
-			var value = FailGen.Create();
+			var value = R.Fail(Rnd.Str);
 
 			// Act
 			var r0 = R.Fail(value);

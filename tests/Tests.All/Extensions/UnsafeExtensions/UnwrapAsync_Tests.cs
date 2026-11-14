@@ -13,7 +13,7 @@ public class UnwrapAsync_Tests
 		public async Task Throws_UnsafeUnwrapException()
 		{
 			// Arrange
-			var failure = FailGen.Create<int>().AsTask().Unsafe();
+			var failure = R.Fail<int>(Rnd.Str).AsTask().Unsafe();
 
 			// Act
 			var result = await Record.ExceptionAsync(() => failure.UnwrapAsync());

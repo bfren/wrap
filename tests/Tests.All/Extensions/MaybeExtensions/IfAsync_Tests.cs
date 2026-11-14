@@ -29,7 +29,7 @@ public class IfAsync_Tests
 				public async Task Returns_None()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fTrue, fFalse) = Setup(false, Rnd.Int, Rnd.Int);
 
 					// Act
@@ -55,7 +55,7 @@ public class IfAsync_Tests
 				public async Task Functions_Are_Not_Invoked()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fTrue, fFalse) = Setup(false, Rnd.Int, Rnd.Int);
 
 					// Act
@@ -80,7 +80,7 @@ public class IfAsync_Tests
 				public async Task Returns_None()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fTrue, fFalse) = Setup(true, Rnd.Int, Rnd.Int);
 
 					// Act
@@ -106,7 +106,7 @@ public class IfAsync_Tests
 				public async Task Functions_Are_Not_Invoked()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fTrue, fFalse) = Setup(true, Rnd.Int, Rnd.Int);
 
 					// Act
@@ -259,7 +259,7 @@ public class IfAsync_Tests
 				public async Task Returns_None()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fThen) = SetupSameType(false, Rnd.Str);
 
 					// Act
@@ -277,7 +277,7 @@ public class IfAsync_Tests
 				public async Task Functions_Are_Not_Invoked()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fThen) = SetupSameType(false, Rnd.Str);
 
 					// Act
@@ -297,7 +297,7 @@ public class IfAsync_Tests
 				public async Task Returns_None()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fThen) = SetupSameType(true, Rnd.Str);
 
 					// Act
@@ -315,7 +315,7 @@ public class IfAsync_Tests
 				public async Task Functions_Are_Not_Invoked()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fThen) = SetupSameType(true, Rnd.Str);
 
 					// Act

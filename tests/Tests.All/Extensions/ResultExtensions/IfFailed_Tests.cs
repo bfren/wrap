@@ -43,7 +43,7 @@ public class IfFailed_Tests
 		public void Invokes_Function_With_Failure_Value()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 			var f = Substitute.For<Action<Failure>>();
 
 			// Act
@@ -58,7 +58,7 @@ public class IfFailed_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(R.Fail(value));
+			var input = R.Fail<int>(value);
 			var f = Substitute.For<Action<Failure>>();
 
 			// Act

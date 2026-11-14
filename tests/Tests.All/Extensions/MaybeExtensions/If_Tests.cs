@@ -29,7 +29,7 @@ public class If_Tests
 				public void Returns_None()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fTrue, fFalse) = Setup(false, Rnd.Int, Rnd.Int);
 
 					// Act
@@ -43,7 +43,7 @@ public class If_Tests
 				public void Functions_Are_Not_Invoked()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fTrue, fFalse) = Setup(false, Rnd.Int, Rnd.Int);
 
 					// Act
@@ -62,7 +62,7 @@ public class If_Tests
 				public void Returns_None()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fTrue, fFalse) = Setup(true, Rnd.Int, Rnd.Int);
 
 					// Act
@@ -76,7 +76,7 @@ public class If_Tests
 				public void Functions_Are_Not_Invoked()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fTrue, fFalse) = Setup(true, Rnd.Int, Rnd.Int);
 
 					// Act
@@ -187,7 +187,7 @@ public class If_Tests
 				public void Returns_None()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fThen) = SetupSameType(false, Rnd.Str);
 
 					// Act
@@ -201,7 +201,7 @@ public class If_Tests
 				public void Functions_Are_Not_Invoked()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fThen) = SetupSameType(false, Rnd.Str);
 
 					// Act
@@ -219,7 +219,7 @@ public class If_Tests
 				public void Returns_None()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fThen) = SetupSameType(true, Rnd.Str);
 
 					// Act
@@ -233,7 +233,7 @@ public class If_Tests
 				public void Functions_Are_Not_Invoked()
 				{
 					// Arrange
-					var input = NoneGen.Create<string>();
+					var input = default(Maybe<string>);
 					var (fTest, fThen) = SetupSameType(true, Rnd.Str);
 
 					// Act

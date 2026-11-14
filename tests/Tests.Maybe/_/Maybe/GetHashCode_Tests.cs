@@ -53,7 +53,7 @@ public class GetHashCode_Tests
 		public void Returns_None_HashCode()
 		{
 			// Arrange
-			var maybe = NoneGen.Create<int>();
+			var maybe = default(Maybe<int>);
 
 			// Act
 			var result = maybe.GetHashCode();

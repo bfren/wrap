@@ -54,7 +54,7 @@ public class Equals_Tests
 			{
 				// Arrange
 				var v0 = M.Wrap(Rnd.Str);
-				var v1 = NoneGen.Create<string>();
+				var v1 = default(Maybe<string>);
 
 				// Act
 				var r0 = v0.Equals(v1);
@@ -120,8 +120,8 @@ public class Equals_Tests
 			public void Returns_True()
 			{
 				// Arrange
-				var v0 = NoneGen.Create<string>();
-				var v1 = NoneGen.Create<string>();
+				var v0 = default(Maybe<string>);
+				var v1 = default(Maybe<string>);
 
 				// Act
 				var r0 = v0.Equals(v1);
@@ -142,7 +142,7 @@ public class Equals_Tests
 			{
 				// Arrange
 				var value = Rnd.Str;
-				var wrapped = NoneGen.Create<string>();
+				var wrapped = default(Maybe<string>);
 
 				// Act
 				var r0 = value == wrapped;

@@ -34,12 +34,12 @@ public partial class FilterBind_Tests
 			}
 			else
 			{
-				yield return FailGen.Create();
+				yield return R.Fail(Rnd.Str);
 			}
 
 			if (mixed)
 			{
-				yield return FailGen.Create();
+				yield return R.Fail(Rnd.Str);
 			}
 		}
 	}

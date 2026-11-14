@@ -11,7 +11,7 @@ public class IsFalse_Tests
 		public void Returns_False()
 		{
 			// Arrange
-			var input = FailGen.Create<bool>();
+			var input = R.Fail<bool>(Rnd.Str);
 
 			// Act
 			var result = input.IsFalse();

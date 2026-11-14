@@ -19,7 +19,7 @@ public class Filter_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(R.Fail(value));
+			var input = R.Fail<int>(value);
 			var fTest = Setup(false);
 
 			// Act
@@ -33,7 +33,7 @@ public class Filter_Tests
 		public void Test_Is_Not_Invoked()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 			var fTest = Setup(false);
 
 			// Act

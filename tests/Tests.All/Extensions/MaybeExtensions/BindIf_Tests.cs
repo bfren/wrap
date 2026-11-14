@@ -23,7 +23,7 @@ public class BindIf_Tests
 			public void Returns_None()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var (fTest, bind) = Setup(false);
 
 				// Act
@@ -37,7 +37,7 @@ public class BindIf_Tests
 			public void Function_Is_Not_Invoked()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var (fTest, bind) = Setup(false);
 
 				// Act
@@ -54,7 +54,7 @@ public class BindIf_Tests
 			public void Returns_None()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var (fTest, bind) = Setup(true);
 
 				// Act
@@ -68,7 +68,7 @@ public class BindIf_Tests
 			public void Function_Is_Not_Invoked()
 			{
 				// Arrange
-				var input = NoneGen.Create<string>();
+				var input = default(Maybe<string>);
 				var (fTest, bind) = Setup(true);
 
 				// Act

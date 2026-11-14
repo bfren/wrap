@@ -25,7 +25,7 @@ public class MapIfAsync_Tests
 		public async Task Predicate_Returns_False__Returns_None()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var (fTest, fAsync, fSync) = Setup(false, Rnd.Int);
 
 			// Act
@@ -43,7 +43,7 @@ public class MapIfAsync_Tests
 		public async Task Predicate_Returns_True__Returns_None()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var (fTest, fAsync, fSync) = Setup(true, Rnd.Int);
 
 			// Act
@@ -61,7 +61,7 @@ public class MapIfAsync_Tests
 		public async Task Functions_Are_Not_Invoked()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var (fTest, fAsync, fSync) = Setup(false, Rnd.Int);
 
 			// Act

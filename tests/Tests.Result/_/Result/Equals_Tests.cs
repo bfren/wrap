@@ -54,7 +54,7 @@ public class Equals_Tests
 			{
 				// Arrange
 				var v0 = R.Wrap(Rnd.Str);
-				var v1 = FailGen.Create<string>();
+				var v1 = R.Fail<string>(Rnd.Str);
 
 				// Act
 				var r0 = v0.Equals(v1);
@@ -120,9 +120,9 @@ public class Equals_Tests
 			public void Same_Value_Returns_True()
 			{
 				// Arrange
-				var value = FailGen.Create();
-				var v0 = FailGen.Create<int>(value);
-				var v1 = FailGen.Create<int>(value);
+				var value = R.Fail(Rnd.Str);
+				var v0 = R.Fail<int>(value);
+				var v1 = R.Fail<int>(value);
 
 				// Act
 				var r0 = v0.Equals(v1);
@@ -139,8 +139,8 @@ public class Equals_Tests
 			public void Different_Value_Returns_False()
 			{
 				// Arrange
-				var v0 = FailGen.Create<string>();
-				var v1 = FailGen.Create<string>();
+				var v0 = R.Fail<string>(Rnd.Str);
+				var v1 = R.Fail<string>(Rnd.Str);
 
 				// Act
 				var r0 = v0.Equals(v1);
@@ -161,7 +161,7 @@ public class Equals_Tests
 			{
 				// Arrange
 				var value = Rnd.Str;
-				var wrapped = FailGen.Create<string>();
+				var wrapped = R.Fail<string>(Rnd.Str);
 
 				// Act
 				var r0 = value == wrapped;

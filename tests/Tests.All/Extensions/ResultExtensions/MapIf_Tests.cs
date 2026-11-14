@@ -20,7 +20,7 @@ public class MapIf_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<string>(R.Fail(value));
+			var input = R.Fail<string>(value);
 			var (fTest, f) = Setup(true);
 
 			// Act
@@ -34,7 +34,7 @@ public class MapIf_Tests
 		public void f_Is_Not_Invoked()
 		{
 			// Arrange
-			var input = FailGen.Create<string>();
+			var input = R.Fail<string>(Rnd.Str);
 			var (fTest, f) = Setup(true);
 
 			// Act
