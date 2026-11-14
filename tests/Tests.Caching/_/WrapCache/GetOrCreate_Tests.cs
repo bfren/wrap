@@ -8,7 +8,7 @@ namespace Wrap.Caching.WrapCache_Tests;
 public class GetOrCreate_Tests
 {
 	[Fact]
-	public void Key_Null__Returns_None_With_KeyIsNullMsg()
+	public void Key_Null__Returns_Failure_With_KeyIsNullMsg()
 	{
 		// Arrange
 		var mc = Substitute.For<IMemoryCache>();
@@ -20,14 +20,12 @@ public class GetOrCreate_Tests
 		var r1 = c1.GetOrCreate(null!, () => M.Wrap(Rnd.DateTime));
 
 		// Assert
-		r0.AssertNone();
-		c0.AssertFailure("Key cannot be null.");
-		r1.AssertNone();
-		c1.AssertFailure("Key cannot be null.");
+		r0.AssertFailure("Key cannot be null.");
+		r1.AssertFailure("Key cannot be null.");
 	}
 
 	[Fact]
-	public void Value_Exists__Incorrect_Type__Returns_None_With_CacheEntryIsIncorrectTypeMsg()
+	public void Value_Exists__Incorrect_Type__Returns_Failure_With_CacheEntryIsIncorrectTypeMsg()
 	{
 		// Arrange
 		var key = Rnd.Str;
@@ -50,30 +48,26 @@ public class GetOrCreate_Tests
 		var r3 = c3.GetOrCreate(key, () => M.Wrap(Rnd.DateTime), new());
 
 		// Assert
-		r0.AssertNone();
-		c0.AssertFailure(
+		r0.AssertFailure(
 			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
 			key, nameof(Int64), nameof(DateTime)
 		);
-		r1.AssertNone();
-		c1.AssertFailure(
+		r1.AssertFailure(
 			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
 			key, nameof(Int64), nameof(DateTime)
 		);
-		r2.AssertNone();
-		c2.AssertFailure(
+		r2.AssertFailure(
 			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
 			key, nameof(Int64), nameof(DateTime)
 		);
-		r3.AssertNone();
-		c3.AssertFailure(
+		r3.AssertFailure(
 			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
 			key, nameof(Int64), nameof(DateTime)
 		);
 	}
 
 	[Fact]
-	public void Value_Exists__Is_Null__Returns_None()
+	public void Value_Exists__Is_Null__Returns_Failure()
 	{
 		// Arrange
 		var key = Rnd.Str;
@@ -93,10 +87,10 @@ public class GetOrCreate_Tests
 		var r3 = cache.GetOrCreate(key, () => M.Wrap(Rnd.DateTime), new());
 
 		// Assert
-		r0.AssertNone();
-		r1.AssertNone();
-		r2.AssertNone();
-		r3.AssertNone();
+		r0.AssertFailure();
+		r1.AssertFailure();
+		r2.AssertFailure();
+		r3.AssertFailure();
 	}
 
 	[Fact]
@@ -121,10 +115,10 @@ public class GetOrCreate_Tests
 		var r3 = cache.GetOrCreate(key, () => M.Wrap(Rnd.Lng), new());
 
 		// Assert
-		r0.AssertSome(value);
-		r1.AssertSome(value);
-		r2.AssertSome(value);
-		r3.AssertSome(value);
+		r0.AssertOk(value);
+		r1.AssertOk(value);
+		r2.AssertOk(value);
+		r3.AssertOk(value);
 	}
 
 	[Fact]
@@ -155,16 +149,16 @@ public class GetOrCreate_Tests
 		var r3 = cache.GetOrCreate(key, f1, new());
 
 		// Assert
-		r0.AssertSome(value);
-		r1.AssertSome(value);
-		r2.AssertSome(value);
-		r3.AssertSome(value);
+		r0.AssertOk(value);
+		r1.AssertOk(value);
+		r2.AssertOk(value);
+		r3.AssertOk(value);
 		var entry = mc.Received(4).CreateEntry(key);
 		Assert.Equal(value, entry.Value);
 	}
 
 	[Fact]
-	public void Caches_Exception_In_ValueFactory__Returns_None_With_ErrorCreatingCacheValueMsg()
+	public void Caches_Exception_In_ValueFactory__Returns_Failure_With_ErrorCreatingCacheValueMsg()
 	{
 		// Arrange
 		var key = Rnd.Str;
@@ -190,14 +184,10 @@ public class GetOrCreate_Tests
 		var r3 = c3.GetOrCreate(key, f1, new());
 
 		// Assert
-		r0.AssertNone();
-		c0.AssertFailure(ex, "Error creating cache value.");
-		r1.AssertNone();
-		c1.AssertFailure(ex, "Error creating cache value.");
-		r2.AssertNone();
-		c2.AssertFailure(ex, "Error creating cache value.");
-		r3.AssertNone();
-		c3.AssertFailure(ex, "Error creating cache value.");
+		r0.AssertFailure(ex, "Error creating cache value.");
+		r1.AssertFailure(ex, "Error creating cache value.");
+		r2.AssertFailure(ex, "Error creating cache value.");
+		r3.AssertFailure(ex, "Error creating cache value.");
 	}
 
 	[Fact]
@@ -247,9 +237,9 @@ public class GetOrCreate_Tests
 		var r2 = cache.GetOrCreate(key, () => v1);
 
 		// Assert
-		r0.AssertSome(v0);
-		r1.AssertSome(v0);
-		r2.AssertSome(v1);
+		r0.AssertOk(v0);
+		r1.AssertOk(v0);
+		r2.AssertOk(v1);
 	}
 
 	[Fact]
@@ -281,7 +271,7 @@ public class GetOrCreate_Tests
 		var result = cache.GetOrCreate(goodKey, () => value);
 
 		// Assert
-		result.AssertSome(value);
+		result.AssertOk(value);
 	}
 
 	[Fact]
@@ -297,6 +287,6 @@ public class GetOrCreate_Tests
 			.WaitAsync(TimeSpan.FromSeconds(5), ct);
 
 		// Assert
-		result.AssertSome(inner);
+		result.AssertOk(inner);
 	}
 }

@@ -8,7 +8,7 @@ namespace Wrap.Caching.WrapCache_Tests;
 public class GetValue_Tests
 {
 	[Fact]
-	public void Key_Null__Returns_None_With_KeyIsNullMsg()
+	public void Key_Null__Returns_Failure_With_KeyIsNullMsg()
 	{
 		// Arrange
 		var mc = Substitute.For<IMemoryCache>();
@@ -18,12 +18,11 @@ public class GetValue_Tests
 		var result = cache.GetValue<string>(null!);
 
 		// Assert
-		result.AssertNone();
-		cache.AssertFailure("Key cannot be null.");
+		result.AssertFailure("Key cannot be null.");
 	}
 
 	[Fact]
-	public void Incorrect_Type__Returns_None_With_IncorrectTypeMsg()
+	public void Incorrect_Type__Returns_Failure_With_IncorrectTypeMsg()
 	{
 		// Arrange
 		var mc = new MemoryCache(new MemoryCacheOptions());
@@ -35,8 +34,7 @@ public class GetValue_Tests
 		var result = cache.GetValue<int>(key);
 
 		// Assert
-		result.AssertNone();
-		cache.AssertFailure(
+		result.AssertFailure(
 			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
 			key, nameof(Guid), nameof(Int32)
 		);
@@ -60,11 +58,11 @@ public class GetValue_Tests
 		var result = cache.GetValue<Guid>(Rnd.Str);
 
 		// Assert
-		result.AssertSome(value);
+		result.AssertOk(value);
 	}
 
 	[Fact]
-	public void Value_Is_Null__Returns_None()
+	public void Value_Is_Null__Returns_Failure_With_NotFoundMsg()
 	{
 		// Arrange
 		var mc = Substitute.For<IMemoryCache>();
@@ -75,25 +73,27 @@ public class GetValue_Tests
 				return true;
 			});
 		var cache = new WrapCache<string>(mc);
+		var key = Rnd.Str;
 
 		// Act
-		var result = cache.GetValue<string>(Rnd.Str);
+		var result = cache.GetValue<string>(key);
 
 		// Assert
-		result.AssertNone();
+		result.AssertFailure("Cache entry '{Key}' not found.", key);
 	}
 
 	[Fact]
-	public void Value_Does_Not_Exist__Returns_None()
+	public void Value_Does_Not_Exist__Returns_Failure_With_NotFoundMsg()
 	{
 		// Arrange
 		var mc = Substitute.For<IMemoryCache>();
 		var cache = new WrapCache<string>(mc);
+		var key = Rnd.Str;
 
 		// Act
-		var result = cache.GetValue<long>(Rnd.Str);
+		var result = cache.GetValue<long>(key);
 
 		// Assert
-		result.AssertNone();
+		result.AssertFailure("Cache entry '{Key}' not found.", key);
 	}
 }

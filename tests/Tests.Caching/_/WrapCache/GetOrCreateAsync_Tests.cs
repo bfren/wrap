@@ -8,7 +8,7 @@ namespace Wrap.Caching.WrapCache_Tests;
 public class GetOrCreateAsync_Tests
 {
 	[Fact]
-	public async Task Key_Null__Returns_None_With_KeyIsNullMsg()
+	public async Task Key_Null__Returns_Failure_With_KeyIsNullMsg()
 	{
 		// Arrange
 		var mc = Substitute.For<IMemoryCache>();
@@ -18,12 +18,11 @@ public class GetOrCreateAsync_Tests
 		var result = await cache.GetOrCreateAsync(null!, async () => Rnd.DateTime);
 
 		// Assert
-		result.AssertNone();
-		cache.AssertFailure("Key cannot be null.");
+		result.AssertFailure("Key cannot be null.");
 	}
 
 	[Fact]
-	public async Task Value_Exists__Incorrect_Type__Returns_None_With_CacheEntryIsIncorrectTypeMsg()
+	public async Task Value_Exists__Incorrect_Type__Returns_Failure_With_CacheEntryIsIncorrectTypeMsg()
 	{
 		// Arrange
 		var key = Rnd.Str;
@@ -46,30 +45,26 @@ public class GetOrCreateAsync_Tests
 		var r3 = await c3.GetOrCreateAsync(key, async () => M.Wrap(Rnd.DateTime), new());
 
 		// Assert
-		r0.AssertNone();
-		c0.AssertFailure(
+		r0.AssertFailure(
 			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
 			key, nameof(Int64), nameof(DateTime)
 		);
-		r1.AssertNone();
-		c1.AssertFailure(
+		r1.AssertFailure(
 			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
 			key, nameof(Int64), nameof(DateTime)
 		);
-		r2.AssertNone();
-		c2.AssertFailure(
+		r2.AssertFailure(
 			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
 			key, nameof(Int64), nameof(DateTime)
 		);
-		r3.AssertNone();
-		c3.AssertFailure(
+		r3.AssertFailure(
 			"Requested cache entry '{Key}' is of type '{IncorrectType}' not the requested type '{RequestedType}'.",
 			key, nameof(Int64), nameof(DateTime)
 		);
 	}
 
 	[Fact]
-	public async Task Value_Exists__Is_Null__Returns_None()
+	public async Task Value_Exists__Is_Null__Returns_Failure()
 	{
 		// Arrange
 		var key = Rnd.Str;
@@ -89,10 +84,10 @@ public class GetOrCreateAsync_Tests
 		var r3 = await cache.GetOrCreateAsync(key, async () => M.Wrap(Rnd.DateTime), new());
 
 		// Assert
-		r0.AssertNone();
-		r1.AssertNone();
-		r2.AssertNone();
-		r3.AssertNone();
+		r0.AssertFailure();
+		r1.AssertFailure();
+		r2.AssertFailure();
+		r3.AssertFailure();
 	}
 
 	[Fact]
@@ -117,10 +112,10 @@ public class GetOrCreateAsync_Tests
 		var r3 = await cache.GetOrCreateAsync(key, async () => M.Wrap(Rnd.Lng), new());
 
 		// Assert
-		r0.AssertSome(value);
-		r1.AssertSome(value);
-		r2.AssertSome(value);
-		r3.AssertSome(value);
+		r0.AssertOk(value);
+		r1.AssertOk(value);
+		r2.AssertOk(value);
+		r3.AssertOk(value);
 	}
 
 	[Fact]
@@ -151,16 +146,16 @@ public class GetOrCreateAsync_Tests
 		var r3 = await cache.GetOrCreateAsync(key, f1, new());
 
 		// Assert
-		r0.AssertSome(value);
-		r1.AssertSome(value);
-		r2.AssertSome(value);
-		r3.AssertSome(value);
+		r0.AssertOk(value);
+		r1.AssertOk(value);
+		r2.AssertOk(value);
+		r3.AssertOk(value);
 		var entry = mc.Received(4).CreateEntry(key);
 		Assert.Equal(value, entry.Value);
 	}
 
 	[Fact]
-	public async Task Caches_Exception_In_ValueFactory__Returns_None_With_ErrorCreatingCacheValueMsg()
+	public async Task Caches_Exception_In_ValueFactory__Returns_Failure_With_ErrorCreatingCacheValueMsg()
 	{
 		// Arrange
 		var key = Rnd.Str;
@@ -186,14 +181,10 @@ public class GetOrCreateAsync_Tests
 		var r3 = await c3.GetOrCreateAsync(key, f1, new());
 
 		// Assert
-		r0.AssertNone();
-		c0.AssertFailure(ex, "Error creating cache value.");
-		r1.AssertNone();
-		c1.AssertFailure(ex, "Error creating cache value.");
-		r2.AssertNone();
-		c2.AssertFailure(ex, "Error creating cache value.");
-		r3.AssertNone();
-		c3.AssertFailure(ex, "Error creating cache value.");
+		r0.AssertFailure(ex, "Error creating cache value.");
+		r1.AssertFailure(ex, "Error creating cache value.");
+		r2.AssertFailure(ex, "Error creating cache value.");
+		r3.AssertFailure(ex, "Error creating cache value.");
 	}
 
 	[Fact]
@@ -246,9 +237,9 @@ public class GetOrCreateAsync_Tests
 		semaphore.Release();
 
 		// Assert
-		r0.AssertSome(v0);
-		r1.AssertSome(v0);
-		r2.AssertSome(v1);
+		r0.AssertOk(v0);
+		r1.AssertOk(v0);
+		r2.AssertOk(v1);
 	}
 
 	[Fact]
@@ -263,6 +254,6 @@ public class GetOrCreateAsync_Tests
 			.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
 
 		// Assert
-		result.AssertSome(inner);
+		result.AssertOk(inner);
 	}
 }
