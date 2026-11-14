@@ -203,7 +203,7 @@ To warn 1.x users before 2.0.0, ship the `[Obsolete]` markings below in one last
 ### Phase 4: Integrations
 - JSON: adapt `MaybeJsonConverter` and keep `null` for None (recommended). If you'd rather adopt STJ's native union handling, schedule that as its own breaking change with a classifier.
 - MVC: adapt `MaybeModelBinder`/`WrapModelBinder` (ASP.NET doesn't bind unions from route, query or form) and `HiddenForMonad`.
-- Caching: `IWrapCache` signatures don't change. `Maybe<Failure> LastFailure` still works.
+- Caching: `GetValue`, `GetOrCreate` and `GetOrCreateAsync` return `Result<TValue>`, so each call carries its own failure. The shared `LastFailure` property is removed (it was overwritten by concurrent callers).
 - Testing packages: re-implement `AssertSome`/`AssertNone`/`AssertOk`/`AssertFailure`/`AssertTrue`/`AssertFalse` and the generators. Their APIs don't change.
 - `apps/AppMvc`: update and smoke-test.
 

@@ -14,7 +14,7 @@ Repo audit of branch `108-switch-to-use-union-types`, 12 November 2026.
 
 ### 1. The cache's `LastFailure` is shared by every caller
 
-- [ ] Done
+- [x] Done
 
 **Where:** `src/Caching/WrapCache.cs:33`, `:158`, `:168`, `:265`
 
@@ -25,7 +25,7 @@ Repo audit of branch `108-switch-to-use-union-types`, 12 November 2026.
 
 ### 2. JSON turns bad numbers from users into `0`
 
-- [ ] Done
+- [x] Done
 
 **Where:** `src/All/Json/MaybeJsonConverter.cs` and `src/All/Json/MonadJsonConverter.cs`, the `catch` blocks
 
@@ -71,7 +71,7 @@ Repo audit of branch `108-switch-to-use-union-types`, 12 November 2026.
 
 ### 6. The Guid ID handler silently reads unreadable values as `Guid.Empty`
 
-- [ ] Done
+- [x] Done
 
 **Where:** `src/Id.Dapper/GuidIdTypeHandler.cs`, `Parse`
 
