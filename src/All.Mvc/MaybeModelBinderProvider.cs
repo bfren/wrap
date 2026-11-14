@@ -17,7 +17,7 @@ public sealed class MaybeModelBinderProvider : IModelBinderProvider
 	/// </summary>
 	/// <param name="context">Model binder provider context.</param>
 	/// <returns>A <see cref="MaybeModelBinder{T}"/>, or <see langword="null"/> if the model type is not <see cref="Maybe{T}"/>, so MVC tries the next provider.</returns>
-	/// <exception cref="Exceptions.ModelBinderException">The binder could not be created.</exception>
+	/// <exception cref="ModelBinderException">The binder could not be created.</exception>
 	public IModelBinder? GetBinder(ModelBinderProviderContext context) =>
 		GetBinder(context.Metadata.ModelType);
 

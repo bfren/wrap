@@ -18,7 +18,7 @@ public sealed class MonadModelBinderProvider : IModelBinderProvider
 	/// </summary>
 	/// <param name="context">Model binder provider context.</param>
 	/// <returns>A <see cref="MonadModelBinder{TMonad, TValue}"/>, or <see langword="null"/> if the model type is not a single-case monad, so MVC tries the next provider.</returns>
-	/// <exception cref="Exceptions.ModelBinderException">The binder could not be created.</exception>
+	/// <exception cref="ModelBinderException">The binder could not be created.</exception>
 	public IModelBinder? GetBinder(ModelBinderProviderContext context) =>
 		GetBinder(context.Metadata.ModelType);
 

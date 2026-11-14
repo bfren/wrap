@@ -10,7 +10,7 @@ namespace Wrap.Linq;
 public static partial class MaybeToMaybeExtensions
 {
 	/// <summary>
-	/// Filter a <see cref="Maybe{T}"/> in a LINQ query - see <see cref="Extensions.MaybeExtensions.Filter{T}(Maybe{T}, Func{T, bool})"/>.
+	/// Filter a <see cref="Maybe{T}"/> in a LINQ query - see <see cref="MaybeExtensions.Filter{T}(Maybe{T}, Func{T, bool})"/>.
 	/// </summary>
 	/// <remarks>
 	/// <para>

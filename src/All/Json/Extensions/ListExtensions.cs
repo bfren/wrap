@@ -6,6 +6,6 @@ using System.Collections.Generic;
 namespace Wrap.Json;
 
 /// <summary>
-/// Extension methods for lists of JSON converters.
+/// Extension methods for <see cref="IList{T}"/> lists of JSON converters.
 /// </summary>
 public static partial class ListExtensions { }

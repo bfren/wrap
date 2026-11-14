@@ -6,6 +6,6 @@ using System.Collections.Generic;
 namespace Wrap.Mvc;
 
 /// <summary>
-/// Extension methods for lists of model binder providers.
+/// Extension methods for <see cref="IList{T}"/> lists of model binder providers.
 /// </summary>
 public static partial class ListExtensions { }
