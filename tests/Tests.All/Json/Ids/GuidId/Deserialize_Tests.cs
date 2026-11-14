@@ -23,16 +23,16 @@ public class Deserialize_Tests : Abstracts.Deserialize_Tests<Deserialize_Tests.T
 
 	[Theory]
 	[MemberData(nameof(Helpers.Json.Invalid_Json_Data), MemberType = typeof(Helpers.Json))]
-	public override void Test02_Deserialise__Null_Or_Invalid_Json__Returns_Default_Id_Value(string input)
+	public override void Test02_Deserialise__Invalid_Json__Throws_JsonException(string input)
 	{
-		Test02(input, Guid.Empty);
+		Test02(input);
 	}
 
 	[Theory]
 	[MemberData(nameof(Helpers.Json.Invalid_Json_Data), MemberType = typeof(Helpers.Json))]
-	public override void Test03_Deserialise__Null_Or_Invalid_Json__Returns_Object_With_Default_Id_Value(string input)
+	public override void Test03_Deserialise__Invalid_Json_In_Object__Throws_JsonException(string input)
 	{
-		Test03(input, Guid.Empty);
+		Test03(input);
 	}
 
 	public sealed record class TestGuidId : GuidId<TestGuidId>;

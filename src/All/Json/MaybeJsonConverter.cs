@@ -26,6 +26,7 @@ public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 	/// <param name="reader">Utf8JsonReader.</param>
 	/// <param name="typeToConvert">Maybe with value type <typeparamref name="T"/>.</param>
 	/// <param name="options">JsonSerializerOptions.</param>
+	/// <exception cref="JsonException">The JSON is not a valid <typeparamref name="T"/>.</exception>
 	public override Maybe<T> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 	{
 		// JSON null is None
@@ -48,13 +49,6 @@ public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 		}
 		catch (Exception e)
 		{
-			// When TValue is a value type we can create a blank object
-			if (typeof(T).IsValueType && default(T) is T v)
-			{
-				reader.Skip(); // tell the reader we didn't read anything successfully
-				return M.Wrap(v);
-			}
-
 			// Handle null input
 			if (e.Message.StartsWith("The input does not contain any JSON tokens.", StringComparison.OrdinalIgnoreCase))
 			{

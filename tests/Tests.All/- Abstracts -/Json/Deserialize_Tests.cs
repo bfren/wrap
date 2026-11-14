@@ -39,33 +39,31 @@ public abstract class Deserialize_Tests<TId, TIdValue>
 		Assert.Equal(value, result.WrappedId.Value);
 	}
 
-	public abstract void Test02_Deserialise__Null_Or_Invalid_Json__Returns_Default_Id_Value(string input);
+	public abstract void Test02_Deserialise__Invalid_Json__Throws_JsonException(string input);
 
-	protected static void Test02(string input, TIdValue defaultValue)
+	protected static void Test02(string input)
 	{
 		// Arrange
 
 		// Act
-		var result = JsonSerializer.Deserialize<TId>(input, Helpers.Json.Options);
+		var result = Record.Exception(() => JsonSerializer.Deserialize<TId>(input, Helpers.Json.Options));
 
 		// Assert
-		Assert.Equal(defaultValue, result!.Value);
+		Assert.IsType<JsonException>(result);
 	}
 
-	public abstract void Test03_Deserialise__Null_Or_Invalid_Json__Returns_Object_With_Default_Id_Value(string input);
+	public abstract void Test03_Deserialise__Invalid_Json_In_Object__Throws_JsonException(string input);
 
-	protected static void Test03(string input, TIdValue defaultValue)
+	protected static void Test03(string input)
 	{
 		// Arrange
-		var id = Rnd.Int;
-		var json = $"{{ \"Id\": {id}, \"WrappedId\": {input} }}";
+		var json = $"{{ \"Id\": {Rnd.Int}, \"WrappedId\": {input} }}";
 
 		// Act
-		var result = JsonSerializer.Deserialize<TestWrappedId>(json, Helpers.Json.Options);
+		var result = Record.Exception(() => JsonSerializer.Deserialize<TestWrappedId>(json, Helpers.Json.Options));
 
 		// Assert
-		Assert.Equal(id, result!.Id);
-		Assert.Equal(defaultValue, result.WrappedId.Value);
+		Assert.IsType<JsonException>(result);
 	}
 
 	public sealed record class TestWrappedId(int Id, TId WrappedId);
