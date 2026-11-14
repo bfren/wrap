@@ -145,6 +145,19 @@ public readonly partial struct Result<T> : IEither<Failure, T>, IEquatable<Resul
 		new(failure);
 
 	/// <summary>
+	/// Get the failure held by this object.
+	/// </summary>
+	/// <remarks>
+	/// Only call this when this object is not an <see cref="Ok{T}"/>: for an <see cref="Ok{T}"/> it returns
+	/// the same failure as <c>default(Result&lt;T&gt;)</c>.
+	/// </remarks>
+	/// <returns>The <see cref="Failure"/> held by this object.</returns>
+	// lets a switch use a discard arm instead of `Failure f =>`, which costs every call a 40-byte Failure local
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	internal Failure GetFailure() =>
+		failure?.Value ?? Failure.Default;
+
+	/// <summary>
 	/// Wrap this object in a completed task.
 	/// </summary>
 	/// <returns>A completed task holding this object.</returns>

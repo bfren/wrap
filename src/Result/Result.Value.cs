@@ -56,7 +56,7 @@ public readonly partial struct Result<T>
 	/// <returns><see langword="true"/> if this is a <see cref="Failure"/>.</returns>
 	public bool TryGetValue(out Failure failure)
 	{
-		failure = this.failure?.Value ?? Failure.Default;
+		failure = GetFailure();
 		return !isOk;
 	}
 
@@ -75,8 +75,10 @@ public readonly partial struct Result<T>
 			Ok<T> x =>
 				x.Value,
 
-			Failure f =>
-				getValue(f)
+			// a discard, not `Failure f =>`: a Failure arm makes the JIT set up a 40-byte Failure local on every call,
+			// even on the Ok path (see R.Match)
+			_ =>
+				getValue(GetFailure())
 		};
 
 	/// <summary>
@@ -93,12 +95,10 @@ public readonly partial struct Result<T>
 			case Ok<T> x:
 				return x.Value;
 
-			case Failure f:
-				ifFailed(f);
-				return getValue();
-
-			// IDE0010 does not treat the union cases as complete, so it needs this arm
+			// default, not `case Failure f:`: a Failure arm makes the JIT set up a 40-byte Failure local on every call,
+			// even on the Ok path (see R.Match)
 			default:
+				ifFailed(GetFailure());
 				return getValue();
 		}
 	}

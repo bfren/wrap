@@ -47,9 +47,11 @@ Branch `108-switch-to-use-union-types`, version `2.0.0-beta.1`. The solution bui
 - `apps/AppMvc` smoke-tested (14 November 2026): IDs, `Monad` values, `Maybe<bool>` and `Maybe<Postcode>` bind from route values, missing or invalid optional values bind as `None`, and the server logged no errors. An invalid ID fails to bind and leaves the parameter `null`, the same as on `main`.
 
 - Allocation regression checks (Phase 5): the `Allocations` workflow runs `apps/Benchmarks/Check-Allocations.ps1`, which runs each v2 benchmark in its own process and fails if one allocates more than `apps/Benchmarks/allocations.json`. Unit tests weren't used, because CI tests a Debug build, where the JIT doesn't optimise and boxes values a Release build doesn't (section 5).
+- `R.Match`, `Result.Unwrap` and `ToMaybe` use a discard failure arm. `MatchOk` is now faster than v1, and Result `Chain` takes half the time it did (section 10, "Why Result `MatchOk` and `MatchFailure` are still slower than v1").
+- A registered `MaybeJsonConverter` takes priority over the built-in union handling: `Serialize_Tests` serialises `None` with the converter registered and expects `null`, where the built-in handling would write `{}`.
 
 **Still to do**
-- At release: move `PackageValidationBaselineVersion` from `1.2.1` to `2.0.0` once 2.0.0 ships, create the 1.x branch, and write the wiki docs and migration guide (section 8, Phase 5).
+- At release: turn `EnablePackageValidation` back on once 2.0.0 ships (`PackageValidationBaselineVersion` is already `2.0.0`), create the 1.x branch, and write the wiki docs and migration guide (section 8, Phase 5).
 
 ---
 
@@ -102,7 +104,7 @@ Branch `108-switch-to-use-union-types`, version `2.0.0-beta.1`. The solution bui
 3. **The polymorphic `IEither` abstraction.** `E.Match<TEither,TLeft,TRight>`, `EitherExtensions` and `Unsafe<TEither,…>` work across Maybe, Result and Either through interfaces. Unions don't need that, and a struct used through an interface boxes. You lose the ability to write one generic function over "any Wrap either". It looks like an internal convenience rather than something consumers use, but check your downstream projects.
 4. **Free record behaviour.** You get no generated equality, `ToString`, `with` or deconstruction on the union itself. Wrap already overrides `Equals`/`GetHashCode`/`ToString`/`==` by hand, so you mostly carry existing code across. Without it, `ToString()` returns the type name and equality goes through reflection.
 5. **Logging on failure creation needs care.** `FailureImpl`'s `init` accessor calls `F.LogFailure`/`F.LogException`, and `R.Pass` builds a non-logging copy. Move that into the `Result<T>(Failure)` constructor, with an internal non-logging constructor for pass-through. It is easy to lose this in a rewrite, so add a test first.
-6. **JSON wire format.** Native STJ writes None as `{}`. Today it is `null`. Keep `MaybeJsonConverter` if you want existing payloads and clients to keep working. Also confirm that a registered converter takes precedence over the built-in union handling (not yet verified; see the Phase 0 spike).
+6. **JSON wire format.** Native STJ writes None as `{}`. Today it is `null`. Keep `MaybeJsonConverter` if you want existing payloads and clients to keep working. A registered converter does take precedence over the built-in union handling (verified 14 November 2026 by `tests/Tests.All/Json/MaybeJsonConverter/Serialize_Tests.cs`).
 7. **Some shorthand pitfalls stay real for anyone who uses `union X(...)` directly:** silent runtime throw on `default`, boxing, and type-parameter cases that collide. This is why I recommend the custom pattern for the core types.
 8. **Nullable analysis is not a guarantee.** The docs say plainly that it "doesn't guarantee that a generated union has non-null contents at runtime". Keep the null-guarding constructors (`M.Wrap`, `R.Wrap`).
 
@@ -272,6 +274,45 @@ Holding the 40-byte `Failure` inline made `Result<int>` 48 bytes, and copying it
 Both use a discard (`_ =>`) for the failure arm, with a code comment saying why. An explicit `Failure =>` arm makes the JIT set up a 40-byte `Failure` local on every call, including the Ok path. That costs about 0.5–1 ns per call, but it compounds across a chain: Result `Chain` (`Map`, then `Bind`, then `Match`) measured 28.8 ns with the explicit arm and 17.7 ns with the discard. Elsewhere, explicit case arms remain the default for readability.
 
 `Map`, `Bind`, `Match`, `Filter` and LINQ `SelectMany` now use direct `switch` bodies instead of `M.Match` / `R.Match` with lambdas. The other combinators that still capture a lambda are listed under "Still to do" in section 0. Closures made Maybe `Map` allocate on every call and Maybe `Bind` take 5–8 ns. The full v1 vs v2 results are in `apps/Benchmarks/README.md`.
+
+### Why Result `MatchOk` and `MatchFailure` are still slower than v1 (14 November 2026)
+
+In `apps/Benchmarks/README.md`, `MatchOk` (2.76 ns vs 1.94 ns) and `MatchFailure` (2.16 ns vs 1.67 ns) are the only Result rows that are slower than v1. Read from the JIT's Tier1 assembly for both benchmarks (`DOTNET_JitDisasm`), there are two separate causes.
+
+1. **`R.Match` still has an explicit `Failure f` arm.** The previous section found that this arm sets up a 40-byte `Failure` local on every call, and moved `Bind` and `Map` to a discard, but `Match` kept the explicit arm. In the assembly, both benchmarks zero 96–128 bytes of stack in the prologue before testing `isOk`, and `MatchOk` copies the whole `Result` to the stack to call `TryGetValue(out Failure)`, which is not inlined. That is the whole of the Ok-path gap.
+2. **The failure path copies the `Failure` out of its box.** `Func<Failure, TReturn>` takes `Failure` by value, so `MatchFailure` copies all 40 bytes out of the `StrongBox` before the call, even when the lambda ignores its argument (`_ => 0`). v1 passed a reference. This gap stays as long as `Failure` is a 40-byte struct.
+
+Tried as a temporary change: a discard arm calling an `AggressiveInlining` `internal Failure GetFailure() => failure?.Value ?? Failure.Default;`. Each benchmark ran in its own process, twice:
+
+| | Explicit `Failure f` arm (now) | Discard arm | v1 |
+|---|---:|---:|---:|
+| `MatchOk` | 2.23 ns | **1.68–1.76 ns** | 1.94 ns |
+| `MatchFailure` | 2.37 ns | 2.13–2.48 ns | 1.67 ns |
+| Result `Chain` (`Map`, `Bind`, `Match`) | 18.9–19.8 ns | **8.1–8.9 ns** | 35.50 ns |
+
+The discard arm makes the Ok path faster than v1 and halves `Chain`, because every chain ends in `Match`. It doesn't help the failure path, which is cause 2.
+
+**Done (14 November 2026)**
+
+`Result<T>` has an internal `GetFailure()` beside `PassFailure`, marked `AggressiveInlining`, and `TryGetValue(out Failure)` uses it. Each family was measured before and after, one process per benchmark, and the discard arm was kept only where it helped:
+
+| Changed | Benchmark | Before | After |
+|---|---|---:|---:|
+| `R.Match`, both sync overloads | `MatchOk` | 2.51–2.84 ns | **1.72–1.82 ns** |
+| | Result `Chain` | 17.0 ns | **8.4 ns** |
+| `Result.Unwrap`, both overloads | `UnwrapOk` (temporary benchmark) | 1.50–2.44 ns | **0.96–1.27 ns** |
+| `ToMaybe(Action<Failure>)` | `ToMaybe` | 2.79 ns | **1.17–1.21 ns** |
+
+Kept with the explicit `Failure f` arm, because the discard showed no gain:
+
+- **`MatchIf`:** 3.70 ns before, 3.33–4.00 ns after.
+- **The async overloads** (`MatchAsync`, `UnwrapAsync`, `ToMaybeAsync`, `MatchIfAsync`): a temporary `MatchAsync` benchmark measured 24.2 ns and 144 B both ways. The async state machine costs far more than the `Failure` local, and the local doesn't live across an `await`, so it isn't hoisted.
+
+`Result.Equatable` and `WrapCache` weren't changed, as they aren't hot paths. None of the changed benchmarks allocate, before or after. The README's `MatchOk`, `Chain` and `ToMaybe` rows are updated.
+
+**Not changed: the failure path.** `MatchFailure` stays about 0.5 ns slower than v1 (cause 2). Closing the gap would mean turning `Failure` into an 8-byte struct that wraps an internal class. That keeps the public type, but every `Ctx`/`Msg`/`Lvl`/`Arg` call would allocate a new object where it now copies a struct, and failures are the cold path in real code. Making `Failure` a record class was already rejected above, because it changes the public type.
+
+Maybe's `MatchNone` (1.27 ns vs 1.07 ns) is within the 0.5 ns run-to-run noise, and `None` is an empty struct, so nothing similar needs fixing there.
 
 ### Failure logging removed
 

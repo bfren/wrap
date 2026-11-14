@@ -32,13 +32,11 @@ public static partial class R
 				fOk(x.Value);
 				return;
 
-			case Failure f:
-				fFail(f);
-				return;
-
-			// IDE0010 does not treat the union cases as complete, so it needs this arm
+			// default, not `case Failure f:`: a Failure arm makes the JIT set up a 40-byte Failure local on every call,
+			// even on the Ok path (see Match<T, TReturn>)
 			default:
-				break;
+				fFail(result.GetFailure());
+				return;
 		}
 	}
 
@@ -141,8 +139,10 @@ public static partial class R
 			Ok<T> x =>
 				fOk(x.Value),
 
-			Failure f =>
-				fFail(f)
+			// a discard, not `Failure f =>`: a Failure arm makes the JIT set up a 40-byte Failure local on every call,
+			// even on the Ok path (MatchOk measured 2.2 ns with it, 1.7 ns without, and Result Chain 19 ns vs 8.5 ns)
+			_ =>
+				fFail(result.GetFailure())
 		};
 
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>

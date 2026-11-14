@@ -26,12 +26,10 @@ public static partial class ResultExtensions
 			case Ok<T> x:
 				return x.Value;
 
-			case Failure x:
-				fFailureHandler(x);
-				return M.None;
-
-			// IDE0010 does not treat the union cases as complete, so it needs this arm
+			// default, not `case Failure x:`: a Failure arm makes the JIT set up a 40-byte Failure local on every call,
+			// even on the Ok path (see R.Match)
 			default:
+				fFailureHandler(@this.GetFailure());
 				return M.None;
 		}
 	}
