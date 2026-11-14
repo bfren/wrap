@@ -1,49 +1,10 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using Wrap.Exceptions;
-
 namespace Wrap.Extensions.ResultExtensions_Tests;
 
 public class UnwrapAsync_Tests
 {
-	public class Without_Args
-	{
-		public class With_Failure
-		{
-			[Fact]
-			public async Task Throws_Exception()
-			{
-				// Arrange
-				var input = FailGen.Create<int>().AsTask();
-
-				// Act
-				var result = await Record.ExceptionAsync(() => input.UnwrapAsync());
-
-				// Assert
-				Assert.IsType<FailureException>(result);
-			}
-		}
-
-		public class With_Ok
-		{
-
-			[Fact]
-			public async Task Returns_Value()
-			{
-				// Arrange
-				var value = Rnd.Int;
-				var input = R.Wrap(value).AsTask();
-
-				// Act
-				var result = await input.UnwrapAsync();
-
-				// Assert
-				Assert.Equal(value, result);
-			}
-		}
-	}
-
 	public class With_IfFailed
 	{
 		public class With_Failure
@@ -98,7 +59,7 @@ public class UnwrapAsync_Tests
 			{
 				// Arrange
 				var value = Rnd.Int;
-				var handler = Substitute.For<Action<FailureValue>>();
+				var handler = Substitute.For<Action<Failure>>();
 				var input = FailGen.Create<int>();
 
 				// Act
@@ -111,7 +72,7 @@ public class UnwrapAsync_Tests
 				var r6 = await input.AsTask().UnwrapAsync(async f => handler(f), async () => value);
 
 				// Assert
-				handler.ReceivedWithAnyArgs().Invoke(Arg.Any<FailureValue>());
+				handler.ReceivedWithAnyArgs().Invoke(Arg.Any<Failure>());
 				Assert.Equal(value, r0);
 				Assert.Equal(value, r1);
 				Assert.Equal(value, r2);
@@ -129,7 +90,7 @@ public class UnwrapAsync_Tests
 			{
 				// Arrange
 				var value = Rnd.Int;
-				var handler = Substitute.For<Action<FailureValue>>();
+				var handler = Substitute.For<Action<Failure>>();
 				var input = R.Wrap(value);
 
 				// Act
@@ -142,7 +103,7 @@ public class UnwrapAsync_Tests
 				var r6 = await input.AsTask().UnwrapAsync(async f => handler(f), async () => value);
 
 				// Assert
-				handler.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
+				handler.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Failure>());
 				Assert.Equal(value, r0);
 				Assert.Equal(value, r1);
 				Assert.Equal(value, r2);

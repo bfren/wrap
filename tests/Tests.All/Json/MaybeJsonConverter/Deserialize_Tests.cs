@@ -24,7 +24,7 @@ public class Deserialize_Tests
 					var result = JsonSerializer.Deserialize<Maybe<Guid>>(json, Helpers.Json.Options);
 
 					// Assert
-					result!.AssertSome(value);
+					result.AssertSome(value);
 				}
 			}
 
@@ -32,15 +32,15 @@ public class Deserialize_Tests
 			{
 				[Theory]
 				[MemberData(nameof(Helpers.Json.Invalid_Json_Data), MemberType = typeof(Helpers.Json))]
-				public void Returns_Default_Value(string input)
+				public void Throws_JsonException(string input)
 				{
 					// Arrange
 
 					// Act
-					var result = JsonSerializer.Deserialize<Maybe<Guid>>(input, Helpers.Json.Options);
+					var result = Record.Exception(() => JsonSerializer.Deserialize<Maybe<Guid>>(input, Helpers.Json.Options));
 
 					// Assert
-					result!.AssertSome(default);
+					Assert.IsType<JsonException>(result);
 				}
 			}
 		}
@@ -62,7 +62,7 @@ public class Deserialize_Tests
 					var result = JsonSerializer.Deserialize<Maybe<Test>>(json, Helpers.Json.Options);
 
 					// Assert
-					result!.AssertSome(expected);
+					result.AssertSome(expected);
 				}
 			}
 
@@ -111,16 +111,16 @@ public class Deserialize_Tests
 			{
 				[Theory]
 				[MemberData(nameof(Helpers.Json.Invalid_Json_Data), MemberType = typeof(Helpers.Json))]
-				public void Returns_Default_Value(string input)
+				public void Throws_JsonException(string input)
 				{
 					// Arrange
 					var json = $"{{\"test\":{input}}}";
 
 					// Act
-					var result = JsonSerializer.Deserialize<ValWrapper>(json, Helpers.Json.Options);
+					var result = Record.Exception(() => JsonSerializer.Deserialize<ValWrapper>(json, Helpers.Json.Options));
 
 					// Assert
-					result!.Test.AssertSome(default);
+					Assert.IsType<JsonException>(result);
 				}
 			}
 		}
@@ -148,19 +148,18 @@ public class Deserialize_Tests
 
 			public class With_Invalid_Json
 			{
-
 				[Theory]
 				[MemberData(nameof(Helpers.Json.Invalid_Json_Data), MemberType = typeof(Helpers.Json))]
-				public void Returns_Default_Value(string input)
+				public void Throws_JsonException(string input)
 				{
 					// Arrange
 					var json = $"{{\"test\":{input}}}";
 
 					// Act
-					var result = JsonSerializer.Deserialize<ValWrapper>(json, Helpers.Json.Options);
+					var result = Record.Exception(() => JsonSerializer.Deserialize<RefWrapper>(json, Helpers.Json.Options));
 
 					// Assert
-					result!.Test.AssertSome(default);
+					Assert.IsType<JsonException>(result);
 				}
 			}
 		}

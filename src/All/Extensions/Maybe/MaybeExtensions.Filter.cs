@@ -17,45 +17,45 @@ public static partial class MaybeExtensions
 	/// <param name="fTest">Function to detemine whether or not the value of <paramref name="this"/> should be returned.</param>
 	/// <returns>Value of <paramref name="this"/> if <paramref name="fTest"/> returns true, or <see cref="None"/>.</returns>
 	public static Maybe<T> Filter<T>(this Maybe<T> @this, Func<T, bool> fTest) =>
-		@this.Bind(x => fTest(x) switch
+		@this switch
 		{
-			false =>
-				M.None,
+			Some<T> x when fTest(x.Value) =>
+				x,
 
-			true =>
-				M.Wrap(x)
-		});
+			_ =>
+				M.None
+		};
 
 	/// <inheritdoc cref="Filter{T}(Maybe{T}, Func{T, bool})"/>
-	public static Task<Maybe<T>> FilterAsync<T>(this Maybe<T> @this, Func<T, Task<bool>> fTest) =>
-		@this.BindAsync(async x => await fTest(x) switch
+	public static async Task<Maybe<T>> FilterAsync<T>(this Maybe<T> @this, Func<T, Task<bool>> fTest) =>
+		@this switch
 		{
-			false =>
-				M.None,
+			Some<T> x when await fTest(x.Value) =>
+				x,
 
-			true =>
-				M.Wrap(x)
-		});
+			_ =>
+				M.None
+		};
 
 	/// <inheritdoc cref="Filter{T}(Maybe{T}, Func{T, bool})"/>
-	public static Task<Maybe<T>> FilterAsync<T>(this Task<Maybe<T>> @this, Func<T, bool> fTest) =>
-		@this.BindAsync(x => fTest(x) switch
+	public static async Task<Maybe<T>> FilterAsync<T>(this Task<Maybe<T>> @this, Func<T, bool> fTest) =>
+		await @this switch
 		{
-			false =>
-				M.None,
+			Some<T> x when fTest(x.Value) =>
+				x,
 
-			true =>
-				M.Wrap(x)
-		});
+			_ =>
+				M.None
+		};
 
 	/// <inheritdoc cref="Filter{T}(Maybe{T}, Func{T, bool})"/>
-	public static Task<Maybe<T>> FilterAsync<T>(this Task<Maybe<T>> @this, Func<T, Task<bool>> fTest) =>
-		@this.BindAsync(async x => await fTest(x) switch
+	public static async Task<Maybe<T>> FilterAsync<T>(this Task<Maybe<T>> @this, Func<T, Task<bool>> fTest) =>
+		await @this switch
 		{
-			false =>
-				M.None,
+			Some<T> x when await fTest(x.Value) =>
+				x,
 
-			true =>
-				M.Wrap(x)
-		});
+			_ =>
+				M.None
+		};
 }

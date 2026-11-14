@@ -12,7 +12,7 @@ public class Bind_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<string>(new(value));
+			var input = FailGen.Create<string>(R.Fail(value));
 			var f = Substitute.For<Func<string, Result<int>>>();
 
 			// Act
@@ -37,29 +37,34 @@ public class Bind_Tests
 		}
 
 		[Fact]
-		public void Failure_Passed_Through_Chain__Is_Logged_Once()
+		public void Failure_Passed_Through_Chain__Is_Unchanged()
 		{
 			// Arrange
-			var message = Rnd.Str;
-			var logger = Substitute.For<F.FailureLogger>();
-			var original = F.LogFailure;
-			F.LogFailure = logger;
+			var failure = FailGen.Create();
 
-			try
-			{
-				// Act
-				_ = R.Fail<string>(message)
-					.Bind(x => R.Wrap(x.Length))
-					.Map(x => x + 1)
-					.Bind(x => R.Wrap(x.ToString()));
-			}
-			finally
-			{
-				F.LogFailure = original;
-			}
+			// Act
+			var result = R.Fail<string>(failure)
+				.Bind(x => R.Wrap(x.Length))
+				.Map(x => x + 1)
+				.Bind(x => R.Wrap(x.ToString()));
 
 			// Assert
-			logger.Received(1).Invoke(message, Arg.Any<object?[]>());
+			Assert.Equal(failure, result.AssertFailure());
+		}
+
+		[Fact]
+		public void Default_Result__Passes_Uninitialised_Failure()
+		{
+			// Arrange
+			var input = default(Result<string>);
+
+			// Act
+			var r0 = input.Bind(x => R.Wrap(x.Length));
+			var r1 = input.Map(x => x.Length);
+
+			// Assert
+			r0.AssertFailure("Uninitialised Failure");
+			r1.AssertFailure("Uninitialised Failure");
 		}
 	}
 
@@ -104,7 +109,7 @@ public class Bind_Tests
 			var failValue = Rnd.Str;
 			var input = R.Wrap(Rnd.Str);
 			var f = Substitute.For<Func<string, Result<int>>>();
-			f.Invoke(Arg.Any<string>()).Returns(FailGen.Create<int>(new(failValue)));
+			f.Invoke(Arg.Any<string>()).Returns(FailGen.Create<int>(R.Fail(failValue)));
 
 			// Act
 			var result = input.Bind(f);

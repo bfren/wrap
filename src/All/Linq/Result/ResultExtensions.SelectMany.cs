@@ -3,7 +3,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Wrap.Extensions;
 
 namespace Wrap.Linq;
 
@@ -33,17 +32,73 @@ public static partial class ResultExtensions
 	/// <param name="f">Interim bind function.</param>
 	/// <param name="g">Return map function.</param>
 	public static Result<TReturn> SelectMany<T, TInner, TReturn>(this Result<T> @this, Func<T, Result<TInner>> f, Func<T, TInner, TReturn> g) =>
-		@this.Bind(x => from y in f(x) select g(x, y));
+		@this switch
+		{
+			Ok<T> x =>
+				f(x.Value) switch
+				{
+					Ok<TInner> y =>
+						R.Try(g, x.Value, y.Value, R.DefaultExceptionHandler),
+
+					{ } y =>
+						y.PassFailure<TReturn>()
+				},
+
+			{ } x =>
+				x.PassFailure<TReturn>()
+		};
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Result{T}, Func{T, Result{TInner}}, Func{T, TInner, TReturn})"/>
-	public static Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Result<T> @this, Func<T, Task<Result<TInner>>> f, Func<T, TInner, TReturn> g) =>
-		@this.BindAsync(x => from y in f(x) select g(x, y));
+	public static async Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Result<T> @this, Func<T, Task<Result<TInner>>> f, Func<T, TInner, TReturn> g) =>
+		@this switch
+		{
+			Ok<T> x =>
+				await f(x.Value) switch
+				{
+					Ok<TInner> y =>
+						R.Try(g, x.Value, y.Value, R.DefaultExceptionHandler),
+
+					{ } y =>
+						y.PassFailure<TReturn>()
+				},
+
+			{ } x =>
+				x.PassFailure<TReturn>()
+		};
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Result{T}, Func{T, Result{TInner}}, Func{T, TInner, TReturn})"/>
-	public static Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Result<T>> @this, Func<T, Result<TInner>> f, Func<T, TInner, TReturn> g) =>
-		@this.BindAsync(x => from y in f(x) select g(x, y));
+	public static async Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Result<T>> @this, Func<T, Result<TInner>> f, Func<T, TInner, TReturn> g) =>
+		await @this switch
+		{
+			Ok<T> x =>
+				f(x.Value) switch
+				{
+					Ok<TInner> y =>
+						R.Try(g, x.Value, y.Value, R.DefaultExceptionHandler),
+
+					{ } y =>
+						y.PassFailure<TReturn>()
+				},
+
+			{ } x =>
+				x.PassFailure<TReturn>()
+		};
 
 	/// <inheritdoc cref="SelectMany{T, TInner, TReturn}(Result{T}, Func{T, Result{TInner}}, Func{T, TInner, TReturn})"/>
-	public static Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Result<T>> @this, Func<T, Task<Result<TInner>>> f, Func<T, TInner, TReturn> g) =>
-		@this.BindAsync(x => from y in f(x) select g(x, y));
+	public static async Task<Result<TReturn>> SelectMany<T, TInner, TReturn>(this Task<Result<T>> @this, Func<T, Task<Result<TInner>>> f, Func<T, TInner, TReturn> g) =>
+		await @this switch
+		{
+			Ok<T> x =>
+				await f(x.Value) switch
+				{
+					Ok<TInner> y =>
+						R.Try(g, x.Value, y.Value, R.DefaultExceptionHandler),
+
+					{ } y =>
+						y.PassFailure<TReturn>()
+				},
+
+			{ } x =>
+				x.PassFailure<TReturn>()
+		};
 }

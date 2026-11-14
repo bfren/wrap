@@ -8,7 +8,7 @@ namespace Wrap.Extensions;
 public static partial class UnsafeExtensions
 {
 	/// <summary>
-	/// Discard the Left (error / invalid) value of a <see cref="IEither{TEither, TLeft, TRight}"/>
+	/// Discard the Left (error / invalid) value of a <see cref="IEither{TLeft, TRight}"/>
 	/// and return <see cref="M.None"/> or <see cref="Some{T}"/> with the Right (correct / valid) value.
 	/// </summary>
 	/// <remarks>
@@ -21,15 +21,11 @@ public static partial class UnsafeExtensions
 	/// <param name="this">Unsafe object.</param>
 	/// <returns>Maybe object.</returns>
 	public static Maybe<TRight> Discard<TEither, TLeft, TRight>(this Unsafe<TEither, TLeft, TRight> @this)
-		where TEither : IEither<TEither, TLeft, TRight> =>
-		E.Match<TEither, TLeft, TRight, Maybe<TRight>>(
-			@this.Value,
-			fLeft: _ => M.None,
-			fRight: M.Wrap
-		);
+		where TEither : IEither<TLeft, TRight> =>
+		@this.Value.TryGetRight(out var right) ? M.Wrap(right) : default;
 
 	/// <inheritdoc cref="Discard{TEither, TLeft, TRight}(Unsafe{TEither, TLeft, TRight})"/>
 	public static Task<Maybe<TRight>> DiscardAsync<TEither, TLeft, TRight>(this Task<Unsafe<TEither, TLeft, TRight>> @this)
-		where TEither : IEither<TEither, TLeft, TRight> =>
+		where TEither : IEither<TLeft, TRight> =>
 		@this.Then(x => x.Discard());
 }

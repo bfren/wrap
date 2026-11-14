@@ -91,7 +91,7 @@ public class Serialize_Tests
 			public void Writes_Null()
 			{
 				// Arrange
-				var test = new RefWrapper(null!);
+				var test = new RefWrapper((Test)null!);
 
 				// Act
 				var result = JsonSerializer.Serialize(test, Helpers.Json.Options);

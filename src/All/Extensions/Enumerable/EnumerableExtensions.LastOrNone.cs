@@ -15,12 +15,5 @@ public static partial class EnumerableExtensions
 	/// <param name="this">IEnumerable object</param>
 	/// <returns>Value of the last element of <paramref name="this"/>, or <see cref="None"/>.</returns>
 	public static Maybe<T> LastOrNone<T>(this IEnumerable<T> @this) =>
-		@this.Select(M.Wrap).LastOrDefault() switch
-		{
-			Maybe<T> x =>
-				x,
-
-			_ =>
-				M.None
-		};
+		@this.Select(M.Wrap).LastOrDefault();
 }

@@ -19,7 +19,7 @@ public class ContinueIfAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(new(value));
+			var input = FailGen.Create<int>(R.Fail(value));
 			var fTest = Setup(false);
 
 			// Act

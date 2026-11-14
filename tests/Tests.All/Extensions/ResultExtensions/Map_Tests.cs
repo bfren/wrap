@@ -12,7 +12,7 @@ public class Map_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<string>(new(value));
+			var input = FailGen.Create<string>(R.Fail(value));
 			var f = Substitute.For<Func<string, int>>();
 
 			// Act

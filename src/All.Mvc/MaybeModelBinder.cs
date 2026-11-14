@@ -13,7 +13,8 @@ public sealed class MaybeModelBinder<T> : WrapModelBinder<T>
 {
 	/// <inheritdoc/>
 	internal override (ValueProviderResult valueResult, ModelBindingResult bindingResult) Nothing() =>
-		(new(nameof(M.None)), ModelBindingResult.Success((Maybe<T>)M.None));
+		// don't use 'M.None' here to avoid incorrect compiler warnings
+		(new(nameof(M.None)), ModelBindingResult.Success(default(Maybe<T>)));
 
 	/// <inheritdoc/>
 	public override object Wrap(T value) =>

@@ -1,0 +1,37 @@
+name: Allocations
+
+on:
+  push:
+    branches-ignore:
+      - 'main'
+    tags-ignore:
+      - '**'
+    paths:
+      - 'src/**'
+      - 'apps/Benchmarks/**'
+      - 'apps/AppBenchmarkv2/**'
+      - 'Directory.Packages.props'
+      - 'global.json'
+  workflow_dispatch:
+
+env:
+  DOTNET_NOLOGO: true                     # Disable the .NET logo in the console output
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience to skip caching NuGet packages and speed up the build
+  DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry to Microsoft
+
+jobs:
+  allocations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45 # about 12 minutes locally, and shared runners are slower
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v7
+    -
+      name: Setup .NET
+      uses: actions/setup-dotnet@v6
+      with:
+        global-json-file: global.json
+    -
+      name: Check allocations # bytes per operation only - timings on shared runners are too noisy to compare
+      run: pwsh apps/Benchmarks/Check-Allocations.ps1

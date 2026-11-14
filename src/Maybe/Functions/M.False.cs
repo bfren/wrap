@@ -6,7 +6,7 @@ namespace Wrap;
 public static partial class M
 {
 	/// <summary>
-	/// Gets a value that represents <see langword="false"/>.
+	/// Gets a <see cref="Some{T}"/> holding <see langword="false"/>.
 	/// </summary>
 	public static Maybe<bool> False =>
 		Wrap(false);

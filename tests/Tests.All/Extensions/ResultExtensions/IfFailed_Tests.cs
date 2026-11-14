@@ -13,7 +13,7 @@ public class IfFailed_Tests
 			// Arrange
 			var value = Rnd.Int;
 			var input = R.Wrap(value);
-			var f = Substitute.For<Action<FailureValue>>();
+			var f = Substitute.For<Action<Failure>>();
 
 			// Act
 			var result = input.IfFailed(f);
@@ -27,13 +27,13 @@ public class IfFailed_Tests
 		{
 			// Arrange
 			var input = R.Wrap(Rnd.Int);
-			var f = Substitute.For<Action<FailureValue>>();
+			var f = Substitute.For<Action<Failure>>();
 
 			// Act
 			_ = input.IfFailed(f);
 
 			// Assert
-			f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<FailureValue>());
+			f.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Failure>());
 		}
 	}
 
@@ -44,13 +44,13 @@ public class IfFailed_Tests
 		{
 			// Arrange
 			var input = FailGen.Create<int>();
-			var f = Substitute.For<Action<FailureValue>>();
+			var f = Substitute.For<Action<Failure>>();
 
 			// Act
 			_ = input.IfFailed(f);
 
 			// Assert
-			f.Received(1).Invoke(Arg.Any<FailureValue>());
+			f.Received(1).Invoke(Arg.Any<Failure>());
 		}
 
 		[Fact]
@@ -58,8 +58,8 @@ public class IfFailed_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(new(value));
-			var f = Substitute.For<Action<FailureValue>>();
+			var input = FailGen.Create<int>(R.Fail(value));
+			var f = Substitute.For<Action<Failure>>();
 
 			// Act
 			var result = input.IfFailed(f);

@@ -19,8 +19,7 @@ public class Wrap_Tests
 
 				// Assert
 				result.AssertFailure(
-					"Null value of type '{Type}' - try using Maybe<T> to wrap null values safely.",
-					nameof(String)
+					"Null Result value - try using Maybe<T> to wrap null values safely."
 				);
 			}
 		}
@@ -37,8 +36,7 @@ public class Wrap_Tests
 
 				// Assert
 				result.AssertFailure(
-					"Null value of type '{Type}' - try using Maybe<T> to wrap null values safely.",
-					nameof(String)
+					"Null Result value - try using Maybe<T> to wrap null values safely."
 				);
 			}
 		}
@@ -55,8 +53,7 @@ public class Wrap_Tests
 
 				// Assert
 				result.AssertFailure(
-					"Null value of type '{Type}' - try using Maybe<T> to wrap null values safely.",
-					typeof(int?).Name
+					"Null Result value - try using Maybe<T> to wrap null values safely."
 				);
 			}
 		}

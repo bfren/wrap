@@ -62,20 +62,4 @@ public class GetHashCode_Tests
 			Assert.Equal(M.None.GetHashCode(), result);
 		}
 	}
-
-	public class Invalid_Type
-	{
-		[Fact]
-		public void Returns_Zero()
-		{
-			// Arrange
-			var maybe = new InvalidMaybe<DateTime>();
-
-			// Act
-			var result = maybe.GetHashCode();
-
-			// Assert
-			Assert.Equal(0, result);
-		}
-	}
 }

@@ -19,7 +19,7 @@ public class Ctx_Tests
 			// Assert
 			Assert.Equal(
 				$"{nameof(With_Class_And_Function)}.{nameof(Adds_Class_And_Function_To_Context)}()",
-				result.Value.Context
+				result.Context
 			);
 		}
 	}
@@ -36,7 +36,7 @@ public class Ctx_Tests
 			var result = failure.Ctx<Ctx_Tests>();
 
 			// Assert
-			Assert.Equal($"{typeof(Ctx_Tests).FullName}", result.Value.Context);
+			Assert.Equal($"{typeof(Ctx_Tests).FullName}", result.Context);
 		}
 	}
 }

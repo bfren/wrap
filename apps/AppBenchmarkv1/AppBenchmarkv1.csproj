@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Benchmarks the latest 1.x release from NuGet. The code is shared with AppBenchmarkv2 so results compare like for like. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- apps/Directory.Build.props references the local 2.x code, which must not be used here -->
+    <ProjectReference Remove="..\..\src\All\All.csproj" />
+    <PackageReference Include="BenchmarkDotNet" />
+    <PackageReference Include="Wrap" />
+    <Compile Include="..\Benchmarks\**\*.cs" />
+  </ItemGroup>
+</Project>

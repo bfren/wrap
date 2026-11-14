@@ -7,20 +7,6 @@ public class Match_Tests
 {
 	public class Without_Return_Value
 	{
-		public class Null_Result : Abstracts.Match_Tests.Null_Result
-		{
-			[Fact]
-			public override void Test00_Throws_NullResultException() =>
-				Test00<int>(r => R.Match(r, Substitute.For<Action<FailureValue>>(), Substitute.For<Action<int>>()));
-		}
-
-		public class Invalid_Result : Abstracts.Match_Tests.Unknown_Result
-		{
-			[Fact]
-			public override void Test01_Throws_InvalidResultTypeException() =>
-				Test00<int>(r => R.Match(r, Substitute.For<Action<FailureValue>>(), Substitute.For<Action<int>>()));
-		}
-
 		public class Failure
 		{
 			[Fact]
@@ -28,14 +14,14 @@ public class Match_Tests
 			{
 				// Arrange
 				var failure = FailGen.Create();
-				var fail = Substitute.For<Action<FailureValue>>();
+				var fail = Substitute.For<Action<Wrap.Failure>>();
 				var ok = Substitute.For<Action<int>>();
 
 				// Act
 				R.Match(failure, fail, ok);
 
 				// Assert
-				fail.Received(1).Invoke(failure.Value);
+				fail.Received(1).Invoke(failure);
 				ok.DidNotReceive().Invoke(Arg.Any<int>());
 			}
 		}
@@ -48,7 +34,7 @@ public class Match_Tests
 				// Arrange
 				var value = Rnd.Int;
 				var wrapped = R.Wrap(value);
-				var fail = Substitute.For<Action<FailureValue>>();
+				var fail = Substitute.For<Action<Wrap.Failure>>();
 				var ok = Substitute.For<Action<int>>();
 
 				// Act
@@ -56,24 +42,8 @@ public class Match_Tests
 
 				// Assert
 				ok.Received(1).Invoke(value);
-				fail.DidNotReceive().Invoke(Arg.Any<FailureValue>());
+				fail.DidNotReceive().Invoke(Arg.Any<Wrap.Failure>());
 			}
-		}
-	}
-
-	public class With_Return_Value
-	{
-		public class Null_Result : Abstracts.Match_Tests.Null_Result
-		{
-			[Fact]
-			public override void Test00_Throws_NullResultException() =>
-				Test00<int>(r => R.Match(r, Substitute.For<Func<FailureValue, int>>(), Substitute.For<Func<int, int>>()));
-		}
-		public class Invalid_Result : Abstracts.Match_Tests.Unknown_Result
-		{
-			[Fact]
-			public override void Test01_Throws_InvalidResultTypeException() =>
-				Test00<int>(r => R.Match(r, Substitute.For<Func<FailureValue, int>>(), Substitute.For<Func<int, int>>()));
 		}
 	}
 }

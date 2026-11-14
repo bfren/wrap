@@ -12,7 +12,7 @@ public class IfNot_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(new(value));
+			var input = FailGen.Create<int>(R.Fail(value));
 			var fTest = Substitute.For<Func<int, bool>>();
 			fTest.Invoke(Arg.Any<int>()).Returns(false);
 			var fThen = Substitute.For<Func<int, Result<int>>>();

@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
@@ -38,51 +37,83 @@ public static partial class F
 		}
 
 		// Initialise variables before regex replace loop
-		var regex = TemplateMatcherRegex();
-		var values = new List<object>(regex.Count(formatString));
 		var replaceIndex = 0; // keeps track of replace loop so we can match named template values with an array source
-		var numberedTemplates = true;
-		var rewrittenFormat = regex.Replace(formatString, (m) =>
+		var numberedTemplates = HasOnlyNumberedTemplates(formatString);
+
+		// Write the final text directly: passing the template on to string.Format would make it read any
+		// brace this regex does not recognise, e.g. '{max=5}', and throw or use the wrong value
+		try
 		{
-			// This is the value inside the braces, e.g. "0" in "{0}" or "A" in "{A}"
-			// Remove any @ symbols from the start - used by Serilog to denote an object format but breaks the following
-			var template = m.Groups["template"].Value.TrimStart('@');
-			var templateIsNumber = int.TryParse(template, out var templateNumber);
-			numberedTemplates = numberedTemplates && templateIsNumber;
-
-			// Switch on the source type, using variety of methods to get this template's value
-			values.Add(source switch
+			return TemplateMatcherRegex().Replace(formatString, m =>
 			{
-				// Source array - get specific item in array for numbered template
-				Array arr when numberedTemplates && templateNumber < arr.Length && arr.GetValue(templateNumber) is object val =>
-					val,
+				// A doubled brace outside a placeholder is an escaped brace, as in string.Format
+				if (!m.Groups["template"].Success)
+				{
+					return m.Value[..1];
+				}
 
-				// Source value - use string value but only for the first template, i.e. {0}
-				{ } obj when numberedTemplates && templateNumber == 0 && obj.ToString() is string val =>
-					val,
+				// Each pair of braces is one escaped brace, so '{{name}}' is text and '{{{name}}}' is a placeholder inside braces
+				var (start, end) = (m.Groups["start"].Captures.Count, m.Groups["end"].Captures.Count);
+				var (before, after) = (new string('{', start / 2), new string('}', end / 2));
+				if (start % 2 != end % 2)
+				{
+					throw new FormatException("Unbalanced braces.");
+				}
 
-				// Source array - get next item in array for named template
-				Array arr when !numberedTemplates && replaceIndex < arr.Length && arr.GetValue(replaceIndex++) is object val =>
-					val,
+				if (start % 2 == 0)
+				{
+					return before + m.Groups["template"].Value + m.Groups["format"].Value + after;
+				}
 
-				// Source object - get matching property value for named template
-				{ } obj when !numberedTemplates && PropertyCache<T>.GetProperty(template)?.GetValue(obj) is object val =>
-					val,
+				// This is the value inside the braces, e.g. "0" in "{0}" or "A" in "{A}"
+				// Remove any @ symbols from the start - used by Serilog to denote an object format but breaks the following
+				var template = m.Groups["template"].Value.TrimStart('@');
+				_ = int.TryParse(template, out var templateNumber);
 
-				// Nothing matches so put placeholder back
-				_ =>
-					$"{{{template}}}"
+				// Switch on the source type, using variety of methods to get this template's value
+				var value = source switch
+				{
+					// Source array - get specific item in array for numbered template
+					Array arr when numberedTemplates && templateNumber < arr.Length && arr.GetValue(templateNumber) is object val =>
+						val,
+
+					// Source value - use string value but only for the first template, i.e. {0}
+					{ } obj when numberedTemplates && templateNumber == 0 && obj.ToString() is string val =>
+						val,
+
+					// Source array - get next item in array for named template
+					Array arr when !numberedTemplates && replaceIndex < arr.Length && arr.GetValue(replaceIndex++) is object val =>
+						val,
+
+					// Source object - get matching property value for named template
+					{ } obj when !numberedTemplates && PropertyCache<T>.GetProperty(template)?.GetValue(obj) is object val =>
+						val,
+
+					// Nothing matches
+					_ =>
+						null
+				};
+
+				// Apply any format (the text after ':') the way string.Format would, or put the placeholder back
+				var format = m.Groups["format"].Success ? m.Groups["format"].Value[1..] : null;
+				return before + value switch
+				{
+					IFormattable x =>
+						x.ToString(format, DefaultCulture),
+
+					{ } x =>
+						x.ToString(),
+
+					null =>
+						$"{{{template}}}"
+				} + after;
 			});
-
-			// Recreate format using zero-based string
-			return new string('{', m.Groups["start"].Captures.Count)
-				+ (values.Count - 1)
-				+ m.Groups["format"].Value
-				+ new string('}', m.Groups["end"].Captures.Count);
-		});
-
-		// Format string with ordered values
-		return string.Format(DefaultCulture, rewrittenFormat, [.. values]);
+		}
+		catch (FormatException)
+		{
+			// Unsupported or invalid input, e.g. an unknown format specifier: formatting a message must never throw
+			return formatString;
+		}
 	}
 
 	/// <summary>
@@ -134,7 +165,8 @@ public static partial class F
 	{
 		foreach (Match m in TemplateMatcherRegex().Matches(formatString))
 		{
-			if (!int.TryParse(m.Groups["template"].Value.TrimStart('@'), out _))
+			// skip escaped braces, e.g. '{{name}}', which are text and not placeholders
+			if (m.Groups["template"].Success && m.Groups["start"].Captures.Count % 2 == 1 && !int.TryParse(m.Groups["template"].Value.TrimStart('@'), out _))
 			{
 				return false;
 			}
@@ -146,7 +178,10 @@ public static partial class F
 	/// <summary>
 	/// Thanks James Newton-King!
 	/// </summary>
-	[GeneratedRegex("(?<start>\\{)+(?<template>[\\w\\.\\[\\]@]+)(?<format>:[^}]+)?(?<end>\\})+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
+	/// <remarks>
+	/// Matches a placeholder with its surrounding braces, or failing that a doubled (escaped) brace.
+	/// </remarks>
+	[GeneratedRegex("(?<start>\\{)+(?<template>[\\w\\.\\[\\]@]+)(?<format>:[^}]+)?(?<end>\\})+|\\{\\{|\\}\\}", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
 	private static partial Regex TemplateMatcherRegex();
 
 	private static class PropertyCache<T>

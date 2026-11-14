@@ -25,7 +25,7 @@ public static partial class ResultExtensions
 	/// you will get an <see cref="InvalidOperationException"/>.
 	/// </para>
 	/// </remarks>
-	/// <seealso cref="Result{T}.Unwrap(Func{FailureValue, T})"/>
+	/// <seealso cref="Result{T}.Unwrap(Func{Failure, T})"/>
 	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
 	/// <typeparam name="TSingle">IEnumerable value type.</typeparam>
 	/// <param name="this">Result object.</param>
@@ -33,30 +33,37 @@ public static partial class ResultExtensions
 	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Failure"/></returns>
 	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, R.ErrorHandler? onError)
 		where T : IEnumerable =>
-		Bind(@this, x => x switch
+		@this switch
 		{
-			IEnumerable<TSingle> y => y.ToArray() switch
-			{
-				{ Length: 1 } z =>
-					R.Wrap(z[0]),
+			Ok<T> x =>
+				x.Value switch
+				{
+					IEnumerable<TSingle> y => y.Take(2).ToArray() switch
+					{
+						{ Length: 1 } z =>
+							R.Wrap(z[0]),
 
-				{ Length: 0 } =>
-					onError?.Invoke(C.GetSingle.EmptyList) ?? R.Fail(C.GetSingle.EmptyList)
-						.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
+						{ Length: 0 } =>
+							onError?.Invoke(C.GetSingle.EmptyList) ?? R.Fail(C.GetSingle.EmptyList)
+								.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
 
-				_ =>
-					onError?.Invoke(C.GetSingle.MultipleValues) ?? R.Fail(C.GetSingle.MultipleValues)
-						.Ctx(nameof(ResultExtensions), nameof(GetSingle))
-			},
+						_ =>
+							onError?.Invoke(C.GetSingle.MultipleValues) ?? R.Fail(C.GetSingle.MultipleValues)
+								.Ctx(nameof(ResultExtensions), nameof(GetSingle))
+					},
 
-			IEnumerable =>
-				onError?.Invoke(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name) ?? R.Fail(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name)
-					.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
+					IEnumerable =>
+						onError?.Invoke(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name) ?? R.Fail(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name)
+							.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
 
-			_ =>
-				onError?.Invoke(C.GetSingle.NotAList) ?? R.Fail(C.GetSingle.NotAList)
-					.Ctx(nameof(ResultExtensions), nameof(GetSingle))
-		});
+					_ =>
+						onError?.Invoke(C.GetSingle.NotAList) ?? R.Fail(C.GetSingle.NotAList)
+							.Ctx(nameof(ResultExtensions), nameof(GetSingle))
+				},
+
+			{ } x =>
+				x.PassFailure<TSingle>()
+		};
 
 	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, Func{FluentGetSingle{T}, Result{TSingle}}, R.ErrorHandler?)"/>
 	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, Func<FluentGetSingle<T>, Result<TSingle>> unwrap)
@@ -72,7 +79,7 @@ public static partial class ResultExtensions
 	/// you will get an <see cref="InvalidOperationException"/>.
 	/// </para>
 	/// </remarks>
-	/// <seealso cref="Result{T}.Unwrap(Func{FailureValue, T})"/>
+	/// <seealso cref="Result{T}.Unwrap(Func{Failure, T})"/>
 	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
 	/// <typeparam name="TSingle">IEnumerable value type.</typeparam>
 	/// <param name="this">Result object.</param>

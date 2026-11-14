@@ -9,9 +9,9 @@ public static partial class M
 {
 	/// <inheritdoc cref="ParseBool(string?)"/>
 	public static Maybe<char> ParseChar(string? input) =>
-		Parse<char>(input, char.TryParse);
+		input is [var c] ? c : None;
 
 	/// <inheritdoc cref="ParseBool(string?)"/>
 	public static Maybe<char> ParseChar(ReadOnlySpan<char> input) =>
-		Parse<char>(input, (x, out y) => char.TryParse(x.ToString(), out y));
+		input is [var c] ? c : None;
 }

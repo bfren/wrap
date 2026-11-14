@@ -1,41 +1,34 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System;
-using System.Threading.Tasks;
-
 namespace Wrap;
 
-/// <inheritdoc cref="IEither{TEither, TLeft, TRight}"/>
-public interface IEither<TLeft, TRight>
-{
-	/// <remarks>
-	/// <para>
-	/// Provides access to the value wrapped by a this object if it is a <see cref="IRight{TLeft, TRight}"/>.
-	/// </para>
-	/// <para>
-	/// You need to provide a default value via <paramref name="getValue"/> in case the object is
-	/// is a <see cref="ILeft{TLeft, TRight}"/>.
-	/// </para>
-	/// </remarks>
-	/// <param name="getValue">Used to handle error / invalid state and return correct / valid value if
-	/// the object is <typeparamref name="TLeft"/>.</param>
-	/// <returns>Value of object or provided by <paramref name="getValue"/>.</returns>
-	TRight Unwrap(Func<TLeft, TRight> getValue);
-}
-
 /// <summary>
-/// Either Monad.
+/// Either Monad: holds a left (error / invalid) or a right (correct / valid) value.
 /// </summary>
-/// <typeparam name="TEither">Either implementation type.</typeparam>
 /// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 /// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
-public interface IEither<TEither, TLeft, TRight> : IEither<TLeft, TRight>
-	where TEither : IEither<TLeft, TRight>
+public interface IEither<TLeft, TRight>
 {
 	/// <summary>
-	/// Shorthand for returning the current object as a task.
+	/// Get the left (error / invalid) value, if this object holds one.
 	/// </summary>
-	/// <returns>Task result.</returns>
-	Task<TEither> AsTask();
+	/// <remarks>
+	/// Lets generic code (for example <see cref="Unsafe{TEither, TLeft, TRight}"/>) read any either type directly:
+	/// a union struct holds its case in private fields, so generic code cannot find it with a type test.
+	/// Called through a type parameter constrained to this interface, it does not box a struct or allocate.
+	/// </remarks>
+	/// <param name="left">The left value, or <c>default</c> if this object holds a right value.</param>
+	/// <returns><see langword="true"/> if this object holds a left value.</returns>
+	bool TryGetLeft(out TLeft left);
+
+	/// <summary>
+	/// Get the right (correct / valid) value, if this object holds one.
+	/// </summary>
+	/// <remarks>
+	/// <inheritdoc cref="TryGetLeft(out TLeft)" path="/remarks"/>
+	/// </remarks>
+	/// <param name="right">The right value, or <c>default</c> if this object holds a left value.</param>
+	/// <returns><see langword="true"/> if this object holds a right value.</returns>
+	bool TryGetRight(out TRight right);
 }

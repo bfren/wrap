@@ -17,7 +17,7 @@ public class Arg_Tests
 			var result = failure.Arg(null!);
 
 			// Assert
-			Assert.Equal(failure.Value.Args, result.Value.Args);
+			Assert.Equal(failure.Args, result.Args);
 		}
 	}
 
@@ -33,14 +33,14 @@ public class Arg_Tests
 			var result = failure.Arg([]);
 
 			// Assert
-			Assert.Empty(result.Value.Args);
+			Assert.Empty(result.Args);
 		}
 	}
 
 	public class With_Args
 	{
 		[Fact]
-		public void Adds_Args_To_FailureValue()
+		public void Adds_Args_To_Failure()
 		{
 			// Arrange
 			var failure = FailGen.Create();
@@ -50,7 +50,7 @@ public class Arg_Tests
 			var result = failure.Arg(args);
 
 			// Assert
-			Assert.Equal(args, result.Value.Args);
+			Assert.Equal(args, result.Args);
 		}
 	}
 }

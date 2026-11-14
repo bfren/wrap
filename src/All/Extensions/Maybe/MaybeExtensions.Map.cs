@@ -24,29 +24,31 @@ public static partial class MaybeExtensions
 	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
 	/// <returns><see cref="Some{T}"/> object or <see cref="None"/>.</returns>
 	public static Maybe<TReturn> Map<T, TReturn>(this Maybe<T> @this, Func<T, TReturn> f) =>
-		M.Match(@this,
-			fNone: () => M.None,
-			fSome: x => M.Wrap(f(x))
-		);
+		@this switch
+		{
+			Some<T> x =>
+				M.Wrap(f(x.Value)),
+
+			None =>
+				M.None
+		};
 
 	/// <inheritdoc cref="Map{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>
-	public static Task<Maybe<TReturn>> MapAsync<T, TReturn>(this Maybe<T> @this, Func<T, Task<TReturn>> f) =>
-		M.MatchAsync(@this,
-			fNone: () => M.None,
-			fSome: async x => M.Wrap(await f(x))
-		);
+	public static async Task<Maybe<TReturn>> MapAsync<T, TReturn>(this Maybe<T> @this, Func<T, Task<TReturn>> f) =>
+		@this switch
+		{
+			Some<T> x =>
+				M.Wrap(await f(x.Value)),
+
+			None =>
+				M.None
+		};
 
 	/// <inheritdoc cref="Map{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>
-	public static Task<Maybe<TReturn>> MapAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, TReturn> f) =>
-		M.MatchAsync(@this,
-			fNone: () => M.None,
-			fSome: x => M.Wrap(f(x))
-		);
+	public static async Task<Maybe<TReturn>> MapAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, TReturn> f) =>
+		(await @this).Map(f);
 
 	/// <inheritdoc cref="Map{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>
-	public static Task<Maybe<TReturn>> MapAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<TReturn>> f) =>
-		M.MatchAsync(@this,
-			fNone: () => M.None,
-			fSome: async x => M.Wrap(await f(x))
-		);
+	public static async Task<Maybe<TReturn>> MapAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<T, Task<TReturn>> f) =>
+		await (await @this).MapAsync(f);
 }

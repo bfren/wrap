@@ -1,34 +1,16 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Wrap;
 
 /// <summary>
-/// 'Some' Maybe - wraps value to enable safe non-null returns (see <seealso cref="None"/>).
+/// The 'Some' case of <see cref="Maybe{T}"/>, which holds a value (see <seealso cref="None"/>).
 /// </summary>
+/// <remarks>
+/// A <see cref="Some{T}"/> holding <see langword="null"/> becomes <see cref="None"/> when it is
+/// converted to <see cref="Maybe{T}"/>, so <see cref="Value"/> is never <see langword="null"/> when you
+/// match it from a <see cref="Maybe{T}"/>.
+/// </remarks>
 /// <typeparam name="T">Some value type.</typeparam>
-public sealed record class Some<T> : Maybe<T>, IRight<None, T>
-{
-	/// <summary>
-	/// Maybe value - nullability will match the nullability of <typeparamref name="T"/>.
-	/// </summary>
-	[MemberNotNull]
-	public T Value { get; init; }
-
-	/// <summary>
-	/// Only allow internal creation by Wrap() function.
-	/// </summary>
-	/// <param name="value">Value to wrap</param>
-	internal Some([DisallowNull] T value) =>
-		Value = value switch
-		{
-			T =>
-				value,
-
-			_ => // should never get here - only called from M.Wrap() which checks for null
-				throw new ArgumentNullException(nameof(value))
-		};
-}
+/// <param name="Value">Some value.</param>
+public readonly record struct Some<T>(T Value) : IMonad<T>;

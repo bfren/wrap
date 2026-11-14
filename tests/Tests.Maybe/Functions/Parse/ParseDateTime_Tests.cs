@@ -1,6 +1,8 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System.Globalization;
+
 namespace Wrap.Functions_Tests;
 
 public class ParseDateTime_Tests : Abstracts.Parse_Tests<DateTime>
@@ -32,7 +34,7 @@ public class ParseDateTime_Tests : Abstracts.Parse_Tests<DateTime>
 	[MemberData(nameof(Valid_DateTime_Input))]
 	[MemberData(nameof(ParseTimeOnly_Tests.Valid_TimeOnly_Input), MemberType = typeof(ParseTimeOnly_Tests))]
 	public override void Test00_Valid_Input_Returns_Parsed_Result(string? input) =>
-		Test00(input, s => DateTime.Parse(s, F.DefaultCulture), M.ParseDateTime, M.ParseDateTime);
+		Test00(input, s => DateTime.Parse(s, F.DefaultCulture, DateTimeStyles.RoundtripKind), M.ParseDateTime, M.ParseDateTime);
 
 	[Theory]
 	[MemberData(nameof(ParseDateOnly_Tests.Invalid_DateOnly_Input), MemberType = typeof(ParseDateOnly_Tests))]

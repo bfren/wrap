@@ -19,6 +19,10 @@ public static partial class MaybeExtensions
 	/// <summary>
 	/// Run <paramref name="fNone"/> or <paramref name="fSome"/> depending on the value of <paramref name="this"/>.
 	/// </summary>
+	/// <remarks>
+	/// Exceptions thrown by the audit functions are ignored, so auditing never changes the result.
+	/// Catch them inside the function if you need to know about them.
+	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="fNone">Audit function to run when <paramref name="this"/> is <see cref="None"/>.</param>
@@ -28,7 +32,7 @@ public static partial class MaybeExtensions
 	{
 		try
 		{
-			if (@this is Maybe<T>.NoneImpl && fNone is not null)
+			if (@this is None && fNone is not null)
 			{
 				fNone();
 			}
@@ -37,9 +41,9 @@ public static partial class MaybeExtensions
 				fSome(x.Value);
 			}
 		}
-		catch (Exception ex)
+		catch
 		{
-			F.LogException?.Invoke(ex);
+			// Audit functions must not change the result, so their exceptions are ignored
 		}
 
 		return @this;
@@ -48,6 +52,10 @@ public static partial class MaybeExtensions
 	/// <summary>
 	/// Run <paramref name="either"/> with the value of <paramref name="this"/>.
 	/// </summary>
+	/// <remarks>
+	/// Exceptions thrown by <paramref name="either"/> are ignored, so auditing never changes the result.
+	/// Catch them inside the function if you need to know about them.
+	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="either">Audit function to run.</param>
@@ -58,9 +66,9 @@ public static partial class MaybeExtensions
 		{
 			either(@this);
 		}
-		catch (Exception ex)
+		catch
 		{
-			F.LogException?.Invoke(ex);
+			// Audit functions must not change the result, so their exceptions are ignored
 		}
 
 		return @this;
@@ -79,7 +87,7 @@ public static partial class MaybeExtensions
 	{
 		try
 		{
-			if (@this is Maybe<T>.NoneImpl && fNone is not null)
+			if (@this is None && fNone is not null)
 			{
 				await fNone();
 			}
@@ -88,9 +96,9 @@ public static partial class MaybeExtensions
 				await fSome(x.Value);
 			}
 		}
-		catch (Exception ex)
+		catch
 		{
-			F.LogException?.Invoke(ex);
+			// Audit functions must not change the result, so their exceptions are ignored
 		}
 
 		return @this;
@@ -127,9 +135,9 @@ public static partial class MaybeExtensions
 		{
 			await either(@this);
 		}
-		catch (Exception ex)
+		catch
 		{
-			F.LogException?.Invoke(ex);
+			// Audit functions must not change the result, so their exceptions are ignored
 		}
 
 		return @this;
