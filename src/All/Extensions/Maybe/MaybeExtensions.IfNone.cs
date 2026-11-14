@@ -9,8 +9,11 @@ namespace Wrap.Extensions;
 public static partial class MaybeExtensions
 {
 	/// <summary>
-	/// Run <paramref name="f"/> is <paramref name="this"/> is <see cref="None"/>.
+	/// Run <paramref name="f"/> if <paramref name="this"/> is <see cref="None"/>.
 	/// </summary>
+	/// <remarks>
+	/// Exceptions thrown by <paramref name="f"/> are ignored - see <see cref="Audit{T}(Maybe{T}, Action?, Action{T}?)"/>.
+	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="f">Function to run when <paramref name="this"/> is <see cref="None"/>.</param>

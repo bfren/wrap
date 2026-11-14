@@ -8,25 +8,25 @@ using System.Text.Json.Serialization;
 namespace Wrap.Json;
 
 /// <summary>
-/// <see cref="Maybe{T}"/> JSON converter factory.
+/// JSON converter factory that creates a <see cref="MaybeJsonConverter{T}"/> for each <see cref="Maybe{T}"/> type.
 /// </summary>
 public sealed class MaybeJsonConverterFactory : JsonConverterFactory
 {
 	/// <summary>
-	/// Returns true if <paramref name="typeToConvert"/> is <see cref="Maybe{T}"/>.
+	/// Check whether <paramref name="typeToConvert"/> is a <see cref="Maybe{T}"/>.
 	/// </summary>
 	/// <param name="typeToConvert">Type to convert.</param>
-	/// <returns>Whether or not <paramref name="typeToConvert"/> can be converted to / from a <see cref="Maybe{T}"/> object.</returns>
+	/// <returns><see langword="true"/> if <paramref name="typeToConvert"/> is a <see cref="Maybe{T}"/>, otherwise <see langword="false"/>.</returns>
 	public override bool CanConvert(Type typeToConvert) =>
 		typeToConvert.IsGenericType && (typeToConvert.GetGenericTypeDefinition() == typeof(Maybe<>));
 
 	/// <summary>
-	/// Creates JsonConverter for <see cref="Maybe{T}"/>.
+	/// Create a <see cref="MaybeJsonConverter{T}"/> for <paramref name="typeToConvert"/>.
 	/// </summary>
-	/// <param name="typeToConvert">Maybe type to be converted to / from JSON.</param>
-	/// <param name="options">JsonSerializerOptions.</param>
-	/// <exception cref="JsonException"/>
-	/// <returns><see cref="MaybeJsonConverter{T}"/> object.</returns>
+	/// <param name="typeToConvert">Maybe type to convert to and from JSON.</param>
+	/// <param name="options">Serialiser options.</param>
+	/// <returns>A <see cref="MaybeJsonConverter{T}"/> for the Some value type of <paramref name="typeToConvert"/>.</returns>
+	/// <exception cref="JsonException">The converter could not be created.</exception>
 	public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
 	{
 		// Get converter type

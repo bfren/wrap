@@ -15,9 +15,9 @@ public static partial class M
 	/// </summary>
 	/// <remarks>
 	/// <para>
-	/// This is shorthand for a <c>switch</c> over the <see cref="Some{T}"/> and <see cref="Wrap.None"/> cases
+	/// This is shorthand for a <see langword="switch"/> over the <see cref="Some{T}"/> and <see cref="Wrap.None"/> cases
 	/// that passes the unwrapped value to <paramref name="fSome"/>. Both approaches make you handle both cases:
-	/// here through the required arguments, and in a <c>switch</c> through the compiler's exhaustiveness check.
+	/// here through the required arguments, and in a <see langword="switch"/> through the compiler's exhaustiveness check.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
@@ -124,9 +124,9 @@ public static partial class M
 	/// </summary>
 	/// <remarks>
 	/// <para>
-	/// This is shorthand for a <c>switch</c> over the <see cref="Some{T}"/> and <see cref="Wrap.None"/> cases
+	/// This is shorthand for a <see langword="switch"/> over the <see cref="Some{T}"/> and <see cref="Wrap.None"/> cases
 	/// that passes the unwrapped value to <paramref name="fSome"/>. Both approaches make you handle both cases:
-	/// here through the required arguments, and in a <c>switch</c> through the compiler's exhaustiveness check.
+	/// here through the required arguments, and in a <see langword="switch"/> through the compiler's exhaustiveness check.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>

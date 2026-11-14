@@ -9,12 +9,16 @@ namespace Wrap.Extensions;
 public static partial class ResultExtensions
 {
 	/// <summary>
-	/// Return a value determined by the value of <paramref name="this"/> and the result of <paramref name="fTest"/>.
+	/// Keep the value of <paramref name="this"/> only if <paramref name="fTest"/> returns <see langword="true"/>.
 	/// </summary>
+	/// <seealso cref="Filter{T}(Result{T}, Func{T, bool})"/>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="fTest">Uses value of <paramref name="this"/> to determines whether to pass on the original value or return <see cref="None"/>.</param>
-	/// <returns>Original value or <see cref="None"/>.</returns>
+	/// <param name="fTest">Test to run on the value.</param>
+	/// <returns>
+	/// <paramref name="this"/> if it is a <see cref="Failure"/> or <paramref name="fTest"/> returns <see langword="true"/>,
+	/// otherwise a <see cref="Failure"/> with the message <c>Test returned false.</c>.
+	/// </returns>
 	public static Result<T> ContinueIf<T>(this Result<T> @this, Func<T, bool> fTest) =>
 		If<T, T>(@this, fTest, x => x, _ => R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(ContinueIf)));
 

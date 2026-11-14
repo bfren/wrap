@@ -18,8 +18,8 @@ public interface IEither<TLeft, TRight>
 	/// a union struct holds its case in private fields, so generic code cannot find it with a type test.
 	/// Called through a type parameter constrained to this interface, it does not box a struct or allocate.
 	/// </remarks>
-	/// <param name="left">The left value, or <c>default</c> if this object holds a right value.</param>
-	/// <returns><see langword="true"/> if this object holds a left value.</returns>
+	/// <param name="left">The left value, or <see langword="default"/> if this object holds a right value.</param>
+	/// <returns><see langword="true"/> if this object holds a left value, otherwise <see langword="false"/>.</returns>
 	bool TryGetLeft(out TLeft left);
 
 	/// <summary>
@@ -28,7 +28,7 @@ public interface IEither<TLeft, TRight>
 	/// <remarks>
 	/// <inheritdoc cref="TryGetLeft(out TLeft)" path="/remarks"/>
 	/// </remarks>
-	/// <param name="right">The right value, or <c>default</c> if this object holds a left value.</param>
-	/// <returns><see langword="true"/> if this object holds a right value.</returns>
+	/// <param name="right">The right value, or <see langword="default"/> if this object holds a left value.</param>
+	/// <returns><see langword="true"/> if this object holds a right value, otherwise <see langword="false"/>.</returns>
 	bool TryGetRight(out TRight right);
 }

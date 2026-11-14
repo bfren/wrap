@@ -13,11 +13,14 @@ public static partial class F
 		new();
 
 	/// <summary>
-	/// Get generic type arguments if <paramref name="type"/> implements <paramref name="genericType"/>.
+	/// Get the generic type arguments of every interface on <paramref name="type"/> built from <paramref name="genericType"/>.
 	/// </summary>
+	/// <remarks>
+	/// Results are cached for each pair of types.
+	/// </remarks>
 	/// <param name="type">Type to check.</param>
-	/// <param name="genericType">Implemented generic type.</param>
-	/// <returns></returns>
+	/// <param name="genericType">Generic interface type definition, for example <see cref="IMonad{TMonad, TValue}"/>.</param>
+	/// <returns>The type arguments of each matching interface, in order, or an empty array if <paramref name="type"/> does not implement <paramref name="genericType"/>.</returns>
 	internal static Type[] GetGenericTypeArguments(Type type, Type genericType) =>
 		// Get    .. all interfaces implemented by the type we are checking
 		// If     .. the interface is a generic type (i.e. has generic type arguments)

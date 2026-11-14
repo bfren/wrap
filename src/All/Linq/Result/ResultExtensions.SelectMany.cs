@@ -9,28 +9,31 @@ namespace Wrap.Linq;
 public static partial class ResultExtensions
 {
 	/// <summary>
-	/// Enables LINQ SelectMany() on <see cref="Result{T}"/> objects.
+	/// Combine two <see cref="Result{T}"/> objects in a LINQ query.
 	/// </summary>
 	/// <remarks>
 	/// <para>
 	/// For example:
 	/// </para>
 	/// <code>
-	/// from x in Result
-	/// from y in Result
+	/// from x in result
+	/// from y in otherResult
 	/// select x + y
 	/// </code>
 	/// <para>
-	/// Returns value of x + y if both <see cref="Result{T}"/> objects are <see cref="Ok{T}"/>,
-	/// and <see cref="Failure"/> if either is <see cref="Failure"/>.
+	/// <paramref name="g"/> runs through <see cref="R.Try{T}(Func{T}, R.ExceptionHandler)"/>, so an exception it throws becomes a <see cref="Failure"/>.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <typeparam name="TInner">Interim value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="f">Interim bind function.</param>
-	/// <param name="g">Return map function.</param>
+	/// <param name="f">Function that returns the interim <see cref="Result{T}"/>, given the value.</param>
+	/// <param name="g">Function that combines the value and the interim value.</param>
+	/// <returns>
+	/// <see cref="Ok{T}"/> holding the value returned by <paramref name="g"/>; the first <see cref="Failure"/> (from
+	/// <paramref name="this"/> or <paramref name="f"/>); or a <see cref="Failure"/> if <paramref name="g"/> throws or returns <see langword="null"/>.
+	/// </returns>
 	public static Result<TReturn> SelectMany<T, TInner, TReturn>(this Result<T> @this, Func<T, Result<TInner>> f, Func<T, TInner, TReturn> g) =>
 		@this switch
 		{

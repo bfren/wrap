@@ -4,17 +4,17 @@
 namespace Wrap;
 
 /// <summary>
-/// ID monad.
+/// Base record for strongly typed IDs.
 /// </summary>
-/// <typeparam name="TId">Implementation type.</typeparam>
+/// <typeparam name="TId">ID implementation type.</typeparam>
 /// <typeparam name="TValue">ID value type.</typeparam>
 public abstract record class Id<TId, TValue> : Monad<TId, TValue>, IId<TId, TValue>
 	where TId : Id<TId, TValue>, new()
 	where TValue : struct
 {
 	/// <summary>
-	/// Require ID implementations to provide a default value.
+	/// Create the ID with a starting value, so every ID implementation has one.
 	/// </summary>
-	/// <param name="value">Default ID value.</param>
+	/// <param name="value">Starting ID value, usually the default for <typeparamref name="TValue"/>.</param>
 	protected Id(TValue value) : base(value) { }
 }

@@ -14,6 +14,7 @@ public readonly partial struct Either<TLeft, TRight>
 	/// the same type this conversion is ambiguous - use <see cref="Left{T}"/> or <see cref="Right{T}"/> instead.
 	/// </remarks>
 	/// <param name="value">Value to wrap.</param>
+	/// <returns>A <see cref="Left{T}"/> holding <paramref name="value"/>.</returns>
 	public static implicit operator Either<TLeft, TRight>(TLeft value) =>
 		new Left<TLeft>(value);
 
@@ -25,6 +26,7 @@ public readonly partial struct Either<TLeft, TRight>
 	/// use <see cref="Left{T}"/> or <see cref="Right{T}"/> instead.
 	/// </remarks>
 	/// <param name="value">Value to wrap.</param>
+	/// <returns>A <see cref="Right{T}"/> holding <paramref name="value"/>.</returns>
 	public static implicit operator Either<TLeft, TRight>(TRight value) =>
 		new Right<TRight>(value);
 }

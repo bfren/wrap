@@ -8,8 +8,8 @@ namespace Wrap.Extensions;
 public static partial class UnsafeExtensions
 {
 	/// <summary>
-	/// Discard the Left (error / invalid) value of a <see cref="IEither{TLeft, TRight}"/>
-	/// and return <see cref="M.None"/> or <see cref="Some{T}"/> with the Right (correct / valid) value.
+	/// Discard the Left (error / invalid) value of an <see cref="IEither{TLeft, TRight}"/>
+	/// and return a <see cref="Maybe{T}"/> of the Right (correct / valid) value.
 	/// </summary>
 	/// <remarks>
 	/// WARNING: this will discard the left value that gives details of the error / invalid operation.
@@ -19,7 +19,7 @@ public static partial class UnsafeExtensions
 	/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
 	/// <typeparam name="TRight">Right (correct / valid) value type.</typeparam>
 	/// <param name="this">Unsafe object.</param>
-	/// <returns>Maybe object.</returns>
+	/// <returns><see cref="Some{T}"/> holding the Right value, or <see cref="None"/> if <paramref name="this"/> holds a Left value or the Right value is <see langword="null"/>.</returns>
 	public static Maybe<TRight> Discard<TEither, TLeft, TRight>(this Unsafe<TEither, TLeft, TRight> @this)
 		where TEither : IEither<TLeft, TRight> =>
 		@this.Value.TryGetRight(out var right) ? M.Wrap(right) : default;

@@ -17,20 +17,21 @@ public static partial class ResultExtensions
 		GetSingle<T, TSingle>(@this, null);
 
 	/// <summary>
-	/// Unwrap an <see cref="IEnumerable{T}"/> object that has a single value.
+	/// Get the only item in the list held by <paramref name="this"/>.
 	/// </summary>
 	/// <remarks>
-	/// <para>
-	/// If <paramref name="this"/> is not an <see cref="IEnumerable{T}"/> with a single value,
-	/// you will get an <see cref="InvalidOperationException"/>.
-	/// </para>
+	/// At most two items are read, so a long or infinite sequence is not enumerated in full.
 	/// </remarks>
-	/// <seealso cref="Result{T}.Unwrap(Func{Failure, T})"/>
 	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
-	/// <typeparam name="TSingle">IEnumerable value type.</typeparam>
+	/// <typeparam name="TSingle">List item type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="onError">[Optional] Return custom error on failure.</param>
-	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Failure"/></returns>
+	/// <param name="onError">[Optional] Creates the <see cref="Failure"/> to return when there is not exactly one item,
+	/// instead of the default failure.</param>
+	/// <returns>
+	/// <see cref="Ok{T}"/> holding the only item; the <see cref="Failure"/> held by <paramref name="this"/>; or a
+	/// <see cref="Failure"/> if the list is empty, has more than one item or does not hold <typeparamref name="TSingle"/>
+	/// items, or if the only item is <see langword="null"/>.
+	/// </returns>
 	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, R.ErrorHandler? onError)
 		where T : IEnumerable =>
 		@this switch
@@ -71,21 +72,16 @@ public static partial class ResultExtensions
 		GetSingle(@this, unwrap, null);
 
 	/// <summary>
-	/// Unwrap an <see cref="IEnumerable{T}"/> object that has a single value.
+	/// Get the only item in the list held by <paramref name="this"/>, using a fluent call so <typeparamref name="TSingle"/>
+	/// can be inferred: <c>result.GetSingle(x => x.Value&lt;int&gt;())</c>.
 	/// </summary>
-	/// <remarks>
-	/// <para>
-	/// If <paramref name="this"/> is not an <see cref="IEnumerable{T}"/> with a single value,
-	/// you will get an <see cref="InvalidOperationException"/>.
-	/// </para>
-	/// </remarks>
-	/// <seealso cref="Result{T}.Unwrap(Func{Failure, T})"/>
-	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
-	/// <typeparam name="TSingle">IEnumerable value type.</typeparam>
+	/// <typeparam name="T">Ok value type - a list of <typeparamref name="TSingle"/>.</typeparam>
+	/// <typeparam name="TSingle">List item type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="unwrap">Fluent unwrap function.</param>
-	/// <param name="onError">[Optional] Return custom error on failure.</param>
-	/// <returns>The single value contained in <paramref name="this"/>, or <see cref="Failure"/></returns>
+	/// <param name="unwrap">Function that calls <see cref="FluentGetSingle{T}.Value{TSingle}"/>.</param>
+	/// <param name="onError">[Optional] Creates the <see cref="Failure"/> to return when there is not exactly one item,
+	/// instead of the default failure.</param>
+	/// <returns>The result returned by <paramref name="unwrap"/> - see <see cref="GetSingle{T, TSingle}(Result{T}, R.ErrorHandler?)"/>.</returns>
 	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, Func<FluentGetSingle<T>,
 		Result<TSingle>> unwrap, R.ErrorHandler? onError
 	)
@@ -105,19 +101,19 @@ public static partial class ResultExtensions
 		@this.Then(x => x.GetSingle(unwrap, onError));
 
 	/// <summary>
-	/// Provides a fluent interface for retrieving a single value from a result containing an enumerable type.
+	/// Fluent helper used by <see cref="GetSingle{T, TSingle}(Result{T}, Func{FluentGetSingle{T}, Result{TSingle}}, R.ErrorHandler?)"/>.
 	/// </summary>
 	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
-	/// <param name="result">The result object containing the enumerable value to be processed.</param>
-	/// <param name="onError">[Optional] Return custom error on failure.</param>
+	/// <param name="result">Result holding the list.</param>
+	/// <param name="onError">[Optional] Creates the <see cref="Failure"/> to return when there is not exactly one item.</param>
 	public sealed class FluentGetSingle<T>(Result<T> result, R.ErrorHandler? onError)
 		where T : IEnumerable
 	{
 		/// <summary>
-		/// Retrieves the result value as an instance of the specified type.
+		/// Get the only item in the list - see <see cref="GetSingle{T, TSingle}(Result{T}, R.ErrorHandler?)"/>.
 		/// </summary>
-		/// <typeparam name="TSingle">The type to which the result value is converted.</typeparam>
-		/// <returns>A <see cref="Result{TSingle}"/> containing the result value converted to <typeparamref name="TSingle"/>.</returns>
+		/// <typeparam name="TSingle">List item type.</typeparam>
+		/// <returns><see cref="Ok{T}"/> holding the only item, or a <see cref="Failure"/>.</returns>
 		public Result<TSingle> Value<TSingle>() =>
 			GetSingle<T, TSingle>(result, onError);
 	}

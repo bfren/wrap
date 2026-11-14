@@ -8,11 +8,16 @@ using Wrap.Exceptions;
 namespace Wrap.Mvc;
 
 /// <summary>
-/// <see cref="Maybe{T}"/> MVC model binder provider.
+/// MVC model binder provider that creates a <see cref="MaybeModelBinder{T}"/> for <see cref="Maybe{T}"/> properties.
 /// </summary>
 public sealed class MaybeModelBinderProvider : IModelBinderProvider
 {
-	/// <inheritdoc/>
+	/// <summary>
+	/// Create a model binder if the model type is <see cref="Maybe{T}"/>.
+	/// </summary>
+	/// <param name="context">Model binder provider context.</param>
+	/// <returns>A <see cref="MaybeModelBinder{T}"/>, or <see langword="null"/> if the model type is not <see cref="Maybe{T}"/>, so MVC tries the next provider.</returns>
+	/// <exception cref="Exceptions.ModelBinderException">The binder could not be created.</exception>
 	public IModelBinder? GetBinder(ModelBinderProviderContext context) =>
 		GetBinder(context.Metadata.ModelType);
 

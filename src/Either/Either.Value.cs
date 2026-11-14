@@ -31,9 +31,9 @@ public readonly partial struct Either<TLeft, TRight>
 	/// Get the <see cref="Left{T}"/> case, if this object holds one.
 	/// </summary>
 	/// <remarks>
-	/// Called by the compiler for <c>either is Left&lt;TLeft&gt;</c> patterns and <c>switch</c>, so matching does not allocate.
+	/// Called by the compiler for <c>either is Left&lt;TLeft&gt;</c> patterns and <see langword="switch"/>, so matching does not allocate.
 	/// </remarks>
-	/// <param name="left">The <see cref="Left{T}"/> case, or a <see cref="Left{T}"/> holding <c>default</c> if this is a <see cref="Right{T}"/>.</param>
+	/// <param name="left">The <see cref="Left{T}"/> case, or a <see cref="Left{T}"/> holding <see langword="default"/> if this is a <see cref="Right{T}"/>.</param>
 	/// <returns><see langword="true"/> if this is a <see cref="Left{T}"/>.</returns>
 	public bool TryGetValue(out Left<TLeft> left)
 	{
@@ -45,9 +45,9 @@ public readonly partial struct Either<TLeft, TRight>
 	/// Get the <see cref="Right{T}"/> case, if this object holds one.
 	/// </summary>
 	/// <remarks>
-	/// Called by the compiler for <c>either is Right&lt;TRight&gt;</c> patterns and <c>switch</c>, so matching does not allocate.
+	/// Called by the compiler for <c>either is Right&lt;TRight&gt;</c> patterns and <see langword="switch"/>, so matching does not allocate.
 	/// </remarks>
-	/// <param name="right">The <see cref="Right{T}"/> case, or a <see cref="Right{T}"/> holding <c>default</c> if this is a <see cref="Left{T}"/>.</param>
+	/// <param name="right">The <see cref="Right{T}"/> case, or a <see cref="Right{T}"/> holding <see langword="default"/> if this is a <see cref="Left{T}"/>.</param>
 	/// <returns><see langword="true"/> if this is a <see cref="Right{T}"/>.</returns>
 	public bool TryGetValue(out Right<TRight> right)
 	{

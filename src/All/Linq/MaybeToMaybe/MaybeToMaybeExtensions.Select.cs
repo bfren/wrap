@@ -10,25 +10,22 @@ namespace Wrap.Linq;
 public static partial class MaybeToMaybeExtensions
 {
 	/// <summary>
-	/// Enables LINQ Select() on <see cref="Maybe{T}"/> objects.
+	/// Convert the value of a <see cref="Maybe{T}"/> in a LINQ query - see <see cref="MaybeExtensions.Map{T, TReturn}(Maybe{T}, Func{T, TReturn})"/>.
 	/// </summary>
 	/// <remarks>
 	/// <para>
 	/// For example:
 	/// </para>
 	/// <code>
-	/// from x in Maybe
-	/// select x
+	/// from x in maybe
+	/// select x * 2
 	/// </code>
-	/// <para>
-	/// Returns value of x if <see cref="Maybe{T}"/> object is <see cref="Some{T}"/>,
-	/// and <see cref="None"/> if not.
-	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Maybe type.</typeparam>
-	/// <typeparam name="TReturn">Return type.</typeparam>
-	/// <param name="this">Maybe.</param>
-	/// <param name="f">Return map function.</param>
+	/// <typeparam name="T">Some value type.</typeparam>
+	/// <typeparam name="TReturn">Return value type.</typeparam>
+	/// <param name="this">Maybe object.</param>
+	/// <param name="f">Function that converts the value.</param>
+	/// <returns><see cref="Some{T}"/> holding the value returned by <paramref name="f"/>, or <see cref="None"/> if <paramref name="this"/> is <see cref="None"/> or <paramref name="f"/> returns <see langword="null"/>.</returns>
 	public static Maybe<TReturn> Select<T, TReturn>(this Maybe<T> @this, Func<T, TReturn> f) =>
 		@this.Map(f);
 

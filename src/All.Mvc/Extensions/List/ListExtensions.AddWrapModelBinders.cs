@@ -9,9 +9,12 @@ namespace Wrap.Mvc;
 public static partial class ListExtensions
 {
 	/// <summary>
-	/// Insert Wrap Model Binders.
+	/// Insert the Wrap model binder providers at the start of the list, so they run before the built-in providers.
 	/// </summary>
-	/// <param name="this">IModelBinderProvider list.</param>
+	/// <remarks>
+	/// Adds <see cref="MaybeModelBinderProvider"/> first, then <see cref="MonadModelBinderProvider"/>.
+	/// </remarks>
+	/// <param name="this">Model binder providers, usually <c>MvcOptions.ModelBinderProviders</c>.</param>
 	public static void AddWrapModelBinders(this IList<IModelBinderProvider> @this)
 	{
 		@this.Insert(0, new MaybeModelBinderProvider());

@@ -37,7 +37,7 @@ public readonly partial struct Result<T> : IEither<Failure, T>, IEquatable<Resul
 
 	/// <summary>
 	/// The failure, boxed on the heap so <see cref="Result{T}"/> stays small and cheap to copy.
-	/// <see langword="null"/> when this is an <see cref="Ok{T}"/>, and when this object is <c>default</c>.
+	/// <see langword="null"/> when this is an <see cref="Ok{T}"/>, and when this object is <see langword="default"/>.
 	/// </summary>
 	private readonly StrongBox<Failure>? failure;
 
@@ -47,10 +47,10 @@ public readonly partial struct Result<T> : IEither<Failure, T>, IEquatable<Resul
 	private readonly bool isOk;
 
 	/// <summary>
-	/// Gets <see langword="true"/> always: the union always holds a case, because <c>default</c> is a <see cref="Failure"/>.
+	/// Gets <see langword="true"/> always: the union always holds a case, because <see langword="default"/> is a <see cref="Failure"/>.
 	/// </summary>
 	/// <remarks>
-	/// Called by the compiler for <c>is</c> patterns and <c>switch</c>, so it knows a <see cref="Result{T}"/>
+	/// Called by the compiler for <see langword="is"/> patterns and <see langword="switch"/>, so it knows a <see cref="Result{T}"/>
 	/// is never <see langword="null"/> and no <see langword="null"/> case is needed.
 	/// </remarks>
 	public bool HasValue =>

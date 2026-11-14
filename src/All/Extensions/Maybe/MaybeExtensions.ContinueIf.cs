@@ -9,12 +9,13 @@ namespace Wrap.Extensions;
 public static partial class MaybeExtensions
 {
 	/// <summary>
-	/// Return a value determined by the value of <paramref name="this"/> and the result of <paramref name="fTest"/>.
+	/// Keep the value of <paramref name="this"/> only if <paramref name="fTest"/> returns <see langword="true"/>.
 	/// </summary>
+	/// <seealso cref="Filter{T}(Maybe{T}, Func{T, bool})"/>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
-	/// <param name="fTest">Uses value of <paramref name="this"/> to determines whether to pass on the original value or return <see cref="None"/>.</param>
-	/// <returns>Original value or <see cref="None"/>.</returns>
+	/// <param name="fTest">Test to run on the value.</param>
+	/// <returns><paramref name="this"/> if it is <see cref="Some{T}"/> and <paramref name="fTest"/> returns <see langword="true"/>, otherwise <see cref="None"/>.</returns>
 	public static Maybe<T> ContinueIf<T>(this Maybe<T> @this, Func<T, bool> fTest) =>
 		If<T, T>(@this, fTest, x => x, _ => M.None);
 

@@ -9,13 +9,16 @@ namespace Wrap.Extensions;
 public static partial class ResultExtensions
 {
 	/// <summary>
-	/// Run <paramref name="fTest"/> when <paramref name="this"/> is <see cref="Ok{T}"/>
+	/// Keep the value of <paramref name="this"/> only if <paramref name="fTest"/> returns <see langword="true"/>.
 	/// </summary>
 	/// <seealso cref="Linq.ResultExtensions.Where{T}(Result{T}, Func{T, bool})"/>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="fTest">Function to detemine whether or not the value of <paramref name="this"/> should be returned.</param>
-	/// <returns>Value of <paramref name="this"/> if <paramref name="fTest"/> returns true, or <see cref="Failure"/>.</returns>
+	/// <param name="fTest">Test to run on the value.</param>
+	/// <returns>
+	/// <paramref name="this"/> if it is a <see cref="Failure"/> or <paramref name="fTest"/> returns <see langword="true"/>,
+	/// otherwise a <see cref="Failure"/> with the message <c>Test returned false.</c>.
+	/// </returns>
 	public static Result<T> Filter<T>(this Result<T> @this, Func<T, bool> fTest) =>
 		@this switch
 		{

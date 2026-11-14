@@ -9,9 +9,12 @@ namespace Wrap.Extensions;
 public static partial class ResultExtensions
 {
 	/// <summary>
-	/// Run <paramref name="f"/> is <paramref name="this"/> is <see cref="Failure"/>.
+	/// Run <paramref name="f"/> with the failure if <paramref name="this"/> is a <see cref="Failure"/>.
 	/// </summary>
-	/// <typeparam name="T">Some value type.</typeparam>
+	/// <remarks>
+	/// Exceptions thrown by <paramref name="f"/> are ignored - see <see cref="Audit{T}(Result{T}, Action{Failure}?, Action{T}?)"/>.
+	/// </remarks>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <param name="f">Function to run when <paramref name="this"/> is <see cref="Failure"/>.</param>
 	/// <returns>The original value of <paramref name="this"/>.</returns>

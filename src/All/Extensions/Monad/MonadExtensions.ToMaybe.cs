@@ -9,11 +9,11 @@ namespace Wrap.Extensions;
 public static partial class MonadExtensions
 {
 	/// <summary>
-	/// Convert a <see cref="IMonad{T}"/> to <see cref="Maybe{T}"/>.
+	/// Convert an <see cref="IMonad{T}"/> to a <see cref="Maybe{T}"/> holding its value.
 	/// </summary>
 	/// <typeparam name="T">Value type.</typeparam>
 	/// <param name="this">Monad object.</param>
-	/// <returns>Maybe object.</returns>
+	/// <returns><see cref="Some{T}"/> holding the value of <paramref name="this"/>, or <see cref="None"/> if the value is <see langword="null"/>.</returns>
 	public static Maybe<T> ToMaybe<T>(this IMonad<T> @this) =>
 		@this.Value;
 
@@ -26,6 +26,7 @@ public static partial class MonadExtensions
 		@this.Then(x => x.ToMaybe());
 
 	/// <inheritdoc cref="ToMaybe{T}(IMonad{T})"/>
+	/// <returns>One <see cref="Maybe{T}"/> for each monad in <paramref name="this"/> that is not <see langword="null"/>.</returns>
 	public static IEnumerable<Maybe<T>> ToMaybe<T>(this IEnumerable<IMonad<T>> @this)
 	{
 		foreach (var item in @this)

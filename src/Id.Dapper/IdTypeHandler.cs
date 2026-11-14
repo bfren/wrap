@@ -7,21 +7,24 @@ using Dapper;
 namespace Wrap.Dapper;
 
 /// <summary>
-/// <see cref="Id{TId, TValue}"/> TypeHandler.
+/// Base class for Dapper type handlers that read and write <see cref="Id{TId, TValue}"/> values.
 /// </summary>
-/// <typeparam name="TId">Implementation type.</typeparam>
+/// <typeparam name="TId">ID implementation type.</typeparam>
 /// <typeparam name="TIdValue">ID value type.</typeparam>
 public abstract class IdTypeHandler<TId, TIdValue> : SqlMapper.TypeHandler<TId>
 	where TId : Id<TId, TIdValue>, new()
 	where TIdValue : struct
 {
 	/// <summary>
-	/// Returns the default ID value for null, empty or non-numeric input, but throws when
-	/// <paramref name="value"/> is a number that does not fit in <typeparamref name="TIdValue"/>
-	/// (e.g. a bigint mapped to an int ID) - otherwise real IDs would silently become 0.
+	/// Return the default ID value for a database value that could not be parsed, unless it is a number.
 	/// </summary>
+	/// <remarks>
+	/// A number that could not be parsed does not fit in <typeparamref name="TIdValue"/> (for example a bigint mapped
+	/// to an int ID), so it throws rather than letting real IDs silently become 0.
+	/// </remarks>
 	/// <param name="value">Database value that could not be parsed.</param>
-	/// <exception cref="OverflowException"></exception>
+	/// <returns>The default value of <typeparamref name="TIdValue"/>, for <see langword="null"/>, empty or non-numeric input.</returns>
+	/// <exception cref="OverflowException"><paramref name="value"/> is a number.</exception>
 	protected static TIdValue DefaultOrThrow(object? value) =>
 		value switch
 		{

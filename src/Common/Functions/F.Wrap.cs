@@ -11,16 +11,13 @@ public static partial class F
 	/// Wrap <paramref name="value"/> into type <typeparamref name="TMonad"/>.
 	/// </summary>
 	/// <remarks>
-	/// <para>
-	/// If <paramref name="value"/> is null and <typeparamref name="TValue"/> is not nullable and has a
-	/// <see langword="null"/> default value, a <see cref="NullMonadValueException"/> will be thrown.
-	/// </para>
+	/// <see langword="null"/> is allowed only when <typeparamref name="TValue"/> is a nullable value type.
 	/// </remarks>
 	/// <typeparam name="TMonad">Monad type.</typeparam>
 	/// <typeparam name="TValue">Monad value type.</typeparam>
 	/// <param name="value">Value to wrap.</param>
-	/// <returns>Value wrapped as <typeparamref name="TMonad"/>.</returns>
-	/// <exception cref="NullMonadValueException"></exception>
+	/// <returns>A new <typeparamref name="TMonad"/> holding <paramref name="value"/>.</returns>
+	/// <exception cref="NullMonadValueException"><paramref name="value"/> is <see langword="null"/> and <typeparamref name="TValue"/> is not a nullable value type.</exception>
 	public static TMonad Wrap<TMonad, TValue>(TValue? value)
 		where TMonad : IMonad<TMonad, TValue>, new() =>
 		value switch

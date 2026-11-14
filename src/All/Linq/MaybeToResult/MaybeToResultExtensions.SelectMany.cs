@@ -9,29 +9,32 @@ namespace Wrap.Linq;
 public static partial class MaybeToResultExtensions
 {
 	/// <summary>
-	/// Enables LINQ SelectMany() to convert <see cref="Maybe{T}"/> objects to <see cref="Result{T}"/>.
+	/// Combine a <see cref="Maybe{T}"/> with a <see cref="Result{T}"/> in a LINQ query, producing a <see cref="Result{T}"/>.
 	/// </summary>
 	/// <remarks>
 	/// <para>
 	/// For example:
 	/// </para>
 	/// <code>
-	/// from x in Maybe
-	/// from y in Maybe
+	/// from x in maybe
+	/// from y in otherResult
 	/// select x + y
 	/// </code>
 	/// <para>
-	/// Returns value of x + y if both <see cref="Maybe{T}"/> objects are <see cref="Some{T}"/>,
-	/// and <see cref="None"/> if either is <see cref="None"/>.
+	/// <paramref name="g"/> runs through <see cref="R.Try{T}(Func{T}, R.ExceptionHandler)"/>, so an exception it throws becomes a <see cref="Failure"/>.
 	/// </para>
 	/// </remarks>
-	/// <typeparam name="T">Maybe type.</typeparam>
-	/// <typeparam name="TInner">Interim type.</typeparam>
-	/// <typeparam name="TReturn">Return type.</typeparam>
-	/// <param name="this">Maybe.</param>
-	/// <param name="f">Interim bind function.</param>
-	/// <param name="g">Return map function.</param>
-	/// <returns>Result object.</returns>
+	/// <typeparam name="T">Some value type.</typeparam>
+	/// <typeparam name="TInner">Interim value type.</typeparam>
+	/// <typeparam name="TReturn">Return value type.</typeparam>
+	/// <param name="this">Maybe object.</param>
+	/// <param name="f">Function that returns the interim <see cref="Result{T}"/>, given the value.</param>
+	/// <param name="g">Function that combines the value and the interim value.</param>
+	/// <returns>
+	/// <see cref="Ok{T}"/> holding the value returned by <paramref name="g"/>; the <see cref="Failure"/> returned by <paramref name="f"/>;
+	/// a <see cref="Failure"/> with the message <c>Maybe&lt;{Type}&gt; was 'None'.</c> if <paramref name="this"/> is <see cref="None"/>;
+	/// or a <see cref="Failure"/> if <paramref name="g"/> throws or returns <see langword="null"/>.
+	/// </returns>
 	public static Result<TReturn> SelectMany<T, TInner, TReturn>(this Maybe<T> @this, Func<T, Result<TInner>> f, Func<T, TInner, TReturn> g) =>
 		@this switch
 		{

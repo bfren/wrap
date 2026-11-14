@@ -9,19 +9,27 @@ using Wrap.Exceptions;
 namespace Wrap.Json;
 
 /// <summary>
-/// Create a <see cref="MonadJsonConverter{TMonad, TValue}"/> object for supported objects.
+/// JSON converter factory that creates a <see cref="MonadJsonConverter{TMonad, TValue}"/> for single-case monads,
+/// such as strongly typed IDs.
 /// </summary>
 public sealed class MonadJsonConverterFactory : JsonConverterFactory
 {
 	/// <summary>
-	/// Returns true if <see cref="MonadJsonConverterFactory"/> can convert <paramref name="typeToConvert"/>.
+	/// Check whether <paramref name="typeToConvert"/> implements <see cref="IMonad{TMonad, TValue}"/> once.
 	/// </summary>
-	/// <param name="typeToConvert">The type to convert to / from JSON.</param>
-	/// <returns>Whether or not <paramref name="typeToConvert"/> implements <see cref="IMonad{TMonad,TValue}"/>.</returns>
+	/// <param name="typeToConvert">Type to convert to and from JSON.</param>
+	/// <returns><see langword="true"/> if <paramref name="typeToConvert"/> implements <see cref="IMonad{TMonad, TValue}"/> once, otherwise <see langword="false"/>.</returns>
 	public override bool CanConvert(Type typeToConvert) =>
 		F.GetMonadTypes(typeToConvert, typeof(IMonad<,>)) is not (null, null);
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Create a <see cref="MonadJsonConverter{TMonad, TValue}"/> for <paramref name="typeToConvert"/>.
+	/// </summary>
+	/// <param name="typeToConvert">Monad type to convert to and from JSON.</param>
+	/// <param name="options">Serialiser options.</param>
+	/// <returns>A <see cref="MonadJsonConverter{TMonad, TValue}"/> for <paramref name="typeToConvert"/>.</returns>
+	/// <exception cref="JsonConverterException"><paramref name="typeToConvert"/> is not a single-case monad, has no
+	/// parameterless constructor, or the converter could not be created.</exception>
 	public override JsonConverter? CreateConverter(Type typeToConvert, JsonSerializerOptions options)
 	{
 		// IMonad<,> requires two type arguments

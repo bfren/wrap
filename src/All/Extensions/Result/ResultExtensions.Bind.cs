@@ -9,13 +9,18 @@ namespace Wrap.Extensions;
 public static partial class ResultExtensions
 {
 	/// <summary>
-	/// Run <paramref name="f"/> when <paramref name="this"/> is <see cref="Ok{T}"/>.
+	/// Run <paramref name="f"/> with the value when <paramref name="this"/> is <see cref="Ok{T}"/>.
 	/// </summary>
+	/// <remarks>
+	/// <paramref name="f"/> returns a <see cref="Result{T}"/>, so it is expected to handle its own exceptions and
+	/// return a <see cref="Failure"/>: they are not caught here. Use <see cref="Map{T, TReturn}(Result{T}, Func{T, TReturn})"/>
+	/// for a function that returns a plain value and may throw.
+	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">Result object.</param>
-	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns><see cref="Result{T}"/> object returned by <paramref name="f"/> or <see cref="Failure"/>.</returns>
+	/// <param name="f">Function that converts the value to a <see cref="Result{T}"/>.</param>
+	/// <returns>The <see cref="Result{T}"/> returned by <paramref name="f"/>, or the <see cref="Failure"/> held by <paramref name="this"/>.</returns>
 	public static Result<TReturn> Bind<T, TReturn>(this Result<T> @this, Func<T, Result<TReturn>> f) =>
 		@this switch
 		{

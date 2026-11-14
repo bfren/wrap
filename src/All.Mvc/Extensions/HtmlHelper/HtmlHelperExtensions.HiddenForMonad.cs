@@ -12,12 +12,17 @@ namespace Wrap.Mvc;
 public static partial class HtmlHelperExtensions
 {
 	/// <summary>
-	/// Output a hidden HTML input for a Monad value.
+	/// Output a hidden HTML input holding the value of a monad property.
 	/// </summary>
+	/// <remarks>
+	/// The input value is the string of <see cref="IMonad.Value"/>, or empty when the view has no model.
+	/// A plain property expression (<c>x => x.Id</c>) is read by reflection; anything else is compiled on each call.
+	/// </remarks>
 	/// <typeparam name="TModel">Model type.</typeparam>
 	/// <typeparam name="TMonad">Monad type.</typeparam>
-	/// <param name="this">HtmlHelper.</param>
-	/// <param name="expression">Expression to return Monad property.</param>
+	/// <param name="this">HTML helper.</param>
+	/// <param name="expression">Expression that returns the monad property, also used to name the input.</param>
+	/// <returns>The hidden input element.</returns>
 	public static IHtmlContent HiddenForMonad<TModel, TMonad>(this IHtmlHelper<TModel> @this, Expression<Func<TModel, TMonad>> expression)
 		where TMonad : IMonad
 	{

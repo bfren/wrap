@@ -6,7 +6,7 @@ using System;
 namespace Wrap.Testing;
 
 /// <summary>
-/// Generate Failures with random values.
+/// Generate <see cref="Failure"/> values with random content, for tests.
 /// </summary>
 public static class FailureGenerator
 {

@@ -6,14 +6,25 @@ using Wrap.Exceptions;
 
 namespace Wrap;
 
-/// <see cref="IMonad{TMonad, TValue}"/>
+/// <summary>
+/// Single-case monad that wraps a value of type <typeparamref name="T"/>.
+/// </summary>
+/// <typeparam name="T">Value type.</typeparam>
 public sealed record class Monad<T> : Monad<Monad<T>, T>;
 
-/// <see cref="IMonad{TMonad, TValue}"/>
+/// <summary>
+/// Base record for single-case monads that wrap a value.
+/// </summary>
+/// <typeparam name="TMonad">Monad implementation type.</typeparam>
+/// <typeparam name="TValue">Value type.</typeparam>
 public abstract record class Monad<TMonad, TValue> : IMonad<TMonad, TValue>
 	where TMonad : IMonad<TMonad, TValue>, new()
 {
-	/// <inheritdoc cref="IMonad{T}.Value"/>
+	/// <summary>
+	/// Gets or initialises the wrapped value.
+	/// </summary>
+	/// <exception cref="NullMonadValueException">The value is read before it is set, or set to <see langword="null"/>,
+	/// and <typeparamref name="TValue"/> is not a nullable value type.</exception>
 	[MemberNotNull]
 	public TValue Value
 	{
@@ -22,24 +33,24 @@ public abstract record class Monad<TMonad, TValue> : IMonad<TMonad, TValue>
 	}
 
 	/// <summary>
-	/// Create an empty object.
+	/// Create the monad without a value, to be set with an initialiser.
 	/// </summary>
 	protected Monad() { }
 
 	/// <summary>
-	/// Allow base classes to set <see cref="Value"/> on construction.
+	/// Create the monad with a value, so derived records can set <see cref="Value"/> on construction.
 	/// </summary>
-	/// <param name="value">Monad value.</param>
+	/// <param name="value">Value to wrap.</param>
+	/// <exception cref="NullMonadValueException"><paramref name="value"/> is <see langword="null"/> and <typeparamref name="TValue"/> is not a nullable value type.</exception>
 	protected Monad([DisallowNull] TValue value) =>
 		Value = value;
 
 	/// <summary>
-	/// Check <paramref name="value"/> and throw an exception if it is null and the underlying type
-	/// does not allow null values.
+	/// Check that <paramref name="value"/> is not <see langword="null"/>, unless <typeparamref name="TValue"/> is a nullable value type.
 	/// </summary>
 	/// <param name="value">Value to check.</param>
-	/// <returns><paramref name="value"/> if not null or null is permitted.</returns>
-	/// <exception cref="NullMonadValueException">If <paramref name="value"/> is null and the underlying type is not nullable.</exception>
+	/// <returns><paramref name="value"/> unchanged.</returns>
+	/// <exception cref="NullMonadValueException"><paramref name="value"/> is <see langword="null"/> and <typeparamref name="TValue"/> is not a nullable value type.</exception>
 	private TValue Check(TValue? value) =>
 		value switch
 		{
@@ -54,10 +65,11 @@ public abstract record class Monad<TMonad, TValue> : IMonad<TMonad, TValue>
 		};
 
 	/// <summary>
-	/// Wrap a value as the current type.
+	/// Wrap a value in a new <typeparamref name="TMonad"/>.
 	/// </summary>
-	/// <param name="value">Monad value.</param>
-	/// <returns>Wrapped <typeparamref name="TMonad"/> value.</returns>
+	/// <param name="value">Value to wrap.</param>
+	/// <returns>A new <typeparamref name="TMonad"/> holding <paramref name="value"/>.</returns>
+	/// <exception cref="NullMonadValueException"><paramref name="value"/> is <see langword="null"/> and <typeparamref name="TValue"/> is not a nullable value type.</exception>
 #pragma warning disable CA1000 // Do not declare static members on generic types
 	public static TMonad Wrap(TValue value) =>
 		F.Wrap<TMonad, TValue>(value);

@@ -8,11 +8,10 @@ namespace Wrap.Extensions;
 public static partial class ResultExtensions
 {
 	/// <summary>
-	/// Returns <see langword="false"/> if <paramref name="this"/> is <see cref="Failure"/>,
-	/// or the value of <paramref name="this"/>.
+	/// Check whether <paramref name="this"/> is <see cref="Ok{T}"/> holding <see langword="true"/>.
 	/// </summary>
 	/// <param name="this">Result object.</param>
-	/// <returns>Whether or not the value of <paramref name="this"/> is <see langword="true"/>.</returns>
+	/// <returns><see langword="true"/> if <paramref name="this"/> holds <see langword="true"/>; <see langword="false"/> if it holds <see langword="false"/> or is a <see cref="Failure"/>.</returns>
 	public static bool IsTrue(this Result<bool> @this) =>
 		R.Match(@this,
 			fFail: _ => false,

@@ -32,9 +32,9 @@ public readonly partial struct Result<T>
 	/// Get the <see cref="Ok{T}"/> case, if this object holds one.
 	/// </summary>
 	/// <remarks>
-	/// Called by the compiler for <c>result is Ok&lt;T&gt;</c> patterns and <c>switch</c>, so matching does not allocate.
+	/// Called by the compiler for <c>result is Ok&lt;T&gt;</c> patterns and <see langword="switch"/>, so matching does not allocate.
 	/// </remarks>
-	/// <param name="ok">The <see cref="Ok{T}"/> case, or an <see cref="Ok{T}"/> holding <c>default</c> if this is a <see cref="Failure"/>.</param>
+	/// <param name="ok">The <see cref="Ok{T}"/> case, or an <see cref="Ok{T}"/> holding <see langword="default"/> if this is a <see cref="Failure"/>.</param>
 	/// <returns><see langword="true"/> if this is an <see cref="Ok{T}"/>.</returns>
 	public bool TryGetValue(out Ok<T> ok)
 	{
@@ -46,7 +46,7 @@ public readonly partial struct Result<T>
 	/// Get the <see cref="Failure"/> case, if this object holds one.
 	/// </summary>
 	/// <remarks>
-	/// Called by the compiler for <c>result is Failure</c> patterns and <c>switch</c>, so matching does not allocate.
+	/// Called by the compiler for <c>result is Failure</c> patterns and <see langword="switch"/>, so matching does not allocate.
 	/// For <c>default(Result&lt;T&gt;)</c> the failure has the message <c>Uninitialised Failure</c>.
 	/// </remarks>
 	/// <param name="failure">

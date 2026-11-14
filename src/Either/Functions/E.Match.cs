@@ -14,9 +14,9 @@ public static partial class E
 	/// Run an action based on the value of <paramref name="either"/>.
 	/// </summary>
 	/// <remarks>
-	/// This is shorthand for a <c>switch</c> over the <see cref="Left{T}"/> and <see cref="Right{T}"/> cases
+	/// This is shorthand for a <see langword="switch"/> over the <see cref="Left{T}"/> and <see cref="Right{T}"/> cases
 	/// that passes the unwrapped value to <paramref name="fLeft"/> or <paramref name="fRight"/>. Both approaches
-	/// make you handle both cases: here through the required arguments, and in a <c>switch</c> through the
+	/// make you handle both cases: here through the required arguments, and in a <see langword="switch"/> through the
 	/// compiler's exhaustiveness check.
 	/// </remarks>
 	/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>
@@ -111,9 +111,9 @@ public static partial class E
 	/// Run a function based on the value of <paramref name="either"/> and return its value.
 	/// </summary>
 	/// <remarks>
-	/// This is shorthand for a <c>switch</c> over the <see cref="Left{T}"/> and <see cref="Right{T}"/> cases
+	/// This is shorthand for a <see langword="switch"/> over the <see cref="Left{T}"/> and <see cref="Right{T}"/> cases
 	/// that passes the unwrapped value to <paramref name="fLeft"/> or <paramref name="fRight"/>. Both approaches
-	/// make you handle both cases: here through the required arguments, and in a <c>switch</c> through the
+	/// make you handle both cases: here through the required arguments, and in a <see langword="switch"/> through the
 	/// compiler's exhaustiveness check.
 	/// </remarks>
 	/// <typeparam name="TLeft">Left (error / invalid) value type.</typeparam>

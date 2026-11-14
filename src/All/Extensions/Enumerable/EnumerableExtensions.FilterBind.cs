@@ -12,14 +12,17 @@ public static partial class EnumerableExtensions
 	#region Maybe
 
 	/// <summary>
-	/// Run <paramref name="f"/> on each element of <paramref name="this"/> that matches <paramref name="fTest"/>.
+	/// Run <paramref name="f"/> on the value of each <see cref="Some{T}"/> item that passes <paramref name="fTest"/>, keeping only <see cref="Some{T}"/> results.
 	/// </summary>
+	/// <remarks>
+	/// The result is lazy; the async overloads build the whole list.
+	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">List of Maybe objects.</param>
-	/// <param name="fTest">Function to detemine whether or not the value of <paramref name="this"/> should be passed to <paramref name="f"/>.</param>
-	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns>List of <see cref="Maybe{T}"/> objects returned by <paramref name="f"/>.</returns>
+	/// <param name="fTest">Test to run on each value.</param>
+	/// <param name="f">Function that converts each value to a <see cref="Maybe{T}"/>, run when <paramref name="fTest"/> returns <see langword="true"/>.</param>
+	/// <returns>The <see cref="Some{T}"/> results of <paramref name="f"/>; every <see cref="None"/> is dropped.</returns>
 	public static IEnumerable<Maybe<TReturn>> FilterBind<T, TReturn>(this IEnumerable<Maybe<T>> @this,
 		Func<T, bool> fTest,
 		Func<T, Maybe<TReturn>> f
@@ -72,14 +75,17 @@ public static partial class EnumerableExtensions
 	#region Result
 
 	/// <summary>
-	/// Run <paramref name="f"/> on each element of <paramref name="this"/> that matches <paramref name="fTest"/>.
+	/// Run <paramref name="f"/> on the value of each <see cref="Ok{T}"/> item that passes <paramref name="fTest"/>, keeping only <see cref="Ok{T}"/> results.
 	/// </summary>
-	/// <typeparam name="T">Some value type.</typeparam>
+	/// <remarks>
+	/// The result is lazy; the async overloads build the whole list.
+	/// </remarks>
+	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <typeparam name="TReturn">Return value type.</typeparam>
 	/// <param name="this">List of Result objects.</param>
-	/// <param name="fTest">Function to detemine whether or not the value of <paramref name="this"/> should be passed to <paramref name="f"/>.</param>
-	/// <param name="f">Function to convert a <typeparamref name="T"/> object to a <typeparamref name="TReturn"/> object.</param>
-	/// <returns>List of <see cref="Result{T}"/> objects returned by <paramref name="f"/>.</returns>
+	/// <param name="fTest">Test to run on each value.</param>
+	/// <param name="f">Function that converts each value to a <see cref="Result{T}"/>, run when <paramref name="fTest"/> returns <see langword="true"/>.</param>
+	/// <returns>The <see cref="Ok{T}"/> results of <paramref name="f"/>; every <see cref="Failure"/> is dropped.</returns>
 	public static IEnumerable<Result<TReturn>> FilterBind<T, TReturn>(this IEnumerable<Result<T>> @this,
 		Func<T, bool> fTest,
 		Func<T, Result<TReturn>> f

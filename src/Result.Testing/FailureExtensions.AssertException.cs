@@ -11,8 +11,8 @@ public static partial class FailureExtensions
 	/// Assert that <paramref name="this"/> holds the expected exception.
 	/// </summary>
 	/// <param name="this">Failure object.</param>
-	/// <param name="ex">Expected Exception.</param>
-	/// <returns>Original Failure.</returns>
+	/// <param name="ex">Expected exception.</param>
+	/// <returns><paramref name="this"/>, so assertions can be chained.</returns>
 	public static Failure AssertException(this Failure @this, Exception ex)
 	{
 		// Assert correct Exception

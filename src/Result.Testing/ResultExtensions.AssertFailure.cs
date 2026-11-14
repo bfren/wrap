@@ -22,7 +22,7 @@ public static partial class ResultExtensions
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <param name="message">Expected failure message.</param>
-	/// <param name="args">Optional arguments to fill in failure message values.</param>
+	/// <param name="args">[Optional] Expected arguments - not checked when empty.</param>
 	/// <returns>The <see cref="Failure"/> held by <paramref name="this"/>.</returns>
 	public static Failure AssertFailure<T>(this Result<T> @this, string message, params object?[] args) =>
 		AssertFailure(@this).AssertMessage(message, args);
@@ -44,7 +44,7 @@ public static partial class ResultExtensions
 	/// <param name="this">Result object.</param>
 	/// <param name="ex">Expected exception.</param>
 	/// <param name="message">Expected failure message.</param>
-	/// <param name="args">Optional arguments to fill in failure message values.</param>
+	/// <param name="args">[Optional] Expected arguments - not checked when empty.</param>
 	/// <returns>The <see cref="Failure"/> held by <paramref name="this"/>.</returns>
 	public static Failure AssertFailure<T>(this Result<T> @this, Exception ex, string message, params object?[] args) =>
 		AssertFailure(@this, message, args).AssertException(ex);

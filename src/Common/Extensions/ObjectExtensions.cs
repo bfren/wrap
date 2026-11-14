@@ -4,6 +4,6 @@
 namespace Wrap.Extensions;
 
 /// <summary>
-/// Extension methods for all objects.
+/// Extension methods to wrap any value in a <see cref="Monad{T}"/>.
 /// </summary>
 public static partial class ObjectExtensions { }
