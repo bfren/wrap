@@ -21,7 +21,7 @@ public readonly partial record struct Failure
 			{ } =>
 				this with
 				{
-					Args = args ?? []
+					Args = args
 				},
 
 			_ =>
