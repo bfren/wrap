@@ -20,7 +20,7 @@ public class UnwrapSingle_Tests
 		public void None__Returns_Value_From_FLeft()
 		{
 			// Arrange
-			var input = NoneGen.Create<List<int>>().Unsafe();
+			var input = default(Maybe<List<int>>).Unsafe();
 			var defaultValue = Rnd.Int;
 			var fLeft = Setup<None>(defaultValue);
 
@@ -35,8 +35,8 @@ public class UnwrapSingle_Tests
 		public void Failure__Passes_Failure_To_FLeft()
 		{
 			// Arrange
-			var failure = FailGen.Create();
-			var input = FailGen.Create<List<int>>(failure).Unsafe();
+			var failure = R.Fail(Rnd.Str);
+			var input = R.Fail<List<int>>(failure).Unsafe();
 			var fLeft = Setup<Failure>(Rnd.Int);
 
 			// Act

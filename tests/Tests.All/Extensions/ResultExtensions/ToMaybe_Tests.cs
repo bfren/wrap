@@ -11,7 +11,7 @@ public class ToMaybe_Tests
 		public void Calls_Handler()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 			var handler = Substitute.For<Action<Failure>>();
 
 			// Act
@@ -25,7 +25,7 @@ public class ToMaybe_Tests
 		public void Returns_None()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 
 			// Act
 			var result = input.ToMaybe(_ => { });

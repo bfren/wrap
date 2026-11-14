@@ -11,7 +11,7 @@ public class GetEnumerator_Tests
 		public void Does_Not_Enumerate()
 		{
 			// Arrange
-			var value = NoneGen.Create<int>();
+			var value = default(Maybe<int>);
 
 			// Act
 			var result = 0;

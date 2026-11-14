@@ -24,7 +24,7 @@ public class BindIf_Tests
 			{
 				// Arrange
 				var value = Rnd.Str;
-				var input = FailGen.Create<string>(R.Fail(value));
+				var input = R.Fail<string>(value);
 				var (fTest, bind) = Setup(false);
 
 				// Act
@@ -38,7 +38,7 @@ public class BindIf_Tests
 			public void Function_Is_Not_Invoked()
 			{
 				// Arrange
-				var input = FailGen.Create<string>();
+				var input = R.Fail<string>(Rnd.Str);
 				var (fTest, bind) = Setup(false);
 
 				// Act
@@ -56,7 +56,7 @@ public class BindIf_Tests
 			{
 				// Arrange
 				var value = Rnd.Str;
-				var input = FailGen.Create<string>(R.Fail(value));
+				var input = R.Fail<string>(value);
 				var (fTest, bind) = Setup(true);
 
 				// Act
@@ -70,7 +70,7 @@ public class BindIf_Tests
 			public void Function_Is_Not_Invoked()
 			{
 				// Arrange
-				var input = FailGen.Create<string>();
+				var input = R.Fail<string>(Rnd.Str);
 				var (fTest, bind) = Setup(true);
 
 				// Act

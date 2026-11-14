@@ -11,7 +11,7 @@ public partial class MapAsync_Tests
 		public async Task Does_Not_Call_Map_Function()
 		{
 			// Arrange
-			IEnumerable<Result<string>> list = [FailGen.Create(), FailGen.Create(), FailGen.Create()];
+			IEnumerable<Result<string>> list = [R.Fail(Rnd.Str), R.Fail(Rnd.Str), R.Fail(Rnd.Str)];
 			var map = Substitute.For<Func<string, int>>();
 
 			// Act
@@ -27,7 +27,7 @@ public partial class MapAsync_Tests
 		public async Task Returns_Failure_Values()
 		{
 			// Arrange
-			IEnumerable<Result<string>> list = [FailGen.Create(), FailGen.Create(), FailGen.Create()];
+			IEnumerable<Result<string>> list = [R.Fail(Rnd.Str), R.Fail(Rnd.Str), R.Fail(Rnd.Str)];
 			var map = Substitute.For<Func<string, int>>();
 
 			// Act

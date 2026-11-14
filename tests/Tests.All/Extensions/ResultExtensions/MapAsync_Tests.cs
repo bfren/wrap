@@ -14,7 +14,7 @@ public class MapAsync_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<string>(R.Fail(value));
+			var input = R.Fail<string>(value);
 			var f = Substitute.For<Func<string, int>>();
 
 			// Act
@@ -32,7 +32,7 @@ public class MapAsync_Tests
 		public async Task f_Is_Not_Invoked()
 		{
 			// Arrange
-			var input = FailGen.Create<string>();
+			var input = R.Fail<string>(Rnd.Str);
 			var f = Substitute.For<Func<string, int>>();
 
 			// Act
@@ -95,7 +95,7 @@ public class MapAsync_Tests
 			// Arrange
 			var input = R.Wrap(Rnd.Str);
 			var handlerCalled = false;
-			R.ExceptionHandler handler = _ => { handlerCalled = true; return FailGen.Create(); };
+			R.ExceptionHandler handler = _ => { handlerCalled = true; return R.Fail(Rnd.Str); };
 
 			// Act
 			Func<string, int> throwSync = _ => throw new Exception(Rnd.Str);
@@ -112,7 +112,7 @@ public class MapAsync_Tests
 			// Arrange
 			var customMessage = Rnd.Str;
 			var input = R.Wrap(Rnd.Str);
-			R.ExceptionHandler handler = _ => FailGen.Create(new(customMessage));
+			R.ExceptionHandler handler = _ => R.Fail(new Exception(customMessage));
 
 			// Act
 			Func<string, int> throwSync = _ => throw new Exception(Rnd.Str);

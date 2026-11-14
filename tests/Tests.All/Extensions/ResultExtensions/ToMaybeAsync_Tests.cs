@@ -11,7 +11,7 @@ public class ToMaybeAsync_Tests
 		public async Task Calls_Handler()
 		{
 			// Arrange
-			var input = FailGen.Create<int>().AsTask();
+			var input = R.Fail<int>(Rnd.Str).AsTask();
 			var handler = Substitute.For<Action<Failure>>();
 
 			// Act
@@ -28,7 +28,7 @@ public class ToMaybeAsync_Tests
 		public async Task Returns_None()
 		{
 			// Arrange
-			var input = FailGen.Create<int>().AsTask();
+			var input = R.Fail<int>(Rnd.Str).AsTask();
 
 			// Act
 			var r0 = await input.ToMaybeAsync(_ => { });

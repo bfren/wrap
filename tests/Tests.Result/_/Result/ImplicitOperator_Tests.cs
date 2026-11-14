@@ -27,7 +27,7 @@ public class ImplicitOperator_Tests
 		public void Returns_Failure()
 		{
 			// Arrange
-			var value = FailGen.Create();
+			var value = R.Fail(Rnd.Str);
 
 			// Act
 			Result<DateTime> result = value;

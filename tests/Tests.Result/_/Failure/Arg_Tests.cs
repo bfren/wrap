@@ -11,7 +11,7 @@ public class Arg_Tests
 		public void Does_Nothing()
 		{
 			// Arrange
-			var failure = FailGen.Create();
+			var failure = R.Fail(Rnd.Str, Rnd.Int, Rnd.Guid);
 
 			// Act
 			var result = failure.Arg(null!);
@@ -27,7 +27,7 @@ public class Arg_Tests
 		public void Unsets_Args()
 		{
 			// Arrange
-			var failure = FailGen.Create();
+			var failure = R.Fail(Rnd.Str, Rnd.Int, Rnd.Guid);
 
 			// Act
 			var result = failure.Arg([]);
@@ -43,7 +43,7 @@ public class Arg_Tests
 		public void Adds_Args_To_Failure()
 		{
 			// Arrange
-			var failure = FailGen.Create();
+			var failure = R.Fail(Rnd.Str, Rnd.Int, Rnd.Guid);
 			var args = new object?[] { Rnd.Int, Rnd.Str, Rnd.Date };
 
 			// Act

@@ -141,12 +141,12 @@ public class GetOrCreate_Tests
 	{
 		// Arrange
 		var key = Rnd.Str;
-		var failure = FailGen.Create();
+		var failure = R.Fail(Rnd.Str);
 		var mc = Miss();
 		var cache = new WrapCache<string>(mc);
 
 		// Act
-		var result = cache.GetOrCreate(key, () => FailGen.Create<long>(failure));
+		var result = cache.GetOrCreate(key, () => R.Fail<long>(failure));
 
 		// Assert
 		Assert.Equal(failure, result.AssertFailure());

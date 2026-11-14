@@ -13,8 +13,8 @@ public class MatchAsync_Tests
 			public async Task Executes_Failure_Action()
 			{
 				// Arrange
-				var value = FailGen.Create();
-				var failure = FailGen.Create<int>(value);
+				var value = R.Fail(Rnd.Str);
+				var failure = R.Fail<int>(value);
 				var fail = Substitute.For<Action<Wrap.Failure>>();
 
 				// Act
@@ -64,8 +64,8 @@ public class MatchAsync_Tests
 			public async Task Executes_Failure_Action()
 			{
 				// Arrange
-				var value = FailGen.Create();
-				var failure = FailGen.Create<int>(value);
+				var value = R.Fail(Rnd.Str);
+				var failure = R.Fail<int>(value);
 				var fail = Substitute.For<Func<Wrap.Failure, string>>();
 
 				// Act
@@ -85,7 +85,7 @@ public class MatchAsync_Tests
 			public async Task Returns_Failure_Value()
 			{
 				// Arrange
-				var failure = FailGen.Create<int>();
+				var failure = R.Fail<int>(Rnd.Str);
 				var value = Rnd.Str;
 				var fail = Substitute.For<Func<Wrap.Failure, string>>();
 				fail.Invoke(Arg.Any<Wrap.Failure>()).Returns(value);

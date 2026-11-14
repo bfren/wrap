@@ -11,7 +11,7 @@ public class Unsafe_Tests
 		public void Returns_Unsafe_With_None()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 
 			// Act
 			var result = input.Unsafe();

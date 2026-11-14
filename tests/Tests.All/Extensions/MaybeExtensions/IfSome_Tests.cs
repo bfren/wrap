@@ -11,7 +11,7 @@ public class IfSome_Tests
 		public void Does_Not_Call_F()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var f = Substitute.For<Action<string>>();
 
 			// Act
@@ -25,7 +25,7 @@ public class IfSome_Tests
 		public void Returns_None()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var f = Substitute.For<Action<string>>();
 
 			// Act

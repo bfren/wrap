@@ -13,7 +13,7 @@ public class Lvl_Tests
 		public void Adds_Level_To_Failure()
 		{
 			// Arrange
-			var failure = FailGen.Create().Lvl(LogLevel.Verbose);
+			var failure = R.Fail(Rnd.Str).Lvl(LogLevel.Verbose);
 			var value = LogLevel.Fatal;
 
 			// Act

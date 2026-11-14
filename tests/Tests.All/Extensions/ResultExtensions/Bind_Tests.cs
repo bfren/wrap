@@ -12,7 +12,7 @@ public class Bind_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<string>(R.Fail(value));
+			var input = R.Fail<string>(value);
 			var f = Substitute.For<Func<string, Result<int>>>();
 
 			// Act
@@ -26,7 +26,7 @@ public class Bind_Tests
 		public void f_Is_Not_Invoked()
 		{
 			// Arrange
-			var input = FailGen.Create<string>();
+			var input = R.Fail<string>(Rnd.Str);
 			var f = Substitute.For<Func<string, Result<int>>>();
 
 			// Act
@@ -40,7 +40,7 @@ public class Bind_Tests
 		public void Failure_Passed_Through_Chain__Is_Unchanged()
 		{
 			// Arrange
-			var failure = FailGen.Create();
+			var failure = R.Fail(Rnd.Str);
 
 			// Act
 			var result = R.Fail<string>(failure)
@@ -109,7 +109,7 @@ public class Bind_Tests
 			var failValue = Rnd.Str;
 			var input = R.Wrap(Rnd.Str);
 			var f = Substitute.For<Func<string, Result<int>>>();
-			f.Invoke(Arg.Any<string>()).Returns(FailGen.Create<int>(R.Fail(failValue)));
+			f.Invoke(Arg.Any<string>()).Returns(R.Fail<int>(failValue));
 
 			// Act
 			var result = input.Bind(f);

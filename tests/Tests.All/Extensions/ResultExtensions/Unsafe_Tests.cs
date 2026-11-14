@@ -11,7 +11,7 @@ public class Unsafe_Tests
 		public async Task Returns_Failure_Value()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 
 			// Act
 			var r0 = input.Unsafe();

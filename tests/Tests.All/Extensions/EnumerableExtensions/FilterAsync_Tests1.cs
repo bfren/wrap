@@ -11,7 +11,7 @@ public partial class FilterAsync_Tests
 		public async Task Does_Not_Call_Predicate()
 		{
 			// Arrange
-			IEnumerable<Result<int>> list = [FailGen.Create(), FailGen.Create(), FailGen.Create()];
+			IEnumerable<Result<int>> list = [R.Fail(Rnd.Str), R.Fail(Rnd.Str), R.Fail(Rnd.Str)];
 			var fTest = Substitute.For<Func<int, bool>>();
 
 			// Act
@@ -27,7 +27,7 @@ public partial class FilterAsync_Tests
 		public async Task Returns_Empty_List()
 		{
 			// Arrange
-			IEnumerable<Result<int>> list = [FailGen.Create(), FailGen.Create(), FailGen.Create()];
+			IEnumerable<Result<int>> list = [R.Fail(Rnd.Str), R.Fail(Rnd.Str), R.Fail(Rnd.Str)];
 			var fTest = Substitute.For<Func<int, bool>>();
 
 			// Act

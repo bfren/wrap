@@ -14,7 +14,7 @@ public class UnwrapAsync_Tests
 			{
 				// Arrange
 				var defaultValue = Rnd.Int;
-				var input = FailGen.Create<int>();
+				var input = R.Fail<int>(Rnd.Str);
 
 				// Act
 				var r0 = await input.UnwrapAsync(async _ => defaultValue);
@@ -60,7 +60,7 @@ public class UnwrapAsync_Tests
 				// Arrange
 				var value = Rnd.Int;
 				var handler = Substitute.For<Action<Failure>>();
-				var input = FailGen.Create<int>();
+				var input = R.Fail<int>(Rnd.Str);
 
 				// Act
 				var r0 = await input.UnwrapAsync(async f => handler(f), async () => value);

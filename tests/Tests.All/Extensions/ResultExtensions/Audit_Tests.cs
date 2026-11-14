@@ -11,7 +11,7 @@ public class Audit_Tests
 		public void Runs_fFail()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 			var fFail = Substitute.For<Action<Failure>>();
 
 			// Act
@@ -25,7 +25,7 @@ public class Audit_Tests
 		public void Does_Not_Run_fOk()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 			var fOk = Substitute.For<Action<int>>();
 
 			// Act
@@ -40,7 +40,7 @@ public class Audit_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(R.Fail(value));
+			var input = R.Fail<int>(value);
 
 			// Act
 			var result = input.Audit(fFail: null, fOk: null);
@@ -54,7 +54,7 @@ public class Audit_Tests
 		{
 			// Arrange
 			var value = Rnd.Str;
-			var input = FailGen.Create<int>(R.Fail(value));
+			var input = R.Fail<int>(value);
 
 			// Act
 			var result = input.Audit(fFail: _ => throw new Exception(Rnd.Str));
@@ -130,7 +130,7 @@ public class Audit_Tests
 		public void With_Failure__Runs_Either()
 		{
 			// Arrange
-			var input = FailGen.Create<int>();
+			var input = R.Fail<int>(Rnd.Str);
 			var either = Substitute.For<Action<Result<int>>>();
 
 			// Act

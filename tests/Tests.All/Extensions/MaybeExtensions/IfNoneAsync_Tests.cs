@@ -11,7 +11,7 @@ public class IfNoneAsync_Tests
 		public async Task Calls_F()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var f = Substitute.For<Func<Task>>();
 			f.Invoke().Returns(Task.CompletedTask);
 
@@ -28,7 +28,7 @@ public class IfNoneAsync_Tests
 		public async Task Returns_None()
 		{
 			// Arrange
-			var input = NoneGen.Create<string>();
+			var input = default(Maybe<string>);
 			var f = Substitute.For<Func<Task>>();
 			f.Invoke().Returns(Task.CompletedTask);
 
