@@ -89,7 +89,7 @@ Every project has `GenerateDocumentationFile` on, and the comments become the Nu
 2. In `bin/Debug/net11.0/Wrap.<Project>.xml`, every `cref="…"` must resolve to the intended symbol prefix (`T:` type, `P:` property, `M:` method). For example, `grep -oE 'cref="[^"]*None[^"]*"'` should show `T:Wrap.None`, not `P:Wrap.M.None`, wherever you meant the type.
 3. `dotnet format style -v d Wrap.slnx --no-restore --verify-no-changes --include src/<Project>`. Without `--verify-no-changes` and `--include`, it rewrites files in other projects. Fix what it reports in your project only, and leave warnings elsewhere alone. Apply IDE0001 (simplify name) fixes in crefs. Do **not** auto-apply IDE0004 (redundant cast) anywhere near `Maybe`/`Result`/`Either`. A cast such as `(Maybe<T>)M.None` passed to an `object` parameter changes what gets boxed, so prefer `default(Maybe<T>)` there.
 
-Files use CRLF line endings (`.editorconfig`). If you edit with a tool that writes LF, run `dotnet format whitespace Wrap.slnx` afterwards.
+Files use LF line endings (`.editorconfig` and `.gitattributes`), so files written by tools that save LF need no conversion. Don't convert files to CRLF.
 
 ## Project Structure
 
