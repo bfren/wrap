@@ -19,6 +19,7 @@ public class ChainAsync_Tests
 		// Assert
 		Assert.Collection(result,
 			x => x.AssertSome(11),
+			x => x.AssertNone(),
 			x => x.AssertSome(21)
 		);
 	}

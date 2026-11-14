@@ -22,7 +22,7 @@ public partial class Bind_Tests
 		}
 
 		[Fact]
-		public void Returns_Empty_List()
+		public void Returns_None_For_Each_Item()
 		{
 			// Arrange
 			var list = new Maybe<int>[] { M.None, M.None, M.None };
@@ -31,7 +31,11 @@ public partial class Bind_Tests
 			var result = list.Bind(Substitute.For<Func<int, Maybe<string>>>());
 
 			// Assert
-			Assert.Empty(result);
+			Assert.Collection(result,
+				x => x.AssertNone(),
+				x => x.AssertNone(),
+				x => x.AssertNone()
+			);
 		}
 	}
 
@@ -61,7 +65,7 @@ public partial class Bind_Tests
 	public partial class With_Mixed
 	{
 		[Fact]
-		public void Removes_None()
+		public void Keeps_None()
 		{
 			// Arrange
 			var v0 = Rnd.Int;
@@ -73,11 +77,11 @@ public partial class Bind_Tests
 			var result = list.Bind(x => M.Wrap(x.ToString()));
 
 			// Assert
-			Assert.Equal(3, result.Count());
+			Assert.Equal(5, result.Count());
 		}
 
 		[Fact]
-		public void Returns_Some()
+		public void Returns_Some_And_None_In_Order()
 		{
 			// Arrange
 			var v0 = Rnd.Int;
@@ -91,7 +95,9 @@ public partial class Bind_Tests
 			// Assert
 			Assert.Collection(result,
 				x => Assert.Equal(v0.ToString(), x),
+				x => x.AssertNone(),
 				x => Assert.Equal(v1.ToString(), x),
+				x => x.AssertNone(),
 				x => Assert.Equal(v2.ToString(), x)
 			);
 		}
