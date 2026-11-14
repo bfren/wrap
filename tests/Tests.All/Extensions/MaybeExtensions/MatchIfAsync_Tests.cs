@@ -42,50 +42,50 @@ public class MatchIfAsync_Tests
 		var results = new List<string>
 		{
 			// Group 1: Maybe<T>, sync fNone, sync fTest
-			await input.MatchIfAsync(fNone, fTest, async x => fFalse(x), fTrue),
-			await input.MatchIfAsync(fNone, fTest, fFalse, async x => fTrue(x)),
-			await input.MatchIfAsync(fNone, fTest, async x => fFalse(x), async x => fTrue(x)),
+			await input.MatchIfAsync(fNone, fTest, fTrue, async x => fFalse(x)),
+			await input.MatchIfAsync(fNone, fTest, async x => fTrue(x), fFalse),
+			await input.MatchIfAsync(fNone, fTest, async x => fTrue(x), async x => fFalse(x)),
 
 			// Group 2: Maybe<T>, sync fNone, async fTest
-			await input.MatchIfAsync(fNone, async x => fTest(x), fFalse, fTrue),
-			await input.MatchIfAsync(fNone, async x => fTest(x), async x => fFalse(x), fTrue),
-			await input.MatchIfAsync(fNone, async x => fTest(x), fFalse, async x => fTrue(x)),
-			await input.MatchIfAsync(fNone, async x => fTest(x), async x => fFalse(x), async x => fTrue(x)),
+			await input.MatchIfAsync(fNone, async x => fTest(x), fTrue, fFalse),
+			await input.MatchIfAsync(fNone, async x => fTest(x), fTrue, async x => fFalse(x)),
+			await input.MatchIfAsync(fNone, async x => fTest(x), async x => fTrue(x), fFalse),
+			await input.MatchIfAsync(fNone, async x => fTest(x), async x => fTrue(x), async x => fFalse(x)),
 
 			// Group 3: Task<Maybe<T>>, sync fNone, sync fTest
-			await input.AsTask().MatchIfAsync(fNone, fTest, fFalse, fTrue),
-			await input.AsTask().MatchIfAsync(fNone, fTest, async x => fFalse(x), fTrue),
-			await input.AsTask().MatchIfAsync(fNone, fTest, fFalse, async x => fTrue(x)),
-			await input.AsTask().MatchIfAsync(fNone, fTest, async x => fFalse(x), async x => fTrue(x)),
+			await input.AsTask().MatchIfAsync(fNone, fTest, fTrue, fFalse),
+			await input.AsTask().MatchIfAsync(fNone, fTest, fTrue, async x => fFalse(x)),
+			await input.AsTask().MatchIfAsync(fNone, fTest, async x => fTrue(x), fFalse),
+			await input.AsTask().MatchIfAsync(fNone, fTest, async x => fTrue(x), async x => fFalse(x)),
 
 			// Group 4: Task<Maybe<T>>, sync fNone, async fTest
-			await input.AsTask().MatchIfAsync(fNone, async x => fTest(x), fFalse, fTrue),
-			await input.AsTask().MatchIfAsync(fNone, async x => fTest(x), async x => fFalse(x), fTrue),
-			await input.AsTask().MatchIfAsync(fNone, async x => fTest(x), fFalse, async x => fTrue(x)),
+			await input.AsTask().MatchIfAsync(fNone, async x => fTest(x), fTrue, fFalse),
+			await input.AsTask().MatchIfAsync(fNone, async x => fTest(x), fTrue, async x => fFalse(x)),
+			await input.AsTask().MatchIfAsync(fNone, async x => fTest(x), async x => fTrue(x), fFalse),
 
 			// Group 5: Maybe<T>, async fNone, sync fTest
-			await input.MatchIfAsync(async () => fNone(), fTest, fFalse, fTrue),
-			await input.MatchIfAsync(async () => fNone(), fTest, async x => fFalse(x), fTrue),
-			await input.MatchIfAsync(async () => fNone(), fTest, fFalse, async x => fTrue(x)),
-			await input.MatchIfAsync(async () => fNone(), fTest, async x => fFalse(x), async x => fTrue(x)),
+			await input.MatchIfAsync(async () => fNone(), fTest, fTrue, fFalse),
+			await input.MatchIfAsync(async () => fNone(), fTest, fTrue, async x => fFalse(x)),
+			await input.MatchIfAsync(async () => fNone(), fTest, async x => fTrue(x), fFalse),
+			await input.MatchIfAsync(async () => fNone(), fTest, async x => fTrue(x), async x => fFalse(x)),
 
 			// Group 6: Maybe<T>, async fNone, async fTest
-			await input.MatchIfAsync(async () => fNone(), async x => fTest(x), fFalse, fTrue),
-			await input.MatchIfAsync(async () => fNone(), async x => fTest(x), async x => fFalse(x), fTrue),
-			await input.MatchIfAsync(async () => fNone(), async x => fTest(x), fFalse, async x => fTrue(x)),
-			await input.MatchIfAsync(async () => fNone(), async x => fTest(x), async x => fFalse(x), async x => fTrue(x)),
+			await input.MatchIfAsync(async () => fNone(), async x => fTest(x), fTrue, fFalse),
+			await input.MatchIfAsync(async () => fNone(), async x => fTest(x), fTrue, async x => fFalse(x)),
+			await input.MatchIfAsync(async () => fNone(), async x => fTest(x), async x => fTrue(x), fFalse),
+			await input.MatchIfAsync(async () => fNone(), async x => fTest(x), async x => fTrue(x), async x => fFalse(x)),
 
 			// Group 7: Task<Maybe<T>>, async fNone, sync fTest
-			await input.AsTask().MatchIfAsync(async () => fNone(), fTest, fFalse, fTrue),
-			await input.AsTask().MatchIfAsync(async () => fNone(), fTest, async x => fFalse(x), fTrue),
-			await input.AsTask().MatchIfAsync(async () => fNone(), fTest, fFalse, async x => fTrue(x)),
-			await input.AsTask().MatchIfAsync(async () => fNone(), fTest, async x => fFalse(x), async x => fTrue(x)),
+			await input.AsTask().MatchIfAsync(async () => fNone(), fTest, fTrue, fFalse),
+			await input.AsTask().MatchIfAsync(async () => fNone(), fTest, fTrue, async x => fFalse(x)),
+			await input.AsTask().MatchIfAsync(async () => fNone(), fTest, async x => fTrue(x), fFalse),
+			await input.AsTask().MatchIfAsync(async () => fNone(), fTest, async x => fTrue(x), async x => fFalse(x)),
 
 			// Group 8: Task<Maybe<T>>, async fNone, async fTest
-			await input.AsTask().MatchIfAsync(async () => fNone(), async x => fTest(x), fFalse, fTrue),
-			await input.AsTask().MatchIfAsync(async () => fNone(), async x => fTest(x), async x => fFalse(x), fTrue),
-			await input.AsTask().MatchIfAsync(async () => fNone(), async x => fTest(x), fFalse, async x => fTrue(x)),
-			await input.AsTask().MatchIfAsync(async () => fNone(), async x => fTest(x), async x => fFalse(x), async x => fTrue(x))
+			await input.AsTask().MatchIfAsync(async () => fNone(), async x => fTest(x), fTrue, fFalse),
+			await input.AsTask().MatchIfAsync(async () => fNone(), async x => fTest(x), fTrue, async x => fFalse(x)),
+			await input.AsTask().MatchIfAsync(async () => fNone(), async x => fTest(x), async x => fTrue(x), fFalse),
+			await input.AsTask().MatchIfAsync(async () => fNone(), async x => fTest(x), async x => fTrue(x), async x => fFalse(x))
 		};
 
 		return results;
