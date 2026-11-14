@@ -22,13 +22,21 @@ public sealed class GuidIdTypeHandler<T> : IdTypeHandler<T, Guid>
 	public override T Parse(object value) =>
 		new()
 		{
-			Value = M.ParseGuid(value?.ToString()) switch
+			Value = value switch
 			{
-				Some<Guid> x =>
-					x.Value,
+				// some providers (e.g. Microsoft.Data.Sqlite) return Guid columns as raw bytes, which have no string form to parse
+				byte[] { Length: 16 } bytes =>
+					new Guid(bytes),
 
-				None =>
-					DefaultOrThrow(value)
+				_ =>
+					M.ParseGuid(value?.ToString()) switch
+					{
+						Some<Guid> x =>
+							x.Value,
+
+						None =>
+							DefaultOrThrow(value)
+					}
 			}
 		};
 
