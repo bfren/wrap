@@ -97,7 +97,17 @@ public sealed class FailureGenerator : IIncrementalGenerator
 					"class"
 			};
 
-			containingTypes.Push(new(current.Name, kind));
+			// Keep the type parameters, otherwise 'partial class Box' declares a new type instead of extending Box<T>
+			var name = current.TypeParameters.Length switch
+			{
+				0 =>
+					current.Name,
+
+				_ =>
+					$"{current.Name}<{string.Join(", ", current.TypeParameters.Select(t => t.Name))}>"
+			};
+
+			containingTypes.Push(new(name, kind));
 			current = current.ContainingType; // null when we reach the namespace
 		}
 
@@ -106,12 +116,14 @@ public sealed class FailureGenerator : IIncrementalGenerator
 		{
 			Namespace = method.ContainingType.ContainingNamespace.ToDisplayString(),
 			ClassName = method.ContainingType.Name,
-			ContainingTypes = [.. containingTypes],
+			ContainingTypes = containingTypes.ToArray(),
 			Accessibility = SyntaxFacts.GetText(method.DeclaredAccessibility),
+			// The documentation ID includes the parameter types, so overloads get different files
+			HintName = new string([.. (method.GetDocumentationCommentId() ?? $"M:{method.Name}").Skip(2).Select(c => char.IsLetterOrDigit(c) || c == '.' ? c : '_')]) + ".g.cs",
 			MethodName = method.Name,
 			Message = message,
 			LogLevel = logLevel,
-			Parameters = [.. method.Parameters.Select(ParameterModel.Create)],
+			Parameters = method.Parameters.Select(ParameterModel.Create).ToArray(),
 			ReturnType = method.ReturnType.ToDisplayString(),
 			Diagnostics = diagnostics,
 			CanGenerate = true
@@ -199,7 +211,7 @@ public sealed class FailureGenerator : IIncrementalGenerator
 
 		// Add source file
 		ctx.AddSource(
-			$"{model.Namespace}.{string.Join(".", model.ContainingTypes.Select(t => t.Name))}.{model.MethodName}.g.cs",
+			model.HintName,
 			SourceText.From(sb.ToString(), Encoding.UTF8)
 		);
 	}

@@ -35,6 +35,12 @@ internal record MethodModel()
 		string.Empty;
 
 	/// <summary>
+	/// Generated file name, unique for each method, overloads included.
+	/// </summary>
+	internal string HintName { get; set; } =
+		string.Empty;
+
+	/// <summary>
 	/// Method name.
 	/// </summary>
 	internal string MethodName { get; set; } =
