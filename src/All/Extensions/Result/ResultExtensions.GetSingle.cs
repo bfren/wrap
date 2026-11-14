@@ -38,7 +38,7 @@ public static partial class ResultExtensions
 			Ok<T> x =>
 				x.Value switch
 				{
-					IEnumerable<TSingle> y => y.ToArray() switch
+					IEnumerable<TSingle> y => y.Take(2).ToArray() switch
 					{
 						{ Length: 1 } z =>
 							R.Wrap(z[0]),
