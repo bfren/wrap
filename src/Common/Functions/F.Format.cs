@@ -41,14 +41,13 @@ public static partial class F
 		var regex = TemplateMatcherRegex();
 		var values = new List<object>(regex.Count(formatString));
 		var replaceIndex = 0; // keeps track of replace loop so we can match named template values with an array source
-		var numberedTemplates = true;
+		var numberedTemplates = HasOnlyNumberedTemplates(formatString);
 		var rewrittenFormat = regex.Replace(formatString, (m) =>
 		{
 			// This is the value inside the braces, e.g. "0" in "{0}" or "A" in "{A}"
 			// Remove any @ symbols from the start - used by Serilog to denote an object format but breaks the following
 			var template = m.Groups["template"].Value.TrimStart('@');
-			var templateIsNumber = int.TryParse(template, out var templateNumber);
-			numberedTemplates = numberedTemplates && templateIsNumber;
+			_ = int.TryParse(template, out var templateNumber);
 
 			// Switch on the source type, using variety of methods to get this template's value
 			values.Add(source switch
