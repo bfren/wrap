@@ -10,6 +10,14 @@ public class Diagnostics_Tests
 {
 	private static string[] GetDiagnosticIds(string method)
 	{
+		_ = CSharpGeneratorDriver.Create(new FailureGenerator())
+			.RunGeneratorsAndUpdateCompilation(CreateCompilation(method), out _, out var diagnostics, TestContext.Current.CancellationToken);
+
+		return [.. diagnostics.Select(d => d.Id)];
+	}
+
+	internal static CSharpCompilation CreateCompilation(string method)
+	{
 		var source = $$"""
 			using Wrap;
 			using Wrap.Logging;
@@ -29,17 +37,12 @@ public class Diagnostics_Tests
 			.Distinct()
 			.Select(p => MetadataReference.CreateFromFile(p));
 
-		var compilation = CSharpCompilation.Create(
+		return CSharpCompilation.Create(
 			"Test",
 			[CSharpSyntaxTree.ParseText(source, cancellationToken: TestContext.Current.CancellationToken)],
 			references,
 			new(OutputKind.DynamicallyLinkedLibrary)
 		);
-
-		_ = CSharpGeneratorDriver.Create(new FailureGenerator())
-			.RunGeneratorsAndUpdateCompilation(compilation, out _, out var diagnostics, TestContext.Current.CancellationToken);
-
-		return [.. diagnostics.Select(d => d.Id)];
 	}
 
 	[Theory]

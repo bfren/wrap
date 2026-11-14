@@ -2,13 +2,15 @@
 
 Repo audit of branch `108-switch-to-use-union-types`, 12 November 2026. Updated 14 November 2026 after the fixes on #110 and #112.
 
-**What this repo does:** Wrap is a .NET library of monads: `Maybe` (a value that may be missing), `Result` (an operation that may have failed), `Either` (one of two values) and strongly typed `Id`s. Around them it adds a memory cache, JSON converters, MVC model binders and Dapper type handlers.
+A second audit on 14 November 2026 covered the parts the first one skipped: the `Failure` source generator, the MVC binders, the `If`/`MatchIf` families and the Testing packages. Its findings start at item 9 below. They were fixed on #121.
+
+**What this repo does:** Wrap is a .NET library of monads: `Maybe` (a value that may be missing), `Result` (an operation that may have failed), `Either` (one of two values) and strongly typed `Id`s. Around them it adds a memory cache, JSON converters, MVC model binders, Dapper type handlers and a source generator that writes `Failure` methods.
 
 **Load assumed:** web apps that use it under real traffic. The cache is registered as one shared instance (a singleton) for the whole app. The JSON converters and model binders read data sent by users.
 
-**Verdict:** all done, or decided (7).
+**Verdict:** first audit all done, or decided (7). Second audit: 5 done, 1 withdrawn, 3 open (13, 14 and 17).
 
-**Lean:** nothing left to remove, and no dependencies.
+**Lean:** about 30 lines left to remove (14), and no dependencies.
 
 ## Must fix
 
@@ -140,3 +142,138 @@ Three smaller findings were not listed above:
 - `apps/AppMvc`, the Testing packages and the shared CI workflows in `bfren/dotnet` were not read.
 - The cache was not load-tested.
 - NuGet packages were not built.
+
+# Second audit
+
+Repo audit of branch `116-run-maybetoresultextensionsselect-through-rtry`, 14 November 2026. Fixes are on `121-audit-fixes` (#121). The load assumed is the same as above.
+
+## Must fix
+
+### 9. Two `[Failure]` methods with the same name break every generated failure
+
+- [x] Done
+
+**Where:** `src/Generators/Failure/FailureGenerator.cs`, `AddSource`
+
+- **What this is:** The generator writes one file per `[Failure]` method, named after the namespace, class and method.
+- **Problem:** Overloads get the same file name, so Roslyn throws and the generator stops. Verified in a scratch project: `NotFound(int id)` plus `NotFound(string name)` gave warning CS8785, then CS8795 "must have an implementation" for every `[Failure]` method in the project.
+- **Fix:** Name the file from the method's documentation ID, which includes the parameter types.
+- **Done:** as above, with characters that aren't allowed in file names replaced by `_`. `Failures.cs` in `Tests.Generators` now has an overload pair, so the test project doesn't compile if this breaks.
+- **If we skip it:** One innocent overload stops the whole project from compiling, and the error doesn't point at the cause.
+
+### 10. `[Failure]` inside a generic class does not compile
+
+- [x] Done
+
+**Where:** `src/Generators/Failure/FailureGenerator.cs`, the containing-type loop
+
+- **What this is:** The generator re-opens each containing class as `partial class <Name>`.
+- **Problem:** It used `current.Name`, which drops the type parameters. For `Box<T>` it wrote a new class `Box`, and `Box<T>.Bad(T)` was left with no body (CS8795, verified).
+- **Fix:** Write the name with its type parameters.
+- **Done:** as above. `Failures.InGeneric<T>` and a test in `Generate_Tests` cover it.
+- **If we skip it:** Users can't put failures in generic classes, and the error they get is confusing.
+
+## Should fix
+
+### 11. The generator redoes all its work on every keystroke
+
+- [x] Done
+
+**Where:** `src/Generators/Failure/MethodModel.cs`
+
+- **What this is:** Incremental generators skip work when the model they produce equals the previous one.
+- **Problem:** `MethodModel` held arrays (`Parameters`, `ContainingTypes`, `Diagnostics`), which records compare by reference. So the model never matched the previous run, and the IDE regenerated every `[Failure]` file after any edit.
+- **Fix:** Hold values that compare by content.
+- **Done:** a new internal `EquatableArray<T>` compares its items. `Incremental_Tests` checks that an unrelated edit reuses the cached output; it fails with "Output was Modified" on reference comparison.
+- **If we skip it:** Typing gets slower in the IDE as the number of failures grows.
+
+### 12. `If` and `MatchIf` took their true and false branches in opposite order
+
+- [x] Done (breaking)
+
+**Where:** `src/All/Extensions/Maybe/MaybeExtensions.MatchIf.cs`, `src/All/Extensions/Result/ResultExtensions.MatchIf.cs`
+
+- **What this is:** `If(fTest, fTrue, fFalse)` compared with `MatchIf(fNone, fTest, fFalse, fTrue)`. 1.x had the same order.
+- **Problem:** Both branches have the same type, so mixing up the order compiles. `m.MatchIf(none, test, a, b)` ran `a` when the test was false, while `m.If(test, a, b)` runs `a` when it is true.
+- **Fix:** Use one order everywhere while 2.0 is still in beta.
+- **Done:** every `MatchIf`/`MatchIfAsync` overload now takes `fTrue` before `fFalse`. Callers passing arguments by position must swap them; callers using named arguments are not affected.
+- **If we skip it:** Inverted logic that neither the compiler nor a reviewer catches easily.
+
+### 13. A bad MVC value silently becomes `None`
+
+- [ ] Open
+
+**Where:** `src/All.Mvc/WrapModelBinder.cs:100-110`, `src/All.Mvc/MaybeModelBinder.cs`
+
+- **What this is:** The MVC binder reads request values like `?userId=…` into `Maybe<T>` parameters.
+- **Problem:** A value that fails to parse goes through the same `Nothing()` path as a missing one, and `MaybeModelBinder` reports a successful `None`. `GET /orders?userId=abc` behaves like "no filter", so an action that filters only when the value is present can return every order. The JSON converters were changed to reject bad input (item 2), so the two disagree.
+- **Fix:** Keep `Nothing()` for missing or empty values. When parsing fails, add a ModelState error and return `ModelBindingResult.Failed()`, so `[ApiController]` returns a 400. Update the `Incorrect_Type` test, which asserts the current behaviour.
+- **If we skip it:** Typos and bad clients get wrong, wider results instead of an error.
+
+### 14. `ToResult` catches exceptions that monad-returning lambdas should handle
+
+- [ ] Open
+
+**Where:** `src/All/Extensions/Maybe/MaybeExtensions.ToResult.cs`
+
+- **What this is:** It turns a `Maybe` into a `Result`, with a `noneHandler` that returns a `Result`.
+- **Problem:** The rule is that a lambda returning a monad handles its own exceptions, so `Bind` doesn't catch them. `ToResult` wraps all four overloads in `try`/`catch`, faulted tasks included. So `m.ToResult(() => throw x)` returns a `Failure`, but `m.Bind(_ => throw x)` throws.
+- **Fix:** Delete the four `try`/`catch` blocks (about 30 lines), or document why `ToResult` is the exception.
+- **If we skip it:** The same mistake behaves differently depending on which method it happens in.
+
+### 17. The generator can't implement `params`, `in`/`ref`, generic or global-namespace methods
+
+- [ ] Open
+
+**Where:** `src/Generators/Failure/FailureGenerator.cs`, `src/Generators/Failure/ParameterModel.cs`
+
+- **What this is:** The generator copies each parameter as `{type} {name}`, the method as `{name}(…)`, and the namespace from `ContainingNamespace.ToDisplayString()`.
+- **Problem:** Verified in a scratch project on the #121 code. Each case fails to compile:
+  - `params object[] items` loses `params`: CS0758.
+  - `in int value` (likewise `ref`/`out`) loses its modifier: CS8795 and CS0759.
+  - `Generic<T>(T value)` loses its type parameter: CS0246 and CS0759.
+  - A class in the global namespace is generated into a different namespace: CS8795 and CS0759.
+- **Fix:** Copy the parameter modifiers (`params`, `in`, `ref`, `out`, `scoped`) and the method's type parameters with their constraints, and leave out the `namespace` line when `ContainingNamespace.IsGlobalNamespace`. Or report WRAP001 for the cases that aren't supported, which is less code.
+- **If we skip it:** Users get compiler errors pointing at generated code, with no diagnostic saying why.
+
+## Nice to have
+
+### 15. Two identical failures are not equal
+
+- [x] Withdrawn
+
+- **Claim:** `Failure` compared `Args` by reference.
+- **Wrong:** `src/Result/Failure.Equatable.cs` already compares `Args` item by item. The audit missed that file.
+
+### 16. `WrapCache` had a base class only so `nameof` worked
+
+- [x] Done
+
+**Where:** `src/Caching/WrapCache.cs`
+
+- **What this is:** An empty public abstract class `WrapCache`, there only so that `nameof(WrapCache)` would compile.
+- **Fix:** Use `nameof(WrapCache<>)` (C# 14) and delete the class.
+- **Done:** as above. The failure context still reads `WrapCache`.
+
+## Left out
+
+- `F.DefaultCulture` is a global setting anyone can change, and it defaults to en-GB. The binder parses `03/04/2026` as 3 April, even for a US client.
+- `M.ParseDateTimeOffset` assumes server local time when the input has no offset, so the result depends on the server's time zone.
+- `Rnd.Int`/`Lng`/`UInt32`/`UInt64` are documented as covering the full range, but they return values of about 10,000–19,999 (the `limit: true` path in `IdGenerator` relies on them).
+- From the first audit's "Left out", two items still apply: the `GetOrCreate` bodies in `WrapCache` are near-copies, and the JSON converters match English exception text. The third, `M.ParseChar` allocating, is already fixed: it now uses `input is [var c] ? c : None`.
+
+All items above were rechecked against `121-audit-fixes` on 14 November 2026, and `main` had nothing newer.
+
+### For later
+
+Smaller things noticed during the second audit and not verified by running them. Look at these before deciding whether they need an item:
+
+- **Int, long and uint ID handlers reject whole decimals.** `IntIdTypeHandler.Parse` and the others parse `value.ToString()`. A provider that returns `NUMBER` columns as `decimal` (for example Oracle) can give `5.0m`, which prints as `"5.0"`. That doesn't parse as an int, so `DefaultOrThrow` throws `OverflowException` even though the value fits. `ToString()` also uses the current culture.
+- **The cache breaks when `IMemoryCache` has a `SizeLimit`.** `WrapCache` always passes `new MemoryCacheEntryOptions()` with no `Size`. With a size limit set, `MemoryCache` throws on every `Set`. So `SetValue` throws, and `GetOrCreate` returns a `Failure` on every call and never caches anything.
+- **`F.Format` named placeholders use the static type.** `PropertyCache<T>` looks up properties on `typeof(T)`. `F.Format("{Name}", (object)user)` finds nothing and leaves `{Name}` in the text. `Failure.ToString()` passes an array, so it isn't affected; only direct callers are.
+- **`default(Either<L, R>)` is `Left(default)`.** That matches `default(Maybe<T>)` being `None`, but it isn't documented on `Either` the way it is on `Maybe`.
+
+## Not checked
+
+- The `Enumerable`/LINQ families weren't re-read, since the first audit covered them.
+- `apps/` and the shared CI workflows were not read.

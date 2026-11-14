@@ -25,13 +25,19 @@ internal record MethodModel()
 	/// <summary>
 	/// Type tree.
 	/// </summary>
-	internal ContainingType[] ContainingTypes { get; set; } =
-		[];
+	internal EquatableArray<ContainingType> ContainingTypes { get; set; } =
+		new([]);
 
 	/// <summary>
 	/// Method accessibility modifiers.
 	/// </summary>
 	internal string Accessibility { get; set; } =
+		string.Empty;
+
+	/// <summary>
+	/// Generated file name, unique for each method, overloads included.
+	/// </summary>
+	internal string HintName { get; set; } =
 		string.Empty;
 
 	/// <summary>
@@ -54,8 +60,8 @@ internal record MethodModel()
 	/// <summary>
 	/// Method parameters.
 	/// </summary>
-	internal ParameterModel[] Parameters { get; set; } =
-		[];
+	internal EquatableArray<ParameterModel> Parameters { get; set; } =
+		new([]);
 
 	/// <summary>
 	/// Method return type.
@@ -66,8 +72,8 @@ internal record MethodModel()
 	/// <summary>
 	/// Problems found with the method or its message.
 	/// </summary>
-	internal Diagnostic[] Diagnostics { get; set; } =
-		[];
+	internal EquatableArray<Diagnostic> Diagnostics { get; set; } =
+		new([]);
 
 	/// <summary>
 	/// False if the method cannot be implemented, so no source is generated.

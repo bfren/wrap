@@ -7,22 +7,11 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Wrap.Caching;
 
-/// <summary>
-/// Non-generic base of <see cref="WrapCache{TKey}"/>, whose name is used as the context of cache failures.
-/// </summary>
-public abstract class WrapCache
-{
-	/// <summary>
-	/// Create the cache; only <see cref="WrapCache{TKey}"/> derives from this class.
-	/// </summary>
-	private protected WrapCache() { }
-}
-
 /// <inheritdoc cref="IWrapCache{TKey}"/>
 /// <param name="cache">Memory cache that stores the entries.</param>
 // shortcut: no locking - calls for a missing key that arrive together each run their value factory and the last
 // value stored wins; fine for factories that only read (e.g. database queries), add per-key de-duplication if one must run once
-public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<TKey>
+public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 	where TKey : notnull
 {
 	internal IMemoryCache Cache { get; private init; } =
@@ -92,7 +81,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 		}
 		catch (Exception ex)
 		{
-			return R.Fail(ex).Msg("Error creating cache value.").Ctx(nameof(WrapCache), nameof(GetOrCreate));
+			return R.Fail(ex).Msg("Error creating cache value.").Ctx(nameof(WrapCache<>), nameof(GetOrCreate));
 		}
 	}
 
@@ -123,7 +112,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 		}
 		catch (Exception ex)
 		{
-			return R.Fail(ex).Msg("Error creating cache value.").Ctx(nameof(WrapCache), nameof(GetOrCreateAsync));
+			return R.Fail(ex).Msg("Error creating cache value.").Ctx(nameof(WrapCache<>), nameof(GetOrCreateAsync));
 		}
 	}
 
@@ -197,5 +186,5 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 	/// <param name="args">Failure message arguments.</param>
 	/// <returns>Failure object.</returns>
 	private static Failure Fail(string function, string message, params object?[] args) =>
-		R.Fail(message, args).Ctx(nameof(WrapCache), function);
+		R.Fail(message, args).Ctx(nameof(WrapCache<>), function);
 }

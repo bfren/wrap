@@ -25,7 +25,7 @@ public class MatchIf_Tests
 			var (fTest, fFalse, fTrue) = SetupOk(true);
 
 			// Act
-			var result = input.MatchIf(_ => value, fTest, fFalse, fTrue);
+			var result = input.MatchIf(_ => value, fTest, fTrue, fFalse);
 
 			// Assert
 			Assert.Equal(value, result);
@@ -39,7 +39,7 @@ public class MatchIf_Tests
 			var (fTest, fFalse, fTrue) = SetupOk(true);
 
 			// Act
-			_ = input.MatchIf(_ => Rnd.Str, fTest, fFalse, fTrue);
+			_ = input.MatchIf(_ => Rnd.Str, fTest, fTrue, fFalse);
 
 			// Assert
 			fFalse.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -61,7 +61,7 @@ public class MatchIf_Tests
 				fFalse.Invoke(Arg.Any<int>()).Returns(value);
 
 				// Act
-				var result = input.MatchIf(_ => Rnd.Str, fTest, fFalse, fTrue);
+				var result = input.MatchIf(_ => Rnd.Str, fTest, fTrue, fFalse);
 
 				// Assert
 				Assert.Equal(value, result);
@@ -77,7 +77,7 @@ public class MatchIf_Tests
 				fFalse.Invoke(Arg.Any<int>()).Returns(Rnd.Str);
 
 				// Act
-				_ = input.MatchIf(_ => Rnd.Str, fTest, fFalse, fTrue);
+				_ = input.MatchIf(_ => Rnd.Str, fTest, fTrue, fFalse);
 
 				// Assert
 				fTest.Received(1).Invoke(value);
@@ -92,7 +92,7 @@ public class MatchIf_Tests
 				fFalse.Invoke(Arg.Any<int>()).Returns(Rnd.Str);
 
 				// Act
-				_ = input.MatchIf(_ => Rnd.Str, fTest, fFalse, fTrue);
+				_ = input.MatchIf(_ => Rnd.Str, fTest, fTrue, fFalse);
 
 				// Assert
 				fTrue.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -111,7 +111,7 @@ public class MatchIf_Tests
 				fTrue.Invoke(Arg.Any<int>()).Returns(value);
 
 				// Act
-				var result = input.MatchIf(_ => Rnd.Str, fTest, fFalse, fTrue);
+				var result = input.MatchIf(_ => Rnd.Str, fTest, fTrue, fFalse);
 
 				// Assert
 				Assert.Equal(value, result);
@@ -127,7 +127,7 @@ public class MatchIf_Tests
 				fTrue.Invoke(Arg.Any<int>()).Returns(Rnd.Str);
 
 				// Act
-				_ = input.MatchIf(_ => Rnd.Str, fTest, fFalse, fTrue);
+				_ = input.MatchIf(_ => Rnd.Str, fTest, fTrue, fFalse);
 
 				// Assert
 				fTest.Received(1).Invoke(value);
@@ -142,7 +142,7 @@ public class MatchIf_Tests
 				fTrue.Invoke(Arg.Any<int>()).Returns(Rnd.Str);
 
 				// Act
-				_ = input.MatchIf(_ => Rnd.Str, fTest, fFalse, fTrue);
+				_ = input.MatchIf(_ => Rnd.Str, fTest, fTrue, fFalse);
 
 				// Assert
 				fFalse.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());

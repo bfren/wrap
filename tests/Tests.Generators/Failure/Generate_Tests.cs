@@ -68,4 +68,32 @@ public class Generate_Tests
 		// Assert
 		Assert.Equal("InRecordStruct.Nested()", result.Context);
 	}
+
+	[Fact]
+	public void Overloads__Each_Get_Their_Own_Message()
+	{
+		// Arrange
+
+		// Act
+		var byId = Failures.Overload(Rnd.Int);
+		var byName = Failures.Overload(Rnd.Str);
+
+		// Assert
+		Assert.Equal("Item {Id} was not found.", byId.Message);
+		Assert.Equal("Item {Name} was not found.", byName.Message);
+	}
+
+	[Fact]
+	public void In_Generic_Type__Generates_Method()
+	{
+		// Arrange
+		var value = Rnd.Int;
+
+		// Act
+		var result = Failures.InGeneric<int>.Bad(value);
+
+		// Assert
+		Assert.Equal([value], result.Args);
+		Assert.Equal("InGeneric.Bad()", result.Context);
+	}
 }

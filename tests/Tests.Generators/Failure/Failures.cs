@@ -16,9 +16,22 @@ public static partial class Failures
 	[Failure("Value \"{Value}\" is not a C:\\ path", LogLevel.Error)]
 	internal static partial Failure Escaped(string value);
 
+	[Failure("Item {Id} was not found")]
+	public static partial Failure Overload(int id);
+
+	[Failure("Item {Name} was not found")]
+	public static partial Failure Overload(string name);
+
 	public partial record struct InRecordStruct
 	{
 		[Failure("Nested")]
 		public static partial Failure Nested();
+	}
+
+	public partial class InGeneric<T>
+		where T : struct
+	{
+		[Failure("Bad {Value}")]
+		public static partial Failure Bad(T value);
 	}
 }

@@ -33,7 +33,7 @@ public class MatchIf_Tests
 			var (fNone, fTest, fFalse, fTrue) = Setup(Rnd.Str, false, Rnd.Str, Rnd.Str);
 
 			// Act
-			_ = input.MatchIf(fNone, fTest, fFalse, fTrue);
+			_ = input.MatchIf(fNone, fTest, fTrue, fFalse);
 
 			// Assert
 			fNone.Received(1).Invoke();
@@ -51,7 +51,7 @@ public class MatchIf_Tests
 			var (fNone, fTest, fFalse, fTrue) = Setup(value, false, Rnd.Str, Rnd.Str);
 
 			// Act
-			var result = input.MatchIf(fNone, fTest, fFalse, fTrue);
+			var result = input.MatchIf(fNone, fTest, fTrue, fFalse);
 
 			// Assert
 			Assert.Equal(value, result);
@@ -71,7 +71,7 @@ public class MatchIf_Tests
 				var (fNone, fTest, fFalse, fTrue) = Setup(Rnd.Str, false, Rnd.Str, Rnd.Str);
 
 				// Act
-				_ = input.MatchIf(fNone, fTest, fFalse, fTrue);
+				_ = input.MatchIf(fNone, fTest, fTrue, fFalse);
 
 				// Assert
 				fTest.Received(1).Invoke(value);
@@ -89,7 +89,7 @@ public class MatchIf_Tests
 				var (fNone, fTest, fFalse, fTrue) = Setup(Rnd.Str, false, value, Rnd.Str);
 
 				// Act
-				var result = input.MatchIf(fNone, fTest, fFalse, fTrue);
+				var result = input.MatchIf(fNone, fTest, fTrue, fFalse);
 
 				// Assert
 				Assert.Equal(value, result);
@@ -107,7 +107,7 @@ public class MatchIf_Tests
 				var (fNone, fTest, fFalse, fTrue) = Setup(Rnd.Str, true, Rnd.Str, Rnd.Str);
 
 				// Act
-				_ = input.MatchIf(fNone, fTest, fFalse, fTrue);
+				_ = input.MatchIf(fNone, fTest, fTrue, fFalse);
 
 				// Assert
 				fTest.Received(1).Invoke(value);
@@ -125,7 +125,7 @@ public class MatchIf_Tests
 				var (fNone, fTest, fFalse, fTrue) = Setup(Rnd.Str, true, Rnd.Str, value);
 
 				// Act
-				var result = input.MatchIf(fNone, fTest, fFalse, fTrue);
+				var result = input.MatchIf(fNone, fTest, fTrue, fFalse);
 
 				// Assert
 				Assert.Equal(value, result);

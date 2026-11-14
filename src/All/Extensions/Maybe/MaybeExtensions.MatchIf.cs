@@ -9,7 +9,7 @@ namespace Wrap.Extensions;
 public static partial class MaybeExtensions
 {
 	/// <summary>
-	/// Run <paramref name="fNone"/>, <paramref name="fFalse"/> or <paramref name="fTrue"/>, depending on the value of
+	/// Run <paramref name="fNone"/>, <paramref name="fTrue"/> or <paramref name="fFalse"/>, depending on the value of
 	/// <paramref name="this"/> and the result of <paramref name="fTest"/>, and return its value.
 	/// </summary>
 	/// <typeparam name="T">Some value type.</typeparam>
@@ -17,14 +17,14 @@ public static partial class MaybeExtensions
 	/// <param name="this">Maybe object.</param>
 	/// <param name="fNone">Run when <paramref name="this"/> is <see cref="None"/>.</param>
 	/// <param name="fTest">Test to run on the value.</param>
-	/// <param name="fFalse">Run with the value when <paramref name="this"/> is <see cref="Some{T}"/> and <paramref name="fTest"/> returns <see langword="false"/>.</param>
 	/// <param name="fTrue">Run with the value when <paramref name="this"/> is <see cref="Some{T}"/> and <paramref name="fTest"/> returns <see langword="true"/>.</param>
-	/// <returns>Value returned by <paramref name="fNone"/>, <paramref name="fFalse"/> or <paramref name="fTrue"/>.</returns>
+	/// <param name="fFalse">Run with the value when <paramref name="this"/> is <see cref="Some{T}"/> and <paramref name="fTest"/> returns <see langword="false"/>.</param>
+	/// <returns>Value returned by <paramref name="fNone"/>, <paramref name="fTrue"/> or <paramref name="fFalse"/>.</returns>
 	public static TReturn MatchIf<T, TReturn>(this Maybe<T> @this,
 		Func<TReturn> fNone,
 		Func<T, bool> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		@this switch
 		{
@@ -46,8 +46,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<TReturn> fNone,
 		Func<T, bool> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		@this switch
 		{
@@ -69,8 +69,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<TReturn> fNone,
 		Func<T, bool> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		@this switch
 		{
@@ -92,8 +92,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<TReturn> fNone,
 		Func<T, bool> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		@this switch
 		{
@@ -115,8 +115,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<TReturn> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		@this switch
 		{
@@ -138,8 +138,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<TReturn> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		@this switch
 		{
@@ -161,8 +161,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<TReturn> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		@this switch
 		{
@@ -184,8 +184,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<TReturn> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		@this switch
 		{
@@ -207,8 +207,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<TReturn> fNone,
 		Func<T, bool> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		await @this switch
 		{
@@ -230,8 +230,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<TReturn> fNone,
 		Func<T, bool> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		await @this switch
 		{
@@ -253,8 +253,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<TReturn> fNone,
 		Func<T, bool> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		await @this switch
 		{
@@ -276,8 +276,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<TReturn> fNone,
 		Func<T, bool> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		await @this switch
 		{
@@ -299,8 +299,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<TReturn> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		await @this switch
 		{
@@ -322,8 +322,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<TReturn> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		await @this switch
 		{
@@ -345,8 +345,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<TReturn> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		await @this switch
 		{
@@ -368,8 +368,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, bool> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		@this switch
 		{
@@ -391,8 +391,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, bool> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		@this switch
 		{
@@ -414,8 +414,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, bool> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		@this switch
 		{
@@ -437,8 +437,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, bool> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		@this switch
 		{
@@ -460,8 +460,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		@this switch
 		{
@@ -483,8 +483,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		@this switch
 		{
@@ -506,8 +506,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		@this switch
 		{
@@ -529,8 +529,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		@this switch
 		{
@@ -552,8 +552,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, bool> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		await @this switch
 		{
@@ -575,8 +575,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, bool> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		await @this switch
 		{
@@ -598,8 +598,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, bool> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		await @this switch
 		{
@@ -621,8 +621,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, bool> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		await @this switch
 		{
@@ -644,8 +644,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		await @this switch
 		{
@@ -667,8 +667,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, TReturn> fTrue
+		Func<T, TReturn> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		await @this switch
 		{
@@ -690,8 +690,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, TReturn> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, TReturn> fFalse
 	) =>
 		await @this switch
 		{
@@ -713,8 +713,8 @@ public static partial class MaybeExtensions
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, Task<bool>> fTest,
-		Func<T, Task<TReturn>> fFalse,
-		Func<T, Task<TReturn>> fTrue
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, Task<TReturn>> fFalse
 	) =>
 		await @this switch
 		{
