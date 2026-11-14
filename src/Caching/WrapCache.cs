@@ -61,7 +61,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 	/// <typeparam name="TValue">Value type.</typeparam>
 	/// <param name="key">Cache key.</param>
 	/// <returns>
-	/// <see cref="Wrap.None"/> if there is no entry (or it holds <see langword="null"/>), otherwise
+	/// <see cref="None"/> if there is no entry (or it holds <see langword="null"/>), otherwise
 	/// <see cref="Some{T}"/> holding the value, or a <see cref="Failure"/> if <paramref name="key"/> is
 	/// <see langword="null"/> or the entry is not a <typeparamref name="TValue"/>.
 	/// </returns>
@@ -100,7 +100,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : WrapCache, IWrapCache<
 	/// <param name="value">Value returned by the value factory.</param>
 	/// <param name="opt">Entry options.</param>
 	/// <param name="function">Calling function, used as the failure context.</param>
-	/// <returns>The cached value, or a <see cref="Failure"/> if <paramref name="value"/> is <see cref="Wrap.None"/>.</returns>
+	/// <returns>The cached value, or a <see cref="Failure"/> if <paramref name="value"/> is <see cref="None"/>.</returns>
 	private Result<TValue> Create<TValue>(TKey key, Maybe<TValue> value, MemoryCacheEntryOptions opt, string function) =>
 		value switch
 		{

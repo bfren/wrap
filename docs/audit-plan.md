@@ -6,9 +6,9 @@ Repo audit of branch `108-switch-to-use-union-types`, 12 November 2026. Updated 
 
 **Load assumed:** web apps that use it under real traffic. The cache is registered as one shared instance (a singleton) for the whole app. The JSON converters and model binders read data sent by users.
 
-**Verdict:** fix 5 and 7 next. Everything else is done.
+**Verdict:** fix 5 next. Everything else is done, or decided (7).
 
-**Lean:** about 24 lines could go (number 7), and no dependencies.
+**Lean:** nothing left to remove, and no dependencies.
 
 ## Must fix
 
@@ -92,13 +92,15 @@ Repo audit of branch `108-switch-to-use-union-types`, 12 November 2026. Updated 
 
 ### 7. `Audit` hides failures in audit callbacks
 
-- [ ] Done
+- [x] Done (by design)
 
 **Where:** `src/All/Extensions/Maybe/MaybeExtensions.Audit.cs:40,61,91,130` and `src/All/Extensions/Result/ResultExtensions.Audit.cs`, same lines
 
 - **What this is:** `Audit` runs a callback, for example writing to an audit log, without changing the value.
 - **Problem:** All 8 `catch { }` blocks throw the error away. If the audit log's database is down, nothing is written and nothing says so. This replaced the deleted logging calls and hasn't been confirmed as the intended behaviour. Verified: a callback that throws "db down" runs, and the caller never sees the error.
 - **Fix:** Delete the `try`/`catch`, so the callback's exception reaches the caller. That deletes about 24 lines.
+- **Decision:** by design. Audit is a side job and must never change the result. On `Maybe` there is nowhere to put an error, and letting it through would make an audit change the outcome of the action. Bringing back a static `F.LogFailure` hook was considered and rejected: it is global shared state, like the old `LastFailure`, and an audit function that needs to know about its own errors can catch them itself.
+- **Done:** the docs now say so. The two main overloads in each of `MaybeExtensions.Audit.cs` and `ResultExtensions.Audit.cs` have a `<remarks>` line, and every other overload inherits it.
 - **If we skip it:** Missing audit entries with no trace of why.
 
 ### 8. `UnwrapSingle` throws without going through `Unsafe()`

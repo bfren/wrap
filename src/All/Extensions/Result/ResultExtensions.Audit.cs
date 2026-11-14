@@ -19,6 +19,10 @@ public static partial class ResultExtensions
 	/// <summary>
 	/// Run <paramref name="fFail"/> or <paramref name="fOk"/> depending on the value of <paramref name="this"/>.
 	/// </summary>
+	/// <remarks>
+	/// Exceptions thrown by the audit functions are ignored, so auditing never changes the result.
+	/// Catch them inside the function if you need to know about them.
+	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <param name="fFail">Audit function to run when <paramref name="this"/> is <see cref="Failure"/>.</param>
@@ -48,6 +52,10 @@ public static partial class ResultExtensions
 	/// <summary>
 	/// Run <paramref name="either"/> with the value of <paramref name="this"/>.
 	/// </summary>
+	/// <remarks>
+	/// Exceptions thrown by <paramref name="either"/> are ignored, so auditing never changes the result.
+	/// Catch them inside the function if you need to know about them.
+	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <param name="either">Audit function to run.</param>

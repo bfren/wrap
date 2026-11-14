@@ -19,6 +19,10 @@ public static partial class MaybeExtensions
 	/// <summary>
 	/// Run <paramref name="fNone"/> or <paramref name="fSome"/> depending on the value of <paramref name="this"/>.
 	/// </summary>
+	/// <remarks>
+	/// Exceptions thrown by the audit functions are ignored, so auditing never changes the result.
+	/// Catch them inside the function if you need to know about them.
+	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="fNone">Audit function to run when <paramref name="this"/> is <see cref="None"/>.</param>
@@ -48,6 +52,10 @@ public static partial class MaybeExtensions
 	/// <summary>
 	/// Run <paramref name="either"/> with the value of <paramref name="this"/>.
 	/// </summary>
+	/// <remarks>
+	/// Exceptions thrown by <paramref name="either"/> are ignored, so auditing never changes the result.
+	/// Catch them inside the function if you need to know about them.
+	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="either">Audit function to run.</param>

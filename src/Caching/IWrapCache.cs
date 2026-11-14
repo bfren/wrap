@@ -65,7 +65,7 @@ public interface IWrapCache<TKey>
 	/// <returns>
 	/// <see cref="Ok{T}"/> with the cached or created value, or a <see cref="Failure"/> if <paramref name="key"/> is
 	/// <see langword="null"/>, the entry is not a <typeparamref name="TValue"/>, or <paramref name="valueFactory"/>
-	/// throws or returns <see langword="null"/> or <see cref="Wrap.None"/>.
+	/// throws or returns <see langword="null"/> or <see cref="None"/>.
 	/// </returns>
 	Result<TValue> GetOrCreate<TValue>(TKey key, Func<Maybe<TValue>> valueFactory, MemoryCacheEntryOptions opt);
 

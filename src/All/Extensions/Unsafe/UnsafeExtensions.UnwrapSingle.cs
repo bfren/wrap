@@ -18,7 +18,7 @@ public static partial class UnsafeExtensions
 	/// <remarks>
 	/// <para>
 	/// Unlike <see cref="Unwrap{TEither, TLeft, TRight}(Unsafe{TEither, TLeft, TRight})"/>, a <typeparamref name="TLeft"/>
-	/// value (for example <see cref="Wrap.None"/> or a <see cref="Failure"/>) does not throw: <paramref name="fLeft"/>
+	/// value (for example <see cref="None"/> or a <see cref="Failure"/>) does not throw: <paramref name="fLeft"/>
 	/// is called instead. It also lets C# work out <typeparamref name="TSingle"/>, which it cannot do from the
 	/// constraint on <typeparamref name="TRight"/>.
 	/// </para>
