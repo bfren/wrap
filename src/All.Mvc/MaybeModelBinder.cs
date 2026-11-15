@@ -17,7 +17,10 @@ public sealed class MaybeModelBinder<T> : WrapModelBinder<T>
 	/// </summary>
 	/// <returns>A value provider result holding <c>"None"</c>, and a successful binding result holding <see cref="None"/>.</returns>
 	internal override (ValueProviderResult valueResult, ModelBindingResult bindingResult) Nothing() =>
-		(new(nameof(M.None)), ModelBindingResult.Success(default(Maybe<T>)));
+		(
+			new(nameof(M.None)),
+			ModelBindingResult.Success(default(Maybe<T>)) // don't use 'M.None' here to avoid incorrect compiler warnings
+		);
 
 	/// <summary>
 	/// Wrap a parsed value as a <see cref="Maybe{T}"/>.
