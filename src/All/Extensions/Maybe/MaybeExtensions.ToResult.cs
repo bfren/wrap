@@ -11,9 +11,6 @@ public static partial class MaybeExtensions
 	/// <summary>
 	/// Convert a <see cref="Maybe{T}"/> to a <see cref="Result{T}"/>, turning <see cref="None"/> into a <see cref="Failure"/>.
 	/// </summary>
-	/// <remarks>
-	/// The async overload also returns a <see cref="Failure"/> holding the exception if awaiting <paramref name="this"/> throws.
-	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="class">Failure context class.</param>
@@ -33,17 +30,8 @@ public static partial class MaybeExtensions
 		};
 
 	/// <inheritdoc cref="ToResult{T}(Maybe{T}, string, string)"/>
-	public static async Task<Result<T>> ToResultAsync<T>(this Task<Maybe<T>> @this, string @class, string function)
-	{
-		try
-		{
-			return ToResult(await @this, @class, function);
-		}
-		catch (Exception ex)
-		{
-			return R.Fail(ex).Msg("Error converting Maybe<{Type}> to Result.", typeof(T).Name);
-		}
-	}
+	public static async Task<Result<T>> ToResultAsync<T>(this Task<Maybe<T>> @this, string @class, string function) =>
+		ToResult(await @this, @class, function);
 
 	/// <summary>
 	/// Convert a <see cref="Maybe{T}"/> to a <see cref="Result{T}"/>, using <paramref name="noneHandler"/> when it is <see cref="None"/>.
@@ -51,51 +39,26 @@ public static partial class MaybeExtensions
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="noneHandler">Returns the result to use when <paramref name="this"/> is <see cref="None"/>.</param>
+	/// <remarks>
+	/// Exceptions thrown by <paramref name="noneHandler"/> are not caught: it returns a <see cref="Result{T}"/>, so it should handle its own.
+	/// </remarks>
 	/// <returns>
-	/// <see cref="Ok{T}"/> holding the value, the result returned by <paramref name="noneHandler"/>, or a <see cref="Failure"/>
-	/// holding the exception if <paramref name="noneHandler"/> (or awaiting <paramref name="this"/>) throws.
+	/// <see cref="Ok{T}"/> holding the value, or the result returned by <paramref name="noneHandler"/>.
 	/// </returns>
-	public static Result<T> ToResult<T>(this Maybe<T> @this, Func<Result<T>> noneHandler)
-	{
-		try
-		{
-			return M.Match(@this,
-				fNone: noneHandler,
-				fSome: R.Wrap
-			);
-		}
-		catch (Exception ex)
-		{
-			return R.Fail(ex).Msg("Error converting Maybe<{Type}> to Result.", typeof(T).Name);
-		}
-	}
+	public static Result<T> ToResult<T>(this Maybe<T> @this, Func<Result<T>> noneHandler) =>
+		M.Match(@this,
+			fNone: noneHandler,
+			fSome: R.Wrap
+		);
 
 	/// <inheritdoc cref="ToResult{T}(Maybe{T}, Func{Result{T}})"/>
-	public static async Task<Result<T>> ToResultAsync<T>(this Task<Maybe<T>> @this, Func<Result<T>> noneHandler)
-	{
-		try
-		{
-			return ToResult(await @this, noneHandler);
-		}
-		catch (Exception ex)
-		{
-			return R.Fail(ex).Msg("Error converting Maybe<{Type}> to Result.", typeof(T).Name);
-		}
-	}
+	public static async Task<Result<T>> ToResultAsync<T>(this Task<Maybe<T>> @this, Func<Result<T>> noneHandler) =>
+		ToResult(await @this, noneHandler);
 
 	/// <inheritdoc cref="ToResult{T}(Maybe{T}, Func{Result{T}})"/>
-	public static async Task<Result<T>> ToResultAsync<T>(this Task<Maybe<T>> @this, Func<Task<Result<T>>> noneHandler)
-	{
-		try
-		{
-			return await M.MatchAsync(@this,
-				fNone: noneHandler,
-				fSome: R.Wrap
-			);
-		}
-		catch (Exception ex)
-		{
-			return R.Fail(ex).Msg("Error converting Maybe<{Type}> to Result.", typeof(T).Name);
-		}
-	}
+	public static Task<Result<T>> ToResultAsync<T>(this Task<Maybe<T>> @this, Func<Task<Result<T>>> noneHandler) =>
+		M.MatchAsync(@this,
+			fNone: noneHandler,
+			fSome: R.Wrap
+		);
 }
