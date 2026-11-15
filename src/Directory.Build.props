@@ -13,6 +13,13 @@
     <WarningsAsErrors>$(WarningsAsErrors);CS8509;CS8655</WarningsAsErrors>
   </PropertyGroup>
 
+  <!-- Let analyzers (the [Failure] generator in Wrap.Result) flow through package dependencies -->
+  <ItemDefinitionGroup>
+    <ProjectReference>
+      <PrivateAssets>contentfiles;build</PrivateAssets>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+
   <!-- Enable Internal Testing -->
   <ItemGroup Label="Test Internals">
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">

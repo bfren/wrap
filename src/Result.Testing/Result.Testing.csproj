@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <RootNamespace>Wrap.Testing</RootNamespace>
   </PropertyGroup>
@@ -6,11 +6,9 @@
     <ProjectReference Include="..\Result\Result.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Using Include="RndF" />
     <Using Include="Xunit" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Rnd" PrivateAssets="All" />
     <PackageReference Include="xunit.v3.assert" PrivateAssets="All" />
   </ItemGroup>
 </Project>
