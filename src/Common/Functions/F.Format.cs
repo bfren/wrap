@@ -21,7 +21,7 @@ public static partial class F
 	/// <para>
 	/// When <paramref name="source"/> is an array and the placeholders are named, the values are inserted in order,
 	/// whatever the names. When it is any other object, each named placeholder takes the value of the public property
-	/// with that name (ignoring case). A placeholder with no matching value is left in place.
+	/// with that name (ignoring case), looked up on <typeparamref name="T"/> rather than the runtime type. A placeholder with no matching value is left in place.
 	/// </para>
 	/// <para>
 	/// Format specifiers (<c>{A:0.00}</c>) use <see cref="DefaultCulture"/>. Braces outside placeholders are kept as written,
@@ -206,8 +206,11 @@ public static partial class F
 
 	private static class PropertyCache<T>
 	{
-		private static readonly ConcurrentDictionary<string, PropertyInfo?> Cache = new();
-		private static readonly BindingFlags Flags = BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
+		private static readonly ConcurrentDictionary<string, PropertyInfo?> Cache =
+			new();
+
+		private static readonly BindingFlags Flags =
+			BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
 
 		internal static PropertyInfo? GetProperty(string name) =>
 			Cache.GetOrAdd(name, static n => typeof(T).GetProperty(n, Flags));
