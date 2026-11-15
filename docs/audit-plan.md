@@ -8,7 +8,7 @@ A second audit on 14 November 2026 covered the parts the first one skipped: the 
 
 **Load assumed:** web apps that use it under real traffic. The cache is registered as one shared instance (a singleton) for the whole app. The JSON converters and model binders read data sent by users.
 
-**Verdict:** first audit all done, or decided (7). Second audit: 5 done, 1 withdrawn, 3 open (13, 14 and 17).
+**Verdict:** first audit all done, or decided (7). Second audit: 6 done, 1 withdrawn, 2 open (14 and 17).
 
 **Lean:** about 30 lines left to remove (14), and no dependencies.
 
@@ -201,13 +201,14 @@ Repo audit of branch `116-run-maybetoresultextensionsselect-through-rtry`, 14 No
 
 ### 13. A bad MVC value silently becomes `None`
 
-- [ ] Open
+- [x] Done
 
 **Where:** `src/All.Mvc/WrapModelBinder.cs:100-110`, `src/All.Mvc/MaybeModelBinder.cs`
 
 - **What this is:** The MVC binder reads request values like `?userId=…` into `Maybe<T>` parameters.
 - **Problem:** A value that fails to parse goes through the same `Nothing()` path as a missing one, and `MaybeModelBinder` reports a successful `None`. `GET /orders?userId=abc` behaves like "no filter", so an action that filters only when the value is present can return every order. The JSON converters were changed to reject bad input (item 2), so the two disagree.
 - **Fix:** Keep `Nothing()` for missing or empty values. When parsing fails, add a ModelState error and return `ModelBindingResult.Failed()`, so `[ApiController]` returns a 400. Update the `Incorrect_Type` test, which asserts the current behaviour.
+- **Done:** parse failures now go through a new `Failed(result)`, which keeps the raw value and fails binding, and `BindModelAsync` adds a ModelState error when binding failed for a value that is present. `Nothing()` is still used for missing or empty values, so `Maybe` still binds those as `None`. Tests cover both binders in `GetValue_Tests` and `BindModelAsync_Tests`.
 - **If we skip it:** Typos and bad clients get wrong, wider results instead of an error.
 
 ### 14. `ToResult` catches exceptions that monad-returning lambdas should handle
