@@ -17,6 +17,9 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 	internal IMemoryCache Cache { get; private init; } =
 		cache;
 
+	private MemoryCacheEntryOptions DefaultOptions =>
+		new() { Size = 1 };
+
 	/// <inheritdoc/>
 	public Result<TValue> GetValue<TValue>(TKey key) =>
 		Find<TValue>(key, nameof(GetValue)) switch
@@ -30,7 +33,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 
 	/// <inheritdoc/>
 	public void SetValue<TValue>(TKey key, TValue value) =>
-		SetValue(key, value, new());
+		SetValue(key, value, DefaultOptions);
 
 	/// <inheritdoc/>
 	public void SetValue<TValue>(TKey key, TValue value, MemoryCacheEntryOptions opt)
@@ -43,7 +46,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 
 	/// <inheritdoc/>
 	public Task SetValueAsync<TValue>(TKey key, Func<Task<TValue>> valueFactory) =>
-		SetValueAsync(key, valueFactory, new());
+		SetValueAsync(key, valueFactory, DefaultOptions);
 
 	/// <inheritdoc/>
 	public async Task SetValueAsync<TValue>(TKey key, Func<Task<TValue>> valueFactory, MemoryCacheEntryOptions opt)
@@ -56,7 +59,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 
 	/// <inheritdoc/>
 	public Result<TValue> GetOrCreate<TValue>(TKey key, Func<TValue> valueFactory) =>
-		GetOrCreate(key, () => R.Wrap(valueFactory()), new());
+		GetOrCreate(key, () => R.Wrap(valueFactory()), DefaultOptions);
 
 	/// <inheritdoc/>
 	public Result<TValue> GetOrCreate<TValue>(TKey key, Func<TValue> valueFactory, MemoryCacheEntryOptions opt) =>
@@ -64,7 +67,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 
 	/// <inheritdoc/>
 	public Result<TValue> GetOrCreate<TValue>(TKey key, Func<Result<TValue>> valueFactory) =>
-		GetOrCreate(key, valueFactory, new());
+		GetOrCreate(key, valueFactory, DefaultOptions);
 
 	/// <inheritdoc/>
 	public Result<TValue> GetOrCreate<TValue>(TKey key, Func<Result<TValue>> valueFactory, MemoryCacheEntryOptions opt)
@@ -87,7 +90,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 
 	/// <inheritdoc/>
 	public Task<Result<TValue>> GetOrCreateAsync<TValue>(TKey key, Func<Task<TValue>> valueFactory) =>
-		GetOrCreateAsync(key, async () => R.Wrap(await valueFactory()), new());
+		GetOrCreateAsync(key, async () => R.Wrap(await valueFactory()), DefaultOptions);
 
 	/// <inheritdoc/>
 	public Task<Result<TValue>> GetOrCreateAsync<TValue>(TKey key, Func<Task<TValue>> valueFactory, MemoryCacheEntryOptions opt) =>
@@ -95,7 +98,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 
 	/// <inheritdoc/>
 	public Task<Result<TValue>> GetOrCreateAsync<TValue>(TKey key, Func<Task<Result<TValue>>> valueFactory) =>
-		GetOrCreateAsync(key, valueFactory, new());
+		GetOrCreateAsync(key, valueFactory, DefaultOptions);
 
 	/// <inheritdoc/>
 	public async Task<Result<TValue>> GetOrCreateAsync<TValue>(TKey key, Func<Task<Result<TValue>>> valueFactory, MemoryCacheEntryOptions opt)
