@@ -33,12 +33,15 @@ public static partial class M
 		);
 
 	/// <inheritdoc cref="ParseBool(string?)"/>
+	/// <remarks>
+	/// Input without an offset is treated as UTC, not server local time, so the result is the same on every machine.
+	/// </remarks>
 	public static Maybe<DateTimeOffset> ParseDateTimeOffset(string? input) =>
 		Parse(input, (string? s, out DateTimeOffset result) =>
 			DateTimeOffset.TryParse(s, F.DefaultCulture, DateTimeStyles.AssumeUniversal, out result)
 		);
 
-	/// <inheritdoc cref="ParseBool(string?)"/>
+	/// <inheritdoc cref="ParseDateTimeOffset(string?)"/>
 	public static Maybe<DateTimeOffset> ParseDateTimeOffset(ReadOnlySpan<char> input) =>
 		Parse(input, (ReadOnlySpan<char> s, out DateTimeOffset result) =>
 			DateTimeOffset.TryParse(s, F.DefaultCulture, DateTimeStyles.AssumeUniversal, out result)
