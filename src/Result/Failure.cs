@@ -43,7 +43,8 @@ public readonly partial record struct Failure : IWithException
 	/// <summary>
 	/// Gets the arguments used to fill the placeholders in <see cref="Message"/> (empty if there are none).
 	/// </summary>
-	public readonly object?[] Args { get; init; } = [];
+	public readonly object?[] Args { get; init; } =
+		[];
 
 	/// <summary>
 	/// Gets the context of the failure, usually the calling type or method, or <see langword="null"/> if none was set.

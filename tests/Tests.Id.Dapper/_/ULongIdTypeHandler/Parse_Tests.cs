@@ -5,7 +5,7 @@ using Wrap.Ids;
 
 namespace Wrap.Dapper.ULongIdTypeHandler_Tests;
 
-public class Parse_Tests : Abstracts.Parse_Tests<Parse_Tests.TestULongId, ulong, ULongIdTypeHandler<Parse_Tests.TestULongId>>
+public class Parse_Tests : Abstracts.IntegerParse_Tests<Parse_Tests.TestULongId, ulong, ULongIdTypeHandler<Parse_Tests.TestULongId>>
 {
 	[Theory]
 	[MemberData(nameof(Null_Or_Empty_Or_Invalid_Data))]
@@ -21,6 +21,15 @@ public class Parse_Tests : Abstracts.Parse_Tests<Parse_Tests.TestULongId, ulong,
 	[InlineData(" 42 ", 42UL)]
 	public override void Test01_Valid_Input__Returns_Id(object input, ulong? expected) =>
 		Test01(input, _ => (ulong)expected!);
+
+	[Theory]
+	[MemberData(nameof(Whole_Decimal_Data))]
+	public override void Test02_Whole_Decimal__Returns_Id(decimal input) =>
+		Test02(input, 42UL);
+
+	[Fact]
+	public override void Test03_Decimal_Not_Whole__Throws_OverflowException() =>
+		Test03();
 
 	public sealed record class TestULongId : ULongId<TestULongId>;
 }

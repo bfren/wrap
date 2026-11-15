@@ -32,11 +32,16 @@ public interface IWrapCache<TKey>
 	/// <summary>
 	/// Create or replace a cache entry.
 	/// </summary>
+	/// <remarks>
+	/// Without options the entry has a <see cref="MemoryCacheEntryOptions.Size"/> of 1, so a
+	/// <c>MemoryCacheOptions.SizeLimit</c> on the <see cref="IMemoryCache"/> works as a maximum number of entries.
+	/// </remarks>
 	/// <typeparam name="TValue">Value type.</typeparam>
 	/// <param name="key">Entry key.</param>
 	/// <param name="value">Entry value.</param>
-	/// <param name="opt">Entry options.</param>
+	/// <param name="opt">Entry options, which must set <see cref="MemoryCacheEntryOptions.Size"/> if the <see cref="IMemoryCache"/> has a <c>MemoryCacheOptions.SizeLimit</c>.</param>
 	/// <exception cref="ArgumentNullException"><paramref name="key"/> or <paramref name="value"/> is <see langword="null"/>.</exception>
+	/// <exception cref="InvalidOperationException">The <see cref="IMemoryCache"/> has a <c>MemoryCacheOptions.SizeLimit</c> and <paramref name="opt"/> does not set <see cref="MemoryCacheEntryOptions.Size"/>.</exception>
 	void SetValue<TValue>(TKey key, TValue value, MemoryCacheEntryOptions opt);
 
 	/// <inheritdoc cref="SetValueAsync{TValue}(TKey, Func{Task{TValue}}, MemoryCacheEntryOptions)"/>
@@ -45,11 +50,16 @@ public interface IWrapCache<TKey>
 	/// <summary>
 	/// Create or replace a cache entry with the value returned by <paramref name="valueFactory"/>.
 	/// </summary>
+	/// <remarks>
+	/// Without options the entry has a <see cref="MemoryCacheEntryOptions.Size"/> of 1, so a
+	/// <c>MemoryCacheOptions.SizeLimit</c> on the <see cref="IMemoryCache"/> works as a maximum number of entries.
+	/// </remarks>
 	/// <typeparam name="TValue">Value type.</typeparam>
 	/// <param name="key">Entry key.</param>
 	/// <param name="valueFactory">Entry value factory.</param>
-	/// <param name="opt">Entry options.</param>
+	/// <param name="opt">Entry options, which must set <see cref="MemoryCacheEntryOptions.Size"/> if the <see cref="IMemoryCache"/> has a <c>MemoryCacheOptions.SizeLimit</c>.</param>
 	/// <exception cref="ArgumentNullException"><paramref name="key"/> or <paramref name="valueFactory"/> is <see langword="null"/>.</exception>
+	/// <exception cref="InvalidOperationException">The <see cref="IMemoryCache"/> has a <c>MemoryCacheOptions.SizeLimit</c> and <paramref name="opt"/> does not set <see cref="MemoryCacheEntryOptions.Size"/>.</exception>
 	Task SetValueAsync<TValue>(TKey key, Func<Task<TValue>> valueFactory, MemoryCacheEntryOptions opt);
 
 	/// <inheritdoc cref="GetOrCreate{TValue}(TKey, Func{Result{TValue}}, MemoryCacheEntryOptions)"/>
@@ -74,15 +84,20 @@ public interface IWrapCache<TKey>
 	/// <paramref name="valueFactory"/> and the last value stored wins. That suits factories that only read,
 	/// for example a database query.
 	/// </para>
+	/// <para>
+	/// Without options the entry has a <see cref="MemoryCacheEntryOptions.Size"/> of 1, so a
+	/// <c>MemoryCacheOptions.SizeLimit</c> on the <see cref="IMemoryCache"/> works as a maximum number of entries.
+	/// </para>
 	/// </remarks>
 	/// <typeparam name="TValue">Value type.</typeparam>
 	/// <param name="key">Entry key.</param>
 	/// <param name="valueFactory">Entry value factory.</param>
-	/// <param name="opt">Entry options.</param>
+	/// <param name="opt">Entry options, which must set <see cref="MemoryCacheEntryOptions.Size"/> if the <see cref="IMemoryCache"/> has a <c>MemoryCacheOptions.SizeLimit</c>.</param>
 	/// <returns>
 	/// <see cref="Ok{T}"/> with the cached or created value, or a <see cref="Failure"/> if <paramref name="key"/> is
-	/// <see langword="null"/>, the entry is not a <typeparamref name="TValue"/>, or <paramref name="valueFactory"/>
-	/// fails, throws or returns <see langword="null"/>.
+	/// <see langword="null"/>, the entry is not a <typeparamref name="TValue"/>, <paramref name="valueFactory"/>
+	/// fails, throws or returns <see langword="null"/>, or the value cannot be stored (for example because
+	/// <paramref name="opt"/> does not set a size the <see cref="IMemoryCache"/> requires).
 	/// </returns>
 	Result<TValue> GetOrCreate<TValue>(TKey key, Func<Result<TValue>> valueFactory, MemoryCacheEntryOptions opt);
 

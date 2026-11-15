@@ -19,11 +19,11 @@ public sealed class LongIdTypeHandler<T> : IdTypeHandler<T, long>
 	/// </summary>
 	/// <param name="value">Database value.</param>
 	/// <returns>A new <typeparamref name="T"/> holding the parsed value, or the default value if <paramref name="value"/> is <see langword="null"/> or cannot be parsed.</returns>
-	/// <exception cref="OverflowException"><paramref name="value"/> is a number that cannot be stored in the ID value type.</exception>
+	/// <exception cref="OverflowException"><paramref name="value"/> is a number that is not whole or does not fit in the ID value type.</exception>
 	public override T Parse(object value) =>
 		new()
 		{
-			Value = M.ParseInt64(value?.ToString()) switch
+			Value = IntegerIdValue.Convert(value, M.ParseInt64) switch
 			{
 				Some<long> x =>
 					x.Value,
