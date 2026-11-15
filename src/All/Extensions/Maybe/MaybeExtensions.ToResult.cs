@@ -11,9 +11,6 @@ public static partial class MaybeExtensions
 	/// <summary>
 	/// Convert a <see cref="Maybe{T}"/> to a <see cref="Result{T}"/>, turning <see cref="None"/> into a <see cref="Failure"/>.
 	/// </summary>
-	/// <remarks>
-	/// The async overload also returns a <see cref="Failure"/> holding the exception if awaiting <paramref name="this"/> throws.
-	/// </remarks>
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="class">Failure context class.</param>
@@ -42,9 +39,11 @@ public static partial class MaybeExtensions
 	/// <typeparam name="T">Some value type.</typeparam>
 	/// <param name="this">Maybe object.</param>
 	/// <param name="noneHandler">Returns the result to use when <paramref name="this"/> is <see cref="None"/>.</param>
+	/// <remarks>
+	/// Exceptions thrown by <paramref name="noneHandler"/> are not caught: it returns a <see cref="Result{T}"/>, so it should handle its own.
+	/// </remarks>
 	/// <returns>
-	/// <see cref="Ok{T}"/> holding the value, the result returned by <paramref name="noneHandler"/>, or a <see cref="Failure"/>
-	/// holding the exception if <paramref name="noneHandler"/> (or awaiting <paramref name="this"/>) throws.
+	/// <see cref="Ok{T}"/> holding the value, or the result returned by <paramref name="noneHandler"/>.
 	/// </returns>
 	public static Result<T> ToResult<T>(this Maybe<T> @this, Func<Result<T>> noneHandler) =>
 		M.Match(@this,
