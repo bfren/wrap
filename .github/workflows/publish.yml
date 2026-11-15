@@ -35,6 +35,9 @@ jobs:
         name: nupkgs # uploaded by bfren/dotnet prepare.yml
         path: ${{ env.PACKAGES_DIR }}
     -
+      name: Check generator # tests build from source, so only this catches the [Failure] generator missing from the package
+      run: unzip -l "${{ env.PACKAGES_DIR }}"/Wrap.Result.[0-9]*.nupkg | grep -q analyzers/dotnet/cs/Wrap.Generators.dll
+    -
       name: NuGet login # must run from this repo's own workflow file - NuGet rejects logins from shared workflows
       uses: NuGet/login@v1
       id: login
