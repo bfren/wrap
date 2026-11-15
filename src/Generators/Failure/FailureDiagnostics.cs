@@ -64,6 +64,18 @@ internal static class FailureDiagnostics
 		isEnabledByDefault: true
 	);
 
+	/// <summary>
+	/// The method uses a feature the generator cannot implement.
+	/// </summary>
+	internal static readonly DiagnosticDescriptor UnsupportedMethod = new(
+		"WRAP005",
+		"Unsupported Failure method",
+		"Method '{0}' cannot use [Failure] because it has {1}",
+		Category,
+		DiagnosticSeverity.Error,
+		isEnabledByDefault: true
+	);
+
 	// Same pattern as F.Format's TemplateMatcherRegex (src/Common/Functions/F.Format.cs) - keep the two in step
 	private static readonly Regex TemplateMatcher = new(
 		@"(?<start>\{)+(?<template>[\w\.\[\]@]+)(?<format>:[^}]+)?(?<end>\})+|\{\{|\}\}",
@@ -85,6 +97,28 @@ internal static class FailureDiagnostics
 		{
 			canGenerate = false;
 			return [Diagnostic.Create(InvalidMethod, method.Locations.FirstOrDefault(), method.Name)];
+		}
+
+		// Generic methods would need every constraint copied exactly, and params would spread into the Failure args
+		var unsupported = method switch
+		{
+			{ IsGenericMethod: true } =>
+				"type parameters",
+
+			_ when method.Parameters.Any(p => p.IsParams) =>
+				"a params parameter",
+
+			_ when method.Parameters.Any(p => p.RefKind != RefKind.None) =>
+				"a ref, out or in parameter",
+
+			_ =>
+				null
+		};
+
+		if (unsupported is not null)
+		{
+			canGenerate = false;
+			return [Diagnostic.Create(UnsupportedMethod, method.Locations.FirstOrDefault(), method.Name, unsupported)];
 		}
 
 		canGenerate = true;

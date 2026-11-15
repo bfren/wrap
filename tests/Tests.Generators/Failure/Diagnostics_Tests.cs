@@ -77,6 +77,24 @@ public class Diagnostics_Tests
 	}
 
 	[Theory]
+	[InlineData("""[Failure("Value {Value}")] public static partial Failure F<T>(T value);""")]
+	[InlineData("""[Failure("Items {Items}")] public static partial Failure F(params object[] items);""")]
+	[InlineData("""[Failure("Value {Value}")] public static partial Failure F(in int value);""")]
+	[InlineData("""[Failure("Value {Value}")] public static partial Failure F(ref int value);""")]
+	[InlineData("""[Failure("Value {Value}")] public static partial Failure F(out int value);""")]
+	[InlineData("""[Failure("Value {Value}")] public static partial Failure F(ref readonly int value);""")]
+	public void Unsupported_Method__Reports_WRAP005(string method)
+	{
+		// Arrange
+
+		// Act
+		var result = GetDiagnosticIds(method);
+
+		// Assert
+		Assert.Equal(["WRAP005"], result);
+	}
+
+	[Theory]
 	[InlineData("""[Failure("")] public static partial Failure F();""")]
 	[InlineData("""[Failure("  ")] public static partial Failure F();""")]
 	public void Empty_Message__Reports_WRAP002(string method)

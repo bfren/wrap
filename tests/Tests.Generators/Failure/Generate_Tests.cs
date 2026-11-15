@@ -96,4 +96,17 @@ public class Generate_Tests
 		Assert.Equal([value], result.Args);
 		Assert.Equal("InGeneric.Bad()", result.Context);
 	}
+
+	[Fact]
+	public void In_Global_Namespace__Generates_Method()
+	{
+		// Arrange
+
+		// Act
+		var result = GlobalFailures.Global();
+
+		// Assert
+		Assert.Equal("Global.", result.Message);
+		Assert.Equal("GlobalFailures.Global()", result.Context);
+	}
 }
