@@ -8,7 +8,7 @@ A second audit on 14 November 2026 covered the parts the first one skipped: the 
 
 **Load assumed:** web apps that use it under real traffic. The cache is registered as one shared instance (a singleton) for the whole app. The JSON converters and model binders read data sent by users.
 
-**Verdict:** first audit all done, or decided (7). Second audit: 7 done, 1 withdrawn, 1 open (17).
+**Verdict:** first audit all done, or decided (7). Second audit: all done (8), 1 withdrawn.
 
 **Lean:** nothing left to remove, and no dependencies.
 
@@ -225,7 +225,7 @@ Repo audit of branch `116-run-maybetoresultextensionsselect-through-rtry`, 14 No
 
 ### 17. The generator can't implement `params`, `in`/`ref`, generic or global-namespace methods
 
-- [ ] Open
+- [x] Done
 
 **Where:** `src/Generators/Failure/FailureGenerator.cs`, `src/Generators/Failure/ParameterModel.cs`
 
@@ -236,6 +236,7 @@ Repo audit of branch `116-run-maybetoresultextensionsselect-through-rtry`, 14 No
   - `Generic<T>(T value)` loses its type parameter: CS0246 and CS0759.
   - A class in the global namespace is generated into a different namespace: CS8795 and CS0759.
 - **Fix:** Copy the parameter modifiers (`params`, `in`, `ref`, `out`, `scoped`) and the method's type parameters with their constraints, and leave out the `namespace` line when `ContainingNamespace.IsGlobalNamespace`. Or report WRAP001 for the cases that aren't supported, which is less code.
+- **Done:** the global namespace is supported: no `namespace` line is written, and `GlobalFailures.cs` in `Tests.Generators` doesn't compile if this breaks. The other cases report a new error, WRAP005 (not WRAP001, whose message would mislead), and nothing is generated. Supporting generic methods would mean copying every constraint exactly, and `params` would spread into the `Failure` args. `Diagnostics_Tests` has one row per case.
 - **If we skip it:** Users get compiler errors pointing at generated code, with no diagnostic saying why.
 
 ## Nice to have
