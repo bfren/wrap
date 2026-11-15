@@ -6,7 +6,7 @@
 
 namespace Wrap.Dapper.IntegerIdValue_Tests;
 
-public class Create_Tests
+public class Convert_Tests
 {
 	// fails the test if the string fallback is used, so direct conversion is proved
 	private static Maybe<T> NoParse<T>(string? _) =>

@@ -261,9 +261,9 @@ Repo audit of branch `116-run-maybetoresultextensionsselect-through-rtry`, 14 No
 ## Left out
 
 - `F.DefaultCulture` is a global setting anyone can change, and it defaults to en-GB. The binder parses `03/04/2026` as 3 April, even for a US client. **Decision: by design.** Wrap is a library, so the app using it sets `DefaultCulture`. Its docs now say that it is one setting for the whole process, to set once at startup.
-- `M.ParseDateTimeOffset` assumes server local time when the input has no offset, so the result depends on the server's time zone.
-- `Rnd.Int`/`Lng`/`UInt32`/`UInt64` are documented as covering the full range, but they return values of about 10,000–19,999 (the `limit: true` path in `IdGenerator` relies on them).
-- From the first audit's "Left out", two items still apply: the `GetOrCreate` bodies in `WrapCache` are near-copies, and the JSON converters match English exception text. The third, `M.ParseChar` allocating, is already fixed: it now uses `input is [var c] ? c : None`.
+- `M.ParseDateTimeOffset` assumes server local time when the input has no offset, so the result depends on the server's time zone. **Fixed (#129):** both overloads now use `DateTimeStyles.AssumeUniversal`, so input with no offset is read as UTC.
+- `Rnd.Int`/`Lng`/`UInt32`/`UInt64` are documented as covering the full range, but they return values of about 10,000–19,999 (the `limit: true` path in `IdGenerator` relies on them). **Fixed in Rnd:** the docs for all twelve number properties now give the real range. Wrap picks this up when it moves to a Rnd release with the fix.
+- From the first audit's "Left out", two items still apply, both accepted: the `GetOrCreate` bodies in `WrapCache` are near-copies (merging them would mean blocking on async code), and the JSON converters match English exception text (no clean fix found). The third, `M.ParseChar` allocating, is already fixed: it now uses `input is [var c] ? c : None`.
 
 All items above were rechecked against `121-audit-fixes` on 14 November 2026, and `main` had nothing newer.
 
