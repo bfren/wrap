@@ -15,7 +15,8 @@ public abstract record class WithId<TId, TValue> : IWithId<TId, TValue>
 	/// <summary>
 	/// Gets or initialises the strongly typed ID; a new ID holds the default value.
 	/// </summary>
-	public TId Id { get; init; } = new();
+	public TId Id { get; init; } =
+		new();
 
 	/// <inheritdoc/>
 	IMonad IWithId.Id =>

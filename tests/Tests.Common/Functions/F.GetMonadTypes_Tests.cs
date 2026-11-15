@@ -65,7 +65,8 @@ public class GetMonadTypes_Tests
 
 	public sealed record class TestWithMultipleValueTypes : IMonad<TestWithMultipleValueTypes, int>, IMonad<TestWithMultipleValueTypes, long>
 	{
-		public object Value { get; init; } = new();
+		public object Value { get; init; } =
+			new();
 
 		int IMonad<int>.Value
 		{
