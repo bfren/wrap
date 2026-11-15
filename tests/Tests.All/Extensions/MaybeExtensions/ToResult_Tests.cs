@@ -57,7 +57,7 @@ public class ToResult_Tests
 			}
 
 			[Fact]
-			public void Catches_Exception_And_Returns_Failure()
+			public void Does_Not_Catch_Exception()
 			{
 				// Arrange
 				Maybe<string> maybe = M.None;
@@ -66,11 +66,10 @@ public class ToResult_Tests
 				handler.Invoke().Returns(x => throw ex);
 
 				// Act
-				var result = maybe.ToResult(handler);
+				var result = Record.Exception(() => maybe.ToResult(handler));
 
 				// Assert
-				var f = result.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(String));
-				Assert.Same(ex, f.Exception);
+				Assert.Same(ex, result);
 			}
 		}
 	}

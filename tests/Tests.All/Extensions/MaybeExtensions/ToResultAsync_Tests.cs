@@ -10,35 +10,32 @@ public class ToResultAsync_Tests
 		public class Null_Maybe
 		{
 			[Fact]
-			public async Task Returns_Failure_With_NullReferenceException()
+			public async Task Throws_NullReferenceException()
 			{
 				// Arrange
 				Task<Maybe<int>> maybe = null!;
 
 				// Act
-				var result = await MaybeExtensions.ToResultAsync(maybe, Rnd.Str, Rnd.Str);
+				var action = () => MaybeExtensions.ToResultAsync(maybe, Rnd.Str, Rnd.Str);
 
 				// Assert
-				var f = result.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Int32));
-				Assert.IsType<NullReferenceException>(f.Exception);
+				_ = await Assert.ThrowsAsync<NullReferenceException>(action);
 			}
 
 			[Fact]
-			public async Task With_Handler_Returns_Failure_With_NullReferenceException()
+			public async Task With_Handler_Throws_NullReferenceException()
 			{
 				// Arrange
 				Task<Maybe<int>> maybe = null!;
 				var handler = Substitute.For<Func<Result<int>>>();
 
 				// Act
-				var r0 = await maybe.ToResultAsync(handler);
-				var r1 = await maybe.ToResultAsync(async () => handler());
+				var a0 = () => maybe.ToResultAsync(handler);
+				var a1 = () => maybe.ToResultAsync(async () => handler());
 
 				// Assert
-				var f0 = r0.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Int32));
-				Assert.IsType<NullReferenceException>(f0.Exception);
-				var f1 = r1.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(Int32));
-				Assert.IsType<NullReferenceException>(f1.Exception);
+				_ = await Assert.ThrowsAsync<NullReferenceException>(a0);
+				_ = await Assert.ThrowsAsync<NullReferenceException>(a1);
 				handler.DidNotReceive().Invoke();
 			}
 		}
@@ -97,7 +94,7 @@ public class ToResultAsync_Tests
 			}
 
 			[Fact]
-			public async Task Catches_Exception_And_Returns_Failure()
+			public async Task Does_Not_Catch_Exception()
 			{
 				// Arrange
 				var maybe = M.NoneAsTask<string>();
@@ -106,14 +103,12 @@ public class ToResultAsync_Tests
 				handler.Invoke().Returns(x => throw ex);
 
 				// Act
-				var r0 = await maybe.ToResultAsync(handler);
-				var r1 = await maybe.ToResultAsync(async () => handler());
+				var r0 = await Record.ExceptionAsync(() => maybe.ToResultAsync(handler));
+				var r1 = await Record.ExceptionAsync(() => maybe.ToResultAsync(async () => handler()));
 
 				// Assert
-				var f0 = r0.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(String));
-				Assert.Same(ex, f0.Exception);
-				var f1 = r1.AssertFailure("Error converting Maybe<{Type}> to Result.", nameof(String));
-				Assert.Same(ex, f1.Exception);
+				Assert.Same(ex, r0);
+				Assert.Same(ex, r1);
 			}
 		}
 	}

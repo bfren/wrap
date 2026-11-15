@@ -8,9 +8,9 @@ A second audit on 14 November 2026 covered the parts the first one skipped: the 
 
 **Load assumed:** web apps that use it under real traffic. The cache is registered as one shared instance (a singleton) for the whole app. The JSON converters and model binders read data sent by users.
 
-**Verdict:** first audit all done, or decided (7). Second audit: 6 done, 1 withdrawn, 2 open (14 and 17).
+**Verdict:** first audit all done, or decided (7). Second audit: 7 done, 1 withdrawn, 1 open (17).
 
-**Lean:** about 30 lines left to remove (14), and no dependencies.
+**Lean:** nothing left to remove, and no dependencies.
 
 ## Must fix
 
@@ -213,13 +213,14 @@ Repo audit of branch `116-run-maybetoresultextensionsselect-through-rtry`, 14 No
 
 ### 14. `ToResult` catches exceptions that monad-returning lambdas should handle
 
-- [ ] Open
+- [x] Done (breaking)
 
 **Where:** `src/All/Extensions/Maybe/MaybeExtensions.ToResult.cs`
 
 - **What this is:** It turns a `Maybe` into a `Result`, with a `noneHandler` that returns a `Result`.
 - **Problem:** The rule is that a lambda returning a monad handles its own exceptions, so `Bind` doesn't catch them. `ToResult` wraps all four overloads in `try`/`catch`, faulted tasks included. So `m.ToResult(() => throw x)` returns a `Failure`, but `m.Bind(_ => throw x)` throws.
 - **Fix:** Delete the four `try`/`catch` blocks (about 30 lines), or document why `ToResult` is the exception.
+- **Done:** the `try`/`catch` blocks are deleted (#123), so an exception from `noneHandler`, or from awaiting a faulted task, reaches the caller. The docs say so, and `ToResult_Tests`/`ToResultAsync_Tests` now assert the exception is thrown.
 - **If we skip it:** The same mistake behaves differently depending on which method it happens in.
 
 ### 17. The generator can't implement `params`, `in`/`ref`, generic or global-namespace methods
