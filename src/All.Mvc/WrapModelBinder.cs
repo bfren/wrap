@@ -43,7 +43,11 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 	/// <summary>
 	/// Bind the model from the request, using <see cref="GetValue(IValueProvider, string)"/>.
 	/// </summary>
-	/// <param name="bindingContext">Model binding context, updated with the model state value and binding result.</param>
+	/// <remarks>
+	/// If binding fails for a value that is present but cannot be parsed, a model state error is added, so
+	/// <c>[ApiController]</c> returns 400 Bad Request.
+	/// </remarks>
+	/// <param name="bindingContext">Model binding context, updated with the model state value, binding result and any error.</param>
 	/// <returns>A completed task: binding does no asynchronous work.</returns>
 	public virtual Task BindModelAsync(ModelBindingContext bindingContext)
 	{
@@ -53,6 +57,14 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 		// Set binding values
 		bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueResult);
 		bindingContext.Result = bindingResult;
+
+		if (!bindingResult.IsModelSet && valueResult != ValueProviderResult.None)
+		{
+			_ = bindingContext.ModelState.TryAddModelError(
+				bindingContext.ModelName,
+				$"The value '{valueResult.FirstValue}' is not valid."
+			);
+		}
 
 		// No async work to do
 		return Task.CompletedTask;
@@ -68,8 +80,9 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 	/// <param name="provider">Value provider to read from.</param>
 	/// <param name="model">Model name.</param>
 	/// <returns>
-	/// The raw value provider result and a successful binding result holding the wrapped value; or, if the value is
-	/// missing, empty or cannot be parsed, the result returned by <see cref="Nothing"/>.
+	/// The raw value provider result and a successful binding result holding the wrapped value; the result returned by
+	/// <see cref="Nothing"/> if the value is missing or empty; or the result returned by <see cref="Failed"/> if it
+	/// cannot be parsed.
 	/// </returns>
 	public (ValueProviderResult valueResult, ModelBindingResult bindingResult) GetValue(
 		IValueProvider provider,
@@ -103,12 +116,12 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 					(result, ModelBindingResult.Success(Wrap(x))),
 
 				_ =>
-					Nothing()
+					Failed(result)
 			};
 		}
 		catch
 		{
-			return Nothing();
+			return Failed(result);
 		}
 	}
 
@@ -188,7 +201,15 @@ public abstract class WrapModelBinder<TValue> : IWrapModelBinder<TValue>
 		};
 
 	/// <summary>
-	/// Return the result used when there is no valid value: binding fails.
+	/// Return the result used when a value is present but cannot be parsed: binding fails.
+	/// </summary>
+	/// <param name="result">The value provider result holding the value that cannot be parsed.</param>
+	/// <returns><paramref name="result"/> and a failed binding result.</returns>
+	internal virtual (ValueProviderResult valueResult, ModelBindingResult bindingResult) Failed(ValueProviderResult result) =>
+		(result, ModelBindingResult.Failed());
+
+	/// <summary>
+	/// Return the result used when there is no value.
 	/// </summary>
 	/// <returns><see cref="ValueProviderResult.None"/> and a failed binding result.</returns>
 	internal virtual (ValueProviderResult valueResult, ModelBindingResult bindingResult) Nothing() =>

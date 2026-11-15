@@ -6,18 +6,21 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace Wrap.Mvc;
 
 /// <summary>
-/// MVC model binder for <see cref="Maybe{T}"/>: a missing, empty or invalid value binds as <see cref="None"/>.
+/// MVC model binder for <see cref="Maybe{T}"/>: a missing or empty value binds as <see cref="None"/>, and a value that
+/// cannot be parsed fails binding.
 /// </summary>
 /// <typeparam name="T">Some value type.</typeparam>
 public sealed class MaybeModelBinder<T> : WrapModelBinder<T>
 {
 	/// <summary>
-	/// Return the result used when there is no valid value: binding succeeds with <see cref="None"/>.
+	/// Return the result used when there is no value: binding succeeds with <see cref="None"/>.
 	/// </summary>
 	/// <returns>A value provider result holding <c>"None"</c>, and a successful binding result holding <see cref="None"/>.</returns>
 	internal override (ValueProviderResult valueResult, ModelBindingResult bindingResult) Nothing() =>
-		// don't use 'M.None' here to avoid incorrect compiler warnings
-		(new(nameof(M.None)), ModelBindingResult.Success(default(Maybe<T>)));
+		(
+			new(nameof(M.None)),
+			ModelBindingResult.Success(default(Maybe<T>)) // don't use 'M.None' here to avoid incorrect compiler warnings
+		);
 
 	/// <summary>
 	/// Wrap a parsed value as a <see cref="Maybe{T}"/>.

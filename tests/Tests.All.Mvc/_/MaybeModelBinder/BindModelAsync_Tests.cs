@@ -23,6 +23,29 @@ public class BindModelAsync_Tests
 			Assert.Null(v.Context.Model);
 			Assert.Single(v.Context.ModelState.Values, x => x.AttemptedValue == nameof(M.None));
 			Assert.Equal(expected, v.Context.Result);
+			Assert.Equal(0, v.Context.ModelState.ErrorCount);
+		}
+	}
+
+	public class With_Incorrect_Type : MaybeModelBinder_Tests<Guid>
+	{
+		[Fact]
+		public async Task Fails_And_Adds_ModelState_Error()
+		{
+			// Arrange
+			var (binder, v) = Setup(Rnd.Guid);
+			var incorrectValue = Rnd.Str;
+			v.Provider.GetValue(v.ModelName).Returns(new ValueProviderResult(incorrectValue));
+
+			// Act
+			await binder.BindModelAsync(v.Context);
+
+			// Assert
+			Assert.Equal(ModelBindingResult.Failed(), v.Context.Result);
+			var entry = v.Context.ModelState[v.ModelName];
+			Assert.NotNull(entry);
+			Assert.Equal(incorrectValue, entry.AttemptedValue);
+			Assert.Single(entry.Errors);
 		}
 	}
 
