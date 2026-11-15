@@ -71,7 +71,7 @@ public class GetValue_Tests
 		public class Incorrect_Type : MaybeModelBinder_Tests<Guid>
 		{
 			[Fact]
-			public void Returns_None()
+			public void Returns_Raw_Value_And_Fails()
 			{
 				// Arrange
 				var (binder, v) = Setup(Rnd.Guid);
@@ -82,9 +82,8 @@ public class GetValue_Tests
 				var (valueResult, bindingResult) = binder.GetValue(v.Provider, v.ModelName);
 
 				// Assert
-				Assert.Equal(nameof(M.None), valueResult.FirstValue);
-				Assert.True(bindingResult.IsModelSet);
-				Assert.IsType<Maybe<Guid>>(bindingResult.Model, false).AssertNone();
+				Assert.Equal(incorrectValue, valueResult);
+				Assert.Equal(ModelBindingResult.Failed(), bindingResult);
 			}
 		}
 
