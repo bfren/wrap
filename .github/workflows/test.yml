@@ -6,6 +6,9 @@ on:
       - 'main'
     tags-ignore:
       - '**'
+  pull_request: # tests the merge result, which branch pushes alone never do
+    branches:
+      - 'main'
   workflow_dispatch:
 
 jobs:

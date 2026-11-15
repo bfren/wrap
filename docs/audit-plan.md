@@ -4,11 +4,13 @@ Repo audit of branch `108-switch-to-use-union-types`, 12 November 2026. Updated 
 
 A second audit on 14 November 2026 covered the parts the first one skipped: the `Failure` source generator, the MVC binders, the `If`/`MatchIf` families and the Testing packages. Its findings start at item 9 below. They were fixed on #121.
 
+A third audit on 15 November 2026 covered packaging, CI and `apps/`. Its findings start at item 18, under "Third audit" below.
+
 **What this repo does:** Wrap is a .NET library of monads: `Maybe` (a value that may be missing), `Result` (an operation that may have failed), `Either` (one of two values) and strongly typed `Id`s. Around them it adds a memory cache, JSON converters, MVC model binders, Dapper type handlers and a source generator that writes `Failure` methods.
 
 **Load assumed:** web apps that use it under real traffic. The cache is registered as one shared instance (a singleton) for the whole app. The JSON converters and model binders read data sent by users.
 
-**Verdict:** first audit all done, or decided (7). Second audit: all done (8), 1 withdrawn.
+**Verdict:** first audit all done, or decided (7). Second audit: all done (8), 1 withdrawn. Third audit: all done (4).
 
 **Lean:** nothing left to remove, and no dependencies.
 
@@ -279,4 +281,80 @@ Smaller things noticed during the second audit and not verified by running them.
 ## Not checked
 
 - The `Enumerable`/LINQ families weren't re-read, since the first audit covered them.
-- `apps/` and the shared CI workflows were not read.
+- `apps/` and the shared CI workflows were not read. The third audit covers them.
+
+# Third audit
+
+Repo audit of `main`, 15 November 2026. It covered the parts the first two skipped: building the NuGet packages, the CI workflows, `apps/`, and the code changed since the second audit. The `Wrap`, `Wrap.Id.Testing` and `Wrap.Generators` packages were packed and opened to check what is inside. The load assumed is the same as above.
+
+**Verdict:** all done (4). 18 and 19 were the ones to fix before releasing 2.0. Both are packaging problems that every test here misses, because the tests build from source rather than from the packages.
+
+**Lean:** -2 lines and -1 dependency, done in 21.
+
+## Must fix
+
+### 18. The `[Failure]` generator does not run for NuGet users
+
+- [x] Done
+
+**Where:** `src/Generators/Generators.csproj`, `src/Result/Result.csproj`
+
+- **What this is:** you put `[Failure("…")]` on a `static partial` method, and the generator writes the method body at compile time. The attribute ships in `Wrap.Result`.
+- **Problem:** verified by packing. NuGet only runs a generator whose DLL is in the package's `analyzers/dotnet/cs` folder. `Wrap.Generators` packs its DLL in `lib/netstandard2.0`, so NuGet treats it as an ordinary library, and no other package includes it: `Wrap` has no `analyzers` folder. It works inside this repo only because `Tests.Generators` and `AppMvc` reference the project directly as an analyzer. Anyone installing from NuGet who uses `[Failure]` gets CS8795, "partial method must have an implementation".
+- **Fix:** in `Generators.csproj`, set `<IncludeBuildOutput>false</IncludeBuildOutput>` and pack the DLL into `analyzers/dotnet/cs`. Then make `Wrap.Result`, which owns the attribute, bring the generator with it, so installing `Wrap` is enough. Check by packing and opening the `.nupkg`.
+- **Done:** `Wrap.Generators` is no longer packed (`IsPackable` false). `Wrap.Result` packs the generator DLL into `analyzers/dotnet/cs`, with a build-order-only project reference. A default in `src/Directory.Build.props` lets analyzers flow through project-reference dependencies, so installing `Wrap` is enough. Verified by packing: `Wrap.Result` contains the analyzer, and `Wrap`'s dependencies now exclude only `Build`. A console project outside the repo, using an empty package cache and referencing only `Wrap`, compiled and ran a `[Failure]` method. Two safeguards were added after review, so this can't break silently again:
+  - `publish.yml` has a "Check generator" step that fails the release if `Wrap.Result` doesn't contain the generator DLL. It matches `Wrap.Result.[0-9]*.nupkg`, because `Wrap.Result.*` also matches `Wrap.Result.Testing`.
+  - `Microsoft.CodeAnalysis.CSharp` is pinned to exactly `[5.12.0]`, the Roslyn version in SDK 11.0.100 (`global.json`). A generator built against a newer Roslyn than the user's compiler doesn't load (CS8032, then CS8795), and no test here would notice.
+- **If we skip it:** a headline 2.0 feature fails to compile for every user, and the error points at their own code.
+
+### 19. `Wrap.Id.Testing` crashes because `Rnd` is missing
+
+- [x] Done
+
+**Where:** `src/Id.Testing/Id.Testing.csproj`
+
+- **What this is:** `IdGenerator` makes random IDs for tests, using the `Rnd` package (`Rnd.Guid`, `Rnd.Int` and so on).
+- **Problem:** verified by packing. The reference to `Rnd` has `PrivateAssets="All"`, which tells NuGet to leave it out. The packed nuspec lists only `Wrap.Id`, and the package doesn't contain `Rnd`'s DLL. A test project that installs `Wrap.Id.Testing`, or `Wrap.Testing`, which pulls it in, gets a `FileNotFoundException` the first time it calls `IdGenerator`, unless it happens to reference `Rnd` itself.
+- **Fix:** remove `PrivateAssets="All"` from that one reference, so `Rnd` becomes a normal dependency.
+- **Done:** `PrivateAssets` removed, so the nuspec now depends on `Rnd` 10.3.0. Verified in the same console project: `IdGenerator.IntId` ran and `Rnd` was restored.
+- **If we skip it:** the ID testing helpers fail at runtime for anyone not already using `Rnd`.
+
+## Should fix
+
+### 20. CI never tests `main`, or what a merge produces
+
+- [x] Done
+
+**Where:** `.github/workflows/test.yml`
+
+- **What this is:** the Test workflow runs the build and tests through the shared `bfren/dotnet` workflow.
+- **Problem:** it runs only on pushes to branches other than `main`, and has no `pull_request` trigger. Two branches that each pass can still break each other once both are merged, and nothing checks the result before a release. Items 13 and 14 were that case: two branches that both edited this plan.
+- **Fix:** add `pull_request:` (or `push` on `main`) to the triggers. That's two lines.
+- **Done:** `test.yml` also runs on pull requests to `main`, which tests the merge result before merging. A branch with an open PR is now tested twice, once for the push and once for the PR.
+- **If we skip it:** a broken `main` is first noticed when the publish workflow runs, or not at all, depending on what the shared `prepare.yml` checks.
+
+## Nice to have
+
+### 21. `Result.Testing` references `Rnd` but never uses it
+
+- [x] Done
+
+**Where:** `src/Result.Testing/Result.Testing.csproj`
+
+- **What this is:** the project file has a `PackageReference` to `Rnd` and a global `using RndF;`.
+- **Problem:** nothing in `src/Result.Testing` calls `Rnd`. Every `.cs` file in it was searched.
+- **Fix:** delete both lines.
+- **Done:** both lines deleted.
+- **If we skip it:** a dependency stays that the next reader has to work out the reason for.
+
+## Left out
+
+- The `xunit.v3.assert` references in the three Testing packages also use `PrivateAssets="All"`, so those packages only work for projects already on xunit v3. That fits their purpose, but their README should say so.
+
+## Not checked
+
+- The shared workflows in `bfren/dotnet` (`prepare.yml`, `test.yml` and `notify.yml`).
+- A real consumer project installing the packed packages, which would be the final check for 18 and 19.
+- `Either`'s own functions in `src/Either/Functions`, beyond what the earlier audits read.
+- The vendored JavaScript under `apps/AppMvc/wwwroot`.
+- The cache was not load-tested.
