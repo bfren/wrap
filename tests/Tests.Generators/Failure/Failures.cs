@@ -22,6 +22,9 @@ public static partial class Failures
 	[Failure("Item {Name} was not found")]
 	public static partial Failure Overload(string name);
 
+	[Failure("Names {Names} were not found")]
+	public static partial Failure ArrayParameter(string[] names);
+
 	public partial record struct InRecordStruct
 	{
 		[Failure("Nested")]

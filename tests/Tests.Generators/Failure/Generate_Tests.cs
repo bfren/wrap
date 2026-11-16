@@ -84,6 +84,20 @@ public class Generate_Tests
 	}
 
 	[Fact]
+	public void Single_Array_Parameter__Is_One_Arg()
+	{
+		// Arrange
+		string[] names = [Rnd.Str, Rnd.Str, Rnd.Str];
+
+		// Act
+		var result = Failures.ArrayParameter(names);
+
+		// Assert
+		var arg = Assert.Single(result.Args);
+		Assert.Same(names, arg);
+	}
+
+	[Fact]
 	public void In_Generic_Type__Generates_Method()
 	{
 		// Arrange
