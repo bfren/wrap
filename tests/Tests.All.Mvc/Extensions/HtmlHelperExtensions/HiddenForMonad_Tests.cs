@@ -84,6 +84,23 @@ public class HiddenForMonad_Tests
 		htmlHelper.Received().Hidden(name, string.Empty, null);
 	}
 
+	[Fact]
+	public void Monad_Is_Null__Calls_Hidden__With_Empty_String()
+	{
+		// Arrange
+		var (htmlHelper, v) = Setup();
+		var name = Rnd.Str;
+		htmlHelper.NameFor(v.Expression)
+			.Returns(name);
+		v.ViewData.Model = new TestModel { Id = null! };
+
+		// Act
+		_ = htmlHelper.HiddenForMonad(v.Expression);
+
+		// Assert
+		htmlHelper.Received().Hidden(name, string.Empty, null);
+	}
+
 	public sealed record class TestModel : WithId<TestId, Guid>;
 
 	public sealed record class TestId : GuidId<TestId>;

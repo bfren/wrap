@@ -15,7 +15,7 @@ public static partial class HtmlHelperExtensions
 	/// Output a hidden HTML input holding the value of a monad property.
 	/// </summary>
 	/// <remarks>
-	/// The input value is the string of <see cref="IMonad.Value"/>, or empty when the view has no model.
+	/// The input value is the string of <see cref="IMonad.Value"/>, or empty when the view has no model or the monad is <see langword="null"/>.
 	/// A plain property expression (<c>x => x.Id</c>) is read by reflection; anything else is compiled on each call.
 	/// </remarks>
 	/// <typeparam name="TModel">Model type.</typeparam>
@@ -33,7 +33,7 @@ public static partial class HtmlHelperExtensions
 		var value = @this.ViewData.Model switch
 		{
 			TModel model =>
-				GetMonad(expression, model).Value.ToString(),
+				GetMonad(expression, model)?.Value.ToString(),
 
 			_ =>
 				null
