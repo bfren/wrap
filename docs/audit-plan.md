@@ -6,11 +6,13 @@ A second audit on 14 November 2026 covered the parts the first one skipped: the 
 
 A third audit on 15 November 2026 covered packaging, CI and `apps/`. Its findings start at item 18, under "Third audit" below.
 
+A fourth audit on 16 November 2026 looked for anything the first three missed. Its findings start at item 22, under "Fourth audit" below.
+
 **What this repo does:** Wrap is a .NET library of monads: `Maybe` (a value that may be missing), `Result` (an operation that may have failed), `Either` (one of two values) and strongly typed `Id`s. Around them it adds a memory cache, JSON converters, MVC model binders, Dapper type handlers and a source generator that writes `Failure` methods.
 
 **Load assumed:** web apps that use it under real traffic. The cache is registered as one shared instance (a singleton) for the whole app. The JSON converters and model binders read data sent by users.
 
-**Verdict:** first audit all done, or decided (7). Second audit: all done (8), 1 withdrawn. Third audit: all done (4).
+**Verdict:** first audit all done, or decided (7). Second audit: all done (8), 1 withdrawn. Third audit: all done (4). Fourth audit: all done (6).
 
 **Lean:** nothing left to remove, and no dependencies.
 
@@ -358,3 +360,96 @@ Repo audit of `main`, 15 November 2026. It covered the parts the first two skipp
 - `Either`'s own functions in `src/Either/Functions`, beyond what the earlier audits read.
 - The vendored JavaScript under `apps/AppMvc/wwwroot`.
 - The cache was not load-tested.
+
+# Fourth audit
+
+Repo audit of `main`, 16 November 2026. It left out everything fixed or decided above. Each finding was reproduced in a scratch project outside the repo before it was fixed. The load assumed is the same as above.
+
+**Verdict:** all done (6).
+
+**Lean:** about -130 source lines and -580 test lines, done in 22 and 27.
+
+## Must fix
+
+### 22. A plain `select` on a `Maybe` did not compile
+
+- [x] Done (breaking)
+
+**Where:** `src/All/Linq/MaybeToResult/MaybeToResultExtensions.Select.cs` (deleted)
+
+- **What this is:** `Wrap.Linq` lets you write `from x in maybe select …`. Two classes each had a `Select` for `Maybe<T>`: one returned a `Maybe`, the other a `Result`.
+- **Problem:** the two differed only in return type, so the compiler couldn't choose. `from x in M.Wrap(1) select x + 1` failed with CS1940, and so did any query using `let`, or `where` after two `from`s. The tests passed only because they called `Select` as a static method.
+- **Fix:** delete the `Result`-returning `Select`, which query syntax could never reach.
+- **Done:** the four `Select` methods and their tests are deleted. `ConvertNoneToFail` moved to the `SelectMany` file, which still uses it. `tests/Tests.All/Linq/MaybeToMaybeExtensions/Select_Tests.cs` uses query syntax, so it doesn't compile if a second `Select` comes back. To get a `Result` from one `Maybe`, call `ToResult` then `Map`.
+- **If we skip it:** the README promises LINQ query syntax, and the simplest query on a `Maybe` fails for every user.
+
+## Should fix
+
+### 23. A `[Failure]` method with one array parameter lost its values
+
+- [x] Done
+
+**Where:** `src/Generators/Failure/FailureGenerator.cs`, `argList`
+
+- **What this is:** the generator wrote `new Failure(message, a, b)`, and the constructor collects the values into a `params` array.
+- **Problem:** when the only parameter is an array, C# passes it as the `params` array itself. `BadNames(string[] names)` with three names gave three args, and the text read `Bad names a.`
+- **Done:** the generator writes an explicit array, `new Failure(message, new object?[] { names })`. `Failures.ArrayParameter` and a test in `Generate_Tests` cover it.
+- **If we skip it:** failure messages show only the first item, with no warning.
+
+### 24. A `null` argument could print the argument list's own `Length`
+
+- [x] Done
+
+**Where:** `src/Common/Functions/F.Format.cs`, the `source switch`
+
+- **What this is:** `F.Format` fills `{Name}` placeholders from the failure's arguments, in order.
+- **Problem:** a `null` argument fell through to "look up a property with this name", which looked on the argument array. `R.Fail("{Name} has {Length} chars", "x", null)` printed `x has 2 chars`. For numbered placeholders the same fall-through could print `System.Object[]`.
+- **Done:** both array arms now come first, followed by an `Array => null` arm, so an array source never reaches the arms meant for a single value or object. The placeholder stays in the text. Two rows in `F.Format_Forms_Tests` cover it.
+- **If we skip it:** rare, but a message shows a number that looks real and is wrong.
+
+### 25. `Maybe<enum>` never bound in MVC
+
+- [x] Done
+
+**Where:** `src/All.Mvc/WrapModelBinder.cs`, `WrapModelBinderHelpers`
+
+- **What this is:** the binder parses known types itself and sends everything else through a JSON reader.
+- **Problem:** that reader had no enum support. For a `Maybe<DayOfWeek>` parameter, `?day=Monday` and `?day=1` both failed, so the client got a 400. Plain MVC binds both.
+- **Done:** the reader's options include `JsonStringEnumConverter`. `Monday`, `monday` and `1` bind, and `Funday` fails. Like MVC, a number with no matching name (`99`) is accepted. Covered by `GetValue_Tests.Enum_Type`.
+- **If we skip it:** enum filters can't be wrapped in `Maybe`, and the error doesn't say why.
+
+### 26. Writing a failed `Result` to JSON crashed if it held an exception
+
+- [x] Done
+
+**Where:** `src/Result/Failure.cs`, `Exception`
+
+- **What this is:** `Failure.Exception` keeps the caught exception. Wrap has JSON converters for `Maybe` and IDs, but none for `Result` or `Either`.
+- **Problem:** serialising `R.Fail<int>(caughtException)` threw `NotSupportedException` at `$.Exception.TargetSite`. An API action returning a `Result` worked for `Ok` and returned a 500 for exactly the failures you want to see.
+- **Done:** `Failure.Exception` has `[JsonIgnore]`, which also keeps stack traces out of responses. Its remarks say so, and that `Result` can be written to JSON but not read back. Covered by `tests/Tests.Result/_/Failure/Json_Tests.cs`.
+- **If we skip it:** the error path of an endpoint fails in a second, more confusing way.
+
+## Nice to have
+
+### 27. `ContinueIf` was a copy of `Filter`
+
+- [x] Done (breaking)
+
+**Where:** `src/All/Extensions/Result/ResultExtensions.ContinueIf.cs`, `src/All/Extensions/Maybe/MaybeExtensions.ContinueIf.cs` (both deleted)
+
+- **What this is:** both kept the value when a test passed, and otherwise gave `None` or a "Test returned false." failure.
+- **Problem:** they behaved the same, apart from the method name stored in the failure's context. Only `ContinueIf`'s own tests called it.
+- **Done:** both files and the four test files are deleted. Callers use `Filter`/`FilterAsync`.
+
+## Left out
+
+Both were fixed afterwards:
+
+- `new Monad<string>().ToString()` threw `NullMonadValueException`, because the record's `ToString` reads `Value`, which checks for `null`. **Fixed:** `Monad<TMonad, TValue>` keeps the value in a named field and has its own `PrintMembers` that reads the field directly. The text is unchanged when the value is set, and is `Monad { Value =  }` when it isn't. Reading `Value` itself still throws. Covered by `tests/Tests.Common/_/Monad/ToString_Tests.cs`.
+- `HiddenForMonad` threw a null reference error when the model's ID property was `null`. **Fixed:** it now writes an empty value, as it does when the view has no model. Covered by `HiddenForMonad_Tests`.
+
+## Not checked
+
+- The `MatchIf`, `Match`, `If` and `Audit` families for `Maybe` were not re-read; the `Result` versions of `If` and `Audit` were.
+- `apps/`, the Testing packages and the Benchmarks were only skimmed. The shared workflows in `bfren/dotnet` were not read.
+- No packages were packed, and the cache was not load-tested.
