@@ -189,7 +189,8 @@ public sealed class FailureGenerator : IIncrementalGenerator
 		{
 			var indentOpen = new string(' ', 4 * i);
 			var type = model.ContainingTypes[i];
-			_ = sb.AppendLine($"{indentOpen}partial {type.Kind} {type.Name}")
+			// '@' before type and method names too, for the same reason as parameter names
+			_ = sb.AppendLine($"{indentOpen}partial {type.Kind} @{type.Name}")
 				.AppendLine($"{indentOpen}{{");
 		}
 
@@ -207,7 +208,7 @@ public sealed class FailureGenerator : IIncrementalGenerator
 				string.Empty
 		};
 
-		_ = sb.AppendLine($"{indent}{model.Accessibility} static partial {model.ReturnType} {model.MethodName}({paramList})")
+		_ = sb.AppendLine($"{indent}{model.Accessibility} static partial {model.ReturnType} @{model.MethodName}({paramList})")
 			.AppendLine($"{indent}{{")
 			// no locals: a local would clash with a parameter of the same name, e.g. 'message'
 			.AppendLine($"{indent}    return new {model.ReturnType}({message}{argList})")

@@ -31,6 +31,15 @@ public static partial class Failures
 	[Failure("{Class} raised {Event}")]
 	public static partial Failure KeywordParameters(string @class, int @event);
 
+	// lower case because only keywords need '@': the generator must keep it on type and method names
+#pragma warning disable IDE1006, CA1716 // Naming Styles, and names that match keywords
+	public partial class @event
+	{
+		[Failure("Locked {Id}")]
+		public static partial Failure @lock(int id);
+	}
+#pragma warning restore IDE1006, CA1716
+
 	public partial record struct InRecordStruct
 	{
 		[Failure("Nested")]

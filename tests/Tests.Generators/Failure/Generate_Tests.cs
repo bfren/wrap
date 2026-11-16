@@ -126,6 +126,20 @@ public class Generate_Tests
 	}
 
 	[Fact]
+	public void Type_And_Method_Named_With_Keywords__Generates_Method()
+	{
+		// Arrange
+		var id = Rnd.Int;
+
+		// Act
+		var result = Failures.@event.@lock(id);
+
+		// Assert
+		Assert.Equal([id], result.Args);
+		Assert.Equal("event.lock()", result.Context);
+	}
+
+	[Fact]
 	public void In_Generic_Type__Generates_Method()
 	{
 		// Arrange
