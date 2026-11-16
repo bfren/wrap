@@ -92,12 +92,17 @@ public static partial class F
 					Array arr when numberedTemplates && templateNumber < arr.Length && arr.GetValue(templateNumber) is object val =>
 						val,
 
-					// Source value - use string value but only for the first template, i.e. {0}
-					{ } obj when numberedTemplates && templateNumber == 0 && obj.ToString() is string val =>
-						val,
-
 					// Source array - get next item in array for named template
 					Array arr when !numberedTemplates && replaceIndex < arr.Length && arr.GetValue(replaceIndex++) is object val =>
+						val,
+
+					// Source array with no value for this template - stop here, or the arms below would read the array itself,
+					// e.g. print its Length for '{Length}'
+					Array =>
+						null,
+
+					// Source value - use string value but only for the first template, i.e. {0}
+					{ } obj when numberedTemplates && templateNumber == 0 && obj.ToString() is string val =>
 						val,
 
 					// Source object - get matching property value for named template
