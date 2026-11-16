@@ -208,12 +208,11 @@ public sealed class FailureGenerator : IIncrementalGenerator
 
 		_ = sb.AppendLine($"{indent}{model.Accessibility} static partial {model.ReturnType} {model.MethodName}({paramList})")
 			.AppendLine($"{indent}{{")
-			.AppendLine($"{indent}    var message = {message};")
-			.AppendLine($"{indent}    var context = \"{model.ClassName}.{model.MethodName}()\";")
-			.AppendLine($"{indent}    return new {model.ReturnType}(message{argList})")
+			// no locals: a local would clash with a parameter of the same name, e.g. 'message'
+			.AppendLine($"{indent}    return new {model.ReturnType}({message}{argList})")
 			.AppendLine($"{indent}    {{")
 			.Append(level)
-			.AppendLine($"{indent}        Context = context")
+			.AppendLine($"{indent}        Context = \"{model.ClassName}.{model.MethodName}()\"")
 			.AppendLine($"{indent}    }};")
 			.AppendLine($"{indent}}}");
 

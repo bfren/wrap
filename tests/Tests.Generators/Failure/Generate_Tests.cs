@@ -98,6 +98,21 @@ public class Generate_Tests
 	}
 
 	[Fact]
+	public void Parameters_Named_Message_And_Context__Are_Args()
+	{
+		// Arrange
+		var (message, context) = (Rnd.Str, Rnd.Str);
+
+		// Act
+		var result = Failures.ParameterNames(message, context);
+
+		// Assert
+		Assert.Equal([message, context], result.Args);
+		Assert.Equal("{Message} in {Context}.", result.Message);
+		Assert.Equal("Failures.ParameterNames()", result.Context);
+	}
+
+	[Fact]
 	public void In_Generic_Type__Generates_Method()
 	{
 		// Arrange

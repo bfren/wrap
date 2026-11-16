@@ -25,6 +25,9 @@ public static partial class Failures
 	[Failure("Names {Names} were not found")]
 	public static partial Failure ArrayParameter(string[] names);
 
+	[Failure("{Message} in {Context}")]
+	public static partial Failure ParameterNames(string message, string context);
+
 	public partial record struct InRecordStruct
 	{
 		[Failure("Nested")]
