@@ -6,13 +6,15 @@ A second audit on 14 November 2026 covered the parts the first one skipped: the 
 
 A third audit on 15 November 2026 covered packaging, CI and `apps/`. Its findings start at item 18, under "Third audit" below.
 
-A fourth audit on 16 November 2026 looked for anything the first three missed. Its findings start at item 22, under "Fourth audit" below.
+A fourth audit on 16 November 2026 looked for anything the first three missed. Its findings start at item 22, under "Fourth audit" below. A review of those fixes on the same day led to two follow-ups, listed after them.
+
+A fifth audit on 16 November 2026 covered the parts the fourth one skipped. Its findings start at item 28, under "Fifth audit" below.
 
 **What this repo does:** Wrap is a .NET library of monads: `Maybe` (a value that may be missing), `Result` (an operation that may have failed), `Either` (one of two values) and strongly typed `Id`s. Around them it adds a memory cache, JSON converters, MVC model binders, Dapper type handlers and a source generator that writes `Failure` methods.
 
 **Load assumed:** web apps that use it under real traffic. The cache is registered as one shared instance (a singleton) for the whole app. The JSON converters and model binders read data sent by users.
 
-**Verdict:** first audit all done, or decided (7). Second audit: all done (8), 1 withdrawn. Third audit: all done (4). Fourth audit: all done (6).
+**Verdict:** first audit all done, or decided (7). Second audit: all done (8), 1 withdrawn. Third audit: all done (4). Fourth audit: all done (6), plus 2 review follow-ups done and 1 withdrawn. Fifth audit: all done (2).
 
 **Lean:** nothing left to remove, and no dependencies.
 
@@ -452,4 +454,56 @@ Both were fixed afterwards:
 
 - The `MatchIf`, `Match`, `If` and `Audit` families for `Maybe` were not re-read; the `Result` versions of `If` and `Audit` were.
 - `apps/`, the Testing packages and the Benchmarks were only skimmed. The shared workflows in `bfren/dotnet` were not read.
+- No packages were packed, and the cache was not load-tested.
+
+## Review follow-ups
+
+A review of the fourth audit's fixes, on the same branch, found three more things. None has its own item number.
+
+- **A `[Failure]` parameter named `message` or `context` did not compile.** The generated method declared two locals with those names, so `Clash(string message)` failed with CS0136 in the generated file. This was older than the branch, but sat in the lines item 23 changed. **Fixed:** the generated method has no locals; both values are written inline. `Failures.ParameterNames` and a test in `Generate_Tests` cover it.
+- **A `null` ID made `HiddenForMonad` compile the expression on every render.** `GetMonad` treated a `null` property as "not a monad" and fell back to compiling. Before the fourth audit that path then crashed, so nobody could notice it was slow. **Fixed:** a plain `x => x.Id` is always read by reflection, and `null` comes back as `null`. No test proves the compile is skipped, because that isn't visible from outside.
+- **An array argument prints as `System.String[]` in the message text.** After item 23 the args are right, but `F.Format` calls `ToString()` on the array. **Withdrawn: by design.** `string.Format` does the same, and joining lists would be a new feature in `F.Format`, not a fix. A caller who wants the values in the text passes `string.Join(", ", names)`. From here, `F.Format` only changes when a row in `F.Format_Forms_Tests` is wrong.
+
+# Fifth audit
+
+Repo audit of `133-fable-audit`, 16 November 2026, after the fourth audit's fixes. It covered the parts the fourth one skipped: the `Maybe` `Audit`, `If` and `MatchIf` families, the Testing packages, `apps/AppMvc` and the allocation check script. Both findings were reproduced in a scratch project outside the repo before they were fixed. The load assumed is the same as above.
+
+**Verdict:** all done (2). Neither blocked the release.
+
+## Should fix
+
+### 28. A `[Failure]` parameter named with a keyword did not compile
+
+- [x] Done
+
+**Where:** `src/Generators/Failure/FailureGenerator.cs`, `paramList` and `argList`
+
+- **What this is:** the generator copies each parameter's name into the method it writes. C# lets you use a reserved word as a name with `@` in front, as in `@class`.
+- **Problem:** the generator dropped the `@`. `Kw(string @class, int @event)` was written as `string class, int event`, which gave CS8795 and a string of errors in the generated file. `Failure.Ctx(string @class, …)` in this library uses that style, so it is a likely name.
+- **Done:** the generator writes `@` before every parameter name, in the parameter list and in the args. `Failures.KeywordParameters` and a test in `Generate_Tests` cover it.
+- **If we skip it:** users get errors in code they did not write, with no hint that the parameter name is the cause.
+
+### 29. A typed ID could not be a JSON dictionary key
+
+- [x] Done
+
+**Where:** `src/All/Json/MonadJsonConverter.cs`
+
+- **What this is:** `MonadJsonConverter` reads and writes typed IDs as their plain value, so `UserId(5)` is `5` in JSON.
+- **Problem:** it did not handle property names. Writing or reading a `Dictionary<UserId, string>` threw `NotSupportedException`, "not a supported dictionary key".
+- **Done:** the converter overrides `ReadAsPropertyName` and `WriteAsPropertyName`, and passes the work to the value type's own converter. The key works only when the value type can be a dictionary key itself, which covers all five ID types and `string`. Covered by `tests/Tests.All/Json/MonadJsonConverter/PropertyName_Tests.cs`.
+- **If we skip it:** an endpoint that returns a dictionary keyed by ID fails with a 500.
+
+## Left out
+
+- A `None` is still written as JSON `null` when the options say to skip nulls (`DefaultIgnoreCondition.WhenWritingNull`). Run.
+- A `[Failure]` method inside a `partial interface` is generated as a `partial class`. Read, not run.
+- The generator's cached model holds `Diagnostic` objects, which keep old syntax trees in memory while a method has a warning. Read, not run.
+- `AssertMessage` does not check args when none are given, as its docs say.
+
+## Not checked
+
+- `[ApiController]` binding was checked in a scratch app and works: `Maybe<int>` and typed IDs bind from the query and the route, and a bad value gives a 400. There is no test for it in the repo.
+- The second half of each `MatchIf` file and the `Result` `Match` extensions were not read; they repeat the overloads that were read.
+- The Benchmarks code, the vendored JavaScript and the shared workflows in `bfren/dotnet` were not read.
 - No packages were packed, and the cache was not load-tested.
