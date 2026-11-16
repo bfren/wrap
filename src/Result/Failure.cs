@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Wrap.Logging;
 
@@ -54,6 +55,11 @@ public readonly partial record struct Failure : IWithException
 	/// <summary>
 	/// Gets the exception that caused the failure, or <see langword="null"/> if there was none.
 	/// </summary>
+	/// <remarks>
+	/// Left out of JSON: <c>System.Text.Json</c> cannot write an exception that has been thrown, and its details should not
+	/// reach clients. <see cref="Result{T}"/> can be written to JSON but not read back.
+	/// </remarks>
+	[JsonIgnore]
 	public readonly Exception? Exception { get; init; }
 
 	/// <summary>
