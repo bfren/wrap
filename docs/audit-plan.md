@@ -481,6 +481,7 @@ Repo audit of `133-fable-audit`, 16 November 2026, after the fourth audit's fixe
 - **What this is:** the generator copies each parameter's name into the method it writes. C# lets you use a reserved word as a name with `@` in front, as in `@class`.
 - **Problem:** the generator dropped the `@`. `Kw(string @class, int @event)` was written as `string class, int event`, which gave CS8795 and a string of errors in the generated file. `Failure.Ctx(string @class, …)` in this library uses that style, so it is a likely name.
 - **Done:** the generator writes `@` before every parameter name, in the parameter list and in the args. `Failures.KeywordParameters` and a test in `Generate_Tests` cover it.
+- **Follow-up:** a review of that fix found the same gap one line away. A method named with a keyword (`@lock`) was still generated without the `@`, and so was a containing type (`partial class @event`). **Fixed:** the generator writes `@` before the method name and each containing type name too. `Failures.@event.@lock` and a test in `Generate_Tests` cover both. A namespace named with a keyword was not checked.
 - **If we skip it:** users get errors in code they did not write, with no hint that the parameter name is the cause.
 
 ### 29. A typed ID could not be a JSON dictionary key
