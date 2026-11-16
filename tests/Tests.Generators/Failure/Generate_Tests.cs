@@ -113,6 +113,19 @@ public class Generate_Tests
 	}
 
 	[Fact]
+	public void Parameters_Named_With_Keywords__Are_Args()
+	{
+		// Arrange
+		var (@class, @event) = (Rnd.Str, Rnd.Int);
+
+		// Act
+		var result = Failures.KeywordParameters(@class, @event);
+
+		// Assert
+		Assert.Equal([@class, @event], result.Args);
+	}
+
+	[Fact]
 	public void In_Generic_Type__Generates_Method()
 	{
 		// Arrange

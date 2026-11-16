@@ -158,12 +158,13 @@ public sealed class FailureGenerator : IIncrementalGenerator
 		}
 
 		// Build lists of parameters and arguments
-		var paramList = string.Join(", ", model.Parameters.Select(p => $"{p.Type} {p.Name}"));
+		// '@' before every name, so a keyword such as '@class' stays a valid name
+		var paramList = string.Join(", ", model.Parameters.Select(p => $"{p.Type} @{p.Name}"));
 		// An explicit array: a single array parameter passed on its own would become the whole params array
 		var argList = (model.Parameters.Length > 0) switch
 		{
 			true =>
-				", new object?[] { " + string.Join(", ", model.Parameters.Select(p => p.Name)) + " }",
+				", new object?[] { " + string.Join(", ", model.Parameters.Select(p => $"@{p.Name}")) + " }",
 
 			false =>
 				""

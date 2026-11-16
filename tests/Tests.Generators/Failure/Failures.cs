@@ -28,6 +28,9 @@ public static partial class Failures
 	[Failure("{Message} in {Context}")]
 	public static partial Failure ParameterNames(string message, string context);
 
+	[Failure("{Class} raised {Event}")]
+	public static partial Failure KeywordParameters(string @class, int @event);
+
 	public partial record struct InRecordStruct
 	{
 		[Failure("Nested")]
