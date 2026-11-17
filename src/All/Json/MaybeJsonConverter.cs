@@ -11,6 +11,14 @@ namespace Wrap.Json;
 /// <summary>
 /// Convert <see cref="Maybe{T}"/> values to and from JSON: <see cref="Some{T}"/> as its value, <see cref="None"/> as JSON <c>null</c>.
 /// </summary>
+/// <remarks>
+/// <see cref="JsonIgnoreCondition.WhenWritingNull"/> does not skip a <see cref="None"/> property, because
+/// <see cref="Maybe{T}"/> is a struct and is never <see langword="null"/> itself. Use
+/// <see cref="JsonIgnoreCondition.WhenWritingDefault"/> instead: <c>default(Maybe&lt;T&gt;)</c> is <see cref="None"/>,
+/// so it skips <see cref="None"/> and still writes <c>Some(0)</c>. Set it on the property with
+/// <c>[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]</c>, or as the default option, which also skips
+/// other default values such as <c>0</c> and <see langword="false"/>.
+/// </remarks>
 /// <typeparam name="T">Some value type.</typeparam>
 public sealed class MaybeJsonConverter<T> : JsonConverter<Maybe<T>>
 {

@@ -102,7 +102,42 @@ public class Serialize_Tests
 		}
 	}
 
+	public class With_WhenWritingDefault
+	{
+		[Fact]
+		public void None__Is_Skipped()
+		{
+			// Arrange
+			var test = new SkipWrapper { Test = M.None };
+
+			// Act
+			var result = JsonSerializer.Serialize(test, Helpers.Json.Options);
+
+			// Assert
+			Assert.Equal("{}", result);
+		}
+
+		[Fact]
+		public void Some_Default_Value__Is_Written()
+		{
+			// Arrange
+			var test = new SkipWrapper { Test = 0 };
+
+			// Act
+			var result = JsonSerializer.Serialize(test, Helpers.Json.Options);
+
+			// Assert
+			Assert.Equal(JsonSerializer.Serialize(new { Test = 0 }), result);
+		}
+	}
+
 	public record class Test(string Foo, int Bar);
+
+	public record class SkipWrapper
+	{
+		[System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+		public Maybe<int> Test { get; init; }
+	}
 
 	public record class RefWrapper(Maybe<Test> Test);
 
