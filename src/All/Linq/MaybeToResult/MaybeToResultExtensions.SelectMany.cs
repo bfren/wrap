@@ -8,6 +8,9 @@ namespace Wrap.Linq;
 
 public static partial class MaybeToResultExtensions
 {
+	internal static Result<TReturn> ConvertNoneToFail<T, TReturn>() =>
+		R.Fail(C.NoneFailureMessage, typeof(T).Name);
+
 	/// <summary>
 	/// Combine a <see cref="Maybe{T}"/> with a <see cref="Result{T}"/> in a LINQ query, producing a <see cref="Result{T}"/>.
 	/// </summary>

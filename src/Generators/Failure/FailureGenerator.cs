@@ -93,6 +93,9 @@ public sealed class FailureGenerator : IIncrementalGenerator
 				(_, true) =>
 					"record",
 
+				(TypeKind.Interface, _) =>
+					"interface",
+
 				_ =>
 					"class"
 			};
@@ -158,11 +161,13 @@ public sealed class FailureGenerator : IIncrementalGenerator
 		}
 
 		// Build lists of parameters and arguments
-		var paramList = string.Join(", ", model.Parameters.Select(p => $"{p.Type} {p.Name}"));
+		// '@' before every name, so a keyword such as '@class' stays a valid name
+		var paramList = string.Join(", ", model.Parameters.Select(p => $"{p.Type} @{p.Name}"));
+		// An explicit array: a single array parameter passed on its own would become the whole params array
 		var argList = (model.Parameters.Length > 0) switch
 		{
 			true =>
-				", " + string.Join(", ", model.Parameters.Select(p => p.Name)),
+				", new object?[] { " + string.Join(", ", model.Parameters.Select(p => $"@{p.Name}")) + " }",
 
 			false =>
 				""
@@ -187,7 +192,8 @@ public sealed class FailureGenerator : IIncrementalGenerator
 		{
 			var indentOpen = new string(' ', 4 * i);
 			var type = model.ContainingTypes[i];
-			_ = sb.AppendLine($"{indentOpen}partial {type.Kind} {type.Name}")
+			// '@' before type and method names too, for the same reason as parameter names
+			_ = sb.AppendLine($"{indentOpen}partial {type.Kind} @{type.Name}")
 				.AppendLine($"{indentOpen}{{");
 		}
 
@@ -205,14 +211,13 @@ public sealed class FailureGenerator : IIncrementalGenerator
 				string.Empty
 		};
 
-		_ = sb.AppendLine($"{indent}{model.Accessibility} static partial {model.ReturnType} {model.MethodName}({paramList})")
+		_ = sb.AppendLine($"{indent}{model.Accessibility} static partial {model.ReturnType} @{model.MethodName}({paramList})")
 			.AppendLine($"{indent}{{")
-			.AppendLine($"{indent}    var message = {message};")
-			.AppendLine($"{indent}    var context = \"{model.ClassName}.{model.MethodName}()\";")
-			.AppendLine($"{indent}    return new {model.ReturnType}(message{argList})")
+			// no locals: a local would clash with a parameter of the same name, e.g. 'message'
+			.AppendLine($"{indent}    return new {model.ReturnType}({message}{argList})")
 			.AppendLine($"{indent}    {{")
 			.Append(level)
-			.AppendLine($"{indent}        Context = context")
+			.AppendLine($"{indent}        Context = \"{model.ClassName}.{model.MethodName}()\"")
 			.AppendLine($"{indent}    }};")
 			.AppendLine($"{indent}}}");
 

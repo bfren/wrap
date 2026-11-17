@@ -22,6 +22,9 @@ public class Format_Forms_Tests
 	[InlineData("{@A} and {B}", "a and b", new object[] { "a", "b" })]
 	[InlineData("{A} and {B}", "a and {B}", new object[] { "a" })]
 	[InlineData("n={A:00}", "n=05", new object[] { 5 })]
+	// a null argument leaves its placeholder, and never reads a property of the argument array
+	[InlineData("{A} has {Length}", "a has {Length}", new object?[] { "a", null })]
+	[InlineData("{0} and {5}", "{0} and {5}", new object?[] { null })]
 	// escaped braces print one brace and take no argument
 	[InlineData("{{0}}", "{0}", new object[] { 42 })]
 	[InlineData("{{literal}} and {A}", "{literal} and 42", new object[] { 42 })]
@@ -36,7 +39,7 @@ public class Format_Forms_Tests
 	[InlineData("{A,3}|", "{A,3}|", new object[] { 5 })]
 	[InlineData("n={A:Q}", "n={A:Q}", new object[] { 5 })]
 	[InlineData("{{{A}} and {B}", "{{{A}} and {B}", new object[] { 42, 43 })]
-	public void Array_Source(string format, string expected, object[] args)
+	public void Array_Source(string format, string expected, object?[] args)
 	{
 		// Arrange
 

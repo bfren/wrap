@@ -22,6 +22,30 @@ public static partial class Failures
 	[Failure("Item {Name} was not found")]
 	public static partial Failure Overload(string name);
 
+	[Failure("Names {Names} were not found")]
+	public static partial Failure ArrayParameter(string[] names);
+
+	[Failure("{Message} in {Context}")]
+	public static partial Failure ParameterNames(string message, string context);
+
+	[Failure("{Class} raised {Event}")]
+	public static partial Failure KeywordParameters(string @class, int @event);
+
+	// lower case because only keywords need '@': the generator must keep it on type and method names
+#pragma warning disable IDE1006, CA1716 // Naming Styles, and names that match keywords
+	public partial class @event
+	{
+		[Failure("Locked {Id}")]
+		public static partial Failure @lock(int id);
+	}
+#pragma warning restore IDE1006, CA1716
+
+	public partial interface IInInterface
+	{
+		[Failure("In interface")]
+		public static partial Failure Nested();
+	}
+
 	public partial record struct InRecordStruct
 	{
 		[Failure("Nested")]

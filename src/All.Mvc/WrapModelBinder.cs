@@ -22,6 +22,7 @@ internal static class WrapModelBinderHelpers
 	{
 		Options = new() { NumberHandling = JsonNumberHandling.AllowReadingFromString };
 		Options.Converters.Add(new MonadJsonConverterFactory());
+		Options.Converters.Add(new JsonStringEnumConverter()); // enums by name or number, as MVC binds them
 	}
 }
 

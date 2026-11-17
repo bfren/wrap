@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using Wrap.Exceptions;
 
 namespace Wrap;
@@ -28,8 +29,25 @@ public abstract record class Monad<TMonad, TValue> : IMonad<TMonad, TValue>
 	[MemberNotNull]
 	public TValue Value
 	{
-		get => Check(field);
-		init => field = Check(value);
+		get => Check(wrapped);
+		init => wrapped = Check(value);
+	}
+
+	// a named field, not the `field` keyword: PrintMembers must read the value without the null check
+	private readonly TValue? wrapped;
+
+	/// <summary>
+	/// Write the wrapped value for <see cref="object.ToString"/>.
+	/// </summary>
+	/// <remarks>
+	/// Reads the stored value directly, so <see cref="object.ToString"/> does not throw when <see cref="Value"/> has not been set.
+	/// </remarks>
+	/// <param name="builder">String builder to write to.</param>
+	/// <returns><see langword="true"/>, because a member is always written.</returns>
+	protected virtual bool PrintMembers(StringBuilder builder)
+	{
+		_ = builder.Append(nameof(Value)).Append(" = ").Append(wrapped);
+		return true;
 	}
 
 	/// <summary>

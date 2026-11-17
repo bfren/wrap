@@ -70,6 +70,19 @@ public class Generate_Tests
 	}
 
 	[Fact]
+	public void In_Interface__Generates_Method()
+	{
+		// Arrange
+
+		// Act
+		var result = Failures.IInInterface.Nested();
+
+		// Assert
+		Assert.Equal("In interface.", result.Message);
+		Assert.Equal("IInInterface.Nested()", result.Context);
+	}
+
+	[Fact]
 	public void Overloads__Each_Get_Their_Own_Message()
 	{
 		// Arrange
@@ -81,6 +94,62 @@ public class Generate_Tests
 		// Assert
 		Assert.Equal("Item {Id} was not found.", byId.Message);
 		Assert.Equal("Item {Name} was not found.", byName.Message);
+	}
+
+	[Fact]
+	public void Single_Array_Parameter__Is_One_Arg()
+	{
+		// Arrange
+		string[] names = [Rnd.Str, Rnd.Str, Rnd.Str];
+
+		// Act
+		var result = Failures.ArrayParameter(names);
+
+		// Assert
+		var arg = Assert.Single(result.Args);
+		Assert.Same(names, arg);
+	}
+
+	[Fact]
+	public void Parameters_Named_Message_And_Context__Are_Args()
+	{
+		// Arrange
+		var (message, context) = (Rnd.Str, Rnd.Str);
+
+		// Act
+		var result = Failures.ParameterNames(message, context);
+
+		// Assert
+		Assert.Equal([message, context], result.Args);
+		Assert.Equal("{Message} in {Context}.", result.Message);
+		Assert.Equal("Failures.ParameterNames()", result.Context);
+	}
+
+	[Fact]
+	public void Parameters_Named_With_Keywords__Are_Args()
+	{
+		// Arrange
+		var (@class, @event) = (Rnd.Str, Rnd.Int);
+
+		// Act
+		var result = Failures.KeywordParameters(@class, @event);
+
+		// Assert
+		Assert.Equal([@class, @event], result.Args);
+	}
+
+	[Fact]
+	public void Type_And_Method_Named_With_Keywords__Generates_Method()
+	{
+		// Arrange
+		var id = Rnd.Int;
+
+		// Act
+		var result = Failures.@event.@lock(id);
+
+		// Assert
+		Assert.Equal([id], result.Args);
+		Assert.Equal("event.lock()", result.Context);
 	}
 
 	[Fact]

@@ -15,7 +15,7 @@ public static partial class HtmlHelperExtensions
 	/// Output a hidden HTML input holding the value of a monad property.
 	/// </summary>
 	/// <remarks>
-	/// The input value is the string of <see cref="IMonad.Value"/>, or empty when the view has no model.
+	/// The input value is the string of <see cref="IMonad.Value"/>, or empty when the view has no model or the monad is <see langword="null"/>.
 	/// A plain property expression (<c>x => x.Id</c>) is read by reflection; anything else is compiled on each call.
 	/// </remarks>
 	/// <typeparam name="TModel">Model type.</typeparam>
@@ -33,7 +33,7 @@ public static partial class HtmlHelperExtensions
 		var value = @this.ViewData.Model switch
 		{
 			TModel model =>
-				GetMonad(expression, model).Value.ToString(),
+				GetMonad(expression, model)?.Value.ToString(),
 
 			_ =>
 				null
@@ -44,11 +44,12 @@ public static partial class HtmlHelperExtensions
 	}
 
 	// read plain `x => x.Property` lambdas by reflection: compiling the expression on every render is slow
+	// a null property comes back as null, not through the compile path
 	private static TMonad GetMonad<TModel, TMonad>(Expression<Func<TModel, TMonad>> expression, TModel model) =>
 		expression.Body switch
 		{
-			MemberExpression { Member: PropertyInfo property, Expression: ParameterExpression } when property.GetValue(model) is TMonad x =>
-				x,
+			MemberExpression { Member: PropertyInfo property, Expression: ParameterExpression } =>
+				(TMonad)property.GetValue(model)!,
 
 			_ =>
 				expression.Compile().Invoke(model)

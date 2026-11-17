@@ -105,6 +105,40 @@ public class GetValue_Tests
 			}
 		}
 
+		public class Enum_Type : MaybeModelBinder_Tests<DayOfWeek>
+		{
+			[Theory]
+			[InlineData("Monday")]
+			[InlineData("monday")]
+			[InlineData("1")]
+			public void Returns_Model_Value(string input)
+			{
+				// Arrange
+				var (binder, v) = Setup(DayOfWeek.Monday);
+				v.Provider.GetValue(v.ModelName).Returns(new ValueProviderResult(input));
+
+				// Act
+				var (_, bindingResult) = binder.GetValue(v.Provider, v.ModelName);
+
+				// Assert
+				Assert.IsType<Maybe<DayOfWeek>>(bindingResult.Model, false).AssertSome(DayOfWeek.Monday);
+			}
+
+			[Fact]
+			public void Unknown_Name__Fails()
+			{
+				// Arrange
+				var (binder, v) = Setup(DayOfWeek.Monday);
+				v.Provider.GetValue(v.ModelName).Returns(new ValueProviderResult("Funday"));
+
+				// Act
+				var (_, bindingResult) = binder.GetValue(v.Provider, v.ModelName);
+
+				// Assert
+				Assert.Equal(ModelBindingResult.Failed(), bindingResult);
+			}
+		}
+
 		public class String_With_Json_Characters : MaybeModelBinder_Tests<string>
 		{
 			[Theory]
