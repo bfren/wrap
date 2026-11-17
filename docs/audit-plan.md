@@ -497,10 +497,12 @@ Repo audit of `133-fable-audit`, 16 November 2026, after the fourth audit's fixe
 
 ## Left out
 
-- A `None` is still written as JSON `null` when the options say to skip nulls (`DefaultIgnoreCondition.WhenWritingNull`). Run.
-- A `[Failure]` method inside a `partial interface` is generated as a `partial class`. Read, not run.
-- The generator's cached model holds `Diagnostic` objects, which keep old syntax trees in memory while a method has a warning. Read, not run.
-- `AssertMessage` does not check args when none are given, as its docs say.
+All four were looked at again afterwards:
+
+- A `None` is still written as JSON `null` when the options say to skip nulls (`DefaultIgnoreCondition.WhenWritingNull`). **Decision: documented.** `Maybe<T>` is a struct, so it is never `null` itself, and a converter can't tell System.Text.Json to skip a property. `WhenWritingDefault` already works, because `default(Maybe<T>)` is `None`: it skips `None` and still writes `Some(0)`. The `MaybeJsonConverter` remarks now say so, and two tests in `Serialize_Tests.With_WhenWritingDefault` hold it.
+- A `[Failure]` method inside a `partial interface` was generated as a `partial class`, which failed with CS0261 and CS8795 (run). **Fixed:** an interface is now reopened as `partial interface`. `Failures.IInInterface` and a test in `Generate_Tests` cover it. A C# 15 `partial union` would hit the same gap; it was not checked.
+- The generator's cached model holds `Diagnostic` objects. **Withdrawn.** The claim was that they keep old syntax trees in memory. They don't: the model is replaced when its file changes, so it only holds the current tree, which the compilation holds anyway. The only cost is that a method with a warning regenerates its file when its own file is edited. The usual fix, storing the location as plain data, would stop `#pragma warning disable WRAP004` from working, so it would make things worse.
+- `AssertMessage` does not check args when none are given. **Decision: by design**, as its docs say: it lets a test check the message alone. To check there are no args, use `Assert.Empty(failure.Args)`.
 
 ## Not checked
 
