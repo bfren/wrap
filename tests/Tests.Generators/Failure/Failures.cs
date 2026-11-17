@@ -40,6 +40,12 @@ public static partial class Failures
 	}
 #pragma warning restore IDE1006, CA1716
 
+	public partial interface IInInterface
+	{
+		[Failure("In interface")]
+		public static partial Failure Nested();
+	}
+
 	public partial record struct InRecordStruct
 	{
 		[Failure("Nested")]

@@ -70,6 +70,19 @@ public class Generate_Tests
 	}
 
 	[Fact]
+	public void In_Interface__Generates_Method()
+	{
+		// Arrange
+
+		// Act
+		var result = Failures.IInInterface.Nested();
+
+		// Assert
+		Assert.Equal("In interface.", result.Message);
+		Assert.Equal("IInInterface.Nested()", result.Context);
+	}
+
+	[Fact]
 	public void Overloads__Each_Get_Their_Own_Message()
 	{
 		// Arrange

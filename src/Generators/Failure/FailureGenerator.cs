@@ -93,6 +93,9 @@ public sealed class FailureGenerator : IIncrementalGenerator
 				(_, true) =>
 					"record",
 
+				(TypeKind.Interface, _) =>
+					"interface",
+
 				_ =>
 					"class"
 			};
