@@ -83,6 +83,19 @@ public class Generate_Tests
 	}
 
 	[Fact]
+	public void In_Union__Generates_Method()
+	{
+		// Arrange
+
+		// Act
+		var result = Failures.InUnion.Nested();
+
+		// Assert
+		Assert.Equal("In union.", result.Message);
+		Assert.Equal("InUnion.Nested()", result.Context);
+	}
+
+	[Fact]
 	public void Overloads__Each_Get_Their_Own_Message()
 	{
 		// Arrange

@@ -75,15 +75,20 @@ public sealed class FailureGenerator : IIncrementalGenerator
 		var current = method.ContainingType;
 		while (current is not null)
 		{
-			// Record types are not exposed as TypeKind
-			var isRecord = current.DeclaringSyntaxReferences
+			// Record and union types are not exposed as TypeKind
+			var declarations = current.DeclaringSyntaxReferences
 				.Select(r => r.GetSyntax())
 				.OfType<TypeDeclarationSyntax>()
-				.Any(s => s.IsKind(SyntaxKind.RecordDeclaration) || s.IsKind(SyntaxKind.RecordStructDeclaration));
+				.ToArray();
+			var isRecord = declarations.Any(s => s.IsKind(SyntaxKind.RecordDeclaration) || s.IsKind(SyntaxKind.RecordStructDeclaration));
+			var isUnion = declarations.Any(s => s.IsKind(SyntaxKind.UnionDeclaration));
 
 			// Get the current type
 			var kind = (current.TypeKind, isRecord) switch
 			{
+				_ when isUnion =>
+					"union",
+
 				(TypeKind.Struct, true) =>
 					"record struct",
 
