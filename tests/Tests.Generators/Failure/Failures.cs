@@ -46,7 +46,7 @@ public static partial class Failures
 		public static partial Failure Nested();
 	}
 
-	public partial union InUnion(int, string)
+	public readonly partial union InUnion(int, string)
 	{
 		[Failure("In union")]
 		public static partial Failure Nested();
