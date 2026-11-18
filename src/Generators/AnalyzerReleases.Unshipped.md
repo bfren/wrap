@@ -9,4 +9,4 @@ WRAP001 | Wrap.Failure | Error | Method must be static partial and return Failur
 WRAP002 | Wrap.Failure | Error | Failure message must not be empty
 WRAP003 | Wrap.Failure | Error | Placeholder count must match parameter count
 WRAP004 | Wrap.Failure | Warning | Placeholder name should match the parameter at the same position
-WRAP005 | Wrap.Failure | Error | Method must not be generic or have params, ref, out or in parameters
+WRAP005 | Wrap.Failure | Error | Method must not be generic, have params, ref, out or in parameters, or be in a file-local type

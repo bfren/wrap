@@ -95,6 +95,23 @@ public class Diagnostics_Tests
 	}
 
 	[Theory]
+	[InlineData("""file static partial class Local { [Failure("Local")] public static partial Failure F(); }""")]
+	[InlineData("""file static partial class Local { public static partial class Inner { [Failure("Inner")] public static partial Failure F(); } }""")]
+	public void In_File_Local_Type__Reports_WRAP005(string type)
+	{
+		// Arrange
+		var compilation = CreateCompilation(string.Empty)
+			.AddSyntaxTrees(CSharpSyntaxTree.ParseText($"using Wrap; namespace Test; {type}", cancellationToken: TestContext.Current.CancellationToken));
+
+		// Act
+		_ = CSharpGeneratorDriver.Create(new FailureGenerator())
+			.RunGeneratorsAndUpdateCompilation(compilation, out _, out var diagnostics, TestContext.Current.CancellationToken);
+
+		// Assert
+		Assert.Equal(["WRAP005"], diagnostics.Select(d => d.Id));
+	}
+
+	[Theory]
 	[InlineData("""[Failure("")] public static partial Failure F();""")]
 	[InlineData("""[Failure("  ")] public static partial Failure F();""")]
 	public void Empty_Message__Reports_WRAP002(string method)
