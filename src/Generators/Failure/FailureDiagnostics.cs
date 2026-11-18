@@ -111,6 +111,10 @@ internal static class FailureDiagnostics
 			_ when method.Parameters.Any(p => p.RefKind != RefKind.None) =>
 				"a ref, out or in parameter",
 
+			// The generated file cannot reopen a type that only its own file can see
+			_ when IsInFileLocalType(method.ContainingType) =>
+				"a file-local containing type",
+
 			_ =>
 				null
 		};
@@ -163,4 +167,12 @@ internal static class FailureDiagnostics
 
 		return [.. diagnostics];
 	}
+
+	/// <summary>
+	/// Check whether a type, or any type it is nested in, is declared <c>file</c>.
+	/// </summary>
+	/// <param name="type">Containing type, or <see langword="null"/> once the namespace is reached.</param>
+	/// <returns><see langword="true"/> if <paramref name="type"/> or one of its containing types is file-local.</returns>
+	private static bool IsInFileLocalType(INamedTypeSymbol? type) =>
+		type is not null && (type.IsFileLocal || IsInFileLocalType(type.ContainingType));
 }

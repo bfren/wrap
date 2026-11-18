@@ -30,7 +30,7 @@ dotnet build Wrap.slnx --no-restore --configuration Debug
 dotnet test --solution Wrap.slnx --no-restore --no-build --configuration Debug
 ```
 
-These match the shared CI workflow. `Test.csproj` no longer works with `dotnet test` under Microsoft.Testing.Platform.
+These match the shared CI workflow.
 
 ### Supported .NET Versions
 

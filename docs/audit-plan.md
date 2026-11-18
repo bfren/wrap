@@ -10,11 +10,13 @@ A fourth audit on 16 November 2026 looked for anything the first three missed. I
 
 A fifth audit on 16 November 2026 covered the parts the fourth one skipped. Its findings start at item 28, under "Fifth audit" below.
 
+A sixth audit on 18 November 2026 installed the packed packages in a real consumer project and read what the first five skipped. Its findings start at item 30, under "Sixth audit" below.
+
 **What this repo does:** Wrap is a .NET library of monads: `Maybe` (a value that may be missing), `Result` (an operation that may have failed), `Either` (one of two values) and strongly typed `Id`s. Around them it adds a memory cache, JSON converters, MVC model binders, Dapper type handlers and a source generator that writes `Failure` methods.
 
 **Load assumed:** web apps that use it under real traffic. The cache is registered as one shared instance (a singleton) for the whole app. The JSON converters and model binders read data sent by users.
 
-**Verdict:** first audit all done, or decided (7). Second audit: all done (8), 1 withdrawn. Third audit: all done (4). Fourth audit: all done (6), plus 2 review follow-ups done and 1 withdrawn. Fifth audit: all done (2).
+**Verdict:** first audit all done, or decided (7). Second audit: all done (8), 1 withdrawn. Third audit: all done (4). Fourth audit: all done (6), plus 2 review follow-ups done and 1 withdrawn. Fifth audit: all done (2). Sixth audit: all done (3).
 
 **Lean:** nothing left to remove, and no dependencies.
 
@@ -500,7 +502,7 @@ Repo audit of `133-fable-audit`, 16 November 2026, after the fourth audit's fixe
 All four were looked at again afterwards:
 
 - A `None` is still written as JSON `null` when the options say to skip nulls (`DefaultIgnoreCondition.WhenWritingNull`). **Decision: documented.** `Maybe<T>` is a struct, so it is never `null` itself, and a converter can't tell System.Text.Json to skip a property. `WhenWritingDefault` already works, because `default(Maybe<T>)` is `None`: it skips `None` and still writes `Some(0)`. The `MaybeJsonConverter` remarks now say so, and two tests in `Serialize_Tests.With_WhenWritingDefault` hold it.
-- A `[Failure]` method inside a `partial interface` was generated as a `partial class`, which failed with CS0261 and CS8795 (run). **Fixed:** an interface is now reopened as `partial interface`. `Failures.IInInterface` and a test in `Generate_Tests` cover it. A C# 15 `partial union` would hit the same gap; it was not checked.
+- A `[Failure]` method inside a `partial interface` was generated as a `partial class`, which failed with CS0261 and CS8795 (run). **Fixed:** an interface is now reopened as `partial interface`. `Failures.IInInterface` and a test in `Generate_Tests` cover it. A C# 15 `partial union` would hit the same gap; it was not checked. **Fixed in item 30.**
 - The generator's cached model holds `Diagnostic` objects. **Withdrawn.** The claim was that they keep old syntax trees in memory. They don't: the model is replaced when its file changes, so it only holds the current tree, which the compilation holds anyway. The only cost is that a method with a warning regenerates its file when its own file is edited. The usual fix, storing the location as plain data, would stop `#pragma warning disable WRAP004` from working, so it would make things worse.
 - `AssertMessage` does not check args when none are given. **Decision: by design**, as its docs say: it lets a test check the message alone. To check there are no args, use `Assert.Empty(failure.Args)`.
 
@@ -510,3 +512,59 @@ All four were looked at again afterwards:
 - The second half of each `MatchIf` file and the `Result` `Match` extensions were not read; they repeat the overloads that were read.
 - The Benchmarks code, the vendored JavaScript and the shared workflows in `bfren/dotnet` were not read.
 - No packages were packed, and the cache was not load-tested.
+
+# Sixth audit
+
+Repo audit of `main`, 18 November 2026. All 14 packages were packed and installed from a local feed in a new console project outside the repo, which no earlier audit did. That project used the `[Failure]` generator, `Id.Testing`, LINQ, JSON and `Either`, and all worked: items 18 and 19 hold for real consumers. `Id.Testing` also ran with Rnd 10.4.0 in the app's own graph. The audit also read all of `Either`, the `Maybe` `If`, `MatchIf` and `Audit` families, the Unsafe and Monad extensions, the JSON converter factories, the Benchmarks and the shared `prepare.yml`. Items 30 and 31 were reproduced in that project before they were fixed. The load assumed is the same as above.
+
+**Verdict:** all done (3). None blocked the release.
+
+## Should fix
+
+### 30. A `[Failure]` method inside a `partial union` did not compile
+
+- [x] Done
+
+**Where:** `src/Generators/Failure/FailureGenerator.cs`, the containing type kind
+
+- **What this is:** the generator reopens each type that contains the method, as the same kind of type.
+- **Problem:** it had no case for C# 15 unions, so `partial union U(int, string)` was reopened as `partial class U`, which failed with CS0261, CS0759 and CS8795. The fifth audit noted the gap but did not run it.
+- **Done:** a union declaration is now reopened as `partial union`. `Failures.InUnion` and a test in `Generate_Tests` cover it.
+- **If we skip it:** anyone who keeps their failures on a union, the main feature of Wrap 2, gets errors inside generated code.
+
+## Nice to have
+
+### 31. A `[Failure]` method in a `file` class gave a confusing error
+
+- [x] Done
+
+**Where:** `src/Generators/Failure/FailureDiagnostics.cs`, `Check`
+
+- **What this is:** a `file` class can only be seen from its own source file.
+- **Problem:** the generated half is in a different file, so it can never join the class. The user saw CS8795, "must have an implementation part", with no hint why.
+- **Done:** a method in a `file` type, or in a type nested inside one, now reports WRAP005 ("has a file-local containing type") and nothing is generated. Two rows in `Diagnostics_Tests` cover it.
+- **If we skip it:** rare, but the user is left guessing.
+
+### 32. `Test.csproj` was dead
+
+- [x] Done
+
+**Where:** `Test.csproj`
+
+- **What this is:** an old traversal project that pulled in every test project.
+- **Problem:** nothing used it. CI runs `dotnet test --solution Wrap.slnx`, and CLAUDE.md said it no longer worked under Microsoft.Testing.Platform. `Pack.csproj` stays, because the shared `prepare.yml` packs from it.
+- **Done:** deleted, with its sentence in CLAUDE.md.
+- **If we skip it:** the next reader tries it and loses time.
+
+## Left out
+
+- A `Maybe<T>` cannot be a JSON dictionary key: it throws `NotSupportedException`. Typed IDs can (item 29); a `Maybe` key is unusual.
+- In a nested `Maybe<Maybe<T>>`, `Some(None)` is written as `null`, the same as `None`, so it reads back as `None`.
+- Rnd 10.4.0, the latest release, still has the old docs for `Int` and the other number properties, so the Rnd doc fix is not released yet. The package bump waits for it.
+
+## Not checked
+
+- The second half of each `Result` `MatchIf` and `Match` file.
+- The vendored JavaScript under `apps/AppMvc/wwwroot`, and the shared `test.yml` and `notify.yml` in `bfren/dotnet`.
+- The Testing packages inside a real xunit v3 test project.
+- The cache was not load-tested.

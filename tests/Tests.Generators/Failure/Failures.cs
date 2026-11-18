@@ -46,6 +46,12 @@ public static partial class Failures
 		public static partial Failure Nested();
 	}
 
+	public readonly partial union InUnion(int, string)
+	{
+		[Failure("In union")]
+		public static partial Failure Nested();
+	}
+
 	public partial record struct InRecordStruct
 	{
 		[Failure("Nested")]
