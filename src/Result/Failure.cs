@@ -15,7 +15,7 @@ namespace Wrap;
 /// <remarks>
 /// <see cref="Failure"/> carries no type, so it converts to any <see cref="Result{T}"/> - you can
 /// <c>return R.Fail("…");</c> without specifying the value type. Use <see cref="R.Fail(string, object[])"/> to create one,
-/// and <see cref="Msg"/>, <see cref="Arg"/>, <see cref="Ctx(string, string)"/> and <see cref="Lvl"/> to change it.
+/// and <see cref="Msg"/>, <see cref="Arg"/>, <see cref="Ctx(string, string)"/>, <see cref="Lvl"/> and <see cref="Knd"/> to change it.
 /// </remarks>
 public readonly partial record struct Failure : IWithException
 {
@@ -37,9 +37,11 @@ public readonly partial record struct Failure : IWithException
 			Level = DefaultFailureLevel
 		};
 
-	internal const LogLevel DefaultFailureLevel = LogLevel.Warning;
+	internal const LogLevel DefaultFailureLevel =
+		LogLevel.Warning;
 
-	internal const LogLevel DefaultExceptionLevel = LogLevel.Error;
+	internal const LogLevel DefaultExceptionLevel =
+		LogLevel.Error;
 
 	/// <summary>
 	/// Gets the arguments used to fill the placeholders in <see cref="Message"/> (empty if there are none).
@@ -61,6 +63,12 @@ public readonly partial record struct Failure : IWithException
 	/// </remarks>
 	[JsonIgnore]
 	public readonly Exception? Exception { get; init; }
+
+	/// <summary>
+	/// Gets what sort of failure this is: <see cref="FailureKind.Unspecified"/> by default, or chosen from the exception
+	/// when it was created from one.
+	/// </summary>
+	public readonly FailureKind Kind { get; init; }
 
 	/// <summary>
 	/// Gets the log level of the failure: <see cref="LogLevel.Warning"/> by default, or <see cref="LogLevel.Error"/>
@@ -85,10 +93,15 @@ public readonly partial record struct Failure : IWithException
 	/// <summary>
 	/// Create a <see cref="Failure"/> from an exception, using its message and the <see cref="LogLevel.Error"/> log level.
 	/// </summary>
+	/// <remarks>
+	/// <see cref="Kind"/> is <see cref="FailureKind.Timeout"/> for a <see cref="TimeoutException"/> or a cancellation caused by
+	/// one, <see cref="FailureKind.Cancelled"/> for any other <see cref="OperationCanceledException"/>, and
+	/// <see cref="FailureKind.Unexpected"/> otherwise.
+	/// </remarks>
 	/// <param name="ex">Exception object.</param>
 	[SetsRequiredMembers]
 	public Failure(Exception ex) =>
-		(Message, Exception, Level) = (ex.Message, ex, DefaultExceptionLevel);
+		(Message, Exception, Level, Kind) = (ex.Message, ex, DefaultExceptionLevel, FailureKind.From(ex));
 
 	/// <summary>
 	/// Wrap this failure as a <see cref="Result{T}"/> in a completed task, for simple async returns.
