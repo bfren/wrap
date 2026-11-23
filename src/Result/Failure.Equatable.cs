@@ -18,11 +18,12 @@ public readonly partial record struct Failure
 	/// <param name="other">Failure to compare.</param>
 	/// <returns>
 	/// <see langword="true"/> if <see cref="Message"/>, <see cref="Args"/>, <see cref="Context"/>,
-	/// <see cref="Exception"/> and <see cref="Level"/> are all equal.
+	/// <see cref="Exception"/>, <see cref="Level"/> and <see cref="Kind"/> are all equal.
 	/// </returns>
 	public bool Equals(Failure other) =>
 		Message == other.Message
 		&& Level == other.Level
+		&& Kind == other.Kind
 		&& Context == other.Context
 		&& Equals(Exception, other.Exception)
 		&& (Args ?? []).SequenceEqual(other.Args ?? []);
@@ -33,7 +34,7 @@ public readonly partial record struct Failure
 	/// <returns>Hash code.</returns>
 	public override int GetHashCode() =>
 		(Args ?? []).Aggregate(
-			HashCode.Combine(Message, Level, Context, Exception),
+			HashCode.Combine(Message, Level, Kind, Context, Exception),
 			(hash, arg) => HashCode.Combine(hash, arg)
 		);
 }

@@ -53,6 +53,17 @@ Code style is enforced via `dotnet format style` in the test workflow. Always ru
 dotnet format style -v d Wrap.slnx --no-restore
 ```
 
+### Layout
+Put a field, constant or property initialiser on its own line after the `=`, indented one level, just as `=>` bodies are:
+```csharp
+internal const LogLevel DefaultFailureLevel =
+	LogLevel.Warning;
+
+public static readonly FailureKind NotFound =
+	new(nameof(NotFound));
+```
+A field with no initialiser, such as `public static readonly FailureKind Unspecified;`, stays on one line.
+
 ### XML Doc Comments
 Every project has `GenerateDocumentationFile` on, and the comments become the NuGet IntelliSense text, so they must be accurate. When writing or correcting them:
 

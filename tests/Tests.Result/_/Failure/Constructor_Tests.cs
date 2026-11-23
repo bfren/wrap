@@ -21,6 +21,7 @@ public class Constructor_Tests
 			Assert.Equal(message, result.Message);
 			Assert.Equal(args, result.Args);
 			Assert.Equal(Logging.LogLevel.Warning, result.Level);
+			Assert.Equal(FailureKind.Unspecified, result.Kind);
 		}
 	}
 
@@ -39,6 +40,46 @@ public class Constructor_Tests
 			Assert.Equal(ex, result.Exception);
 			Assert.Equal(ex.Message, result.Message);
 			Assert.Equal(Logging.LogLevel.Error, result.Level);
+			Assert.Equal(FailureKind.Unexpected, result.Kind);
+		}
+
+		[Fact]
+		public void Cancellation_Sets_Cancelled_Kind()
+		{
+			// Arrange
+			var ex = new TaskCanceledException();
+
+			// Act
+			var result = new Failure(ex);
+
+			// Assert
+			Assert.Equal(FailureKind.Cancelled, result.Kind);
+		}
+
+		[Fact]
+		public void Timeout_Sets_Timeout_Kind()
+		{
+			// Arrange
+			var ex = new TimeoutException();
+
+			// Act
+			var result = new Failure(ex);
+
+			// Assert
+			Assert.Equal(FailureKind.Timeout, result.Kind);
+		}
+
+		[Fact]
+		public void Cancellation_Caused_By_Timeout_Sets_Timeout_Kind()
+		{
+			// Arrange
+			var ex = new TaskCanceledException(Rnd.Str, new TimeoutException());
+
+			// Act
+			var result = new Failure(ex);
+
+			// Assert
+			Assert.Equal(FailureKind.Timeout, result.Kind);
 		}
 	}
 }

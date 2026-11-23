@@ -52,6 +52,17 @@ public readonly partial record struct Failure
 		};
 
 	/// <summary>
+	/// Set what sort of failure this is.
+	/// </summary>
+	/// <param name="kind">Failure kind.</param>
+	/// <returns>A copy of this failure with <paramref name="kind"/>.</returns>
+	public Failure Knd(FailureKind kind) =>
+		this with
+		{
+			Kind = kind
+		};
+
+	/// <summary>
 	/// Set the log level.
 	/// </summary>
 	/// <param name="level">Log level.</param>
