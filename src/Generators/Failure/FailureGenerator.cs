@@ -58,10 +58,12 @@ public sealed class FailureGenerator : IIncrementalGenerator
 			_ =>
 				(int?)null
 		};
+		// Null when not set, so the kind stays Unspecified
+		var failureKind = attr.NamedArguments.FirstOrDefault(a => a.Key == "Kind").Value.Value as string;
 
 		// Check the method and message, and stop if the method cannot be implemented
 		var location = attr.ApplicationSyntaxReference?.GetSyntax().GetLocation() ?? method.Locations.FirstOrDefault();
-		var diagnostics = FailureDiagnostics.Check(method, message, location, out var canGenerate);
+		var diagnostics = FailureDiagnostics.Check(method, message, failureKind, location, out var canGenerate);
 		if (!canGenerate)
 		{
 			return new MethodModel
@@ -139,6 +141,7 @@ public sealed class FailureGenerator : IIncrementalGenerator
 			MethodName = method.Name,
 			Message = message,
 			LogLevel = logLevel,
+			Kind = failureKind,
 			Parameters = method.Parameters.Select(ParameterModel.Create).ToArray(),
 			ReturnType = method.ReturnType.ToDisplayString(),
 			Diagnostics = diagnostics,
@@ -216,12 +219,22 @@ public sealed class FailureGenerator : IIncrementalGenerator
 				string.Empty
 		};
 
+		var kind = model.Kind switch
+		{
+			string x =>
+				$"{indent}        Kind = new Wrap.FailureKind({SymbolDisplay.FormatLiteral(x, quote: true)}),\n",
+
+			_ =>
+				string.Empty
+		};
+
 		_ = sb.AppendLine($"{indent}{model.Accessibility} static partial {model.ReturnType} @{model.MethodName}({paramList})")
 			.AppendLine($"{indent}{{")
 			// no locals: a local would clash with a parameter of the same name, e.g. 'message'
 			.AppendLine($"{indent}    return new {model.ReturnType}({message}{argList})")
 			.AppendLine($"{indent}    {{")
 			.Append(level)
+			.Append(kind)
 			.AppendLine($"{indent}        Context = \"{model.ClassName}.{model.MethodName}()\"")
 			.AppendLine($"{indent}    }};")
 			.AppendLine($"{indent}}}");

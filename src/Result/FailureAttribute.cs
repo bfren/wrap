@@ -23,6 +23,15 @@ public sealed class FailureAttribute : Attribute
 	public LogLevel Level { get; private init; }
 
 	/// <summary>
+	/// Failure kind name, for example <c>nameof(FailureKind.NotFound)</c> - if not set will use <see cref="FailureKind.Unspecified"/>.
+	/// </summary>
+	/// <remarks>
+	/// Attribute arguments must be constants, so this takes the <see cref="FailureKind.Name"/> rather than the kind itself.
+	/// Any name works, including your own kinds.
+	/// </remarks>
+	public string? Kind { get; init; }
+
+	/// <summary>
 	/// Create Failure with message.
 	/// </summary>
 	/// <param name="message">Failure message.</param>

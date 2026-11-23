@@ -92,6 +92,20 @@ public class Equals_Tests
 		}
 
 		[Fact]
+		public void Different_Kind_Returns_False()
+		{
+			// Arrange
+			var f0 = new Failure(Rnd.Str);
+			var f1 = f0.Knd(FailureKind.NotFound);
+
+			// Act
+			var result = f0 == f1;
+
+			// Assert
+			Assert.False(result);
+		}
+
+		[Fact]
 		public void Default_Equals_Default()
 		{
 			// Arrange
