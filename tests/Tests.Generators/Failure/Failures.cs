@@ -19,6 +19,12 @@ public static partial class Failures
 	[Failure("Item {Id} was not found")]
 	public static partial Failure Overload(int id);
 
+	[Failure("Order {OrderId} was not found", Kind = nameof(FailureKind.NotFound))]
+	public static partial Failure WithKind(int orderId);
+
+	[Failure("Payload is too large", LogLevel.Information, Kind = "Merlin.PayloadTooLarge")]
+	public static partial Failure WithCustomKind();
+
 	[Failure("Item {Name} was not found")]
 	public static partial Failure Overload(string name);
 

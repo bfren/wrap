@@ -32,6 +32,43 @@ public class Generate_Tests
 	}
 
 	[Fact]
+	public void Without_Kind__Uses_Unspecified()
+	{
+		// Arrange
+
+		// Act
+		var result = Failures.NoLevel(Rnd.Int);
+
+		// Assert
+		Assert.Equal(FailureKind.Unspecified, result.Kind);
+	}
+
+	[Fact]
+	public void With_Kind__Uses_Kind()
+	{
+		// Arrange
+
+		// Act
+		var result = Failures.WithKind(Rnd.Int);
+
+		// Assert
+		Assert.Equal(FailureKind.NotFound, result.Kind);
+	}
+
+	[Fact]
+	public void With_Custom_Kind_And_Level__Uses_Both()
+	{
+		// Arrange
+
+		// Act
+		var result = Failures.WithCustomKind();
+
+		// Assert
+		Assert.Equal(new FailureKind("Merlin.PayloadTooLarge"), result.Kind);
+		Assert.Equal(LogLevel.Information, result.Level);
+	}
+
+	[Fact]
 	public void Keeps_Message_Template_And_Passes_Args()
 	{
 		// Arrange

@@ -14,83 +14,104 @@ namespace Wrap;
 /// </summary>
 internal static class FailureDiagnostics
 {
-	private const string Category = "Wrap.Failure";
+	private const string Category =
+		"Wrap.Failure";
 
 	/// <summary>
 	/// The method is not <c>static partial</c> or does not return Wrap.Failure.
 	/// </summary>
-	internal static readonly DiagnosticDescriptor InvalidMethod = new(
-		"WRAP001",
-		"Invalid Failure method",
-		"Method '{0}' must be static partial and return Wrap.Failure to use [Failure]",
-		Category,
-		DiagnosticSeverity.Error,
-		isEnabledByDefault: true
-	);
+	internal static readonly DiagnosticDescriptor InvalidMethod =
+		new(
+			"WRAP001",
+			"Invalid Failure method",
+			"Method '{0}' must be static partial and return Wrap.Failure to use [Failure]",
+			Category,
+			DiagnosticSeverity.Error,
+			isEnabledByDefault: true
+		);
 
 	/// <summary>
 	/// The message is empty.
 	/// </summary>
-	internal static readonly DiagnosticDescriptor EmptyMessage = new(
-		"WRAP002",
-		"Empty Failure message",
-		"The [Failure] message for '{0}' must not be empty",
-		Category,
-		DiagnosticSeverity.Error,
-		isEnabledByDefault: true
-	);
+	internal static readonly DiagnosticDescriptor EmptyMessage =
+		new(
+			"WRAP002",
+			"Empty Failure message",
+			"The [Failure] message for '{0}' must not be empty",
+			Category,
+			DiagnosticSeverity.Error,
+			isEnabledByDefault: true
+		);
 
 	/// <summary>
 	/// The number of placeholders does not match the number of parameters.
 	/// </summary>
-	internal static readonly DiagnosticDescriptor PlaceholderCount = new(
-		"WRAP003",
-		"Placeholders do not match parameters",
-		"The [Failure] message for '{0}' has {1} placeholder(s) but the method has {2} parameter(s)",
-		Category,
-		DiagnosticSeverity.Error,
-		isEnabledByDefault: true
-	);
+	internal static readonly DiagnosticDescriptor PlaceholderCount =
+		new(
+			"WRAP003",
+			"Placeholders do not match parameters",
+			"The [Failure] message for '{0}' has {1} placeholder(s) but the method has {2} parameter(s)",
+			Category,
+			DiagnosticSeverity.Error,
+			isEnabledByDefault: true
+		);
 
 	/// <summary>
 	/// A named placeholder does not match the parameter at the same position.
 	/// </summary>
-	internal static readonly DiagnosticDescriptor PlaceholderName = new(
-		"WRAP004",
-		"Placeholder does not match parameter",
-		"Placeholder '{{{0}}}' will be filled from parameter '{1}', because placeholders are filled in parameter order",
-		Category,
-		DiagnosticSeverity.Warning,
-		isEnabledByDefault: true
-	);
+	internal static readonly DiagnosticDescriptor PlaceholderName =
+		new(
+			"WRAP004",
+			"Placeholder does not match parameter",
+			"Placeholder '{{{0}}}' will be filled from parameter '{1}', because placeholders are filled in parameter order",
+			Category,
+			DiagnosticSeverity.Warning,
+			isEnabledByDefault: true
+		);
 
 	/// <summary>
 	/// The method uses a feature the generator cannot implement.
 	/// </summary>
-	internal static readonly DiagnosticDescriptor UnsupportedMethod = new(
-		"WRAP005",
-		"Unsupported Failure method",
-		"Method '{0}' cannot use [Failure] because it has {1}",
-		Category,
-		DiagnosticSeverity.Error,
-		isEnabledByDefault: true
-	);
+	internal static readonly DiagnosticDescriptor UnsupportedMethod =
+		new(
+			"WRAP005",
+			"Unsupported Failure method",
+			"Method '{0}' cannot use [Failure] because it has {1}",
+			Category,
+			DiagnosticSeverity.Error,
+			isEnabledByDefault: true
+		);
+
+	/// <summary>
+	/// The kind is set but empty.
+	/// </summary>
+	internal static readonly DiagnosticDescriptor EmptyKind =
+		new(
+			"WRAP006",
+			"Empty Failure kind",
+			"The [Failure] kind for '{0}' must not be empty - leave it out to use FailureKind.Unspecified",
+			Category,
+			DiagnosticSeverity.Error,
+			isEnabledByDefault: true
+		);
 
 	// Same pattern as F.Format's TemplateMatcherRegex (src/Common/Functions/F.Format.cs) - keep the two in step
-	private static readonly Regex TemplateMatcher = new(
-		@"(?<start>\{)+(?<template>[\w\.\[\]@]+)(?<format>:[^}]+)?(?<end>\})+|\{\{|\}\}",
-		RegexOptions.IgnoreCase | RegexOptions.CultureInvariant
-	);
+	private static readonly Regex TemplateMatcher =
+		new(
+			@"(?<start>\{)+(?<template>[\w\.\[\]@]+)(?<format>:[^}]+)?(?<end>\})+|\{\{|\}\}",
+			RegexOptions.IgnoreCase | RegexOptions.CultureInvariant
+		);
 
 	/// <summary>
 	/// Check a [Failure] method and its message.
 	/// </summary>
 	/// <param name="method">Method symbol.</param>
 	/// <param name="message">Failure message.</param>
+	/// <param name="kind">Failure kind name, or <see langword="null"/> if not set.</param>
 	/// <param name="location">Location of the attribute, used for message diagnostics.</param>
 	/// <param name="canGenerate">False if the method cannot be implemented, so no source should be generated.</param>
 	/// <returns>Diagnostics to report (empty if there are no problems).</returns>
-	internal static Diagnostic[] Check(IMethodSymbol method, string message, Location? location, out bool canGenerate)
+	internal static Diagnostic[] Check(IMethodSymbol method, string message, string? kind, Location? location, out bool canGenerate)
 	{
 		// Generated code would not compile, so report and stop
 		if (!method.IsStatic || !method.IsPartialDefinition || method.ReturnType.ToDisplayString() != "Wrap.Failure")
@@ -131,13 +152,18 @@ internal static class FailureDiagnostics
 			return [Diagnostic.Create(EmptyMessage, location, method.Name)];
 		}
 
+		var diagnostics = new List<Diagnostic>();
+		if (kind is not null && string.IsNullOrWhiteSpace(kind))
+		{
+			diagnostics.Add(Diagnostic.Create(EmptyKind, location, method.Name));
+		}
+
 		// Placeholders exactly as F.Format sees them: an odd number of braces, with escaped braces ignored
 		var placeholders = TemplateMatcher.Matches(message).Cast<Match>()
 			.Where(m => m.Groups["template"].Success && m.Groups["start"].Captures.Count % 2 == 1)
 			.Select(m => m.Groups["template"].Value.TrimStart('@'))
 			.ToArray();
 		var parameters = method.Parameters;
-		var diagnostics = new List<Diagnostic>();
 
 		// F.Format fills numbered placeholders by index and named ones in order
 		var numbered = placeholders.Select(p => int.TryParse(p, out var i) ? i : (int?)null).ToArray();

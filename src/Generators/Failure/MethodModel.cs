@@ -58,6 +58,11 @@ internal record MethodModel()
 	internal int? LogLevel { get; set; }
 
 	/// <summary>
+	/// Failure kind name.
+	/// </summary>
+	internal string? Kind { get; set; }
+
+	/// <summary>
 	/// Method parameters.
 	/// </summary>
 	internal EquatableArray<ParameterModel> Parameters { get; set; } =

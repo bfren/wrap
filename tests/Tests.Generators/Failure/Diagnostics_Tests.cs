@@ -50,6 +50,8 @@ public class Diagnostics_Tests
 	[InlineData("""[Failure("User {@user.Name} has {Count:N0} items", LogLevel.Error)] public static partial Failure F(object user, int count);""")]
 	[InlineData("""[Failure("Values {1} and {0}")] public static partial Failure F(int a, int b);""")]
 	[InlineData("""[Failure("Literal {{braces}} only")] public static partial Failure F();""")]
+	[InlineData("""[Failure("Not found", Kind = nameof(FailureKind.NotFound))] public static partial Failure F();""")]
+	[InlineData("""[Failure("Not found", Kind = null)] public static partial Failure F();""")]
 	public void Valid_Method__Reports_Nothing(string method)
 	{
 		// Arrange
@@ -123,6 +125,20 @@ public class Diagnostics_Tests
 
 		// Assert
 		Assert.Equal(["WRAP002"], result);
+	}
+
+	[Theory]
+	[InlineData("""[Failure("Not found", Kind = "")] public static partial Failure F();""")]
+	[InlineData("""[Failure("Not found", Kind = "  ")] public static partial Failure F();""")]
+	public void Empty_Kind__Reports_WRAP006(string method)
+	{
+		// Arrange
+
+		// Act
+		var result = GetDiagnosticIds(method);
+
+		// Assert
+		Assert.Equal(["WRAP006"], result);
 	}
 
 	[Theory]
