@@ -18,8 +18,8 @@ public class AuditAsync_Tests
 				fNone.Invoke().Returns(Task.CompletedTask);
 
 				// Act
-				var r0 = await input.AuditAsync(fNone);
-				var r1 = await input.AsTask().AuditAsync(fNone);
+				var r0 = await input.AuditAsync(fNone, null);
+				var r1 = await input.AsTask().AuditAsync(fNone, null);
 
 				// Assert
 				await fNone.Received(2).Invoke();
@@ -35,7 +35,7 @@ public class AuditAsync_Tests
 				var fNone = Substitute.For<Action>();
 
 				// Act
-				var result = await input.AsTask().AuditAsync(fNone);
+				var result = await input.AsTask().AuditAsync(fNone, null);
 
 				// Assert
 				fNone.Received().Invoke();
@@ -51,8 +51,8 @@ public class AuditAsync_Tests
 				fNone.Invoke().Returns(Task.CompletedTask);
 
 				// Act
-				var r0 = await input.AuditAsync(fNone);
-				var r1 = await input.AsTask().AuditAsync(fNone);
+				var r0 = await input.AuditAsync(fNone, null);
+				var r1 = await input.AsTask().AuditAsync(fNone, null);
 
 				// Assert
 				r0.AssertNone();
@@ -71,8 +71,8 @@ public class AuditAsync_Tests
 				fNone.Invoke().Returns(Task.CompletedTask);
 
 				// Act
-				var r0 = await input.AuditAsync(fNone);
-				var r1 = await input.AsTask().AuditAsync(fNone);
+				var r0 = await input.AuditAsync(fNone, null);
+				var r1 = await input.AsTask().AuditAsync(fNone, null);
 
 				// Assert
 				await fNone.DidNotReceive().Invoke();
@@ -88,7 +88,7 @@ public class AuditAsync_Tests
 				var fNone = Substitute.For<Action>();
 
 				// Act
-				_ = await input.AsTask().AuditAsync(fNone);
+				_ = await input.AsTask().AuditAsync(fNone, null);
 
 				// Assert
 				fNone.DidNotReceive().Invoke();
@@ -104,8 +104,8 @@ public class AuditAsync_Tests
 				fNone.Invoke().Returns(Task.CompletedTask);
 
 				// Act
-				var r0 = await input.AuditAsync(fNone);
-				var r1 = await input.AsTask().AuditAsync(fNone);
+				var r0 = await input.AuditAsync(fNone, null);
+				var r1 = await input.AsTask().AuditAsync(fNone, null);
 
 				// Assert
 				r0.AssertSome(value);
@@ -127,8 +127,8 @@ public class AuditAsync_Tests
 				fSome.Invoke(Arg.Any<string>()).Returns(Task.CompletedTask);
 
 				// Act
-				var r0 = await input.AuditAsync(fSome);
-				var r1 = await input.AsTask().AuditAsync(fSome);
+				var r0 = await input.AuditAsync(null, fSome);
+				var r1 = await input.AsTask().AuditAsync(null, fSome);
 
 				// Assert
 				await fSome.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -144,7 +144,7 @@ public class AuditAsync_Tests
 				var fSome = Substitute.For<Action<string>>();
 
 				// Act
-				_ = await input.AsTask().AuditAsync(fSome);
+				_ = await input.AsTask().AuditAsync(null, fSome);
 
 				// Assert
 				fSome.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -159,8 +159,8 @@ public class AuditAsync_Tests
 				fSome.Invoke(Arg.Any<string>()).Returns(Task.CompletedTask);
 
 				// Act
-				var r0 = await input.AuditAsync(fSome);
-				var r1 = await input.AsTask().AuditAsync(fSome);
+				var r0 = await input.AuditAsync(null, fSome);
+				var r1 = await input.AsTask().AuditAsync(null, fSome);
 
 				// Assert
 				r0.AssertNone();
@@ -180,8 +180,8 @@ public class AuditAsync_Tests
 				fSome.Invoke(Arg.Any<string>()).Returns(Task.CompletedTask);
 
 				// Act
-				var r0 = await input.AuditAsync(fSome);
-				var r1 = await input.AsTask().AuditAsync(fSome);
+				var r0 = await input.AuditAsync(null, fSome);
+				var r1 = await input.AsTask().AuditAsync(null, fSome);
 
 				// Assert
 				await fSome.Received(2).Invoke(value);
@@ -198,7 +198,7 @@ public class AuditAsync_Tests
 				var fSome = Substitute.For<Action<string>>();
 
 				// Act
-				_ = await input.AsTask().AuditAsync(fSome);
+				_ = await input.AsTask().AuditAsync(null, fSome);
 
 				// Assert
 				fSome.Received().Invoke(value);
@@ -214,8 +214,8 @@ public class AuditAsync_Tests
 				fSome.Invoke(Arg.Any<string>()).Returns(Task.CompletedTask);
 
 				// Act
-				var r0 = await input.AuditAsync(fSome);
-				var r1 = await input.AsTask().AuditAsync(fSome);
+				var r0 = await input.AuditAsync(null, fSome);
+				var r1 = await input.AsTask().AuditAsync(null, fSome);
 
 				// Assert
 				r0.AssertSome(value);

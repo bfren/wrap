@@ -17,7 +17,7 @@ public class Audit_Tests
 				var fNone = Substitute.For<Action>();
 
 				// Act
-				_ = input.Audit(fNone);
+				_ = input.Audit(fNone, null);
 
 				// Assert
 				fNone.Received().Invoke();
@@ -31,7 +31,7 @@ public class Audit_Tests
 				var fNone = Substitute.For<Action>();
 
 				// Act
-				var result = input.Audit(fNone);
+				var result = input.Audit(fNone, null);
 
 				// Assert
 				result.AssertNone();
@@ -48,7 +48,7 @@ public class Audit_Tests
 				var fNone = Substitute.For<Action>();
 
 				// Act
-				_ = input.Audit(fNone);
+				_ = input.Audit(fNone, null);
 
 				// Assert
 				fNone.DidNotReceive().Invoke();
@@ -63,7 +63,7 @@ public class Audit_Tests
 				var fNone = Substitute.For<Action>();
 
 				// Act
-				var result = input.Audit(fNone);
+				var result = input.Audit(fNone, null);
 
 				// Assert
 				result.AssertSome(value);
@@ -83,7 +83,7 @@ public class Audit_Tests
 				var fSome = Substitute.For<Action<string>>();
 
 				// Act
-				_ = input.Audit(fSome);
+				_ = input.Audit(null, fSome);
 
 				// Assert
 				fSome.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<string>());
@@ -97,7 +97,7 @@ public class Audit_Tests
 				var fSome = Substitute.For<Action<string>>();
 
 				// Act
-				var result = input.Audit(fSome);
+				var result = input.Audit(null, fSome);
 
 				// Assert
 				result.AssertNone();
@@ -115,7 +115,7 @@ public class Audit_Tests
 				var fSome = Substitute.For<Action<string>>();
 
 				// Act
-				_ = input.Audit(fSome);
+				_ = input.Audit(null, fSome);
 
 				// Assert
 				fSome.Received().Invoke(value);
@@ -130,7 +130,7 @@ public class Audit_Tests
 				var fSome = Substitute.For<Action<string>>();
 
 				// Act
-				var result = input.Audit(fSome);
+				var result = input.Audit(null, fSome);
 
 				// Assert
 				result.AssertSome(value);

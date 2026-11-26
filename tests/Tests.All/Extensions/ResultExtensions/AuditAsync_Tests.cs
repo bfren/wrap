@@ -15,8 +15,8 @@ public class AuditAsync_Tests
 			var fFail = Substitute.For<Func<Failure, Task>>();
 
 			// Act
-			_ = await input.AuditAsync(fFail);
-			_ = await input.AsTask().AuditAsync(fFail);
+			_ = await input.AuditAsync(fFail: fFail, fOk: null);
+			_ = await input.AsTask().AuditAsync(fFail: fFail, fOk: null);
 
 			// Assert
 			await fFail.ReceivedWithAnyArgs(2).Invoke(Arg.Any<Failure>());
@@ -30,7 +30,7 @@ public class AuditAsync_Tests
 			var fFail = Substitute.For<Action<Failure>>();
 
 			// Act
-			_ = await input.AsTask().AuditAsync(fFail);
+			_ = await input.AsTask().AuditAsync(fFail: fFail, fOk: null);
 
 			// Assert
 			fFail.ReceivedWithAnyArgs(1).Invoke(Arg.Any<Failure>());
@@ -87,10 +87,11 @@ public class AuditAsync_Tests
 			// Arrange
 			var value = Rnd.Str;
 			var input = R.Fail<int>(value);
+			Func<Failure, Task> fFail = _ => throw new Exception(Rnd.Str);
 
 			// Act
-			var r0 = await input.AuditAsync(fFail: _ => throw new Exception(Rnd.Str));
-			var r1 = await input.AsTask().AuditAsync(fFail: _ => throw new Exception(Rnd.Str));
+			var r0 = await input.AuditAsync(fFail: fFail, fOk: null);
+			var r1 = await input.AsTask().AuditAsync(fFail: fFail, fOk: null);
 
 			// Assert
 			r0.AssertFailure(value);
@@ -124,11 +125,26 @@ public class AuditAsync_Tests
 			var fOk = Substitute.For<Func<int, Task>>();
 
 			// Act
-			_ = await input.AuditAsync(fOk);
-			_ = await input.AsTask().AuditAsync(fOk);
+			_ = await input.AuditAsync(fFail: null, fOk: fOk);
+			_ = await input.AsTask().AuditAsync(fFail: null, fOk: fOk);
 
 			// Assert
 			await fOk.Received(2).Invoke(value);
+		}
+
+		[Fact]
+		public async Task Action_Overload__Runs_fOk()
+		{
+			// Arrange
+			var value = Rnd.Int;
+			var input = R.Wrap(value);
+			var fOk = Substitute.For<Action<int>>();
+
+			// Act
+			_ = await input.AsTask().AuditAsync(fFail: null, fOk: fOk);
+
+			// Assert
+			fOk.Received(1).Invoke(value);
 		}
 
 		[Fact]
@@ -148,37 +164,6 @@ public class AuditAsync_Tests
 		}
 
 		[Fact]
-		public async Task fOk_Throws__Returns_Ok()
-		{
-			// Arrange
-			var value = Rnd.Int;
-			var input = R.Wrap(value);
-
-			// Act
-			var r0 = await input.AuditAsync(fOk: _ => throw new Exception(Rnd.Str));
-			var r1 = await input.AsTask().AuditAsync(fOk: _ => throw new Exception(Rnd.Str));
-
-			// Assert
-			r0.AssertOk(value);
-			r1.AssertOk(value);
-		}
-
-		[Fact]
-		public async Task Action_Overload__Runs_fOk()
-		{
-			// Arrange
-			var value = Rnd.Int;
-			var input = R.Wrap(value);
-			var fOk = Substitute.For<Action<int>>();
-
-			// Act
-			_ = await input.AsTask().AuditAsync(fOk);
-
-			// Assert
-			fOk.Received(1).Invoke(value);
-		}
-
-		[Fact]
 		public async Task Action_Overload__Returns_Ok()
 		{
 			// Arrange
@@ -190,6 +175,23 @@ public class AuditAsync_Tests
 
 			// Assert
 			result.AssertOk(value);
+		}
+
+		[Fact]
+		public async Task fOk_Throws__Returns_Ok()
+		{
+			// Arrange
+			var value = Rnd.Int;
+			var input = R.Wrap(value);
+			Func<int, Task> fOk = _ => throw new Exception(Rnd.Str);
+
+			// Act
+			var r0 = await input.AuditAsync(fFail: null, fOk: fOk);
+			var r1 = await input.AsTask().AuditAsync(fFail: null, fOk: fOk);
+
+			// Assert
+			r0.AssertOk(value);
+			r1.AssertOk(value);
 		}
 	}
 
@@ -226,6 +228,20 @@ public class AuditAsync_Tests
 		}
 
 		[Fact]
+		public async Task Action_Overload__Runs_Either()
+		{
+			// Arrange
+			var input = R.Wrap(Rnd.Int);
+			var either = Substitute.For<Action<Result<int>>>();
+
+			// Act
+			_ = await input.AsTask().AuditAsync(either);
+
+			// Assert
+			either.ReceivedWithAnyArgs(1).Invoke(Arg.Any<Result<int>>());
+		}
+
+		[Fact]
 		public async Task Returns_Original_Value()
 		{
 			// Arrange
@@ -233,8 +249,8 @@ public class AuditAsync_Tests
 			var input = R.Wrap(value);
 
 			// Act
-			var r0 = await input.AuditAsync(fFail: _ => Task.CompletedTask);
-			var r1 = await input.AsTask().AuditAsync(fFail: _ => Task.CompletedTask);
+			var r0 = await input.AuditAsync(_ => Task.CompletedTask);
+			var r1 = await input.AsTask().AuditAsync(_ => Task.CompletedTask);
 
 			// Assert
 			r0.AssertOk(value);
@@ -247,10 +263,11 @@ public class AuditAsync_Tests
 			// Arrange
 			var value = Rnd.Int;
 			var input = R.Wrap(value);
+			Func<Result<int>, Task> either = _ => throw new Exception(Rnd.Str);
 
 			// Act
-			var r0 = await input.AuditAsync(fFail: _ => throw new Exception(Rnd.Str));
-			var r1 = await input.AsTask().AuditAsync(fFail: _ => throw new Exception(Rnd.Str));
+			var r0 = await input.AuditAsync(either);
+			var r1 = await input.AsTask().AuditAsync(either);
 
 			// Assert
 			r0.AssertOk(value);
