@@ -51,6 +51,20 @@ public class FailureKind_Tests
 		Assert.Equal(kind, read);
 	}
 
+	[Theory]
+	[InlineData("\"\"")]
+	[InlineData("\"   \"")]
+	public void Json_Empty_Name_Reads_As_Unspecified(string json)
+	{
+		// Arrange
+
+		// Act
+		var result = JsonSerializer.Deserialize<FailureKind>(json);
+
+		// Assert
+		Assert.Equal(FailureKind.Unspecified, result);
+	}
+
 	[Fact]
 	public void Json_Name_Ignores_Naming_Policy()
 	{
