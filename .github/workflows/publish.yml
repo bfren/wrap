@@ -21,6 +21,7 @@ jobs:
     uses: bfren/dotnet/.github/workflows/prepare.yml@main
     with:
       solution: "Wrap.slnx"
+      dotnet-versions: 11.0.x # Wrap 2.x targets net11.0 only
       style: false # the build enforces style (EnforceCodeStyleInBuild), and dotnet format cannot see generated code
   nuget:
     needs: prepare

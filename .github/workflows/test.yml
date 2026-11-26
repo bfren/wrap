@@ -16,6 +16,7 @@ jobs:
     uses: bfren/dotnet/.github/workflows/test.yml@main
     with:
       solution: "Wrap.slnx"
+      dotnet-versions: 11.0.x # Wrap 2.x targets net11.0 only
       name: Wrap
       style: false # the build enforces style (EnforceCodeStyleInBuild), and dotnet format cannot see generated code
     secrets: inherit
