@@ -52,6 +52,9 @@ The build is the only style gate. `AnalysisLevel` is `11.0-recommended`, pinned 
 
 Only a few rules are warnings: IDE0005 (unnecessary `using`), IDE0055 (formatting), IDE0060 (unused parameter), IDE1006 (naming), IDE0073 (file header, an error in `src` and `apps`), the CA rules in `11.0-recommended`, and the compiler, nullability and XML doc warnings. Every other style preference is a suggestion: it shows in the editor and never fails anything. Use `dotnet format style` to apply fixes, not as a check. Add a pragma only for a single real exception.
 
+### Culture
+Format and parse every value with `F.DefaultCulture`, never the current culture: pass it to `ToString`, `Convert.ToString`, `TryParse` and `string.Format`. Values written for a person (`ToString()`, HTML inputs, failure messages) must read back the same way that the model binders and `M.Parse*` read them. The `[Failure]` generator is the exception: it runs in the compiler, where `F` doesn't exist.
+
 ### Layout
 Put a field, constant or property initialiser on its own line after the `=`, indented one level, just as `=>` bodies are:
 ```csharp

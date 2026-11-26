@@ -6,10 +6,16 @@ Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no r
 
 ## [Unreleased]
 
+### Added
+
+- `Html.TextBoxForMaybe(x => x.Property)` writes a text input for a `Maybe<T>` property: the value for `Some` (the inner value for a monad such as an ID), and empty for `None`, so it binds back to the same value. It takes optional HTML attributes.
+- `Html.CheckBoxForMaybe(x => x.Property)` writes a checkbox for a `Maybe<bool>` property, ticked only for `Some(true)`. A checkbox always sends a value, so it binds back as `Some(true)` or `Some(false)`, never `None`.
+
 ### Changed
 
 - **Breaking:** a failure created from an `AggregateException` that holds exactly one exception gets the kind of that exception. So a timeout reached through `task.Result` or `task.Wait()` is `Timeout`, not `Unexpected`. An aggregate holding several exceptions is still `Unexpected`. `Exception` still holds the `AggregateException`. `Kind` is part of equality, so these failures no longer equal one built with `Unexpected`.
 - `Wrap.Id.Testing` depends on the stable `Rnd` 11.0.0, not 11.0.0-beta.1.
+- **Breaking:** values are written using `F.DefaultCulture` (en-GB unless you set it), not the current culture, in `ToString()` of `Maybe`, `Result`, `Either`, `Some`, `Ok`, `Left`, `Right` and `Monad`, in `Html.HiddenForMonad`, in `F.Format` with a single value, and in the `Unsafe().Unwrap()` and Dapper overflow exception messages. So `M.Wrap(1.5m).ToString()` is `1.5` on a French server, not `1,5`. `F.Format("{0:0.00}", 1.5m)` now also applies the format, which it ignored before.
 - **Breaking:** Dapper ID handlers throw `OverflowException` for a number stored as text that doesn't fit the ID type, such as `"3000000000"` for an `IntId` or `"5.5"`. Before, it silently became the default ID (0 or `Guid.Empty`). Text that isn't a number still reads as the default ID.
 
 ### Fixed
