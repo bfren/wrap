@@ -1,6 +1,6 @@
 # Style checks plan
 
-Plan, 23 November 2026, to replace Wrap's two style gates with one. Steps 1 to 4 and 6 are done (step 3 in bfren/dotnet#3). Step 5 is done locally (clean CI-strict build, 0 warnings, 1651 tests pass); a passing Test run on GitHub is left.
+Plan, 23 November 2026, to replace Wrap's two style gates with one. All steps are done (step 3 in bfren/dotnet#3). The Test workflow passes on GitHub with the Style step skipped.
 
 **The problem:** the Style step in CI keeps failing on things that aren't bugs, and each fix (a pragma, a suppression, a severity tweak) adds config that drifts. Of the last 100 Test runs, 16 failed and 15 of those failed at Style:
 
@@ -96,7 +96,7 @@ The root `.editorconfig` is RehanSaeed's EditorConfig template (v4.1.0, 2021), w
 
 ## 5. Verify
 
-- [ ] Done
+- [x] Done
 
 - From a clean clone (no `bin` or `obj`): `dotnet restore Wrap.slnx`, then `CI=true dotnet build Wrap.slnx --no-restore`, then the tests. A clean clone matters, because the IDE0060 problem only showed up there.
 - List any new warnings from `latest-recommended`. For each, fix the code, or set the rule to `suggestion` in `.editorconfig` with a one-line reason. Don't add a pragma unless it's a single real exception.
