@@ -32,10 +32,10 @@ public abstract class IdTypeHandler<TId, TIdValue> : SqlMapper.TypeHandler<TId>
 		value switch
 		{
 			sbyte or byte or short or ushort or int or uint or long or ulong or float or double or decimal =>
-				throw new OverflowException($"Value '{value}' is not a whole number that fits in {typeof(TIdValue).Name} for {typeof(TId).Name}."),
+				throw new OverflowException(string.Create(F.DefaultCulture, $"Value '{value}' is not a whole number that fits in {typeof(TIdValue).Name} for {typeof(TId).Name}.")),
 
 			string s when double.TryParse(s, NumberStyles.Float | NumberStyles.AllowThousands, F.DefaultCulture, out var d) && double.IsFinite(d) =>
-				throw new OverflowException($"Value '{value}' is not a whole number that fits in {typeof(TIdValue).Name} for {typeof(TId).Name}."),
+				throw new OverflowException(string.Create(F.DefaultCulture, $"Value '{value}' is not a whole number that fits in {typeof(TIdValue).Name} for {typeof(TId).Name}.")),
 
 			_ =>
 				default

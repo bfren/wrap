@@ -35,5 +35,5 @@ public sealed class UnsafeUnwrapException : WrapException
 	{ }
 
 	private static string GetMessage(object? left) =>
-		$"Unsafe Unwrap threw an exception: {left}";
+		string.Create(F.DefaultCulture, $"Unsafe Unwrap threw an exception: {left}");
 }

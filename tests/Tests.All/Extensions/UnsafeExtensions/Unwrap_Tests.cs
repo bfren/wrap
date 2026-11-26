@@ -10,6 +10,29 @@ public class Unwrap_Tests
 	public class With_Left
 	{
 		[Fact]
+		public void Message_Uses_DefaultCulture_Not_CurrentCulture()
+		{
+			// Arrange
+			Either<decimal, int> either = new Left<decimal>(1.5m);
+			var current = System.Globalization.CultureInfo.CurrentCulture;
+			System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("fr-FR");
+
+			try
+			{
+				// Act
+				var result = Record.Exception(() => either.Unsafe().Unwrap());
+
+				// Assert
+				var ex = Assert.IsType<UnsafeUnwrapException>(result);
+				Assert.EndsWith(": 1.5", ex.Message);
+			}
+			finally
+			{
+				System.Globalization.CultureInfo.CurrentCulture = current;
+			}
+		}
+
+		[Fact]
 		public void Throws_UnsafeUnwrapException_With_Formatted_Message()
 		{
 			// Arrange

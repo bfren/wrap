@@ -93,13 +93,13 @@ public readonly partial struct Maybe<T>
 	/// Convert the current object to a string.
 	/// </summary>
 	/// <returns>
-	/// If this is a <see cref="Some{T}"/>, the value's string (or <c>Some: {type name}</c> when that is <see langword="null"/>).
+	/// If this is a <see cref="Some{T}"/>, the value's string written using <see cref="F.DefaultCulture"/> (or <c>Some: {type name}</c> when that is <see langword="null"/>).
 	/// If this is <see cref="None"/>, <c>None: {type name}</c>.
 	/// </returns>
 	public override string ToString() =>
 		M.Match(this,
 			fNone: () => $"None: {typeof(T).Name}",
-			fSome: x => x?.ToString() switch
+			fSome: x => Convert.ToString(x, F.DefaultCulture) switch
 			{
 				string value =>
 					value,

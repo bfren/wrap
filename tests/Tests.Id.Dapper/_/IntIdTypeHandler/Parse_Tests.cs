@@ -38,6 +38,29 @@ public class Parse_Tests : Abstracts.IntegerParse_Tests<Parse_Tests.TestIntId, i
 		Assert.IsType<OverflowException>(result);
 	}
 
+	[Fact]
+	public void Overflow_Message_Uses_DefaultCulture_Not_CurrentCulture()
+	{
+		// Arrange
+		var handler = new IntIdTypeHandler<TestIntId>();
+		var current = System.Globalization.CultureInfo.CurrentCulture;
+		System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("fr-FR");
+
+		try
+		{
+			// Act
+			var result = Record.Exception(() => handler.Parse(42.5));
+
+			// Assert
+			var ex = Assert.IsType<OverflowException>(result);
+			Assert.StartsWith("Value '42.5'", ex.Message);
+		}
+		finally
+		{
+			System.Globalization.CultureInfo.CurrentCulture = current;
+		}
+	}
+
 	[Theory]
 	[MemberData(nameof(Whole_Decimal_Data))]
 	public override void Test02_Whole_Decimal__Returns_Id(decimal input) =>

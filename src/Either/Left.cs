@@ -1,6 +1,9 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System;
+using System.Text;
+
 namespace Wrap;
 
 /// <summary>
@@ -12,4 +15,12 @@ namespace Wrap;
 /// </remarks>
 /// <typeparam name="T">Left value type.</typeparam>
 /// <param name="Value">Left value.</param>
-public readonly record struct Left<T>(T Value) : IMonad<T>;
+public readonly record struct Left<T>(T Value) : IMonad<T>
+{
+	// print the value using F.DefaultCulture, as everywhere else, not the current culture
+	private bool PrintMembers(StringBuilder builder)
+	{
+		_ = builder.Append("Value = ").Append(Convert.ToString(Value, F.DefaultCulture));
+		return true;
+	}
+}

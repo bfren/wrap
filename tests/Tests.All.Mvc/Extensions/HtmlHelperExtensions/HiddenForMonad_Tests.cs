@@ -101,6 +101,43 @@ public class HiddenForMonad_Tests
 		htmlHelper.Received().Hidden(name, string.Empty, null);
 	}
 
+	[Fact]
+	public void Uses_DefaultCulture_Not_CurrentCulture()
+	{
+		// Arrange
+		var model = new PriceModel { Price = new Price() };
+		var metadata = Substitute.ForPartsOf<ModelMetadata>(ModelMetadataIdentity.ForType(typeof(PriceModel)));
+		var provider = Substitute.For<IModelMetadataProvider>();
+		provider.GetMetadataForType(typeof(PriceModel)).Returns(metadata);
+		var viewData = new ViewDataDictionary<PriceModel>(provider, new ModelStateDictionary()) { Model = model };
+		var htmlHelper = Substitute.For<IHtmlHelper<PriceModel>>();
+		htmlHelper.ViewData.Returns(viewData);
+		var name = Rnd.Str;
+		htmlHelper.NameFor(Arg.Any<Expression<Func<PriceModel, Price>>>()).Returns(name);
+		var current = System.Globalization.CultureInfo.CurrentCulture;
+		System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("fr-FR");
+
+		try
+		{
+			// Act
+			_ = htmlHelper.HiddenForMonad(x => x.Price);
+
+			// Assert
+			htmlHelper.Received().Hidden(name, "1.5", null);
+		}
+		finally
+		{
+			System.Globalization.CultureInfo.CurrentCulture = current;
+		}
+	}
+
+	public sealed record class PriceModel
+	{
+		public required Price Price { get; init; }
+	}
+
+	public sealed record class Price() : Monad<Price, decimal>(1.5m);
+
 	public sealed record class TestModel : WithId<TestId, Guid>;
 
 	public sealed record class TestId : GuidId<TestId>;

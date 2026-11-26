@@ -67,8 +67,11 @@ internal static class IntegerIdValue
 			decimal x when x == decimal.Truncate(x) =>
 				ConvertIfInRange<T>((Int128)x),
 
+			null =>
+				parse(null),
+
 			_ =>
-				parse(value?.ToString())
+				parse(System.Convert.ToString(value, F.DefaultCulture))
 		};
 
 	/// <summary>

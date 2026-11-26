@@ -111,13 +111,13 @@ public readonly partial struct Result<T>
 	/// Convert the current object to a string.
 	/// </summary>
 	/// <returns>
-	/// If this is an <see cref="Ok{T}"/>, the value's string (or <c>OK: {type name}</c> when that is <see langword="null"/>).
+	/// If this is an <see cref="Ok{T}"/>, the value's string written using <see cref="F.DefaultCulture"/> (or <c>OK: {type name}</c> when that is <see langword="null"/>).
 	/// If this is a <see cref="Failure"/>, its <see cref="Failure.Message"/> with the placeholders filled from <see cref="Failure.Args"/>.
 	/// </returns>
 	public override string ToString() =>
 		R.Match(this,
 			fFail: x => F.Format(x.Message, x.Args),
-			fOk: x => x?.ToString() switch
+			fOk: x => Convert.ToString(x, F.DefaultCulture) switch
 			{
 				string value =>
 					value,

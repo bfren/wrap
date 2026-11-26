@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
@@ -83,7 +84,7 @@ public static partial class F
 				// This is the value inside the braces, e.g. "0" in "{0}" or "A" in "{A}"
 				// Remove any @ symbols from the start - used by Serilog to denote an object format but breaks the following
 				var template = m.Groups["template"].Value.TrimStart('@');
-				_ = int.TryParse(template, out var templateNumber);
+				_ = int.TryParse(template, NumberStyles.Integer, DefaultCulture, out var templateNumber);
 
 				// Switch on the source type, using variety of methods to get this template's value
 				var value = source switch
@@ -101,9 +102,9 @@ public static partial class F
 					Array =>
 						null,
 
-					// Source value - use string value but only for the first template, i.e. {0}
-					{ } obj when numberedTemplates && templateNumber == 0 && obj.ToString() is string val =>
-						val,
+					// Source value - use it for the first template only, i.e. {0}, formatted below like any other value
+					{ } obj when numberedTemplates && templateNumber == 0 =>
+						obj,
 
 					// Source object - get matching property value for named template
 					{ } obj when !numberedTemplates && PropertyCache<T>.GetProperty(template)?.GetValue(obj) is object val =>
@@ -190,7 +191,7 @@ public static partial class F
 		foreach (Match m in TemplateMatcherRegex().Matches(formatString))
 		{
 			// skip escaped braces, e.g. '{{name}}', which are text and not placeholders
-			if (m.Groups["template"].Success && m.Groups["start"].Captures.Count % 2 == 1 && !int.TryParse(m.Groups["template"].Value.TrimStart('@'), out _))
+			if (m.Groups["template"].Success && m.Groups["start"].Captures.Count % 2 == 1 && !int.TryParse(m.Groups["template"].Value.TrimStart('@'), NumberStyles.Integer, DefaultCulture, out _))
 			{
 				return false;
 			}
