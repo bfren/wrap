@@ -11,7 +11,7 @@ public static partial class ResultExtensions
 	#region Without Return Value
 
 	/// <summary>
-	/// Run an action based on the value of <paramref name="this"/> - see <see cref="R.Match{T}(Result{T}, Action{Failure}, Action{T})"/>.
+	/// Run an action based on the value of <paramref name="this"/>.
 	/// </summary>
 	/// <remarks>
 	/// This is shorthand for a <see langword="switch"/> over the <see cref="Ok{T}"/> and <see cref="Failure"/> cases
@@ -58,8 +58,7 @@ public static partial class ResultExtensions
 	#region With Return Value
 
 	/// <summary>
-	/// Run a function based on the value of <paramref name="this"/> and return its value - see
-	/// <see cref="R.Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>.
+	/// Run a function based on the value of <paramref name="this"/> and return its value.
 	/// </summary>
 	/// <remarks>
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})" path="/remarks"/>

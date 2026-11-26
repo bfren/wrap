@@ -11,8 +11,7 @@ public static partial class EitherExtensions
 	#region Without Return Value
 
 	/// <summary>
-	/// Run an action based on the value of <paramref name="this"/> - see
-	/// <see cref="E.Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>.
+	/// Run an action based on the value of <paramref name="this"/>.
 	/// </summary>
 	/// <remarks>
 	/// This is shorthand for a <see langword="switch"/> over the <see cref="Left{T}"/> and <see cref="Right{T}"/> cases
@@ -61,8 +60,7 @@ public static partial class EitherExtensions
 	#region With Return Value
 
 	/// <summary>
-	/// Run a function based on the value of <paramref name="this"/> and return its value - see
-	/// <see cref="E.Match{TLeft, TRight, TReturn}(Either{TLeft, TRight}, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>.
+	/// Run a function based on the value of <paramref name="this"/> and return its value.
 	/// </summary>
 	/// <remarks>
 	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})" path="/remarks"/>

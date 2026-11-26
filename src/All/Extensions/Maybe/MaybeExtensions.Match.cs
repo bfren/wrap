@@ -11,7 +11,7 @@ public static partial class MaybeExtensions
 	#region Without Return Value
 
 	/// <summary>
-	/// Run an action based on the value of <paramref name="this"/> - see <see cref="M.Match{T}(Maybe{T}, Action, Action{T})"/>.
+	/// Run an action based on the value of <paramref name="this"/>.
 	/// </summary>
 	/// <remarks>
 	/// This is shorthand for a <see langword="switch"/> over the <see cref="Some{T}"/> and <see cref="None"/> cases
@@ -58,8 +58,7 @@ public static partial class MaybeExtensions
 	#region With Return Value
 
 	/// <summary>
-	/// Run a function based on the value of <paramref name="this"/> and return its value - see
-	/// <see cref="M.Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>.
+	/// Run a function based on the value of <paramref name="this"/> and return its value.
 	/// </summary>
 	/// <remarks>
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})" path="/remarks"/>
