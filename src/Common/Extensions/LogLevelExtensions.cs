@@ -3,4 +3,8 @@
 
 namespace Wrap.Extensions;
 
+
+/// <summary>
+/// Extension methods for <see cref="Logging.LogLevel"/>.
+/// </summary>
 public static partial class LogLevelExtensions;
