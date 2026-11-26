@@ -6,6 +6,10 @@ Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no r
 
 ## [Unreleased]
 
+### Changed
+
+- A failure created from an `AggregateException` that holds exactly one exception gets the kind of that exception. So a timeout reached through `task.Result` or `task.Wait()` is `Timeout`, not `Unexpected`. An aggregate holding several exceptions is still `Unexpected`. `Exception` still holds the `AggregateException`.
+
 ### Fixed
 
 - A `Failure` can be written and read with a System.Text.Json source-generated `JsonSerializerContext`. Before, it built with warning SYSLIB1220 and threw `NotSupportedException`, because `FailureKindJsonConverter` was internal. It is now public.

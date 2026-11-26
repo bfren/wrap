@@ -96,7 +96,8 @@ public readonly partial record struct Failure : IWithException
 	/// <remarks>
 	/// <see cref="Kind"/> is <see cref="FailureKind.Timeout"/> for a <see cref="TimeoutException"/> or a cancellation caused by
 	/// one, <see cref="FailureKind.Cancelled"/> for any other <see cref="OperationCanceledException"/>, and
-	/// <see cref="FailureKind.Unexpected"/> otherwise.
+	/// <see cref="FailureKind.Unexpected"/> otherwise. An <see cref="AggregateException"/> holding exactly one exception,
+	/// such as <c>task.Result</c> throws, gets the kind of that exception.
 	/// </remarks>
 	/// <param name="ex">Exception object.</param>
 	[SetsRequiredMembers]

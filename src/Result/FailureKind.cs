@@ -97,9 +97,17 @@ public readonly record struct FailureKind(string? Name)
 	/// reports a timeout), <see cref="Cancelled"/> for any other <see cref="OperationCanceledException"/>,
 	/// and <see cref="Unexpected"/> for everything else.
 	/// </returns>
+	/// <remarks>
+	/// An <see cref="AggregateException"/> holding exactly one exception, which is what <c>task.Result</c> and
+	/// <c>task.Wait()</c> throw, gets the kind of that exception, even when aggregates are nested. One holding several
+	/// exceptions is <see cref="Unexpected"/>, because no single kind fits.
+	/// </remarks>
 	internal static FailureKind From(Exception ex) =>
 		ex switch
 		{
+			AggregateException aggregate when aggregate.Flatten().InnerExceptions is [var inner] =>
+				From(inner),
+
 			TimeoutException or OperationCanceledException { InnerException: TimeoutException } =>
 				Timeout,
 

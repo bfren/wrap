@@ -81,5 +81,71 @@ public class Constructor_Tests
 			// Assert
 			Assert.Equal(FailureKind.Timeout, result.Kind);
 		}
+
+		[Fact]
+		public void Blocking_On_Task_That_Timed_Out_Sets_Timeout_Kind()
+		{
+			// Arrange
+			var task = Task.FromException<int>(new TaskCanceledException(Rnd.Str, new TimeoutException()));
+
+			// Act
+			var result = R.Try(() => task.Result).AssertFailure();
+
+			// Assert
+			Assert.IsType<AggregateException>(result.Exception);
+			Assert.Equal(FailureKind.Timeout, result.Kind);
+		}
+
+		[Fact]
+		public void Aggregate_With_One_Cancellation_Sets_Cancelled_Kind()
+		{
+			// Arrange
+			var ex = new AggregateException(new OperationCanceledException());
+
+			// Act
+			var result = new Failure(ex);
+
+			// Assert
+			Assert.Equal(FailureKind.Cancelled, result.Kind);
+		}
+
+		[Fact]
+		public void Nested_Aggregate_With_One_Timeout_Sets_Timeout_Kind()
+		{
+			// Arrange
+			var ex = new AggregateException(new AggregateException(new TimeoutException()));
+
+			// Act
+			var result = new Failure(ex);
+
+			// Assert
+			Assert.Equal(FailureKind.Timeout, result.Kind);
+		}
+
+		[Fact]
+		public void Aggregate_With_Several_Exceptions_Sets_Unexpected_Kind()
+		{
+			// Arrange
+			var ex = new AggregateException(new TimeoutException(), new TimeoutException());
+
+			// Act
+			var result = new Failure(ex);
+
+			// Assert
+			Assert.Equal(FailureKind.Unexpected, result.Kind);
+		}
+
+		[Fact]
+		public void Aggregate_With_One_Other_Exception_Sets_Unexpected_Kind()
+		{
+			// Arrange
+			var ex = new AggregateException(new InvalidOperationException());
+
+			// Act
+			var result = new Failure(ex);
+
+			// Assert
+			Assert.Equal(FailureKind.Unexpected, result.Kind);
+		}
 	}
 }
