@@ -100,6 +100,18 @@ public static partial class E
 	}
 
 	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
+	internal static async Task MatchAsync<TLeft, TRight>(Task<Either<TLeft, TRight>> either, Action<TLeft> fLeft, Action<TRight> fRight) =>
+		Match(await either, fLeft, fRight);
+
+	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
+	internal static async Task MatchAsync<TLeft, TRight>(Task<Either<TLeft, TRight>> either, Action<TLeft> fLeft, Func<TRight, Task> fRight) =>
+		await MatchAsync(await either, fLeft, fRight);
+
+	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
+	internal static async Task MatchAsync<TLeft, TRight>(Task<Either<TLeft, TRight>> either, Func<TLeft, Task> fLeft, Action<TRight> fRight) =>
+		await MatchAsync(await either, fLeft, fRight);
+
+	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
 	internal static async Task MatchAsync<TLeft, TRight>(Task<Either<TLeft, TRight>> either, Func<TLeft, Task> fLeft, Func<TRight, Task> fRight) =>
 		await MatchAsync(await either, fLeft, fRight);
 

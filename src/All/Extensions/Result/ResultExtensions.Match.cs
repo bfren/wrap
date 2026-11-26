@@ -8,6 +8,8 @@ namespace Wrap.Extensions;
 
 public static partial class ResultExtensions
 {
+	#region Without Return Value
+
 	/// <summary>
 	/// Run an action based on the value of <paramref name="this"/> - see <see cref="R.Match{T}(Result{T}, Action{Failure}, Action{T})"/>.
 	/// </summary>
@@ -24,12 +26,36 @@ public static partial class ResultExtensions
 		R.Match(@this, fFail, fOk);
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
+	public static Task MatchAsync<T>(this Result<T> @this, Action<Failure> fFail, Func<T, Task> fOk) =>
+		R.MatchAsync(@this, fFail, fOk);
+
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
+	public static Task MatchAsync<T>(this Result<T> @this, Func<Failure, Task> fFail, Action<T> fOk) =>
+		R.MatchAsync(@this, fFail, fOk);
+
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
 	public static Task MatchAsync<T>(this Result<T> @this, Func<Failure, Task> fFail, Func<T, Task> fOk) =>
+		R.MatchAsync(@this, fFail, fOk);
+
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
+	public static Task MatchAsync<T>(this Task<Result<T>> @this, Action<Failure> fFail, Action<T> fOk) =>
+		R.MatchAsync(@this, fFail, fOk);
+
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
+	public static Task MatchAsync<T>(this Task<Result<T>> @this, Action<Failure> fFail, Func<T, Task> fOk) =>
+		R.MatchAsync(@this, fFail, fOk);
+
+	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
+	public static Task MatchAsync<T>(this Task<Result<T>> @this, Func<Failure, Task> fFail, Action<T> fOk) =>
 		R.MatchAsync(@this, fFail, fOk);
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
 	public static Task MatchAsync<T>(this Task<Result<T>> @this, Func<Failure, Task> fFail, Func<T, Task> fOk) =>
 		R.MatchAsync(@this, fFail, fOk);
+
+	#endregion
+
+	#region With Return Value
 
 	/// <summary>
 	/// Run a function based on the value of <paramref name="this"/> and return its value - see
@@ -74,4 +100,6 @@ public static partial class ResultExtensions
 	/// <inheritdoc cref="Match{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(this Task<Result<T>> @this, Func<Failure, Task<TReturn>> fFail, Func<T, Task<TReturn>> fOk) =>
 		R.MatchAsync(@this, fFail, fOk);
+
+	#endregion
 }

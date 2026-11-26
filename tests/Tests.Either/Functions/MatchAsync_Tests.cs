@@ -23,9 +23,12 @@ public class MatchAsync_Tests
 				await E.MatchAsync(either, async x => fLeft(x), fRight);
 				await E.MatchAsync(either, async x => fLeft(x), async x => fRight(x));
 				await E.MatchAsync(either.AsTask(), async x => fLeft(x), async x => fRight(x));
+				await E.MatchAsync(either.AsTask(), fLeft, fRight);
+				await E.MatchAsync(either.AsTask(), fLeft, async x => fRight(x));
+				await E.MatchAsync(either.AsTask(), async x => fLeft(x), fRight);
 
 				// Assert
-				fLeft.Received(4).Invoke(value);
+				fLeft.Received(7).Invoke(value);
 				fRight.DidNotReceiveWithAnyArgs().Invoke(default);
 			}
 		}
@@ -46,10 +49,13 @@ public class MatchAsync_Tests
 				await E.MatchAsync(either, async x => fLeft(x), fRight);
 				await E.MatchAsync(either, async x => fLeft(x), async x => fRight(x));
 				await E.MatchAsync(either.AsTask(), async x => fLeft(x), async x => fRight(x));
+				await E.MatchAsync(either.AsTask(), fLeft, fRight);
+				await E.MatchAsync(either.AsTask(), fLeft, async x => fRight(x));
+				await E.MatchAsync(either.AsTask(), async x => fLeft(x), fRight);
 
 				// Assert
 				fLeft.DidNotReceiveWithAnyArgs().Invoke(default!);
-				fRight.Received(4).Invoke(value);
+				fRight.Received(7).Invoke(value);
 			}
 		}
 	}
@@ -76,6 +82,9 @@ public class MatchAsync_Tests
 				var r4 = await E.MatchAsync(either.AsTask(), fLeft, async x => fRight(x));
 				var r5 = await E.MatchAsync(either.AsTask(), async x => fLeft(x), fRight);
 				var r6 = await E.MatchAsync(either.AsTask(), async x => fLeft(x), async x => fRight(x));
+				await E.MatchAsync(either.AsTask(), fLeft, fRight);
+				await E.MatchAsync(either.AsTask(), fLeft, async x => fRight(x));
+				await E.MatchAsync(either.AsTask(), async x => fLeft(x), fRight);
 
 				// Assert
 				Assert.All([r0, r1, r2, r3, r4, r5, r6], x => Assert.Equal(expected, x));
@@ -102,6 +111,9 @@ public class MatchAsync_Tests
 				var r4 = await E.MatchAsync(either.AsTask(), fLeft, async x => fRight(x));
 				var r5 = await E.MatchAsync(either.AsTask(), async x => fLeft(x), fRight);
 				var r6 = await E.MatchAsync(either.AsTask(), async x => fLeft(x), async x => fRight(x));
+				await E.MatchAsync(either.AsTask(), fLeft, fRight);
+				await E.MatchAsync(either.AsTask(), fLeft, async x => fRight(x));
+				await E.MatchAsync(either.AsTask(), async x => fLeft(x), fRight);
 
 				// Assert
 				Assert.All([r0, r1, r2, r3, r4, r5, r6], x => Assert.Equal(expected, x));
