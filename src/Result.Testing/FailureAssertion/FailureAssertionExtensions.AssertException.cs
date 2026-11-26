@@ -5,7 +5,7 @@ using System;
 
 namespace Wrap.Testing;
 
-public static partial class FailureExtensions
+public static partial class FailureAssertionExtensions
 {
 	/// <summary>
 	/// Assert that <paramref name="this"/> holds the expected exception.

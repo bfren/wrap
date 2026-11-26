@@ -4,6 +4,6 @@
 namespace Wrap.Testing;
 
 /// <summary>
-/// Extension methods for <see cref="Failure"/> objects.
+/// Extension methods for <see cref="Either{TLeft, TRight}"/> objects.
 /// </summary>
-public static partial class FailureExtensions { }
+public static partial class EitherAssertionExtensions { }

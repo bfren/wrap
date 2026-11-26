@@ -3,7 +3,7 @@
 
 namespace Wrap.Testing;
 
-public static partial class ResultExtensions
+public static partial class ResultAssertionExtensions
 {
 	/// <summary>
 	/// Assert that <paramref name="this"/> is <see cref="Ok{T}"/> and the value is <see langword="true"/>.

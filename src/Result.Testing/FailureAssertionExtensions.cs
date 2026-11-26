@@ -4,6 +4,6 @@
 namespace Wrap.Testing;
 
 /// <summary>
-/// Extension methods for <see cref="Result{T}"/> objects.
+/// Extension methods for <see cref="Failure"/> objects.
 /// </summary>
-public static partial class ResultExtensions { }
+public static partial class FailureAssertionExtensions { }

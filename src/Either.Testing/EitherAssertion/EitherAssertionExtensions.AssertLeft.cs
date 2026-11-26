@@ -3,7 +3,7 @@
 
 namespace Wrap.Testing;
 
-public static partial class EitherExtensions
+public static partial class EitherAssertionExtensions
 {
 	/// <summary>
 	/// Assert that <paramref name="this"/> is a <see cref="Left{T}"/> and return its value.

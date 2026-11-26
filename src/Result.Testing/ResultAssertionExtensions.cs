@@ -4,6 +4,6 @@
 namespace Wrap.Testing;
 
 /// <summary>
-/// Extension methods for <see cref="Maybe{T}"/> objects.
+/// Extension methods for <see cref="Result{T}"/> objects.
 /// </summary>
-public static partial class MaybeExtensions { }
+public static partial class ResultAssertionExtensions { }

@@ -5,7 +5,7 @@ using System;
 
 namespace Wrap.Testing;
 
-public static partial class ResultExtensions
+public static partial class ResultAssertionExtensions
 {
 	/// <summary>
 	/// Assert that <paramref name="this"/> is a <see cref="Failure"/>.
