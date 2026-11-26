@@ -1,8 +1,8 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using System;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using Wrap.Mvc;
 
 namespace Wrap.Exceptions;
@@ -12,7 +12,7 @@ namespace Wrap.Exceptions;
 /// <see cref="MaybeModelBinderProvider.GetBinder(ModelBinderProviderContext)"/> and
 /// <see cref="MonadModelBinderProvider.GetBinder(ModelBinderProviderContext)"/>.
 /// </summary>
-public sealed class ModelBinderException : Exception
+public sealed class ModelBinderException : WrapException
 {
 	/// <summary>
 	/// Create the exception with the default message.

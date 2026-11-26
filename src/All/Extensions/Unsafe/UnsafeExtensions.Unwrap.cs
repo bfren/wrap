@@ -42,7 +42,14 @@ public static partial class UnsafeExtensions
 		where TEither : IEither<TLeft, TRight>
 	{
 		_ = either.TryGetLeft(out var left);
-		throw new UnsafeUnwrapException(left, (left as IWithException)?.Exception);
+		return left switch
+		{
+			IWithException e when e.Exception is not null =>
+				throw new UnsafeUnwrapException(left, e.Exception),
+
+			_ =>
+				throw new UnsafeUnwrapException(left)
+		};
 	}
 
 	/// <inheritdoc cref="Unwrap{TEither, TLeft, TRight}(Unsafe{TEither, TLeft, TRight})"/>

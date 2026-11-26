@@ -61,7 +61,7 @@ public class UnwrapSingleAsync_Tests
 			var result = await Record.ExceptionAsync(() => input.UnwrapSingleAsync(fLeft));
 
 			// Assert
-			_ = Assert.IsType<UnsafeUnwrapSingleException<List<int>, int>>(result);
+			_ = Assert.IsType<UnsafeUnwrapSingleException>(result);
 		}
 	}
 }
