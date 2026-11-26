@@ -15,10 +15,14 @@ public sealed class MaybeModelBinder<T> : WrapModelBinder<T>
 	/// <summary>
 	/// Return the result used when there is no value: binding succeeds with <see cref="None"/>.
 	/// </summary>
-	/// <returns>A value provider result holding <c>"None"</c>, and a successful binding result holding <see cref="None"/>.</returns>
+	/// <remarks>
+	/// The attempted value is empty, so a form shown again from ModelState leaves the field blank, and sending it
+	/// back blank binds as <see cref="None"/> again.
+	/// </remarks>
+	/// <returns>A value provider result holding an empty string, and a successful binding result holding <see cref="None"/>.</returns>
 	internal override (ValueProviderResult valueResult, ModelBindingResult bindingResult) Nothing() =>
 		(
-			new(nameof(M.None)),
+			new(string.Empty),
 			ModelBindingResult.Success(default(Maybe<T>)) // don't use 'M.None' here to avoid incorrect compiler warnings
 		);
 
