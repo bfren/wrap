@@ -7,7 +7,8 @@
     <IsPackable>false</IsPackable>
     <ImplicitUsings>enable</ImplicitUsings>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <!-- pinned, so a newer SDK can't add rules that fail CI; raise it with the target framework -->
+    <AnalysisLevel>11.0-recommended</AnalysisLevel>
     <!-- GitHub Actions sets CI=true, so CI fails on any warning; run dotnet build -warnaserror to match it locally -->
     <TreatWarningsAsErrors Condition="'$(CI)' == 'true'">true</TreatWarningsAsErrors>
     <!-- needed for IDE0005 (unnecessary usings) to run on build; apps don't need doc comments -->

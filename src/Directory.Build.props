@@ -9,7 +9,8 @@
     <RootNamespace>Wrap</RootNamespace>
     <AssemblyName>Wrap.$(MSBuildProjectName)</AssemblyName>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <!-- pinned, so a newer SDK can't add rules that fail CI; raise it with the target framework -->
+    <AnalysisLevel>11.0-recommended</AnalysisLevel>
     <!-- GitHub Actions sets CI=true, so CI fails on any warning; run dotnet build -warnaserror to match it locally -->
     <TreatWarningsAsErrors Condition="'$(CI)' == 'true'">true</TreatWarningsAsErrors>
     <!-- a non-exhaustive switch over a union must fail the build, not throw at runtime -->
