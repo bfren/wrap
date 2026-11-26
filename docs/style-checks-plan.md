@@ -38,22 +38,35 @@ Plan, 23 November 2026, to replace Wrap's two style gates with one. Nothing here
 - Keep the existing `WarningsAsErrors` for CS8509 and CS8655, so a non-exhaustive union switch fails every build, local ones included.
 - `TreatWarningsAsErrors` also makes compiler, nullability, XML doc and NuGet warnings fail CI. That suits a library. The full solution builds with 0 warnings today, so nothing should change on day one. Confirm that in step 5.
 
-## 2. Reset `.editorconfig` severities
+## 2. Rewrite `.editorconfig`
 
 - [ ] Done
 
 **Where:** `.editorconfig`, `src/.editorconfig`, `tests/.editorconfig`
 
-- Delete line 72 (`dotnet_analyzer_diagnostic.severity = warning`). `latest-recommended` from step 1 becomes the baseline.
-- Keep everything that describes how code should look: indentation, line endings, braces, `var`, expression bodies, naming, file headers. The IDE uses these for formatting and fixes whatever their severity.
-- Change every `:warning` on a style preference to `:suggestion`. That's 64 options, mostly `dotnet_style_*` and `csharp_style_*`.
+The root `.editorconfig` is RehanSaeed's EditorConfig template (v4.1.0, 2021), written to mirror StyleCop, with Wrap's overrides added at the end. StyleCop.Analyzers isn't referenced anywhere, so the `SA1636` lines do nothing. The "StyleCop" naming block is just built-in IDE1006 naming rules. Of its 104 C# options, 89 have the same value as the .NET default (`dotnet new editorconfig`). Rewrite it as a short file (about 50 lines) holding only what differs from the default:
+
+- File settings: `root = true`, UTF-8, LF line endings, final newline, trimmed whitespace, tabs (size 4) for `.cs`, 2 spaces for XML/JSON/YAML/project files, CRLF for `.cmd`/`.bat`.
+- The 15 options where Wrap differs from the default:
+  - `var` everywhere: `csharp_style_var_for_built_in_types`, `_when_type_is_apparent`, `_elsewhere` = `true`
+  - Expression bodies for methods, constructors, operators and local functions = `true`
+  - `dotnet_style_prefer_conditional_expression_over_assignment` and `_over_return` = `false`
+  - `dotnet_style_operator_placement_when_wrapping = end_of_line`
+  - `dotnet_separate_import_directive_groups = false`
+  - `csharp_indent_labels = no_change`, `csharp_indent_case_contents_when_block = false`
+  - `csharp_preserve_single_line_statements = false`
+  - `csharp_preferred_modifier_order`: take the current default order (it adds `file`, `const` and `required`) rather than the template's stale one
+- Settings that the overrides at the end of today's file change, which must stay: no `this.` qualifiers, accessibility modifiers `for_non_interface_members`, `using` directives outside the namespace, file-scoped namespaces.
+- Naming rules worth keeping: no non-private fields except `const` and `static readonly` (PascalCase), private fields camelCase, interfaces `I`-prefixed, type parameters `T`-prefixed. Drop the rest of the naming block, the sanity-check rule, the `SA1636` lines, the VB settings and the template's licence block.
+- No `dotnet_analyzer_diagnostic.severity = warning` (today's line 72). `latest-recommended` from step 1 becomes the baseline.
+- Every style preference is `:suggestion`. The IDE still uses them for formatting and fixes, whatever their severity.
 - Keep these as warnings (fail CI), each because it can catch a bug or keep the API clean:
   - IDE0060 unused parameters (`dotnet_code_quality_unused_parameters = all:warning`)
   - IDE0005 unnecessary `using` (cheap, and keeps the IDE0005 build check honest)
   - IDE0055 formatting, so whitespace and line endings stay enforced without a separate `dotnet format whitespace` step
   - IDE0073 file header (`src/.editorconfig`, already `error`)
   - CS1591 and the other XML doc warnings in `src`, which become NuGet IntelliSense text
-- Delete the carve-outs that only existed to soften line 72: the `suggestion` lines for IDE0045, IDE0046, IDE0058, IDE0059, IDE0063 and IDE0130, and CA1822 and IDE0072 `none`, unless the build in step 5 shows one is still needed.
+- Leave out the carve-outs that only existed to soften line 72: the `suggestion` lines for IDE0045, IDE0046, IDE0058, IDE0059, IDE0063 and IDE0130, and CA1822 and IDE0072 `none`, unless the build in step 5 shows one is still needed.
 - `tests/.editorconfig`: delete each `none` entry, build, and put back only the ones that `latest-recommended` still raises in test code (CA1707 for underscores in test names is likely to stay).
 - Decide: IDE0004 (redundant cast) goes to `suggestion` with the rest. CLAUDE.md already warns that its fix can change what gets boxed, so it should never fail a build.
 
@@ -98,6 +111,7 @@ Plan, 23 November 2026, to replace Wrap's two style gates with one. Nothing here
 
 - "Building & Testing": drop `dotnet format style` as a check. Say the build is the gate, run `dotnet build -warnaserror` to reproduce CI, and use `dotnet format style` only to apply fixes.
 - "Style Checking" and the XML doc "Verify" list: replace the `--verify-no-changes` step with "the build shows no warnings".
+- "EditorConfig Rules": `.cs` files are indented with tabs (size 4), not 4 spaces. Today's `.editorconfig` override already sets tabs, so CLAUDE.md is wrong.
 - Keep the "Layout" section. It describes how code should look, which still matters, it just no longer fails CI.
 
 ## Decisions for you
@@ -111,3 +125,5 @@ Plan, 23 November 2026, to replace Wrap's two style gates with one. Nothing here
 - Other repos that use the shared `bfren/dotnet` workflows.
 - What `latest-recommended` raises on this code: the build has not been run with it.
 - `prepare.yml` and `publish.yml` in `bfren/dotnet`.
+- Severities in today's `.editorconfig` against the defaults (only values were compared), and `src/`, `tests/` and `apps/.editorconfig` against the defaults.
+- Whether the rewritten `.editorconfig` changes how `dotnet format` formats any existing file. Run `dotnet format whitespace --verify-no-changes` before and after the rewrite.
