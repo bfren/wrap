@@ -102,11 +102,11 @@ public static partial class R
 		Match(await result, fFail, fOk);
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
-	internal static async Task MatchAsync<T>(Task<Result<T>> result, Func<Failure, Task> fFail, Action<T> fOk) =>
+	internal static async Task MatchAsync<T>(Task<Result<T>> result, Action<Failure> fFail, Func<T, Task> fOk) =>
 		await MatchAsync(await result, fFail, fOk);
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
-	internal static async Task MatchAsync<T>(Task<Result<T>> result, Action<Failure> fFail, Func<T, Task> fOk) =>
+	internal static async Task MatchAsync<T>(Task<Result<T>> result, Func<Failure, Task> fFail, Action<T> fOk) =>
 		await MatchAsync(await result, fFail, fOk);
 
 	/// <inheritdoc cref="Match{T}(Result{T}, Action{Failure}, Action{T})"/>
