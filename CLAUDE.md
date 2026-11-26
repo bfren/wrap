@@ -12,6 +12,8 @@
 
 Published on [NuGet](https://www.nuget.org/packages/wrap/).
 
+What is still to do, and the design decisions to keep, are in `docs/open-items.md`. Read it before reopening a decision, and keep it as the one place for open items.
+
 ## Development Workflow
 
 ### Building & Testing

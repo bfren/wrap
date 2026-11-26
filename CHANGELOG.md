@@ -2,7 +2,7 @@
 
 All notable changes to Wrap are listed here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no release notes, so their entries come from the commits, pull requests and [audit plan](docs/audit-plan.md).
+Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no release notes, so their entries come from the commits, pull requests and [audit plan](https://github.com/bfren/wrap/blob/06396aaa58534d937fbe6eebcbaf78bd7006cd1f/docs/audit-plan.md).
 
 ## [Unreleased]
 
