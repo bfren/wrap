@@ -1,8 +1,8 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Wrap.Mvc;
 
 namespace Wrap.Exceptions;

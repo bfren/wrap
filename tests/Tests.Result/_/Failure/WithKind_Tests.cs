@@ -12,7 +12,7 @@ public class WithKind_Tests
 		var failure = R.Fail(Rnd.Str);
 
 		// Act
-		var result = failure.withKind(FailureKind.NotFound);
+		var result = failure.WithKind(FailureKind.NotFound);
 
 		// Assert
 		Assert.Equal(FailureKind.NotFound, result.Kind);
@@ -27,7 +27,7 @@ public class WithKind_Tests
 		var name = Rnd.Str;
 
 		// Act
-		var result = R.Fail(Rnd.Str).withKind(new(name));
+		var result = R.Fail(Rnd.Str).WithKind(new(name));
 
 		// Assert
 		Assert.Equal(new FailureKind(name), result.Kind);

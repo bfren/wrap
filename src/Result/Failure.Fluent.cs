@@ -56,7 +56,7 @@ public readonly partial record struct Failure
 	/// </summary>
 	/// <param name="kind">Failure kind.</param>
 	/// <returns>A copy of this failure with <paramref name="kind"/>.</returns>
-	public Failure withKind(FailureKind kind) =>
+	public Failure WithKind(FailureKind kind) =>
 		this with
 		{
 			Kind = kind
