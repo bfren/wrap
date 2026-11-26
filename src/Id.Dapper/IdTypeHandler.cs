@@ -25,7 +25,7 @@ public abstract class IdTypeHandler<TId, TIdValue> : SqlMapper.TypeHandler<TId>
 	/// <param name="value">Database value that could not be parsed.</param>
 	/// <returns>The default value of <typeparamref name="TIdValue"/>, for <see langword="null"/>, empty or non-numeric input.</returns>
 	/// <exception cref="OverflowException"><paramref name="value"/> is a number.</exception>
-	protected static TIdValue DefaultOrThrow(object? value) =>
+	protected internal static TIdValue DefaultOrThrow(object? value) =>
 		value switch
 		{
 			sbyte or byte or short or ushort or int or uint or long or ulong or float or double or decimal =>
