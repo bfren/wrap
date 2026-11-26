@@ -3,58 +3,53 @@
 
 namespace Wrap.Failure_Tests;
 
-public class Msg_Tests
+public class WithArgs_Tests
 {
 	public class With_Null
 	{
 		[Fact]
-		public void Does_Not_Set_Message_Or_Args()
+		public void Does_Nothing()
 		{
 			// Arrange
 			var failure = R.Fail(Rnd.Str, Rnd.Int, Rnd.Guid);
 
 			// Act
-			var result = failure.Msg(null);
+			var result = failure.WithArgs(null!);
 
 			// Assert
-			Assert.Equal(failure.Message, result.Message);
 			Assert.Equal(failure.Args, result.Args);
 		}
 	}
 
-	public class With_Message
+	public class With_Empty_Args
 	{
 		[Fact]
-		public void Sets_Message()
+		public void Unsets_Args()
 		{
 			// Arrange
 			var failure = R.Fail(Rnd.Str, Rnd.Int, Rnd.Guid);
-			var message = Rnd.Str;
 
 			// Act
-			var result = failure.Msg(message);
+			var result = failure.WithArgs([]);
 
 			// Assert
-			Assert.Equal(message, result.Message);
 			Assert.Empty(result.Args);
 		}
 	}
 
-	public class With_Message_And_Args
+	public class With_Args
 	{
 		[Fact]
-		public void Sets_Message_And_Args()
+		public void Adds_Args_To_Failure()
 		{
 			// Arrange
 			var failure = R.Fail(Rnd.Str, Rnd.Int, Rnd.Guid);
-			var message = Rnd.Str;
 			var args = new object?[] { Rnd.Int, Rnd.Str, Rnd.Date };
 
 			// Act
-			var result = failure.Msg(message, args);
+			var result = failure.WithArgs(args);
 
 			// Assert
-			Assert.Equal(message, result.Message);
 			Assert.Equal(args, result.Args);
 		}
 	}

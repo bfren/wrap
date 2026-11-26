@@ -26,7 +26,7 @@ public static partial class MaybeExtensions
 				x.Value,
 
 			None =>
-				R.Fail(C.NoneFailureMessage, typeof(T).Name).Ctx(@class, function)
+				R.Fail(C.NoneFailureMessage, typeof(T).Name).WithContext(@class, function)
 		};
 
 	/// <inheritdoc cref="ToResult{T}(Maybe{T}, string, string)"/>

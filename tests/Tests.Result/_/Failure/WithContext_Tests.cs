@@ -3,7 +3,7 @@
 
 namespace Wrap.Failure_Tests;
 
-public class Ctx_Tests
+public class WithContext_Tests
 {
 	public class With_Class_And_Function
 	{
@@ -14,7 +14,7 @@ public class Ctx_Tests
 			var failure = new Failure(Rnd.Str);
 
 			// Act
-			var result = failure.Ctx(nameof(With_Class_And_Function), nameof(Adds_Class_And_Function_To_Context));
+			var result = failure.WithContext(nameof(With_Class_And_Function), nameof(Adds_Class_And_Function_To_Context));
 
 			// Assert
 			Assert.Equal(
@@ -33,10 +33,10 @@ public class Ctx_Tests
 			var failure = new Failure(Rnd.Str);
 
 			// Act
-			var result = failure.Ctx<Ctx_Tests>();
+			var result = failure.WithContext<WithContext_Tests>();
 
 			// Assert
-			Assert.Equal($"{typeof(Ctx_Tests).FullName}", result.Context);
+			Assert.Equal($"{typeof(WithContext_Tests).FullName}", result.Context);
 		}
 	}
 }

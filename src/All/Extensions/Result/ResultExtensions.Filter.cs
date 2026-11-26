@@ -26,7 +26,7 @@ public static partial class ResultExtensions
 				x,
 
 			Ok<T> =>
-				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(Filter)),
+				R.Fail(C.TestFalseMessage).WithContext(nameof(ResultExtensions), nameof(Filter)),
 
 			{ } x =>
 				x
@@ -40,7 +40,7 @@ public static partial class ResultExtensions
 				x,
 
 			Ok<T> =>
-				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(FilterAsync)),
+				R.Fail(C.TestFalseMessage).WithContext(nameof(ResultExtensions), nameof(FilterAsync)),
 
 			{ } x =>
 				x
@@ -54,7 +54,7 @@ public static partial class ResultExtensions
 				x,
 
 			Ok<T> =>
-				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(FilterAsync)),
+				R.Fail(C.TestFalseMessage).WithContext(nameof(ResultExtensions), nameof(FilterAsync)),
 
 			{ } x =>
 				x
@@ -68,7 +68,7 @@ public static partial class ResultExtensions
 				x,
 
 			Ok<T> =>
-				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(FilterAsync)),
+				R.Fail(C.TestFalseMessage).WithContext(nameof(ResultExtensions), nameof(FilterAsync)),
 
 			{ } x =>
 				x

@@ -3,7 +3,7 @@
 
 namespace Wrap.Failure_Tests;
 
-public class Knd_Tests
+public class WithKind_Tests
 {
 	[Fact]
 	public void Sets_Kind_And_Leaves_Original_Unchanged()
@@ -12,7 +12,7 @@ public class Knd_Tests
 		var failure = R.Fail(Rnd.Str);
 
 		// Act
-		var result = failure.Knd(FailureKind.NotFound);
+		var result = failure.withKind(FailureKind.NotFound);
 
 		// Assert
 		Assert.Equal(FailureKind.NotFound, result.Kind);
@@ -27,7 +27,7 @@ public class Knd_Tests
 		var name = Rnd.Str;
 
 		// Act
-		var result = R.Fail(Rnd.Str).Knd(new(name));
+		var result = R.Fail(Rnd.Str).withKind(new(name));
 
 		// Assert
 		Assert.Equal(new FailureKind(name), result.Kind);

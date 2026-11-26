@@ -84,7 +84,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 		}
 		catch (Exception ex)
 		{
-			return R.Fail(ex).Msg("Error creating cache value.").Ctx(nameof(WrapCache<>), nameof(GetOrCreate));
+			return R.Fail(ex).WithMessage("Error creating cache value.").WithContext(nameof(WrapCache<>), nameof(GetOrCreate));
 		}
 	}
 
@@ -115,7 +115,7 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 		}
 		catch (Exception ex)
 		{
-			return R.Fail(ex).Msg("Error creating cache value.").Ctx(nameof(WrapCache<>), nameof(GetOrCreateAsync));
+			return R.Fail(ex).WithMessage("Error creating cache value.").WithContext(nameof(WrapCache<>), nameof(GetOrCreateAsync));
 		}
 	}
 
@@ -189,5 +189,5 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 	/// <param name="args">Failure message arguments.</param>
 	/// <returns>Failure object.</returns>
 	private static Failure Fail(string function, string message, params object?[] args) =>
-		R.Fail(message, args).Ctx(nameof(WrapCache<>), function);
+		R.Fail(message, args).WithContext(nameof(WrapCache<>), function);
 }

@@ -5,7 +5,7 @@ using Wrap.Logging;
 
 namespace Wrap.Failure_Tests;
 
-public class Lvl_Tests
+public class WithLevel_Tests
 {
 	public class With_Level
 	{
@@ -13,11 +13,11 @@ public class Lvl_Tests
 		public void Adds_Level_To_Failure()
 		{
 			// Arrange
-			var failure = R.Fail(Rnd.Str).Lvl(LogLevel.Verbose);
+			var failure = R.Fail(Rnd.Str).WithLevel(LogLevel.Verbose);
 			var value = LogLevel.Fatal;
 
 			// Act
-			var result = failure.Lvl(value);
+			var result = failure.WithLevel(value);
 
 			// Assert
 			Assert.Equal(value, result.Level);

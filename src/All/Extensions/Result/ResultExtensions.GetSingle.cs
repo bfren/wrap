@@ -46,20 +46,20 @@ public static partial class ResultExtensions
 
 						{ Length: 0 } =>
 							onError?.Invoke(C.GetSingle.EmptyList) ?? R.Fail(C.GetSingle.EmptyList)
-								.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
+								.WithContext(nameof(ResultExtensions), nameof(GetSingle)),
 
 						_ =>
 							onError?.Invoke(C.GetSingle.MultipleValues) ?? R.Fail(C.GetSingle.MultipleValues)
-								.Ctx(nameof(ResultExtensions), nameof(GetSingle))
+								.WithContext(nameof(ResultExtensions), nameof(GetSingle))
 					},
 
 					IEnumerable =>
 						onError?.Invoke(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name) ?? R.Fail(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name)
-							.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
+							.WithContext(nameof(ResultExtensions), nameof(GetSingle)),
 
 					_ =>
 						onError?.Invoke(C.GetSingle.NotAList) ?? R.Fail(C.GetSingle.NotAList)
-							.Ctx(nameof(ResultExtensions), nameof(GetSingle))
+							.WithContext(nameof(ResultExtensions), nameof(GetSingle))
 				},
 
 			{ } x =>
