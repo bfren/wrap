@@ -35,7 +35,7 @@ Wrap 2.x targets **.NET 11 only** (`net11.0`), because it is built on C# 15 unio
 
 Wrap 1.x (.NET 8, 9, 10 and 11) lives on a maintenance branch and gets fixes only.
 
-Targeting `net10.0` as well was tried and not merged: it works with PolySharp, but consumers need the .NET 11 SDK and C# 15 on .NET 10, which Microsoft doesn't support, and .NET 10 and 11 both reach end of support in November 2028. The work is on branch `claude/optimistic-cray-bxlo36`. Point .NET 10 users to Wrap 1.x.
+Targeting `net10.0` as well was tried and not merged: it works with PolySharp, but consumers need the .NET 11 SDK and C# 15 on .NET 10, which Microsoft doesn't support, and .NET 10 and 11 both reach end of support in November 2028. Point .NET 10 users to Wrap 1.x.
 
 ## Code Style & Quality
 
@@ -43,14 +43,14 @@ Targeting `net10.0` as well was tried and not merged: it works with PolySharp, b
 The project uses [EditorConfig](https://editorconfig.org) for consistent formatting:
 - **Indent**: tabs (size 4) in `.cs` files, 2 spaces in XML/JSON/YAML and project files (`*.csproj`, `*.props`, `*.slnx`), 4 spaces elsewhere
 - **Charset**: UTF-8
-- **Trailing whitespace**: Trimmed in every file type
+- **Trailing whitespace**: Trimmed in every file type except Markdown, where two trailing spaces are a line break
 
 `.editorconfig` only holds settings that differ from the .NET defaults (`dotnet new editorconfig`).
 
 ### Style Checking
-The build is the only style gate. `AnalysisLevel` is `latest-recommended` and `TreatWarningsAsErrors` is on when `CI=true`, so any warning fails CI while a local build only shows it. Run `dotnet build -warnaserror` to see exactly what CI will reject.
+The build is the only style gate. `AnalysisLevel` is `11.0-recommended`, pinned so a newer SDK can't add rules that fail CI, and `TreatWarningsAsErrors` is on when `CI=true`, so any warning fails CI while a local build only shows it. The exception is NU1901 (a low-severity vulnerability), which stays a warning: moderate and above fail (`Directory.Packages.props`). Run `dotnet build -warnaserror` to see exactly what CI will reject.
 
-Only a few rules are warnings: IDE0005 (unnecessary `using`), IDE0055 (formatting), IDE0060 (unused parameter), IDE1006 (naming), IDE0073 (file header, an error in `src` and `apps`), the CA rules in `latest-recommended`, and the compiler, nullability and XML doc warnings. Every other style preference is a suggestion: it shows in the editor and never fails anything. Use `dotnet format style` to apply fixes, not as a check. Add a pragma only for a single real exception.
+Only a few rules are warnings: IDE0005 (unnecessary `using`), IDE0055 (formatting), IDE0060 (unused parameter), IDE1006 (naming), IDE0073 (file header, an error in `src` and `apps`), the CA rules in `11.0-recommended`, and the compiler, nullability and XML doc warnings. Every other style preference is a suggestion: it shows in the editor and never fails anything. Use `dotnet format style` to apply fixes, not as a check. Add a pragma only for a single real exception.
 
 ### Layout
 Put a field, constant or property initialiser on its own line after the `=`, indented one level, just as `=>` bodies are:
@@ -98,7 +98,7 @@ Every project has `GenerateDocumentationFile` on, and the comments become the Nu
 1. `dotnet build <project> --no-restore -warnaserror`: no warnings, including CS1572–CS1574, CS1580, CS1587 and CS1591.
 2. In `bin/Debug/net11.0/Wrap.<Project>.xml`, every `cref="…"` must resolve to the intended symbol prefix (`T:` type, `P:` property, `M:` method). For example, `grep -oE 'cref="[^"]*None[^"]*"'` should show `T:Wrap.None`, not `P:Wrap.M.None`, wherever you meant the type.
 
-Apply the IDE0001 (simplify name) suggestions in crefs. Do **not** apply IDE0004 (redundant cast) anywhere near `Maybe`/`Result`/`Either`. A cast such as `(Maybe<T>)M.None` passed to an `object` parameter changes what gets boxed, so prefer `default(Maybe<T>)` there.
+Apply the IDE0001 (simplify name) suggestions in crefs, from the editor or with `dotnet format style Wrap.slnx --no-restore --severity info --diagnostics IDE0001 --include src/<Project>/`. IDE0001 is a suggestion, so plain `dotnet format style` doesn't apply it, and `--diagnostics` stops `--severity info` applying anything else. Do **not** apply IDE0004 (redundant cast) anywhere near `Maybe`/`Result`/`Either`. A cast such as `(Maybe<T>)M.None` passed to an `object` parameter changes what gets boxed, so prefer `default(Maybe<T>)` there.
 
 Files use LF line endings (`.editorconfig` and `.gitattributes`), so files written by tools that save LF need no conversion. Don't convert files to CRLF.
 
