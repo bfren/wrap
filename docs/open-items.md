@@ -52,7 +52,7 @@ Each of these was looked at and kept on purpose. Change one only for a new reaso
 - **`R.Ok()` returns `Result<bool>`** holding `true`, so `Result<bool>` means either a yes/no answer or "it worked". A `Unit` type would add a type and break every caller.
 - **`IMonad<T>.Value`, `IWithException.Exception` and `IWithId<TId, TValue>.Id` keep their `init` accessors.** Generic code sets them through the interface: `F.Wrap` creates monads with `new TMonad { Value = … }`, and a data layer can create entities with `new T { Id = … }`.
 - **Callback parameters are named for the case they handle**: `fNone`, `fSome`, `fFail`, `fOk`, `fLeft` and `fRight`, with `fValue` for a fallback value. Sync and async forms of a method use the same names.
-- **There is no sync `ToMaybe(Func<Failure, Maybe<T>>)`**, though `ToMaybeAsync` has one. A `T` converts to `Maybe<T>`, so on a `Result<string>` a logging lambda such as `f => Log(f)`, where `Log` returns a string, would pick it over `ToMaybe(Action<Failure>)` and return `Some` instead of `None`. `ToMaybe_Tests` holds this.
+- **`ToMaybe` can only replace the failure on a `Task<Result<T>>`**: there is no `ToMaybe(Func<Failure, Maybe<T>>)` or `ToMaybeAsync(Func<Failure, Task<Maybe<T>>>)` on a plain `Result<T>`. A `T` converts to `Maybe<T>`, so on a `Result<string>` a logging lambda that returns a string, such as `f => Log(f)` or `async f => await LogAsync(f)`, would pick a replacing overload and return `Some` instead of `None`. `ToMaybe_Tests` and `ToMaybeAsync_Tests` hold this.
 
 ### Culture and formatting
 
