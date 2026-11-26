@@ -66,24 +66,20 @@ public static partial class ResultExtensions
 
 	#region Replacing the Failure
 
+	// there is no sync ToMaybe(Func<Failure, Maybe<T>>): a T converts to Maybe<T>, so a logging lambda that returns a T
+	// (such as f => Log(f) on a Result<string>) would pick it over ToMaybe(Action<Failure>) and return Some instead of None
+
 	/// <summary>
 	/// Convert a <see cref="Result{T}"/> to a <see cref="Maybe{T}"/>, using <paramref name="fFail"/> when it is a <see cref="Failure"/>.
 	/// </summary>
+	/// <remarks>
+	/// A <typeparamref name="T"/> converts to <see cref="Maybe{T}"/>, so a lambda that returns a <typeparamref name="T"/>
+	/// picks this overload over the one that takes <see cref="Func{Failure, Task}"/>, and its value becomes the result.
+	/// </remarks>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <param name="fFail">Returns the <see cref="Maybe{T}"/> to use when <paramref name="this"/> is a <see cref="Failure"/>.</param>
 	/// <returns><see cref="Some{T}"/> holding the value, or the <see cref="Maybe{T}"/> returned by <paramref name="fFail"/>.</returns>
-	public static Maybe<T> ToMaybe<T>(this Result<T> @this, Func<Failure, Maybe<T>> fFail) =>
-		@this switch
-		{
-			Ok<T> x =>
-				x.Value,
-
-			Failure x =>
-				fFail(x)
-		};
-
-	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Func{Failure, Maybe{T}})"/>
 	public static async Task<Maybe<T>> ToMaybeAsync<T>(this Result<T> @this, Func<Failure, Task<Maybe<T>>> fFail) =>
 		@this switch
 		{
@@ -94,11 +90,18 @@ public static partial class ResultExtensions
 				await fFail(x)
 		};
 
-	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Func{Failure, Maybe{T}})"/>
+	/// <inheritdoc cref="ToMaybeAsync{T}(Result{T}, Func{Failure, Task{Maybe{T}}})"/>
 	public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<Failure, Maybe<T>> fFail) =>
-		ToMaybe(await @this, fFail);
+		await @this switch
+		{
+			Ok<T> x =>
+				x.Value,
 
-	/// <inheritdoc cref="ToMaybe{T}(Result{T}, Func{Failure, Maybe{T}})"/>
+			Failure x =>
+				fFail(x)
+		};
+
+	/// <inheritdoc cref="ToMaybeAsync{T}(Result{T}, Func{Failure, Task{Maybe{T}}})"/>
 	public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<Result<T>> @this, Func<Failure, Task<Maybe<T>>> fFail) =>
 		await ToMaybeAsync(await @this, fFail);
 

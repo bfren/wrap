@@ -13,7 +13,7 @@ Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no r
 - `LogLevel.ToMsLevel()` (in `Wrap.Extensions`) converts a Wrap log level to the matching `Microsoft.Extensions.Logging.LogLevel`. The two enums have different values, so always map with this and never cast.
 - The `MatchAsync` extensions take every mix of sync and async callbacks on both a value and a `Task<…>` receiver, for `Maybe`, `Result` and `Either`. Before, the mixed forms with `Action` callbacks were only on the static `M`, `R` and `E` functions. `MatchIfAsync` gains the two forms it was missing.
 - `AddWrapConverters()` also registers `FailureKindJsonConverter`.
-- `ToMaybe` and `ToResultAsync` take the same callbacks in their sync and async forms: `result.ToMaybe(f => …)` can return a replacement `Maybe<T>`, `ToMaybeAsync` works on a `Result<T>` as well as a `Task<Result<T>>`, and `maybe.ToResultAsync(async () => …)` works on a `Maybe<T>`.
+- `ToMaybeAsync` works on a `Result<T>` as well as a `Task<Result<T>>`, and `maybe.ToResultAsync(async () => …)` works on a `Maybe<T>`.
 
 ### Changed
 
