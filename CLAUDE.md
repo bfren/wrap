@@ -20,11 +20,8 @@ Published on [NuGet](https://www.nuget.org/packages/wrap/).
 # Restore dependencies
 dotnet restore Wrap.slnx
 
-# Check code style (using EditorConfig rules)
-dotnet format style -v d Wrap.slnx --no-restore
-
-# Build solution
-dotnet build Wrap.slnx --no-restore --configuration Debug
+# Build solution (-warnaserror fails on any warning, as CI does)
+dotnet build Wrap.slnx --no-restore --configuration Debug -warnaserror
 
 # Run all tests (Microsoft.Testing.Platform, set in global.json, needs --solution)
 dotnet test --solution Wrap.slnx --no-restore --no-build --configuration Debug
@@ -42,16 +39,16 @@ Wrap 1.x (.NET 8, 9, 10 and 11) lives on a maintenance branch and gets fixes onl
 
 ### EditorConfig Rules
 The project uses [EditorConfig](https://editorconfig.org) for consistent formatting:
-- **Indent**: 4 spaces (except XML/JSON/YAML: 2 spaces)
+- **Indent**: tabs (size 4) in `.cs` files, 2 spaces in XML/JSON/YAML and project files (`*.csproj`, `*.props`, `*.slnx`), 4 spaces elsewhere
 - **Charset**: UTF-8
-- **Trailing whitespace**: Trimmed
-- Project files (*.csproj) use 2-space indentation
+- **Trailing whitespace**: Trimmed in every file type
+
+`.editorconfig` only holds settings that differ from the .NET defaults (`dotnet new editorconfig`).
 
 ### Style Checking
-Code style is enforced via `dotnet format style` in the test workflow. Always run this before committing:
-```bash
-dotnet format style -v d Wrap.slnx --no-restore
-```
+The build is the only style gate. `AnalysisLevel` is `latest-recommended` and `TreatWarningsAsErrors` is on when `CI=true`, so any warning fails CI while a local build only shows it. Run `dotnet build -warnaserror` to see exactly what CI will reject.
+
+Only a few rules are warnings: IDE0005 (unnecessary `using`), IDE0055 (formatting), IDE0060 (unused parameter), IDE1006 (naming), IDE0073 (file header, an error in `src` and `apps`), the CA rules in `latest-recommended`, and the compiler, nullability and XML doc warnings. Every other style preference is a suggestion: it shows in the editor and never fails anything. Use `dotnet format style` to apply fixes, not as a check. Add a pragma only for a single real exception.
 
 ### Layout
 Put a field, constant or property initialiser on its own line after the `=`, indented one level, just as `=>` bodies are:
@@ -95,10 +92,11 @@ Every project has `GenerateDocumentationFile` on, and the comments become the Nu
 - Inside `static partial class M`, a bare `None` resolves to the `M.None` property. To mean the type, write `Wrap.None`. `dotnet format` simplifies `global::Wrap.None` to that, and `M.Wrap` doesn't interfere in a cref.
 - A cref can also point at a private member (`<see cref="isSome"/>`) from another private member's docs.
 
-**Verify** (all three must be clean)
-1. `dotnet build <project> --no-restore`: no CS1572–CS1574, CS1580, CS1587 or CS1591 warnings.
+**Verify** (both must be clean)
+1. `dotnet build <project> --no-restore -warnaserror`: no warnings, including CS1572–CS1574, CS1580, CS1587 and CS1591.
 2. In `bin/Debug/net11.0/Wrap.<Project>.xml`, every `cref="…"` must resolve to the intended symbol prefix (`T:` type, `P:` property, `M:` method). For example, `grep -oE 'cref="[^"]*None[^"]*"'` should show `T:Wrap.None`, not `P:Wrap.M.None`, wherever you meant the type.
-3. `dotnet format style -v d Wrap.slnx --no-restore --verify-no-changes --include src/<Project>`. Without `--verify-no-changes` and `--include`, it rewrites files in other projects. Fix what it reports in your project only, and leave warnings elsewhere alone. Apply IDE0001 (simplify name) fixes in crefs. Do **not** auto-apply IDE0004 (redundant cast) anywhere near `Maybe`/`Result`/`Either`. A cast such as `(Maybe<T>)M.None` passed to an `object` parameter changes what gets boxed, so prefer `default(Maybe<T>)` there.
+
+Apply the IDE0001 (simplify name) suggestions in crefs. Do **not** apply IDE0004 (redundant cast) anywhere near `Maybe`/`Result`/`Either`. A cast such as `(Maybe<T>)M.None` passed to an `object` parameter changes what gets boxed, so prefer `default(Maybe<T>)` there.
 
 Files use LF line endings (`.editorconfig` and `.gitattributes`), so files written by tools that save LF need no conversion. Don't convert files to CRLF.
 
@@ -150,7 +148,7 @@ Files use LF line endings (`.editorconfig` and `.gitattributes`), so files writt
 ### When Adding Features
 1. Add to appropriate sub-project (Maybe, Result, Either, Id, Caching, Common)
 2. Add corresponding test project updates
-3. Run `dotnet format style` to ensure consistent formatting
+3. Build with `-warnaserror` and fix every warning
 4. Ensure all tests pass
 5. Update related Testing projects if public APIs change
 

@@ -1,6 +1,6 @@
 # Style checks plan
 
-Plan, 23 November 2026, to replace Wrap's two style gates with one. Nothing here has been done yet.
+Plan, 23 November 2026, to replace Wrap's two style gates with one. Steps 1, 2, 4 and 6 are done. Step 5 is done locally (clean CI-strict build, 0 warnings, 1651 tests pass); pushing the branch is left. Step 3 is not started.
 
 **The problem:** the Style step in CI keeps failing on things that aren't bugs, and each fix (a pragma, a suppression, a severity tweak) adds config that drifts. Of the last 100 Test runs, 16 failed and 15 of those failed at Style:
 
@@ -23,7 +23,7 @@ Plan, 23 November 2026, to replace Wrap's two style gates with one. Nothing here
 
 ## 1. Make the build the only gate
 
-- [ ] Done
+- [x] Done
 
 **Where:** `src/Directory.Build.props`, `tests/Directory.Build.props`, `apps/Directory.Build.props`
 
@@ -40,7 +40,7 @@ Plan, 23 November 2026, to replace Wrap's two style gates with one. Nothing here
 
 ## 2. Rewrite `.editorconfig`
 
-- [ ] Done
+- [x] Done
 
 **Where:** `.editorconfig`, `src/.editorconfig`, `tests/.editorconfig`
 
@@ -83,7 +83,7 @@ The root `.editorconfig` is RehanSaeed's EditorConfig template (v4.1.0, 2021), w
 
 ## 4. Remove the pragmas and suppressions the old setup needed
 
-- [ ] Done
+- [x] Done
 
 - `tests/Tests.Generators/Failure/Failures.cs` and `apps/AppMvc/FailureMessage.cs`: delete `#pragma warning disable IDE0060` and its comment. The build runs the generator before the analyzers, so `[Failure]` parameters are used.
 - `tests/Tests.Id.Dapper/_/IntegerIdValue/Convert_Tests.cs`: delete `#pragma warning disable IDE0004` once IDE0004 is a suggestion.
@@ -105,7 +105,7 @@ The root `.editorconfig` is RehanSaeed's EditorConfig template (v4.1.0, 2021), w
 
 ## 6. Update the docs
 
-- [ ] Done
+- [x] Done
 
 **Where:** `CLAUDE.md`
 

@@ -69,7 +69,7 @@ public abstract record class Monad<TMonad, TValue> : IMonad<TMonad, TValue>
 	/// <param name="value">Value to check.</param>
 	/// <returns><paramref name="value"/> unchanged.</returns>
 	/// <exception cref="NullMonadValueException"><paramref name="value"/> is <see langword="null"/> and <typeparamref name="TValue"/> is not a nullable value type.</exception>
-	private TValue Check(TValue? value) =>
+	private static TValue Check(TValue? value) =>
 		value switch
 		{
 			TValue =>
