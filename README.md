@@ -59,7 +59,7 @@ The core types are also published on their own: `Wrap.Common`, `Wrap.Maybe`, `Wr
 
 Wrap 2 targets **.NET 11** and needs C# 15, which comes with the .NET 11 SDK.
 
-Wrap 1.x supports .NET 8, 9, 10 and 11, so you can stay on it without union types. It is in maintenance and gets fixes only.
+**On .NET 10, use Wrap 1.x.** Wrap 2 doesn't target .NET 10, because its union types need C# 15. Wrap 1.x supports .NET 8, 9, 10 and 11 without union types. It is in maintenance and gets fixes only.
 
 ## History
 
