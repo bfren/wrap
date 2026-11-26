@@ -10,8 +10,11 @@ Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no r
 
 - **Breaking:** a failure created from an `AggregateException` that holds exactly one exception gets the kind of that exception. So a timeout reached through `task.Result` or `task.Wait()` is `Timeout`, not `Unexpected`. An aggregate holding several exceptions is still `Unexpected`. `Exception` still holds the `AggregateException`. `Kind` is part of equality, so these failures no longer equal one built with `Unexpected`.
 - `Wrap.Id.Testing` depends on the stable `Rnd` 11.0.0, not 11.0.0-beta.1.
+- **Breaking:** Dapper ID handlers throw `OverflowException` for a number stored as text that doesn't fit the ID type, such as `"3000000000"` for an `IntId` or `"5.5"`. Before, it silently became the default ID (0 or `Guid.Empty`). Text that isn't a number still reads as the default ID.
 
 ### Fixed
+
+- An MVC form shown again after a failed POST leaves an empty `Maybe<T>` field blank. Before, the binder recorded `"None"` as the attempted value, so the field came back holding "None". Sending it again then bound a `Maybe<string>` as `Some("None")` and failed binding for other types.
 
 - A `Failure` can be written and read with a System.Text.Json source-generated `JsonSerializerContext`. Before, it built with warning SYSLIB1220 and threw `NotSupportedException`, because `FailureKindJsonConverter` was internal. It is now public.
 - `[Failure]` methods compile in a project with a namespace ending in `.Wrap`, such as `MyApp.Wrap`. The generated code now uses `global::` type names.
