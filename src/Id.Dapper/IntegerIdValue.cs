@@ -22,20 +22,21 @@ internal static class IntegerIdValue
 	/// <c>5.00m</c> all give 5, but <c>5.5m</c> is rejected.
 	/// </para>
 	/// <para>
-	/// Text that holds a whole number is read the same way, using <see cref="F.DefaultCulture"/>, so <c>"42"</c>,
-	/// <c>"42.0"</c>, <c>"1,000"</c> and <c>"4.2E1"</c> are accepted, but <c>"42.5"</c> is rejected.
+	/// Text is given to <paramref name="parse"/> first. If that fails, text that holds a whole number is read like a
+	/// <see langword="decimal"/>, using <see cref="F.DefaultCulture"/>, so <c>"42.0"</c>, <c>"1,000"</c> and
+	/// <c>"4.2E1"</c> are accepted, but <c>"42.5"</c> is rejected.
 	/// </para>
 	/// <para>
-	/// Anything else (other text, floating-point numbers and so on) is converted to a string and given to
-	/// <paramref name="parse"/>.
+	/// Anything else (floating-point numbers and so on) is converted to a string and given to <paramref name="parse"/>.
 	/// </para>
 	/// </remarks>
 	/// <typeparam name="T">ID value type.</typeparam>
 	/// <param name="value">Database value.</param>
-	/// <param name="parse">Parses the string form of any other value.</param>
+	/// <param name="parse">Parses text, and the string form of any other value.</param>
 	/// <returns>
 	/// <see cref="Some{T}"/> holding the value, or <see cref="None"/> if <paramref name="value"/> is a number that is
-	/// out of range or not whole, or <paramref name="parse"/> cannot parse it.
+	/// out of range or not whole, text that is not a whole number that fits, or anything else that
+	/// <paramref name="parse"/> cannot parse.
 	/// </returns>
 	internal static Maybe<T> Convert<T>(object? value, Func<string?, Maybe<T>> parse)
 		where T : struct, IBinaryInteger<T>, IMinMaxValue<T> =>
@@ -94,7 +95,8 @@ internal static class IntegerIdValue
 	/// </summary>
 	/// <remarks>
 	/// It uses the same number styles that <see cref="IdTypeHandler{TId, TIdValue}"/> uses to decide that text holds a
-	/// number, so text read as a number here is never then rejected there as "not a number", and the reverse.
+	/// number. That check reads a <see langword="double"/>, which holds bigger numbers than a <see langword="decimal"/>,
+	/// so text too big to read here (such as <c>"1e30"</c>) is still a number there, and throws as one that doesn't fit.
 	/// </remarks>
 	/// <typeparam name="T">ID value type.</typeparam>
 	/// <param name="value">Text to read.</param>
