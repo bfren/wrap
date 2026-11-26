@@ -65,6 +65,23 @@ public class FailureKind_Tests
 		Assert.Equal(FailureKind.Unspecified, result);
 	}
 
+	[Theory]
+	[InlineData("")]
+	[InlineData("   ")]
+	public void Json_Empty_Name_Writes_Null(string name)
+	{
+		// Arrange
+		var failure = R.Fail(Rnd.Str).Knd(new FailureKind(name));
+
+		// Act
+		var written = JsonSerializer.Serialize(failure);
+		var read = JsonSerializer.Deserialize<Failure>(written);
+
+		// Assert
+		Assert.Contains("\"Kind\":null", written);
+		Assert.Equal(FailureKind.Unspecified, read.Kind);
+	}
+
 	[Fact]
 	public void Json_Name_Ignores_Naming_Policy()
 	{

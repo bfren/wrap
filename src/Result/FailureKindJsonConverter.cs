@@ -42,12 +42,16 @@ public sealed class FailureKindJsonConverter : JsonConverter<FailureKind>
 	/// <summary>
 	/// Write <paramref name="value"/> as its name, or <see langword="null"/> for <see cref="FailureKind.Unspecified"/>.
 	/// </summary>
+	/// <remarks>
+	/// A name that is empty or only whitespace is also written as <see langword="null"/>, so it reads back the same as
+	/// <see cref="Read"/> reads it: as <see cref="FailureKind.Unspecified"/>.
+	/// </remarks>
 	/// <param name="writer">JSON writer.</param>
 	/// <param name="value">Failure kind.</param>
 	/// <param name="options">Serialiser options.</param>
 	public override void Write(Utf8JsonWriter writer, FailureKind value, JsonSerializerOptions options)
 	{
-		if (value.Name is string name)
+		if (value.Name is string name && !string.IsNullOrWhiteSpace(name))
 		{
 			writer.WriteStringValue(name);
 		}
