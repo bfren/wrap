@@ -143,7 +143,7 @@ public sealed class FailureGenerator : IIncrementalGenerator
 			LogLevel = logLevel,
 			Kind = failureKind,
 			Parameters = method.Parameters.Select(ParameterModel.Create).ToArray(),
-			ReturnType = method.ReturnType.ToDisplayString(),
+			ReturnType = method.ReturnType.ToDisplayString(MethodModel.TypeFormat),
 			Diagnostics = diagnostics,
 			CanGenerate = true
 		};
@@ -213,7 +213,7 @@ public sealed class FailureGenerator : IIncrementalGenerator
 		var level = model.LogLevel switch
 		{
 			int x =>
-				$"{indent}        Level = (Wrap.Logging.LogLevel){x},\n",
+				$"{indent}        Level = (global::Wrap.Logging.LogLevel){x},\n",
 
 			_ =>
 				string.Empty
@@ -222,7 +222,7 @@ public sealed class FailureGenerator : IIncrementalGenerator
 		var kind = model.Kind switch
 		{
 			string x =>
-				$"{indent}        Kind = new Wrap.FailureKind({SymbolDisplay.FormatLiteral(x, quote: true)}),\n",
+				$"{indent}        Kind = new global::Wrap.FailureKind({SymbolDisplay.FormatLiteral(x, quote: true)}),\n",
 
 			_ =>
 				string.Empty

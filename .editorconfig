@@ -17,6 +17,10 @@ indent_size = 2
 [*.{cmd,bat}]
 end_of_line = crlf
 
+# two trailing spaces are a Markdown line break
+[*.{md,mdx}]
+trim_trailing_whitespace = false
+
 [*.cs]
 indent_style = tab
 indent_size = tab

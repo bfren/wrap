@@ -30,7 +30,7 @@ internal record ParameterModel()
 	internal static ParameterModel Create(IParameterSymbol symbol) =>
 		new()
 		{
-			Type = symbol.Type.ToDisplayString(),
+			Type = symbol.Type.ToDisplayString(MethodModel.TypeFormat),
 			Name = symbol.Name
 		};
 }

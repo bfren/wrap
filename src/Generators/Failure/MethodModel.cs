@@ -58,7 +58,7 @@ internal record MethodModel()
 	internal int? LogLevel { get; set; }
 
 	/// <summary>
-	/// Failure kind name.
+	/// Gets the failure kind name, or <see langword="null"/> when <c>Kind</c> is not set.
 	/// </summary>
 	internal string? Kind { get; set; }
 
@@ -67,6 +67,14 @@ internal record MethodModel()
 	/// </summary>
 	internal EquatableArray<ParameterModel> Parameters { get; set; } =
 		new([]);
+
+	/// <summary>
+	/// Gets the format for type names in generated code: with <c>global::</c>, so a namespace such as <c>MyApp.Wrap</c>
+	/// can't hide <c>Wrap</c>, and with <c>?</c> on nullable reference types, so the signature matches the declaration.
+	/// </summary>
+	internal static readonly SymbolDisplayFormat TypeFormat =
+		SymbolDisplayFormat.FullyQualifiedFormat
+			.AddMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier);
 
 	/// <summary>
 	/// Method return type.
