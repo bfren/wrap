@@ -8,7 +8,7 @@ namespace Wrap.Json.ListExtensions_Tests;
 public class AddWrapConverters_Tests
 {
 	[Fact]
-	public void Adds_MaybeJsonConverterFactory_And_MonadJsonConverterFactory()
+	public void Adds_FailureKindJsonConverter_MaybeJsonConverterFactory_And_MonadJsonConverterFactory()
 	{
 		// Arrange
 		var list = Substitute.For<IList<JsonConverter>>();
@@ -17,6 +17,7 @@ public class AddWrapConverters_Tests
 		list.AddWrapConverters();
 
 		// Assert
+		list.Received().Add(Arg.Any<FailureKindJsonConverter>());
 		list.Received().Add(Arg.Any<MaybeJsonConverterFactory>());
 		list.Received().Add(Arg.Any<MonadJsonConverterFactory>());
 	}

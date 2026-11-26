@@ -91,7 +91,8 @@ public class UnwrapSingle_Tests
 			var result = Record.Exception(() => input.UnwrapSingle(fLeft));
 
 			// Assert
-			_ = Assert.IsType<UnsafeUnwrapSingleException>(result);
+			var ex = Assert.IsType<UnsafeUnwrapSingleException>(result);
+			_ = Assert.IsAssignableFrom<WrapException>(ex);
 		}
 
 		[Fact]

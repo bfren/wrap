@@ -149,7 +149,7 @@ A callback is sync as `Action<…>`/`Func<…, TReturn>` and async as `Func<…,
 
 Exceptions:
 - `Audit`/`AuditAsync` have no mixed forms, because their callbacks are nullable and a mix would make `null` arguments ambiguous.
-- `IfAsync` takes only a sync predicate.
+- `IfAsync`, `IfNotAsync`, `BindIfAsync` and `MapIfAsync` take only a sync predicate. `MatchIfAsync` and `FilterAsync` take both.
 
 ### Testing
 - Each sub-project has corresponding test project

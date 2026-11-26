@@ -22,6 +22,7 @@ public class Unwrap_Tests
 			// Assert
 			var ex = Assert.IsType<UnsafeUnwrapException>(result);
 			Assert.Contains($"Value {arg} failed", ex.Message);
+			_ = Assert.IsAssignableFrom<WrapException>(ex);
 			Assert.Null(ex.InnerException);
 		}
 
