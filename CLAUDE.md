@@ -38,6 +38,8 @@ Wrap 2.x targets **.NET 11 only** (`net11.0`), because it is built on C# 15 unio
 
 Wrap 1.x (.NET 8, 9, 10 and 11) lives on a maintenance branch and gets fixes only.
 
+Targeting `net10.0` as well was tried and not merged: it works with PolySharp, but consumers need the .NET 11 SDK and C# 15 on .NET 10, which Microsoft doesn't support, and .NET 10 and 11 both reach end of support in November 2028. The work is on branch `claude/optimistic-cray-bxlo36`. Point .NET 10 users to Wrap 1.x.
+
 ## Code Style & Quality
 
 ### EditorConfig Rules
