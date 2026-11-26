@@ -19,17 +19,17 @@ public static partial class MaybeExtensions
 	/// <param name="f">Function to run when <paramref name="this"/> is <see cref="None"/>.</param>
 	/// <returns>The original value of <paramref name="this"/>.</returns>
 	public static Maybe<T> IfNone<T>(this Maybe<T> @this, Action f) =>
-		@this.Audit(fNone: f);
+		@this.Audit(fNone: f, fSome: null);
 
 	/// <inheritdoc cref="IfNone{T}(Maybe{T}, Action)"/>
 	public static Task<Maybe<T>> IfNoneAsync<T>(this Maybe<T> @this, Func<Task> f) =>
-		@this.AuditAsync(fNone: f);
+		@this.AuditAsync(fNone: f, fSome: null);
 
 	/// <inheritdoc cref="IfNone{T}(Maybe{T}, Action)"/>
 	public static Task<Maybe<T>> IfNoneAsync<T>(this Task<Maybe<T>> @this, Action f) =>
-		@this.AuditAsync(fNone: f);
+		@this.AuditAsync(fNone: f, fSome: null);
 
 	/// <inheritdoc cref="IfNone{T}(Maybe{T}, Action)"/>
 	public static Task<Maybe<T>> IfNoneAsync<T>(this Task<Maybe<T>> @this, Func<Task> f) =>
-		@this.AuditAsync(fNone: f);
+		@this.AuditAsync(fNone: f, fSome: null);
 }

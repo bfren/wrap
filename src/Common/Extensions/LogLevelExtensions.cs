@@ -1,0 +1,10 @@
+// Wrap: Functional Monads for .NET
+// Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
+
+namespace Wrap.Extensions;
+
+
+/// <summary>
+/// Extension methods for <see cref="Logging.LogLevel"/>.
+/// </summary>
+public static partial class LogLevelExtensions;

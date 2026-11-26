@@ -15,7 +15,7 @@ public class Audit_Tests
 			var fFail = Substitute.For<Action<Failure>>();
 
 			// Act
-			_ = input.Audit(fFail);
+			_ = input.Audit(fFail: fFail, fOk: null);
 
 			// Assert
 			fFail.ReceivedWithAnyArgs(1).Invoke(Arg.Any<Failure>());
@@ -57,7 +57,7 @@ public class Audit_Tests
 			var input = R.Fail<int>(value);
 
 			// Act
-			var result = input.Audit(fFail: _ => throw new Exception(Rnd.Str));
+			var result = input.Audit(fFail: _ => throw new Exception(Rnd.Str), fOk: null);
 
 			// Assert
 			result.AssertFailure(value);
@@ -89,7 +89,7 @@ public class Audit_Tests
 			var fOk = Substitute.For<Action<int>>();
 
 			// Act
-			_ = input.Audit(fOk);
+			_ = input.Audit(fFail: null, fOk: fOk);
 
 			// Assert
 			fOk.Received(1).Invoke(value);
@@ -117,7 +117,7 @@ public class Audit_Tests
 			var input = R.Wrap(value);
 
 			// Act
-			var result = input.Audit(fFail: _ => throw new Exception(Rnd.Str));
+			var result = input.Audit(fFail: null, fOk: _ => throw new Exception(Rnd.Str));
 
 			// Assert
 			result.AssertOk(value);
@@ -162,7 +162,7 @@ public class Audit_Tests
 			var input = R.Wrap(value);
 
 			// Act
-			var result = input.Audit(fFail: _ => { });
+			var result = input.Audit(_ => { });
 
 			// Assert
 			result.AssertOk(value);
@@ -176,7 +176,7 @@ public class Audit_Tests
 			var input = R.Wrap(value);
 
 			// Act
-			var result = input.Audit(fFail: _ => throw new Exception(Rnd.Str));
+			var result = input.Audit(_ => throw new Exception(Rnd.Str));
 
 			// Assert
 			result.AssertOk(value);
