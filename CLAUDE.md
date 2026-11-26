@@ -140,6 +140,17 @@ Files use LF line endings (`.editorconfig` and `.gitattributes`), so files writt
 - **Async Support**: Full async/await support throughout
 - **Monad Composition**: All types support monadic composition patterns
 
+### Async Overloads
+Every `…Async` extension has one overload for each sync/async mix of its callbacks, on both receivers:
+- On `Maybe<T>`, `Result<T>` or `Either<TLeft, TRight>`, every mix except all-sync, which is the non-async method. With n callbacks that is 2ⁿ − 1 overloads.
+- On `Task<…>`, every mix including all-sync, which is 2ⁿ overloads.
+
+A callback is sync as `Action<…>`/`Func<…, TReturn>` and async as `Func<…, Task>`/`Func<…, Task<TReturn>>`, and a predicate is `Func<T, bool>` or `Func<T, Task<bool>>`. Order overloads by receiver (value, then `Task<…>`), then count through the callbacks from all-sync to all-async with the last callback changing fastest. `MatchIf` is the exception: it groups by `fNone`/`fFail` first, then by receiver. The extensions are the public API: the static `M`, `R` and `E` functions behind them are internal.
+
+Exceptions:
+- `Audit`/`AuditAsync` have no mixed forms, because their callbacks are nullable and a mix would make `null` arguments ambiguous.
+- `IfAsync` takes only a sync predicate.
+
 ### Testing
 - Each sub-project has corresponding test project
 - Use of Testing utilities (Either.Testing, Maybe.Testing, Result.Testing, Id.Testing) for creating test values
