@@ -8,13 +8,13 @@ Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no r
 
 ### Changed
 
-- A failure created from an `AggregateException` that holds exactly one exception gets the kind of that exception. So a timeout reached through `task.Result` or `task.Wait()` is `Timeout`, not `Unexpected`. An aggregate holding several exceptions is still `Unexpected`. `Exception` still holds the `AggregateException`.
+- **Breaking:** a failure created from an `AggregateException` that holds exactly one exception gets the kind of that exception. So a timeout reached through `task.Result` or `task.Wait()` is `Timeout`, not `Unexpected`. An aggregate holding several exceptions is still `Unexpected`. `Exception` still holds the `AggregateException`. `Kind` is part of equality, so these failures no longer equal one built with `Unexpected`.
 
 ### Fixed
 
 - A `Failure` can be written and read with a System.Text.Json source-generated `JsonSerializerContext`. Before, it built with warning SYSLIB1220 and threw `NotSupportedException`, because `FailureKindJsonConverter` was internal. It is now public.
 - `[Failure]` methods compile in a project with a namespace ending in `.Wrap`, such as `MyApp.Wrap`. The generated code now uses `global::` type names.
-- A JSON kind that is empty or only whitespace reads as `FailureKind.Unspecified`. Before, it gave a kind that printed the same as `Unspecified` but wasn't equal to it.
+- A JSON kind that is empty or only whitespace reads as `FailureKind.Unspecified`. Before, it gave a kind that printed the same as `Unspecified` but wasn't equal to it. A kind with such a name is also written as `null`, so it reads back the same way.
 - For contributors only: CI no longer fails on low-severity package vulnerabilities (NU1901), and `AnalysisLevel` is pinned to `11.0-recommended` so a newer SDK can't add rules that fail CI.
 
 ## [2.0.0-beta.5] - 2026-11-26
