@@ -9,6 +9,7 @@ Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no r
 ### Changed
 
 - **Breaking:** a failure created from an `AggregateException` that holds exactly one exception gets the kind of that exception. So a timeout reached through `task.Result` or `task.Wait()` is `Timeout`, not `Unexpected`. An aggregate holding several exceptions is still `Unexpected`. `Exception` still holds the `AggregateException`. `Kind` is part of equality, so these failures no longer equal one built with `Unexpected`.
+- `Wrap.Id.Testing` depends on the stable `Rnd` 11.0.0, not 11.0.0-beta.1.
 
 ### Fixed
 
