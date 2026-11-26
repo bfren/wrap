@@ -13,6 +13,6 @@ public static partial class F
 	/// <param name="type">Type to check.</param>
 	/// <param name="genericType">Generic type definition (e.g. <see cref="IMonad{TMonad, TValue}"/>).</param>
 	/// <returns>Monad value type.</returns>
-	public static Type? GetMonadValueType(Type type, Type genericType) =>
+	internal static Type? GetMonadValueType(Type type, Type genericType) =>
 		GetMonadTypes(type, genericType).valueType;
 }
