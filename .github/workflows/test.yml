@@ -17,4 +17,5 @@ jobs:
     with:
       solution: "Wrap.slnx"
       name: Wrap
+      style: false # the build enforces style (EnforceCodeStyleInBuild), and dotnet format cannot see generated code
     secrets: inherit

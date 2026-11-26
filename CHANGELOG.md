@@ -6,6 +6,8 @@ Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no r
 
 ## [Unreleased]
 
+## [2.0.0-beta.5] - 2026-11-26
+
 ### Added
 
 - `FailureKind` and `Failure.Kind` say what sort of failure a `Failure` is, in terms that make sense outside any one transport: `Invalid`, `NotFound`, `Conflict`, `Unauthenticated`, `Forbidden`, `Unavailable`, `Timeout`, `Cancelled` or `Unexpected`. The default is `Unspecified`. The set is open: define your own kinds as static members, prefixed with your library or app name (for example `"Merlin.PayloadTooLarge"`).
@@ -17,6 +19,7 @@ Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no r
 
 - **Breaking:** failures created from an exception, including by `R.Try` and `R.Fail(ex)`, set `Kind`: `Timeout` for a `TimeoutException` or a cancellation caused by one, `Cancelled` for any other `OperationCanceledException`, and `Unexpected` otherwise. `Kind` is part of equality, so these no longer equal a failure built by hand without a kind.
 - `Kind` is written to JSON as its name, or `null` when it is `Unspecified`.
+- For contributors only, with no change to the packages: the build is now the only style check. It uses the `latest-recommended` analysers and fails CI on any warning, and CI no longer runs `dotnet format`. Run `dotnet build -warnaserror` to see what CI will reject. `.editorconfig` now only holds settings that differ from the .NET defaults, and most style preferences are suggestions.
 
 ## [2.0.0-beta.4] - 2026-11-18
 
@@ -210,7 +213,8 @@ Wrap 2 is built on C# 15 union types. Wrap 1.x stays on a maintenance branch for
 
 First release. Wrap C# values in monads: `Maybe<T>` (`Some<T>` or `None`), `Result<T>` (`Ok<T>` or `Failure`) and `Id<T>` strong IDs, composed with `Map`, `Bind` and LINQ query syntax. It followed 28 beta releases, from `1.0.0-beta.23092207` (22 September 2023) to `1.0.0-beta.26012610` (27 January 2026), which had no release notes.
 
-[Unreleased]: https://github.com/bfren/wrap/compare/v2.0.0-beta.4...HEAD
+[Unreleased]: https://github.com/bfren/wrap/compare/v2.0.0-beta.5...HEAD
+[2.0.0-beta.5]: https://github.com/bfren/wrap/compare/v2.0.0-beta.4...v2.0.0-beta.5
 [2.0.0-beta.4]: https://github.com/bfren/wrap/compare/v2.0.0-beta.3...v2.0.0-beta.4
 [2.0.0-beta.3]: https://github.com/bfren/wrap/compare/v2.0.0-beta.1...v2.0.0-beta.3
 [2.0.0-beta.1]: https://github.com/bfren/wrap/compare/v1.4.0...v2.0.0-beta.1

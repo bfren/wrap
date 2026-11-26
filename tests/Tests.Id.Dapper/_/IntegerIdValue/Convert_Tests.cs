@@ -1,9 +1,6 @@
 // Wrap: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
-// the casts in the data are not redundant: they choose the boxed type, so each switch arm is tested
-#pragma warning disable IDE0004
-
 namespace Wrap.Dapper.IntegerIdValue_Tests;
 
 public class Convert_Tests
