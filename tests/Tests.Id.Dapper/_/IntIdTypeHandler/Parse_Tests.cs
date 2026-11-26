@@ -23,6 +23,8 @@ public class Parse_Tests : Abstracts.IntegerParse_Tests<Parse_Tests.TestIntId, i
 	[Theory]
 	[InlineData(3_000_000_000L)]
 	[InlineData(-3_000_000_000L)]
+	[InlineData("3000000000")]
+	[InlineData("-3000000000")]
 	[InlineData(42.5)]
 	public void Number_Does_Not_Fit__Throws_OverflowException(object input)
 	{
@@ -44,6 +46,11 @@ public class Parse_Tests : Abstracts.IntegerParse_Tests<Parse_Tests.TestIntId, i
 	[Fact]
 	public override void Test03_Decimal_Not_Whole__Throws_OverflowException() =>
 		Test03();
+
+	[Theory]
+	[MemberData(nameof(Text_Number_Does_Not_Fit_Data))]
+	public override void Test04_Text_Number_Does_Not_Fit__Throws_OverflowException(string input) =>
+		Test04(input);
 
 	public sealed record class TestIntId : IntId<TestIntId>;
 }

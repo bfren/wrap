@@ -31,5 +31,10 @@ public class Parse_Tests : Abstracts.IntegerParse_Tests<Parse_Tests.TestULongId,
 	public override void Test03_Decimal_Not_Whole__Throws_OverflowException() =>
 		Test03();
 
+	[Theory]
+	[MemberData(nameof(Text_Number_Does_Not_Fit_Data))]
+	public override void Test04_Text_Number_Does_Not_Fit__Throws_OverflowException(string input) =>
+		Test04(input);
+
 	public sealed record class TestULongId : ULongId<TestULongId>;
 }
