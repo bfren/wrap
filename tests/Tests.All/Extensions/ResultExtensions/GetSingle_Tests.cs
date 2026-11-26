@@ -15,7 +15,7 @@ public class GetSingle_Tests
 			var input = R.Fail<List<int>>(value);
 
 			// Act
-			var result = input.GetSingle<List<int>, int>();
+			var result = input.GetSingle(f => f.Value<int>());
 
 			// Assert
 			result.AssertFailure(value);
@@ -33,7 +33,7 @@ public class GetSingle_Tests
 				var input = R.Wrap(new List<int>());
 
 				// Act
-				var result = input.GetSingle<List<int>, int>();
+				var result = input.GetSingle(f => f.Value<int>());
 
 				// Assert
 				result.AssertFailure(C.GetSingle.EmptyList);
@@ -49,7 +49,7 @@ public class GetSingle_Tests
 				var input = R.Wrap(new List<int> { Rnd.Int, Rnd.Int });
 
 				// Act
-				var result = input.GetSingle<List<int>, int>();
+				var result = input.GetSingle(f => f.Value<int>());
 
 				// Assert
 				result.AssertFailure(C.GetSingle.MultipleValues);
@@ -66,7 +66,7 @@ public class GetSingle_Tests
 				var input = R.Wrap(new List<int> { value });
 
 				// Act
-				var result = input.GetSingle<List<int>, int>();
+				var result = input.GetSingle(f => f.Value<int>());
 
 				// Assert
 				result.AssertOk(value);
@@ -82,7 +82,8 @@ public class GetSingle_Tests
 				var input = R.Wrap(new List<string> { Rnd.Str });
 
 				// Act
-				var result = input.GetSingle<List<string>, int>();
+				// the public fluent form can't ask for the wrong item type (it won't compile), so call the internal form
+				var result = input.GetSingle<List<string>, int>(null);
 
 				// Assert
 				result.AssertFailure();
@@ -101,7 +102,7 @@ public class GetSingle_Tests
 			R.ErrorHandler handler = (_, __) => { handlerCalled = true; return R.Fail(Rnd.Str); };
 
 			// Act
-			_ = input.GetSingle<List<int>, int>(handler);
+			_ = input.GetSingle(f => f.Value<int>(), handler);
 
 			// Assert
 			Assert.True(handlerCalled);
@@ -116,7 +117,7 @@ public class GetSingle_Tests
 			R.ErrorHandler handler = (_, __) => R.Fail(new Exception(customMessage));
 
 			// Act
-			var result = input.GetSingle<List<int>, int>(handler);
+			var result = input.GetSingle(f => f.Value<int>(), handler);
 
 			// Assert
 			result.AssertFailure(customMessage);
@@ -131,7 +132,7 @@ public class GetSingle_Tests
 			R.ErrorHandler handler = (_, __) => { handlerCalled = true; return R.Fail(Rnd.Str); };
 
 			// Act
-			_ = input.GetSingle<List<int>, int>(handler);
+			_ = input.GetSingle(f => f.Value<int>(), handler);
 
 			// Assert
 			Assert.True(handlerCalled);
@@ -147,47 +148,11 @@ public class GetSingle_Tests
 			R.ErrorHandler handler = (_, __) => { handlerCalled = true; return R.Fail(Rnd.Str); };
 
 			// Act
-			var result = input.GetSingle<List<int>, int>(handler);
+			var result = input.GetSingle(f => f.Value<int>(), handler);
 
 			// Assert
 			Assert.False(handlerCalled);
 			result.AssertOk(value);
-		}
-	}
-
-	public class Fluent_API
-	{
-		public class Single_Value
-		{
-			[Fact]
-			public void Returns_Ok_With_Value()
-			{
-				// Arrange
-				var value = Rnd.Int;
-				var input = R.Wrap(new List<int> { value });
-
-				// Act
-				var result = input.GetSingle(f => f.Value<int>());
-
-				// Assert
-				result.AssertOk(value);
-			}
-		}
-
-		public class Empty_List
-		{
-			[Fact]
-			public void Returns_Failure()
-			{
-				// Arrange
-				var input = R.Wrap(new List<int>());
-
-				// Act
-				var result = input.GetSingle(f => f.Value<int>());
-
-				// Assert
-				result.AssertFailure(C.GetSingle.EmptyList);
-			}
 		}
 	}
 }
