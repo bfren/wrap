@@ -29,15 +29,15 @@ public readonly partial record struct Failure
 		};
 
 	/// <summary>
-	/// Set the context to <c>{class}.{function}()</c>.
+	/// Set the context to <c>{className}.{functionName}()</c>.
 	/// </summary>
-	/// <param name="class">Calling class.</param>
-	/// <param name="function">Calling function.</param>
+	/// <param name="className">Calling class.</param>
+	/// <param name="functionName">Calling function.</param>
 	/// <returns>A copy of this failure with the new context.</returns>
-	public Failure WithContext(string @class, string function) =>
+	public Failure WithContext(string className, string functionName) =>
 		this with
 		{
-			Context = string.Format(F.DefaultCulture, ContextFormat, @class, function)
+			Context = string.Format(F.DefaultCulture, ContextFormat, className, functionName)
 		};
 
 	/// <summary>

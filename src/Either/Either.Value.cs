@@ -60,15 +60,15 @@ public readonly partial struct Either<TLeft, TRight>
 	#region Unwrap
 
 	/// <summary>
-	/// Return the value if this is a <see cref="Right{T}"/>, otherwise the value returned by <paramref name="getValue"/>.
+	/// Return the value if this is a <see cref="Right{T}"/>, otherwise the value returned by <paramref name="fLeft"/>.
 	/// </summary>
-	/// <param name="getValue">Returns the value to use, given the <see cref="Left{T}"/> value.</param>
-	/// <returns>The <see cref="Right{T}"/> value, or the value returned by <paramref name="getValue"/>.</returns>
-	public TRight Unwrap(Func<TLeft, TRight> getValue) =>
+	/// <param name="fLeft">Returns the value to use, given the <see cref="Left{T}"/> value.</param>
+	/// <returns>The <see cref="Right{T}"/> value, or the value returned by <paramref name="fLeft"/>.</returns>
+	public TRight Unwrap(Func<TLeft, TRight> fLeft) =>
 		this switch
 		{
 			Left<TLeft> l =>
-				getValue(l.Value),
+				fLeft(l.Value),
 
 			Right<TRight> r =>
 				r.Value
