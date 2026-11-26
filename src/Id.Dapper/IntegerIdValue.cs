@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
 using System;
+using System.Globalization;
 using System.Numerics;
 
 namespace Wrap.Dapper;
@@ -21,7 +22,11 @@ internal static class IntegerIdValue
 	/// <c>5.00m</c> all give 5, but <c>5.5m</c> is rejected.
 	/// </para>
 	/// <para>
-	/// Anything else (strings, floating-point numbers and so on) is converted to a string and given to
+	/// Text that holds a whole number is read the same way, using <see cref="F.DefaultCulture"/>, so <c>"42"</c>,
+	/// <c>"42.0"</c>, <c>"1,000"</c> and <c>"4.2E1"</c> are accepted, but <c>"42.5"</c> is rejected.
+	/// </para>
+	/// <para>
+	/// Anything else (other text, floating-point numbers and so on) is converted to a string and given to
 	/// <paramref name="parse"/>.
 	/// </para>
 	/// </remarks>
@@ -67,11 +72,42 @@ internal static class IntegerIdValue
 			decimal x when x == decimal.Truncate(x) =>
 				ConvertIfInRange<T>((Int128)x),
 
+			string s =>
+				parse(s) switch
+				{
+					Some<T> x =>
+						x,
+
+					None =>
+						ConvertWholeText<T>(s)
+				},
+
 			null =>
 				parse(null),
 
 			_ =>
 				parse(System.Convert.ToString(value, F.DefaultCulture))
+		};
+
+	/// <summary>
+	/// Read text that <c>parse</c> rejected as a whole number, such as <c>"42.0"</c>, <c>"1,000"</c> or <c>"4.2E1"</c>.
+	/// </summary>
+	/// <remarks>
+	/// It uses the same number styles that <see cref="IdTypeHandler{TId, TIdValue}"/> uses to decide that text holds a
+	/// number, so text read as a number here is never then rejected there as "not a number", and the reverse.
+	/// </remarks>
+	/// <typeparam name="T">ID value type.</typeparam>
+	/// <param name="value">Text to read.</param>
+	/// <returns><see cref="Some{T}"/> holding the value, or <see cref="None"/> if it is not a whole number that fits.</returns>
+	private static Maybe<T> ConvertWholeText<T>(string value)
+		where T : struct, IBinaryInteger<T>, IMinMaxValue<T> =>
+		decimal.TryParse(value, NumberStyles.Float | NumberStyles.AllowThousands, F.DefaultCulture, out var x) switch
+		{
+			true when x == decimal.Truncate(x) =>
+				ConvertIfInRange<T>((Int128)x),
+
+			_ =>
+				M.None
 		};
 
 	/// <summary>

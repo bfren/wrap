@@ -36,5 +36,10 @@ public class Parse_Tests : Abstracts.IntegerParse_Tests<Parse_Tests.TestULongId,
 	public override void Test04_Text_Number_Does_Not_Fit__Throws_OverflowException(string input) =>
 		Test04(input);
 
+	[Theory]
+	[MemberData(nameof(Whole_Text_Number_Data))]
+	public override void Test05_Whole_Text_Number__Returns_Id(string input) =>
+		Test05(input, 42UL);
+
 	public sealed record class TestULongId : ULongId<TestULongId>;
 }

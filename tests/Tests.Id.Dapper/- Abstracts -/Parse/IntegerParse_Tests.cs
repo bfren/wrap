@@ -46,6 +46,27 @@ public abstract class IntegerParse_Tests<TId, TIdValue, TIdTypeHandler> : Parse_
 		Assert.Contains("is not a whole number that fits in", ex.Message);
 	}
 
+	public static TheoryData<string> Whole_Text_Number_Data =>
+		[
+			"42.0",
+			" 42.00 ",
+			"4.2E1"
+		];
+
+	public abstract void Test05_Whole_Text_Number__Returns_Id(string input);
+
+	protected static void Test05(string input, TIdValue expected)
+	{
+		// Arrange
+		var handler = new TIdTypeHandler();
+
+		// Act
+		var result = handler.Parse(input);
+
+		// Assert
+		Assert.Equal(expected, result?.Value);
+	}
+
 	public static TheoryData<string> Text_Number_Does_Not_Fit_Data =>
 		[
 			"42.5",

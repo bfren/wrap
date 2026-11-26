@@ -17,6 +17,7 @@ public class Parse_Tests : Abstracts.IntegerParse_Tests<Parse_Tests.TestIntId, i
 	[InlineData(42.0, 42)]
 	[InlineData("42", 42)]
 	[InlineData(" 42 ", 42)]
+	[InlineData("1,000", 1000)]
 	public override void Test01_Valid_Input__Returns_Id(object input, int? expected) =>
 		Test01(input, _ => (int)expected!);
 
@@ -74,6 +75,11 @@ public class Parse_Tests : Abstracts.IntegerParse_Tests<Parse_Tests.TestIntId, i
 	[MemberData(nameof(Text_Number_Does_Not_Fit_Data))]
 	public override void Test04_Text_Number_Does_Not_Fit__Throws_OverflowException(string input) =>
 		Test04(input);
+
+	[Theory]
+	[MemberData(nameof(Whole_Text_Number_Data))]
+	public override void Test05_Whole_Text_Number__Returns_Id(string input) =>
+		Test05(input, 42);
 
 	public sealed record class TestIntId : IntId<TestIntId>;
 }
