@@ -12,6 +12,6 @@ public interface IUIntId : IId<uint>;
 /// Strongly typed ID with a <see cref="uint"/> value.
 /// </summary>
 /// <typeparam name="TId">ID implementation type.</typeparam>
-public interface IUintId<TId> : IUIntId, IId<TId, uint>
+public interface IUIntId<TId> : IUIntId, IId<TId, uint>
 	where TId : class, IId<TId, uint>, new()
 { }

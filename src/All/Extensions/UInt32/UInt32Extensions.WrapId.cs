@@ -14,6 +14,6 @@ public static partial class UInt32Extensions
 	/// <param name="this">ID value.</param>
 	/// <returns>A new <typeparamref name="TId"/> holding <paramref name="this"/>.</returns>
 	public static TId WrapId<TId>(this uint @this)
-		where TId : UIntId<TId>, IUintId<TId>, new() =>
+		where TId : UIntId<TId>, IUIntId<TId>, new() =>
 		F.Wrap<TId, uint>(@this);
 }
