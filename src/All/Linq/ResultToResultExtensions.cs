@@ -6,4 +6,4 @@ namespace Wrap.Linq;
 /// <summary>
 /// Extension methods enabling LINQ syntax for <see cref="Result{T}"/>.
 /// </summary>
-public static partial class ResultExtensions { }
+public static partial class ResultToResultExtensions { }

@@ -7,7 +7,7 @@ using Wrap.Extensions;
 
 namespace Wrap.Linq;
 
-public static partial class ResultExtensions
+public static partial class ResultToResultExtensions
 {
 	/// <summary>
 	/// Convert the value of a <see cref="Result{T}"/> in a LINQ query.

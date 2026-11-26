@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Wrap.Linq;
 
-public static partial class ResultExtensions
+public static partial class ResultToResultExtensions
 {
 	/// <summary>
 	/// Combine two <see cref="Result{T}"/> objects in a LINQ query.
