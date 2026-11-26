@@ -60,29 +60,18 @@ public readonly partial struct Maybe<T>
 	#region Unwrap
 
 	/// <summary>
-	/// Return the value if this is a <see cref="Some{T}"/>, otherwise the value returned by <paramref name="getValue"/>.
+	/// Return the value if this is a <see cref="Some{T}"/>, otherwise the value returned by <paramref name="fNone"/>.
 	/// </summary>
-	/// <param name="getValue">Returns the value to use if this is <see cref="None"/>.</param>
-	/// <returns>The <see cref="Some{T}"/> value, or the value returned by <paramref name="getValue"/>.</returns>
-	public T Unwrap(Func<T> getValue) =>
+	/// <param name="fNone">Returns the value to use if this is <see cref="None"/>.</param>
+	/// <returns>The <see cref="Some{T}"/> value, or the value returned by <paramref name="fNone"/>.</returns>
+	public T Unwrap(Func<T> fNone) =>
 		this switch
 		{
 			Some<T> x =>
 				x.Value,
 
 			None =>
-				getValue()
-		};
-
-	/// <inheritdoc cref="Unwrap(Func{T})"/>
-	public T Unwrap(Func<None, T> getValue) =>
-		this switch
-		{
-			Some<T> x =>
-				x.Value,
-
-			None =>
-				getValue(default)
+				fNone()
 		};
 
 	#endregion

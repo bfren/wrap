@@ -16,9 +16,10 @@ public class ToMaybe_Tests
 
 			// Act
 			_ = input.ToMaybe(handler);
+			_ = input.ToMaybe(f => { handler(f); return M.None; });
 
 			// Assert
-			handler.ReceivedWithAnyArgs(1).Invoke(Arg.Any<Failure>());
+			handler.ReceivedWithAnyArgs(2).Invoke(Arg.Any<Failure>());
 		}
 
 		[Fact]
@@ -33,6 +34,20 @@ public class ToMaybe_Tests
 			// Assert
 			result.AssertNone();
 		}
+
+		[Fact]
+		public void Func_Overload__Returns_Maybe_From_fFail()
+		{
+			// Arrange
+			var value = Rnd.Int;
+			var input = R.Fail<int>(Rnd.Str);
+
+			// Act
+			var result = input.ToMaybe(_ => M.Wrap(value));
+
+			// Assert
+			result.AssertSome(value);
+		}
 	}
 
 	public class With_Ok
@@ -46,6 +61,7 @@ public class ToMaybe_Tests
 
 			// Act
 			_ = input.ToMaybe(handler);
+			_ = input.ToMaybe(f => { handler(f); return M.None; });
 
 			// Assert
 			handler.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Failure>());
@@ -59,10 +75,12 @@ public class ToMaybe_Tests
 			var input = R.Wrap(value);
 
 			// Act
-			var result = input.ToMaybe(_ => { });
+			var r0 = input.ToMaybe(_ => { });
+			var r1 = input.ToMaybe(_ => M.None);
 
 			// Assert
-			result.AssertSome(value);
+			r0.AssertSome(value);
+			r1.AssertSome(value);
 		}
 	}
 }

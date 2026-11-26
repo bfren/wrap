@@ -88,9 +88,10 @@ public class ToResultAsync_Tests
 				// Act
 				_ = await maybe.ToResultAsync(handler);
 				_ = await maybe.ToResultAsync(async () => handler());
+				_ = await default(Maybe<string>).ToResultAsync(async () => handler());
 
 				// Assert
-				handler.Received(2).Invoke();
+				handler.Received(3).Invoke();
 			}
 
 			[Fact]
@@ -105,10 +106,12 @@ public class ToResultAsync_Tests
 				// Act
 				var r0 = await Record.ExceptionAsync(() => maybe.ToResultAsync(handler));
 				var r1 = await Record.ExceptionAsync(() => maybe.ToResultAsync(async () => handler()));
+				var r2 = await Record.ExceptionAsync(() => default(Maybe<string>).ToResultAsync(async () => handler()));
 
 				// Assert
 				Assert.Same(ex, r0);
 				Assert.Same(ex, r1);
+				Assert.Same(ex, r2);
 			}
 		}
 	}
@@ -145,10 +148,12 @@ public class ToResultAsync_Tests
 				// Act
 				var r0 = await maybe.ToResultAsync(handler);
 				var r1 = await maybe.ToResultAsync(async () => handler());
+				var r2 = await M.Wrap(value).ToResultAsync(async () => handler());
 
 				// Assert
 				r0.AssertOk(value);
 				r1.AssertOk(value);
+				r2.AssertOk(value);
 				handler.DidNotReceive().Invoke();
 			}
 		}
