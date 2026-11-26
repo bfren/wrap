@@ -21,10 +21,9 @@ public class ToMaybeAsync_Tests
 			_ = await input.ToMaybeAsync(f => { handler(f); return Task.CompletedTask; });
 			_ = await input.ToMaybeAsync(async f => { handler(f); return M.None; });
 			_ = await source.ToMaybeAsync(f => { handler(f); return Task.CompletedTask; });
-			_ = await source.ToMaybeAsync(async f => { handler(f); return M.None; });
 
 			// Assert
-			handler.ReceivedWithAnyArgs(6).Invoke(Arg.Any<Failure>());
+			handler.ReceivedWithAnyArgs(5).Invoke(Arg.Any<Failure>());
 		}
 
 		[Fact]
@@ -40,7 +39,6 @@ public class ToMaybeAsync_Tests
 			var r2 = await input.ToMaybeAsync(_ => Task.CompletedTask);
 			var r3 = await input.ToMaybeAsync(async _ => M.None);
 			var r4 = await source.ToMaybeAsync(_ => Task.CompletedTask);
-			var r5 = await source.ToMaybeAsync(async _ => M.None);
 
 			// Assert
 			r0.AssertNone();
@@ -48,7 +46,21 @@ public class ToMaybeAsync_Tests
 			r2.AssertNone();
 			r3.AssertNone();
 			r4.AssertNone();
-			r5.AssertNone();
+		}
+
+		[Fact]
+		public async Task Async_Handler_Returning_T__Still_Returns_None()
+		{
+			// Arrange
+			var input = R.Fail<string>(Rnd.Str);
+			static Task<string> logAsync(Failure f) =>
+				Task.FromResult(f.Message);
+
+			// Act
+			var result = await input.ToMaybeAsync(async f => await logAsync(f));
+
+			// Assert
+			result.AssertNone();
 		}
 	}
 
@@ -84,7 +96,6 @@ public class ToMaybeAsync_Tests
 			var r2 = await input.ToMaybeAsync(_ => Task.CompletedTask);
 			var r3 = await input.ToMaybeAsync(async _ => M.None);
 			var r4 = await source.ToMaybeAsync(_ => Task.CompletedTask);
-			var r5 = await source.ToMaybeAsync(async _ => M.None);
 
 			// Assert
 			r0.AssertSome(value);
@@ -92,7 +103,6 @@ public class ToMaybeAsync_Tests
 			r2.AssertSome(value);
 			r3.AssertSome(value);
 			r4.AssertSome(value);
-			r5.AssertSome(value);
 		}
 	}
 }
