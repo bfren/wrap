@@ -15,7 +15,7 @@ public readonly partial record struct Failure
 	/// </summary>
 	/// <param name="args">Arguments - if <see langword="null"/>, this failure is returned unchanged.</param>
 	/// <returns>A copy of this failure with <paramref name="args"/>.</returns>
-	public Failure Arg(params object?[] args) =>
+	public Failure WithArgs(params object?[] args) =>
 		args switch
 		{
 			{ } =>
@@ -29,15 +29,15 @@ public readonly partial record struct Failure
 		};
 
 	/// <summary>
-	/// Set the context to <c>{class}.{function}()</c>.
+	/// Set the context to <c>{className}.{functionName}()</c>.
 	/// </summary>
-	/// <param name="class">Calling class.</param>
-	/// <param name="function">Calling function.</param>
+	/// <param name="className">Calling class.</param>
+	/// <param name="functionName">Calling function.</param>
 	/// <returns>A copy of this failure with the new context.</returns>
-	public Failure Ctx(string @class, string function) =>
+	public Failure WithContext(string className, string functionName) =>
 		this with
 		{
-			Context = string.Format(F.DefaultCulture, ContextFormat, @class, function)
+			Context = string.Format(F.DefaultCulture, ContextFormat, className, functionName)
 		};
 
 	/// <summary>
@@ -45,7 +45,7 @@ public readonly partial record struct Failure
 	/// </summary>
 	/// <typeparam name="T">Calling type.</typeparam>
 	/// <returns>A copy of this failure with the new context.</returns>
-	public Failure Ctx<T>() =>
+	public Failure WithContext<T>() =>
 		this with
 		{
 			Context = typeof(T).FullName
@@ -56,7 +56,7 @@ public readonly partial record struct Failure
 	/// </summary>
 	/// <param name="kind">Failure kind.</param>
 	/// <returns>A copy of this failure with <paramref name="kind"/>.</returns>
-	public Failure Knd(FailureKind kind) =>
+	public Failure WithKind(FailureKind kind) =>
 		this with
 		{
 			Kind = kind
@@ -67,7 +67,7 @@ public readonly partial record struct Failure
 	/// </summary>
 	/// <param name="level">Log level.</param>
 	/// <returns>A copy of this failure with <paramref name="level"/>.</returns>
-	public Failure Lvl(LogLevel level) =>
+	public Failure WithLevel(LogLevel level) =>
 		this with
 		{
 			Level = level
@@ -79,7 +79,7 @@ public readonly partial record struct Failure
 	/// <param name="message">Failure message - if <see langword="null"/>, this failure is returned unchanged.</param>
 	/// <param name="args">[Optional] Arguments to use when <paramref name="message"/> contains placeholders.</param>
 	/// <returns>A copy of this failure with <paramref name="message"/> and <paramref name="args"/>.</returns>
-	public Failure Msg(string? message, params object?[] args) =>
+	public Failure WithMessage(string? message, params object?[] args) =>
 		message switch
 		{
 			string =>

@@ -15,7 +15,7 @@ namespace Wrap;
 /// <remarks>
 /// <see cref="Failure"/> carries no type, so it converts to any <see cref="Result{T}"/> - you can
 /// <c>return R.Fail("…");</c> without specifying the value type. Use <see cref="R.Fail(string, object[])"/> to create one,
-/// and <see cref="Msg"/>, <see cref="Arg"/>, <see cref="Ctx(string, string)"/>, <see cref="Lvl"/> and <see cref="Knd"/> to change it.
+/// and <see cref="WithMessage"/>, <see cref="WithArgs"/>, <see cref="WithContext(string, string)"/>, <see cref="WithLevel"/> and <see cref="WithKind"/> to change it.
 /// </remarks>
 public readonly partial record struct Failure : IWithException
 {

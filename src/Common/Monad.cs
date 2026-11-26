@@ -1,6 +1,7 @@
 // Wrap: Functional Monads for .NET
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Wrap.Exceptions;
@@ -46,7 +47,7 @@ public abstract record class Monad<TMonad, TValue> : IMonad<TMonad, TValue>
 	/// <returns><see langword="true"/>, because a member is always written.</returns>
 	protected virtual bool PrintMembers(StringBuilder builder)
 	{
-		_ = builder.Append(nameof(Value)).Append(" = ").Append(wrapped);
+		_ = builder.Append(nameof(Value)).Append(" = ").Append(Convert.ToString(wrapped, F.DefaultCulture));
 		return true;
 	}
 
@@ -90,10 +91,6 @@ public abstract record class Monad<TMonad, TValue> : IMonad<TMonad, TValue>
 	/// <exception cref="NullMonadValueException"><paramref name="value"/> is <see langword="null"/> and <typeparamref name="TValue"/> is not a nullable value type.</exception>
 #pragma warning disable CA1000 // Do not declare static members on generic types
 	public static TMonad Wrap(TValue value) =>
-		F.Wrap<TMonad, TValue>(value);
-
-	/// <inheritdoc cref="Wrap(TValue)"/>
-	public static TMonad Bind(TValue value) =>
 		F.Wrap<TMonad, TValue>(value);
 #pragma warning restore CA1000 // Do not declare static members on generic types
 }

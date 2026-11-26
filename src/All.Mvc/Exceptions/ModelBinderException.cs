@@ -12,7 +12,7 @@ namespace Wrap.Exceptions;
 /// <see cref="MaybeModelBinderProvider.GetBinder(ModelBinderProviderContext)"/> and
 /// <see cref="MonadModelBinderProvider.GetBinder(ModelBinderProviderContext)"/>.
 /// </summary>
-public sealed class ModelBinderException : Exception
+public sealed class ModelBinderException : WrapException
 {
 	/// <summary>
 	/// Create the exception with the default message.

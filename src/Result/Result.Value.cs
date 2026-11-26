@@ -65,11 +65,11 @@ public readonly partial struct Result<T>
 	#region Unwrap
 
 	/// <summary>
-	/// Return the value if this is an <see cref="Ok{T}"/>, otherwise the value returned by <paramref name="getValue"/>.
+	/// Return the value if this is an <see cref="Ok{T}"/>, otherwise the value returned by <paramref name="fFail"/>.
 	/// </summary>
-	/// <param name="getValue">Returns the value to use, given the <see cref="Failure"/>.</param>
-	/// <returns>The <see cref="Ok{T}"/> value, or the value returned by <paramref name="getValue"/>.</returns>
-	public T Unwrap(Func<Failure, T> getValue) =>
+	/// <param name="fFail">Returns the value to use, given the <see cref="Failure"/>.</param>
+	/// <returns>The <see cref="Ok{T}"/> value, or the value returned by <paramref name="fFail"/>.</returns>
+	public T Unwrap(Func<Failure, T> fFail) =>
 		this switch
 		{
 			Ok<T> x =>
@@ -78,17 +78,17 @@ public readonly partial struct Result<T>
 			// a discard, not `Failure f =>`: a Failure arm makes the JIT set up a 40-byte Failure local on every call,
 			// even on the Ok path (see R.Match)
 			_ =>
-				getValue(GetFailure())
+				fFail(GetFailure())
 		};
 
 	/// <summary>
-	/// Return the value if this is an <see cref="Ok{T}"/>, otherwise run <paramref name="ifFailed"/>
-	/// and return the value returned by <paramref name="getValue"/>.
+	/// Return the value if this is an <see cref="Ok{T}"/>, otherwise run <paramref name="fFail"/>
+	/// and return the value returned by <paramref name="fValue"/>.
 	/// </summary>
-	/// <param name="ifFailed">Action to run with the <see cref="Failure"/>, for example to log it.</param>
-	/// <param name="getValue">Returns the value to use if this is a <see cref="Failure"/>.</param>
-	/// <returns>The <see cref="Ok{T}"/> value, or the value returned by <paramref name="getValue"/>.</returns>
-	public T Unwrap(Action<Failure> ifFailed, Func<T> getValue)
+	/// <param name="fFail">Action to run with the <see cref="Failure"/>, for example to log it.</param>
+	/// <param name="fValue">Returns the value to use if this is a <see cref="Failure"/>.</param>
+	/// <returns>The <see cref="Ok{T}"/> value, or the value returned by <paramref name="fValue"/>.</returns>
+	public T Unwrap(Action<Failure> fFail, Func<T> fValue)
 	{
 		switch (this)
 		{
@@ -98,8 +98,8 @@ public readonly partial struct Result<T>
 			// default, not `case Failure f:`: a Failure arm makes the JIT set up a 40-byte Failure local on every call,
 			// even on the Ok path (see R.Match)
 			default:
-				ifFailed(GetFailure());
-				return getValue();
+				fFail(GetFailure());
+				return fValue();
 		}
 	}
 
@@ -111,13 +111,13 @@ public readonly partial struct Result<T>
 	/// Convert the current object to a string.
 	/// </summary>
 	/// <returns>
-	/// If this is an <see cref="Ok{T}"/>, the value's string (or <c>OK: {type name}</c> when that is <see langword="null"/>).
+	/// If this is an <see cref="Ok{T}"/>, the value's string written using <see cref="F.DefaultCulture"/> (or <c>OK: {type name}</c> when that is <see langword="null"/>).
 	/// If this is a <see cref="Failure"/>, its <see cref="Failure.Message"/> with the placeholders filled from <see cref="Failure.Args"/>.
 	/// </returns>
 	public override string ToString() =>
 		R.Match(this,
 			fFail: x => F.Format(x.Message, x.Args),
-			fOk: x => x?.ToString() switch
+			fOk: x => Convert.ToString(x, F.DefaultCulture) switch
 			{
 				string value =>
 					value,

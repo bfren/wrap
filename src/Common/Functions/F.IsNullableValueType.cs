@@ -13,7 +13,7 @@ public static partial class F
 	/// <typeparam name="T">Type to check.</typeparam>
 	/// <param name="_">Value used only to infer <typeparamref name="T"/>; it is not read.</param>
 	/// <returns><see langword="true"/> if <typeparamref name="T"/> is a nullable value type (<see cref="Nullable{T}"/>), otherwise <see langword="false"/>.</returns>
-	public static bool IsNullableValueType<T>(T _) =>
+	internal static bool IsNullableValueType<T>(T _) =>
 		NullableHelper<T>.IsNullable;
 
 	private static class NullableHelper<T>

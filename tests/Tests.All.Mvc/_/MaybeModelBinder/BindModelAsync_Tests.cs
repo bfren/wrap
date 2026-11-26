@@ -21,7 +21,7 @@ public class BindModelAsync_Tests
 
 			// Assert
 			Assert.Null(v.Context.Model);
-			Assert.Single(v.Context.ModelState.Values, x => x.AttemptedValue == nameof(M.None));
+			Assert.Single(v.Context.ModelState.Values, x => x.AttemptedValue == string.Empty);
 			Assert.Equal(expected, v.Context.Result);
 			Assert.Equal(0, v.Context.ModelState.ErrorCount);
 		}

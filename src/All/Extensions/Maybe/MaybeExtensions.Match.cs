@@ -8,8 +8,10 @@ namespace Wrap.Extensions;
 
 public static partial class MaybeExtensions
 {
+	#region Without Return Value
+
 	/// <summary>
-	/// Run an action based on the value of <paramref name="this"/> - see <see cref="M.Match{T}(Maybe{T}, Action, Action{T})"/>.
+	/// Run an action based on the value of <paramref name="this"/>.
 	/// </summary>
 	/// <remarks>
 	/// This is shorthand for a <see langword="switch"/> over the <see cref="Some{T}"/> and <see cref="None"/> cases
@@ -36,12 +38,27 @@ public static partial class MaybeExtensions
 		M.MatchAsync(@this, fNone, fSome);
 
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
+	public static Task MatchAsync<T>(this Task<Maybe<T>> @this, Action fNone, Action<T> fSome) =>
+		M.MatchAsync(@this, fNone, fSome);
+
+	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
+	public static Task MatchAsync<T>(this Task<Maybe<T>> @this, Action fNone, Func<T, Task> fSome) =>
+		M.MatchAsync(@this, fNone, fSome);
+
+	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
+	public static Task MatchAsync<T>(this Task<Maybe<T>> @this, Func<Task> fNone, Action<T> fSome) =>
+		M.MatchAsync(@this, fNone, fSome);
+
+	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})"/>
 	public static Task MatchAsync<T>(this Task<Maybe<T>> @this, Func<Task> fNone, Func<T, Task> fSome) =>
 		M.MatchAsync(@this, fNone, fSome);
 
+	#endregion
+
+	#region With Return Value
+
 	/// <summary>
-	/// Run a function based on the value of <paramref name="this"/> and return its value - see
-	/// <see cref="M.Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>.
+	/// Run a function based on the value of <paramref name="this"/> and return its value.
 	/// </summary>
 	/// <remarks>
 	/// <inheritdoc cref="Match{T}(Maybe{T}, Action, Action{T})" path="/remarks"/>
@@ -82,4 +99,6 @@ public static partial class MaybeExtensions
 	/// <inheritdoc cref="Match{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, TReturn})"/>
 	public static Task<TReturn> MatchAsync<T, TReturn>(this Task<Maybe<T>> @this, Func<Task<TReturn>> fNone, Func<T, Task<TReturn>> fSome) =>
 		M.MatchAsync(@this, fNone, fSome);
+
+	#endregion
 }

@@ -45,4 +45,48 @@ public abstract class IntegerParse_Tests<TId, TIdValue, TIdTypeHandler> : Parse_
 		var ex = Assert.IsType<OverflowException>(result);
 		Assert.Contains("is not a whole number that fits in", ex.Message);
 	}
+
+	public static TheoryData<string> Whole_Text_Number_Data =>
+		[
+			"42.0",
+			" 42.00 ",
+			"4.2E1"
+		];
+
+	public abstract void Test05_Whole_Text_Number__Returns_Id(string input);
+
+	protected static void Test05(string input, TIdValue expected)
+	{
+		// Arrange
+		var handler = new TIdTypeHandler();
+
+		// Act
+		var result = handler.Parse(input);
+
+		// Assert
+		Assert.Equal(expected, result?.Value);
+	}
+
+	public static TheoryData<string> Text_Number_Does_Not_Fit_Data =>
+		[
+			"42.5",
+			" 42.5 ",
+			"1e30",
+			"-1e30"
+		];
+
+	public abstract void Test04_Text_Number_Does_Not_Fit__Throws_OverflowException(string input);
+
+	protected static void Test04(string input)
+	{
+		// Arrange
+		var handler = new TIdTypeHandler();
+
+		// Act
+		var result = Record.Exception(() => handler.Parse(input));
+
+		// Assert
+		var ex = Assert.IsType<OverflowException>(result);
+		Assert.Contains("is not a whole number that fits in", ex.Message);
+	}
 }

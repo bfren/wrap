@@ -13,7 +13,7 @@ public class SourceGenerated_Tests
 	public void Context_Round_Trips_Failure_Kind()
 	{
 		// Arrange
-		var failure = R.Fail(Rnd.Str).Knd(FailureKind.NotFound);
+		var failure = R.Fail(Rnd.Str).WithKind(FailureKind.NotFound);
 
 		// Act
 		var written = JsonSerializer.Serialize(new Payload(failure), PayloadContext.Default.Payload);

@@ -60,29 +60,18 @@ public readonly partial struct Maybe<T>
 	#region Unwrap
 
 	/// <summary>
-	/// Return the value if this is a <see cref="Some{T}"/>, otherwise the value returned by <paramref name="getValue"/>.
+	/// Return the value if this is a <see cref="Some{T}"/>, otherwise the value returned by <paramref name="fNone"/>.
 	/// </summary>
-	/// <param name="getValue">Returns the value to use if this is <see cref="None"/>.</param>
-	/// <returns>The <see cref="Some{T}"/> value, or the value returned by <paramref name="getValue"/>.</returns>
-	public T Unwrap(Func<T> getValue) =>
+	/// <param name="fNone">Returns the value to use if this is <see cref="None"/>.</param>
+	/// <returns>The <see cref="Some{T}"/> value, or the value returned by <paramref name="fNone"/>.</returns>
+	public T Unwrap(Func<T> fNone) =>
 		this switch
 		{
 			Some<T> x =>
 				x.Value,
 
 			None =>
-				getValue()
-		};
-
-	/// <inheritdoc cref="Unwrap(Func{T})"/>
-	public T Unwrap(Func<None, T> getValue) =>
-		this switch
-		{
-			Some<T> x =>
-				x.Value,
-
-			None =>
-				getValue(default)
+				fNone()
 		};
 
 	#endregion
@@ -93,13 +82,13 @@ public readonly partial struct Maybe<T>
 	/// Convert the current object to a string.
 	/// </summary>
 	/// <returns>
-	/// If this is a <see cref="Some{T}"/>, the value's string (or <c>Some: {type name}</c> when that is <see langword="null"/>).
+	/// If this is a <see cref="Some{T}"/>, the value's string written using <see cref="F.DefaultCulture"/> (or <c>Some: {type name}</c> when that is <see langword="null"/>).
 	/// If this is <see cref="None"/>, <c>None: {type name}</c>.
 	/// </returns>
 	public override string ToString() =>
 		M.Match(this,
 			fNone: () => $"None: {typeof(T).Name}",
-			fSome: x => x?.ToString() switch
+			fSome: x => Convert.ToString(x, F.DefaultCulture) switch
 			{
 				string value =>
 					value,

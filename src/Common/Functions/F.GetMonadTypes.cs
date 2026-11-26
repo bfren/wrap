@@ -16,7 +16,7 @@ public static partial class F
 	/// The monad implementation and value types, or two <see langword="null"/> values if <paramref name="type"/>
 	/// does not implement <paramref name="genericType"/> or implements it more than once.
 	/// </returns>
-	public static (Type? monadType, Type? valueType) GetMonadTypes(Type type, Type genericType)
+	internal static (Type? monadType, Type? valueType) GetMonadTypes(Type type, Type genericType)
 	{
 		// Get generic type arguments
 		var types = GetGenericTypeArguments(type, genericType);

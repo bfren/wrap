@@ -17,12 +17,10 @@ public class Unwrap_Tests
 			getValue.Invoke().Returns(value);
 
 			// Act
-			var r0 = failure.Unwrap(getValue);
-			var r1 = failure.Unwrap(n => getValue());
+			var result = failure.Unwrap(getValue);
 
 			// Assert
-			Assert.Equal(value, r0);
-			Assert.Equal(value, r1);
+			Assert.Equal(value, result);
 		}
 	}
 
@@ -36,12 +34,10 @@ public class Unwrap_Tests
 			var value = M.Wrap(expected);
 
 			// Act
-			var r0 = value.Unwrap(Substitute.For<Func<string>>());
-			var r1 = value.Unwrap(Substitute.For<Func<None, string>>());
+			var result = value.Unwrap(Substitute.For<Func<string>>());
 
 			// Assert
-			Assert.Equal(expected, r0);
-			Assert.Equal(expected, r1);
+			Assert.Equal(expected, result);
 		}
 	}
 }

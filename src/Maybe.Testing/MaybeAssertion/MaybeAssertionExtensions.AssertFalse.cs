@@ -1,0 +1,14 @@
+// Wrap: Functional Monads for .NET
+// Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
+
+namespace Wrap.Testing;
+
+public static partial class MaybeAssertionExtensions
+{
+	/// <summary>
+	/// Assert that <paramref name="this"/> is <see cref="Some{T}"/> and the value is <see langword="false"/>.
+	/// </summary>
+	/// <param name="this">Maybe object.</param>
+	public static void AssertFalse(this Maybe<bool> @this) =>
+		Assert.False(@this.AssertSome());
+}

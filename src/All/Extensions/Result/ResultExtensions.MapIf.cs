@@ -35,7 +35,7 @@ public static partial class ResultExtensions
 						R.Try(f, x.Value, R.DefaultExceptionHandler),
 
 					false =>
-						R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(MapIf))
+						R.Fail(C.TestFalseMessage).WithContext(nameof(ResultExtensions), nameof(MapIf))
 				},
 
 			{ } x =>
@@ -53,7 +53,7 @@ public static partial class ResultExtensions
 						await R.TryAsync(f, x.Value, R.DefaultExceptionHandler),
 
 					false =>
-						R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(MapIf))
+						R.Fail(C.TestFalseMessage).WithContext(nameof(ResultExtensions), nameof(MapIf))
 				},
 
 			{ } x =>
@@ -71,7 +71,7 @@ public static partial class ResultExtensions
 						R.Try(f, x.Value, R.DefaultExceptionHandler),
 
 					false =>
-						R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(MapIf))
+						R.Fail(C.TestFalseMessage).WithContext(nameof(ResultExtensions), nameof(MapIf))
 				},
 
 			{ } x =>
@@ -89,7 +89,7 @@ public static partial class ResultExtensions
 						await R.TryAsync(f, x.Value, R.DefaultExceptionHandler),
 
 					false =>
-						R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(MapIf))
+						R.Fail(C.TestFalseMessage).WithContext(nameof(ResultExtensions), nameof(MapIf))
 				},
 
 			{ } x =>

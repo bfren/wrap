@@ -18,7 +18,7 @@ public static partial class F
 	/// <param name="value">Value to wrap.</param>
 	/// <returns>A new <typeparamref name="TMonad"/> holding <paramref name="value"/>.</returns>
 	/// <exception cref="NullMonadValueException"><paramref name="value"/> is <see langword="null"/> and <typeparamref name="TValue"/> is not a nullable value type.</exception>
-	public static TMonad Wrap<TMonad, TValue>(TValue? value)
+	internal static TMonad Wrap<TMonad, TValue>(TValue? value)
 		where TMonad : IMonad<TMonad, TValue>, new() =>
 		value switch
 		{
@@ -31,9 +31,4 @@ public static partial class F
 			_ =>
 				throw new NullMonadValueException()
 		};
-
-	/// <inheritdoc cref="Wrap{TMonad, TValue}(TValue)"/>
-	public static TMonad Bind<TMonad, TValue>(TValue? value)
-		where TMonad : IMonad<TMonad, TValue>, new() =>
-		Wrap<TMonad, TValue>(value);
 }

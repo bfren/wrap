@@ -8,7 +8,7 @@ namespace Wrap.Exceptions;
 /// <summary>
 /// The exception thrown by <c>Unsafe().UnwrapSingle()</c> when the list is empty or has more than one item.
 /// </summary>
-/// <typeparam name="TRight">List type.</typeparam>
-/// <typeparam name="TSingle">List item type.</typeparam>
-public sealed class UnsafeUnwrapSingleException<TRight, TSingle>() :
-	Exception($"'{typeof(TRight)}' is not a single-value collection of type '{typeof(TSingle)}'.");
+/// <param name="rightType">List type.</param>
+/// <param name="singleType">List item type.</param>
+public sealed class UnsafeUnwrapSingleException(Type rightType, Type singleType) :
+	WrapException($"'{rightType}' is not a single-value collection of type '{singleType}'.");

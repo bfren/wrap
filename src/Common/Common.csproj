@@ -6,5 +6,8 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>Wrap</_Parameter1>
     </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Wrap.Mvc</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>

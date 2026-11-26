@@ -79,6 +79,50 @@ public class MatchAsync_Tests
 		}
 	}
 
+	public class Mixed_Void_Overloads
+	{
+		[Fact]
+		public async Task With_Failure__Calls_fFail()
+		{
+			// Arrange
+			var input = R.Fail<int>(Rnd.Str);
+			var fFail = Substitute.For<Action<Failure>>();
+			var fOk = Substitute.For<Action<int>>();
+
+			// Act
+			await input.MatchAsync(fFail, async x => fOk(x));
+			await input.MatchAsync(async f => fFail(f), fOk);
+			await input.AsTask().MatchAsync(fFail, fOk);
+			await input.AsTask().MatchAsync(fFail, async x => fOk(x));
+			await input.AsTask().MatchAsync(async f => fFail(f), fOk);
+
+			// Assert
+			fFail.ReceivedWithAnyArgs(5).Invoke(Arg.Any<Failure>());
+			fOk.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
+		}
+
+		[Fact]
+		public async Task With_Ok__Calls_fOk()
+		{
+			// Arrange
+			var value = Rnd.Int;
+			var input = R.Wrap(value);
+			var fFail = Substitute.For<Action<Failure>>();
+			var fOk = Substitute.For<Action<int>>();
+
+			// Act
+			await input.MatchAsync(fFail, async x => fOk(x));
+			await input.MatchAsync(async f => fFail(f), fOk);
+			await input.AsTask().MatchAsync(fFail, fOk);
+			await input.AsTask().MatchAsync(fFail, async x => fOk(x));
+			await input.AsTask().MatchAsync(async f => fFail(f), fOk);
+
+			// Assert
+			fOk.Received(5).Invoke(value);
+			fFail.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<Failure>());
+		}
+	}
+
 	public class Value_Overload
 	{
 		public class With_Failure

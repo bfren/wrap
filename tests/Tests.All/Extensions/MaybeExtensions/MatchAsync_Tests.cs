@@ -21,9 +21,12 @@ public class MatchAsync_Tests
 				await input.MatchAsync(async () => fNone(), Substitute.For<Action<int>>());
 				await input.MatchAsync(async () => fNone(), Substitute.For<Func<int, Task>>());
 				await input.AsTask().MatchAsync(async () => fNone(), Substitute.For<Func<int, Task>>());
+				await input.AsTask().MatchAsync(fNone, Substitute.For<Action<int>>());
+				await input.AsTask().MatchAsync(fNone, Substitute.For<Func<int, Task>>());
+				await input.AsTask().MatchAsync(async () => fNone(), Substitute.For<Action<int>>());
 
 				// Assert
-				fNone.Received(4).Invoke();
+				fNone.Received(7).Invoke();
 			}
 
 			[Fact]
@@ -38,6 +41,9 @@ public class MatchAsync_Tests
 				await input.MatchAsync(Substitute.For<Func<Task>>(), fSome);
 				await input.MatchAsync(Substitute.For<Func<Task>>(), async x => fSome(x));
 				await input.AsTask().MatchAsync(Substitute.For<Func<Task>>(), async x => fSome(x));
+				await input.AsTask().MatchAsync(Substitute.For<Action>(), fSome);
+				await input.AsTask().MatchAsync(Substitute.For<Action>(), async x => fSome(x));
+				await input.AsTask().MatchAsync(Substitute.For<Func<Task>>(), fSome);
 
 				// Assert
 				fSome.DidNotReceive().Invoke(Arg.Any<int>());
@@ -59,9 +65,12 @@ public class MatchAsync_Tests
 				await input.MatchAsync(Substitute.For<Func<Task>>(), fSome);
 				await input.MatchAsync(Substitute.For<Func<Task>>(), async x => fSome(x));
 				await input.AsTask().MatchAsync(Substitute.For<Func<Task>>(), async x => fSome(x));
+				await input.AsTask().MatchAsync(Substitute.For<Action>(), fSome);
+				await input.AsTask().MatchAsync(Substitute.For<Action>(), async x => fSome(x));
+				await input.AsTask().MatchAsync(Substitute.For<Func<Task>>(), fSome);
 
 				// Assert
-				fSome.Received(4).Invoke(value);
+				fSome.Received(7).Invoke(value);
 			}
 
 			[Fact]
@@ -76,6 +85,9 @@ public class MatchAsync_Tests
 				await input.MatchAsync(async () => fNone(), Substitute.For<Action<int>>());
 				await input.MatchAsync(async () => fNone(), Substitute.For<Func<int, Task>>());
 				await input.AsTask().MatchAsync(async () => fNone(), Substitute.For<Func<int, Task>>());
+				await input.AsTask().MatchAsync(fNone, Substitute.For<Action<int>>());
+				await input.AsTask().MatchAsync(fNone, Substitute.For<Func<int, Task>>());
+				await input.AsTask().MatchAsync(async () => fNone(), Substitute.For<Action<int>>());
 
 				// Assert
 				fNone.DidNotReceive().Invoke();

@@ -33,6 +33,21 @@ public class ToMaybe_Tests
 			// Assert
 			result.AssertNone();
 		}
+
+		[Fact]
+		public void Handler_Returning_T__Still_Returns_None()
+		{
+			// Arrange
+			var input = R.Fail<string>(Rnd.Str);
+			static string log(Failure f) =>
+				f.Message;
+
+			// Act
+			var result = input.ToMaybe(f => log(f));
+
+			// Assert
+			result.AssertNone();
+		}
 	}
 
 	public class With_Ok

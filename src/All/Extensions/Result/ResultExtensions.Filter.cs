@@ -11,7 +11,7 @@ public static partial class ResultExtensions
 	/// <summary>
 	/// Keep the value of <paramref name="this"/> only if <paramref name="fTest"/> returns <see langword="true"/>.
 	/// </summary>
-	/// <seealso cref="Linq.ResultExtensions.Where{T}(Result{T}, Func{T, bool})"/>
+	/// <seealso cref="Linq.ResultToResultExtensions.Where{T}(Result{T}, Func{T, bool})"/>
 	/// <typeparam name="T">Ok value type.</typeparam>
 	/// <param name="this">Result object.</param>
 	/// <param name="fTest">Test to run on the value.</param>
@@ -26,7 +26,7 @@ public static partial class ResultExtensions
 				x,
 
 			Ok<T> =>
-				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(Filter)),
+				R.Fail(C.TestFalseMessage).WithContext(nameof(ResultExtensions), nameof(Filter)),
 
 			{ } x =>
 				x
@@ -40,7 +40,7 @@ public static partial class ResultExtensions
 				x,
 
 			Ok<T> =>
-				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(FilterAsync)),
+				R.Fail(C.TestFalseMessage).WithContext(nameof(ResultExtensions), nameof(FilterAsync)),
 
 			{ } x =>
 				x
@@ -54,7 +54,7 @@ public static partial class ResultExtensions
 				x,
 
 			Ok<T> =>
-				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(FilterAsync)),
+				R.Fail(C.TestFalseMessage).WithContext(nameof(ResultExtensions), nameof(FilterAsync)),
 
 			{ } x =>
 				x
@@ -68,7 +68,7 @@ public static partial class ResultExtensions
 				x,
 
 			Ok<T> =>
-				R.Fail(C.TestFalseMessage).Ctx(nameof(ResultExtensions), nameof(FilterAsync)),
+				R.Fail(C.TestFalseMessage).WithContext(nameof(ResultExtensions), nameof(FilterAsync)),
 
 			{ } x =>
 				x

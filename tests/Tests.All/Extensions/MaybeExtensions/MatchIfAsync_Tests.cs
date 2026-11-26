@@ -23,15 +23,15 @@ public class MatchIfAsync_Tests
 		return (fNone, fTest, fFalse, fTrue);
 	}
 
-	// Calls all 30 async overloads and returns each result.
+	// Calls all 31 async overloads and returns each result.
 	// Group 1 ( 1- 3): Maybe<T>,       sync fNone, sync fTest, varying fFalse/fTrue async
 	// Group 2 ( 4- 7): Maybe<T>,       sync fNone, async fTest, varying fFalse/fTrue async
 	// Group 3 ( 8-11): Task<Maybe<T>>, sync fNone, sync fTest, varying fFalse/fTrue async
-	// Group 4 (12-14): Task<Maybe<T>>, sync fNone, async fTest, varying fFalse/fTrue async
-	// Group 5 (15-18): Maybe<T>,       async fNone, sync fTest, varying fFalse/fTrue async
-	// Group 6 (19-22): Maybe<T>,       async fNone, async fTest, varying fFalse/fTrue async
-	// Group 7 (23-26): Task<Maybe<T>>, async fNone, sync fTest, varying fFalse/fTrue async
-	// Group 8 (27-30): Task<Maybe<T>>, async fNone, async fTest, varying fFalse/fTrue async
+	// Group 4 (12-15): Task<Maybe<T>>, sync fNone, async fTest, varying fFalse/fTrue async
+	// Group 5 (16-19): Maybe<T>,       async fNone, sync fTest, varying fFalse/fTrue async
+	// Group 6 (20-23): Maybe<T>,       async fNone, async fTest, varying fFalse/fTrue async
+	// Group 7 (24-27): Task<Maybe<T>>, async fNone, sync fTest, varying fFalse/fTrue async
+	// Group 8 (28-31): Task<Maybe<T>>, async fNone, async fTest, varying fFalse/fTrue async
 	private static async Task<IReadOnlyList<string>> CallAll(
 		Maybe<int> input,
 		Func<string> fNone,
@@ -62,6 +62,7 @@ public class MatchIfAsync_Tests
 			await input.AsTask().MatchIfAsync(fNone, async x => fTest(x), fTrue, fFalse),
 			await input.AsTask().MatchIfAsync(fNone, async x => fTest(x), fTrue, async x => fFalse(x)),
 			await input.AsTask().MatchIfAsync(fNone, async x => fTest(x), async x => fTrue(x), fFalse),
+			await input.AsTask().MatchIfAsync(fNone, async x => fTest(x), async x => fTrue(x), async x => fFalse(x)),
 
 			// Group 5: Maybe<T>, async fNone, sync fTest
 			await input.MatchIfAsync(async () => fNone(), fTest, fTrue, fFalse),
@@ -104,7 +105,7 @@ public class MatchIfAsync_Tests
 			_ = await CallAll(input, fNone, fTest, fFalse, fTrue);
 
 			// Assert
-			fNone.Received(30).Invoke();
+			fNone.Received(31).Invoke();
 			fTest.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
 			fFalse.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
 			fTrue.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
@@ -142,8 +143,8 @@ public class MatchIfAsync_Tests
 				_ = await CallAll(input, fNone, fTest, fFalse, fTrue);
 
 				// Assert
-				fTest.Received(30).Invoke(value);
-				fFalse.Received(30).Invoke(value);
+				fTest.Received(31).Invoke(value);
+				fFalse.Received(31).Invoke(value);
 				fTrue.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
 				fNone.DidNotReceive().Invoke();
 			}
@@ -178,8 +179,8 @@ public class MatchIfAsync_Tests
 				_ = await CallAll(input, fNone, fTest, fFalse, fTrue);
 
 				// Assert
-				fTest.Received(30).Invoke(value);
-				fTrue.Received(30).Invoke(value);
+				fTest.Received(31).Invoke(value);
+				fTrue.Received(31).Invoke(value);
 				fFalse.DidNotReceiveWithAnyArgs().Invoke(Arg.Any<int>());
 				fNone.DidNotReceive().Invoke();
 			}

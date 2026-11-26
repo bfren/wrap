@@ -16,6 +16,7 @@ public class Parse_Tests : Abstracts.Parse_Tests<Parse_Tests.TestGuidId, Guid, G
 	[InlineData("5da27e31-6f74-4256-a654-1075641324fe", null)]
 	[InlineData(" 56f1fcf2-1fa4-4da4-9fc7-636afaf017f7 ", null)]
 	[InlineData("582f6388075c4092a02e92842d9165a1", null)]
+	[InlineData("12345678123456781234567812345678", null)] // only digits, but a valid Guid, so it must not throw
 #pragma warning disable xUnit1026 // Theory methods should use all of their parameters
 	public override void Test01_Valid_Input__Returns_Id(object input, Guid? expected) =>
 		Test01(input, Guid.Parse);
@@ -33,6 +34,21 @@ public class Parse_Tests : Abstracts.Parse_Tests<Parse_Tests.TestGuidId, Guid, G
 
 		// Assert
 		Assert.Equal(value, result.Value);
+	}
+
+	[Theory]
+	[InlineData("12345")]
+	[InlineData("42.5")]
+	public void Test03_Numeric_Text__Throws_OverflowException(string input)
+	{
+		// Arrange
+		var handler = new GuidIdTypeHandler<TestGuidId>();
+
+		// Act
+		var result = Record.Exception(() => handler.Parse(input));
+
+		// Assert
+		Assert.IsType<OverflowException>(result);
 	}
 
 	public sealed record class TestGuidId : GuidId<TestGuidId>;

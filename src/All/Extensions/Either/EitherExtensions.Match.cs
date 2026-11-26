@@ -8,9 +8,10 @@ namespace Wrap.Extensions;
 
 public static partial class EitherExtensions
 {
+	#region Without Return Value
+
 	/// <summary>
-	/// Run an action based on the value of <paramref name="this"/> - see
-	/// <see cref="E.Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>.
+	/// Run an action based on the value of <paramref name="this"/>.
 	/// </summary>
 	/// <remarks>
 	/// This is shorthand for a <see langword="switch"/> over the <see cref="Left{T}"/> and <see cref="Right{T}"/> cases
@@ -27,16 +28,39 @@ public static partial class EitherExtensions
 		E.Match(@this, fLeft, fRight);
 
 	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
+	public static Task MatchAsync<TLeft, TRight>(this Either<TLeft, TRight> @this, Action<TLeft> fLeft, Func<TRight, Task> fRight) =>
+		E.MatchAsync(@this, fLeft, fRight);
+
+	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
+	public static Task MatchAsync<TLeft, TRight>(this Either<TLeft, TRight> @this, Func<TLeft, Task> fLeft, Action<TRight> fRight) =>
+		E.MatchAsync(@this, fLeft, fRight);
+
+	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
 	public static Task MatchAsync<TLeft, TRight>(this Either<TLeft, TRight> @this, Func<TLeft, Task> fLeft, Func<TRight, Task> fRight) =>
+		E.MatchAsync(@this, fLeft, fRight);
+
+	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
+	public static Task MatchAsync<TLeft, TRight>(this Task<Either<TLeft, TRight>> @this, Action<TLeft> fLeft, Action<TRight> fRight) =>
+		E.MatchAsync(@this, fLeft, fRight);
+
+	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
+	public static Task MatchAsync<TLeft, TRight>(this Task<Either<TLeft, TRight>> @this, Action<TLeft> fLeft, Func<TRight, Task> fRight) =>
+		E.MatchAsync(@this, fLeft, fRight);
+
+	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
+	public static Task MatchAsync<TLeft, TRight>(this Task<Either<TLeft, TRight>> @this, Func<TLeft, Task> fLeft, Action<TRight> fRight) =>
 		E.MatchAsync(@this, fLeft, fRight);
 
 	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})"/>
 	public static Task MatchAsync<TLeft, TRight>(this Task<Either<TLeft, TRight>> @this, Func<TLeft, Task> fLeft, Func<TRight, Task> fRight) =>
 		E.MatchAsync(@this, fLeft, fRight);
 
+	#endregion
+
+	#region With Return Value
+
 	/// <summary>
-	/// Run a function based on the value of <paramref name="this"/> and return its value - see
-	/// <see cref="E.Match{TLeft, TRight, TReturn}(Either{TLeft, TRight}, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>.
+	/// Run a function based on the value of <paramref name="this"/> and return its value.
 	/// </summary>
 	/// <remarks>
 	/// <inheritdoc cref="Match{TLeft, TRight}(Either{TLeft, TRight}, Action{TLeft}, Action{TRight})" path="/remarks"/>
@@ -78,4 +102,6 @@ public static partial class EitherExtensions
 	/// <inheritdoc cref="Match{TLeft, TRight, TReturn}(Either{TLeft, TRight}, Func{TLeft, TReturn}, Func{TRight, TReturn})"/>
 	public static Task<TReturn> MatchAsync<TLeft, TRight, TReturn>(this Task<Either<TLeft, TRight>> @this, Func<TLeft, Task<TReturn>> fLeft, Func<TRight, Task<TReturn>> fRight) =>
 		E.MatchAsync(@this, fLeft, fRight);
+
+	#endregion
 }

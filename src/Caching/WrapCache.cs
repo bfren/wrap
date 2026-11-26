@@ -36,12 +36,12 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 		SetValue(key, value, DefaultOptions);
 
 	/// <inheritdoc/>
-	public void SetValue<TValue>(TKey key, TValue value, MemoryCacheEntryOptions opt)
+	public void SetValue<TValue>(TKey key, TValue value, MemoryCacheEntryOptions options)
 	{
 		ArgumentNullException.ThrowIfNull(key);
 		ArgumentNullException.ThrowIfNull(value);
 
-		_ = Cache.Set(key, value, opt);
+		_ = Cache.Set(key, value, options);
 	}
 
 	/// <inheritdoc/>
@@ -49,12 +49,12 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 		SetValueAsync(key, valueFactory, DefaultOptions);
 
 	/// <inheritdoc/>
-	public async Task SetValueAsync<TValue>(TKey key, Func<Task<TValue>> valueFactory, MemoryCacheEntryOptions opt)
+	public async Task SetValueAsync<TValue>(TKey key, Func<Task<TValue>> valueFactory, MemoryCacheEntryOptions options)
 	{
 		ArgumentNullException.ThrowIfNull(key);
 		ArgumentNullException.ThrowIfNull(valueFactory);
 
-		_ = Cache.Set(key, await valueFactory(), opt);
+		_ = Cache.Set(key, await valueFactory(), options);
 	}
 
 	/// <inheritdoc/>
@@ -62,15 +62,15 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 		GetOrCreate(key, () => R.Wrap(valueFactory()), DefaultOptions);
 
 	/// <inheritdoc/>
-	public Result<TValue> GetOrCreate<TValue>(TKey key, Func<TValue> valueFactory, MemoryCacheEntryOptions opt) =>
-		GetOrCreate(key, () => R.Wrap(valueFactory()), opt);
+	public Result<TValue> GetOrCreate<TValue>(TKey key, Func<TValue> valueFactory, MemoryCacheEntryOptions options) =>
+		GetOrCreate(key, () => R.Wrap(valueFactory()), options);
 
 	/// <inheritdoc/>
 	public Result<TValue> GetOrCreate<TValue>(TKey key, Func<Result<TValue>> valueFactory) =>
 		GetOrCreate(key, valueFactory, DefaultOptions);
 
 	/// <inheritdoc/>
-	public Result<TValue> GetOrCreate<TValue>(TKey key, Func<Result<TValue>> valueFactory, MemoryCacheEntryOptions opt)
+	public Result<TValue> GetOrCreate<TValue>(TKey key, Func<Result<TValue>> valueFactory, MemoryCacheEntryOptions options)
 	{
 		// Return the value if it exists, or the failure if the lookup failed
 		if (Find<TValue>(key, nameof(GetOrCreate)) is Some<Result<TValue>> existing)
@@ -80,11 +80,11 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 
 		try
 		{
-			return Store(key, valueFactory(), opt);
+			return Store(key, valueFactory(), options);
 		}
 		catch (Exception ex)
 		{
-			return R.Fail(ex).Msg("Error creating cache value.").Ctx(nameof(WrapCache<>), nameof(GetOrCreate));
+			return R.Fail(ex).WithMessage("Error creating cache value.").WithContext(nameof(WrapCache<>), nameof(GetOrCreate));
 		}
 	}
 
@@ -93,15 +93,15 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 		GetOrCreateAsync(key, async () => R.Wrap(await valueFactory()), DefaultOptions);
 
 	/// <inheritdoc/>
-	public Task<Result<TValue>> GetOrCreateAsync<TValue>(TKey key, Func<Task<TValue>> valueFactory, MemoryCacheEntryOptions opt) =>
-		GetOrCreateAsync(key, async () => R.Wrap(await valueFactory()), opt);
+	public Task<Result<TValue>> GetOrCreateAsync<TValue>(TKey key, Func<Task<TValue>> valueFactory, MemoryCacheEntryOptions options) =>
+		GetOrCreateAsync(key, async () => R.Wrap(await valueFactory()), options);
 
 	/// <inheritdoc/>
 	public Task<Result<TValue>> GetOrCreateAsync<TValue>(TKey key, Func<Task<Result<TValue>>> valueFactory) =>
 		GetOrCreateAsync(key, valueFactory, DefaultOptions);
 
 	/// <inheritdoc/>
-	public async Task<Result<TValue>> GetOrCreateAsync<TValue>(TKey key, Func<Task<Result<TValue>>> valueFactory, MemoryCacheEntryOptions opt)
+	public async Task<Result<TValue>> GetOrCreateAsync<TValue>(TKey key, Func<Task<Result<TValue>>> valueFactory, MemoryCacheEntryOptions options)
 	{
 		// Return the value if it exists, or the failure if the lookup failed
 		if (Find<TValue>(key, nameof(GetOrCreateAsync)) is Some<Result<TValue>> existing)
@@ -111,11 +111,11 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 
 		try
 		{
-			return Store(key, await valueFactory(), opt);
+			return Store(key, await valueFactory(), options);
 		}
 		catch (Exception ex)
 		{
-			return R.Fail(ex).Msg("Error creating cache value.").Ctx(nameof(WrapCache<>), nameof(GetOrCreateAsync));
+			return R.Fail(ex).WithMessage("Error creating cache value.").WithContext(nameof(WrapCache<>), nameof(GetOrCreateAsync));
 		}
 	}
 
@@ -169,13 +169,13 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 	/// <typeparam name="TValue">Value type.</typeparam>
 	/// <param name="key">Entry key.</param>
 	/// <param name="value">Value returned by the value factory.</param>
-	/// <param name="opt">Entry options.</param>
+	/// <param name="options">Entry options.</param>
 	/// <returns>The stored value, or <paramref name="value"/> unchanged (and nothing stored) if it is a <see cref="Failure"/>.</returns>
-	private Result<TValue> Store<TValue>(TKey key, Result<TValue> value, MemoryCacheEntryOptions opt) =>
+	private Result<TValue> Store<TValue>(TKey key, Result<TValue> value, MemoryCacheEntryOptions options) =>
 		value switch
 		{
 			Ok<TValue> x =>
-				Cache.Set(key, x.Value, opt),
+				Cache.Set(key, x.Value, options),
 
 			Failure x =>
 				x
@@ -189,5 +189,5 @@ public sealed class WrapCache<TKey>(IMemoryCache cache) : IWrapCache<TKey>
 	/// <param name="args">Failure message arguments.</param>
 	/// <returns>Failure object.</returns>
 	private static Failure Fail(string function, string message, params object?[] args) =>
-		R.Fail(message, args).Ctx(nameof(WrapCache<>), function);
+		R.Fail(message, args).WithContext(nameof(WrapCache<>), function);
 }

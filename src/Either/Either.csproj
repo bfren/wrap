@@ -5,4 +5,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
+  <ItemGroup Label="Test Internals">
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Wrap</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 </Project>

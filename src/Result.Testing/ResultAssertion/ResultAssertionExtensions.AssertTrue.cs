@@ -1,0 +1,14 @@
+// Wrap: Functional Monads for .NET
+// Copyright (c) bfren - licensed under https://mit.bfren.dev/2019
+
+namespace Wrap.Testing;
+
+public static partial class ResultAssertionExtensions
+{
+	/// <summary>
+	/// Assert that <paramref name="this"/> is <see cref="Ok{T}"/> and the value is <see langword="true"/>.
+	/// </summary>
+	/// <param name="this">Result object.</param>
+	public static void AssertTrue(this Result<bool> @this) =>
+		Assert.True(@this.AssertOk());
+}

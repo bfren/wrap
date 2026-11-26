@@ -27,8 +27,5 @@ internal static class C
 
 		internal const string IncorrectType =
 			"Cannot get single value of type '{ValueType}' from a list type '{ListType}'.";
-
-		internal const string NotAList =
-			"Result value type is not a list.";
 	}
 }

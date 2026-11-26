@@ -71,7 +71,7 @@ public class FailureKind_Tests
 	public void Json_Empty_Name_Writes_Null(string name)
 	{
 		// Arrange
-		var failure = R.Fail(Rnd.Str).Knd(new FailureKind(name));
+		var failure = R.Fail(Rnd.Str).WithKind(new FailureKind(name));
 
 		// Act
 		var written = JsonSerializer.Serialize(failure);
@@ -89,7 +89,7 @@ public class FailureKind_Tests
 		var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
 
 		// Act
-		var result = JsonSerializer.Serialize(R.Fail(Rnd.Str).Knd(FailureKind.NotFound), options);
+		var result = JsonSerializer.Serialize(R.Fail(Rnd.Str).WithKind(FailureKind.NotFound), options);
 
 		// Assert
 		Assert.Contains("\"kind\":\"NotFound\"", result);

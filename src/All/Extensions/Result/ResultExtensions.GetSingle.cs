@@ -11,11 +11,6 @@ namespace Wrap.Extensions;
 
 public static partial class ResultExtensions
 {
-	/// <inheritdoc cref="GetSingle{T, TSingle}(Result{T}, R.ErrorHandler?)"/>
-	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this)
-		where T : IEnumerable =>
-		GetSingle<T, TSingle>(@this, null);
-
 	/// <summary>
 	/// Get the only item in the list held by <paramref name="this"/>.
 	/// </summary>
@@ -32,7 +27,7 @@ public static partial class ResultExtensions
 	/// <see cref="Failure"/> if the list is empty, has more than one item or does not hold <typeparamref name="TSingle"/>
 	/// items, or if the only item is <see langword="null"/>.
 	/// </returns>
-	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, R.ErrorHandler? onError)
+	internal static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, R.ErrorHandler? onError)
 		where T : IEnumerable =>
 		@this switch
 		{
@@ -46,20 +41,17 @@ public static partial class ResultExtensions
 
 						{ Length: 0 } =>
 							onError?.Invoke(C.GetSingle.EmptyList) ?? R.Fail(C.GetSingle.EmptyList)
-								.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
+								.WithContext(nameof(ResultExtensions), nameof(GetSingle)),
 
 						_ =>
 							onError?.Invoke(C.GetSingle.MultipleValues) ?? R.Fail(C.GetSingle.MultipleValues)
-								.Ctx(nameof(ResultExtensions), nameof(GetSingle))
+								.WithContext(nameof(ResultExtensions), nameof(GetSingle))
 					},
 
-					IEnumerable =>
-						onError?.Invoke(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name) ?? R.Fail(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name)
-							.Ctx(nameof(ResultExtensions), nameof(GetSingle)),
-
+					// T is always an IEnumerable, so anything that isn't a list of TSingle holds the wrong item type
 					_ =>
-						onError?.Invoke(C.GetSingle.NotAList) ?? R.Fail(C.GetSingle.NotAList)
-							.Ctx(nameof(ResultExtensions), nameof(GetSingle))
+						onError?.Invoke(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name) ?? R.Fail(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name)
+							.WithContext(nameof(ResultExtensions), nameof(GetSingle))
 				},
 
 			{ } x =>
@@ -81,7 +73,14 @@ public static partial class ResultExtensions
 	/// <param name="unwrap">Function that calls <see cref="FluentGetSingle{T}.Value{TSingle}"/>.</param>
 	/// <param name="onError">[Optional] Creates the <see cref="Failure"/> to return when there is not exactly one item,
 	/// instead of the default failure.</param>
-	/// <returns>The result returned by <paramref name="unwrap"/> - see <see cref="GetSingle{T, TSingle}(Result{T}, R.ErrorHandler?)"/>.</returns>
+	/// <remarks>
+	/// At most two items are read, so a long or infinite sequence is not enumerated in full.
+	/// </remarks>
+	/// <returns>
+	/// <see cref="Ok{T}"/> holding the only item; the <see cref="Failure"/> held by <paramref name="this"/>; or a
+	/// <see cref="Failure"/> (from <paramref name="onError"/> if given) if the list is empty or has more than one item,
+	/// or if the only item is <see langword="null"/>.
+	/// </returns>
 	public static Result<TSingle> GetSingle<T, TSingle>(this Result<T> @this, Func<FluentGetSingle<T>,
 		Result<TSingle>> unwrap, R.ErrorHandler? onError
 	)
@@ -103,14 +102,27 @@ public static partial class ResultExtensions
 	/// <summary>
 	/// Fluent helper used by <see cref="GetSingle{T, TSingle}(Result{T}, Func{FluentGetSingle{T}, Result{TSingle}}, R.ErrorHandler?)"/>.
 	/// </summary>
+	/// <remarks>
+	/// You only get one from <c>GetSingle</c>: its constructor is internal.
+	/// </remarks>
 	/// <typeparam name="T">Ok value type - limited to <see cref="IEnumerable"/>.</typeparam>
-	/// <param name="result">Result holding the list.</param>
-	/// <param name="onError">[Optional] Creates the <see cref="Failure"/> to return when there is not exactly one item.</param>
-	public sealed class FluentGetSingle<T>(Result<T> result, R.ErrorHandler? onError)
+	public sealed class FluentGetSingle<T>
 		where T : IEnumerable
 	{
+		private readonly Result<T> result;
+
+		private readonly R.ErrorHandler? onError;
+
 		/// <summary>
-		/// Get the only item in the list - see <see cref="GetSingle{T, TSingle}(Result{T}, R.ErrorHandler?)"/>.
+		/// Create the helper for a result and an optional error handler.
+		/// </summary>
+		/// <param name="result">Result holding the list.</param>
+		/// <param name="onError">[Optional] Creates the <see cref="Failure"/> to return when there is not exactly one item.</param>
+		internal FluentGetSingle(Result<T> result, R.ErrorHandler? onError) =>
+			(this.result, this.onError) = (result, onError);
+
+		/// <summary>
+		/// Get the only item in the list.
 		/// </summary>
 		/// <typeparam name="TSingle">List item type.</typeparam>
 		/// <returns><see cref="Ok{T}"/> holding the only item, or a <see cref="Failure"/>.</returns>

@@ -91,7 +91,8 @@ public class UnwrapSingle_Tests
 			var result = Record.Exception(() => input.UnwrapSingle(fLeft));
 
 			// Assert
-			_ = Assert.IsType<UnsafeUnwrapSingleException<List<int>, int>>(result);
+			var ex = Assert.IsType<UnsafeUnwrapSingleException>(result);
+			_ = Assert.IsAssignableFrom<WrapException>(ex);
 		}
 
 		[Fact]
@@ -105,7 +106,7 @@ public class UnwrapSingle_Tests
 			var result = Record.Exception(() => input.UnwrapSingle(fLeft));
 
 			// Assert
-			_ = Assert.IsType<UnsafeUnwrapSingleException<List<int>, int>>(result);
+			_ = Assert.IsType<UnsafeUnwrapSingleException>(result);
 		}
 
 		[Fact]
@@ -127,7 +128,7 @@ public class UnwrapSingle_Tests
 			var result = Record.Exception(() => input.UnwrapSingle(fLeft));
 
 			// Assert
-			_ = Assert.IsType<UnsafeUnwrapSingleException<IEnumerable<int>, int>>(result);
+			_ = Assert.IsType<UnsafeUnwrapSingleException>(result);
 		}
 	}
 }

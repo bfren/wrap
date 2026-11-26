@@ -82,7 +82,7 @@ public class Equals_Tests
 		{
 			// Arrange
 			var f0 = new Failure(Rnd.Str);
-			var f1 = f0.Lvl(Logging.LogLevel.Fatal);
+			var f1 = f0.WithLevel(Logging.LogLevel.Fatal);
 
 			// Act
 			var result = f0 == f1;
@@ -96,7 +96,7 @@ public class Equals_Tests
 		{
 			// Arrange
 			var f0 = new Failure(Rnd.Str);
-			var f1 = f0.Knd(FailureKind.NotFound);
+			var f1 = f0.WithKind(FailureKind.NotFound);
 
 			// Act
 			var result = f0 == f1;

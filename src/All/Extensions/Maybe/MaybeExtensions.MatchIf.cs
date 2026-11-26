@@ -365,6 +365,29 @@ public static partial class MaybeExtensions
 		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Maybe<T>> @this,
+		Func<TReturn> fNone,
+		Func<T, Task<bool>> fTest,
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, Task<TReturn>> fFalse
+	) =>
+		await @this switch
+		{
+			Some<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
+
+					true =>
+						await fTrue(x.Value)
+				},
+
+			None =>
+				fNone()
+		};
+
+	/// <inheritdoc cref="MatchIf{T, TReturn}(Maybe{T}, Func{TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Maybe<T> @this,
 		Func<Task<TReturn>> fNone,
 		Func<T, bool> fTest,

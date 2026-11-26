@@ -35,7 +35,7 @@ public sealed class GuidIdTypeHandler<T> : IdTypeHandler<T, Guid>
 					new Guid(bytes),
 
 				_ =>
-					M.ParseGuid(value?.ToString()) switch
+					M.ParseGuid(Convert.ToString(value, F.DefaultCulture)) switch
 					{
 						Some<Guid> x =>
 							x.Value,

@@ -365,6 +365,29 @@ public static partial class ResultExtensions
 		};
 
 	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
+	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Task<Result<T>> @this,
+		Func<Failure, TReturn> fFail,
+		Func<T, Task<bool>> fTest,
+		Func<T, Task<TReturn>> fTrue,
+		Func<T, Task<TReturn>> fFalse
+	) =>
+		await @this switch
+		{
+			Ok<T> x =>
+				await fTest(x.Value) switch
+				{
+					false =>
+						await fFalse(x.Value),
+
+					true =>
+						await fTrue(x.Value)
+				},
+
+			Failure f =>
+				fFail(f)
+		};
+
+	/// <inheritdoc cref="MatchIf{T, TReturn}(Result{T}, Func{Failure, TReturn}, Func{T, bool}, Func{T, TReturn}, Func{T, TReturn})"/>
 	public static async Task<TReturn> MatchIfAsync<T, TReturn>(this Result<T> @this,
 		Func<Failure, Task<TReturn>> fFail,
 		Func<T, bool> fTest,

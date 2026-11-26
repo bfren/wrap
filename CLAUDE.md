@@ -12,6 +12,8 @@
 
 Published on [NuGet](https://www.nuget.org/packages/wrap/).
 
+What is still to do, and the design decisions to keep, are in `docs/open-items.md`. Read it before reopening a decision, and keep it as the one place for open items.
+
 ## Development Workflow
 
 ### Building & Testing
@@ -51,6 +53,9 @@ The project uses [EditorConfig](https://editorconfig.org) for consistent formatt
 The build is the only style gate. `AnalysisLevel` is `11.0-recommended`, pinned so a newer SDK can't add rules that fail CI, and `TreatWarningsAsErrors` is on when `CI=true`, so any warning fails CI while a local build only shows it. The exception is NU1901 (a low-severity vulnerability), which stays a warning: moderate and above fail (`Directory.Packages.props`). Run `dotnet build -warnaserror` to see exactly what CI will reject.
 
 Only a few rules are warnings: IDE0005 (unnecessary `using`), IDE0055 (formatting), IDE0060 (unused parameter), IDE1006 (naming), IDE0073 (file header, an error in `src` and `apps`), the CA rules in `11.0-recommended`, and the compiler, nullability and XML doc warnings. Every other style preference is a suggestion: it shows in the editor and never fails anything. Use `dotnet format style` to apply fixes, not as a check. Add a pragma only for a single real exception.
+
+### Culture
+Format and parse every value with `F.DefaultCulture`, never the current culture: pass it to `ToString`, `Convert.ToString`, `TryParse` and `string.Format`. For string interpolation use `string.Create(F.DefaultCulture, $"…")`, and with a `StringBuilder` append `Convert.ToString(value, F.DefaultCulture)`, because plain `$"…"` and `Append(value)` use the current culture. HTML input values must read back the way the model binders and `M.Parse*` read them, and `ToString()` and messages must look the same on every server. The `[Failure]` generator is the exception: it runs in the compiler, where `F` doesn't exist.
 
 ### Layout
 Put a field, constant or property initialiser on its own line after the `=`, indented one level, just as `=>` bodies are:
@@ -139,6 +144,17 @@ Files use LF line endings (`.editorconfig` and `.gitattributes`), so files writt
 - **Railway-Oriented Programming**: LINQ extensions and method chaining for error handling
 - **Async Support**: Full async/await support throughout
 - **Monad Composition**: All types support monadic composition patterns
+
+### Async Overloads
+Every `…Async` extension has one overload for each sync/async mix of its callbacks, on both receivers:
+- On `Maybe<T>`, `Result<T>` or `Either<TLeft, TRight>`, every mix except all-sync, which is the non-async method. With n callbacks that is 2ⁿ − 1 overloads.
+- On `Task<…>`, every mix including all-sync, which is 2ⁿ overloads.
+
+A callback is sync as `Action<…>`/`Func<…, TReturn>` and async as `Func<…, Task>`/`Func<…, Task<TReturn>>`, and a predicate is `Func<T, bool>` or `Func<T, Task<bool>>`. Order overloads by receiver (value, then `Task<…>`), then count through the callbacks from all-sync to all-async with the last callback changing fastest. `MatchIf` is the exception: it groups by `fNone`/`fFail` first, then by receiver. The `Match` extensions are the public API: the static `M.Match`, `R.Match` and `E.Match` functions behind them are internal.
+
+Exceptions:
+- `Audit`/`AuditAsync` have no mixed forms, because their callbacks are nullable and a mix would make `null` arguments ambiguous.
+- `IfAsync`, `IfNotAsync`, `BindIfAsync` and `MapIfAsync` take only a sync predicate. `MatchIfAsync` and `FilterAsync` take both.
 
 ### Testing
 - Each sub-project has corresponding test project
