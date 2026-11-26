@@ -48,12 +48,9 @@ public static partial class ResultExtensions
 								.WithContext(nameof(ResultExtensions), nameof(GetSingle))
 					},
 
-					IEnumerable =>
-						onError?.Invoke(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name) ?? R.Fail(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name)
-							.WithContext(nameof(ResultExtensions), nameof(GetSingle)),
-
+					// T is always an IEnumerable, so anything that isn't a list of TSingle holds the wrong item type
 					_ =>
-						onError?.Invoke(C.GetSingle.NotAList) ?? R.Fail(C.GetSingle.NotAList)
+						onError?.Invoke(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name) ?? R.Fail(C.GetSingle.IncorrectType, typeof(TSingle).Name, typeof(T).Name)
 							.WithContext(nameof(ResultExtensions), nameof(GetSingle))
 				},
 
