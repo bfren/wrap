@@ -10,18 +10,35 @@ Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no r
 
 - `Html.TextBoxForMaybe(x => x.Property)` writes a text input for a `Maybe<T>` property: the value for `Some` (the inner value for a monad such as an ID), and empty for `None`, so it binds back to the same value. It takes optional HTML attributes.
 - `Html.CheckBoxForMaybe(x => x.Property)` writes a checkbox for a `Maybe<bool>` property, ticked only for `Some(true)`. A checkbox always sends a value, so it binds back as `Some(true)` or `Some(false)`, never `None`.
+- `LogLevel.ToMsLevel()` (in `Wrap.Extensions`) converts a Wrap log level to the matching `Microsoft.Extensions.Logging.LogLevel`. The two enums have different values, so always map with this and never cast.
+- The `MatchAsync` extensions take every mix of sync and async callbacks on both a value and a `Task<…>` receiver, for `Maybe`, `Result` and `Either`. Before, the mixed forms with `Action` callbacks were only on the static `M`, `R` and `E` functions. `MatchIfAsync` gains the two forms it was missing.
+- `AddWrapConverters()` also registers `FailureKindJsonConverter`.
 
 ### Changed
+
+- **Breaking:** the `Failure` methods are renamed to follow the .NET naming guidelines: `Msg` is `WithMessage`, `Arg` is `WithArgs`, `Ctx` is `WithContext` (both overloads), `Lvl` is `WithLevel` and `Knd` is `WithKind`.
+- **Breaking:** `M.Match`, `R.Match`, `E.Match` and their `MatchAsync` functions are internal. Call the extensions instead, such as `maybe.Match(…)` or `await task.MatchAsync(…)`.
+- **Breaking:** `IUintId` and `IUintId<TId>` are renamed `IUIntId` and `IUIntId<TId>`, to match `UIntId<TId>` and `IULongId`.
+- **Breaking:** `Wrap.Linq.ResultExtensions` is renamed `ResultToResultExtensions`, so it no longer clashes with `Wrap.Extensions.ResultExtensions` when both namespaces are imported. The assertion classes in `Wrap.Testing` are renamed too: `MaybeAssertionExtensions`, `ResultAssertionExtensions`, `FailureAssertionExtensions` and `EitherAssertionExtensions`.
+- **Breaking:** every exception derives from `WrapException`, so `catch (WrapException)` catches them all. This adds `UnsafeUnwrapException`, `UnsafeUnwrapSingleException` and `ModelBinderException`. `UnsafeUnwrapSingleException` is no longer generic: it takes the two types and names them in its message. `UnsafeUnwrapException` has a constructor without an inner exception, and its inner exception can no longer be `null`.
+- **Breaking:** `FailureKindJsonConverter` is in the `Wrap.Json` namespace, beside the other converters.
+- **Breaking:** `F.GetMonadTypes`, `F.GetMonadValueType`, `F.IsNullableValueType` and `F.Wrap` are internal, and `IdTypeHandler.DefaultOrThrow` is `private protected`. They were implementation helpers.
+- The `Audit` and `AuditAsync` callback that receives the whole value is named `f`, not `either`.
 
 - **Breaking:** a failure created from an `AggregateException` that holds exactly one exception gets the kind of that exception. So a timeout reached through `task.Result` or `task.Wait()` is `Timeout`, not `Unexpected`. An aggregate holding several exceptions is still `Unexpected`. `Exception` still holds the `AggregateException`. `Kind` is part of equality, so these failures no longer equal one built with `Unexpected`.
 - `Wrap.Id.Testing` depends on the stable `Rnd` 11.0.0, not 11.0.0-beta.1.
 - **Breaking:** values are written using `F.DefaultCulture` (en-GB unless you set it), not the current culture, in `ToString()` of `Maybe`, `Result`, `Either`, `Some`, `Ok`, `Left`, `Right` and `Monad`, in `Html.HiddenForMonad`, in `F.Format` with a single value, and in the `Unsafe().Unwrap()` and Dapper overflow exception messages. So `M.Wrap(1.5m).ToString()` is `1.5` on a French server, not `1,5`. `F.Format("{0:0.00}", 1.5m)` now also applies the format, which it ignored before. So an invalid format with a single value, such as `F.Format("Total {0:Q}", 1.5m)`, now returns the format string unchanged, as it already did for several values, instead of `Total 1.5`.
 - **Breaking:** Dapper ID handlers throw `OverflowException` for a number stored as text that doesn't fit the ID type, such as `"3000000000"` for an `IntId` or `"5.5"`. Before, it silently became the default ID (0 or `Guid.Empty`). A whole number stored as text is read as that number, so `"42.0"`, `"1,000"` and `"4.2E1"` give an integer ID of 42, 1000 and 42. Text that isn't a number still reads as the default ID.
 
+### Removed
+
+- **Breaking:** the one-callback `Audit` and `AuditAsync` overloads, such as `result.Audit(x => …)` or `maybe.Audit(fSome)`. A lambda fitted several of them, so the call didn't compile (CS0121). Use `IfOk`, `IfFailed`, `IfSome` or `IfNone`, the two-callback form, or the form that takes the whole value.
+- **Breaking:** the implicit conversions from `TLeft` and `TRight` to `Either<TLeft, TRight>`. They were ambiguous when both types matched a value, and otherwise could pick a side without warning. Use `new Left<T>(…)`, `new Right<T>(…)`, `E.WrapLeft` or `E.WrapRight`.
+- **Breaking:** `F.Bind` and `Monad<TMonad, TValue>.Bind`, which only repeated `Wrap`.
+
 ### Fixed
 
 - An MVC form shown again after a failed POST leaves an empty `Maybe<T>` field blank. Before, the binder recorded `"None"` as the attempted value, so the field came back holding "None". Sending it again then bound a `Maybe<string>` as `Some("None")` and failed binding for other types.
-
 - A `Failure` can be written and read with a System.Text.Json source-generated `JsonSerializerContext`. Before, it built with warning SYSLIB1220 and threw `NotSupportedException`, because `FailureKindJsonConverter` was internal. It is now public.
 - `[Failure]` methods compile in a project with a namespace ending in `.Wrap`, such as `MyApp.Wrap`. The generated code now uses `global::` type names.
 - A JSON kind that is empty or only whitespace reads as `FailureKind.Unspecified`. Before, it gave a kind that printed the same as `Unspecified` but wasn't equal to it. A kind with such a name is also written as `null`, so it reads back the same way.
