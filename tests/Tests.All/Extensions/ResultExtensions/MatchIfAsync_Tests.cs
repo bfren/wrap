@@ -5,9 +5,9 @@ namespace Wrap.Extensions.ResultExtensions_Tests;
 
 public class MatchIfAsync_Tests
 {
-	// 30 async overloads grouped as:
+	// 31 async overloads grouped as:
 	//   A (7):  Result<T>        source, sync   fFail
-	//   B (7):  Task<Result<T>>  source, sync   fFail
+	//   B (8):  Task<Result<T>>  source, sync   fFail
 	//   C (8):  Result<T>        source, async  fFail
 	//   D (8):  Task<Result<T>>  source, async  fFail  [D8 = canonical]
 	//
@@ -50,6 +50,7 @@ public class MatchIfAsync_Tests
 			var b5 = await input.AsTask().MatchIfAsync(fFail: _ => value, fTest: async _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
 			var b6 = await input.AsTask().MatchIfAsync(fFail: _ => value, fTest: async _ => false, fFalse: async _ => Rnd.Str, fTrue: _ => Rnd.Str);
 			var b7 = await input.AsTask().MatchIfAsync(fFail: _ => value, fTest: async _ => false, fFalse: _ => Rnd.Str, fTrue: async _ => Rnd.Str);
+			var b8 = await input.AsTask().MatchIfAsync(fFail: _ => value, fTest: async _ => false, fFalse: async _ => Rnd.Str, fTrue: async _ => Rnd.Str);
 
 			// Group C: Result<T> source, async fFail
 			var c1 = await input.MatchIfAsync(fFail: async _ => value, fTest: _ => false, fFalse: _ => Rnd.Str, fTrue: _ => Rnd.Str);
@@ -86,6 +87,7 @@ public class MatchIfAsync_Tests
 			Assert.Equal(value, b5);
 			Assert.Equal(value, b6);
 			Assert.Equal(value, b7);
+			Assert.Equal(value, b8);
 			Assert.Equal(value, c1);
 			Assert.Equal(value, c2);
 			Assert.Equal(value, c3);
@@ -135,6 +137,7 @@ public class MatchIfAsync_Tests
 				var b5 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => false, fFalse: _ => value, fTrue: _ => Rnd.Str);
 				var b6 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => false, fFalse: async _ => value, fTrue: _ => Rnd.Str);
 				var b7 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => false, fFalse: _ => value, fTrue: async _ => Rnd.Str);
+				var b8 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => false, fFalse: async _ => value, fTrue: async _ => Rnd.Str);
 
 				// Group C: Result<T> source, async fFail
 				var c1 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => false, fFalse: _ => value, fTrue: _ => Rnd.Str);
@@ -171,6 +174,7 @@ public class MatchIfAsync_Tests
 				Assert.Equal(value, b5);
 				Assert.Equal(value, b6);
 				Assert.Equal(value, b7);
+				Assert.Equal(value, b8);
 				Assert.Equal(value, c1);
 				Assert.Equal(value, c2);
 				Assert.Equal(value, c3);
@@ -218,6 +222,7 @@ public class MatchIfAsync_Tests
 				var b5 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => true, fFalse: _ => Rnd.Str, fTrue: _ => value);
 				var b6 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => true, fFalse: async _ => Rnd.Str, fTrue: _ => value);
 				var b7 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => true, fFalse: _ => Rnd.Str, fTrue: async _ => value);
+				var b8 = await input.AsTask().MatchIfAsync(fFail: _ => Rnd.Str, fTest: async _ => true, fFalse: async _ => Rnd.Str, fTrue: async _ => value);
 
 				// Group C: Result<T> source, async fFail
 				var c1 = await input.MatchIfAsync(fFail: async _ => Rnd.Str, fTest: _ => true, fFalse: _ => Rnd.Str, fTrue: _ => value);
@@ -254,6 +259,7 @@ public class MatchIfAsync_Tests
 				Assert.Equal(value, b5);
 				Assert.Equal(value, b6);
 				Assert.Equal(value, b7);
+				Assert.Equal(value, b8);
 				Assert.Equal(value, c1);
 				Assert.Equal(value, c2);
 				Assert.Equal(value, c3);
