@@ -19,24 +19,6 @@ Last checked against the code on 26 November 2026.
 - [ ] Say in the README that the Testing packages are for xunit v3 projects only. They reference `xunit.v3.assert` with `PrivateAssets="All"`.
 - [ ] After 2.0.0 is published, set `EnablePackageValidation` back to `true` in `src/Directory.Build.props`. `PackageValidationBaselineVersion` is already `2.0.0`.
 
-### Decide before 2.0.0
-
-These are smaller API inconsistencies. After 2.0.0, each needs a major version to change, except the parameter names, which only break callers using named arguments.
-
-- [ ] **Parameter names that don't match.**
-  - `Result.Unwrap(ifFailed, getValue)` vs `UnwrapAsync(ifFailed, returnThis)`.
-  - `Maybe.Unwrap(getValue)` vs `UnwrapAsync(fNone)`.
-  - `ToResult(noneHandler)` vs `ToMaybe(fFailureHandler)`.
-  - `ExceptionHandler e` in `R.Try` and `Map`, and `MemoryCacheEntryOptions opt` in `IWrapCache`.
-  - `WithContext(string @class, string function)` and `ToResult(string @class, string function)`, where callers must write `@class:`.
-- [ ] **Sync and async sets don't match.**
-  - `ToMaybe` takes only `Action<Failure>`, but `ToMaybeAsync` also takes `Func<Failure, Maybe<T>>`, `Func<Failure, Task>` and `Func<Failure, Task<Maybe<T>>>`.
-  - `ToResultAsync` exists only on `Task<Maybe<T>>`.
-  - `maybe.Unwrap(Func<None, T>)` adds nothing over `Unwrap(Func<T>)`, because `None` carries nothing.
-- [ ] **`GetSingle` has two styles.** `result.GetSingle<List<int>, int>()`, and `result.GetSingle(x => x.Value<int>())` through the public nested class `ResultExtensions.FluentGetSingle<T>`. Keep one, and maybe add `GetSingle<T>(this Result<IEnumerable<T>>)`.
-- [ ] **`R.Ok()` returns `Result<bool>`**, so `Result<bool>` means either a yes/no answer or "it worked". Only worth changing (for example to a `Unit` type) if that has confused anyone.
-- [ ] **Interfaces with `init` accessors.** `IMonad<T>.Value`, `IWithException.Exception` and `IWithId<TId, TValue>.Id` are `{ get; init; }`, which forces every implementation to have `init`, though nothing can call it through the interface. `{ get; }` would be enough.
-
 ### After 2.0.0
 
 - [ ] Decide whether to add `Microsoft.CodeAnalysis.PublicApiAnalyzers`, so every change to the public API shows in review.
@@ -66,6 +48,10 @@ Each of these was looked at and kept on purpose. Change one only for a new reaso
 - **`IEither` and `Unsafe` stay**, with `TryGetLeft` and `TryGetRight` in place of the old `IEither.Match`.
 - **`Audit` ignores exceptions thrown by its callbacks**, so auditing never changes the result. Its docs say so.
 - **`AssertMessage` doesn't check args when none are given**, so a test can check the message alone. Use `Assert.Empty(failure.Args)` to check there are none.
+- **`GetSingle` has only the fluent form**, `result.GetSingle(x => x.Value<int>())`. It infers the list type, and checks at compile time that the list holds the item type. The explicit form, `GetSingle<List<int>, int>()`, is internal: it does the work behind the fluent one.
+- **`R.Ok()` returns `Result<bool>`** holding `true`, so `Result<bool>` means either a yes/no answer or "it worked". A `Unit` type would add a type and break every caller.
+- **`IMonad<T>.Value`, `IWithException.Exception` and `IWithId<TId, TValue>.Id` keep their `init` accessors.** Generic code sets them through the interface: `F.Wrap` creates monads with `new TMonad { Value = … }`, and a data layer can create entities with `new T { Id = … }`.
+- **Callback parameters are named for the case they handle**: `fNone`, `fSome`, `fFail`, `fOk`, `fLeft` and `fRight`, with `fValue` for a fallback value. Sync and async forms of a method use the same names.
 
 ### Culture and formatting
 

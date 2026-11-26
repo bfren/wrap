@@ -13,6 +13,7 @@ Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no r
 - `LogLevel.ToMsLevel()` (in `Wrap.Extensions`) converts a Wrap log level to the matching `Microsoft.Extensions.Logging.LogLevel`. The two enums have different values, so always map with this and never cast.
 - The `MatchAsync` extensions take every mix of sync and async callbacks on both a value and a `Task<…>` receiver, for `Maybe`, `Result` and `Either`. Before, the mixed forms with `Action` callbacks were only on the static `M`, `R` and `E` functions. `MatchIfAsync` gains the two forms it was missing.
 - `AddWrapConverters()` also registers `FailureKindJsonConverter`.
+- `ToMaybe` and `ToResultAsync` take the same callbacks in their sync and async forms: `result.ToMaybe(f => …)` can return a replacement `Maybe<T>`, `ToMaybeAsync` works on a `Result<T>` as well as a `Task<Result<T>>`, and `maybe.ToResultAsync(async () => …)` works on a `Maybe<T>`.
 
 ### Changed
 
@@ -24,7 +25,7 @@ Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no r
 - **Breaking:** `FailureKindJsonConverter` is in the `Wrap.Json` namespace, beside the other converters.
 - **Breaking:** `F.GetMonadTypes`, `F.GetMonadValueType`, `F.IsNullableValueType` and `F.Wrap` are internal, and `IdTypeHandler.DefaultOrThrow` is `private protected`. They were implementation helpers.
 - The `Audit` and `AuditAsync` callback that receives the whole value is named `f`, not `either`.
-
+- Parameter names match across each sync and async family. This only breaks calls that use named arguments: `Unwrap` and `UnwrapAsync` take `fNone` on a `Maybe`, `fLeft` on an `Either`, and `fFail` and `fValue` on a `Result`, where they took `getValue`, `ifFailed` and `returnThis`. `ToResult` takes `fNone` (was `noneHandler`), `ToMaybe` takes `fFail` (was `fFailureHandler`), `R.Try` and `Map` take `handler` (was `e`), `IWrapCache` takes `options` (was `opt`), and `WithContext` and `ToResult` take `className` and `functionName` (was `@class` and `function`).
 - **Breaking:** a failure created from an `AggregateException` that holds exactly one exception gets the kind of that exception. So a timeout reached through `task.Result` or `task.Wait()` is `Timeout`, not `Unexpected`. An aggregate holding several exceptions is still `Unexpected`. `Exception` still holds the `AggregateException`. `Kind` is part of equality, so these failures no longer equal one built with `Unexpected`.
 - `Wrap.Id.Testing` depends on the stable `Rnd` 11.0.0, not 11.0.0-beta.1.
 - **Breaking:** values are written using `F.DefaultCulture` (en-GB unless you set it), not the current culture, in `ToString()` of `Maybe`, `Result`, `Either`, `Some`, `Ok`, `Left`, `Right` and `Monad`, in `Html.HiddenForMonad`, in `F.Format` with a single value, and in the `Unsafe().Unwrap()` and Dapper overflow exception messages. So `M.Wrap(1.5m).ToString()` is `1.5` on a French server, not `1,5`. `F.Format("{0:0.00}", 1.5m)` now also applies the format, which it ignored before. So an invalid format with a single value, such as `F.Format("Total {0:Q}", 1.5m)`, now returns the format string unchanged, as it already did for several values, instead of `Total 1.5`.
@@ -35,6 +36,8 @@ Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no r
 - **Breaking:** the one-callback `Audit` and `AuditAsync` overloads, such as `result.Audit(x => …)` or `maybe.Audit(fSome)`. A lambda fitted several of them, so the call didn't compile (CS0121). Use `IfOk`, `IfFailed`, `IfSome` or `IfNone`, the two-callback form, or the form that takes the whole value.
 - **Breaking:** the implicit conversions from `TLeft` and `TRight` to `Either<TLeft, TRight>`. They were ambiguous when both types matched a value, and otherwise could pick a side without warning. Use `new Left<T>(…)`, `new Right<T>(…)`, `E.WrapLeft` or `E.WrapRight`.
 - **Breaking:** `F.Bind` and `Monad<TMonad, TValue>.Bind`, which only repeated `Wrap`.
+- **Breaking:** `maybe.Unwrap(Func<None, T>)`, which added nothing over `Unwrap(Func<T>)` because `None` carries no value.
+- **Breaking:** `result.GetSingle<TList, TSingle>()` and `result.GetSingle<TList, TSingle>(onError)`. Use `result.GetSingle(x => x.Value<TSingle>())`, which infers the types and checks at compile time that the list holds `TSingle` items. `FluentGetSingle<T>` can no longer be created directly: its constructor is internal.
 
 ### Fixed
 
