@@ -228,4 +228,153 @@ public class Generate_Tests
 		Assert.Equal("Global.", result.Message);
 		Assert.Equal("GlobalFailures.Global()", result.Context);
 	}
+
+	[Fact]
+	public void Exception_Only__Sets_Exception_And_Error_Level()
+	{
+		// Arrange
+		var ex = new InvalidOperationException(Rnd.Str);
+
+		// Act
+		var result = Failures.FromException(ex);
+
+		// Assert
+		Assert.Equal("From exception.", result.Message);
+		Assert.Empty(result.Args);
+		Assert.Same(ex, result.Exception);
+		Assert.Equal(LogLevel.Error, result.Level);
+		Assert.Equal("Failures.FromException()", result.Context);
+	}
+
+	[Fact]
+	public void Exception_First__Is_Not_An_Arg()
+	{
+		// Arrange
+		var (ex, path) = (new Exception(Rnd.Str), Rnd.Str);
+
+		// Act
+		var result = Failures.ExceptionFirst(ex, path);
+
+		// Assert
+		Assert.Equal([path], result.Args);
+		Assert.Same(ex, result.Exception);
+	}
+
+	[Fact]
+	public void Exception_Last__Is_Not_An_Arg()
+	{
+		// Arrange
+		var (ex, path) = (new Exception(Rnd.Str), Rnd.Str);
+
+		// Act
+		var result = Failures.ExceptionLast(path, ex);
+
+		// Assert
+		Assert.Equal([path], result.Args);
+		Assert.Same(ex, result.Exception);
+	}
+
+	[Fact]
+	public void Exception_In_Middle__Is_Not_An_Arg()
+	{
+		// Arrange
+		var (ex, path, attempt) = (new Exception(Rnd.Str), Rnd.Str, Rnd.Int);
+
+		// Act
+		var result = Failures.ExceptionInMiddle(path, ex, attempt);
+
+		// Assert
+		Assert.Equal([path, attempt], result.Args);
+		Assert.Same(ex, result.Exception);
+	}
+
+	[Fact]
+	public void Derived_Exception__Is_The_Exception()
+	{
+		// Arrange
+		var ex = new InvalidOperationException(Rnd.Str);
+
+		// Act
+		var result = Failures.DerivedException(ex);
+
+		// Assert
+		Assert.Same(ex, result.Exception);
+		Assert.Equal(LogLevel.Error, result.Level);
+	}
+
+	[Fact]
+	public void Nullable_Exception_Null__Is_A_Message_Failure()
+	{
+		// Arrange
+
+		// Act
+		var result = Failures.NullableException(null);
+
+		// Assert
+		Assert.Equal("Nullable exception.", result.Message);
+		Assert.Null(result.Exception);
+		Assert.Equal(LogLevel.Warning, result.Level);
+		Assert.Equal(FailureKind.Unspecified, result.Kind);
+	}
+
+	[Fact]
+	public void Exception_With_Explicit_Level__Uses_Level()
+	{
+		// Arrange
+		var ex = new Exception(Rnd.Str);
+
+		// Act
+		var result = Failures.ExceptionWithLevel(ex);
+
+		// Assert
+		Assert.Same(ex, result.Exception);
+		Assert.Equal(LogLevel.Information, result.Level);
+	}
+
+	[Fact]
+	public void Constrained_Type_Parameter__Is_The_Exception()
+	{
+		// Arrange
+		var ex = new ArgumentException(Rnd.Str);
+
+		// Act
+		var result = ConstrainedFailures<ArgumentException>.FromConstrained(ex);
+
+		// Assert
+		Assert.Same(ex, result.Exception);
+		Assert.Equal(LogLevel.Error, result.Level);
+	}
+
+	[Fact]
+	public void Exception_Failure__Matches_R_Fail_Apart_From_Context()
+	{
+		// Arrange
+		var (ex, path) = (new TimeoutException(Rnd.Str), Rnd.Str);
+
+		// Act
+		var generated = Failures.ExceptionFirst(ex, path);
+		var manual = R.Fail(ex).WithMessage("Unable to read {Path}.", path);
+
+		// Assert
+		Assert.Equal(manual.Message, generated.Message);
+		Assert.Equal(manual.Args, generated.Args);
+		Assert.Equal(manual.Level, generated.Level);
+		Assert.Equal(FailureKind.Timeout, generated.Kind);
+		Assert.Same(manual.Exception, generated.Exception);
+	}
+
+	[Fact]
+	public void Non_Exception_Parameter__Is_Still_An_Arg()
+	{
+		// Arrange
+		var value = Rnd.Str;
+
+		// Act
+		var result = Failures.NotAnException(value);
+
+		// Assert
+		Assert.Equal([value], result.Args);
+		Assert.Null(result.Exception);
+		Assert.Equal(LogLevel.Warning, result.Level);
+	}
 }

@@ -6,6 +6,10 @@ Entries up to 1.4.0 come from the GitHub release notes. 2.0.0 followed five beta
 
 ## [Unreleased]
 
+### Added
+
+- A `[Failure]` method can take an `Exception` parameter (or a type derived from it, or a type parameter constrained to it). The failure is created by `R.Fail(ex)`, so it holds the exception and has its level (`Error`) and kind, unless the attribute sets them. The exception is left out of the message placeholders, and a `null` exception gives a plain message failure: `[Failure("Unable to read {Path}.")] static partial Failure UnreadableFile(Exception ex, string path);`. A method with more than one exception parameter is reported as `WRAP007`.
+
 ## [2.0.0-rc.1] - 2026-11-26
 
 Wrap 2 is built on C# 15 union types. Wrap 1.x stays on a maintenance branch for .NET 8, 9, 10 and 11, and gets fixes only.
