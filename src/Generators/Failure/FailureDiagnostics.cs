@@ -95,6 +95,19 @@ internal static class FailureDiagnostics
 			isEnabledByDefault: true
 		);
 
+	/// <summary>
+	/// The method has more than one exception parameter, but a Failure holds only one exception.
+	/// </summary>
+	internal static readonly DiagnosticDescriptor MultipleExceptions =
+		new(
+			"WRAP007",
+			"Multiple Failure exceptions",
+			"Method '{0}' has more than one Exception parameter; a Failure holds one exception",
+			Category,
+			DiagnosticSeverity.Error,
+			isEnabledByDefault: true
+		);
+
 	// Same pattern as F.Format's TemplateMatcherRegex (src/Common/Functions/F.Format.cs) - keep the two in step
 	private static readonly Regex TemplateMatcher =
 		new(
@@ -146,11 +159,22 @@ internal static class FailureDiagnostics
 			return [Diagnostic.Create(UnsupportedMethod, method.Locations.FirstOrDefault(), method.Name, unsupported)];
 		}
 
+		// A Failure holds one exception, so a second one would have nowhere to go
+		var exceptions = method.Parameters.Count(p => ParameterModel.IsExceptionType(p.Type));
+		if (exceptions > 1)
+		{
+			canGenerate = false;
+			return [Diagnostic.Create(MultipleExceptions, method.Locations.FirstOrDefault(), method.Name)];
+		}
+
 		canGenerate = true;
 		if (string.IsNullOrWhiteSpace(message))
 		{
 			return [Diagnostic.Create(EmptyMessage, location, method.Name)];
 		}
+
+		// Exception parameters are not placeholder values, so only the others are checked against the message
+		var parameters = method.Parameters.Where(p => !ParameterModel.IsExceptionType(p.Type)).ToArray();
 
 		var diagnostics = new List<Diagnostic>();
 		if (kind is not null && string.IsNullOrWhiteSpace(kind))
@@ -163,7 +187,6 @@ internal static class FailureDiagnostics
 			.Where(m => m.Groups["template"].Success && m.Groups["start"].Captures.Count % 2 == 1)
 			.Select(m => m.Groups["template"].Value.TrimStart('@'))
 			.ToArray();
-		var parameters = method.Parameters;
 
 		// F.Format fills numbered placeholders by index and named ones in order
 		var numbered = placeholders.Select(p => int.TryParse(p, out var i) ? i : (int?)null).ToArray();

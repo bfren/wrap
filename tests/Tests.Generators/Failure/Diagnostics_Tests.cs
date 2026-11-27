@@ -50,6 +50,11 @@ public class Diagnostics_Tests
 	[InlineData("""[Failure("User {@user.Name} has {Count:N0} items", LogLevel.Error)] public static partial Failure F(object user, int count);""")]
 	[InlineData("""[Failure("Values {1} and {0}")] public static partial Failure F(int a, int b);""")]
 	[InlineData("""[Failure("Literal {{braces}} only")] public static partial Failure F();""")]
+	[InlineData("""[Failure("From exception.")] public static partial Failure F(System.Exception ex);""")]
+	[InlineData("""[Failure("From exception.")] public static partial Failure F(System.InvalidOperationException ex);""")]
+	[InlineData("""[Failure("From exception.")] public static partial Failure F(System.Exception? ex);""")]
+	[InlineData("""[Failure("Read {Path}.")] public static partial Failure F(System.Exception ex, string path);""")]
+	[InlineData("""[Failure("Read {Path}.")] public static partial Failure F(string path, System.Exception ex);""")]
 	[InlineData("""[Failure("Not found", Kind = nameof(FailureKind.NotFound))] public static partial Failure F();""")]
 	[InlineData("""[Failure("Not found", Kind = null)] public static partial Failure F();""")]
 	public void Valid_Method__Reports_Nothing(string method)
@@ -114,6 +119,20 @@ public class Diagnostics_Tests
 	}
 
 	[Theory]
+	[InlineData("""[Failure("Two exceptions")] public static partial Failure F(System.Exception first, System.Exception second);""")]
+	[InlineData("""[Failure("Two exceptions {Path}")] public static partial Failure F(System.Exception first, string path, System.ArgumentException second);""")]
+	public void Two_Exceptions__Reports_WRAP007(string method)
+	{
+		// Arrange
+
+		// Act
+		var result = GetDiagnosticIds(method);
+
+		// Assert
+		Assert.Equal(["WRAP007"], result);
+	}
+
+	[Theory]
 	[InlineData("""[Failure("")] public static partial Failure F();""")]
 	[InlineData("""[Failure("  ")] public static partial Failure F();""")]
 	public void Empty_Message__Reports_WRAP002(string method)
@@ -147,6 +166,7 @@ public class Diagnostics_Tests
 	[InlineData("""[Failure("User {UserId} {Extra}")] public static partial Failure F(int userId);""")]
 	[InlineData("""[Failure("Value {1}")] public static partial Failure F(int a);""")]
 	[InlineData("""[Failure("Escaped {{UserId}}")] public static partial Failure F(int userId);""")]
+	[InlineData("""[Failure("Failed {Ex}")] public static partial Failure F(System.Exception ex);""")]
 	public void Placeholder_Count_Mismatch__Reports_WRAP003(string method)
 	{
 		// Arrange

@@ -14,6 +14,7 @@ Entries up to 1.4.0 come from the GitHub release notes. The 2.0.0 betas had no r
 - The `MatchAsync` extensions take every mix of sync and async callbacks on both a value and a `Task<…>` receiver, for `Maybe`, `Result` and `Either`. Before, the mixed forms with `Action` callbacks were only on the static `M`, `R` and `E` functions. `MatchIfAsync` gains the two forms it was missing.
 - `AddWrapConverters()` also registers `FailureKindJsonConverter`.
 - `result.ToMaybeAsync(async f => …)` works on a `Result<T>` as well as a `Task<Result<T>>`, for an async callback such as logging, and `maybe.ToResultAsync(async () => …)` works on a `Maybe<T>`.
+- A `[Failure]` method can take an `Exception` parameter (or a type derived from it, or a type parameter constrained to it). It is attached as the failure's `Exception`, is left out of the message placeholders, and makes the default level `Error`, as `R.Fail(ex)` does: `[Failure("Unable to read {Path}.")] static partial Failure UnreadableFile(Exception ex, string path);`. A method with more than one exception parameter is reported as `WRAP007`.
 
 ### Changed
 

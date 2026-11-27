@@ -67,4 +67,35 @@ public static partial class Failures
 		[Failure("Bad {Value}")]
 		public static partial Failure Bad(T value);
 	}
+
+	[Failure("From exception.")]
+	public static partial Failure FromException(Exception ex);
+
+	[Failure("Unable to read {Path}.")]
+	public static partial Failure ExceptionFirst(Exception ex, string path);
+
+	[Failure("Unable to read {Path}.")]
+	public static partial Failure ExceptionLast(string path, Exception ex);
+
+	[Failure("Unable to read {Path} on attempt {Attempt}.")]
+	public static partial Failure ExceptionInMiddle(string path, Exception ex, int attempt);
+
+	[Failure("Derived exception.")]
+	public static partial Failure DerivedException(InvalidOperationException ex);
+
+	[Failure("Nullable exception.")]
+	public static partial Failure NullableException(Exception? ex);
+
+	[Failure("Explicit level.", LogLevel.Information)]
+	public static partial Failure ExceptionWithLevel(Exception ex);
+
+	[Failure("Not an exception {Value}")]
+	public static partial Failure NotAnException(string value);
+}
+
+public static partial class ConstrainedFailures<T>
+	where T : Exception
+{
+	[Failure("Constrained exception.")]
+	public static partial Failure FromConstrained(T ex);
 }
