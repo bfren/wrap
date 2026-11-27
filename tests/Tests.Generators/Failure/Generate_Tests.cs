@@ -303,7 +303,7 @@ public class Generate_Tests
 	}
 
 	[Fact]
-	public void Nullable_Exception_Null__Sets_Null_Exception()
+	public void Nullable_Exception_Null__Is_A_Message_Failure()
 	{
 		// Arrange
 
@@ -311,8 +311,10 @@ public class Generate_Tests
 		var result = Failures.NullableException(null);
 
 		// Assert
+		Assert.Equal("Nullable exception.", result.Message);
 		Assert.Null(result.Exception);
-		Assert.Equal(LogLevel.Error, result.Level);
+		Assert.Equal(LogLevel.Warning, result.Level);
+		Assert.Equal(FailureKind.Unspecified, result.Kind);
 	}
 
 	[Fact]
@@ -344,10 +346,10 @@ public class Generate_Tests
 	}
 
 	[Fact]
-	public void Exception_Failure__Matches_R_Fail_Apart_From_Context_And_Kind()
+	public void Exception_Failure__Matches_R_Fail_Apart_From_Context()
 	{
 		// Arrange
-		var (ex, path) = (new Exception(Rnd.Str), Rnd.Str);
+		var (ex, path) = (new TimeoutException(Rnd.Str), Rnd.Str);
 
 		// Act
 		var generated = Failures.ExceptionFirst(ex, path);
@@ -357,6 +359,7 @@ public class Generate_Tests
 		Assert.Equal(manual.Message, generated.Message);
 		Assert.Equal(manual.Args, generated.Args);
 		Assert.Equal(manual.Level, generated.Level);
+		Assert.Equal(FailureKind.Timeout, generated.Kind);
 		Assert.Same(manual.Exception, generated.Exception);
 	}
 

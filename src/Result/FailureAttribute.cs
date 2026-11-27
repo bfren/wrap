@@ -11,8 +11,10 @@ namespace Wrap;
 /// </summary>
 /// <remarks>
 /// A parameter of type <see cref="Exception"/> (or a type derived from it, or a type parameter constrained to it) is not
-/// a message value: it is attached as the failure's <see cref="Failure.Exception"/>, and the default level is
-/// <see cref="LogLevel.Error"/>, as with <c>R.Fail(ex)</c>. Only one such parameter is allowed.
+/// a message value: the failure is created by <c>R.Fail(ex)</c>, so it holds the exception and has its level
+/// (<see cref="LogLevel.Error"/>) and <see cref="Failure.Kind"/>, then takes the message and any level or kind set here.
+/// When the exception is <see langword="null"/>, the failure is created from the message alone, as with no exception
+/// parameter. Only one such parameter is allowed.
 /// </remarks>
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
 public sealed class FailureAttribute : Attribute
@@ -23,13 +25,14 @@ public sealed class FailureAttribute : Attribute
 	public string Message { get; private init; }
 
 	/// <summary>
-	/// Failure log level - if not set will use <see cref="LogLevel.Error"/> when the method has an <see cref="Exception"/> parameter,
-	/// otherwise <see cref="LogLevel.Warning"/>.
+	/// Failure log level - if not set will use <see cref="LogLevel.Error"/> when the method has an <see cref="Exception"/> parameter
+	/// that is not <see langword="null"/>, otherwise <see cref="LogLevel.Warning"/>.
 	/// </summary>
 	public LogLevel Level { get; private init; }
 
 	/// <summary>
-	/// Gets the failure kind name, for example <c>nameof(FailureKind.NotFound)</c>, or <see langword="null"/> to use <see cref="FailureKind.Unspecified"/>.
+	/// Gets the failure kind name, for example <c>nameof(FailureKind.NotFound)</c>, or <see langword="null"/> to use the kind of the
+	/// <see cref="Exception"/> parameter, or <see cref="FailureKind.Unspecified"/> when there is none.
 	/// </summary>
 	/// <remarks>
 	/// Attribute arguments must be constants, so this takes the <see cref="FailureKind.Name"/> rather than the kind itself.

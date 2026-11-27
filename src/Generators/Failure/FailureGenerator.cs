@@ -17,10 +17,6 @@ namespace Wrap;
 [Generator]
 public sealed class FailureGenerator : IIncrementalGenerator
 {
-	// LogLevel.Error (1 << 4), the level R.Fail(Exception) uses - the generator cannot reference Wrap.Common
-	private const int ExceptionLogLevel =
-		1 << 4;
-
 	/// <inheritdoc/>
 	public void Initialize(IncrementalGeneratorInitializationContext context)
 	{
@@ -53,14 +49,11 @@ public sealed class FailureGenerator : IIncrementalGenerator
 			_ =>
 				string.Empty
 		};
-		// Null when not set, so the Failure constructor's default level applies - or Error when there is an exception
+		// Null when not set, so R.Fail's default level applies
 		var logLevel = (attr.ConstructorArguments.Length > 1) switch
 		{
 			true when attr.ConstructorArguments[1].Value is int x =>
 				x,
-
-			_ when method.Parameters.Any(p => ParameterModel.IsExceptionType(p.Type)) =>
-				ExceptionLogLevel,
 
 			_ =>
 				(int?)null
@@ -219,14 +212,16 @@ public sealed class FailureGenerator : IIncrementalGenerator
 
 		// Keep the message as a template (escaped literal, not interpolated) so args are formatted later
 		var message = SymbolDisplay.FormatLiteral(model.Message.TrimEnd('.') + ".", quote: true);
+		// Start from R.Fail, so level and kind match a hand-written failure; a null exception falls back to the message alone
 		// A Failure holds at most one exception (WRAP007 stops generation when there are more)
-		var exception = model.Parameters.FirstOrDefault(p => p.IsException) switch
+		var fromMessage = $"global::Wrap.R.Fail({message}{argList})";
+		var create = model.Parameters.FirstOrDefault(p => p.IsException) switch
 		{
 			{ } p =>
-				$"{indent}        Exception = @{p.Name},\n",
+				$"(@{p.Name} is null ? {fromMessage} : global::Wrap.R.Fail(@{p.Name}).WithMessage({message}{argList}))",
 
 			null =>
-				string.Empty
+				fromMessage
 		};
 		var level = model.LogLevel switch
 		{
@@ -249,9 +244,8 @@ public sealed class FailureGenerator : IIncrementalGenerator
 		_ = sb.AppendLine($"{indent}{model.Accessibility} static partial {model.ReturnType} @{model.MethodName}({paramList})")
 			.AppendLine($"{indent}{{")
 			// no locals: a local would clash with a parameter of the same name, e.g. 'message'
-			.AppendLine($"{indent}    return new {model.ReturnType}({message}{argList})")
+			.AppendLine($"{indent}    return {create} with")
 			.AppendLine($"{indent}    {{")
-			.Append(exception)
 			.Append(level)
 			.Append(kind)
 			.AppendLine($"{indent}        Context = \"{model.ClassName}.{model.MethodName}()\"")
