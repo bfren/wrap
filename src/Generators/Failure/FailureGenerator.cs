@@ -49,7 +49,7 @@ public sealed class FailureGenerator : IIncrementalGenerator
 			_ =>
 				string.Empty
 		};
-		// Null when not set, so the Failure constructor's default level applies
+		// Null when not set, so R.Fail's default level applies
 		var logLevel = (attr.ConstructorArguments.Length > 1) switch
 		{
 			true when attr.ConstructorArguments[1].Value is int x =>
@@ -171,11 +171,13 @@ public sealed class FailureGenerator : IIncrementalGenerator
 		// Build lists of parameters and arguments
 		// '@' before every name, so a keyword such as '@class' stays a valid name
 		var paramList = string.Join(", ", model.Parameters.Select(p => $"{p.Type} @{p.Name}"));
+		// Exception parameters are not message values, so they are left out of the args
+		var values = model.Parameters.Where(p => !p.IsException).ToArray();
 		// An explicit array: a single array parameter passed on its own would become the whole params array
-		var argList = (model.Parameters.Length > 0) switch
+		var argList = (values.Length > 0) switch
 		{
 			true =>
-				", new object?[] { " + string.Join(", ", model.Parameters.Select(p => $"@{p.Name}")) + " }",
+				", new object?[] { " + string.Join(", ", values.Select(p => $"@{p.Name}")) + " }",
 
 			false =>
 				""
@@ -210,6 +212,17 @@ public sealed class FailureGenerator : IIncrementalGenerator
 
 		// Keep the message as a template (escaped literal, not interpolated) so args are formatted later
 		var message = SymbolDisplay.FormatLiteral(model.Message.TrimEnd('.') + ".", quote: true);
+		// Start from R.Fail, so level and kind match a hand-written failure; a null exception falls back to the message alone
+		// A Failure holds at most one exception (WRAP007 stops generation when there are more)
+		var fromMessage = $"global::Wrap.R.Fail({message}{argList})";
+		var create = model.Parameters.FirstOrDefault(p => p.IsException) switch
+		{
+			{ } p =>
+				$"(@{p.Name} is null ? {fromMessage} : global::Wrap.R.Fail(@{p.Name}).WithMessage({message}{argList}))",
+
+			null =>
+				fromMessage
+		};
 		var level = model.LogLevel switch
 		{
 			int x =>
@@ -231,7 +244,7 @@ public sealed class FailureGenerator : IIncrementalGenerator
 		_ = sb.AppendLine($"{indent}{model.Accessibility} static partial {model.ReturnType} @{model.MethodName}({paramList})")
 			.AppendLine($"{indent}{{")
 			// no locals: a local would clash with a parameter of the same name, e.g. 'message'
-			.AppendLine($"{indent}    return new {model.ReturnType}({message}{argList})")
+			.AppendLine($"{indent}    return {create} with")
 			.AppendLine($"{indent}    {{")
 			.Append(level)
 			.Append(kind)
